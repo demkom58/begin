@@ -5,20 +5,20 @@ public class TileEntitySign extends TileEntity {
    public int lineBeingEdited = -1;
    private boolean isEditAble = true;
 
-   public void writeToNBT(NBTTagCompound var1) {
-      super.writeToNBT(var1);
-      var1.setString("Text1", this.signText[0]);
-      var1.setString("Text2", this.signText[1]);
-      var1.setString("Text3", this.signText[2]);
-      var1.setString("Text4", this.signText[3]);
+   public void writeToNBT(NBTTagCompound compound) {
+      super.writeToNBT(compound);
+      compound.setString("Text1", this.signText[0]);
+      compound.setString("Text2", this.signText[1]);
+      compound.setString("Text3", this.signText[2]);
+      compound.setString("Text4", this.signText[3]);
    }
 
-   public void readFromNBT(NBTTagCompound var1) {
+   public void readFromNBT(NBTTagCompound compound) {
       this.isEditAble = false;
-      super.readFromNBT(var1);
+      super.readFromNBT(compound);
 
       for(int var2 = 0; var2 < 4; ++var2) {
-         this.signText[var2] = var1.getString("Text" + (var2 + 1));
+         this.signText[var2] = compound.getString("Text" + (var2 + 1));
          if (this.signText[var2].length() > 15) {
             this.signText[var2] = this.signText[var2].substring(0, 15);
          }

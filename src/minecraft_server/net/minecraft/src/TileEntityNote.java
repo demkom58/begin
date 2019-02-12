@@ -4,14 +4,14 @@ public class TileEntityNote extends TileEntity {
    public byte note = 0;
    public boolean previousRedstoneState = false;
 
-   public void writeToNBT(NBTTagCompound var1) {
-      super.writeToNBT(var1);
-      var1.setByte("note", this.note);
+   public void writeToNBT(NBTTagCompound compound) {
+      super.writeToNBT(compound);
+      compound.setByte("note", this.note);
    }
 
-   public void readFromNBT(NBTTagCompound var1) {
-      super.readFromNBT(var1);
-      this.note = var1.getByte("note");
+   public void readFromNBT(NBTTagCompound compound) {
+      super.readFromNBT(compound);
+      this.note = compound.getByte("note");
       if (this.note < 0) {
          this.note = 0;
       }

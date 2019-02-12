@@ -43,16 +43,16 @@ public class Packet51MapChunk extends Packet {
 
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.xPosition = var1.readInt();
-      this.yPosition = var1.readShort();
-      this.zPosition = var1.readInt();
-      this.xSize = var1.read() + 1;
-      this.ySize = var1.read() + 1;
-      this.zSize = var1.read() + 1;
-      this.chunkSize = var1.readInt();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.xPosition = inputStream.readInt();
+      this.yPosition = inputStream.readShort();
+      this.zPosition = inputStream.readInt();
+      this.xSize = inputStream.read() + 1;
+      this.ySize = inputStream.read() + 1;
+      this.zSize = inputStream.read() + 1;
+      this.chunkSize = inputStream.readInt();
       byte[] var2 = new byte[this.chunkSize];
-      var1.readFully(var2);
+      inputStream.readFully(var2);
       this.chunk = new byte[this.xSize * this.ySize * this.zSize * 5 / 2];
       Inflater var3 = new Inflater();
       var3.setInput(var2);
@@ -67,19 +67,19 @@ public class Packet51MapChunk extends Packet {
 
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.xPosition);
-      var1.writeShort(this.yPosition);
-      var1.writeInt(this.zPosition);
-      var1.write(this.xSize - 1);
-      var1.write(this.ySize - 1);
-      var1.write(this.zSize - 1);
-      var1.writeInt(this.chunkSize);
-      var1.write(this.chunk, 0, this.chunkSize);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.xPosition);
+      outputStream.writeShort(this.yPosition);
+      outputStream.writeInt(this.zPosition);
+      outputStream.write(this.xSize - 1);
+      outputStream.write(this.ySize - 1);
+      outputStream.write(this.zSize - 1);
+      outputStream.writeInt(this.chunkSize);
+      outputStream.write(this.chunk, 0, this.chunkSize);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleMapChunk(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleMapChunk(this);
    }
 
    public int getPacketSize() {

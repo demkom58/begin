@@ -14,16 +14,16 @@ public class Packet8UpdateHealth extends Packet {
       this.healthMP = var1;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.healthMP = var1.readShort();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.healthMP = inputStream.readShort();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeShort(this.healthMP);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeShort(this.healthMP);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleHealth(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleHealth(this);
    }
 
    public int getPacketSize() {

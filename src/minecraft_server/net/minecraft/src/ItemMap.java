@@ -13,10 +13,10 @@ public class ItemMap extends ItemMapBase {
          var1.setItemDamage(var2.func_28104_b("map"));
          String var3 = "map_" + var1.getItemDamage();
          var4 = new MapData(var3);
-         var4.field_28164_b = var2.getWorldInfo().getSpawnX();
-         var4.field_28163_c = var2.getWorldInfo().getSpawnZ();
-         var4.field_28161_e = 3;
-         var4.field_28162_d = (byte)var2.worldProvider.worldType;
+         var4.xCenter = var2.getWorldInfo().getSpawnX();
+         var4.zCenter = var2.getWorldInfo().getSpawnZ();
+         var4.scale = 3;
+         var4.dimension = (byte)var2.worldProvider.worldType;
          var4.func_28146_a();
          var2.func_28102_a(var3, var4);
       }
@@ -25,12 +25,12 @@ public class ItemMap extends ItemMapBase {
    }
 
    public void func_28024_a(World var1, Entity var2, MapData var3) {
-      if (var1.worldProvider.worldType == var3.field_28162_d) {
+      if (var1.worldProvider.worldType == var3.dimension) {
          short var4 = 128;
          short var5 = 128;
-         int var6 = 1 << var3.field_28161_e;
-         int var7 = var3.field_28164_b;
-         int var8 = var3.field_28163_c;
+         int var6 = 1 << var3.scale;
+         int var7 = var3.xCenter;
+         int var8 = var3.zCenter;
          int var9 = MathHelper.floor_double(var2.posX - (double)var7) / var6 + var4 / 2;
          int var10 = MathHelper.floor_double(var2.posZ - (double)var8) / var6 + var5 / 2;
          int var11 = 128 / var6;
@@ -163,7 +163,7 @@ public class ItemMap extends ItemMapBase {
 
                      var15 = var31;
                      if (var17 >= 0 && var18 * var18 + var19 * var19 < var11 * var11 && (!var20 || (var12 + var17 & 1) != 0)) {
-                        byte var54 = var3.field_28160_f[var12 + var17 * var4];
+                        byte var54 = var3.colors[var12 + var17 * var4];
                         byte var40 = (byte)(var51 * 4 + var50);
                         if (var54 != var40) {
                            if (var13 > var17) {
@@ -174,7 +174,7 @@ public class ItemMap extends ItemMapBase {
                               var14 = var17;
                            }
 
-                           var3.field_28160_f[var12 + var17 * var4] = var40;
+                           var3.colors[var12 + var17 * var4] = var40;
                         }
                      }
                   }
@@ -209,10 +209,10 @@ public class ItemMap extends ItemMapBase {
       String var4 = "map_" + var1.getItemDamage();
       MapData var5 = new MapData(var4);
       var2.func_28102_a(var4, var5);
-      var5.field_28164_b = MathHelper.floor_double(var3.posX);
-      var5.field_28163_c = MathHelper.floor_double(var3.posZ);
-      var5.field_28161_e = 3;
-      var5.field_28162_d = (byte)var2.worldProvider.worldType;
+      var5.xCenter = MathHelper.floor_double(var3.posX);
+      var5.zCenter = MathHelper.floor_double(var3.posZ);
+      var5.scale = 3;
+      var5.dimension = (byte)var2.worldProvider.worldType;
       var5.func_28146_a();
    }
 

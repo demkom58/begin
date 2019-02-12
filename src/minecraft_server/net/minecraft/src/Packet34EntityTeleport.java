@@ -33,26 +33,26 @@ public class Packet34EntityTeleport extends Packet {
       this.pitch = var6;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityId = var1.readInt();
-      this.xPosition = var1.readInt();
-      this.yPosition = var1.readInt();
-      this.zPosition = var1.readInt();
-      this.yaw = (byte)var1.read();
-      this.pitch = (byte)var1.read();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.entityId = inputStream.readInt();
+      this.xPosition = inputStream.readInt();
+      this.yPosition = inputStream.readInt();
+      this.zPosition = inputStream.readInt();
+      this.yaw = (byte) inputStream.read();
+      this.pitch = (byte) inputStream.read();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityId);
-      var1.writeInt(this.xPosition);
-      var1.writeInt(this.yPosition);
-      var1.writeInt(this.zPosition);
-      var1.write(this.yaw);
-      var1.write(this.pitch);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.entityId);
+      outputStream.writeInt(this.xPosition);
+      outputStream.writeInt(this.yPosition);
+      outputStream.writeInt(this.zPosition);
+      outputStream.write(this.yaw);
+      outputStream.write(this.pitch);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleEntityTeleport(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleEntityTeleport(this);
    }
 
    public int getPacketSize() {

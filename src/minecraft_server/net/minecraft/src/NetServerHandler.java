@@ -20,7 +20,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
    private double lastPosY;
    private double lastPosZ;
    private boolean hasMoved = true;
-   private Map field_10_k = new HashMap();
+   private Map<Integer, Short> field_10_k = new HashMap<>();
 
    public NetServerHandler(MinecraftServer var1, NetworkManager var2, EntityPlayerMP var3) {
       this.mcServer = var1;
@@ -513,7 +513,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
    }
 
    public void func_20008_a(Packet106Transaction var1) {
-      Short var2 = (Short)this.field_10_k.get(Integer.valueOf(this.playerEntity.currentCraftingInventory.windowId));
+      Short var2 = (Short)this.field_10_k.get(this.playerEntity.currentCraftingInventory.windowId);
       if (var2 != null && var1.shortWindowId == var2.shortValue() && this.playerEntity.currentCraftingInventory.windowId == var1.windowId && !this.playerEntity.currentCraftingInventory.getCanCraft(this.playerEntity)) {
          this.playerEntity.currentCraftingInventory.setCanCraft(this.playerEntity, true);
       }

@@ -14,16 +14,16 @@ public class Packet101CloseWindow extends Packet {
       this.windowId = var1;
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleCraftingGuiClosedPacked(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleCraftingGuiClosedPacked(this);
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.windowId = var1.readByte();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.windowId = inputStream.readByte();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeByte(this.windowId);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeByte(this.windowId);
    }
 
    public int getPacketSize() {

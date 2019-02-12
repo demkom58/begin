@@ -20,17 +20,17 @@ public class Packet39AttachEntity extends Packet {
       return 8;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityId = var1.readInt();
-      this.vehicleEntityId = var1.readInt();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.entityId = inputStream.readInt();
+      this.vehicleEntityId = inputStream.readInt();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityId);
-      var1.writeInt(this.vehicleEntityId);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.entityId);
+      outputStream.writeInt(this.vehicleEntityId);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.func_6003_a(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.func_6003_a(this);
    }
 }

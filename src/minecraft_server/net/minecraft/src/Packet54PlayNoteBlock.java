@@ -22,24 +22,24 @@ public class Packet54PlayNoteBlock extends Packet {
       this.pitch = var5;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.xLocation = var1.readInt();
-      this.yLocation = var1.readShort();
-      this.zLocation = var1.readInt();
-      this.instrumentType = var1.read();
-      this.pitch = var1.read();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.xLocation = inputStream.readInt();
+      this.yLocation = inputStream.readShort();
+      this.zLocation = inputStream.readInt();
+      this.instrumentType = inputStream.read();
+      this.pitch = inputStream.read();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.xLocation);
-      var1.writeShort(this.yLocation);
-      var1.writeInt(this.zLocation);
-      var1.write(this.instrumentType);
-      var1.write(this.pitch);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.xLocation);
+      outputStream.writeShort(this.yLocation);
+      outputStream.writeInt(this.zLocation);
+      outputStream.write(this.instrumentType);
+      outputStream.write(this.pitch);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.func_21004_a(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.func_21004_a(this);
    }
 
    public int getPacketSize() {

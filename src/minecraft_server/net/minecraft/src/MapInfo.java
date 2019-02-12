@@ -1,41 +1,40 @@
 package net.minecraft.src;
 
 public class MapInfo {
-   public final EntityPlayer field_28120_a;
+   public final EntityPlayer entityPlayer;
    public int[] field_28119_b;
    public int[] field_28125_c;
    private int field_28123_e;
    private int field_28122_f;
    private byte[] field_28121_g;
-   // $FF: synthetic field
-   final MapData field_28124_d;
+   private final MapData mapData;
 
-   public MapInfo(MapData var1, EntityPlayer var2) {
-      this.field_28124_d = var1;
+   public MapInfo(MapData mapData, EntityPlayer entityPlayer) {
+      this.mapData = mapData;
       this.field_28119_b = new int[128];
       this.field_28125_c = new int[128];
       this.field_28123_e = 0;
       this.field_28122_f = 0;
-      this.field_28120_a = var2;
+      this.entityPlayer = entityPlayer;
 
-      for(int var3 = 0; var3 < this.field_28119_b.length; ++var3) {
-         this.field_28119_b[var3] = 0;
-         this.field_28125_c[var3] = 127;
+      for(int i = 0; i < this.field_28119_b.length; ++i) {
+         this.field_28119_b[i] = 0;
+         this.field_28125_c[i] = 127;
       }
 
    }
 
-   public byte[] func_28118_a(ItemStack var1) {
+   public byte[] func_28118_a(ItemStack itemStack) {
       if (--this.field_28122_f < 0) {
          this.field_28122_f = 4;
-         byte[] var2 = new byte[this.field_28124_d.field_28157_i.size() * 3 + 1];
+         byte[] var2 = new byte[this.mapData.mapCoordList.size() * 3 + 1];
          var2[0] = 1;
 
-         for(int var3 = 0; var3 < this.field_28124_d.field_28157_i.size(); ++var3) {
-            MapCoord var4 = (MapCoord)this.field_28124_d.field_28157_i.get(var3);
-            var2[var3 * 3 + 1] = (byte)(var4.field_28202_a + (var4.field_28204_d & 15) * 16);
-            var2[var3 * 3 + 2] = var4.field_28201_b;
-            var2[var3 * 3 + 3] = var4.field_28205_c;
+         for(int var3 = 0; var3 < this.mapData.mapCoordList.size(); ++var3) {
+            MapCoord mapCoord = this.mapData.mapCoordList.get(var3);
+            var2[var3 * 3 + 1] = (byte)(mapCoord.field_28202_a + (mapCoord.field_28204_d & 15) * 16);
+            var2[var3 * 3 + 2] = mapCoord.field_28201_b;
+            var2[var3 * 3 + 3] = mapCoord.field_28205_c;
          }
 
          boolean var9 = true;
@@ -68,7 +67,7 @@ public class MapInfo {
             var6[2] = (byte)var5;
 
             for(int var7 = 0; var7 < var6.length - 3; ++var7) {
-               var6[var7 + 3] = this.field_28124_d.field_28160_f[(var7 + var5) * 128 + var10];
+               var6[var7 + 3] = this.mapData.colors[(var7 + var5) * 128 + var10];
             }
 
             this.field_28125_c[var10] = -1;

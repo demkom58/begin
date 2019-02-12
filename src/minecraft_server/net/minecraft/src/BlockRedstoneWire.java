@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class BlockRedstoneWire extends Block {
    private boolean wiresProvidePower = true;
-   private Set field_21032_b = new HashSet();
+   private Set<ChunkPosition> field_21032_b = new HashSet<>();
 
    public BlockRedstoneWire(int var1, int var2) {
       super(var1, var2, Material.circuits);

@@ -14,16 +14,16 @@ public class Packet29DestroyEntity extends Packet {
       this.entityId = var1;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityId = var1.readInt();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.entityId = inputStream.readInt();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityId);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.entityId);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleDestroyEntity(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleDestroyEntity(this);
    }
 
    public int getPacketSize() {

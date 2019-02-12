@@ -86,15 +86,15 @@ public class TileEntityMobSpawner extends TileEntity {
       this.delay = 200 + this.worldObj.rand.nextInt(600);
    }
 
-   public void readFromNBT(NBTTagCompound var1) {
-      super.readFromNBT(var1);
-      this.mobID = var1.getString("EntityId");
-      this.delay = var1.getShort("Delay");
+   public void readFromNBT(NBTTagCompound compound) {
+      super.readFromNBT(compound);
+      this.mobID = compound.getString("EntityId");
+      this.delay = compound.getShort("Delay");
    }
 
-   public void writeToNBT(NBTTagCompound var1) {
-      super.writeToNBT(var1);
-      var1.setString("EntityId", this.mobID);
-      var1.setShort("Delay", (short)this.delay);
+   public void writeToNBT(NBTTagCompound compound) {
+      super.writeToNBT(compound);
+      compound.setString("EntityId", this.mobID);
+      compound.setShort("Delay", (short)this.delay);
    }
 }

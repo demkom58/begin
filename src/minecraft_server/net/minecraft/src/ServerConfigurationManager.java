@@ -14,7 +14,7 @@ import net.minecraft.server.MinecraftServer;
 
 public class ServerConfigurationManager {
    public static Logger logger = Logger.getLogger("Minecraft");
-   public List playerEntities = new ArrayList();
+   public List<EntityPlayerMP> playerEntities = new ArrayList<>();
    private MinecraftServer mcServer;
    private PlayerManager[] playerManagerObj = new PlayerManager[2];
    private int maxPlayers;
@@ -506,7 +506,7 @@ public class ServerConfigurationManager {
       this.saveWhiteList();
    }
 
-   public Set getWhiteListedIPs() {
+   public Set<String> getWhiteListedIPs() {
       return this.whiteListedIPs;
    }
 

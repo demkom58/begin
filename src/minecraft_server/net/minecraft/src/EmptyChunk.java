@@ -97,10 +97,10 @@ public class EmptyChunk extends Chunk {
    public void setChunkModified() {
    }
 
-   public void getEntitiesWithinAABBForEntity(Entity var1, AxisAlignedBB var2, List var3) {
+   public void getEntitiesWithinAABBForEntity(Entity var1, AxisAlignedBB var2, List<Entity> var3) {
    }
 
-   public void getEntitiesOfTypeWithinAAAB(Class var1, AxisAlignedBB var2, List var3) {
+   public void getEntitiesOfTypeWithinAAAB(Class var1, AxisAlignedBB var2, List<Entity> var3) {
    }
 
    public boolean needsSaving(boolean var1) {

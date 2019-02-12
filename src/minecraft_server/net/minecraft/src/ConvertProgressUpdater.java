@@ -18,7 +18,7 @@ public class ConvertProgressUpdater implements IProgressUpdate {
    public void setLoadingProgress(int var1) {
       if (System.currentTimeMillis() - this.lastTimeMillis >= 1000L) {
          this.lastTimeMillis = System.currentTimeMillis();
-         MinecraftServer.logger.info("Converting... " + var1 + "%");
+         MinecraftServer.LOGGER.info("Converting... " + var1 + "%");
       }
 
    }

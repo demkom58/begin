@@ -65,9 +65,9 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
       return "Trap";
    }
 
-   public void readFromNBT(NBTTagCompound var1) {
-      super.readFromNBT(var1);
-      NBTTagList var2 = var1.getTagList("Items");
+   public void readFromNBT(NBTTagCompound compound) {
+      super.readFromNBT(compound);
+      NBTTagList var2 = compound.getTagList("Items");
       this.dispenserContents = new ItemStack[this.getSizeInventory()];
 
       for(int var3 = 0; var3 < var2.tagCount(); ++var3) {
@@ -80,8 +80,8 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
 
    }
 
-   public void writeToNBT(NBTTagCompound var1) {
-      super.writeToNBT(var1);
+   public void writeToNBT(NBTTagCompound compound) {
+      super.writeToNBT(compound);
       NBTTagList var2 = new NBTTagList();
 
       for(int var3 = 0; var3 < this.dispenserContents.length; ++var3) {
@@ -93,7 +93,7 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
          }
       }
 
-      var1.setTag("Items", var2);
+      compound.setTag("Items", var2);
    }
 
    public int getInventoryStackLimit() {

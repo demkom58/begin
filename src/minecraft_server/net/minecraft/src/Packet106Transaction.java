@@ -18,20 +18,20 @@ public class Packet106Transaction extends Packet {
       this.field_20035_c = var3;
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.func_20008_a(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.func_20008_a(this);
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.windowId = var1.readByte();
-      this.shortWindowId = var1.readShort();
-      this.field_20035_c = var1.readByte() != 0;
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.windowId = inputStream.readByte();
+      this.shortWindowId = inputStream.readShort();
+      this.field_20035_c = inputStream.readByte() != 0;
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeByte(this.windowId);
-      var1.writeShort(this.shortWindowId);
-      var1.writeByte(this.field_20035_c ? 1 : 0);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeByte(this.windowId);
+      outputStream.writeShort(this.shortWindowId);
+      outputStream.writeByte(this.field_20035_c ? 1 : 0);
    }
 
    public int getPacketSize() {

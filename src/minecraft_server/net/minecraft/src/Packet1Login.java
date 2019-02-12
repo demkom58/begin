@@ -20,22 +20,22 @@ public class Packet1Login extends Packet {
       this.dimension = var5;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.protocolVersion = var1.readInt();
-      this.username = readString(var1, 16);
-      this.mapSeed = var1.readLong();
-      this.dimension = var1.readByte();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.protocolVersion = inputStream.readInt();
+      this.username = readString(inputStream, 16);
+      this.mapSeed = inputStream.readLong();
+      this.dimension = inputStream.readByte();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.protocolVersion);
-      writeString(this.username, var1);
-      var1.writeLong(this.mapSeed);
-      var1.writeByte(this.dimension);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.protocolVersion);
+      writeString(this.username, outputStream);
+      outputStream.writeLong(this.mapSeed);
+      outputStream.writeByte(this.dimension);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleLogin(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleLogin(this);
    }
 
    public int getPacketSize() {

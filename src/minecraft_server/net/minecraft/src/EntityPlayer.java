@@ -177,10 +177,10 @@ public abstract class EntityPlayer extends EntityLiving {
       this.field_9149_ap += (var1 - this.field_9149_ap) * 0.4F;
       this.field_9101_aY += (var2 - this.field_9101_aY) * 0.8F;
       if (this.health > 0) {
-         List var3 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(1.0D, 0.0D, 1.0D));
+         List<Entity> var3 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(1.0D, 0.0D, 1.0D));
          if (var3 != null) {
             for(int var4 = 0; var4 < var3.size(); ++var4) {
-               Entity var5 = (Entity)var3.get(var4);
+               Entity var5 = var3.get(var4);
                if (!var5.isDead) {
                   this.func_171_h(var5);
                }
@@ -436,7 +436,7 @@ public abstract class EntityPlayer extends EntityLiving {
    }
 
    public void destroyCurrentEquippedItem() {
-      this.inventory.setInventorySlotContents(this.inventory.currentItem, (ItemStack)null);
+      this.inventory.setInventorySlotContents(this.inventory.currentItem, null);
    }
 
    public double getYOffset() {

@@ -14,16 +14,16 @@ public class Packet9Respawn extends Packet {
       this.field_28045_a = var1;
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleRespawnPacket(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleRespawnPacket(this);
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.field_28045_a = var1.readByte();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.field_28045_a = inputStream.readByte();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeByte(this.field_28045_a);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeByte(this.field_28045_a);
    }
 
    public int getPacketSize() {

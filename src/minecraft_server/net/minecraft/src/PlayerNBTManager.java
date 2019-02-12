@@ -104,7 +104,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
       return null;
    }
 
-   public void func_22095_a(WorldInfo var1, List var2) {
+   public void func_22095_a(WorldInfo var1, List<EntityPlayer> var2) {
       NBTTagCompound var3 = var1.func_22183_a(var2);
       NBTTagCompound var4 = new NBTTagCompound();
       var4.setTag("Data", var3);
@@ -127,8 +127,8 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
          if (var5.exists()) {
             var5.delete();
          }
-      } catch (Exception var8) {
-         var8.printStackTrace();
+      } catch (Exception e) {
+         e.printStackTrace();
       }
 
    }

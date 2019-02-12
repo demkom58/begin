@@ -25,24 +25,24 @@ public class Packet71Weather extends Packet {
 
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.field_27043_a = var1.readInt();
-      this.field_27044_e = var1.readByte();
-      this.field_27042_b = var1.readInt();
-      this.field_27046_c = var1.readInt();
-      this.field_27045_d = var1.readInt();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.field_27043_a = inputStream.readInt();
+      this.field_27044_e = inputStream.readByte();
+      this.field_27042_b = inputStream.readInt();
+      this.field_27046_c = inputStream.readInt();
+      this.field_27045_d = inputStream.readInt();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.field_27043_a);
-      var1.writeByte(this.field_27044_e);
-      var1.writeInt(this.field_27042_b);
-      var1.writeInt(this.field_27046_c);
-      var1.writeInt(this.field_27045_d);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.field_27043_a);
+      outputStream.writeByte(this.field_27044_e);
+      outputStream.writeInt(this.field_27042_b);
+      outputStream.writeInt(this.field_27046_c);
+      outputStream.writeInt(this.field_27045_d);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.func_27002_a(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.func_27002_a(this);
    }
 
    public int getPacketSize() {

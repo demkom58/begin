@@ -9,27 +9,27 @@ class RailLogic {
    private int trackY;
    private int trackZ;
    private final boolean field_27084_f;
-   private List connectedTracks;
-   // $FF: synthetic field
+   private List<ChunkPosition> connectedTracks;
    final BlockRail minecartTrack;
 
-   public RailLogic(BlockRail var1, World var2, int var3, int var4, int var5) {
-      this.minecartTrack = var1;
-      this.connectedTracks = new ArrayList();
-      this.worldObj = var2;
-      this.trackX = var3;
-      this.trackY = var4;
-      this.trackZ = var5;
-      int var6 = var2.getBlockId(var3, var4, var5);
-      int var7 = var2.getBlockMetadata(var3, var4, var5);
-      if (BlockRail.func_27033_a((BlockRail)Block.blocksList[var6])) {
+   public RailLogic(BlockRail rail, World world, int trackX, int trackY, int trackZ) {
+      this.minecartTrack = rail;
+      this.connectedTracks = new ArrayList<>();
+      this.worldObj = world;
+      this.trackX = trackX;
+      this.trackY = trackY;
+      this.trackZ = trackZ;
+
+      int blockId = world.getBlockId(trackX, trackY, trackZ);
+      int blockMeta = world.getBlockMetadata(trackX, trackY, trackZ);
+      if (BlockRail.func_27033_a((BlockRail)Block.blocksList[blockId])) {
          this.field_27084_f = true;
-         var7 &= -9;
+         blockMeta &= -9;
       } else {
          this.field_27084_f = false;
       }
 
-      this.func_27083_a(var7);
+      this.func_27083_a(blockMeta);
    }
 
    private void func_27083_a(int var1) {

@@ -78,7 +78,6 @@ public class EntityFish extends Entity {
 
          double var7;
          for(var7 = this.field_6145_ar - (double)this.rotationYaw; var7 < -180.0D; var7 += 360.0D) {
-            ;
          }
 
          while(var7 >= 180.0D) {
@@ -146,11 +145,11 @@ public class EntityFish extends Entity {
          }
 
          Entity var4 = null;
-         List var5 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+         List<Entity> var5 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
          double var6 = 0.0D;
 
          for(int var8 = 0; var8 < var5.size(); ++var8) {
-            Entity var9 = (Entity)var5.get(var8);
+            Entity var9 = var5.get(var8);
             if (var9.canBeCollidedWith() && (var9 != this.angler || this.ticksInAir >= 5)) {
                float var10 = 0.3F;
                AxisAlignedBB var11 = var9.boundingBox.expand((double)var10, (double)var10, (double)var10);
@@ -185,7 +184,6 @@ public class EntityFish extends Entity {
             this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
             for(this.rotationPitch = (float)(Math.atan2(this.motionY, (double)var26) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-               ;
             }
 
             while(this.rotationPitch - this.prevRotationPitch >= 180.0F) {

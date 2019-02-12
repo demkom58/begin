@@ -22,31 +22,31 @@ public class Packet130UpdateSign extends Packet {
       this.signLines = var4;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.xPosition = var1.readInt();
-      this.yPosition = var1.readShort();
-      this.zPosition = var1.readInt();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.xPosition = inputStream.readInt();
+      this.yPosition = inputStream.readShort();
+      this.zPosition = inputStream.readInt();
       this.signLines = new String[4];
 
       for(int var2 = 0; var2 < 4; ++var2) {
-         this.signLines[var2] = readString(var1, 15);
+         this.signLines[var2] = readString(inputStream, 15);
       }
 
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.xPosition);
-      var1.writeShort(this.yPosition);
-      var1.writeInt(this.zPosition);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.xPosition);
+      outputStream.writeShort(this.yPosition);
+      outputStream.writeInt(this.zPosition);
 
       for(int var2 = 0; var2 < 4; ++var2) {
-         writeString(this.signLines[var2], var1);
+         writeString(this.signLines[var2], outputStream);
       }
 
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleUpdateSign(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleUpdateSign(this);
    }
 
    public int getPacketSize() {

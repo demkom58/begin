@@ -97,9 +97,9 @@ public class EntityWolf extends EntityAnimal {
             this.setIsSitting(true);
          }
       } else if (this.playerToAttack == null && !this.getGotPath() && !this.func_25030_y() && this.worldObj.rand.nextInt(100) == 0) {
-         List var1 = this.worldObj.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
+         List<Entity> var1 = this.worldObj.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
          if (!var1.isEmpty()) {
-            this.setEntityToAttack((Entity)var1.get(this.worldObj.rand.nextInt(var1.size())));
+            this.setEntityToAttack(var1.get(this.worldObj.rand.nextInt(var1.size())));
          }
       }
 
@@ -225,13 +225,13 @@ public class EntityWolf extends EntityAnimal {
          var2 = (var2 + 1) / 2;
       }
 
-      if (!super.attackEntityFrom((Entity)var1, var2)) {
+      if (!super.attackEntityFrom(var1, var2)) {
          return false;
       } else {
          if (!this.func_25030_y() && !this.getIsAngry()) {
             if (var1 instanceof EntityPlayer) {
                this.setIsAngry(true);
-               this.playerToAttack = (Entity)var1;
+               this.playerToAttack = var1;
             }
 
             if (var1 instanceof EntityArrow && ((EntityArrow)var1).owner != null) {
@@ -242,7 +242,7 @@ public class EntityWolf extends EntityAnimal {
                for(Entity var5 : this.worldObj.getEntitiesWithinAABB(EntityWolf.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D))) {
                   EntityWolf var6 = (EntityWolf)var5;
                   if (!var6.func_25030_y() && var6.playerToAttack == null) {
-                     var6.playerToAttack = (Entity)var1;
+                     var6.playerToAttack = var1;
                      if (var1 instanceof EntityPlayer) {
                         var6.setIsAngry(true);
                      }
@@ -254,7 +254,7 @@ public class EntityWolf extends EntityAnimal {
                return true;
             }
 
-            this.playerToAttack = (Entity)var1;
+            this.playerToAttack = var1;
          }
 
          return true;
@@ -293,13 +293,13 @@ public class EntityWolf extends EntityAnimal {
          if (var2 != null && var2.itemID == Item.bone.shiftedIndex && !this.getIsAngry()) {
             --var2.stackSize;
             if (var2.stackSize <= 0) {
-               var1.inventory.setInventorySlotContents(var1.inventory.currentItem, (ItemStack)null);
+               var1.inventory.setInventorySlotContents(var1.inventory.currentItem, null);
             }
 
             if (!this.worldObj.singleplayerWorld) {
                if (this.rand.nextInt(3) == 0) {
                   this.setIsTamed(true);
-                  this.setPathToEntity((PathEntity)null);
+                  this.setPathToEntity(null);
                   this.setIsSitting(true);
                   this.health = 20;
                   this.setOwner(var1.username);
@@ -319,7 +319,7 @@ public class EntityWolf extends EntityAnimal {
             if (var3.func_25010_k() && this.dataWatcher.getWatchableObjectInteger(18) < 20) {
                --var2.stackSize;
                if (var2.stackSize <= 0) {
-                  var1.inventory.setInventorySlotContents(var1.inventory.currentItem, (ItemStack)null);
+                  var1.inventory.setInventorySlotContents(var1.inventory.currentItem, null);
                }
 
                this.heal(((ItemFood)Item.porkRaw).getHealAmount());
@@ -331,7 +331,7 @@ public class EntityWolf extends EntityAnimal {
             if (!this.worldObj.singleplayerWorld) {
                this.setIsSitting(!this.getIsSitting());
                this.isJumping = false;
-               this.setPathToEntity((PathEntity)null);
+               this.setPathToEntity(null);
             }
 
             return true;

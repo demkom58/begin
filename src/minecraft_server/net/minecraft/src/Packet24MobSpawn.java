@@ -14,7 +14,7 @@ public class Packet24MobSpawn extends Packet {
    public byte yaw;
    public byte pitch;
    private DataWatcher metaData;
-   private List receivedMetadata;
+   private List<WatchableObject> receivedMetadata;
 
    public Packet24MobSpawn() {
    }
@@ -30,30 +30,30 @@ public class Packet24MobSpawn extends Packet {
       this.metaData = var1.getDataWatcher();
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityId = var1.readInt();
-      this.type = var1.readByte();
-      this.xPosition = var1.readInt();
-      this.yPosition = var1.readInt();
-      this.zPosition = var1.readInt();
-      this.yaw = var1.readByte();
-      this.pitch = var1.readByte();
-      this.receivedMetadata = DataWatcher.readWatchableObjects(var1);
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.entityId = inputStream.readInt();
+      this.type = inputStream.readByte();
+      this.xPosition = inputStream.readInt();
+      this.yPosition = inputStream.readInt();
+      this.zPosition = inputStream.readInt();
+      this.yaw = inputStream.readByte();
+      this.pitch = inputStream.readByte();
+      this.receivedMetadata = DataWatcher.readWatchableObjects(inputStream);
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityId);
-      var1.writeByte(this.type);
-      var1.writeInt(this.xPosition);
-      var1.writeInt(this.yPosition);
-      var1.writeInt(this.zPosition);
-      var1.writeByte(this.yaw);
-      var1.writeByte(this.pitch);
-      this.metaData.writeWatchableObjects(var1);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.entityId);
+      outputStream.writeByte(this.type);
+      outputStream.writeInt(this.xPosition);
+      outputStream.writeInt(this.yPosition);
+      outputStream.writeInt(this.zPosition);
+      outputStream.writeByte(this.yaw);
+      outputStream.writeByte(this.pitch);
+      this.metaData.writeWatchableObjects(outputStream);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleMobSpawn(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleMobSpawn(this);
    }
 
    public int getPacketSize() {

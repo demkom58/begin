@@ -16,18 +16,18 @@ public class Packet38EntityStatus extends Packet {
       this.entityStatus = var2;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityId = var1.readInt();
-      this.entityStatus = var1.readByte();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.entityId = inputStream.readInt();
+      this.entityStatus = inputStream.readByte();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityId);
-      var1.writeByte(this.entityStatus);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.entityId);
+      outputStream.writeByte(this.entityStatus);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.func_9001_a(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.func_9001_a(this);
    }
 
    public int getPacketSize() {

@@ -20,22 +20,22 @@ public class Packet131MapData extends Packet {
       this.field_28053_c = var3;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.field_28052_a = var1.readShort();
-      this.field_28051_b = var1.readShort();
-      this.field_28053_c = new byte[var1.readByte() & 255];
-      var1.readFully(this.field_28053_c);
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.field_28052_a = inputStream.readShort();
+      this.field_28051_b = inputStream.readShort();
+      this.field_28053_c = new byte[inputStream.readByte() & 255];
+      inputStream.readFully(this.field_28053_c);
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeShort(this.field_28052_a);
-      var1.writeShort(this.field_28051_b);
-      var1.writeByte(this.field_28053_c.length);
-      var1.write(this.field_28053_c);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeShort(this.field_28052_a);
+      outputStream.writeShort(this.field_28051_b);
+      outputStream.writeByte(this.field_28053_c.length);
+      outputStream.write(this.field_28053_c);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.func_28001_a(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.func_28001_a(this);
    }
 
    public int getPacketSize() {

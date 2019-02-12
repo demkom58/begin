@@ -20,20 +20,20 @@ public class Packet50PreChunk extends Packet {
       this.mode = var3;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.xPosition = var1.readInt();
-      this.yPosition = var1.readInt();
-      this.mode = var1.read() != 0;
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.xPosition = inputStream.readInt();
+      this.yPosition = inputStream.readInt();
+      this.mode = inputStream.read() != 0;
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.xPosition);
-      var1.writeInt(this.yPosition);
-      var1.write(this.mode ? 1 : 0);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.xPosition);
+      outputStream.writeInt(this.yPosition);
+      outputStream.write(this.mode ? 1 : 0);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handlePreChunk(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handlePreChunk(this);
    }
 
    public int getPacketSize() {

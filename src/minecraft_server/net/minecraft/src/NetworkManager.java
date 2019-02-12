@@ -21,9 +21,9 @@ public class NetworkManager {
    private DataInputStream socketInputStream;
    private DataOutputStream socketOutputStream;
    private boolean isRunning = true;
-   private List readPackets = Collections.synchronizedList(new ArrayList());
-   private List dataPackets = Collections.synchronizedList(new ArrayList());
-   private List chunkDataPackets = Collections.synchronizedList(new ArrayList());
+   private List<Packet> readPackets = Collections.synchronizedList(new ArrayList<>());
+   private List<Packet> dataPackets = Collections.synchronizedList(new ArrayList<>());
+   private List<Packet> chunkDataPackets = Collections.synchronizedList(new ArrayList<>());
    private NetHandler netHandler;
    private boolean isServerTerminating = false;
    private Thread writeThread;

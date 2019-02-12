@@ -3,11 +3,11 @@ package net.minecraft.src;
 import java.util.*;
 
 public class StatList {
-   protected static Map field_25104_C = new HashMap();
-   public static List field_25123_a = new ArrayList();
-   public static List field_25122_b = new ArrayList();
-   public static List field_25121_c = new ArrayList();
-   public static List field_25120_d = new ArrayList();
+   protected static Map<Integer, StatBase> field_25104_C = new HashMap<>();
+   public static List<StatBase> field_25123_a = new ArrayList<>();
+   public static List<StatBase> field_25122_b = new ArrayList<>();
+   public static List<StatBase> field_25121_c = new ArrayList<>();
+   public static List<StatBase> field_25120_d = new ArrayList<>();
    public static StatBase field_25119_e = (new StatBasic(1000, StatCollector.translateToLocal("stat.startGame"))).func_27052_e().func_27053_d();
    public static StatBase field_25118_f = (new StatBasic(1001, StatCollector.translateToLocal("stat.createWorld"))).func_27052_e().func_27053_d();
    public static StatBase field_25117_g = (new StatBasic(1002, StatCollector.translateToLocal("stat.loadWorld"))).func_27052_e().func_27053_d();
