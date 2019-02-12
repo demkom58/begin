@@ -202,11 +202,11 @@ public abstract class Minecraft implements Runnable {
       GL11.glViewport(0, 0, this.displayWidth, this.displayHeight);
       this.effectRenderer = new EffectRenderer(this.theWorld, this.renderEngine);
 
-      try {
-         this.downloadResourcesThread = new ThreadDownloadResources(this.mcDataDir, this);
-         this.downloadResourcesThread.start();
-      } catch (Exception var3) {
-      }
+//      try {
+//         this.downloadResourcesThread = new ThreadDownloadResources(this.mcDataDir, this);
+//         this.downloadResourcesThread.start();
+//      } catch (Exception var3) {
+//      }
 
       this.checkGLError("Post startup");
       this.ingameGUI = new GuiIngame(this);
