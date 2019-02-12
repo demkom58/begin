@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vec3D {
-   private static List vectorList = new ArrayList();
+   private static List<Vec3D> vectorList = new ArrayList<>();
    private static int nextVector = 0;
    public double xCoord;
    public double yCoord;
@@ -23,31 +23,31 @@ public class Vec3D {
          vectorList.add(createVectorHelper(0.0D, 0.0D, 0.0D));
       }
 
-      return ((Vec3D)vectorList.get(nextVector++)).setComponents(var0, var2, var4);
+      return vectorList.get(nextVector++).setComponents(var0, var2, var4);
    }
 
-   private Vec3D(double var1, double var3, double var5) {
-      if (var1 == -0.0D) {
-         var1 = 0.0D;
+   private Vec3D(double x, double y, double z) {
+      if (x == -0.0D) {
+         x = 0.0D;
       }
 
-      if (var3 == -0.0D) {
-         var3 = 0.0D;
+      if (y == -0.0D) {
+         y = 0.0D;
       }
 
-      if (var5 == -0.0D) {
-         var5 = 0.0D;
+      if (z == -0.0D) {
+         z = 0.0D;
       }
 
-      this.xCoord = var1;
-      this.yCoord = var3;
-      this.zCoord = var5;
+      this.xCoord = x;
+      this.yCoord = y;
+      this.zCoord = z;
    }
 
-   private Vec3D setComponents(double var1, double var3, double var5) {
-      this.xCoord = var1;
-      this.yCoord = var3;
-      this.zCoord = var5;
+   private Vec3D setComponents(double x, double y, double z) {
+      this.xCoord = x;
+      this.yCoord = y;
+      this.zCoord = z;
       return this;
    }
 

@@ -29,30 +29,30 @@ public class Packet20NamedEntitySpawn extends Packet {
       this.currentItem = var2 == null ? 0 : var2.itemID;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityId = var1.readInt();
-      this.name = readString(var1, 16);
-      this.xPosition = var1.readInt();
-      this.yPosition = var1.readInt();
-      this.zPosition = var1.readInt();
-      this.rotation = var1.readByte();
-      this.pitch = var1.readByte();
-      this.currentItem = var1.readShort();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.entityId = inputStream.readInt();
+      this.name = readString(inputStream, 16);
+      this.xPosition = inputStream.readInt();
+      this.yPosition = inputStream.readInt();
+      this.zPosition = inputStream.readInt();
+      this.rotation = inputStream.readByte();
+      this.pitch = inputStream.readByte();
+      this.currentItem = inputStream.readShort();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityId);
-      writeString(this.name, var1);
-      var1.writeInt(this.xPosition);
-      var1.writeInt(this.yPosition);
-      var1.writeInt(this.zPosition);
-      var1.writeByte(this.rotation);
-      var1.writeByte(this.pitch);
-      var1.writeShort(this.currentItem);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.entityId);
+      writeString(this.name, outputStream);
+      outputStream.writeInt(this.xPosition);
+      outputStream.writeInt(this.yPosition);
+      outputStream.writeInt(this.zPosition);
+      outputStream.writeByte(this.rotation);
+      outputStream.writeByte(this.pitch);
+      outputStream.writeShort(this.currentItem);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleNamedEntitySpawn(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleNamedEntitySpawn(this);
    }
 
    public int getPacketSize() {

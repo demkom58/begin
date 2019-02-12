@@ -4,60 +4,60 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EntityList {
-   private static Map stringToClassMapping = new HashMap();
-   private static Map classToStringMapping = new HashMap();
-   private static Map IDtoClassMapping = new HashMap();
-   private static Map classToIDMapping = new HashMap();
+   private static Map<String, Class> stringToClassMapping = new HashMap<>();
+   private static Map<Class, String> classToStringMapping = new HashMap<>();
+   private static Map<Integer, Class> IDtoClassMapping = new HashMap<>();
+   private static Map<Class, Integer> classToIDMapping = new HashMap<>();
 
-   private static void addMapping(Class var0, String var1, int var2) {
-      stringToClassMapping.put(var1, var0);
-      classToStringMapping.put(var0, var1);
-      IDtoClassMapping.put(Integer.valueOf(var2), var0);
-      classToIDMapping.put(var0, Integer.valueOf(var2));
+   private static void addMapping(Class clazz, String string, int id) {
+      stringToClassMapping.put(string, clazz);
+      classToStringMapping.put(clazz, string);
+      IDtoClassMapping.put(id, clazz);
+      classToIDMapping.put(clazz, id);
    }
 
    public static Entity createEntityInWorld(String var0, World var1) {
-      Entity var2 = null;
+      Entity entity = null;
 
       try {
-         Class var3 = (Class)stringToClassMapping.get(var0);
-         if (var3 != null) {
-            var2 = (Entity)var3.getConstructor(World.class).newInstance(var1);
+         Class clszz = stringToClassMapping.get(var0);
+         if (clszz != null) {
+            entity = (Entity)clszz.getConstructor(World.class).newInstance(var1);
          }
-      } catch (Exception var4) {
-         var4.printStackTrace();
+      } catch (Exception e) {
+         e.printStackTrace();
       }
 
-      return var2;
+      return entity;
    }
 
-   public static Entity createEntityFromNBT(NBTTagCompound var0, World var1) {
-      Entity var2 = null;
+   public static Entity createEntityFromNBT(NBTTagCompound compound, World world) {
+      Entity entity = null;
 
       try {
-         Class var3 = (Class)stringToClassMapping.get(var0.getString("id"));
-         if (var3 != null) {
-            var2 = (Entity)var3.getConstructor(World.class).newInstance(var1);
+         Class clazz = stringToClassMapping.get(compound.getString("id"));
+         if (clazz != null) {
+            entity = (Entity)clazz.getConstructor(World.class).newInstance(world);
          }
       } catch (Exception var4) {
          var4.printStackTrace();
       }
 
-      if (var2 != null) {
-         var2.readFromNBT(var0);
+      if (entity != null) {
+         entity.readFromNBT(compound);
       } else {
-         System.out.println("Skipping Entity with id " + var0.getString("id"));
+         System.out.println("Skipping Entity with id " + compound.getString("id"));
       }
 
-      return var2;
+      return entity;
    }
 
-   public static int getEntityID(Entity var0) {
-      return ((Integer)classToIDMapping.get(var0.getClass())).intValue();
+   public static int getEntityID(Entity entity) {
+      return classToIDMapping.get(entity.getClass());
    }
 
-   public static String getEntityString(Entity var0) {
-      return (String)classToStringMapping.get(var0.getClass());
+   public static String getEntityString(Entity entity) {
+      return classToStringMapping.get(entity.getClass());
    }
 
    static {

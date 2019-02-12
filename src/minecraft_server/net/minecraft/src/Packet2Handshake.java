@@ -14,16 +14,16 @@ public class Packet2Handshake extends Packet {
       this.username = var1;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.username = readString(var1, 32);
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.username = readString(inputStream, 32);
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      writeString(this.username, var1);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      writeString(this.username, outputStream);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleHandshake(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleHandshake(this);
    }
 
    public int getPacketSize() {

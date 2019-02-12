@@ -65,38 +65,38 @@ public class Packet23VehicleSpawn extends Packet {
 
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityId = var1.readInt();
-      this.type = var1.readByte();
-      this.xPosition = var1.readInt();
-      this.yPosition = var1.readInt();
-      this.zPosition = var1.readInt();
-      this.field_28041_i = var1.readInt();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.entityId = inputStream.readInt();
+      this.type = inputStream.readByte();
+      this.xPosition = inputStream.readInt();
+      this.yPosition = inputStream.readInt();
+      this.zPosition = inputStream.readInt();
+      this.field_28041_i = inputStream.readInt();
       if (this.field_28041_i > 0) {
-         this.field_28044_e = var1.readShort();
-         this.field_28043_f = var1.readShort();
-         this.field_28042_g = var1.readShort();
+         this.field_28044_e = inputStream.readShort();
+         this.field_28043_f = inputStream.readShort();
+         this.field_28042_g = inputStream.readShort();
       }
 
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityId);
-      var1.writeByte(this.type);
-      var1.writeInt(this.xPosition);
-      var1.writeInt(this.yPosition);
-      var1.writeInt(this.zPosition);
-      var1.writeInt(this.field_28041_i);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.entityId);
+      outputStream.writeByte(this.type);
+      outputStream.writeInt(this.xPosition);
+      outputStream.writeInt(this.yPosition);
+      outputStream.writeInt(this.zPosition);
+      outputStream.writeInt(this.field_28041_i);
       if (this.field_28041_i > 0) {
-         var1.writeShort(this.field_28044_e);
-         var1.writeShort(this.field_28043_f);
-         var1.writeShort(this.field_28042_g);
+         outputStream.writeShort(this.field_28044_e);
+         outputStream.writeShort(this.field_28043_f);
+         outputStream.writeShort(this.field_28042_g);
       }
 
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleVehicleSpawn(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleVehicleSpawn(this);
    }
 
    public int getPacketSize() {

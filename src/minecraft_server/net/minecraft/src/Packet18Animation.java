@@ -16,18 +16,18 @@ public class Packet18Animation extends Packet {
       this.animate = var2;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityId = var1.readInt();
-      this.animate = var1.readByte();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.entityId = inputStream.readInt();
+      this.animate = inputStream.readByte();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityId);
-      var1.writeByte(this.animate);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.entityId);
+      outputStream.writeByte(this.animate);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleArmAnimation(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleArmAnimation(this);
    }
 
    public int getPacketSize() {

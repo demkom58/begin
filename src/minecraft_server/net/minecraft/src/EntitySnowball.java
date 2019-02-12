@@ -107,19 +107,19 @@ public class EntitySnowball extends Entity {
 
       if (!this.worldObj.singleplayerWorld) {
          Entity var4 = null;
-         List var5 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+         List<Entity> entities = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
          double var6 = 0.0D;
 
-         for(int var8 = 0; var8 < var5.size(); ++var8) {
-            Entity var9 = (Entity)var5.get(var8);
-            if (var9.canBeCollidedWith() && (var9 != this.owner || this.ticksInAir >= 5)) {
+         for(int var8 = 0; var8 < entities.size(); ++var8) {
+            Entity entity = entities.get(var8);
+            if (entity.canBeCollidedWith() && (entity != this.owner || this.ticksInAir >= 5)) {
                float var10 = 0.3F;
-               AxisAlignedBB var11 = var9.boundingBox.expand((double)var10, (double)var10, (double)var10);
+               AxisAlignedBB var11 = entity.boundingBox.expand((double)var10, (double)var10, (double)var10);
                MovingObjectPosition var12 = var11.func_706_a(var15, var2);
                if (var12 != null) {
                   double var13 = var15.distanceTo(var12.hitVec);
                   if (var13 < var6 || var6 == 0.0D) {
-                     var4 = var9;
+                     var4 = entity;
                      var6 = var13;
                   }
                }
@@ -133,7 +133,6 @@ public class EntitySnowball extends Entity {
 
       if (var3 != null) {
          if (var3.entityHit != null && var3.entityHit.attackEntityFrom(this.owner, 0)) {
-            ;
          }
 
          for(int var18 = 0; var18 < 8; ++var18) {
@@ -150,7 +149,6 @@ public class EntitySnowball extends Entity {
       this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
       for(this.rotationPitch = (float)(Math.atan2(this.motionY, (double)var19) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-         ;
       }
 
       while(this.rotationPitch - this.prevRotationPitch >= 180.0F) {

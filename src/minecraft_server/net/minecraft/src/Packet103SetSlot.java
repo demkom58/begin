@@ -18,17 +18,17 @@ public class Packet103SetSlot extends Packet {
       this.myItemStack = var3 == null ? var3 : var3.copy();
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.func_20003_a(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.func_20003_a(this);
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.windowId = var1.readByte();
-      this.itemSlot = var1.readShort();
-      short var2 = var1.readShort();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.windowId = inputStream.readByte();
+      this.itemSlot = inputStream.readShort();
+      short var2 = inputStream.readShort();
       if (var2 >= 0) {
-         byte var3 = var1.readByte();
-         short var4 = var1.readShort();
+         byte var3 = inputStream.readByte();
+         short var4 = inputStream.readShort();
          this.myItemStack = new ItemStack(var2, var3, var4);
       } else {
          this.myItemStack = null;
@@ -36,15 +36,15 @@ public class Packet103SetSlot extends Packet {
 
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeByte(this.windowId);
-      var1.writeShort(this.itemSlot);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeByte(this.windowId);
+      outputStream.writeShort(this.itemSlot);
       if (this.myItemStack == null) {
-         var1.writeShort(-1);
+         outputStream.writeShort(-1);
       } else {
-         var1.writeShort(this.myItemStack.itemID);
-         var1.writeByte(this.myItemStack.stackSize);
-         var1.writeShort(this.myItemStack.getItemDamage());
+         outputStream.writeShort(this.myItemStack.itemID);
+         outputStream.writeByte(this.myItemStack.stackSize);
+         outputStream.writeShort(this.myItemStack.getItemDamage());
       }
 
    }

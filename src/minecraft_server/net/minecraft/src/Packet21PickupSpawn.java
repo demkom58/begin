@@ -32,34 +32,34 @@ public class Packet21PickupSpawn extends Packet {
       this.roll = (byte)((int)(var1.motionZ * 128.0D));
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityId = var1.readInt();
-      this.itemID = var1.readShort();
-      this.count = var1.readByte();
-      this.itemDamage = var1.readShort();
-      this.xPosition = var1.readInt();
-      this.yPosition = var1.readInt();
-      this.zPosition = var1.readInt();
-      this.rotation = var1.readByte();
-      this.pitch = var1.readByte();
-      this.roll = var1.readByte();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.entityId = inputStream.readInt();
+      this.itemID = inputStream.readShort();
+      this.count = inputStream.readByte();
+      this.itemDamage = inputStream.readShort();
+      this.xPosition = inputStream.readInt();
+      this.yPosition = inputStream.readInt();
+      this.zPosition = inputStream.readInt();
+      this.rotation = inputStream.readByte();
+      this.pitch = inputStream.readByte();
+      this.roll = inputStream.readByte();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityId);
-      var1.writeShort(this.itemID);
-      var1.writeByte(this.count);
-      var1.writeShort(this.itemDamage);
-      var1.writeInt(this.xPosition);
-      var1.writeInt(this.yPosition);
-      var1.writeInt(this.zPosition);
-      var1.writeByte(this.rotation);
-      var1.writeByte(this.pitch);
-      var1.writeByte(this.roll);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.entityId);
+      outputStream.writeShort(this.itemID);
+      outputStream.writeByte(this.count);
+      outputStream.writeShort(this.itemDamage);
+      outputStream.writeInt(this.xPosition);
+      outputStream.writeInt(this.yPosition);
+      outputStream.writeInt(this.zPosition);
+      outputStream.writeByte(this.rotation);
+      outputStream.writeByte(this.pitch);
+      outputStream.writeByte(this.roll);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handlePickupSpawn(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handlePickupSpawn(this);
    }
 
    public int getPacketSize() {

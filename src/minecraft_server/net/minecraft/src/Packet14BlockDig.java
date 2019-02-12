@@ -11,24 +11,24 @@ public class Packet14BlockDig extends Packet {
    public int face;
    public int status;
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.status = var1.read();
-      this.xPosition = var1.readInt();
-      this.yPosition = var1.read();
-      this.zPosition = var1.readInt();
-      this.face = var1.read();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.status = inputStream.read();
+      this.xPosition = inputStream.readInt();
+      this.yPosition = inputStream.read();
+      this.zPosition = inputStream.readInt();
+      this.face = inputStream.read();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.write(this.status);
-      var1.writeInt(this.xPosition);
-      var1.write(this.yPosition);
-      var1.writeInt(this.zPosition);
-      var1.write(this.face);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.write(this.status);
+      outputStream.writeInt(this.xPosition);
+      outputStream.write(this.yPosition);
+      outputStream.writeInt(this.zPosition);
+      outputStream.write(this.face);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleBlockDig(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleBlockDig(this);
    }
 
    public int getPacketSize() {

@@ -168,7 +168,6 @@ public class EntityMinecart extends Entity implements IInventory {
 
             double var48;
             for(var48 = this.field_9159_ar - (double)this.rotationYaw; var48 < -180.0D; var48 += 360.0D) {
-               ;
             }
 
             while(var48 >= 180.0D) {
@@ -442,7 +441,6 @@ public class EntityMinecart extends Entity implements IInventory {
 
          double var51;
          for(var51 = (double)(this.rotationYaw - this.prevRotationYaw); var51 >= 180.0D; var51 -= 360.0D) {
-            ;
          }
 
          while(var51 < -180.0D) {
@@ -455,10 +453,10 @@ public class EntityMinecart extends Entity implements IInventory {
          }
 
          this.setRotation(this.rotationYaw, this.rotationPitch);
-         List var16 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+         List<Entity> var16 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
          if (var16 != null && var16.size() > 0) {
             for(int var54 = 0; var54 < var16.size(); ++var54) {
-               Entity var18 = (Entity)var16.get(var54);
+               Entity var18 = var16.get(var54);
                if (var18 != this.riddenByEntity && var18.canBePushed() && var18 instanceof EntityMinecart) {
                   var18.applyEntityCollision(this);
                }
@@ -719,7 +717,7 @@ public class EntityMinecart extends Entity implements IInventory {
          ItemStack var2 = var1.inventory.getCurrentItem();
          if (var2 != null && var2.itemID == Item.coal.shiftedIndex) {
             if (--var2.stackSize == 0) {
-               var1.inventory.setInventorySlotContents(var1.inventory.currentItem, (ItemStack)null);
+               var1.inventory.setInventorySlotContents(var1.inventory.currentItem, null);
             }
 
             this.fuel += 1200;

@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class BlockRedstoneTorch extends BlockTorch {
    private boolean torchActive = false;
-   private static List torchUpdates = new ArrayList();
+   private static List<RedstoneUpdateInfo> torchUpdates = new ArrayList<>();
 
    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
       return var1 == 1 ? Block.redstoneWire.getBlockTextureFromSideAndMetadata(var1, var2) : super.getBlockTextureFromSideAndMetadata(var1, var2);
@@ -20,7 +20,7 @@ public class BlockRedstoneTorch extends BlockTorch {
       int var6 = 0;
 
       for(int var7 = 0; var7 < torchUpdates.size(); ++var7) {
-         RedstoneUpdateInfo var8 = (RedstoneUpdateInfo)torchUpdates.get(var7);
+         RedstoneUpdateInfo var8 = torchUpdates.get(var7);
          if (var8.x == var2 && var8.y == var3 && var8.z == var4) {
             ++var6;
             if (var6 >= 8) {
@@ -107,7 +107,7 @@ public class BlockRedstoneTorch extends BlockTorch {
    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
       boolean var6 = this.func_30003_g(var1, var2, var3, var4);
 
-      while(torchUpdates.size() > 0 && var1.getWorldTime() - ((RedstoneUpdateInfo)torchUpdates.get(0)).updateTime > 100L) {
+      while(torchUpdates.size() > 0 && var1.getWorldTime() - torchUpdates.get(0).updateTime > 100L) {
          torchUpdates.remove(0);
       }
 
@@ -137,7 +137,7 @@ public class BlockRedstoneTorch extends BlockTorch {
    }
 
    public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
-      return var5 == 0 ? this.isPoweringTo(var1, var2, var3, var4, var5) : false;
+      return var5 == 0 && this.isPoweringTo(var1, var2, var3, var4, var5);
    }
 
    public int idDropped(int var1, Random var2) {

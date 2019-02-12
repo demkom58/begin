@@ -162,7 +162,7 @@ public class EntityPainting extends Entity {
             }
          }
 
-         List var10 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox);
+         List<Entity> var10 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox);
 
          for(int var11 = 0; var11 < var10.size(); ++var11) {
             if (var10.get(var11) instanceof EntityPainting) {

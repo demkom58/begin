@@ -26,22 +26,22 @@ public class Packet5PlayerInventory extends Packet {
 
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityID = var1.readInt();
-      this.slot = var1.readShort();
-      this.itemID = var1.readShort();
-      this.itemDamage = var1.readShort();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.entityID = inputStream.readInt();
+      this.slot = inputStream.readShort();
+      this.itemID = inputStream.readShort();
+      this.itemDamage = inputStream.readShort();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityID);
-      var1.writeShort(this.slot);
-      var1.writeShort(this.itemID);
-      var1.writeShort(this.itemDamage);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.entityID);
+      outputStream.writeShort(this.slot);
+      outputStream.writeShort(this.itemID);
+      outputStream.writeShort(this.itemDamage);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handlePlayerInventory(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handlePlayerInventory(this);
    }
 
    public int getPacketSize() {

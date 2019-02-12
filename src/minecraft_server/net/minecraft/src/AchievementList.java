@@ -8,8 +8,8 @@ public class AchievementList {
    public static int field_27113_b;
    public static int field_27112_c;
    public static int field_27111_d;
-   public static List field_25129_a = new ArrayList();
-   public static Achievement field_25128_b = (new Achievement(0, "openInventory", 0, 0, Item.book, (Achievement)null)).func_27059_a().func_27061_c();
+   public static List<Achievement> field_25129_a = new ArrayList<>();
+   public static Achievement field_25128_b = (new Achievement(0, "openInventory", 0, 0, Item.book, null)).func_27059_a().func_27061_c();
    public static Achievement field_25131_c = (new Achievement(1, "mineWood", 2, 1, Block.wood, field_25128_b)).func_27061_c();
    public static Achievement field_25130_d = (new Achievement(2, "buildWorkBench", 4, -1, Block.workbench, field_25131_c)).func_27061_c();
    public static Achievement field_27110_i = (new Achievement(3, "buildPickaxe", 4, 2, Item.pickaxeWood, field_25130_d)).func_27061_c();

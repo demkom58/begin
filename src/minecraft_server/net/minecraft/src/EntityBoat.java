@@ -122,7 +122,6 @@ public class EntityBoat extends Entity {
 
             double var33;
             for(var33 = this.field_9173_ak - (double)this.rotationYaw; var33 < -180.0D; var33 += 360.0D) {
-               ;
             }
 
             while(var33 >= 180.0D) {
@@ -239,7 +238,6 @@ public class EntityBoat extends Entity {
 
          double var14;
          for(var14 = var29 - (double)this.rotationYaw; var14 >= 180.0D; var14 -= 360.0D) {
-            ;
          }
 
          while(var14 < -180.0D) {
@@ -256,10 +254,10 @@ public class EntityBoat extends Entity {
 
          this.rotationYaw = (float)((double)this.rotationYaw + var14);
          this.setRotation(this.rotationYaw, this.rotationPitch);
-         List var16 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+         List<Entity> var16 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
          if (var16 != null && var16.size() > 0) {
             for(int var36 = 0; var36 < var16.size(); ++var36) {
-               Entity var18 = (Entity)var16.get(var36);
+               Entity var18 = var16.get(var36);
                if (var18 != this.riddenByEntity && var18.canBePushed() && var18 instanceof EntityBoat) {
                   var18.applyEntityCollision(this);
                }

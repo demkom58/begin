@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NBTTagList extends NBTBase {
-   private List tagList = new ArrayList();
+   private List<NBTBase> tagList = new ArrayList<>();
    private byte tagType;
 
    void writeTagContents(DataOutput var1) throws IOException {
       if (this.tagList.size() > 0) {
-         this.tagType = ((NBTBase)this.tagList.get(0)).getType();
+         this.tagType = this.tagList.get(0).getType();
       } else {
          this.tagType = 1;
       }
@@ -21,7 +21,7 @@ public class NBTTagList extends NBTBase {
       var1.writeInt(this.tagList.size());
 
       for(int var2 = 0; var2 < this.tagList.size(); ++var2) {
-         ((NBTBase)this.tagList.get(var2)).writeTagContents(var1);
+         this.tagList.get(var2).writeTagContents(var1);
       }
 
    }
@@ -32,9 +32,9 @@ public class NBTTagList extends NBTBase {
       this.tagList = new ArrayList();
 
       for(int var3 = 0; var3 < var2; ++var3) {
-         NBTBase var4 = NBTBase.createTagOfType(this.tagType);
-         var4.readTagContents(var1);
-         this.tagList.add(var4);
+         NBTBase nbtBase = NBTBase.createTagOfType(this.tagType);
+         nbtBase.readTagContents(var1);
+         this.tagList.add(nbtBase);
       }
 
    }
@@ -53,7 +53,7 @@ public class NBTTagList extends NBTBase {
    }
 
    public NBTBase tagAt(int var1) {
-      return (NBTBase)this.tagList.get(var1);
+      return this.tagList.get(var1);
    }
 
    public int tagCount() {

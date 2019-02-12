@@ -18,16 +18,16 @@ public class Packet3Chat extends Packet {
       this.message = var1;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.message = readString(var1, 119);
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.message = readString(inputStream, 119);
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      writeString(this.message, var1);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      writeString(this.message, outputStream);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleChat(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleChat(this);
    }
 
    public int getPacketSize() {

@@ -15,18 +15,18 @@ public class Packet31RelEntityMove extends Packet30Entity {
       this.zPosition = var4;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      super.readPacketData(var1);
-      this.xPosition = var1.readByte();
-      this.yPosition = var1.readByte();
-      this.zPosition = var1.readByte();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      super.readPacketData(inputStream);
+      this.xPosition = inputStream.readByte();
+      this.yPosition = inputStream.readByte();
+      this.zPosition = inputStream.readByte();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      super.writePacketData(var1);
-      var1.writeByte(this.xPosition);
-      var1.writeByte(this.yPosition);
-      var1.writeByte(this.zPosition);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      super.writePacketData(outputStream);
+      outputStream.writeByte(this.xPosition);
+      outputStream.writeByte(this.yPosition);
+      outputStream.writeByte(this.zPosition);
    }
 
    public int getPacketSize() {

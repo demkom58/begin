@@ -19,7 +19,7 @@ public class SaveOldDir extends PlayerNBTManager {
       }
    }
 
-   public void func_22095_a(WorldInfo var1, List var2) {
+   public void func_22095_a(WorldInfo var1, List<EntityPlayer> var2) {
       var1.setVersion(19132);
       super.func_22095_a(var1, var2);
    }

@@ -24,26 +24,26 @@ public class Packet25EntityPainting extends Packet {
       this.title = var1.art.title;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityId = var1.readInt();
-      this.title = readString(var1, EnumArt.field_27096_z);
-      this.xPosition = var1.readInt();
-      this.yPosition = var1.readInt();
-      this.zPosition = var1.readInt();
-      this.direction = var1.readInt();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.entityId = inputStream.readInt();
+      this.title = readString(inputStream, EnumArt.field_27096_z);
+      this.xPosition = inputStream.readInt();
+      this.yPosition = inputStream.readInt();
+      this.zPosition = inputStream.readInt();
+      this.direction = inputStream.readInt();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityId);
-      writeString(this.title, var1);
-      var1.writeInt(this.xPosition);
-      var1.writeInt(this.yPosition);
-      var1.writeInt(this.zPosition);
-      var1.writeInt(this.direction);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.entityId);
+      writeString(this.title, outputStream);
+      outputStream.writeInt(this.xPosition);
+      outputStream.writeInt(this.yPosition);
+      outputStream.writeInt(this.zPosition);
+      outputStream.writeInt(this.direction);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.func_21003_a(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.func_21003_a(this);
    }
 
    public int getPacketSize() {

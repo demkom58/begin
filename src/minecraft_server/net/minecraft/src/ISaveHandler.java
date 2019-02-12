@@ -10,7 +10,7 @@ public interface ISaveHandler {
 
    IChunkLoader func_22092_a(WorldProvider var1);
 
-   void func_22095_a(WorldInfo var1, List var2);
+   void func_22095_a(WorldInfo var1, List<EntityPlayer> var2);
 
    void func_22094_a(WorldInfo var1);
 

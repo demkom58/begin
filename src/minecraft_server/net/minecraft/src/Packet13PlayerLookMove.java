@@ -22,24 +22,24 @@ public class Packet13PlayerLookMove extends Packet10Flying {
       this.moving = true;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.xPosition = var1.readDouble();
-      this.yPosition = var1.readDouble();
-      this.stance = var1.readDouble();
-      this.zPosition = var1.readDouble();
-      this.yaw = var1.readFloat();
-      this.pitch = var1.readFloat();
-      super.readPacketData(var1);
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.xPosition = inputStream.readDouble();
+      this.yPosition = inputStream.readDouble();
+      this.stance = inputStream.readDouble();
+      this.zPosition = inputStream.readDouble();
+      this.yaw = inputStream.readFloat();
+      this.pitch = inputStream.readFloat();
+      super.readPacketData(inputStream);
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeDouble(this.xPosition);
-      var1.writeDouble(this.yPosition);
-      var1.writeDouble(this.stance);
-      var1.writeDouble(this.zPosition);
-      var1.writeFloat(this.yaw);
-      var1.writeFloat(this.pitch);
-      super.writePacketData(var1);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeDouble(this.xPosition);
+      outputStream.writeDouble(this.yPosition);
+      outputStream.writeDouble(this.stance);
+      outputStream.writeDouble(this.zPosition);
+      outputStream.writeFloat(this.yaw);
+      outputStream.writeFloat(this.pitch);
+      super.writePacketData(outputStream);
    }
 
    public int getPacketSize() {

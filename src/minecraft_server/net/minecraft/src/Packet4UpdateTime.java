@@ -14,16 +14,16 @@ public class Packet4UpdateTime extends Packet {
       this.time = var1;
    }
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.time = var1.readLong();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.time = inputStream.readLong();
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeLong(this.time);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeLong(this.time);
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handleUpdateTime(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handleUpdateTime(this);
    }
 
    public int getPacketSize() {

@@ -8,9 +8,9 @@ public abstract class MapDataBase {
       this.field_28152_a = var1;
    }
 
-   public abstract void func_28148_a(NBTTagCompound var1);
+   public abstract void func_28148_a(NBTTagCompound compound);
 
-   public abstract void func_28147_b(NBTTagCompound var1);
+   public abstract void func_28147_b(NBTTagCompound compound);
 
    public void func_28146_a() {
       this.func_28149_a(true);

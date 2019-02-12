@@ -11,15 +11,15 @@ public class Packet15Place extends Packet {
    public int direction;
    public ItemStack itemStack;
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.xPosition = var1.readInt();
-      this.yPosition = var1.read();
-      this.zPosition = var1.readInt();
-      this.direction = var1.read();
-      short var2 = var1.readShort();
+   public void readPacketData(DataInputStream inputStream) throws IOException {
+      this.xPosition = inputStream.readInt();
+      this.yPosition = inputStream.read();
+      this.zPosition = inputStream.readInt();
+      this.direction = inputStream.read();
+      short var2 = inputStream.readShort();
       if (var2 >= 0) {
-         byte var3 = var1.readByte();
-         short var4 = var1.readShort();
+         byte var3 = inputStream.readByte();
+         short var4 = inputStream.readShort();
          this.itemStack = new ItemStack(var2, var3, var4);
       } else {
          this.itemStack = null;
@@ -27,23 +27,23 @@ public class Packet15Place extends Packet {
 
    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.xPosition);
-      var1.write(this.yPosition);
-      var1.writeInt(this.zPosition);
-      var1.write(this.direction);
+   public void writePacketData(DataOutputStream outputStream) throws IOException {
+      outputStream.writeInt(this.xPosition);
+      outputStream.write(this.yPosition);
+      outputStream.writeInt(this.zPosition);
+      outputStream.write(this.direction);
       if (this.itemStack == null) {
-         var1.writeShort(-1);
+         outputStream.writeShort(-1);
       } else {
-         var1.writeShort(this.itemStack.itemID);
-         var1.writeByte(this.itemStack.stackSize);
-         var1.writeShort(this.itemStack.getItemDamage());
+         outputStream.writeShort(this.itemStack.itemID);
+         outputStream.writeByte(this.itemStack.stackSize);
+         outputStream.writeShort(this.itemStack.getItemDamage());
       }
 
    }
 
-   public void processPacket(NetHandler var1) {
-      var1.handlePlace(this);
+   public void processPacket(NetHandler netHandler) {
+      netHandler.handlePlace(this);
    }
 
    public int getPacketSize() {
