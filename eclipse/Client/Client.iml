@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="file://$MCP_LOC$/jars/bin/jinput.jar" />
+    <libelement value="file://$MCP_LOC$/jars/bin/lwjgl_util.jar" />
+    <libelement value="file://$MCP_LOC$/jars/bin/lwjgl.jar" />
+    <libelement value="file://$MCP_LOC$/jars/bin/minecraft.jar" />
+    <varelement var="file://$MCP_LOC$/src/minecraft" kind="linksrc:" value="src" />
+    <varelement var="file://$MCP_LOC$/conf/patches" kind="linksrc:" value="start" />
+    <varelement var="file://$MCP_LOC$/jars/bin/jinput.jar" kind="link:" value="jars/bin/jinput.jar" />
+    <varelement var="file://$MCP_LOC$/jars/bin/lwjgl_util.jar" kind="link:" value="jars/bin/lwjgl_util.jar" />
+    <varelement var="file://$MCP_LOC$/jars/bin/lwjgl.jar" kind="link:" value="jars/bin/lwjgl.jar" />
+    <varelement var="file://$MCP_LOC$/jars/bin/minecraft.jar" kind="link:" value="jars/bin/minecraft.jar" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MCP_LOC$/src/minecraft" expected_position="0" />
+      <src_folder value="file://$MCP_LOC$/conf/patches" expected_position="1" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$/../../src/minecraft">
+      <sourceFolder url="file://$MODULE_DIR$/../../src/minecraft" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="jdk" jdkName="11" jdkType="JavaSDK" />
+    <orderEntry type="module-library">
+      <library name="jinput.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jars/bin/jinput.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://$MODULE_DIR$/../../jars/bin/natives" />
+        </NATIVE>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="lwjgl_util.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jars/bin/lwjgl_util.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://$MODULE_DIR$/../../jars/bin/natives" />
+        </NATIVE>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="lwjgl.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jars/bin/lwjgl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://$MODULE_DIR$/../../jars/bin/natives" />
+        </NATIVE>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="minecraft.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jars/bin/minecraft.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>

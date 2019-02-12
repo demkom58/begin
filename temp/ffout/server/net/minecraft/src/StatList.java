@@ -1,0 +1,165 @@
+package net.minecraft.src;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
+public class StatList {
+   protected static Map field_25104_C = new HashMap();
+   public static List field_25123_a = new ArrayList();
+   public static List field_25122_b = new ArrayList();
+   public static List field_25121_c = new ArrayList();
+   public static List field_25120_d = new ArrayList();
+   public static StatBase field_25119_e = (new StatBasic(1000, StatCollector.func_25136_a("stat.startGame"))).func_27052_e().func_27053_d();
+   public static StatBase field_25118_f = (new StatBasic(1001, StatCollector.func_25136_a("stat.createWorld"))).func_27052_e().func_27053_d();
+   public static StatBase field_25117_g = (new StatBasic(1002, StatCollector.func_25136_a("stat.loadWorld"))).func_27052_e().func_27053_d();
+   public static StatBase field_25116_h = (new StatBasic(1003, StatCollector.func_25136_a("stat.joinMultiplayer"))).func_27052_e().func_27053_d();
+   public static StatBase field_25115_i = (new StatBasic(1004, StatCollector.func_25136_a("stat.leaveGame"))).func_27052_e().func_27053_d();
+   public static StatBase field_25114_j = (new StatBasic(1100, StatCollector.func_25136_a("stat.playOneMinute"), StatBase.field_27055_j)).func_27052_e().func_27053_d();
+   public static StatBase field_25113_k = (new StatBasic(2000, StatCollector.func_25136_a("stat.walkOneCm"), StatBase.field_27054_k)).func_27052_e().func_27053_d();
+   public static StatBase field_25112_l = (new StatBasic(2001, StatCollector.func_25136_a("stat.swimOneCm"), StatBase.field_27054_k)).func_27052_e().func_27053_d();
+   public static StatBase field_25111_m = (new StatBasic(2002, StatCollector.func_25136_a("stat.fallOneCm"), StatBase.field_27054_k)).func_27052_e().func_27053_d();
+   public static StatBase field_25110_n = (new StatBasic(2003, StatCollector.func_25136_a("stat.climbOneCm"), StatBase.field_27054_k)).func_27052_e().func_27053_d();
+   public static StatBase field_25109_o = (new StatBasic(2004, StatCollector.func_25136_a("stat.flyOneCm"), StatBase.field_27054_k)).func_27052_e().func_27053_d();
+   public static StatBase field_25108_p = (new StatBasic(2005, StatCollector.func_25136_a("stat.diveOneCm"), StatBase.field_27054_k)).func_27052_e().func_27053_d();
+   public static StatBase field_27095_r = (new StatBasic(2006, StatCollector.func_25136_a("stat.minecartOneCm"), StatBase.field_27054_k)).func_27052_e().func_27053_d();
+   public static StatBase field_27094_s = (new StatBasic(2007, StatCollector.func_25136_a("stat.boatOneCm"), StatBase.field_27054_k)).func_27052_e().func_27053_d();
+   public static StatBase field_27093_t = (new StatBasic(2008, StatCollector.func_25136_a("stat.pigOneCm"), StatBase.field_27054_k)).func_27052_e().func_27053_d();
+   public static StatBase field_25106_q = (new StatBasic(2010, StatCollector.func_25136_a("stat.jump"))).func_27052_e().func_27053_d();
+   public static StatBase field_25103_r = (new StatBasic(2011, StatCollector.func_25136_a("stat.drop"))).func_27052_e().func_27053_d();
+   public static StatBase field_25102_s = (new StatBasic(2020, StatCollector.func_25136_a("stat.damageDealt"))).func_27053_d();
+   public static StatBase field_25100_t = (new StatBasic(2021, StatCollector.func_25136_a("stat.damageTaken"))).func_27053_d();
+   public static StatBase field_25098_u = (new StatBasic(2022, StatCollector.func_25136_a("stat.deaths"))).func_27053_d();
+   public static StatBase field_25097_v = (new StatBasic(2023, StatCollector.func_25136_a("stat.mobKills"))).func_27053_d();
+   public static StatBase field_25096_w = (new StatBasic(2024, StatCollector.func_25136_a("stat.playerKills"))).func_27053_d();
+   public static StatBase field_25095_x = (new StatBasic(2025, StatCollector.func_25136_a("stat.fishCaught"))).func_27053_d();
+   public static StatBase[] field_25094_y = func_25089_a("stat.mineBlock", 16777216);
+   public static StatBase[] field_25093_z;
+   public static StatBase[] field_25107_A;
+   public static StatBase[] field_25105_B;
+   private static boolean field_25101_D = false;
+   private static boolean field_25099_E = false;
+
+   public static void func_27092_a() {
+   }
+
+   public static void func_25088_a() {
+      field_25107_A = func_25090_a(field_25107_A, "stat.useItem", 16908288, 0, Block.field_542_n.length);
+      field_25105_B = func_25087_b(field_25105_B, "stat.breakItem", 16973824, 0, Block.field_542_n.length);
+      field_25101_D = true;
+      func_25091_c();
+   }
+
+   public static void func_25086_b() {
+      field_25107_A = func_25090_a(field_25107_A, "stat.useItem", 16908288, Block.field_542_n.length, 32000);
+      field_25105_B = func_25087_b(field_25105_B, "stat.breakItem", 16973824, Block.field_542_n.length, 32000);
+      field_25099_E = true;
+      func_25091_c();
+   }
+
+   public static void func_25091_c() {
+      if (field_25101_D && field_25099_E) {
+         HashSet var0 = new HashSet();
+
+         for(IRecipe var2 : CraftingManager.func_20151_a().func_25126_b()) {
+            var0.add(Integer.valueOf(var2.func_25077_b().field_855_c));
+         }
+
+         for(ItemStack var6 : FurnaceRecipes.func_21162_a().func_25127_b().values()) {
+            var0.add(Integer.valueOf(var6.field_855_c));
+         }
+
+         field_25093_z = new StatBase[32000];
+
+         for(Integer var7 : var0) {
+            if (Item.field_176_c[var7.intValue()] != null) {
+               String var3 = StatCollector.func_25135_a("stat.craftItem", Item.field_176_c[var7.intValue()].func_25006_i());
+               field_25093_z[var7.intValue()] = (new StatCrafting(16842752 + var7.intValue(), var3, var7.intValue())).func_27053_d();
+            }
+         }
+
+         func_25092_a(field_25093_z);
+      }
+   }
+
+   private static StatBase[] func_25089_a(String var0, int var1) {
+      StatBase[] var2 = new StatBase[256];
+
+      for(int var3 = 0; var3 < 256; ++var3) {
+         if (Block.field_542_n[var3] != null && Block.field_542_n[var3].func_27022_g()) {
+            String var4 = StatCollector.func_25135_a(var0, Block.field_542_n[var3].func_25012_e());
+            var2[var3] = (new StatCrafting(var1 + var3, var4, var3)).func_27053_d();
+            field_25120_d.add((StatCrafting)var2[var3]);
+         }
+      }
+
+      func_25092_a(var2);
+      return var2;
+   }
+
+   private static StatBase[] func_25090_a(StatBase[] var0, String var1, int var2, int var3, int var4) {
+      if (var0 == null) {
+         var0 = new StatBase[32000];
+      }
+
+      for(int var5 = var3; var5 < var4; ++var5) {
+         if (Item.field_176_c[var5] != null) {
+            String var6 = StatCollector.func_25135_a(var1, Item.field_176_c[var5].func_25006_i());
+            var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).func_27053_d();
+            if (var5 >= Block.field_542_n.length) {
+               field_25121_c.add((StatCrafting)var0[var5]);
+            }
+         }
+      }
+
+      func_25092_a(var0);
+      return var0;
+   }
+
+   private static StatBase[] func_25087_b(StatBase[] var0, String var1, int var2, int var3, int var4) {
+      if (var0 == null) {
+         var0 = new StatBase[32000];
+      }
+
+      for(int var5 = var3; var5 < var4; ++var5) {
+         if (Item.field_176_c[var5] != null && Item.field_176_c[var5].func_25005_e()) {
+            String var6 = StatCollector.func_25135_a(var1, Item.field_176_c[var5].func_25006_i());
+            var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).func_27053_d();
+         }
+      }
+
+      func_25092_a(var0);
+      return var0;
+   }
+
+   private static void func_25092_a(StatBase[] var0) {
+      func_25085_a(var0, Block.field_596_C.field_573_bc, Block.field_598_B.field_573_bc);
+      func_25085_a(var0, Block.field_592_E.field_573_bc, Block.field_592_E.field_573_bc);
+      func_25085_a(var0, Block.field_9035_bf.field_573_bc, Block.field_4052_bb.field_573_bc);
+      func_25085_a(var0, Block.field_641_aD.field_573_bc, Block.field_642_aC.field_573_bc);
+      func_25085_a(var0, Block.field_629_aP.field_573_bc, Block.field_630_aO.field_573_bc);
+      func_25085_a(var0, Block.field_22010_bi.field_573_bc, Block.field_22011_bh.field_573_bc);
+      func_25085_a(var0, Block.field_627_aR.field_573_bc, Block.field_628_aQ.field_573_bc);
+      func_25085_a(var0, Block.field_4069_ah.field_573_bc, Block.field_4070_ag.field_573_bc);
+      func_25085_a(var0, Block.field_608_ak.field_573_bc, Block.field_607_al.field_573_bc);
+      func_25085_a(var0, Block.field_534_v.field_573_bc, Block.field_533_w.field_573_bc);
+      func_25085_a(var0, Block.field_643_aB.field_573_bc, Block.field_533_w.field_573_bc);
+   }
+
+   private static void func_25085_a(StatBase[] var0, int var1, int var2) {
+      if (var0[var1] != null && var0[var2] == null) {
+         var0[var2] = var0[var1];
+      } else {
+         field_25123_a.remove(var0[var1]);
+         field_25120_d.remove(var0[var1]);
+         field_25122_b.remove(var0[var1]);
+         var0[var1] = var0[var2];
+      }
+   }
+
+   static {
+      AchievementList.func_27097_a();
+   }
+}
