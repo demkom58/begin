@@ -15,7 +15,7 @@ public class ItemRecord extends Item {
                 return true;
             } else {
                 ((BlockJukeBox) Block.jukebox).ejectRecord(var3, var4, var5, var6, this.shiftedIndex);
-                var3.func_28101_a((EntityPlayer) null, 1005, var4, var5, var6, this.shiftedIndex);
+                var3.func_28101_a(null, 1005, var4, var5, var6, this.shiftedIndex);
                 --var1.stackSize;
                 return true;
             }

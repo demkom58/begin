@@ -81,7 +81,7 @@ public class EntityItem extends Entity {
     }
 
     protected void dealFireDamage(int var1) {
-        this.attackEntityFrom((Entity) null, var1);
+        this.attackEntityFrom(null, var1);
     }
 
     public boolean attackEntityFrom(Entity var1, int var2) {

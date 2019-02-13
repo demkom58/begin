@@ -33,7 +33,7 @@ public class ContainerChest extends Container {
 
     public ItemStack func_27086_a(int var1) {
         ItemStack var2 = null;
-        Slot var3 = (Slot) this.inventorySlots.get(var1);
+        Slot var3 = this.inventorySlots.get(var1);
         if (var3 != null && var3.func_27006_b()) {
             ItemStack var4 = var3.getStack();
             var2 = var4.copy();
@@ -44,7 +44,7 @@ public class ContainerChest extends Container {
             }
 
             if (var4.stackSize == 0) {
-                var3.putStack((ItemStack) null);
+                var3.putStack(null);
             } else {
                 var3.onSlotChanged();
             }

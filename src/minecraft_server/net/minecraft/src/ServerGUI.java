@@ -30,14 +30,13 @@ public class ServerGUI extends JComponent implements ICommandListener {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception var3) {
-            ;
         }
 
         ServerGUI var1 = new ServerGUI(var0);
         JFrame var2 = new JFrame("Minecraft server");
         var2.add(var1);
         var2.pack();
-        var2.setLocationRelativeTo((Component) null);
+        var2.setLocationRelativeTo(null);
         var2.setVisible(true);
         var2.addWindowListener(new ServerWindowAdapter(var0));
     }

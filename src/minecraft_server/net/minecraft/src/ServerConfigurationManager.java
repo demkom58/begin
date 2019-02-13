@@ -114,7 +114,7 @@ public class ServerConfigurationManager {
                 return null;
             } else {
                 for (int var4 = 0; var4 < this.playerEntities.size(); ++var4) {
-                    EntityPlayerMP var5 = (EntityPlayerMP) this.playerEntities.get(var4);
+                    EntityPlayerMP var5 = this.playerEntities.get(var4);
                     if (var5.username.equalsIgnoreCase(var2)) {
                         var5.playerNetServerHandler.kickPlayer("You logged in from another location");
                     }
@@ -226,7 +226,7 @@ public class ServerConfigurationManager {
 
     public void sendPacketToAllPlayers(Packet var1) {
         for (int var2 = 0; var2 < this.playerEntities.size(); ++var2) {
-            EntityPlayerMP var3 = (EntityPlayerMP) this.playerEntities.get(var2);
+            EntityPlayerMP var3 = this.playerEntities.get(var2);
             var3.playerNetServerHandler.sendPacket(var1);
         }
 
@@ -234,7 +234,7 @@ public class ServerConfigurationManager {
 
     public void sendPacketToAllPlayersInDimension(Packet var1, int var2) {
         for (int var3 = 0; var3 < this.playerEntities.size(); ++var3) {
-            EntityPlayerMP var4 = (EntityPlayerMP) this.playerEntities.get(var3);
+            EntityPlayerMP var4 = this.playerEntities.get(var3);
             if (var4.dimension == var2) {
                 var4.playerNetServerHandler.sendPacket(var1);
             }
@@ -250,7 +250,7 @@ public class ServerConfigurationManager {
                 var1 = var1 + ", ";
             }
 
-            var1 = var1 + ((EntityPlayerMP) this.playerEntities.get(var2)).username;
+            var1 = var1 + this.playerEntities.get(var2).username;
         }
 
         return var1;
@@ -425,7 +425,7 @@ public class ServerConfigurationManager {
 
     public EntityPlayerMP getPlayerEntity(String var1) {
         for (int var2 = 0; var2 < this.playerEntities.size(); ++var2) {
-            EntityPlayerMP var3 = (EntityPlayerMP) this.playerEntities.get(var2);
+            EntityPlayerMP var3 = this.playerEntities.get(var2);
             if (var3.username.equalsIgnoreCase(var1)) {
                 return var3;
             }
@@ -443,12 +443,12 @@ public class ServerConfigurationManager {
     }
 
     public void sendPacketToPlayersAroundPoint(double var1, double var3, double var5, double var7, int var9, Packet var10) {
-        this.func_28171_a((EntityPlayer) null, var1, var3, var5, var7, var9, var10);
+        this.func_28171_a(null, var1, var3, var5, var7, var9, var10);
     }
 
     public void func_28171_a(EntityPlayer var1, double var2, double var4, double var6, double var8, int var10, Packet var11) {
         for (int var12 = 0; var12 < this.playerEntities.size(); ++var12) {
-            EntityPlayerMP var13 = (EntityPlayerMP) this.playerEntities.get(var12);
+            EntityPlayerMP var13 = this.playerEntities.get(var12);
             if (var13 != var1 && var13.dimension == var10) {
                 double var14 = var2 - var13.posX;
                 double var16 = var4 - var13.posY;
@@ -465,7 +465,7 @@ public class ServerConfigurationManager {
         Packet3Chat var2 = new Packet3Chat(var1);
 
         for (int var3 = 0; var3 < this.playerEntities.size(); ++var3) {
-            EntityPlayerMP var4 = (EntityPlayerMP) this.playerEntities.get(var3);
+            EntityPlayerMP var4 = this.playerEntities.get(var3);
             if (this.isOp(var4.username)) {
                 var4.playerNetServerHandler.sendPacket(var2);
             }
@@ -485,7 +485,7 @@ public class ServerConfigurationManager {
 
     public void savePlayerStates() {
         for (int var1 = 0; var1 < this.playerEntities.size(); ++var1) {
-            this.playerNBTManagerObj.writePlayerData((EntityPlayer) this.playerEntities.get(var1));
+            this.playerNBTManagerObj.writePlayerData(this.playerEntities.get(var1));
         }
 
     }

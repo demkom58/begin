@@ -125,7 +125,7 @@ public class CraftingManager {
         for (int var16 = 0; var16 < var5 * var6; ++var16) {
             char var10 = var3.charAt(var16);
             if (var12.containsKey(Character.valueOf(var10))) {
-                var14[var16] = ((ItemStack) var12.get(Character.valueOf(var10))).copy();
+                var14[var16] = var12.get(Character.valueOf(var10)).copy();
             } else {
                 var14[var16] = null;
             }
@@ -156,7 +156,7 @@ public class CraftingManager {
 
     public ItemStack findMatchingRecipe(InventoryCrafting var1) {
         for (int var2 = 0; var2 < this.recipes.size(); ++var2) {
-            IRecipe var3 = (IRecipe) this.recipes.get(var2);
+            IRecipe var3 = this.recipes.get(var2);
             if (var3.func_21134_a(var1)) {
                 return var3.func_21136_b(var1);
             }

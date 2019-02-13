@@ -32,7 +32,7 @@ public class ConsoleCommandHandler {
 
                 for (int var6 = 0; var6 < this.minecraftServer.worldMngr.length; ++var6) {
                     WorldServer var7 = this.minecraftServer.worldMngr[var6];
-                    var7.saveWorld(true, (IProgressUpdate) null);
+                    var7.saveWorld(true, null);
                 }
 
                 this.sendNoticeToOps(var4, "Save complete.");
@@ -85,7 +85,7 @@ public class ConsoleCommandHandler {
                 EntityPlayerMP var33 = null;
 
                 for (int var8 = 0; var8 < var5.playerEntities.size(); ++var8) {
-                    EntityPlayerMP var9 = (EntityPlayerMP) var5.playerEntities.get(var8);
+                    EntityPlayerMP var9 = var5.playerEntities.get(var8);
                     if (var9.username.equalsIgnoreCase(var25)) {
                         var33 = var9;
                     }

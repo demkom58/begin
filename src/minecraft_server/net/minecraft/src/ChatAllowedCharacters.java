@@ -2,6 +2,7 @@ package net.minecraft.src;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class ChatAllowedCharacters {
     public static final String allowedCharacters = getAllowedCharacters();
@@ -11,7 +12,7 @@ public class ChatAllowedCharacters {
         String var0 = "";
 
         try {
-            BufferedReader var1 = new BufferedReader(new InputStreamReader(ChatAllowedCharacters.class.getResourceAsStream("/font.txt"), "UTF-8"));
+            BufferedReader var1 = new BufferedReader(new InputStreamReader(ChatAllowedCharacters.class.getResourceAsStream("/font.txt"), StandardCharsets.UTF_8));
             String var2 = "";
 
             while ((var2 = var1.readLine()) != null) {
@@ -22,7 +23,6 @@ public class ChatAllowedCharacters {
 
             var1.close();
         } catch (Exception var3) {
-            ;
         }
 
         return var0;

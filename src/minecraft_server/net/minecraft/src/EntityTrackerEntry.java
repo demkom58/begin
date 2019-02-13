@@ -152,9 +152,7 @@ public class EntityTrackerEntry {
     }
 
     public void removeFromTrackedPlayers(EntityPlayerMP var1) {
-        if (this.trackedPlayers.contains(var1)) {
-            this.trackedPlayers.remove(var1);
-        }
+        this.trackedPlayers.remove(var1);
 
     }
 

@@ -13,7 +13,6 @@ public class WorldGenLakes extends WorldGenerator {
         var3 = var3 - 8;
 
         for (var5 = var5 - 8; var4 > 0 && var1.isAirBlock(var3, var4, var5); --var4) {
-            ;
         }
 
         var4 = var4 - 4;

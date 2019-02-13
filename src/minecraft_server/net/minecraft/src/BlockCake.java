@@ -74,7 +74,7 @@ public class BlockCake extends Block {
     }
 
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return !super.canPlaceBlockAt(var1, var2, var3, var4) ? false : this.canBlockStay(var1, var2, var3, var4);
+        return super.canPlaceBlockAt(var1, var2, var3, var4) && this.canBlockStay(var1, var2, var3, var4);
     }
 
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {

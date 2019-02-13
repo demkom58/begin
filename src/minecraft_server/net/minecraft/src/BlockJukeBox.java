@@ -33,7 +33,7 @@ public class BlockJukeBox extends BlockContainer {
             int var6 = var5.field_28009_a;
             if (var6 != 0) {
                 var1.func_28097_e(1005, var2, var3, var4, 0);
-                var1.playRecord((String) null, var2, var3, var4);
+                var1.playRecord(null, var2, var3, var4);
                 var5.field_28009_a = 0;
                 var5.onInventoryChanged();
                 var1.setBlockMetadataWithNotify(var2, var3, var4, 0);
