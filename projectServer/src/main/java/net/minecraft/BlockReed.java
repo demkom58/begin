@@ -11,44 +11,44 @@ public class BlockReed extends Block {
         this.setTickOnLoad(true);
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (var1.isAirBlock(var2, var3 + 1, var4)) {
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        if (world.isAirBlock(x, y + 1, z)) {
             int var6;
-            for (var6 = 1; var1.getBlockId(var2, var3 - var6, var4) == this.blockID; ++var6) {
+            for (var6 = 1; world.getBlockId(x, y - var6, z) == this.blockID; ++var6) {
             }
 
             if (var6 < 3) {
-                int var7 = var1.getBlockMetadata(var2, var3, var4);
+                int var7 = world.getBlockMetadata(x, y, z);
                 if (var7 == 15) {
-                    var1.setBlockWithNotify(var2, var3 + 1, var4, this.blockID);
-                    var1.setBlockMetadataWithNotify(var2, var3, var4, 0);
+                    world.setBlockWithNotify(x, y + 1, z, this.blockID);
+                    world.setBlockMetadataWithNotify(x, y, z, 0);
                 } else {
-                    var1.setBlockMetadataWithNotify(var2, var3, var4, var7 + 1);
+                    world.setBlockMetadataWithNotify(x, y, z, var7 + 1);
                 }
             }
         }
 
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockId(var2, var3 - 1, var4);
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
+        int var5 = world.getBlockId(var2, var3 - 1, var4);
         if (var5 == this.blockID) {
             return true;
         } else if (var5 != Block.grass.blockID && var5 != Block.dirt.blockID) {
             return false;
-        } else if (var1.getBlockMaterial(var2 - 1, var3 - 1, var4) == Material.water) {
+        } else if (world.getBlockMaterial(var2 - 1, var3 - 1, var4) == Material.water) {
             return true;
-        } else if (var1.getBlockMaterial(var2 + 1, var3 - 1, var4) == Material.water) {
+        } else if (world.getBlockMaterial(var2 + 1, var3 - 1, var4) == Material.water) {
             return true;
-        } else if (var1.getBlockMaterial(var2, var3 - 1, var4 - 1) == Material.water) {
+        } else if (world.getBlockMaterial(var2, var3 - 1, var4 - 1) == Material.water) {
             return true;
         } else {
-            return var1.getBlockMaterial(var2, var3 - 1, var4 + 1) == Material.water;
+            return world.getBlockMaterial(var2, var3 - 1, var4 + 1) == Material.water;
         }
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        this.checkBlockCoordValid(var1, var2, var3, var4);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        this.checkBlockCoordValid(world, var2, var3, var4);
     }
 
     protected final void checkBlockCoordValid(World var1, int var2, int var3, int var4) {
@@ -59,15 +59,15 @@ public class BlockReed extends Block {
 
     }
 
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        return this.canPlaceBlockAt(var1, var2, var3, var4);
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        return this.canPlaceBlockAt(world, x, y, z);
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Item.REEDS.shiftedIndex;
     }
 

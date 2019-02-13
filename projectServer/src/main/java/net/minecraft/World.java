@@ -211,15 +211,15 @@ public class World implements IBlockAccess {
         }
     }
 
-    public boolean setBlock(int var1, int var2, int var3, int var4) {
-        if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
-            if (var2 < 0) {
+    public boolean setBlock(int x, int y, int z, int id) {
+        if (x >= -32000000 && z >= -32000000 && x < 32000000 && z <= 32000000) {
+            if (y < 0) {
                 return false;
-            } else if (var2 >= 128) {
+            } else if (y >= 128) {
                 return false;
             } else {
-                Chunk var5 = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
-                return var5.setBlockID(var1 & 15, var2, var3 & 15, var4);
+                Chunk var5 = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+                return var5.setBlockID(x & 15, y, z & 15, id);
             }
         } else {
             return false;

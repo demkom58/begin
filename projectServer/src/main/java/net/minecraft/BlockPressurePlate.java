@@ -18,7 +18,7 @@ public class BlockPressurePlate extends Block {
         return 20;
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
@@ -30,38 +30,38 @@ public class BlockPressurePlate extends Block {
         return false;
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return var1.isBlockNormalCube(var2, var3 - 1, var4);
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
+        return world.isBlockNormalCube(var2, var3 - 1, var4);
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
+    public void onBlockAdded(World world, int x, int y, int z) {
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         boolean var6 = false;
-        if (!var1.isBlockNormalCube(var2, var3 - 1, var4)) {
+        if (!world.isBlockNormalCube(var2, var3 - 1, var4)) {
             var6 = true;
         }
 
         if (var6) {
-            this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+            this.dropBlockAsItem(world, var2, var3, var4, world.getBlockMetadata(var2, var3, var4));
+            world.setBlockWithNotify(var2, var3, var4, 0);
         }
 
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (!var1.singleplayerWorld) {
-            if (var1.getBlockMetadata(var2, var3, var4) != 0) {
-                this.setStateIfMobInteractsWithPlate(var1, var2, var3, var4);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        if (!world.singleplayerWorld) {
+            if (world.getBlockMetadata(x, y, z) != 0) {
+                this.setStateIfMobInteractsWithPlate(world, x, y, z);
             }
         }
     }
 
-    public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
-        if (!var1.singleplayerWorld) {
-            if (var1.getBlockMetadata(var2, var3, var4) != 1) {
-                this.setStateIfMobInteractsWithPlate(var1, var2, var3, var4);
+    public void onEntityCollidedWithBlock(World world, int var2, int var3, int var4, Entity entity) {
+        if (!world.singleplayerWorld) {
+            if (world.getBlockMetadata(var2, var3, var4) != 1) {
+                this.setStateIfMobInteractsWithPlate(world, var2, var3, var4);
             }
         }
     }
@@ -109,18 +109,18 @@ public class BlockPressurePlate extends Block {
 
     }
 
-    public void onBlockRemoval(World var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public void onBlockRemoval(World world, int x, int y, int z) {
+        int var5 = world.getBlockMetadata(x, y, z);
         if (var5 > 0) {
-            var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.blockID);
-            var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.blockID);
+            world.notifyBlocksOfNeighborChange(x, y, z, this.blockID);
+            world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
         }
 
-        super.onBlockRemoval(var1, var2, var3, var4);
+        super.onBlockRemoval(world, x, y, z);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        boolean var5 = var1.getBlockMetadata(var2, var3, var4) == 1;
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
+        boolean var5 = blockAccess.getBlockMetadata(var2, var3, var4) == 1;
         float var6 = 0.0625F;
         if (var5) {
             this.setBlockBounds(var6, 0.0F, var6, 1.0F - var6, 0.03125F, 1.0F - var6);
@@ -130,12 +130,12 @@ public class BlockPressurePlate extends Block {
 
     }
 
-    public boolean isPoweringTo(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        return var1.getBlockMetadata(var2, var3, var4) > 0;
+    public boolean isPoweringTo(IBlockAccess blockAccess, int var2, int var3, int var4, int var5) {
+        return blockAccess.getBlockMetadata(var2, var3, var4) > 0;
     }
 
-    public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
-        if (var1.getBlockMetadata(var2, var3, var4) == 0) {
+    public boolean isIndirectlyPoweringTo(World world, int var2, int var3, int var4, int var5) {
+        if (world.getBlockMetadata(var2, var3, var4) == 0) {
             return false;
         } else {
             return var5 == 1;

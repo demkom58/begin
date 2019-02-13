@@ -59,44 +59,44 @@ public class BlockBed extends Block {
         return null;
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (var1.singleplayerWorld) {
+    public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        if (world.singleplayerWorld) {
             return true;
         } else {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+            int var6 = world.getBlockMetadata(var2, var3, var4);
             if (!func_22020_d(var6)) {
                 int var7 = func_22019_c(var6);
                 var2 += field_22023_a[var7][0];
                 var4 += field_22023_a[var7][1];
-                if (var1.getBlockId(var2, var3, var4) != this.blockID) {
+                if (world.getBlockId(var2, var3, var4) != this.blockID) {
                     return true;
                 }
 
-                var6 = var1.getBlockMetadata(var2, var3, var4);
+                var6 = world.getBlockMetadata(var2, var3, var4);
             }
 
-            if (!var1.worldProvider.func_28108_d()) {
+            if (!world.worldProvider.func_28108_d()) {
                 double var18 = (double) var2 + 0.5D;
                 double var20 = (double) var3 + 0.5D;
                 double var11 = (double) var4 + 0.5D;
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+                world.setBlockWithNotify(var2, var3, var4, 0);
                 int var13 = func_22019_c(var6);
                 var2 = var2 + field_22023_a[var13][0];
                 var4 = var4 + field_22023_a[var13][1];
-                if (var1.getBlockId(var2, var3, var4) == this.blockID) {
-                    var1.setBlockWithNotify(var2, var3, var4, 0);
+                if (world.getBlockId(var2, var3, var4) == this.blockID) {
+                    world.setBlockWithNotify(var2, var3, var4, 0);
                     var18 = (var18 + (double) var2 + 0.5D) / 2.0D;
                     var20 = (var20 + (double) var3 + 0.5D) / 2.0D;
                     var11 = (var11 + (double) var4 + 0.5D) / 2.0D;
                 }
 
-                var1.newExplosion(null, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), 5.0F, true);
+                world.newExplosion(null, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), 5.0F, true);
                 return true;
             } else {
                 if (func_22018_f(var6)) {
                     EntityPlayer var16 = null;
 
-                    for (EntityPlayer var9 : var1.playerEntities) {
+                    for (EntityPlayer var9 : world.playerEntities) {
                         if (var9.func_22057_E()) {
                             ChunkCoordinates var10 = var9.playerLocation;
                             if (var10.posX == var2 && var10.posY == var3 && var10.posZ == var4) {
@@ -106,20 +106,20 @@ public class BlockBed extends Block {
                     }
 
                     if (var16 != null) {
-                        var5.func_22061_a("tile.bed.occupied");
+                        entityPlayer.func_22061_a("tile.bed.occupied");
                         return true;
                     }
 
-                    func_22022_a(var1, var2, var3, var4, false);
+                    func_22022_a(world, var2, var3, var4, false);
                 }
 
-                EnumStatus var17 = var5.goToSleep(var2, var3, var4);
+                EnumStatus var17 = entityPlayer.goToSleep(var2, var3, var4);
                 if (var17 == EnumStatus.OK) {
-                    func_22022_a(var1, var2, var3, var4, true);
+                    func_22022_a(world, var2, var3, var4, true);
                     return true;
                 } else {
                     if (var17 == EnumStatus.NOT_POSSIBLE_NOW) {
-                        var5.func_22061_a("tile.bed.noSleep");
+                        entityPlayer.func_22061_a("tile.bed.noSleep");
                     }
 
                     return true;
@@ -156,27 +156,27 @@ public class BlockBed extends Block {
         return false;
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         this.setBounds();
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        int var6 = world.getBlockMetadata(var2, var3, var4);
         int var7 = func_22019_c(var6);
         if (func_22020_d(var6)) {
-            if (var1.getBlockId(var2 - field_22023_a[var7][0], var3, var4 - field_22023_a[var7][1]) != this.blockID) {
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+            if (world.getBlockId(var2 - field_22023_a[var7][0], var3, var4 - field_22023_a[var7][1]) != this.blockID) {
+                world.setBlockWithNotify(var2, var3, var4, 0);
             }
-        } else if (var1.getBlockId(var2 + field_22023_a[var7][0], var3, var4 + field_22023_a[var7][1]) != this.blockID) {
-            var1.setBlockWithNotify(var2, var3, var4, 0);
-            if (!var1.singleplayerWorld) {
-                this.dropBlockAsItem(var1, var2, var3, var4, var6);
+        } else if (world.getBlockId(var2 + field_22023_a[var7][0], var3, var4 + field_22023_a[var7][1]) != this.blockID) {
+            world.setBlockWithNotify(var2, var3, var4, 0);
+            if (!world.singleplayerWorld) {
+                this.dropBlockAsItem(world, var2, var3, var4, var6);
             }
         }
 
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return func_22020_d(var1) ? 0 : Item.BED.shiftedIndex;
     }
 
@@ -184,9 +184,9 @@ public class BlockBed extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
     }
 
-    public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float chance) {
         if (!func_22020_d(var5)) {
-            super.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, var6);
+            super.dropBlockAsItemWithChance(world, x, y, z, var5, chance);
         }
 
     }

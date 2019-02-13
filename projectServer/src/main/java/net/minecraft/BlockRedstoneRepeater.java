@@ -19,24 +19,24 @@ public class BlockRedstoneRepeater extends Block {
         return false;
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return var1.isBlockNormalCube(var2, var3 - 1, var4) && super.canPlaceBlockAt(var1, var2, var3, var4);
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
+        return world.isBlockNormalCube(var2, var3 - 1, var4) && super.canPlaceBlockAt(world, var2, var3, var4);
     }
 
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        return var1.isBlockNormalCube(var2, var3 - 1, var4) && super.canBlockStay(var1, var2, var3, var4);
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        return world.isBlockNormalCube(x, y - 1, z) && super.canBlockStay(world, x, y, z);
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
-        boolean var7 = this.func_22012_g(var1, var2, var3, var4, var6);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        int var6 = world.getBlockMetadata(x, y, z);
+        boolean var7 = this.func_22012_g(world, x, y, z, var6);
         if (this.field_22015_c && !var7) {
-            var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.redstoneRepeaterIdle.blockID, var6);
+            world.setBlockAndMetadataWithNotify(x, y, z, Block.redstoneRepeaterIdle.blockID, var6);
         } else if (!this.field_22015_c) {
-            var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.redstoneRepeaterActive.blockID, var6);
+            world.setBlockAndMetadataWithNotify(x, y, z, Block.redstoneRepeaterActive.blockID, var6);
             if (!var7) {
                 int var8 = (var6 & 12) >> 2;
-                var1.scheduleUpdateTick(var2, var3, var4, Block.redstoneRepeaterActive.blockID, field_22013_b[var8] * 2);
+                world.scheduleUpdateTick(x, y, z, Block.redstoneRepeaterActive.blockID, field_22013_b[var8] * 2);
             }
         }
 
@@ -56,15 +56,15 @@ public class BlockRedstoneRepeater extends Block {
         return this.getBlockTextureFromSideAndMetadata(var1, 0);
     }
 
-    public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
-        return this.isPoweringTo(var1, var2, var3, var4, var5);
+    public boolean isIndirectlyPoweringTo(World world, int var2, int var3, int var4, int var5) {
+        return this.isPoweringTo(world, var2, var3, var4, var5);
     }
 
-    public boolean isPoweringTo(IBlockAccess var1, int var2, int var3, int var4, int var5) {
+    public boolean isPoweringTo(IBlockAccess blockAccess, int var2, int var3, int var4, int var5) {
         if (!this.field_22015_c) {
             return false;
         } else {
-            int var6 = var1.getBlockMetadata(var2, var3, var4) & 3;
+            int var6 = blockAccess.getBlockMetadata(var2, var3, var4) & 3;
             if (var6 == 0 && var5 == 3) {
                 return true;
             } else if (var6 == 1 && var5 == 4) {
@@ -77,18 +77,18 @@ public class BlockRedstoneRepeater extends Block {
         }
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!this.canBlockStay(var1, var2, var3, var4)) {
-            this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        if (!this.canBlockStay(world, var2, var3, var4)) {
+            this.dropBlockAsItem(world, var2, var3, var4, world.getBlockMetadata(var2, var3, var4));
+            world.setBlockWithNotify(var2, var3, var4, 0);
         } else {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
-            boolean var7 = this.func_22012_g(var1, var2, var3, var4, var6);
+            int var6 = world.getBlockMetadata(var2, var3, var4);
+            boolean var7 = this.func_22012_g(world, var2, var3, var4, var6);
             int var8 = (var6 & 12) >> 2;
             if (this.field_22015_c && !var7) {
-                var1.scheduleUpdateTick(var2, var3, var4, this.blockID, field_22013_b[var8] * 2);
+                world.scheduleUpdateTick(var2, var3, var4, this.blockID, field_22013_b[var8] * 2);
             } else if (!this.field_22015_c && var7) {
-                var1.scheduleUpdateTick(var2, var3, var4, this.blockID, field_22013_b[var8] * 2);
+                world.scheduleUpdateTick(var2, var3, var4, this.blockID, field_22013_b[var8] * 2);
             }
 
         }
@@ -110,11 +110,11 @@ public class BlockRedstoneRepeater extends Block {
         }
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        int var6 = world.getBlockMetadata(var2, var3, var4);
         int var7 = (var6 & 12) >> 2;
         var7 = var7 + 1 << 2 & 12;
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var7 | var6 & 3);
+        world.setBlockMetadataWithNotify(var2, var3, var4, var7 | var6 & 3);
         return true;
     }
 
@@ -122,30 +122,30 @@ public class BlockRedstoneRepeater extends Block {
         return false;
     }
 
-    public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
-        int var6 = ((MathHelper.floor_double((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
-        boolean var7 = this.func_22012_g(var1, var2, var3, var4, var6);
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving) {
+        int var6 = ((MathHelper.floor_double((double) (entityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
+        world.setBlockMetadataWithNotify(x, y, z, var6);
+        boolean var7 = this.func_22012_g(world, x, y, z, var6);
         if (var7) {
-            var1.scheduleUpdateTick(var2, var3, var4, this.blockID, 1);
+            world.scheduleUpdateTick(x, y, z, this.blockID, 1);
         }
 
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, this.blockID);
-        var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, this.blockID);
-        var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, this.blockID);
-        var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, this.blockID);
-        var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.blockID);
-        var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.blockID);
+    public void onBlockAdded(World world, int x, int y, int z) {
+        world.notifyBlocksOfNeighborChange(x + 1, y, z, this.blockID);
+        world.notifyBlocksOfNeighborChange(x - 1, y, z, this.blockID);
+        world.notifyBlocksOfNeighborChange(x, y, z + 1, this.blockID);
+        world.notifyBlocksOfNeighborChange(x, y, z - 1, this.blockID);
+        world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
+        world.notifyBlocksOfNeighborChange(x, y + 1, z, this.blockID);
     }
 
     public boolean isOpaqueCube() {
         return false;
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Item.REDSTONE_REPEATER.shiftedIndex;
     }
 }

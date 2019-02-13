@@ -19,7 +19,7 @@ public class BlockTallGrass extends BlockFlower {
         }
     }
 
-    public int idDropped(int var1, Random var2) {
-        return var2.nextInt(8) == 0 ? Item.SEEDS.shiftedIndex : -1;
+    public int idDropped(int var1, Random random) {
+        return random.nextInt(8) == 0 ? Item.SEEDS.shiftedIndex : -1;
     }
 }

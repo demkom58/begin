@@ -18,11 +18,11 @@ public class BlockLockedChest extends Block {
         }
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return true;
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        world.setBlockWithNotify(x, y, z, 0);
     }
 }

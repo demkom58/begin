@@ -31,7 +31,7 @@ public class BlockRail extends Block {
         return this.field_27034_a;
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
@@ -39,13 +39,13 @@ public class BlockRail extends Block {
         return false;
     }
 
-    public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
-        this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-        return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+    public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
+        this.setBlockBoundsBasedOnState(world, var2, var3, var4);
+        return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
+        int var5 = blockAccess.getBlockMetadata(var2, var3, var4);
         if (var5 >= 2 && var5 <= 5) {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.625F, 1.0F);
         } else {
@@ -70,73 +70,73 @@ public class BlockRail extends Block {
         return false;
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 1;
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return var1.isBlockNormalCube(var2, var3 - 1, var4);
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
+        return world.isBlockNormalCube(var2, var3 - 1, var4);
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        if (!var1.singleplayerWorld) {
-            this.func_4038_g(var1, var2, var3, var4, true);
+    public void onBlockAdded(World world, int x, int y, int z) {
+        if (!world.singleplayerWorld) {
+            this.func_4038_g(world, x, y, z, true);
         }
 
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!var1.singleplayerWorld) {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        if (!world.singleplayerWorld) {
+            int var6 = world.getBlockMetadata(var2, var3, var4);
             int var7 = var6;
             if (this.field_27034_a) {
                 var7 = var6 & 7;
             }
 
             boolean var8 = false;
-            if (!var1.isBlockNormalCube(var2, var3 - 1, var4)) {
+            if (!world.isBlockNormalCube(var2, var3 - 1, var4)) {
                 var8 = true;
             }
 
-            if (var7 == 2 && !var1.isBlockNormalCube(var2 + 1, var3, var4)) {
+            if (var7 == 2 && !world.isBlockNormalCube(var2 + 1, var3, var4)) {
                 var8 = true;
             }
 
-            if (var7 == 3 && !var1.isBlockNormalCube(var2 - 1, var3, var4)) {
+            if (var7 == 3 && !world.isBlockNormalCube(var2 - 1, var3, var4)) {
                 var8 = true;
             }
 
-            if (var7 == 4 && !var1.isBlockNormalCube(var2, var3, var4 - 1)) {
+            if (var7 == 4 && !world.isBlockNormalCube(var2, var3, var4 - 1)) {
                 var8 = true;
             }
 
-            if (var7 == 5 && !var1.isBlockNormalCube(var2, var3, var4 + 1)) {
+            if (var7 == 5 && !world.isBlockNormalCube(var2, var3, var4 + 1)) {
                 var8 = true;
             }
 
             if (var8) {
-                this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+                this.dropBlockAsItem(world, var2, var3, var4, world.getBlockMetadata(var2, var3, var4));
+                world.setBlockWithNotify(var2, var3, var4, 0);
             } else if (this.blockID == Block.railPowered.blockID) {
-                boolean var9 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4) || var1.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
-                var9 = var9 || this.func_27032_a(var1, var2, var3, var4, var6, true, 0) || this.func_27032_a(var1, var2, var3, var4, var6, false, 0);
+                boolean var9 = world.isBlockIndirectlyGettingPowered(var2, var3, var4) || world.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
+                var9 = var9 || this.func_27032_a(world, var2, var3, var4, var6, true, 0) || this.func_27032_a(world, var2, var3, var4, var6, false, 0);
                 boolean var10 = false;
                 if (var9 && (var6 & 8) == 0) {
-                    var1.setBlockMetadataWithNotify(var2, var3, var4, var7 | 8);
+                    world.setBlockMetadataWithNotify(var2, var3, var4, var7 | 8);
                     var10 = true;
                 } else if (!var9 && (var6 & 8) != 0) {
-                    var1.setBlockMetadataWithNotify(var2, var3, var4, var7);
+                    world.setBlockMetadataWithNotify(var2, var3, var4, var7);
                     var10 = true;
                 }
 
                 if (var10) {
-                    var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.blockID);
+                    world.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.blockID);
                     if (var7 == 2 || var7 == 3 || var7 == 4 || var7 == 5) {
-                        var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.blockID);
+                        world.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.blockID);
                     }
                 }
-            } else if (var5 > 0 && Block.blocksList[var5].canProvidePower() && !this.field_27034_a && RailLogic.getNAdjacentTracks(new RailLogic(this, var1, var2, var3, var4)) == 3) {
-                this.func_4038_g(var1, var2, var3, var4, false);
+            } else if (var5 > 0 && Block.blocksList[var5].canProvidePower() && !this.field_27034_a && RailLogic.getNAdjacentTracks(new RailLogic(this, world, var2, var3, var4)) == 3) {
+                this.func_4038_g(world, var2, var3, var4, false);
             }
 
         }

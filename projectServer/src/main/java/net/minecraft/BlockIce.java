@@ -9,23 +9,23 @@ public class BlockIce extends BlockBreakable {
         this.setTickOnLoad(true);
     }
 
-    public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
-        super.harvestBlock(var1, var2, var3, var4, var5, var6);
-        Material var7 = var1.getBlockMaterial(var3, var4 - 1, var5);
+    public void harvestBlock(World world, EntityPlayer entityPlayer, int var3, int var4, int var5, int var6) {
+        super.harvestBlock(world, entityPlayer, var3, var4, var5, var6);
+        Material var7 = world.getBlockMaterial(var3, var4 - 1, var5);
         if (var7.getIsSolid() || var7.getIsLiquid()) {
-            var1.setBlockWithNotify(var3, var4, var5, Block.waterMoving.blockID);
+            world.setBlockWithNotify(var3, var4, var5, Block.waterMoving.blockID);
         }
 
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 0;
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (var1.getSavedLightValue(EnumSkyBlock.BLOCK, var2, var3, var4) > 11 - Block.lightOpacity[this.blockID]) {
-            this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-            var1.setBlockWithNotify(var2, var3, var4, Block.waterStill.blockID);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        if (world.getSavedLightValue(EnumSkyBlock.BLOCK, x, y, z) > 11 - Block.lightOpacity[this.blockID]) {
+            this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
+            world.setBlockWithNotify(x, y, z, Block.waterStill.blockID);
         }
 
     }

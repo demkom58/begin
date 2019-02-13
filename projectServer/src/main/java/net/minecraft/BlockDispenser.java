@@ -16,13 +16,13 @@ public class BlockDispenser extends BlockContainer {
         return 4;
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Block.dispenser.blockID;
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        super.onBlockAdded(var1, var2, var3, var4);
-        this.setDispenserDefaultDirection(var1, var2, var3, var4);
+    public void onBlockAdded(World world, int x, int y, int z) {
+        super.onBlockAdded(world, x, y, z);
+        this.setDispenserDefaultDirection(world, x, y, z);
     }
 
     private void setDispenserDefaultDirection(World var1, int var2, int var3, int var4) {
@@ -62,12 +62,12 @@ public class BlockDispenser extends BlockContainer {
         }
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (var1.singleplayerWorld) {
+    public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        if (world.singleplayerWorld) {
             return true;
         } else {
-            TileEntityDispenser var6 = (TileEntityDispenser) var1.getBlockTileEntity(var2, var3, var4);
-            var5.displayGUIDispenser(var6);
+            TileEntityDispenser var6 = (TileEntityDispenser) world.getBlockTileEntity(var2, var3, var4);
+            entityPlayer.displayGUIDispenser(var6);
             return true;
         }
     }
@@ -128,19 +128,19 @@ public class BlockDispenser extends BlockContainer {
 
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (var5 > 0 && Block.blocksList[var5].canProvidePower()) {
-            boolean var6 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4) || var1.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
+            boolean var6 = world.isBlockIndirectlyGettingPowered(var2, var3, var4) || world.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
             if (var6) {
-                var1.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
+                world.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
             }
         }
 
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (var1.isBlockIndirectlyGettingPowered(var2, var3, var4) || var1.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4)) {
-            this.dispenseItem(var1, var2, var3, var4, var5);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        if (world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z)) {
+            this.dispenseItem(world, x, y, z, random);
         }
 
     }
@@ -149,28 +149,28 @@ public class BlockDispenser extends BlockContainer {
         return new TileEntityDispenser();
     }
 
-    public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
-        int var6 = MathHelper.floor_double((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving) {
+        int var6 = MathHelper.floor_double((double) (entityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         if (var6 == 0) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 2);
+            world.setBlockMetadataWithNotify(x, y, z, 2);
         }
 
         if (var6 == 1) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 5);
+            world.setBlockMetadataWithNotify(x, y, z, 5);
         }
 
         if (var6 == 2) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 3);
+            world.setBlockMetadataWithNotify(x, y, z, 3);
         }
 
         if (var6 == 3) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 4);
+            world.setBlockMetadataWithNotify(x, y, z, 4);
         }
 
     }
 
-    public void onBlockRemoval(World var1, int var2, int var3, int var4) {
-        TileEntityDispenser var5 = (TileEntityDispenser) var1.getBlockTileEntity(var2, var3, var4);
+    public void onBlockRemoval(World world, int x, int y, int z) {
+        TileEntityDispenser var5 = (TileEntityDispenser) world.getBlockTileEntity(x, y, z);
 
         for (int var6 = 0; var6 < var5.getSizeInventory(); ++var6) {
             ItemStack var7 = var5.getStackInSlot(var6);
@@ -186,16 +186,16 @@ public class BlockDispenser extends BlockContainer {
                     }
 
                     var7.stackSize -= var11;
-                    EntityItem var12 = new EntityItem(var1, (double) ((float) var2 + var8), (double) ((float) var3 + var9), (double) ((float) var4 + var10), new ItemStack(var7.itemID, var11, var7.getItemDamage()));
+                    EntityItem var12 = new EntityItem(world, (double) ((float) x + var8), (double) ((float) y + var9), (double) ((float) z + var10), new ItemStack(var7.itemID, var11, var7.getItemDamage()));
                     float var13 = 0.05F;
                     var12.motionX = (double) ((float) this.field_28032_a.nextGaussian() * var13);
                     var12.motionY = (double) ((float) this.field_28032_a.nextGaussian() * var13 + 0.2F);
                     var12.motionZ = (double) ((float) this.field_28032_a.nextGaussian() * var13);
-                    var1.entityJoinedWorld(var12);
+                    world.entityJoinedWorld(var12);
                 }
             }
         }
 
-        super.onBlockRemoval(var1, var2, var3, var4);
+        super.onBlockRemoval(world, x, y, z);
     }
 }

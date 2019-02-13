@@ -9,15 +9,15 @@ public class BlockSapling extends BlockFlower {
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, var3 * 2.0F, 0.5F + var3);
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (!var1.singleplayerWorld) {
-            super.updateTick(var1, var2, var3, var4, var5);
-            if (var1.getBlockLightValue(var2, var3 + 1, var4) >= 9 && var5.nextInt(30) == 0) {
-                int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        if (!world.singleplayerWorld) {
+            super.updateTick(world, x, y, z, random);
+            if (world.getBlockLightValue(x, y + 1, z) >= 9 && random.nextInt(30) == 0) {
+                int var6 = world.getBlockMetadata(x, y, z);
                 if ((var6 & 8) == 0) {
-                    var1.setBlockMetadataWithNotify(var2, var3, var4, var6 | 8);
+                    world.setBlockMetadataWithNotify(x, y, z, var6 | 8);
                 } else {
-                    this.growTree(var1, var2, var3, var4, var5);
+                    this.growTree(world, x, y, z, random);
                 }
             }
 

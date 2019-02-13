@@ -8,20 +8,20 @@ public class BlockCake extends Block {
         this.setTickOnLoad(true);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
+        int var5 = blockAccess.getBlockMetadata(var2, var3, var4);
         float var6 = 0.0625F;
         float var7 = (float) (1 + var5 * 2) / 16.0F;
         float var8 = 0.5F;
         this.setBlockBounds(var7, 0.0F, var6, 1.0F - var6, var8, 1.0F - var6);
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+        int var5 = world.getBlockMetadata(x, y, z);
         float var6 = 0.0625F;
         float var7 = (float) (1 + var5 * 2) / 16.0F;
         float var8 = 0.5F;
-        return AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var7), (double) var3, (double) ((float) var4 + var6), (double) ((float) (var2 + 1) - var6), (double) ((float) var3 + var8 - var6), (double) ((float) (var4 + 1) - var6));
+        return AxisAlignedBB.getBoundingBoxFromPool((double) ((float) x + var7), (double) y, (double) ((float) z + var6), (double) ((float) (x + 1) - var6), (double) ((float) y + var8 - var6), (double) ((float) (z + 1) - var6));
     }
 
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
@@ -50,13 +50,13 @@ public class BlockCake extends Block {
         return false;
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        this.eatCakeSlice(var1, var2, var3, var4, var5);
+    public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        this.eatCakeSlice(world, var2, var3, var4, entityPlayer);
         return true;
     }
 
-    public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        this.eatCakeSlice(var1, var2, var3, var4, var5);
+    public void onBlockClicked(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        this.eatCakeSlice(world, var2, var3, var4, entityPlayer);
     }
 
     private void eatCakeSlice(World var1, int var2, int var3, int var4, EntityPlayer var5) {
@@ -73,27 +73,27 @@ public class BlockCake extends Block {
 
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return super.canPlaceBlockAt(var1, var2, var3, var4) && this.canBlockStay(var1, var2, var3, var4);
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
+        return super.canPlaceBlockAt(world, var2, var3, var4) && this.canBlockStay(world, var2, var3, var4);
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!this.canBlockStay(var1, var2, var3, var4)) {
-            this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        if (!this.canBlockStay(world, var2, var3, var4)) {
+            this.dropBlockAsItem(world, var2, var3, var4, world.getBlockMetadata(var2, var3, var4));
+            world.setBlockWithNotify(var2, var3, var4, 0);
         }
 
     }
 
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        return var1.getBlockMaterial(var2, var3 - 1, var4).isSolid();
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        return world.getBlockMaterial(x, y - 1, z).isSolid();
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 0;
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return 0;
     }
 }

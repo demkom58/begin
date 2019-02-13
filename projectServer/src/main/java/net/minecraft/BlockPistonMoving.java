@@ -16,24 +16,24 @@ public class BlockPistonMoving extends BlockContainer {
         return null;
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
+    public void onBlockAdded(World world, int x, int y, int z) {
     }
 
-    public void onBlockRemoval(World var1, int var2, int var3, int var4) {
-        TileEntity var5 = var1.getBlockTileEntity(var2, var3, var4);
+    public void onBlockRemoval(World world, int x, int y, int z) {
+        TileEntity var5 = world.getBlockTileEntity(x, y, z);
         if (var5 != null && var5 instanceof TileEntityPiston) {
             ((TileEntityPiston) var5).clearPistonTileEntity();
         } else {
-            super.onBlockRemoval(var1, var2, var3, var4);
+            super.onBlockRemoval(world, x, y, z);
         }
 
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return false;
     }
 
-    public boolean canPlaceBlockOnSide(World var1, int var2, int var3, int var4, int var5) {
+    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int var5) {
         return false;
     }
 
@@ -45,36 +45,36 @@ public class BlockPistonMoving extends BlockContainer {
         return false;
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (!var1.singleplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        if (!world.singleplayerWorld && world.getBlockTileEntity(var2, var3, var4) == null) {
+            world.setBlockWithNotify(var2, var3, var4, 0);
             return true;
         } else {
             return false;
         }
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return 0;
     }
 
-    public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
-        if (!var1.singleplayerWorld) {
-            TileEntityPiston var7 = this.getTileEntityAtLocation(var1, var2, var3, var4);
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float chance) {
+        if (!world.singleplayerWorld) {
+            TileEntityPiston var7 = this.getTileEntityAtLocation(world, x, y, z);
             if (var7 != null) {
-                Block.blocksList[var7.getStoredBlockID()].dropBlockAsItem(var1, var2, var3, var4, var7.func_31005_e());
+                Block.blocksList[var7.getStoredBlockID()].dropBlockAsItem(world, x, y, z, var7.func_31005_e());
             }
         }
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!var1.singleplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        if (!world.singleplayerWorld && world.getBlockTileEntity(var2, var3, var4) == null) {
         }
 
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-        TileEntityPiston var5 = this.getTileEntityAtLocation(var1, var2, var3, var4);
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+        TileEntityPiston var5 = this.getTileEntityAtLocation(world, x, y, z);
         if (var5 == null) {
             return null;
         } else {
@@ -83,19 +83,19 @@ public class BlockPistonMoving extends BlockContainer {
                 var6 = 1.0F - var6;
             }
 
-            return this.func_31032_a(var1, var2, var3, var4, var5.getStoredBlockID(), var6, var5.func_31008_d());
+            return this.func_31032_a(world, x, y, z, var5.getStoredBlockID(), var6, var5.func_31008_d());
         }
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        TileEntityPiston var5 = this.getTileEntityAtLocation(var1, var2, var3, var4);
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
+        TileEntityPiston var5 = this.getTileEntityAtLocation(blockAccess, var2, var3, var4);
         if (var5 != null) {
             Block var6 = Block.blocksList[var5.getStoredBlockID()];
             if (var6 == null || var6 == this) {
                 return;
             }
 
-            var6.setBlockBoundsBasedOnState(var1, var2, var3, var4);
+            var6.setBlockBoundsBasedOnState(blockAccess, var2, var3, var4);
             float var7 = var5.func_31007_a(0.0F);
             if (var5.func_31010_c()) {
                 var7 = 1.0F - var7;

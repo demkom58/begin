@@ -55,26 +55,26 @@ public abstract class BlockFluid extends Block {
         return var2 && var1 == 0;
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        Material var6 = var1.getBlockMaterial(var2, var3, var4);
+    public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int var5) {
+        Material var6 = blockAccess.getBlockMaterial(x, y, z);
         if (var6 == this.blockMaterial) {
             return false;
         } else if (var6 == Material.ice) {
             return false;
         } else {
-            return var5 == 1 || super.shouldSideBeRendered(var1, var2, var3, var4, var5);
+            return var5 == 1 || super.shouldSideBeRendered(blockAccess, x, y, z, var5);
         }
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return 0;
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 0;
     }
 
@@ -159,11 +159,11 @@ public abstract class BlockFluid extends Block {
         return var5;
     }
 
-    public void velocityToAddToEntity(World var1, int var2, int var3, int var4, Entity var5, Vec3D var6) {
-        Vec3D var7 = this.func_298_c(var1, var2, var3, var4);
-        var6.xCoord += var7.xCoord;
-        var6.yCoord += var7.yCoord;
-        var6.zCoord += var7.zCoord;
+    public void velocityToAddToEntity(World world, int var2, int var3, int var4, Entity entity, Vec3D vec) {
+        Vec3D var7 = this.func_298_c(world, var2, var3, var4);
+        vec.xCoord += var7.xCoord;
+        vec.yCoord += var7.yCoord;
+        vec.zCoord += var7.zCoord;
     }
 
     public int tickRate() {
@@ -174,16 +174,16 @@ public abstract class BlockFluid extends Block {
         }
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        super.updateTick(var1, var2, var3, var4, var5);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        super.updateTick(world, x, y, z, random);
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        this.checkForHarden(var1, var2, var3, var4);
+    public void onBlockAdded(World world, int x, int y, int z) {
+        this.checkForHarden(world, x, y, z);
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        this.checkForHarden(var1, var2, var3, var4);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        this.checkForHarden(world, var2, var3, var4);
     }
 
     private void checkForHarden(World var1, int var2, int var3, int var4) {

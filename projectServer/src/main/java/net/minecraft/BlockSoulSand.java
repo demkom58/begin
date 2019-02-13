@@ -5,13 +5,13 @@ public class BlockSoulSand extends Block {
         super(var1, var2, Material.sand);
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         float var5 = 0.125F;
-        return AxisAlignedBB.getBoundingBoxFromPool((double) var2, (double) var3, (double) var4, (double) (var2 + 1), (double) ((float) (var3 + 1) - var5), (double) (var4 + 1));
+        return AxisAlignedBB.getBoundingBoxFromPool((double) x, (double) y, (double) z, (double) (x + 1), (double) ((float) (y + 1) - var5), (double) (z + 1));
     }
 
-    public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
-        var5.motionX *= 0.4D;
-        var5.motionZ *= 0.4D;
+    public void onEntityCollidedWithBlock(World world, int var2, int var3, int var4, Entity entity) {
+        entity.motionX *= 0.4D;
+        entity.motionZ *= 0.4D;
     }
 }

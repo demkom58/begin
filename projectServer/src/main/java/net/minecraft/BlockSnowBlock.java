@@ -8,18 +8,18 @@ public class BlockSnowBlock extends Block {
         this.setTickOnLoad(true);
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Item.SNOWBALL.shiftedIndex;
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 4;
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (var1.getSavedLightValue(EnumSkyBlock.BLOCK, var2, var3, var4) > 11) {
-            this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        if (world.getSavedLightValue(EnumSkyBlock.BLOCK, x, y, z) > 11) {
+            this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
+            world.setBlockWithNotify(x, y, z, 0);
         }
 
     }

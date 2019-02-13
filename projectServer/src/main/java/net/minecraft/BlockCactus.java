@@ -8,28 +8,28 @@ public class BlockCactus extends Block {
         this.setTickOnLoad(true);
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (var1.isAirBlock(var2, var3 + 1, var4)) {
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        if (world.isAirBlock(x, y + 1, z)) {
             int var6;
-            for (var6 = 1; var1.getBlockId(var2, var3 - var6, var4) == this.blockID; ++var6) {
+            for (var6 = 1; world.getBlockId(x, y - var6, z) == this.blockID; ++var6) {
             }
 
             if (var6 < 3) {
-                int var7 = var1.getBlockMetadata(var2, var3, var4);
+                int var7 = world.getBlockMetadata(x, y, z);
                 if (var7 == 15) {
-                    var1.setBlockWithNotify(var2, var3 + 1, var4, this.blockID);
-                    var1.setBlockMetadataWithNotify(var2, var3, var4, 0);
+                    world.setBlockWithNotify(x, y + 1, z, this.blockID);
+                    world.setBlockMetadataWithNotify(x, y, z, 0);
                 } else {
-                    var1.setBlockMetadataWithNotify(var2, var3, var4, var7 + 1);
+                    world.setBlockMetadataWithNotify(x, y, z, var7 + 1);
                 }
             }
         }
 
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         float var5 = 0.0625F;
-        return AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var5), (double) var3, (double) ((float) var4 + var5), (double) ((float) (var2 + 1) - var5), (double) ((float) (var3 + 1) - var5), (double) ((float) (var4 + 1) - var5));
+        return AxisAlignedBB.getBoundingBoxFromPool((double) ((float) x + var5), (double) y, (double) ((float) z + var5), (double) ((float) (x + 1) - var5), (double) ((float) (y + 1) - var5), (double) ((float) (z + 1) - var5));
     }
 
     public int getBlockTextureFromSide(int var1) {
@@ -48,34 +48,34 @@ public class BlockCactus extends Block {
         return false;
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return super.canPlaceBlockAt(var1, var2, var3, var4) && this.canBlockStay(var1, var2, var3, var4);
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
+        return super.canPlaceBlockAt(world, var2, var3, var4) && this.canBlockStay(world, var2, var3, var4);
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!this.canBlockStay(var1, var2, var3, var4)) {
-            this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        if (!this.canBlockStay(world, var2, var3, var4)) {
+            this.dropBlockAsItem(world, var2, var3, var4, world.getBlockMetadata(var2, var3, var4));
+            world.setBlockWithNotify(var2, var3, var4, 0);
         }
 
     }
 
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        if (var1.getBlockMaterial(var2 - 1, var3, var4).isSolid()) {
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        if (world.getBlockMaterial(x - 1, y, z).isSolid()) {
             return false;
-        } else if (var1.getBlockMaterial(var2 + 1, var3, var4).isSolid()) {
+        } else if (world.getBlockMaterial(x + 1, y, z).isSolid()) {
             return false;
-        } else if (var1.getBlockMaterial(var2, var3, var4 - 1).isSolid()) {
+        } else if (world.getBlockMaterial(x, y, z - 1).isSolid()) {
             return false;
-        } else if (var1.getBlockMaterial(var2, var3, var4 + 1).isSolid()) {
+        } else if (world.getBlockMaterial(x, y, z + 1).isSolid()) {
             return false;
         } else {
-            int var5 = var1.getBlockId(var2, var3 - 1, var4);
+            int var5 = world.getBlockId(x, y - 1, z);
             return var5 == Block.cactus.blockID || var5 == Block.sand.blockID;
         }
     }
 
-    public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
-        var5.attackEntityFrom(null, 1);
+    public void onEntityCollidedWithBlock(World world, int var2, int var3, int var4, Entity entity) {
+        entity.attackEntityFrom(null, 1);
     }
 }

@@ -31,13 +31,13 @@ public class BlockFurnace extends BlockContainer {
         var1.setBlockTileEntity(var2, var3, var4, var6);
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Block.stoneOvenIdle.blockID;
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        super.onBlockAdded(var1, var2, var3, var4);
-        this.setDefaultDirection(var1, var2, var3, var4);
+    public void onBlockAdded(World world, int x, int y, int z) {
+        super.onBlockAdded(world, x, y, z);
+        this.setDefaultDirection(world, x, y, z);
     }
 
     private void setDefaultDirection(World var1, int var2, int var3, int var4) {
@@ -77,12 +77,12 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (var1.singleplayerWorld) {
+    public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        if (world.singleplayerWorld) {
             return true;
         } else {
-            TileEntityFurnace var6 = (TileEntityFurnace) var1.getBlockTileEntity(var2, var3, var4);
-            var5.displayGUIFurnace(var6);
+            TileEntityFurnace var6 = (TileEntityFurnace) world.getBlockTileEntity(var2, var3, var4);
+            entityPlayer.displayGUIFurnace(var6);
             return true;
         }
     }
@@ -91,29 +91,29 @@ public class BlockFurnace extends BlockContainer {
         return new TileEntityFurnace();
     }
 
-    public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
-        int var6 = MathHelper.floor_double((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving) {
+        int var6 = MathHelper.floor_double((double) (entityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         if (var6 == 0) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 2);
+            world.setBlockMetadataWithNotify(x, y, z, 2);
         }
 
         if (var6 == 1) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 5);
+            world.setBlockMetadataWithNotify(x, y, z, 5);
         }
 
         if (var6 == 2) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 3);
+            world.setBlockMetadataWithNotify(x, y, z, 3);
         }
 
         if (var6 == 3) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 4);
+            world.setBlockMetadataWithNotify(x, y, z, 4);
         }
 
     }
 
-    public void onBlockRemoval(World var1, int var2, int var3, int var4) {
+    public void onBlockRemoval(World world, int x, int y, int z) {
         if (!field_28034_c) {
-            TileEntityFurnace var5 = (TileEntityFurnace) var1.getBlockTileEntity(var2, var3, var4);
+            TileEntityFurnace var5 = (TileEntityFurnace) world.getBlockTileEntity(x, y, z);
 
             for (int var6 = 0; var6 < var5.getSizeInventory(); ++var6) {
                 ItemStack var7 = var5.getStackInSlot(var6);
@@ -129,17 +129,17 @@ public class BlockFurnace extends BlockContainer {
                         }
 
                         var7.stackSize -= var11;
-                        EntityItem var12 = new EntityItem(var1, (double) ((float) var2 + var8), (double) ((float) var3 + var9), (double) ((float) var4 + var10), new ItemStack(var7.itemID, var11, var7.getItemDamage()));
+                        EntityItem var12 = new EntityItem(world, (double) ((float) x + var8), (double) ((float) y + var9), (double) ((float) z + var10), new ItemStack(var7.itemID, var11, var7.getItemDamage()));
                         float var13 = 0.05F;
                         var12.motionX = (double) ((float) this.field_28033_a.nextGaussian() * var13);
                         var12.motionY = (double) ((float) this.field_28033_a.nextGaussian() * var13 + 0.2F);
                         var12.motionZ = (double) ((float) this.field_28033_a.nextGaussian() * var13);
-                        var1.entityJoinedWorld(var12);
+                        world.entityJoinedWorld(var12);
                     }
                 }
             }
         }
 
-        super.onBlockRemoval(var1, var2, var3, var4);
+        super.onBlockRemoval(world, x, y, z);
     }
 }

@@ -25,16 +25,16 @@ public class BlockSand extends Block {
         }
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        var1.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
+    public void onBlockAdded(World world, int x, int y, int z) {
+        world.scheduleUpdateTick(x, y, z, this.blockID, this.tickRate());
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        var1.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        world.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        this.tryToFall(var1, var2, var3, var4);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        this.tryToFall(world, x, y, z);
     }
 
     private void tryToFall(World var1, int var2, int var3, int var4) {

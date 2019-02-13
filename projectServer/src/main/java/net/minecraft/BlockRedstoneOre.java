@@ -18,19 +18,19 @@ public class BlockRedstoneOre extends Block {
         return 30;
     }
 
-    public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        this.func_321_g(var1, var2, var3, var4);
-        super.onBlockClicked(var1, var2, var3, var4, var5);
+    public void onBlockClicked(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        this.func_321_g(world, var2, var3, var4);
+        super.onBlockClicked(world, var2, var3, var4, entityPlayer);
     }
 
-    public void onEntityWalking(World var1, int var2, int var3, int var4, Entity var5) {
-        this.func_321_g(var1, var2, var3, var4);
-        super.onEntityWalking(var1, var2, var3, var4, var5);
+    public void onEntityWalking(World world, int var2, int var3, int var4, Entity entity) {
+        this.func_321_g(world, var2, var3, var4);
+        super.onEntityWalking(world, var2, var3, var4, entity);
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        this.func_321_g(var1, var2, var3, var4);
-        return super.blockActivated(var1, var2, var3, var4, var5);
+    public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        this.func_321_g(world, var2, var3, var4);
+        return super.blockActivated(world, var2, var3, var4, entityPlayer);
     }
 
     private void func_321_g(World var1, int var2, int var3, int var4) {
@@ -41,19 +41,19 @@ public class BlockRedstoneOre extends Block {
 
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
+    public void updateTick(World world, int x, int y, int z, Random random) {
         if (this.blockID == Block.oreRedstoneGlowing.blockID) {
-            var1.setBlockWithNotify(var2, var3, var4, Block.oreRedstone.blockID);
+            world.setBlockWithNotify(x, y, z, Block.oreRedstone.blockID);
         }
 
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Item.REDSTONE.shiftedIndex;
     }
 
-    public int quantityDropped(Random var1) {
-        return 4 + var1.nextInt(2);
+    public int quantityDropped(Random random) {
+        return 4 + random.nextInt(2);
     }
 
     private void func_320_h(World var1, int var2, int var3, int var4) {

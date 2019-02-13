@@ -12,10 +12,10 @@ public class BlockStationary extends BlockFluid {
 
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        super.onNeighborBlockChange(var1, var2, var3, var4, var5);
-        if (var1.getBlockId(var2, var3, var4) == this.blockID) {
-            this.func_30005_i(var1, var2, var3, var4);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        super.onNeighborBlockChange(world, var2, var3, var4, var5);
+        if (world.getBlockId(var2, var3, var4) == this.blockID) {
+            this.func_30005_i(world, var2, var3, var4);
         }
 
     }
@@ -29,18 +29,18 @@ public class BlockStationary extends BlockFluid {
         var1.editingBlocks = false;
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
+    public void updateTick(World world, int x, int y, int z, Random random) {
         if (this.blockMaterial == Material.lava) {
-            int var6 = var5.nextInt(3);
+            int var6 = random.nextInt(3);
 
             for (int var7 = 0; var7 < var6; ++var7) {
-                var2 += var5.nextInt(3) - 1;
-                ++var3;
-                var4 += var5.nextInt(3) - 1;
-                int var8 = var1.getBlockId(var2, var3, var4);
+                x += random.nextInt(3) - 1;
+                ++y;
+                z += random.nextInt(3) - 1;
+                int var8 = world.getBlockId(x, y, z);
                 if (var8 == 0) {
-                    if (this.func_4033_j(var1, var2 - 1, var3, var4) || this.func_4033_j(var1, var2 + 1, var3, var4) || this.func_4033_j(var1, var2, var3, var4 - 1) || this.func_4033_j(var1, var2, var3, var4 + 1) || this.func_4033_j(var1, var2, var3 - 1, var4) || this.func_4033_j(var1, var2, var3 + 1, var4)) {
-                        var1.setBlockWithNotify(var2, var3, var4, Block.fire.blockID);
+                    if (this.func_4033_j(world, x - 1, y, z) || this.func_4033_j(world, x + 1, y, z) || this.func_4033_j(world, x, y, z - 1) || this.func_4033_j(world, x, y, z + 1) || this.func_4033_j(world, x, y - 1, z) || this.func_4033_j(world, x, y + 1, z)) {
+                        world.setBlockWithNotify(x, y, z, Block.fire.blockID);
                         return;
                     }
                 } else if (Block.blocksList[var8].blockMaterial.getIsSolid()) {

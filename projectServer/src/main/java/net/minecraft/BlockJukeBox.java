@@ -9,11 +9,11 @@ public class BlockJukeBox extends BlockContainer {
         return this.blockIndexInTexture + (var1 == 1 ? 1 : 0);
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (var1.getBlockMetadata(var2, var3, var4) == 0) {
+    public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        if (world.getBlockMetadata(var2, var3, var4) == 0) {
             return false;
         } else {
-            this.func_28035_b_(var1, var2, var3, var4);
+            this.func_28035_b_(world, var2, var3, var4);
             return true;
         }
     }
@@ -48,14 +48,14 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
-    public void onBlockRemoval(World var1, int var2, int var3, int var4) {
-        this.func_28035_b_(var1, var2, var3, var4);
-        super.onBlockRemoval(var1, var2, var3, var4);
+    public void onBlockRemoval(World world, int x, int y, int z) {
+        this.func_28035_b_(world, x, y, z);
+        super.onBlockRemoval(world, x, y, z);
     }
 
-    public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
-        if (!var1.singleplayerWorld) {
-            super.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, var6);
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float chance) {
+        if (!world.singleplayerWorld) {
+            super.dropBlockAsItemWithChance(world, x, y, z, var5, chance);
         }
     }
 

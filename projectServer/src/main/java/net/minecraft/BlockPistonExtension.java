@@ -16,19 +16,19 @@ public class BlockPistonExtension extends Block {
         return var0 & 7;
     }
 
-    public void onBlockRemoval(World var1, int var2, int var3, int var4) {
-        super.onBlockRemoval(var1, var2, var3, var4);
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public void onBlockRemoval(World world, int x, int y, int z) {
+        super.onBlockRemoval(world, x, y, z);
+        int var5 = world.getBlockMetadata(x, y, z);
         int var6 = PistonBlockTextures.field_31052_a[func_31045_b(var5)];
-        var2 = var2 + PistonBlockTextures.field_31051_b[var6];
-        var3 = var3 + PistonBlockTextures.field_31054_c[var6];
-        var4 = var4 + PistonBlockTextures.field_31053_d[var6];
-        int var7 = var1.getBlockId(var2, var3, var4);
+        x = x + PistonBlockTextures.field_31051_b[var6];
+        y = y + PistonBlockTextures.field_31054_c[var6];
+        z = z + PistonBlockTextures.field_31053_d[var6];
+        int var7 = world.getBlockId(x, y, z);
         if (var7 == Block.pistonBase.blockID || var7 == Block.pistonStickyBase.blockID) {
-            var5 = var1.getBlockMetadata(var2, var3, var4);
+            var5 = world.getBlockMetadata(x, y, z);
             if (BlockPistonBase.isExtended(var5)) {
-                Block.blocksList[var7].dropBlockAsItem(var1, var2, var3, var4, var5);
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+                Block.blocksList[var7].dropBlockAsItem(world, x, y, z, var5);
+                world.setBlockWithNotify(x, y, z, 0);
             }
         }
 
@@ -55,15 +55,15 @@ public class BlockPistonExtension extends Block {
         return false;
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return false;
     }
 
-    public boolean canPlaceBlockOnSide(World var1, int var2, int var3, int var4, int var5) {
+    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int var5) {
         return false;
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 0;
     }
 
@@ -110,8 +110,8 @@ public class BlockPistonExtension extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
+        int var5 = blockAccess.getBlockMetadata(var2, var3, var4);
         switch (func_31045_b(var5)) {
             case 0:
                 this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
@@ -134,13 +134,13 @@ public class BlockPistonExtension extends Block {
 
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        int var6 = func_31045_b(var1.getBlockMetadata(var2, var3, var4));
-        int var7 = var1.getBlockId(var2 - PistonBlockTextures.field_31051_b[var6], var3 - PistonBlockTextures.field_31054_c[var6], var4 - PistonBlockTextures.field_31053_d[var6]);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        int var6 = func_31045_b(world.getBlockMetadata(var2, var3, var4));
+        int var7 = world.getBlockId(var2 - PistonBlockTextures.field_31051_b[var6], var3 - PistonBlockTextures.field_31054_c[var6], var4 - PistonBlockTextures.field_31053_d[var6]);
         if (var7 != Block.pistonBase.blockID && var7 != Block.pistonStickyBase.blockID) {
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+            world.setBlockWithNotify(var2, var3, var4, 0);
         } else {
-            Block.blocksList[var7].onNeighborBlockChange(var1, var2 - PistonBlockTextures.field_31051_b[var6], var3 - PistonBlockTextures.field_31054_c[var6], var4 - PistonBlockTextures.field_31053_d[var6], var5);
+            Block.blocksList[var7].onNeighborBlockChange(world, var2 - PistonBlockTextures.field_31051_b[var6], var3 - PistonBlockTextures.field_31054_c[var6], var4 - PistonBlockTextures.field_31053_d[var6], var5);
         }
 
     }

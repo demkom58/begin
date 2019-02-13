@@ -18,10 +18,10 @@ public class BlockFlowing extends BlockFluid {
         var1.markBlockNeedsUpdate(var2, var3, var4);
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        int var6 = this.func_301_g(var1, var2, var3, var4);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        int var6 = this.func_301_g(world, x, y, z);
         byte var7 = 1;
-        if (this.blockMaterial == Material.lava && !var1.worldProvider.isHellWorld) {
+        if (this.blockMaterial == Material.lava && !world.worldProvider.isHellWorld) {
             var7 = 2;
         }
 
@@ -29,17 +29,17 @@ public class BlockFlowing extends BlockFluid {
         if (var6 > 0) {
             int var9 = -100;
             this.field_659_a = 0;
-            var9 = this.func_307_e(var1, var2 - 1, var3, var4, var9);
-            var9 = this.func_307_e(var1, var2 + 1, var3, var4, var9);
-            var9 = this.func_307_e(var1, var2, var3, var4 - 1, var9);
-            var9 = this.func_307_e(var1, var2, var3, var4 + 1, var9);
+            var9 = this.func_307_e(world, x - 1, y, z, var9);
+            var9 = this.func_307_e(world, x + 1, y, z, var9);
+            var9 = this.func_307_e(world, x, y, z - 1, var9);
+            var9 = this.func_307_e(world, x, y, z + 1, var9);
             int var10 = var9 + var7;
             if (var10 >= 8 || var9 < 0) {
                 var10 = -1;
             }
 
-            if (this.func_301_g(var1, var2, var3 + 1, var4) >= 0) {
-                int var11 = this.func_301_g(var1, var2, var3 + 1, var4);
+            if (this.func_301_g(world, x, y + 1, z) >= 0) {
+                int var11 = this.func_301_g(world, x, y + 1, z);
                 if (var11 >= 8) {
                     var10 = var11;
                 } else {
@@ -48,14 +48,14 @@ public class BlockFlowing extends BlockFluid {
             }
 
             if (this.field_659_a >= 2 && this.blockMaterial == Material.water) {
-                if (var1.getBlockMaterial(var2, var3 - 1, var4).isSolid()) {
+                if (world.getBlockMaterial(x, y - 1, z).isSolid()) {
                     var10 = 0;
-                } else if (var1.getBlockMaterial(var2, var3 - 1, var4) == this.blockMaterial && var1.getBlockMetadata(var2, var3, var4) == 0) {
+                } else if (world.getBlockMaterial(x, y - 1, z) == this.blockMaterial && world.getBlockMetadata(x, y, z) == 0) {
                     var10 = 0;
                 }
             }
 
-            if (this.blockMaterial == Material.lava && var6 < 8 && var10 < 8 && var10 > var6 && var5.nextInt(4) != 0) {
+            if (this.blockMaterial == Material.lava && var6 < 8 && var10 < 8 && var10 > var6 && random.nextInt(4) != 0) {
                 var10 = var6;
                 var8 = false;
             }
@@ -63,27 +63,27 @@ public class BlockFlowing extends BlockFluid {
             if (var10 != var6) {
                 var6 = var10;
                 if (var10 < 0) {
-                    var1.setBlockWithNotify(var2, var3, var4, 0);
+                    world.setBlockWithNotify(x, y, z, 0);
                 } else {
-                    var1.setBlockMetadataWithNotify(var2, var3, var4, var10);
-                    var1.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
-                    var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.blockID);
+                    world.setBlockMetadataWithNotify(x, y, z, var10);
+                    world.scheduleUpdateTick(x, y, z, this.blockID, this.tickRate());
+                    world.notifyBlocksOfNeighborChange(x, y, z, this.blockID);
                 }
             } else if (var8) {
-                this.func_30004_i(var1, var2, var3, var4);
+                this.func_30004_i(world, x, y, z);
             }
         } else {
-            this.func_30004_i(var1, var2, var3, var4);
+            this.func_30004_i(world, x, y, z);
         }
 
-        if (this.func_312_l(var1, var2, var3 - 1, var4)) {
+        if (this.func_312_l(world, x, y - 1, z)) {
             if (var6 >= 8) {
-                var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, this.blockID, var6);
+                world.setBlockAndMetadataWithNotify(x, y - 1, z, this.blockID, var6);
             } else {
-                var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, this.blockID, var6 + 8);
+                world.setBlockAndMetadataWithNotify(x, y - 1, z, this.blockID, var6 + 8);
             }
-        } else if (var6 >= 0 && (var6 == 0 || this.func_309_k(var1, var2, var3 - 1, var4))) {
-            boolean[] var16 = this.func_4035_j(var1, var2, var3, var4);
+        } else if (var6 >= 0 && (var6 == 0 || this.func_309_k(world, x, y - 1, z))) {
+            boolean[] var16 = this.func_4035_j(world, x, y, z);
             int var17 = var6 + var7;
             if (var6 >= 8) {
                 var17 = 1;
@@ -94,19 +94,19 @@ public class BlockFlowing extends BlockFluid {
             }
 
             if (var16[0]) {
-                this.func_311_f(var1, var2 - 1, var3, var4, var17);
+                this.func_311_f(world, x - 1, y, z, var17);
             }
 
             if (var16[1]) {
-                this.func_311_f(var1, var2 + 1, var3, var4, var17);
+                this.func_311_f(world, x + 1, y, z, var17);
             }
 
             if (var16[2]) {
-                this.func_311_f(var1, var2, var3, var4 - 1, var17);
+                this.func_311_f(world, x, y, z - 1, var17);
             }
 
             if (var16[3]) {
-                this.func_311_f(var1, var2, var3, var4 + 1, var17);
+                this.func_311_f(world, x, y, z + 1, var17);
             }
         }
 
@@ -256,10 +256,10 @@ public class BlockFlowing extends BlockFluid {
         }
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        super.onBlockAdded(var1, var2, var3, var4);
-        if (var1.getBlockId(var2, var3, var4) == this.blockID) {
-            var1.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
+    public void onBlockAdded(World world, int x, int y, int z) {
+        super.onBlockAdded(world, x, y, z);
+        if (world.getBlockId(x, y, z) == this.blockID) {
+            world.scheduleUpdateTick(x, y, z, this.blockID, this.tickRate());
         }
 
     }
