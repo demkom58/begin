@@ -32,9 +32,9 @@ public class GuiEditSign extends GuiScreen {
         ++this.updateCounter;
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.enabled) {
-            if (var1.id == 0) {
+    protected void actionPerformed(GuiButton button) {
+        if (button.enabled) {
+            if (button.id == 0) {
                 this.entitySign.onInventoryChanged();
                 this.mc.displayGuiScreen((GuiScreen) null);
             }

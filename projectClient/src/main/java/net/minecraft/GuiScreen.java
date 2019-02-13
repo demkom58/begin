@@ -52,14 +52,16 @@ public class GuiScreen extends Gui {
     }
 
     protected void mouseClicked(int var1, int var2, int var3) {
-        if (var3 == 0) {
-            for (int var4 = 0; var4 < this.controlList.size(); ++var4) {
-                GuiButton var5 = (GuiButton) this.controlList.get(var4);
-                if (var5.mousePressed(this.mc, var1, var2)) {
-                    this.selectedButton = var5;
-                    this.mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
-                    this.actionPerformed(var5);
-                }
+        if (var3 != 0) {
+            return;
+        }
+
+        for (int i = 0; i < this.controlList.size(); ++i) {
+            GuiButton guiButton = (GuiButton) this.controlList.get(i);
+            if (guiButton.mousePressed(this.mc, var1, var2)) {
+                this.selectedButton = guiButton;
+                this.mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+                this.actionPerformed(guiButton);
             }
         }
 
@@ -73,15 +75,15 @@ public class GuiScreen extends Gui {
 
     }
 
-    protected void actionPerformed(GuiButton var1) {
+    protected void actionPerformed(GuiButton button) {
     }
 
-    public void setWorldAndResolution(Minecraft var1, int var2, int var3) {
-        this.field_25091_h = new GuiParticle(var1);
-        this.mc = var1;
-        this.fontRenderer = var1.fontRenderer;
-        this.width = var2;
-        this.height = var3;
+    public void setWorldAndResolution(Minecraft mc, int width, int height) {
+        this.field_25091_h = new GuiParticle(mc);
+        this.mc = mc;
+        this.fontRenderer = mc.fontRenderer;
+        this.width = width;
+        this.height = height;
         this.controlList.clear();
         this.initGui();
     }
@@ -102,13 +104,13 @@ public class GuiScreen extends Gui {
 
     public void handleMouseInput() {
         if (Mouse.getEventButtonState()) {
-            int var1 = Mouse.getEventX() * this.width / this.mc.displayWidth;
-            int var2 = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
-            this.mouseClicked(var1, var2, Mouse.getEventButton());
+            int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
+            int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
+            this.mouseClicked(x, y, Mouse.getEventButton());
         } else {
-            int var3 = Mouse.getEventX() * this.width / this.mc.displayWidth;
-            int var4 = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
-            this.mouseMovedOrUp(var3, var4, Mouse.getEventButton());
+            int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
+            int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
+            this.mouseMovedOrUp(x, y, Mouse.getEventButton());
         }
 
     }

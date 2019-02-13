@@ -31,24 +31,24 @@ public class GuiOptions extends GuiScreen {
         this.controlList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, var1.translateKey("gui.done")));
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.enabled) {
-            if (var1.id < 100 && var1 instanceof GuiSmallButton) {
-                this.options.setOptionValue(((GuiSmallButton) var1).returnEnumOptions(), 1);
-                var1.displayString = this.options.getKeyBinding(EnumOptions.getEnumOptions(var1.id));
+    protected void actionPerformed(GuiButton button) {
+        if (button.enabled) {
+            if (button.id < 100 && button instanceof GuiSmallButton) {
+                this.options.setOptionValue(((GuiSmallButton) button).returnEnumOptions(), 1);
+                button.displayString = this.options.getKeyBinding(EnumOptions.getEnumOptions(button.id));
             }
 
-            if (var1.id == 101) {
+            if (button.id == 101) {
                 this.mc.gameSettings.saveOptions();
                 this.mc.displayGuiScreen(new GuiVideoSettings(this, this.options));
             }
 
-            if (var1.id == 100) {
+            if (button.id == 100) {
                 this.mc.gameSettings.saveOptions();
                 this.mc.displayGuiScreen(new GuiControls(this, this.options));
             }
 
-            if (var1.id == 200) {
+            if (button.id == 200) {
                 this.mc.gameSettings.saveOptions();
                 this.mc.displayGuiScreen(this.parentScreen);
             }

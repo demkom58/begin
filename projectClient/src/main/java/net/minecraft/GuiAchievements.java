@@ -36,13 +36,13 @@ public class GuiAchievements extends GuiScreen {
         this.controlList.add(new GuiSmallButton(1, this.width / 2 + 24, this.height / 2 + 74, 80, 20, StatCollector.translateToLocal("gui.done")));
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.id == 1) {
+    protected void actionPerformed(GuiButton button) {
+        if (button.id == 1) {
             this.mc.displayGuiScreen((GuiScreen) null);
             this.mc.setIngameFocus();
         }
 
-        super.actionPerformed(var1);
+        super.actionPerformed(button);
     }
 
     protected void keyTyped(char var1, int var2) {

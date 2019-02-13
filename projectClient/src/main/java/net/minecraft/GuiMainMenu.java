@@ -74,24 +74,24 @@ public class GuiMainMenu extends GuiScreen {
 
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.id == 0) {
+    protected void actionPerformed(GuiButton button) {
+        if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
         }
 
-        if (var1.id == 1) {
+        if (button.id == 1) {
             this.mc.displayGuiScreen(new GuiSelectWorld(this));
         }
 
-        if (var1.id == 2) {
+        if (button.id == 2) {
             this.mc.displayGuiScreen(new GuiMultiplayer(this));
         }
 
-        if (var1.id == 3) {
+        if (button.id == 3) {
             this.mc.displayGuiScreen(new GuiTexturePacks(this));
         }
 
-        if (var1.id == 4) {
+        if (button.id == 4) {
             this.mc.shutdown();
         }
 

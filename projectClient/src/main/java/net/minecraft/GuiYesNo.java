@@ -22,8 +22,8 @@ public class GuiYesNo extends GuiScreen {
         this.controlList.add(new GuiSmallButton(1, this.width / 2 - 155 + 160, this.height / 6 + 96, this.field_22105_l));
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        this.parentScreen.deleteWorld(var1.id == 0, this.worldNumber);
+    protected void actionPerformed(GuiButton button) {
+        this.parentScreen.deleteWorld(button.id == 0, this.worldNumber);
     }
 
     public void drawScreen(int var1, int var2, float var3) {

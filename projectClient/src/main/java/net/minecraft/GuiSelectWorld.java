@@ -113,9 +113,9 @@ public class GuiSelectWorld extends GuiScreen {
         this.buttonDelete.enabled = false;
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.enabled) {
-            if (var1.id == 2) {
+    protected void actionPerformed(GuiButton button) {
+        if (button.enabled) {
+            if (button.id == 2) {
                 String var2 = this.getSaveName(this.selectedWorld);
                 if (var2 != null) {
                     this.deleting = true;
@@ -127,16 +127,16 @@ public class GuiSelectWorld extends GuiScreen {
                     GuiYesNo var8 = new GuiYesNo(this, var4, var5, var6, var7, this.selectedWorld);
                     this.mc.displayGuiScreen(var8);
                 }
-            } else if (var1.id == 1) {
+            } else if (button.id == 1) {
                 this.selectWorld(this.selectedWorld);
-            } else if (var1.id == 3) {
+            } else if (button.id == 3) {
                 this.mc.displayGuiScreen(new GuiCreateWorld(this));
-            } else if (var1.id == 6) {
+            } else if (button.id == 6) {
                 this.mc.displayGuiScreen(new GuiRenameWorld(this, this.getSaveFileName(this.selectedWorld)));
-            } else if (var1.id == 0) {
+            } else if (button.id == 0) {
                 this.mc.displayGuiScreen(this.parentScreen);
             } else {
-                this.worldSlotContainer.actionPerformed(var1);
+                this.worldSlotContainer.actionPerformed(button);
             }
 
         }

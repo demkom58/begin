@@ -10,7 +10,7 @@ public class GuiErrorScreen extends GuiScreen {
     public void initGui() {
     }
 
-    protected void actionPerformed(GuiButton var1) {
+    protected void actionPerformed(GuiButton button) {
     }
 
     protected void keyTyped(char var1, int var2) {

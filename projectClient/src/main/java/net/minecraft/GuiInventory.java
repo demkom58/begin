@@ -65,12 +65,12 @@ public class GuiInventory extends GuiContainer {
         GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.id == 0) {
+    protected void actionPerformed(GuiButton button) {
+        if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiAchievements(this.mc.statFileWriter));
         }
 
-        if (var1.id == 1) {
+        if (button.id == 1) {
             this.mc.displayGuiScreen(new GuiStats(this, this.mc.statFileWriter));
         }
 
