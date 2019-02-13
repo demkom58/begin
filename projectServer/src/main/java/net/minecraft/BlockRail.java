@@ -15,11 +15,11 @@ public class BlockRail extends Block {
 
     public static final boolean func_27029_g(World var0, int var1, int var2, int var3) {
         int var4 = var0.getBlockId(var1, var2, var3);
-        return var4 == Block.minecartTrack.blockID || var4 == Block.railPowered.blockID || var4 == Block.railDetector.blockID;
+        return var4 == Block.MINECART_TRACK.blockID || var4 == Block.RAIL_POWERED.blockID || var4 == Block.RAIL_DETECTOR.blockID;
     }
 
     public static final boolean func_27030_c(int var0) {
-        return var0 == Block.minecartTrack.blockID || var0 == Block.railPowered.blockID || var0 == Block.railDetector.blockID;
+        return var0 == Block.MINECART_TRACK.blockID || var0 == Block.RAIL_POWERED.blockID || var0 == Block.RAIL_DETECTOR.blockID;
     }
 
     // $FF: synthetic method
@@ -56,7 +56,7 @@ public class BlockRail extends Block {
 
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (this.field_27034_a) {
-            if (this.blockID == Block.railPowered.blockID && (var2 & 8) == 0) {
+            if (this.blockID == Block.RAIL_POWERED.blockID && (var2 & 8) == 0) {
                 return this.blockIndexInTexture - 16;
             }
         } else if (var2 >= 6) {
@@ -117,7 +117,7 @@ public class BlockRail extends Block {
             if (var8) {
                 this.dropBlockAsItem(world, var2, var3, var4, world.getBlockMetadata(var2, var3, var4));
                 world.setBlockWithNotify(var2, var3, var4, 0);
-            } else if (this.blockID == Block.railPowered.blockID) {
+            } else if (this.blockID == Block.RAIL_POWERED.blockID) {
                 boolean var9 = world.isBlockIndirectlyGettingPowered(var2, var3, var4) || world.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
                 var9 = var9 || this.func_27032_a(world, var2, var3, var4, var6, true, 0) || this.func_27032_a(world, var2, var3, var4, var6, false, 0);
                 boolean var10 = false;
@@ -135,7 +135,7 @@ public class BlockRail extends Block {
                         world.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.blockID);
                     }
                 }
-            } else if (var5 > 0 && Block.blocksList[var5].canProvidePower() && !this.field_27034_a && RailLogic.getNAdjacentTracks(new RailLogic(this, world, var2, var3, var4)) == 3) {
+            } else if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower() && !this.field_27034_a && RailLogic.getNAdjacentTracks(new RailLogic(this, world, var2, var3, var4)) == 3) {
                 this.func_4038_g(world, var2, var3, var4, false);
             }
 
@@ -224,7 +224,7 @@ public class BlockRail extends Block {
 
     private boolean func_27031_a(World var1, int var2, int var3, int var4, boolean var5, int var6, int var7) {
         int var8 = var1.getBlockId(var2, var3, var4);
-        if (var8 == Block.railPowered.blockID) {
+        if (var8 == Block.RAIL_POWERED.blockID) {
             int var9 = var1.getBlockMetadata(var2, var3, var4);
             int var10 = var9 & 7;
             if (var7 == 1 && (var10 == 0 || var10 == 4 || var10 == 5)) {

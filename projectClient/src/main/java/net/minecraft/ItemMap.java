@@ -98,7 +98,7 @@ public class ItemMap extends ItemMapBase {
                                                 var36 = var27.getBlockID(var43 + var28, var35 - 1, var34 + var29);
                                                 if (var36 == 0) {
                                                     var37 = false;
-                                                } else if (var35 > 0 && var36 > 0 && Block.blocksList[var36].blockMaterial.materialMapColor == MapColor.airColor) {
+                                                } else if (var35 > 0 && var36 > 0 && Block.BLOCKS_LIST[var36].blockMaterial.materialMapColor == MapColor.airColor) {
                                                     var37 = false;
                                                 }
 
@@ -112,14 +112,14 @@ public class ItemMap extends ItemMapBase {
                                                 }
                                             }
 
-                                            if (var36 != 0 && Block.blocksList[var36].blockMaterial.getIsLiquid()) {
+                                            if (var36 != 0 && Block.BLOCKS_LIST[var36].blockMaterial.getIsLiquid()) {
                                                 int var38 = var35 - 1;
                                                 int var39 = 0;
 
                                                 while (true) {
                                                     var39 = var27.getBlockID(var43 + var28, var38--, var34 + var29);
                                                     ++var30;
-                                                    if (var38 <= 0 || var39 == 0 || !Block.blocksList[var39].blockMaterial.getIsLiquid()) {
+                                                    if (var38 <= 0 || var39 == 0 || !Block.BLOCKS_LIST[var39].blockMaterial.getIsLiquid()) {
                                                         break;
                                                     }
                                                 }
@@ -158,7 +158,7 @@ public class ItemMap extends ItemMapBase {
 
                             int var51 = 0;
                             if (var45 > 0) {
-                                MapColor var53 = Block.blocksList[var45].blockMaterial.materialMapColor;
+                                MapColor var53 = Block.BLOCKS_LIST[var45].blockMaterial.materialMapColor;
                                 if (var53 == MapColor.waterColor) {
                                     var47 = (double) var30 * 0.1D + (double) (var12 + var17 & 1) * 0.2D;
                                     var50 = 1;

@@ -50,7 +50,7 @@ public class WorldGenTaiga2 extends WorldGenerator {
 
                             for (int var19 = var5 - var23; var19 <= var5 + var23; ++var19) {
                                 int var20 = var19 - var5;
-                                if ((Math.abs(var18) != var23 || Math.abs(var20) != var23 || var23 <= 0) && !Block.opaqueCubeLookup[var1.getBlockId(var17, var16, var19)]) {
+                                if ((Math.abs(var18) != var23 || Math.abs(var20) != var23 || var23 <= 0) && !Block.OPAQUE_CUBE_LOOKUP[var1.getBlockId(var17, var16, var19)]) {
                                     var1.setBlockAndMetadata(var17, var16, var19, Block.leaves.blockID, 1);
                                 }
                             }

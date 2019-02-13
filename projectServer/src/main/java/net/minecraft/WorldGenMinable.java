@@ -44,7 +44,7 @@ public class WorldGenMinable extends WorldGenerator {
                         if (var39 * var39 + var42 * var42 < 1.0D) {
                             for (int var44 = var34; var44 <= var37; ++var44) {
                                 double var45 = ((double) var44 + 0.5D - var24) / (var28 / 2.0D);
-                                if (var39 * var39 + var42 * var42 + var45 * var45 < 1.0D && var1.getBlockId(var38, var41, var44) == Block.stone.blockID) {
+                                if (var39 * var39 + var42 * var42 + var45 * var45 < 1.0D && var1.getBlockId(var38, var41, var44) == Block.STONE.blockID) {
                                     var1.setBlock(var38, var41, var44, this.minableBlockId);
                                 }
                             }

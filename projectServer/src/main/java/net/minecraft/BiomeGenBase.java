@@ -36,8 +36,8 @@ public class BiomeGenBase {
     private boolean enableRain;
 
     protected BiomeGenBase() {
-        this.topBlock = (byte) Block.grass.blockID;
-        this.fillerBlock = (byte) Block.dirt.blockID;
+        this.topBlock = (byte) Block.GRASS.blockID;
+        this.fillerBlock = (byte) Block.DIRT.blockID;
         this.field_6161_q = 5169201;
         this.spawnableMonsterList = new ArrayList<>();
         this.spawnableCreatureList = new ArrayList<>();
@@ -62,8 +62,8 @@ public class BiomeGenBase {
             }
         }
 
-        DESERT.topBlock = DESERT.fillerBlock = (byte) Block.sand.blockID;
-        ICE_DESERT.topBlock = ICE_DESERT.fillerBlock = (byte) Block.sand.blockID;
+        DESERT.topBlock = DESERT.fillerBlock = (byte) Block.SAND.blockID;
+        ICE_DESERT.topBlock = ICE_DESERT.fillerBlock = (byte) Block.SAND.blockID;
     }
 
     public static BiomeGenBase getBiomeFromLookup(double var0, double var2) {

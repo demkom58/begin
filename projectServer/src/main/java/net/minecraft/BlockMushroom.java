@@ -27,7 +27,7 @@ public class BlockMushroom extends BlockFlower {
     }
 
     protected boolean canThisPlantGrowOnThisBlockID(int var1) {
-        return Block.opaqueCubeLookup[var1];
+        return Block.OPAQUE_CUBE_LOOKUP[var1];
     }
 
     public boolean canBlockStay(World world, int x, int y, int z) {

@@ -13,7 +13,7 @@ public class ItemSeeds extends Item {
             return false;
         } else {
             int var8 = var3.getBlockId(var4, var5, var6);
-            if (var8 == Block.tilledField.blockID && var3.isAirBlock(var4, var5 + 1, var6)) {
+            if (var8 == Block.FARMLAND.blockID && var3.isAirBlock(var4, var5 + 1, var6)) {
                 var3.setBlockWithNotify(var4, var5 + 1, var6, this.field_271_a);
                 --var1.stackSize;
                 return true;

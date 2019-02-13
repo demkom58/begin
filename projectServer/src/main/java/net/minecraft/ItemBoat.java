@@ -34,7 +34,7 @@ public class ItemBoat extends Item {
                 int var26 = var24.blockY;
                 int var27 = var24.blockZ;
                 if (!var2.singleplayerWorld) {
-                    if (var2.getBlockId(var25, var26, var27) == Block.snow.blockID) {
+                    if (var2.getBlockId(var25, var26, var27) == Block.SNOW.blockID) {
                         --var26;
                     }
 

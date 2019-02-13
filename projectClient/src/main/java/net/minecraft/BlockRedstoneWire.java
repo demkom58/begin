@@ -20,7 +20,7 @@ public class BlockRedstoneWire extends Block {
             return true;
         } else if (var5 == 0) {
             return false;
-        } else if (Block.blocksList[var5].canProvidePower()) {
+        } else if (Block.BLOCKS_LIST[var5].canProvidePower()) {
             return true;
         } else if (var5 != Block.redstoneRepeaterIdle.blockID && var5 != Block.redstoneRepeaterActive.blockID) {
             return false;

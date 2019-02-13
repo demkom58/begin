@@ -13,25 +13,25 @@ public class ItemDye extends Item {
     public boolean onItemUse(ItemStack var1, EntityPlayer var2, World var3, int var4, int var5, int var6, int var7) {
         if (var1.getItemDamage() == 15) {
             int var8 = var3.getBlockId(var4, var5, var6);
-            if (var8 == Block.sapling.blockID) {
+            if (var8 == Block.SAPLING.blockID) {
                 if (!var3.singleplayerWorld) {
-                    ((BlockSapling) Block.sapling).growTree(var3, var4, var5, var6, var3.rand);
+                    ((BlockSapling) Block.SAPLING).growTree(var3, var4, var5, var6, var3.rand);
                     --var1.stackSize;
                 }
 
                 return true;
             }
 
-            if (var8 == Block.crops.blockID) {
+            if (var8 == Block.CROPS.blockID) {
                 if (!var3.singleplayerWorld) {
-                    ((BlockCrops) Block.crops).fertilize(var3, var4, var5, var6);
+                    ((BlockCrops) Block.CROPS).fertilize(var3, var4, var5, var6);
                     --var1.stackSize;
                 }
 
                 return true;
             }
 
-            if (var8 == Block.grass.blockID) {
+            if (var8 == Block.GRASS.blockID) {
                 if (!var3.singleplayerWorld) {
                     --var1.stackSize;
 
@@ -45,11 +45,11 @@ public class ItemDye extends Item {
                             if (var13 >= var9 / 16) {
                                 if (var3.getBlockId(var10, var11, var12) == 0) {
                                     if (ITEM_RAND.nextInt(10) != 0) {
-                                        var3.setBlockAndMetadataWithNotify(var10, var11, var12, Block.tallGrass.blockID, 1);
+                                        var3.setBlockAndMetadataWithNotify(var10, var11, var12, Block.TALLGRASS.blockID, 1);
                                     } else if (ITEM_RAND.nextInt(3) != 0) {
-                                        var3.setBlockWithNotify(var10, var11, var12, Block.plantYellow.blockID);
+                                        var3.setBlockWithNotify(var10, var11, var12, Block.PLANT_YELLOW.blockID);
                                     } else {
-                                        var3.setBlockWithNotify(var10, var11, var12, Block.plantRed.blockID);
+                                        var3.setBlockWithNotify(var10, var11, var12, Block.PLANT_RED.blockID);
                                     }
                                 }
                                 break;
@@ -58,7 +58,7 @@ public class ItemDye extends Item {
                             var10 += ITEM_RAND.nextInt(3) - 1;
                             var11 += (ITEM_RAND.nextInt(3) - 1) * ITEM_RAND.nextInt(3) / 2;
                             var12 += ITEM_RAND.nextInt(3) - 1;
-                            if (var3.getBlockId(var10, var11 - 1, var12) != Block.grass.blockID || var3.isBlockNormalCube(var10, var11, var12)) {
+                            if (var3.getBlockId(var10, var11 - 1, var12) != Block.GRASS.blockID || var3.isBlockNormalCube(var10, var11, var12)) {
                                 break;
                             }
 

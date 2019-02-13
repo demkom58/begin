@@ -20,9 +20,9 @@ public class ItemRenderer {
 
     public void renderItem(EntityLiving var1, ItemStack var2) {
         GL11.glPushMatrix();
-        if (var2.itemID < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[var2.itemID].getRenderType())) {
+        if (var2.itemID < 256 && RenderBlocks.renderItemIn3d(Block.BLOCKS_LIST[var2.itemID].getRenderType())) {
             GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTexture("/terrain.png"));
-            this.renderBlocksInstance.renderBlockOnInventory(Block.blocksList[var2.itemID], var2.getItemDamage(), var1.getEntityBrightness(1.0F));
+            this.renderBlocksInstance.renderBlockOnInventory(Block.BLOCKS_LIST[var2.itemID], var2.getItemDamage(), var1.getEntityBrightness(1.0F));
         } else {
             if (var2.itemID < 256) {
                 GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTexture("/terrain.png"));
@@ -283,7 +283,7 @@ public class ItemRenderer {
             GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, var5);
             int var6 = this.mc.theWorld.getBlockId(var14, var3, var4);
             if (this.mc.theWorld.isBlockNormalCube(var14, var3, var4)) {
-                this.renderInsideOfBlock(var1, Block.blocksList[var6].getBlockTextureFromSide(2));
+                this.renderInsideOfBlock(var1, Block.BLOCKS_LIST[var6].getBlockTextureFromSide(2));
             } else {
                 for (int var7 = 0; var7 < 8; ++var7) {
                     float var8 = ((float) ((var7 >> 0) % 2) - 0.5F) * this.mc.thePlayer.width * 0.9F;
@@ -298,8 +298,8 @@ public class ItemRenderer {
                 }
             }
 
-            if (Block.blocksList[var6] != null) {
-                this.renderInsideOfBlock(var1, Block.blocksList[var6].getBlockTextureFromSide(2));
+            if (Block.BLOCKS_LIST[var6] != null) {
+                this.renderInsideOfBlock(var1, Block.BLOCKS_LIST[var6].getBlockTextureFromSide(2));
             }
         }
 

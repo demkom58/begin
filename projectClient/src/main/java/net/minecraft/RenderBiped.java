@@ -16,7 +16,7 @@ public class RenderBiped extends RenderLiving {
             GL11.glPushMatrix();
             this.modelBipedMain.bipedRightArm.postRender(0.0625F);
             GL11.glTranslatef(-0.0625F, 0.4375F, 0.0625F);
-            if (var3.itemID < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[var3.itemID].getRenderType())) {
+            if (var3.itemID < 256 && RenderBlocks.renderItemIn3d(Block.BLOCKS_LIST[var3.itemID].getRenderType())) {
                 float var6 = 0.5F;
                 GL11.glTranslatef(0.0F, 0.1875F, -0.3125F);
                 var6 = var6 * 0.75F;

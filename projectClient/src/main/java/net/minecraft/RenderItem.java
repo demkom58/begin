@@ -36,11 +36,11 @@ public class RenderItem extends Render {
 
         GL11.glTranslatef((float) var2, (float) var4 + var11, (float) var6);
         GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
-        if (var10.itemID < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[var10.itemID].getRenderType())) {
+        if (var10.itemID < 256 && RenderBlocks.renderItemIn3d(Block.BLOCKS_LIST[var10.itemID].getRenderType())) {
             GL11.glRotatef(var12, 0.0F, 1.0F, 0.0F);
             this.loadTexture("/terrain.png");
             float var28 = 0.25F;
-            if (!Block.blocksList[var10.itemID].renderAsNormalBlock() && var10.itemID != Block.stairSingle.blockID && Block.blocksList[var10.itemID].getRenderType() != 16) {
+            if (!Block.BLOCKS_LIST[var10.itemID].renderAsNormalBlock() && var10.itemID != Block.stairSingle.blockID && Block.BLOCKS_LIST[var10.itemID].getRenderType() != 16) {
                 var28 = 0.5F;
             }
 
@@ -55,7 +55,7 @@ public class RenderItem extends Render {
                     GL11.glTranslatef(var30, var31, var32);
                 }
 
-                this.renderBlocks.renderBlockOnInventory(Block.blocksList[var10.itemID], var10.getItemDamage(), var1.getEntityBrightness(var9));
+                this.renderBlocks.renderBlockOnInventory(Block.BLOCKS_LIST[var10.itemID], var10.getItemDamage(), var1.getEntityBrightness(var9));
                 GL11.glPopMatrix();
             }
         } else {
@@ -110,9 +110,9 @@ public class RenderItem extends Render {
     }
 
     public void drawItemIntoGui(FontRenderer var1, RenderEngine var2, int var3, int var4, int var5, int var6, int var7) {
-        if (var3 < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[var3].getRenderType())) {
+        if (var3 < 256 && RenderBlocks.renderItemIn3d(Block.BLOCKS_LIST[var3].getRenderType())) {
             var2.bindTexture(var2.getTexture("/terrain.png"));
-            Block var14 = Block.blocksList[var3];
+            Block var14 = Block.BLOCKS_LIST[var3];
             GL11.glPushMatrix();
             GL11.glTranslatef((float) (var6 - 2), (float) (var7 + 3), -3.0F);
             GL11.glScalef(10.0F, 10.0F, 10.0F);

@@ -57,7 +57,7 @@ public abstract class EntityPlayer extends EntityLiving {
         var2.loadChunk(var1.posX + 3 >> 4, var1.posZ - 3 >> 4);
         var2.loadChunk(var1.posX - 3 >> 4, var1.posZ + 3 >> 4);
         var2.loadChunk(var1.posX + 3 >> 4, var1.posZ + 3 >> 4);
-        if (var0.getBlockId(var1.posX, var1.posY, var1.posZ) != Block.bed.blockID) {
+        if (var0.getBlockId(var1.posX, var1.posY, var1.posZ) != Block.BED.blockID) {
             return null;
         } else {
             ChunkCoordinates var3 = BlockBed.func_22021_g(var0, var1.posX, var1.posY, var1.posZ, 0);
@@ -591,7 +591,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.resetHeight();
         ChunkCoordinates var4 = this.playerLocation;
         ChunkCoordinates var5 = this.playerLocation;
-        if (var4 != null && this.worldObj.getBlockId(var4.posX, var4.posY, var4.posZ) == Block.bed.blockID) {
+        if (var4 != null && this.worldObj.getBlockId(var4.posX, var4.posY, var4.posZ) == Block.BED.blockID) {
             BlockBed.func_22022_a(this.worldObj, var4.posX, var4.posY, var4.posZ, false);
             var5 = BlockBed.func_22021_g(this.worldObj, var4.posX, var4.posY, var4.posZ, 0);
             if (var5 == null) {
@@ -619,7 +619,7 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     private boolean isInBed() {
-        return this.worldObj.getBlockId(this.playerLocation.posX, this.playerLocation.posY, this.playerLocation.posZ) == Block.bed.blockID;
+        return this.worldObj.getBlockId(this.playerLocation.posX, this.playerLocation.posY, this.playerLocation.posZ) == Block.BED.blockID;
     }
 
     public boolean func_22057_E() {

@@ -40,10 +40,10 @@ public class BlockStationary extends BlockFluid {
                 int var8 = world.getBlockId(x, y, z);
                 if (var8 == 0) {
                     if (this.func_4033_j(world, x - 1, y, z) || this.func_4033_j(world, x + 1, y, z) || this.func_4033_j(world, x, y, z - 1) || this.func_4033_j(world, x, y, z + 1) || this.func_4033_j(world, x, y - 1, z) || this.func_4033_j(world, x, y + 1, z)) {
-                        world.setBlockWithNotify(x, y, z, Block.fire.blockID);
+                        world.setBlockWithNotify(x, y, z, Block.FIRE.blockID);
                         return;
                     }
-                } else if (Block.blocksList[var8].blockMaterial.getIsSolid()) {
+                } else if (Block.BLOCKS_LIST[var8].blockMaterial.getIsSolid()) {
                     return;
                 }
             }

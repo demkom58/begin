@@ -46,15 +46,15 @@ public class StatList {
     }
 
     public static void func_25154_a() {
-        field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, 0, Block.blocksList.length);
-        field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, 0, Block.blocksList.length);
+        field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, 0, Block.BLOCKS_LIST.length);
+        field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, 0, Block.BLOCKS_LIST.length);
         field_25166_D = true;
         func_25157_c();
     }
 
     public static void func_25151_b() {
-        field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, Block.blocksList.length, 32000);
-        field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, Block.blocksList.length, 32000);
+        field_25172_A = func_25155_a(field_25172_A, "stat.useItem", 16908288, Block.BLOCKS_LIST.length, 32000);
+        field_25170_B = func_25149_b(field_25170_B, "stat.breakItem", 16973824, Block.BLOCKS_LIST.length, 32000);
         field_25164_E = true;
         func_25157_c();
     }
@@ -88,8 +88,8 @@ public class StatList {
         StatBase[] var2 = new StatBase[256];
 
         for (int var3 = 0; var3 < 256; ++var3) {
-            if (Block.blocksList[var3] != null && Block.blocksList[var3].getEnableStats()) {
-                String var4 = StatCollector.translateToLocalFormatted(var0, Block.blocksList[var3].translateBlockName());
+            if (Block.BLOCKS_LIST[var3] != null && Block.BLOCKS_LIST[var3].getEnableStats()) {
+                String var4 = StatCollector.translateToLocalFormatted(var0, Block.BLOCKS_LIST[var3].translateBlockName());
                 var2[var3] = (new StatCrafting(var1 + var3, var4, var3)).registerStat();
                 field_25185_d.add((StatCrafting) var2[var3]);
             }
@@ -108,7 +108,7 @@ public class StatList {
             if (Item.ITEMS_LIST[var5] != null) {
                 String var6 = StatCollector.translateToLocalFormatted(var1, Item.ITEMS_LIST[var5].getStatName());
                 var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).registerStat();
-                if (var5 >= Block.blocksList.length) {
+                if (var5 >= Block.BLOCKS_LIST.length) {
                     field_25186_c.add((StatCrafting) var0[var5]);
                 }
             }

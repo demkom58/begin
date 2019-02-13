@@ -11,7 +11,7 @@ public class BlockPistonBase extends Block {
     public BlockPistonBase(int var1, int var2, boolean var3) {
         super(var1, var2, Material.field_31067_B);
         this.isSticky = var3;
-        this.setStepSound(soundStoneFootstep);
+        this.setStepSound(SOUND_STONE_FOOTSTEP);
         this.setHardness(0.5F);
     }
 
@@ -52,15 +52,15 @@ public class BlockPistonBase extends Block {
             return false;
         } else {
             if (var0 != Block.pistonBase.blockID && var0 != Block.pistonStickyBase.blockID) {
-                if (Block.blocksList[var0].getHardness() == -1.0F) {
+                if (Block.BLOCKS_LIST[var0].getHardness() == -1.0F) {
                     return false;
                 }
 
-                if (Block.blocksList[var0].getMobilityFlag() == 2) {
+                if (Block.BLOCKS_LIST[var0].getMobilityFlag() == 2) {
                     return false;
                 }
 
-                if (!var5 && Block.blocksList[var0].getMobilityFlag() == 1) {
+                if (!var5 && Block.BLOCKS_LIST[var0].getMobilityFlag() == 1) {
                     return false;
                 }
             } else if (isPowered(var1.getBlockMetadata(var2, var3, var4))) {
@@ -90,7 +90,7 @@ public class BlockPistonBase extends Block {
                         return false;
                     }
 
-                    if (Block.blocksList[var9].getMobilityFlag() != 1) {
+                    if (Block.BLOCKS_LIST[var9].getMobilityFlag() != 1) {
                         if (var8 == 12) {
                             return false;
                         }
@@ -239,7 +239,7 @@ public class BlockPistonBase extends Block {
                     }
                 }
 
-                if (var14 || var12 <= 0 || !canPushBlock(var12, var1, var9, var10, var11, false) || Block.blocksList[var12].getMobilityFlag() != 0 && var12 != Block.pistonBase.blockID && var12 != Block.pistonStickyBase.blockID) {
+                if (var14 || var12 <= 0 || !canPushBlock(var12, var1, var9, var10, var11, false) || Block.BLOCKS_LIST[var12].getMobilityFlag() != 0 && var12 != Block.pistonBase.blockID && var12 != Block.pistonStickyBase.blockID) {
                     if (!var14) {
                         this.field_31048_b = false;
                         var1.setBlockWithNotify(var2 + PistonBlockTextures.field_31056_b[var6], var3 + PistonBlockTextures.field_31059_c[var6], var4 + PistonBlockTextures.field_31058_d[var6], 0);
@@ -326,7 +326,7 @@ public class BlockPistonBase extends Block {
                         return false;
                     }
 
-                    if (Block.blocksList[var10].getMobilityFlag() != 1) {
+                    if (Block.BLOCKS_LIST[var10].getMobilityFlag() != 1) {
                         if (var9 == 12) {
                             return false;
                         }
@@ -338,7 +338,7 @@ public class BlockPistonBase extends Block {
                         continue;
                     }
 
-                    Block.blocksList[var10].dropBlockAsItem(var1, var6, var7, var8, var1.getBlockMetadata(var6, var7, var8));
+                    Block.BLOCKS_LIST[var10].dropBlockAsItem(var1, var6, var7, var8, var1.getBlockMetadata(var6, var7, var8));
                     var1.setBlockWithNotify(var6, var7, var8, 0);
                 }
             }

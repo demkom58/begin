@@ -43,10 +43,10 @@ public class PlayerControllerMP extends PlayerController {
             this.netClientHandler.addToSendQueue(new Packet14BlockDig(0, var1, var2, var3, var4));
             int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
             if (var5 > 0 && this.curBlockDamageMP == 0.0F) {
-                Block.blocksList[var5].onBlockClicked(this.mc.theWorld, var1, var2, var3, this.mc.thePlayer);
+                Block.BLOCKS_LIST[var5].onBlockClicked(this.mc.theWorld, var1, var2, var3, this.mc.thePlayer);
             }
 
-            if (var5 > 0 && Block.blocksList[var5].blockStrength(this.mc.thePlayer) >= 1.0F) {
+            if (var5 > 0 && Block.BLOCKS_LIST[var5].blockStrength(this.mc.thePlayer) >= 1.0F) {
                 this.sendBlockRemoved(var1, var2, var3, var4);
             } else {
                 this.isHittingBlock = true;
@@ -79,7 +79,7 @@ public class PlayerControllerMP extends PlayerController {
                         return;
                     }
 
-                    Block var6 = Block.blocksList[var5];
+                    Block var6 = Block.BLOCKS_LIST[var5];
                     this.curBlockDamageMP += var6.blockStrength(this.mc.thePlayer);
                     if (this.field_9441_h % 4.0F == 0.0F && var6 != null) {
                         this.mc.sndManager.playSound(var6.stepSound.func_1145_d(), (float) var1 + 0.5F, (float) var2 + 0.5F, (float) var3 + 0.5F, (var6.stepSound.getVolume() + 1.0F) / 8.0F, var6.stepSound.getPitch() * 0.5F);

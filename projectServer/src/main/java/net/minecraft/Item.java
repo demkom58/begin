@@ -86,7 +86,7 @@ public class Item {
     public static final Item BUCKET_MILK = new ItemBucket(79, -1).setIconCoord(13, 4).setItemName("milk").setContainerItem(BUCKET_EMPTY);
     public static final Item BRICK = new Item(80).setIconCoord(6, 1).setItemName("brick");
     public static final Item CLAY = new Item(81).setIconCoord(9, 3).setItemName("clay");
-    public static final Item REEDS = new ItemReed(82, Block.reed).setIconCoord(11, 1).setItemName("reeds");
+    public static final Item REEDS = new ItemReed(82, Block.REEDS).setIconCoord(11, 1).setItemName("reeds");
     public static final Item PAPER = new Item(83).setIconCoord(10, 3).setItemName("paper");
     public static final Item BOOK = new Item(84).setIconCoord(11, 3).setItemName("book");
     public static final Item SLIMEBALL = new Item(85).setIconCoord(14, 1).setItemName("slimeball");
@@ -102,9 +102,9 @@ public class Item {
     public static final Item DYE_POWDER = new ItemDye(95).setIconCoord(14, 4).setItemName("dyePowder");
     public static final Item BONE = new Item(96).setIconCoord(12, 1).setItemName("bone").setFull3D();
     public static final Item SUGAR = new Item(97).setIconCoord(13, 0).setItemName("sugar").setFull3D();
-    public static final Item CAKE = new ItemReed(98, Block.cake).setMaxStackSize(1).setIconCoord(13, 1).setItemName("cake");
+    public static final Item CAKE = new ItemReed(98, Block.CAKE).setMaxStackSize(1).setIconCoord(13, 1).setItemName("cake");
     public static final Item BED = new ItemBed(99).setMaxStackSize(1).setIconCoord(13, 2).setItemName("bed");
-    public static final Item REDSTONE_REPEATER = new ItemReed(100, Block.redstoneRepeaterIdle).setIconCoord(6, 5).setItemName("diode");
+    public static final Item REDSTONE_REPEATER = new ItemReed(100, Block.REDSTONE_REPEATER_IDLE).setIconCoord(6, 5).setItemName("diode");
     public static final Item COOKIE = new ItemCookie(101, 1, false, 8).setIconCoord(12, 5).setItemName("cookie");
     public static final ItemMap MAP = (ItemMap) new ItemMap(102).setIconCoord(12, 3).setItemName("map");
     public static final ItemShears SHEARS = (ItemShears) new ItemShears(103).setIconCoord(13, 5).setItemName("shears");
@@ -113,9 +113,9 @@ public class Item {
     protected static final Random ITEM_RAND = new Random();
 
     static {
-        SEEDS = (new ItemSeeds(39, Block.crops.blockID)).setIconCoord(9, 0).setItemName("seeds");
-        BUCKET_WATER = (new ItemBucket(70, Block.waterMoving.blockID)).setIconCoord(11, 4).setItemName("bucketWater").setContainerItem(BUCKET_EMPTY);
-        BUCKET_LAVA = (new ItemBucket(71, Block.lavaMoving.blockID)).setIconCoord(12, 4).setItemName("bucketLava").setContainerItem(BUCKET_EMPTY);
+        SEEDS = (new ItemSeeds(39, Block.CROPS.blockID)).setIconCoord(9, 0).setItemName("seeds");
+        BUCKET_WATER = (new ItemBucket(70, Block.WATER_MOVING.blockID)).setIconCoord(11, 4).setItemName("bucketWater").setContainerItem(BUCKET_EMPTY);
+        BUCKET_LAVA = (new ItemBucket(71, Block.LAVA_MOVING.blockID)).setIconCoord(12, 4).setItemName("bucketLava").setContainerItem(BUCKET_EMPTY);
         StatList.func_25086_b();
     }
 

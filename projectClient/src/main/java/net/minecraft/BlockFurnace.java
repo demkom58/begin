@@ -47,19 +47,19 @@ public class BlockFurnace extends BlockContainer {
             int var7 = var1.getBlockId(var2 - 1, var3, var4);
             int var8 = var1.getBlockId(var2 + 1, var3, var4);
             byte var9 = 3;
-            if (Block.opaqueCubeLookup[var5] && !Block.opaqueCubeLookup[var6]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var5] && !Block.OPAQUE_CUBE_LOOKUP[var6]) {
                 var9 = 3;
             }
 
-            if (Block.opaqueCubeLookup[var6] && !Block.opaqueCubeLookup[var5]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var6] && !Block.OPAQUE_CUBE_LOOKUP[var5]) {
                 var9 = 2;
             }
 
-            if (Block.opaqueCubeLookup[var7] && !Block.opaqueCubeLookup[var8]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var7] && !Block.OPAQUE_CUBE_LOOKUP[var8]) {
                 var9 = 5;
             }
 
-            if (Block.opaqueCubeLookup[var8] && !Block.opaqueCubeLookup[var7]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var8] && !Block.OPAQUE_CUBE_LOOKUP[var7]) {
                 var9 = 4;
             }
 

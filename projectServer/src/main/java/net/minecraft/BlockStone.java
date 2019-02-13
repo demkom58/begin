@@ -8,6 +8,6 @@ public class BlockStone extends Block {
     }
 
     public int idDropped(int var1, Random random) {
-        return Block.cobblestone.blockID;
+        return Block.COBBLESTONE.blockID;
     }
 }

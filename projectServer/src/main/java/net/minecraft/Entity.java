@@ -440,21 +440,21 @@ public abstract class Entity {
                 int var26 = MathHelper.floor_double(this.posY - 0.20000000298023224D - (double) this.yOffset);
                 int var46 = MathHelper.floor_double(this.posZ);
                 int var52 = this.worldObj.getBlockId(var43, var26, var46);
-                if (this.worldObj.getBlockId(var43, var26 - 1, var46) == Block.fence.blockID) {
+                if (this.worldObj.getBlockId(var43, var26 - 1, var46) == Block.FENCE.blockID) {
                     var52 = this.worldObj.getBlockId(var43, var26 - 1, var46);
                 }
 
                 if (this.distanceWalkedModified > (float) this.nextStepDistance && var52 > 0) {
                     ++this.nextStepDistance;
-                    StepSound var29 = Block.blocksList[var52].stepSound;
-                    if (this.worldObj.getBlockId(var43, var26 + 1, var46) == Block.snow.blockID) {
-                        var29 = Block.snow.stepSound;
+                    StepSound var29 = Block.BLOCKS_LIST[var52].stepSound;
+                    if (this.worldObj.getBlockId(var43, var26 + 1, var46) == Block.SNOW.blockID) {
+                        var29 = Block.SNOW.stepSound;
                         this.worldObj.playSoundAtEntity(this, var29.func_737_c(), var29.getVolume() * 0.15F, var29.getPitch());
-                    } else if (!Block.blocksList[var52].blockMaterial.getIsLiquid()) {
+                    } else if (!Block.BLOCKS_LIST[var52].blockMaterial.getIsLiquid()) {
                         this.worldObj.playSoundAtEntity(this, var29.func_737_c(), var29.getVolume() * 0.15F, var29.getPitch());
                     }
 
-                    Block.blocksList[var52].onEntityWalking(this.worldObj, var43, var26, var46, this);
+                    Block.BLOCKS_LIST[var52].onEntityWalking(this.worldObj, var43, var26, var46, this);
                 }
             }
 
@@ -470,7 +470,7 @@ public abstract class Entity {
                         for (int var33 = var47; var33 <= var30; ++var33) {
                             int var34 = this.worldObj.getBlockId(var31, var32, var33);
                             if (var34 > 0) {
-                                Block.blocksList[var34].onEntityCollidedWithBlock(this.worldObj, var31, var32, var33, this);
+                                Block.BLOCKS_LIST[var34].onEntityCollidedWithBlock(this.worldObj, var31, var32, var33, this);
                             }
                         }
                     }
@@ -550,7 +550,7 @@ public abstract class Entity {
         int var5 = MathHelper.floor_float((float) MathHelper.floor_double(var2));
         int var6 = MathHelper.floor_double(this.posZ);
         int var7 = this.worldObj.getBlockId(var4, var5, var6);
-        if (var7 != 0 && Block.blocksList[var7].blockMaterial == var1) {
+        if (var7 != 0 && Block.BLOCKS_LIST[var7].blockMaterial == var1) {
             float var8 = BlockFluid.setFluidHeight(this.worldObj.getBlockMetadata(var4, var5, var6)) - 0.11111111F;
             float var9 = (float) (var5 + 1) - var8;
             return var2 < (double) var9;

@@ -125,14 +125,14 @@ public class WorldRenderer {
                                     tessellator.setTranslationD((double) (-this.posX), (double) (-this.posY), (double) (-this.posZ));
                                 }
 
-                                if (var11 == 0 && Block.isBlockContainer[var18]) {
+                                if (var11 == 0 && Block.IS_BLOCK_CONTAINER[var18]) {
                                     TileEntity var23 = var9.getBlockTileEntity(var17, var15, var16);
                                     if (TileEntityRenderer.instance.hasSpecialRenderer(var23)) {
                                         this.tileEntityRenderers.add(var23);
                                     }
                                 }
 
-                                Block var24 = Block.blocksList[var18];
+                                Block var24 = Block.BLOCKS_LIST[var18];
                                 int var20 = var24.getRenderBlockPass();
                                 if (var20 != var11) {
                                     var12 = true;

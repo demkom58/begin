@@ -51,7 +51,7 @@ public class Explosion {
                             int var24 = MathHelper.floor_double(var19);
                             int var25 = this.worldObj.getBlockId(var22, var23, var24);
                             if (var25 > 0) {
-                                var14 -= (Block.blocksList[var25].getExplosionResistance(this.exploder) + 0.3F) * var21;
+                                var14 -= (Block.BLOCKS_LIST[var25].getExplosionResistance(this.exploder) + 0.3F) * var21;
                             }
 
                             if (var14 > 0.0F) {
@@ -108,8 +108,8 @@ public class Explosion {
                 int var16 = var41.z;
                 int var48 = this.worldObj.getBlockId(var42, var45, var16);
                 int var18 = this.worldObj.getBlockId(var42, var45 - 1, var16);
-                if (var48 == 0 && Block.opaqueCubeLookup[var18] && this.ExplosionRNG.nextInt(3) == 0) {
-                    this.worldObj.setBlockWithNotify(var42, var45, var16, Block.fire.blockID);
+                if (var48 == 0 && Block.OPAQUE_CUBE_LOOKUP[var18] && this.ExplosionRNG.nextInt(3) == 0) {
+                    this.worldObj.setBlockWithNotify(var42, var45, var16, Block.FIRE.blockID);
                 }
             }
         }
@@ -148,9 +148,9 @@ public class Explosion {
             }
 
             if (var8 > 0) {
-                Block.blocksList[var8].dropBlockAsItemWithChance(this.worldObj, var5, var6, var7, this.worldObj.getBlockMetadata(var5, var6, var7), 0.3F);
+                Block.BLOCKS_LIST[var8].dropBlockAsItemWithChance(this.worldObj, var5, var6, var7, this.worldObj.getBlockMetadata(var5, var6, var7), 0.3F);
                 this.worldObj.setBlockWithNotify(var5, var6, var7, 0);
-                Block.blocksList[var8].onBlockDestroyedByExplosion(this.worldObj, var5, var6, var7);
+                Block.BLOCKS_LIST[var8].onBlockDestroyedByExplosion(this.worldObj, var5, var6, var7);
             }
         }
 

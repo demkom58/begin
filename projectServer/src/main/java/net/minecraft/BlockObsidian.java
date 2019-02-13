@@ -12,6 +12,6 @@ public class BlockObsidian extends BlockStone {
     }
 
     public int idDropped(int var1, Random random) {
-        return Block.obsidian.blockID;
+        return Block.OBSIDIAN.blockID;
     }
 }

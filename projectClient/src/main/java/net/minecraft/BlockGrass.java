@@ -29,7 +29,7 @@ public class BlockGrass extends Block {
 
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         if (!var1.multiplayerWorld) {
-            if (var1.getBlockLightValue(var2, var3 + 1, var4) < 4 && Block.lightOpacity[var1.getBlockId(var2, var3 + 1, var4)] > 2) {
+            if (var1.getBlockLightValue(var2, var3 + 1, var4) < 4 && Block.LIGHT_OPACITY[var1.getBlockId(var2, var3 + 1, var4)] > 2) {
                 if (var5.nextInt(4) != 0) {
                     return;
                 }
@@ -40,7 +40,7 @@ public class BlockGrass extends Block {
                 int var7 = var3 + var5.nextInt(5) - 3;
                 int var8 = var4 + var5.nextInt(3) - 1;
                 int var9 = var1.getBlockId(var6, var7 + 1, var8);
-                if (var1.getBlockId(var6, var7, var8) == Block.dirt.blockID && var1.getBlockLightValue(var6, var7 + 1, var8) >= 4 && Block.lightOpacity[var9] <= 2) {
+                if (var1.getBlockId(var6, var7, var8) == Block.dirt.blockID && var1.getBlockLightValue(var6, var7 + 1, var8) >= 4 && Block.LIGHT_OPACITY[var9] <= 2) {
                     var1.setBlockWithNotify(var6, var7, var8, Block.grass.blockID);
                 }
             }

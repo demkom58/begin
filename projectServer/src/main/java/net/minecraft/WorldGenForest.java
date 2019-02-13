@@ -21,7 +21,7 @@ public class WorldGenForest extends WorldGenerator {
                     for (int var11 = var5 - var9; var11 <= var5 + var9 && var7; ++var11) {
                         if (var8 >= 0 && var8 < 128) {
                             int var12 = var1.getBlockId(var10, var8, var11);
-                            if (var12 != 0 && var12 != Block.leaves.blockID) {
+                            if (var12 != 0 && var12 != Block.LEAVES.blockID) {
                                 var7 = false;
                             }
                         } else {
@@ -35,8 +35,8 @@ public class WorldGenForest extends WorldGenerator {
                 return false;
             } else {
                 int var16 = var1.getBlockId(var3, var4 - 1, var5);
-                if ((var16 == Block.grass.blockID || var16 == Block.dirt.blockID) && var4 < 128 - var6 - 1) {
-                    var1.setBlock(var3, var4 - 1, var5, Block.dirt.blockID);
+                if ((var16 == Block.GRASS.blockID || var16 == Block.DIRT.blockID) && var4 < 128 - var6 - 1) {
+                    var1.setBlock(var3, var4 - 1, var5, Block.DIRT.blockID);
 
                     for (int var17 = var4 - 3 + var6; var17 <= var4 + var6; ++var17) {
                         int var19 = var17 - (var4 + var6);
@@ -47,8 +47,8 @@ public class WorldGenForest extends WorldGenerator {
 
                             for (int var14 = var5 - var21; var14 <= var5 + var21; ++var14) {
                                 int var15 = var14 - var5;
-                                if ((Math.abs(var13) != var21 || Math.abs(var15) != var21 || var2.nextInt(2) != 0 && var19 != 0) && !Block.opaqueCubeLookup[var1.getBlockId(var22, var17, var14)]) {
-                                    var1.setBlockAndMetadata(var22, var17, var14, Block.leaves.blockID, 2);
+                                if ((Math.abs(var13) != var21 || Math.abs(var15) != var21 || var2.nextInt(2) != 0 && var19 != 0) && !Block.OPAQUE_CUBE_LOOKUP[var1.getBlockId(var22, var17, var14)]) {
+                                    var1.setBlockAndMetadata(var22, var17, var14, Block.LEAVES.blockID, 2);
                                 }
                             }
                         }
@@ -56,8 +56,8 @@ public class WorldGenForest extends WorldGenerator {
 
                     for (int var18 = 0; var18 < var6; ++var18) {
                         int var20 = var1.getBlockId(var3, var4 + var18, var5);
-                        if (var20 == 0 || var20 == Block.leaves.blockID) {
-                            var1.setBlockAndMetadata(var3, var4 + var18, var5, Block.wood.blockID, 2);
+                        if (var20 == 0 || var20 == Block.LEAVES.blockID) {
+                            var1.setBlockAndMetadata(var3, var4 + var18, var5, Block.WOOD.blockID, 2);
                         }
                     }
 

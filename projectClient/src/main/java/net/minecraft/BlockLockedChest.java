@@ -19,19 +19,19 @@ public class BlockLockedChest extends Block {
             int var8 = var1.getBlockId(var2 - 1, var3, var4);
             int var9 = var1.getBlockId(var2 + 1, var3, var4);
             byte var10 = 3;
-            if (Block.opaqueCubeLookup[var6] && !Block.opaqueCubeLookup[var7]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var6] && !Block.OPAQUE_CUBE_LOOKUP[var7]) {
                 var10 = 3;
             }
 
-            if (Block.opaqueCubeLookup[var7] && !Block.opaqueCubeLookup[var6]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var7] && !Block.OPAQUE_CUBE_LOOKUP[var6]) {
                 var10 = 2;
             }
 
-            if (Block.opaqueCubeLookup[var8] && !Block.opaqueCubeLookup[var9]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var8] && !Block.OPAQUE_CUBE_LOOKUP[var9]) {
                 var10 = 5;
             }
 
-            if (Block.opaqueCubeLookup[var9] && !Block.opaqueCubeLookup[var8]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var9] && !Block.OPAQUE_CUBE_LOOKUP[var8]) {
                 var10 = 4;
             }
 

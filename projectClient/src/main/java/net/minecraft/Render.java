@@ -188,7 +188,7 @@ public abstract class Render {
                 for (int var34 = var23; var34 <= var24; ++var34) {
                     int var35 = var11.getBlockId(var32, var33 - 1, var34);
                     if (var35 > 0 && var11.getBlockLightValue(var32, var33, var34) > 3) {
-                        this.renderShadowOnBlock(Block.blocksList[var35], var2, var4 + (double) var1.getShadowSize(), var6, var32, var33, var34, var8, var12, var25, var27 + (double) var1.getShadowSize(), var29);
+                        this.renderShadowOnBlock(Block.BLOCKS_LIST[var35], var2, var4 + (double) var1.getShadowSize(), var6, var32, var33, var34, var8, var12, var25, var27 + (double) var1.getShadowSize(), var29);
                     }
                 }
             }

@@ -36,7 +36,7 @@ public class WorldProviderHell extends WorldProvider {
         } else if (var3 == 0) {
             return false;
         } else {
-            return Block.opaqueCubeLookup[var3];
+            return Block.OPAQUE_CUBE_LOOKUP[var3];
         }
     }
 

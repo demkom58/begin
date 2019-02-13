@@ -67,9 +67,9 @@ public class ItemMap extends ItemMapBase {
                                 int var33 = var21 + var22 * 231871;
                                 var33 = var33 * var33 * 31287121 + var33 * 11;
                                 if ((var33 >> 20 & 1) == 0) {
-                                    var26[Block.dirt.blockID] += 10;
+                                    var26[Block.DIRT.blockID] += 10;
                                 } else {
-                                    var26[Block.stone.blockID] += 10;
+                                    var26[Block.STONE.blockID] += 10;
                                 }
 
                                 var31 = 100.0D;
@@ -86,7 +86,7 @@ public class ItemMap extends ItemMapBase {
                                                 var36 = var27.getBlockID(var43 + var28, var35 - 1, var34 + var29);
                                                 if (var36 == 0) {
                                                     var37 = false;
-                                                } else if (var35 > 0 && var36 > 0 && Block.blocksList[var36].blockMaterial.field_28131_A == MapColor.field_28199_b) {
+                                                } else if (var35 > 0 && var36 > 0 && Block.BLOCKS_LIST[var36].blockMaterial.field_28131_A == MapColor.field_28199_b) {
                                                     var37 = false;
                                                 }
 
@@ -100,14 +100,14 @@ public class ItemMap extends ItemMapBase {
                                                 }
                                             }
 
-                                            if (var36 != 0 && Block.blocksList[var36].blockMaterial.getIsLiquid()) {
+                                            if (var36 != 0 && Block.BLOCKS_LIST[var36].blockMaterial.getIsLiquid()) {
                                                 int var38 = var35 - 1;
                                                 int var39 = 0;
 
                                                 while (true) {
                                                     var39 = var27.getBlockID(var43 + var28, var38--, var34 + var29);
                                                     ++var30;
-                                                    if (var38 <= 0 || var39 == 0 || !Block.blocksList[var39].blockMaterial.getIsLiquid()) {
+                                                    if (var38 <= 0 || var39 == 0 || !Block.BLOCKS_LIST[var39].blockMaterial.getIsLiquid()) {
                                                         break;
                                                     }
                                                 }
@@ -146,7 +146,7 @@ public class ItemMap extends ItemMapBase {
 
                             int var51 = 0;
                             if (var45 > 0) {
-                                MapColor var53 = Block.blocksList[var45].blockMaterial.field_28131_A;
+                                MapColor var53 = Block.BLOCKS_LIST[var45].blockMaterial.field_28131_A;
                                 if (var53 == MapColor.field_28187_n) {
                                     var47 = (double) var30 * 0.1D + (double) (var12 + var17 & 1) * 0.2D;
                                     var50 = 1;

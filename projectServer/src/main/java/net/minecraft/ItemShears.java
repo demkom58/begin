@@ -8,7 +8,7 @@ public class ItemShears extends Item {
     }
 
     public boolean func_25007_a(ItemStack var1, int var2, int var3, int var4, int var5, EntityLiving var6) {
-        if (var2 == Block.leaves.blockID || var2 == Block.web.blockID) {
+        if (var2 == Block.LEAVES.blockID || var2 == Block.WEB.blockID) {
             var1.damageItem(1, var6);
         }
 
@@ -16,12 +16,12 @@ public class ItemShears extends Item {
     }
 
     public boolean canHarvestBlock(Block var1) {
-        return var1.blockID == Block.web.blockID;
+        return var1.blockID == Block.WEB.blockID;
     }
 
     public float getStrVsBlock(ItemStack var1, Block var2) {
-        if (var2.blockID != Block.web.blockID && var2.blockID != Block.leaves.blockID) {
-            return var2.blockID == Block.cloth.blockID ? 5.0F : super.getStrVsBlock(var1, var2);
+        if (var2.blockID != Block.WEB.blockID && var2.blockID != Block.LEAVES.blockID) {
+            return var2.blockID == Block.CLOTH.blockID ? 5.0F : super.getStrVsBlock(var1, var2);
         } else {
             return 15.0F;
         }

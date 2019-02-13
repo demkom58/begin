@@ -17,7 +17,7 @@ public class BlockDispenser extends BlockContainer {
     }
 
     public int idDropped(int var1, Random random) {
-        return Block.dispenser.blockID;
+        return Block.DISPENSER.blockID;
     }
 
     public void onBlockAdded(World world, int x, int y, int z) {
@@ -32,19 +32,19 @@ public class BlockDispenser extends BlockContainer {
             int var7 = var1.getBlockId(var2 - 1, var3, var4);
             int var8 = var1.getBlockId(var2 + 1, var3, var4);
             byte var9 = 3;
-            if (Block.opaqueCubeLookup[var5] && !Block.opaqueCubeLookup[var6]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var5] && !Block.OPAQUE_CUBE_LOOKUP[var6]) {
                 var9 = 3;
             }
 
-            if (Block.opaqueCubeLookup[var6] && !Block.opaqueCubeLookup[var5]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var6] && !Block.OPAQUE_CUBE_LOOKUP[var5]) {
                 var9 = 2;
             }
 
-            if (Block.opaqueCubeLookup[var7] && !Block.opaqueCubeLookup[var8]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var7] && !Block.OPAQUE_CUBE_LOOKUP[var8]) {
                 var9 = 5;
             }
 
-            if (Block.opaqueCubeLookup[var8] && !Block.opaqueCubeLookup[var7]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var8] && !Block.OPAQUE_CUBE_LOOKUP[var7]) {
                 var9 = 4;
             }
 
@@ -129,7 +129,7 @@ public class BlockDispenser extends BlockContainer {
     }
 
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
-        if (var5 > 0 && Block.blocksList[var5].canProvidePower()) {
+        if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower()) {
             boolean var6 = world.isBlockIndirectlyGettingPowered(var2, var3, var4) || world.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
             if (var6) {
                 world.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());

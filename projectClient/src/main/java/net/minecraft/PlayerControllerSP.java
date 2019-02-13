@@ -24,7 +24,7 @@ public class PlayerControllerSP extends PlayerController {
         int var6 = this.mc.theWorld.getBlockMetadata(var1, var2, var3);
         boolean var7 = super.sendBlockRemoved(var1, var2, var3, var4);
         ItemStack var8 = this.mc.thePlayer.getCurrentEquippedItem();
-        boolean var9 = this.mc.thePlayer.canHarvestBlock(Block.blocksList[var5]);
+        boolean var9 = this.mc.thePlayer.canHarvestBlock(Block.BLOCKS_LIST[var5]);
         if (var8 != null) {
             var8.onDestroyBlock(var5, var1, var2, var3, this.mc.thePlayer);
             if (var8.stackSize == 0) {
@@ -34,7 +34,7 @@ public class PlayerControllerSP extends PlayerController {
         }
 
         if (var7 && var9) {
-            Block.blocksList[var5].harvestBlock(this.mc.theWorld, this.mc.thePlayer, var1, var2, var3, var6);
+            Block.BLOCKS_LIST[var5].harvestBlock(this.mc.theWorld, this.mc.thePlayer, var1, var2, var3, var6);
         }
 
         return var7;
@@ -44,10 +44,10 @@ public class PlayerControllerSP extends PlayerController {
         this.mc.theWorld.onBlockHit(this.mc.thePlayer, var1, var2, var3, var4);
         int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
         if (var5 > 0 && this.curBlockDamage == 0.0F) {
-            Block.blocksList[var5].onBlockClicked(this.mc.theWorld, var1, var2, var3, this.mc.thePlayer);
+            Block.BLOCKS_LIST[var5].onBlockClicked(this.mc.theWorld, var1, var2, var3, this.mc.thePlayer);
         }
 
-        if (var5 > 0 && Block.blocksList[var5].blockStrength(this.mc.thePlayer) >= 1.0F) {
+        if (var5 > 0 && Block.BLOCKS_LIST[var5].blockStrength(this.mc.thePlayer) >= 1.0F) {
             this.sendBlockRemoved(var1, var2, var3, var4);
         }
 
@@ -68,7 +68,7 @@ public class PlayerControllerSP extends PlayerController {
                     return;
                 }
 
-                Block var6 = Block.blocksList[var5];
+                Block var6 = Block.BLOCKS_LIST[var5];
                 this.curBlockDamage += var6.blockStrength(this.mc.thePlayer);
                 if (this.field_1069_h % 4.0F == 0.0F && var6 != null) {
                     this.mc.sndManager.playSound(var6.stepSound.func_1145_d(), (float) var1 + 0.5F, (float) var2 + 0.5F, (float) var3 + 0.5F, (var6.stepSound.getVolume() + 1.0F) / 8.0F, var6.stepSound.getPitch() * 0.5F);

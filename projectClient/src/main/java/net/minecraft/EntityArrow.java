@@ -97,8 +97,8 @@ public class EntityArrow extends Entity {
 
         int var15 = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
         if (var15 > 0) {
-            Block.blocksList[var15].setBlockBoundsBasedOnState(this.worldObj, this.xTile, this.yTile, this.zTile);
-            AxisAlignedBB var2 = Block.blocksList[var15].getCollisionBoundingBoxFromPool(this.worldObj, this.xTile, this.yTile, this.zTile);
+            Block.BLOCKS_LIST[var15].setBlockBoundsBasedOnState(this.worldObj, this.xTile, this.yTile, this.zTile);
+            AxisAlignedBB var2 = Block.BLOCKS_LIST[var15].getCollisionBoundingBoxFromPool(this.worldObj, this.xTile, this.yTile, this.zTile);
             if (var2 != null && var2.isVecInside(Vec3D.createVector(this.posX, this.posY, this.posZ))) {
                 this.inGround = true;
             }

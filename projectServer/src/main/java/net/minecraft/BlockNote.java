@@ -10,7 +10,7 @@ public class BlockNote extends BlockContainer {
     }
 
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
-        if (var5 > 0 && Block.blocksList[var5].canProvidePower()) {
+        if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower()) {
             boolean var6 = world.isBlockGettingPowered(var2, var3, var4);
             TileEntityNote var7 = (TileEntityNote) world.getBlockTileEntity(var2, var3, var4);
             if (var7.previousRedstoneState != var6) {

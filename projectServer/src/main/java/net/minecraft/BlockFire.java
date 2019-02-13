@@ -12,15 +12,15 @@ public class BlockFire extends Block {
     }
 
     public void setFireBurnRates() {
-        this.setBurnRate(Block.planks.blockID, 5, 20);
-        this.setBurnRate(Block.fence.blockID, 5, 20);
-        this.setBurnRate(Block.stairCompactPlanks.blockID, 5, 20);
-        this.setBurnRate(Block.wood.blockID, 5, 5);
-        this.setBurnRate(Block.leaves.blockID, 30, 60);
-        this.setBurnRate(Block.bookShelf.blockID, 30, 20);
-        this.setBurnRate(Block.tnt.blockID, 15, 100);
-        this.setBurnRate(Block.tallGrass.blockID, 60, 100);
-        this.setBurnRate(Block.cloth.blockID, 30, 60);
+        this.setBurnRate(Block.PLANKS.blockID, 5, 20);
+        this.setBurnRate(Block.FENCE.blockID, 5, 20);
+        this.setBurnRate(Block.STAIR_COMPACT_PLANKS.blockID, 5, 20);
+        this.setBurnRate(Block.WOOD.blockID, 5, 5);
+        this.setBurnRate(Block.LEAVES.blockID, 30, 60);
+        this.setBurnRate(Block.BOOK_SHELF.blockID, 30, 20);
+        this.setBurnRate(Block.TNT.blockID, 15, 100);
+        this.setBurnRate(Block.TALLGRASS.blockID, 60, 100);
+        this.setBurnRate(Block.CLOTH.blockID, 30, 60);
     }
 
     private void setBurnRate(int var1, int var2, int var3) {
@@ -49,7 +49,7 @@ public class BlockFire extends Block {
     }
 
     public void updateTick(World world, int x, int y, int z, Random random) {
-        boolean var6 = world.getBlockId(x, y - 1, z) == Block.bloodStone.blockID;
+        boolean var6 = world.getBlockId(x, y - 1, z) == Block.BLOOD_STONE.blockID;
         if (!this.canPlaceBlockAt(world, x, y, z)) {
             world.setBlockWithNotify(x, y, z, 0);
         }
@@ -111,7 +111,7 @@ public class BlockFire extends Block {
     private void tryToCatchBlockOnFire(World var1, int var2, int var3, int var4, int var5, Random var6, int var7) {
         int var8 = this.abilityToCatchFire[var1.getBlockId(var2, var3, var4)];
         if (var6.nextInt(var5) < var8) {
-            boolean var9 = var1.getBlockId(var2, var3, var4) == Block.tnt.blockID;
+            boolean var9 = var1.getBlockId(var2, var3, var4) == Block.TNT.blockID;
             if (var6.nextInt(var7 + 10) < 5 && !var1.canLightningStrikeAt(var2, var3, var4)) {
                 int var10 = var7 + var6.nextInt(5) / 4;
                 if (var10 > 15) {
@@ -124,7 +124,7 @@ public class BlockFire extends Block {
             }
 
             if (var9) {
-                Block.tnt.onBlockDestroyedByPlayer(var1, var2, var3, var4, 1);
+                Block.TNT.onBlockDestroyedByPlayer(var1, var2, var3, var4, 1);
             }
         }
 
@@ -185,7 +185,7 @@ public class BlockFire extends Block {
     }
 
     public void onBlockAdded(World world, int x, int y, int z) {
-        if (world.getBlockId(x, y - 1, z) != Block.obsidian.blockID || !Block.portal.tryToCreatePortal(world, x, y, z)) {
+        if (world.getBlockId(x, y - 1, z) != Block.OBSIDIAN.blockID || !Block.PORTAL.tryToCreatePortal(world, x, y, z)) {
             if (!world.isBlockNormalCube(x, y - 1, z) && !this.func_268_g(world, x, y, z)) {
                 world.setBlockWithNotify(x, y, z, 0);
             } else {

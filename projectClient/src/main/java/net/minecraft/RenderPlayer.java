@@ -109,7 +109,7 @@ public class RenderPlayer extends RenderLiving {
         if (var3 != null && var3.getItem().shiftedIndex < 256) {
             GL11.glPushMatrix();
             this.modelBipedMain.bipedHead.postRender(0.0625F);
-            if (RenderBlocks.renderItemIn3d(Block.blocksList[var3.itemID].getRenderType())) {
+            if (RenderBlocks.renderItemIn3d(Block.BLOCKS_LIST[var3.itemID].getRenderType())) {
                 float var4 = 0.625F;
                 GL11.glTranslatef(0.0F, -0.25F, 0.0F);
                 GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
@@ -185,7 +185,7 @@ public class RenderPlayer extends RenderLiving {
                 var21 = new ItemStack(Item.STICK);
             }
 
-            if (var21.itemID < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[var21.itemID].getRenderType())) {
+            if (var21.itemID < 256 && RenderBlocks.renderItemIn3d(Block.BLOCKS_LIST[var21.itemID].getRenderType())) {
                 float var24 = 0.5F;
                 GL11.glTranslatef(0.0F, 0.1875F, -0.3125F);
                 var24 = var24 * 0.75F;

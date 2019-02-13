@@ -60,7 +60,7 @@ public class EntityItem extends Entity {
             var1 = 0.58800006F;
             int var2 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
             if (var2 > 0) {
-                var1 = Block.blocksList[var2].slipperiness * 0.98F;
+                var1 = Block.BLOCKS_LIST[var2].slipperiness * 0.98F;
             }
         }
 
@@ -114,7 +114,7 @@ public class EntityItem extends Entity {
         if (!this.worldObj.singleplayerWorld) {
             int var2 = this.item.stackSize;
             if (this.delayBeforeCanPickup == 0 && var1.inventory.addItemStackToInventory(this.item)) {
-                if (this.item.itemID == Block.wood.blockID) {
+                if (this.item.itemID == Block.WOOD.blockID) {
                     var1.func_27017_a(AchievementList.mineWood);
                 }
 

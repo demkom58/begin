@@ -126,7 +126,7 @@ class PlayerInstance {
                 int var3 = this.minY;
                 int var4 = this.chunkZ * 16 + this.minZ;
                 this.sendPacketToPlayersInInstance(new Packet53BlockChange(var2, var3, var4, var1));
-                if (Block.isBlockContainer[var1.getBlockId(var2, var3, var4)]) {
+                if (Block.IS_BLOCK_CONTAINER[var1.getBlockId(var2, var3, var4)]) {
                     this.updateTileEntity(var1.getBlockTileEntity(var2, var3, var4));
                 }
             } else if (this.numBlocksToUpdate == 10) {
@@ -151,7 +151,7 @@ class PlayerInstance {
                     int var13 = this.chunkX * 16 + (this.numBlocksToUpdate >> 12 & 15);
                     int var15 = this.numBlocksToUpdate & 255;
                     int var16 = this.chunkZ * 16 + (this.numBlocksToUpdate >> 8 & 15);
-                    if (Block.isBlockContainer[var1.getBlockId(var13, var15, var16)]) {
+                    if (Block.IS_BLOCK_CONTAINER[var1.getBlockId(var13, var15, var16)]) {
                         System.out.println("Sending!");
                         this.updateTileEntity(var1.getBlockTileEntity(var13, var15, var16));
                     }

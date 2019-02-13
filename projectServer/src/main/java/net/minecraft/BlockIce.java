@@ -13,7 +13,7 @@ public class BlockIce extends BlockBreakable {
         super.harvestBlock(world, entityPlayer, var3, var4, var5, var6);
         Material var7 = world.getBlockMaterial(var3, var4 - 1, var5);
         if (var7.getIsSolid() || var7.getIsLiquid()) {
-            world.setBlockWithNotify(var3, var4, var5, Block.waterMoving.blockID);
+            world.setBlockWithNotify(var3, var4, var5, Block.WATER_MOVING.blockID);
         }
 
     }
@@ -23,9 +23,9 @@ public class BlockIce extends BlockBreakable {
     }
 
     public void updateTick(World world, int x, int y, int z, Random random) {
-        if (world.getSavedLightValue(EnumSkyBlock.BLOCK, x, y, z) > 11 - Block.lightOpacity[this.blockID]) {
+        if (world.getSavedLightValue(EnumSkyBlock.BLOCK, x, y, z) > 11 - Block.LIGHT_OPACITY[this.blockID]) {
             this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
-            world.setBlockWithNotify(x, y, z, Block.waterStill.blockID);
+            world.setBlockWithNotify(x, y, z, Block.WATER_STILL.blockID);
         }
 
     }

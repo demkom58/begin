@@ -428,7 +428,7 @@ public abstract class EntityLiving extends Entity {
             this.attackEntityFrom(null, var2);
             int var3 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY - 0.20000000298023224D - (double) this.yOffset), MathHelper.floor_double(this.posZ));
             if (var3 > 0) {
-                StepSound var4 = Block.blocksList[var3].stepSound;
+                StepSound var4 = Block.BLOCKS_LIST[var3].stepSound;
                 this.worldObj.playSoundAtEntity(this, var4.func_737_c(), var4.getVolume() * 0.5F, var4.getPitch() * 0.75F);
             }
         }
@@ -464,7 +464,7 @@ public abstract class EntityLiving extends Entity {
                 var9 = 0.54600006F;
                 int var4 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
                 if (var4 > 0) {
-                    var9 = Block.blocksList[var4].slipperiness * 0.91F;
+                    var9 = Block.BLOCKS_LIST[var4].slipperiness * 0.91F;
                 }
             }
 
@@ -475,7 +475,7 @@ public abstract class EntityLiving extends Entity {
                 var9 = 0.54600006F;
                 int var5 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
                 if (var5 > 0) {
-                    var9 = Block.blocksList[var5].slipperiness * 0.91F;
+                    var9 = Block.BLOCKS_LIST[var5].slipperiness * 0.91F;
                 }
             }
 
@@ -534,7 +534,7 @@ public abstract class EntityLiving extends Entity {
         int var1 = MathHelper.floor_double(this.posX);
         int var2 = MathHelper.floor_double(this.boundingBox.minY);
         int var3 = MathHelper.floor_double(this.posZ);
-        return this.worldObj.getBlockId(var1, var2, var3) == Block.ladder.blockID;
+        return this.worldObj.getBlockId(var1, var2, var3) == Block.LADDER.blockID;
     }
 
     public void writeEntityToNBT(NBTTagCompound var1) {

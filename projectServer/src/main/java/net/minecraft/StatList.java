@@ -49,15 +49,15 @@ public class StatList {
     }
 
     public static void func_25088_a() {
-        field_25107_A = func_25090_a(field_25107_A, "stat.useItem", 16908288, 0, Block.blocksList.length);
-        field_25105_B = func_25087_b(field_25105_B, "stat.breakItem", 16973824, 0, Block.blocksList.length);
+        field_25107_A = func_25090_a(field_25107_A, "stat.useItem", 16908288, 0, Block.BLOCKS_LIST.length);
+        field_25105_B = func_25087_b(field_25105_B, "stat.breakItem", 16973824, 0, Block.BLOCKS_LIST.length);
         field_25101_D = true;
         func_25091_c();
     }
 
     public static void func_25086_b() {
-        field_25107_A = func_25090_a(field_25107_A, "stat.useItem", 16908288, Block.blocksList.length, 32000);
-        field_25105_B = func_25087_b(field_25105_B, "stat.breakItem", 16973824, Block.blocksList.length, 32000);
+        field_25107_A = func_25090_a(field_25107_A, "stat.useItem", 16908288, Block.BLOCKS_LIST.length, 32000);
+        field_25105_B = func_25087_b(field_25105_B, "stat.breakItem", 16973824, Block.BLOCKS_LIST.length, 32000);
         field_25099_E = true;
         func_25091_c();
     }
@@ -91,8 +91,8 @@ public class StatList {
         StatBase[] var2 = new StatBase[256];
 
         for (int var3 = 0; var3 < 256; ++var3) {
-            if (Block.blocksList[var3] != null && Block.blocksList[var3].getEnableStats()) {
-                String var4 = StatCollector.translateToLocalFormatted(var0, Block.blocksList[var3].getNameLocalizedForStats());
+            if (Block.BLOCKS_LIST[var3] != null && Block.BLOCKS_LIST[var3].getEnableStats()) {
+                String var4 = StatCollector.translateToLocalFormatted(var0, Block.BLOCKS_LIST[var3].getNameLocalizedForStats());
                 var2[var3] = (new StatCrafting(var1 + var3, var4, var3)).func_27053_d();
                 field_25120_d.add(var2[var3]);
             }
@@ -111,7 +111,7 @@ public class StatList {
             if (Item.ITEMS_LIST[var5] != null) {
                 String var6 = StatCollector.translateToLocalFormatted(var1, Item.ITEMS_LIST[var5].func_25006_i());
                 var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).func_27053_d();
-                if (var5 >= Block.blocksList.length) {
+                if (var5 >= Block.BLOCKS_LIST.length) {
                     field_25121_c.add(var0[var5]);
                 }
             }
@@ -138,17 +138,17 @@ public class StatList {
     }
 
     private static void replaceAllSimilarBlocks(StatBase[] var0) {
-        replaceSimilarBlocks(var0, Block.waterStill.blockID, Block.waterMoving.blockID);
-        replaceSimilarBlocks(var0, Block.lavaStill.blockID, Block.lavaStill.blockID);
-        replaceSimilarBlocks(var0, Block.pumpkinLantern.blockID, Block.pumpkin.blockID);
-        replaceSimilarBlocks(var0, Block.stoneOvenActive.blockID, Block.stoneOvenIdle.blockID);
-        replaceSimilarBlocks(var0, Block.oreRedstoneGlowing.blockID, Block.oreRedstone.blockID);
-        replaceSimilarBlocks(var0, Block.redstoneRepeaterActive.blockID, Block.redstoneRepeaterIdle.blockID);
-        replaceSimilarBlocks(var0, Block.torchRedstoneActive.blockID, Block.torchRedstoneIdle.blockID);
-        replaceSimilarBlocks(var0, Block.mushroomRed.blockID, Block.mushroomBrown.blockID);
-        replaceSimilarBlocks(var0, Block.stairDouble.blockID, Block.stairSingle.blockID);
-        replaceSimilarBlocks(var0, Block.grass.blockID, Block.dirt.blockID);
-        replaceSimilarBlocks(var0, Block.tilledField.blockID, Block.dirt.blockID);
+        replaceSimilarBlocks(var0, Block.WATER_STILL.blockID, Block.WATER_MOVING.blockID);
+        replaceSimilarBlocks(var0, Block.LAVA_STILL.blockID, Block.LAVA_STILL.blockID);
+        replaceSimilarBlocks(var0, Block.PUMPKIN_LANTERN.blockID, Block.PUMPKIN.blockID);
+        replaceSimilarBlocks(var0, Block.FURNACE_ACTIVE.blockID, Block.FURNACE.blockID);
+        replaceSimilarBlocks(var0, Block.ORE_REDSTONE_GLOWING.blockID, Block.ORE_REDSTONE.blockID);
+        replaceSimilarBlocks(var0, Block.REDSTONE_REPEATER_ACTIVE.blockID, Block.REDSTONE_REPEATER_IDLE.blockID);
+        replaceSimilarBlocks(var0, Block.TORCH_REDSTONE_ACTIVE.blockID, Block.TORCH_REDSTONE_IDLE.blockID);
+        replaceSimilarBlocks(var0, Block.MUSHROOM_RED.blockID, Block.MUSHROOM_BROWN.blockID);
+        replaceSimilarBlocks(var0, Block.STAIR_DOUBLE.blockID, Block.STAIR_SINGLE.blockID);
+        replaceSimilarBlocks(var0, Block.GRASS.blockID, Block.DIRT.blockID);
+        replaceSimilarBlocks(var0, Block.FARMLAND.blockID, Block.DIRT.blockID);
     }
 
     private static void replaceSimilarBlocks(StatBase[] var0, int var1, int var2) {

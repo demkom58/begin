@@ -119,7 +119,7 @@ public class BlockFlowing extends BlockFluid {
                 if (this.blockMaterial == Material.lava) {
                     this.func_300_h(var1, var2, var3, var4);
                 } else {
-                    Block.blocksList[var6].dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
+                    Block.BLOCKS_LIST[var6].dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
                 }
             }
 
@@ -216,11 +216,11 @@ public class BlockFlowing extends BlockFluid {
 
     private boolean func_309_k(World var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockId(var2, var3, var4);
-        if (var5 != Block.doorWood.blockID && var5 != Block.doorSteel.blockID && var5 != Block.signPost.blockID && var5 != Block.ladder.blockID && var5 != Block.reed.blockID) {
+        if (var5 != Block.DOOR_WOOD.blockID && var5 != Block.DOOR_STEEL.blockID && var5 != Block.SIGN.blockID && var5 != Block.LADDER.blockID && var5 != Block.REEDS.blockID) {
             if (var5 == 0) {
                 return false;
             } else {
-                Material var6 = Block.blocksList[var5].blockMaterial;
+                Material var6 = Block.BLOCKS_LIST[var5].blockMaterial;
                 return var6.getIsSolid();
             }
         } else {

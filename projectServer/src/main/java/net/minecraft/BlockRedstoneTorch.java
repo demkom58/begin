@@ -15,7 +15,7 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        return var1 == 1 ? Block.redstoneWire.getBlockTextureFromSideAndMetadata(var1, var2) : super.getBlockTextureFromSideAndMetadata(var1, var2);
+        return var1 == 1 ? Block.REDSTONE_WIRE.getBlockTextureFromSideAndMetadata(var1, var2) : super.getBlockTextureFromSideAndMetadata(var1, var2);
     }
 
     private boolean checkForBurnout(World var1, int var2, int var3, int var4, boolean var5) {
@@ -113,7 +113,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
         if (this.torchActive) {
             if (var6) {
-                world.setBlockAndMetadataWithNotify(x, y, z, Block.torchRedstoneIdle.blockID, world.getBlockMetadata(x, y, z));
+                world.setBlockAndMetadataWithNotify(x, y, z, Block.TORCH_REDSTONE_IDLE.blockID, world.getBlockMetadata(x, y, z));
                 if (this.checkForBurnout(world, x, y, z, true)) {
                     world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
 
@@ -126,7 +126,7 @@ public class BlockRedstoneTorch extends BlockTorch {
                 }
             }
         } else if (!var6 && !this.checkForBurnout(world, x, y, z, false)) {
-            world.setBlockAndMetadataWithNotify(x, y, z, Block.torchRedstoneActive.blockID, world.getBlockMetadata(x, y, z));
+            world.setBlockAndMetadataWithNotify(x, y, z, Block.TORCH_REDSTONE_ACTIVE.blockID, world.getBlockMetadata(x, y, z));
         }
 
     }
@@ -141,7 +141,7 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public int idDropped(int var1, Random random) {
-        return Block.torchRedstoneActive.blockID;
+        return Block.TORCH_REDSTONE_ACTIVE.blockID;
     }
 
     public boolean canProvidePower() {

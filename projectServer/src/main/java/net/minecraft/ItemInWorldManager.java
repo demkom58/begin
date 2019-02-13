@@ -25,7 +25,7 @@ public class ItemInWorldManager {
             int var1 = this.field_22051_j - this.field_22046_o;
             int var2 = this.thisWorld.getBlockId(this.field_22049_l, this.field_22048_m, this.field_22047_n);
             if (var2 != 0) {
-                Block var3 = Block.blocksList[var2];
+                Block var3 = Block.BLOCKS_LIST[var2];
                 float var4 = var3.blockStrength(this.thisPlayer) * (float) (var1 + 1);
                 if (var4 >= 1.0F) {
                     this.field_22050_k = false;
@@ -43,10 +43,10 @@ public class ItemInWorldManager {
         this.field_22055_d = this.field_22051_j;
         int var5 = this.thisWorld.getBlockId(var1, var2, var3);
         if (var5 > 0) {
-            Block.blocksList[var5].onBlockClicked(this.thisWorld, var1, var2, var3, this.thisPlayer);
+            Block.BLOCKS_LIST[var5].onBlockClicked(this.thisWorld, var1, var2, var3, this.thisPlayer);
         }
 
-        if (var5 > 0 && Block.blocksList[var5].blockStrength(this.thisPlayer) >= 1.0F) {
+        if (var5 > 0 && Block.BLOCKS_LIST[var5].blockStrength(this.thisPlayer) >= 1.0F) {
             this.func_325_c(var1, var2, var3);
         } else {
             this.field_22054_g = var1;
@@ -61,7 +61,7 @@ public class ItemInWorldManager {
             int var4 = this.field_22051_j - this.field_22055_d;
             int var5 = this.thisWorld.getBlockId(var1, var2, var3);
             if (var5 != 0) {
-                Block var6 = Block.blocksList[var5];
+                Block var6 = Block.BLOCKS_LIST[var5];
                 float var7 = var6.blockStrength(this.thisPlayer) * (float) (var4 + 1);
                 if (var7 >= 0.7F) {
                     this.func_325_c(var1, var2, var3);
@@ -79,7 +79,7 @@ public class ItemInWorldManager {
     }
 
     public boolean removeBlock(int var1, int var2, int var3) {
-        Block var4 = Block.blocksList[this.thisWorld.getBlockId(var1, var2, var3)];
+        Block var4 = Block.BLOCKS_LIST[this.thisWorld.getBlockId(var1, var2, var3)];
         int var5 = this.thisWorld.getBlockMetadata(var1, var2, var3);
         boolean var6 = this.thisWorld.setBlockWithNotify(var1, var2, var3, 0);
         if (var4 != null && var6) {
@@ -103,8 +103,8 @@ public class ItemInWorldManager {
             }
         }
 
-        if (var6 && this.thisPlayer.canHarvestBlock(Block.blocksList[var4])) {
-            Block.blocksList[var4].harvestBlock(this.thisWorld, this.thisPlayer, var1, var2, var3, var5);
+        if (var6 && this.thisPlayer.canHarvestBlock(Block.BLOCKS_LIST[var4])) {
+            Block.BLOCKS_LIST[var4].harvestBlock(this.thisWorld, this.thisPlayer, var1, var2, var3, var5);
             ((EntityPlayerMP) this.thisPlayer).playerNetServerHandler.sendPacket(new Packet53BlockChange(var1, var2, var3, this.thisWorld));
         }
 
@@ -128,7 +128,7 @@ public class ItemInWorldManager {
 
     public boolean activeBlockOrUseItem(EntityPlayer var1, World var2, ItemStack var3, int var4, int var5, int var6, int var7) {
         int var8 = var2.getBlockId(var4, var5, var6);
-        if (var8 > 0 && Block.blocksList[var8].blockActivated(var2, var4, var5, var6, var1)) {
+        if (var8 > 0 && Block.BLOCKS_LIST[var8].blockActivated(var2, var4, var5, var6, var1)) {
             return true;
         } else {
             return var3 != null && var3.useItem(var1, var2, var4, var5, var6, var7);

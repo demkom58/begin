@@ -66,7 +66,7 @@ public class BlockPistonMoving extends BlockContainer {
         if (!var1.multiplayerWorld) {
             TileEntityPiston var7 = this.func_31034_c(var1, var2, var3, var4);
             if (var7 != null) {
-                Block.blocksList[var7.getStoredBlockID()].dropBlockAsItem(var1, var2, var3, var4, var7.getBlockMetadata());
+                Block.BLOCKS_LIST[var7.getStoredBlockID()].dropBlockAsItem(var1, var2, var3, var4, var7.getBlockMetadata());
             }
         }
     }
@@ -95,7 +95,7 @@ public class BlockPistonMoving extends BlockContainer {
     public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
         TileEntityPiston var5 = this.func_31034_c(var1, var2, var3, var4);
         if (var5 != null) {
-            Block var6 = Block.blocksList[var5.getStoredBlockID()];
+            Block var6 = Block.BLOCKS_LIST[var5.getStoredBlockID()];
             if (var6 == null || var6 == this) {
                 return;
             }
@@ -119,7 +119,7 @@ public class BlockPistonMoving extends BlockContainer {
 
     public AxisAlignedBB func_31035_a(World var1, int var2, int var3, int var4, int var5, float var6, int var7) {
         if (var5 != 0 && var5 != this.blockID) {
-            AxisAlignedBB var8 = Block.blocksList[var5].getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
+            AxisAlignedBB var8 = Block.BLOCKS_LIST[var5].getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
             if (var8 == null) {
                 return null;
             } else {

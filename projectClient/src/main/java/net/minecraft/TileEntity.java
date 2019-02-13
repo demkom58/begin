@@ -96,7 +96,7 @@ public class TileEntity {
     }
 
     public Block getBlockType() {
-        return Block.blocksList[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)];
+        return Block.BLOCKS_LIST[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)];
     }
 
     public boolean func_31006_g() {

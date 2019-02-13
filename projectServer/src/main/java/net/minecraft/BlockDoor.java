@@ -135,7 +135,7 @@ public class BlockDoor extends Block {
                 world.setBlockWithNotify(var2, var3, var4, 0);
             }
 
-            if (var5 > 0 && Block.blocksList[var5].canProvidePower()) {
+            if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower()) {
                 this.onNeighborBlockChange(world, var2, var3 - 1, var4, var5);
             }
         } else {
@@ -157,7 +157,7 @@ public class BlockDoor extends Block {
                 if (!world.singleplayerWorld) {
                     this.dropBlockAsItem(world, var2, var3, var4, var6);
                 }
-            } else if (var5 > 0 && Block.blocksList[var5].canProvidePower()) {
+            } else if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower()) {
                 boolean var8 = world.isBlockIndirectlyGettingPowered(var2, var3, var4) || world.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
                 this.func_272_a(world, var2, var3, var4, var8);
             }

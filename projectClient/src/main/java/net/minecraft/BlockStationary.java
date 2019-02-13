@@ -43,7 +43,7 @@ public class BlockStationary extends BlockFluid {
                         var1.setBlockWithNotify(var2, var3, var4, Block.fire.blockID);
                         return;
                     }
-                } else if (Block.blocksList[var8].blockMaterial.getIsSolid()) {
+                } else if (Block.BLOCKS_LIST[var8].blockMaterial.getIsSolid()) {
                     return;
                 }
             }

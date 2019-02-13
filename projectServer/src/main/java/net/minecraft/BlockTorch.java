@@ -23,7 +23,7 @@ public class BlockTorch extends Block {
     }
 
     private boolean func_31028_g(World var1, int var2, int var3, int var4) {
-        return var1.isBlockNormalCube(var2, var3, var4) || var1.getBlockId(var2, var3, var4) == Block.fence.blockID;
+        return var1.isBlockNormalCube(var2, var3, var4) || var1.getBlockId(var2, var3, var4) == Block.FENCE.blockID;
     }
 
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {

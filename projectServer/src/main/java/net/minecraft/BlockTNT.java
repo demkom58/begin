@@ -25,7 +25,7 @@ public class BlockTNT extends Block {
     }
 
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
-        if (var5 > 0 && Block.blocksList[var5].canProvidePower() && world.isBlockIndirectlyGettingPowered(var2, var3, var4)) {
+        if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower() && world.isBlockIndirectlyGettingPowered(var2, var3, var4)) {
             this.onBlockDestroyedByPlayer(world, var2, var3, var4, 1);
             world.setBlockWithNotify(var2, var3, var4, 0);
         }
@@ -45,7 +45,7 @@ public class BlockTNT extends Block {
     public void onBlockDestroyedByPlayer(World world, int var2, int var3, int var4, int var5) {
         if (!world.singleplayerWorld) {
             if ((var5 & 1) == 0) {
-                this.dropBlockAsItem_do(world, var2, var3, var4, new ItemStack(Block.tnt.blockID, 1, 0));
+                this.dropBlockAsItem_do(world, var2, var3, var4, new ItemStack(Block.TNT.blockID, 1, 0));
             } else {
                 EntityTNTPrimed var6 = new EntityTNTPrimed(world, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F));
                 world.entityJoinedWorld(var6);

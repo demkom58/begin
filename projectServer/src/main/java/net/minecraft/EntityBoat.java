@@ -72,7 +72,7 @@ public class EntityBoat extends Entity {
                 }
 
                 for (int var3 = 0; var3 < 3; ++var3) {
-                    this.dropItemWithOffset(Block.planks.blockID, 1, 0.0F);
+                    this.dropItemWithOffset(Block.PLANKS.blockID, 1, 0.0F);
                 }
 
                 for (int var4 = 0; var4 < 2; ++var4) {
@@ -218,7 +218,7 @@ public class EntityBoat extends Entity {
                     this.setEntityDead();
 
                     for (int var27 = 0; var27 < 3; ++var27) {
-                        this.dropItemWithOffset(Block.planks.blockID, 1, 0.0F);
+                        this.dropItemWithOffset(Block.PLANKS.blockID, 1, 0.0F);
                     }
 
                     for (int var28 = 0; var28 < 2; ++var28) {
@@ -271,7 +271,7 @@ public class EntityBoat extends Entity {
                 int var38 = MathHelper.floor_double(this.posX + ((double) (var37 % 2) - 0.5D) * 0.8D);
                 int var40 = MathHelper.floor_double(this.posY);
                 int var20 = MathHelper.floor_double(this.posZ + ((double) (var37 / 2) - 0.5D) * 0.8D);
-                if (this.worldObj.getBlockId(var38, var40, var20) == Block.snow.blockID) {
+                if (this.worldObj.getBlockId(var38, var40, var20) == Block.SNOW.blockID) {
                     this.worldObj.setBlockWithNotify(var38, var40, var20, 0);
                 }
             }

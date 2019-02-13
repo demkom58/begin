@@ -38,9 +38,9 @@ public class WorldGenDungeons extends WorldGenerator {
                             var1.setBlockWithNotify(var19, var22, var24, 0);
                         } else if (var1.getBlockMaterial(var19, var22, var24).isSolid()) {
                             if (var22 == var4 - 1 && var2.nextInt(4) != 0) {
-                                var1.setBlockWithNotify(var19, var22, var24, Block.cobblestoneMossy.blockID);
+                                var1.setBlockWithNotify(var19, var22, var24, Block.COBBLESTONE_MOSSY.blockID);
                             } else {
-                                var1.setBlockWithNotify(var19, var22, var24, Block.cobblestone.blockID);
+                                var1.setBlockWithNotify(var19, var22, var24, Block.COBBLESTONE.blockID);
                             }
                         }
                     }
@@ -71,7 +71,7 @@ public class WorldGenDungeons extends WorldGenerator {
                         }
 
                         if (var15 == 1) {
-                            var1.setBlockWithNotify(var25, var4, var14, Block.chest.blockID);
+                            var1.setBlockWithNotify(var25, var4, var14, Block.CHEST.blockID);
                             TileEntityChest var16 = (TileEntityChest) var1.getBlockTileEntity(var25, var4, var14);
                             int var17 = 0;
 
@@ -92,7 +92,7 @@ public class WorldGenDungeons extends WorldGenerator {
                 }
             }
 
-            var1.setBlockWithNotify(var3, var4, var5, Block.mobSpawner.blockID);
+            var1.setBlockWithNotify(var3, var4, var5, Block.MOB_SPAWNER.blockID);
             TileEntityMobSpawner var21 = (TileEntityMobSpawner) var1.getBlockTileEntity(var3, var4, var5);
             var21.setMobID(this.pickMobSpawner(var2));
             return true;

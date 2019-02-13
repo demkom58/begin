@@ -30,8 +30,8 @@ public class Teleporter {
                 double var15 = (double) var14 + 0.5D - var2.posZ;
 
                 for (int var17 = 127; var17 >= 0; --var17) {
-                    if (var1.getBlockId(var11, var17, var14) == Block.portal.blockID) {
-                        while (var1.getBlockId(var11, var17 - 1, var14) == Block.portal.blockID) {
+                    if (var1.getBlockId(var11, var17, var14) == Block.PORTAL.blockID) {
+                        while (var1.getBlockId(var11, var17 - 1, var14) == Block.PORTAL.blockID) {
                             --var17;
                         }
 
@@ -52,19 +52,19 @@ public class Teleporter {
             double var22 = (double) var6 + 0.5D;
             double var16 = (double) var7 + 0.5D;
             double var23 = (double) var8 + 0.5D;
-            if (var1.getBlockId(var6 - 1, var7, var8) == Block.portal.blockID) {
+            if (var1.getBlockId(var6 - 1, var7, var8) == Block.PORTAL.blockID) {
                 var22 -= 0.5D;
             }
 
-            if (var1.getBlockId(var6 + 1, var7, var8) == Block.portal.blockID) {
+            if (var1.getBlockId(var6 + 1, var7, var8) == Block.PORTAL.blockID) {
                 var22 += 0.5D;
             }
 
-            if (var1.getBlockId(var6, var7, var8 - 1) == Block.portal.blockID) {
+            if (var1.getBlockId(var6, var7, var8 - 1) == Block.PORTAL.blockID) {
                 var23 -= 0.5D;
             }
 
-            if (var1.getBlockId(var6, var7, var8 + 1) == Block.portal.blockID) {
+            if (var1.getBlockId(var6, var7, var8 + 1) == Block.PORTAL.blockID) {
                 var23 += 0.5D;
             }
 
@@ -210,7 +210,7 @@ public class Teleporter {
                         int var55 = var16 + var45;
                         int var59 = var34 + (var41 - 1) * var19 - var38 * var36;
                         boolean var65 = var45 < 0;
-                        var1.setBlockWithNotify(var49, var55, var59, var65 ? Block.obsidian.blockID : 0);
+                        var1.setBlockWithNotify(var49, var55, var59, var65 ? Block.OBSIDIAN.blockID : 0);
                     }
                 }
             }
@@ -225,7 +225,7 @@ public class Teleporter {
                     int var56 = var16 + var46;
                     int var60 = var34 + (var42 - 1) * var19;
                     boolean var66 = var42 == 0 || var42 == 3 || var46 == -1 || var46 == 3;
-                    var1.setBlockWithNotify(var50, var56, var60, var66 ? Block.obsidian.blockID : Block.portal.blockID);
+                    var1.setBlockWithNotify(var50, var56, var60, var66 ? Block.OBSIDIAN.blockID : Block.PORTAL.blockID);
                 }
             }
 

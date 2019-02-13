@@ -38,7 +38,7 @@ public class BlockFarmland extends Block {
                 if (var6 > 0) {
                     world.setBlockMetadataWithNotify(x, y, z, var6 - 1);
                 } else if (!this.isCropsNearby(world, x, y, z)) {
-                    world.setBlockWithNotify(x, y, z, Block.dirt.blockID);
+                    world.setBlockWithNotify(x, y, z, Block.DIRT.blockID);
                 }
             } else {
                 world.setBlockMetadataWithNotify(x, y, z, 7);
@@ -49,7 +49,7 @@ public class BlockFarmland extends Block {
 
     public void onEntityWalking(World world, int var2, int var3, int var4, Entity entity) {
         if (world.rand.nextInt(4) == 0) {
-            world.setBlockWithNotify(var2, var3, var4, Block.dirt.blockID);
+            world.setBlockWithNotify(var2, var3, var4, Block.DIRT.blockID);
         }
 
     }
@@ -59,7 +59,7 @@ public class BlockFarmland extends Block {
 
         for (int var6 = var2 - var5; var6 <= var2 + var5; ++var6) {
             for (int var7 = var4 - var5; var7 <= var4 + var5; ++var7) {
-                if (var1.getBlockId(var6, var3 + 1, var7) == Block.crops.blockID) {
+                if (var1.getBlockId(var6, var3 + 1, var7) == Block.CROPS.blockID) {
                     return true;
                 }
             }
@@ -86,12 +86,12 @@ public class BlockFarmland extends Block {
         super.onNeighborBlockChange(world, var2, var3, var4, var5);
         Material var6 = world.getBlockMaterial(var2, var3 + 1, var4);
         if (var6.isSolid()) {
-            world.setBlockWithNotify(var2, var3, var4, Block.dirt.blockID);
+            world.setBlockWithNotify(var2, var3, var4, Block.DIRT.blockID);
         }
 
     }
 
     public int idDropped(int var1, Random random) {
-        return Block.dirt.idDropped(0, random);
+        return Block.DIRT.idDropped(0, random);
     }
 }

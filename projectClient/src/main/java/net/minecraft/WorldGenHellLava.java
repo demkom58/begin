@@ -60,7 +60,7 @@ public class WorldGenHellLava extends WorldGenerator {
             if (var6 == 4 && var7 == 1) {
                 var1.setBlockWithNotify(var3, var4, var5, this.field_4158_a);
                 var1.scheduledUpdatesAreImmediate = true;
-                Block.blocksList[this.field_4158_a].updateTick(var1, var3, var4, var5, var2);
+                Block.BLOCKS_LIST[this.field_4158_a].updateTick(var1, var3, var4, var5, var2);
                 var1.scheduledUpdatesAreImmediate = false;
             }
 

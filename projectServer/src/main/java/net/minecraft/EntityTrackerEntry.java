@@ -250,11 +250,11 @@ public class EntityTrackerEntry {
             } else {
                 if (this.trackedEntity instanceof EntityFallingSand) {
                     EntityFallingSand var3 = (EntityFallingSand) this.trackedEntity;
-                    if (var3.blockID == Block.sand.blockID) {
+                    if (var3.blockID == Block.SAND.blockID) {
                         return new Packet23VehicleSpawn(this.trackedEntity, 70);
                     }
 
-                    if (var3.blockID == Block.gravel.blockID) {
+                    if (var3.blockID == Block.GRAVEL.blockID) {
                         return new Packet23VehicleSpawn(this.trackedEntity, 71);
                     }
                 }
