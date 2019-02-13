@@ -154,7 +154,7 @@ public class BlockRedstoneRepeater extends Block {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Item.redstoneRepeater.shiftedIndex;
+        return Item.REDSTONE_REPEATER.shiftedIndex;
     }
 
     public void randomDisplayTick(World var1, int var2, int var3, int var4, Random var5) {

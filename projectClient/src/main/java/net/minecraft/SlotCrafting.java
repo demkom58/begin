@@ -18,19 +18,19 @@ public class SlotCrafting extends Slot {
         var1.onCrafting(this.thePlayer.worldObj, this.thePlayer);
         if (var1.itemID == Block.workbench.blockID) {
             this.thePlayer.addStat(AchievementList.buildWorkBench, 1);
-        } else if (var1.itemID == Item.pickaxeWood.shiftedIndex) {
+        } else if (var1.itemID == Item.PICKAXE_WOOD.shiftedIndex) {
             this.thePlayer.addStat(AchievementList.buildPickaxe, 1);
         } else if (var1.itemID == Block.stoneOvenIdle.blockID) {
             this.thePlayer.addStat(AchievementList.buildFurnace, 1);
-        } else if (var1.itemID == Item.hoeWood.shiftedIndex) {
+        } else if (var1.itemID == Item.HOE_WOOD.shiftedIndex) {
             this.thePlayer.addStat(AchievementList.buildHoe, 1);
-        } else if (var1.itemID == Item.bread.shiftedIndex) {
+        } else if (var1.itemID == Item.BREAD.shiftedIndex) {
             this.thePlayer.addStat(AchievementList.makeBread, 1);
-        } else if (var1.itemID == Item.cake.shiftedIndex) {
+        } else if (var1.itemID == Item.CAKE.shiftedIndex) {
             this.thePlayer.addStat(AchievementList.bakeCake, 1);
-        } else if (var1.itemID == Item.pickaxeStone.shiftedIndex) {
+        } else if (var1.itemID == Item.PICKAXE_STONE.shiftedIndex) {
             this.thePlayer.addStat(AchievementList.buildBetterPickaxe, 1);
-        } else if (var1.itemID == Item.swordWood.shiftedIndex) {
+        } else if (var1.itemID == Item.SWORD_WOOD.shiftedIndex) {
             this.thePlayer.addStat(AchievementList.buildSword, 1);
         }
 

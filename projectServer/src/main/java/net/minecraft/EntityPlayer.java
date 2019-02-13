@@ -218,7 +218,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.setPosition(this.posX, this.posY, this.posZ);
         this.motionY = 0.10000000149011612D;
         if (this.username.equals("Notch")) {
-            this.dropPlayerItemWithRandomChoice(new ItemStack(Item.appleRed, 1), true);
+            this.dropPlayerItemWithRandomChoice(new ItemStack(Item.APPLE_RED, 1), true);
         }
 
         this.inventory.dropAllItems();

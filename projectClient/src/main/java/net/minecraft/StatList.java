@@ -74,8 +74,8 @@ public class StatList {
             field_25158_z = new StatBase[32000];
 
             for (Integer var7 : var0) {
-                if (Item.itemsList[var7.intValue()] != null) {
-                    String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", Item.itemsList[var7.intValue()].getStatName());
+                if (Item.ITEMS_LIST[var7.intValue()] != null) {
+                    String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", Item.ITEMS_LIST[var7.intValue()].getStatName());
                     field_25158_z[var7.intValue()] = (new StatCrafting(16842752 + var7.intValue(), var3, var7.intValue())).registerStat();
                 }
             }
@@ -105,8 +105,8 @@ public class StatList {
         }
 
         for (int var5 = var3; var5 < var4; ++var5) {
-            if (Item.itemsList[var5] != null) {
-                String var6 = StatCollector.translateToLocalFormatted(var1, Item.itemsList[var5].getStatName());
+            if (Item.ITEMS_LIST[var5] != null) {
+                String var6 = StatCollector.translateToLocalFormatted(var1, Item.ITEMS_LIST[var5].getStatName());
                 var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).registerStat();
                 if (var5 >= Block.blocksList.length) {
                     field_25186_c.add((StatCrafting) var0[var5]);
@@ -124,8 +124,8 @@ public class StatList {
         }
 
         for (int var5 = var3; var5 < var4; ++var5) {
-            if (Item.itemsList[var5] != null && Item.itemsList[var5].isDamagable()) {
-                String var6 = StatCollector.translateToLocalFormatted(var1, Item.itemsList[var5].getStatName());
+            if (Item.ITEMS_LIST[var5] != null && Item.ITEMS_LIST[var5].isDamagable()) {
+                String var6 = StatCollector.translateToLocalFormatted(var1, Item.ITEMS_LIST[var5].getStatName());
                 var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).registerStat();
             }
         }

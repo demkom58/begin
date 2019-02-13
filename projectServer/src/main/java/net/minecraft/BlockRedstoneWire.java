@@ -286,7 +286,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Item.redstone.shiftedIndex;
+        return Item.REDSTONE.shiftedIndex;
     }
 
     public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {

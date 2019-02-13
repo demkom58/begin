@@ -66,7 +66,7 @@ public class BlockSign extends BlockContainer {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Item.sign.shiftedIndex;
+        return Item.SIGN.shiftedIndex;
     }
 
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {

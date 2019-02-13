@@ -142,7 +142,7 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
-        if (!var1.multiplayerWorld && var2.getCurrentEquippedItem() != null && var2.getCurrentEquippedItem().itemID == Item.shears.shiftedIndex) {
+        if (!var1.multiplayerWorld && var2.getCurrentEquippedItem() != null && var2.getCurrentEquippedItem().itemID == Item.SHEARS.shiftedIndex) {
             var2.addStat(StatList.mineBlockStatArray[this.blockID], 1);
             this.dropBlockAsItem_do(var1, var3, var4, var5, new ItemStack(Block.leaves.blockID, 1, var6 & 3));
         } else {

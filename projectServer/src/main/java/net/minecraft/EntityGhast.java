@@ -144,7 +144,7 @@ public class EntityGhast extends EntityFlying implements IMob {
     }
 
     protected int getDropItemId() {
-        return Item.gunpowder.shiftedIndex;
+        return Item.GUNPOWDER.shiftedIndex;
     }
 
     protected float getSoundVolume() {

@@ -79,7 +79,7 @@ public class EntityBoat extends Entity {
                 }
 
                 for (int var4 = 0; var4 < 2; ++var4) {
-                    this.dropItemWithOffset(Item.stick.shiftedIndex, 1, 0.0F);
+                    this.dropItemWithOffset(Item.STICK.shiftedIndex, 1, 0.0F);
                 }
 
                 this.setEntityDead();
@@ -250,7 +250,7 @@ public class EntityBoat extends Entity {
                     }
 
                     for (int var28 = 0; var28 < 2; ++var28) {
-                        this.dropItemWithOffset(Item.stick.shiftedIndex, 1, 0.0F);
+                        this.dropItemWithOffset(Item.STICK.shiftedIndex, 1, 0.0F);
                     }
                 }
             } else {

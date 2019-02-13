@@ -13,7 +13,7 @@ public class TextureCompassFX extends TextureFX {
     private double field_4228_j;
 
     public TextureCompassFX(Minecraft var1) {
-        super(Item.compass.getIconFromDamage(0));
+        super(Item.COMPASS.getIconFromDamage(0));
         this.mc = var1;
         this.tileImage = 1;
 

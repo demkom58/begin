@@ -9,7 +9,7 @@ public class BlockSnowBlock extends Block {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Item.snowball.shiftedIndex;
+        return Item.SNOWBALL.shiftedIndex;
     }
 
     public int quantityDropped(Random var1) {

@@ -135,7 +135,7 @@ public class ItemRenderer {
         ItemStack var5 = this.itemToRender;
         float var6 = this.mc.theWorld.getLightBrightness(MathHelper.floor_double(var3.posX), MathHelper.floor_double(var3.posY), MathHelper.floor_double(var3.posZ));
         if (var5 != null) {
-            int var7 = Item.itemsList[var5.itemID].getColorFromDamage(var5.getItemDamage());
+            int var7 = Item.ITEMS_LIST[var5.itemID].getColorFromDamage(var5.getItemDamage());
             float var8 = (float) (var7 >> 16 & 255) / 255.0F;
             float var9 = (float) (var7 >> 8 & 255) / 255.0F;
             float var10 = (float) (var7 & 255) / 255.0F;
@@ -144,7 +144,7 @@ public class ItemRenderer {
             GL11.glColor4f(var6, var6, var6, 1.0F);
         }
 
-        if (var5 != null && var5.itemID == Item.mapItem.shiftedIndex) {
+        if (var5 != null && var5.itemID == Item.MAP.shiftedIndex) {
             GL11.glPushMatrix();
             float var16 = 0.8F;
             float var23 = var3.getSwingProgress(var1);
@@ -206,7 +206,7 @@ public class ItemRenderer {
             var45.addVertexWithUV((double) (128 + var46), (double) (0 - var46), 0.0D, 1.0D, 0.0D);
             var45.addVertexWithUV((double) (0 - var46), (double) (0 - var46), 0.0D, 0.0D, 0.0D);
             var45.draw();
-            MapData var47 = Item.mapItem.func_28012_a(var5, this.mc.theWorld);
+            MapData var47 = Item.MAP.func_28012_a(var5, this.mc.theWorld);
             this.field_28131_f.func_28157_a(this.mc.thePlayer, this.mc.renderEngine, var47);
             GL11.glPopMatrix();
         } else if (var5 != null) {

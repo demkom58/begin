@@ -87,7 +87,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 }
 
                 this.setEntityDead();
-                this.dropItemWithOffset(Item.minecartEmpty.shiftedIndex, 1, 0.0F);
+                this.dropItemWithOffset(Item.MINECART.shiftedIndex, 1, 0.0F);
                 if (this.minecartType == 1) {
                     EntityMinecart var3 = this;
 
@@ -776,7 +776,7 @@ public class EntityMinecart extends Entity implements IInventory {
             }
         } else if (this.minecartType == 2) {
             ItemStack var2 = var1.inventory.getCurrentItem();
-            if (var2 != null && var2.itemID == Item.coal.shiftedIndex) {
+            if (var2 != null && var2.itemID == Item.COAL.shiftedIndex) {
                 if (--var2.stackSize == 0) {
                     var1.inventory.setInventorySlotContents(var1.inventory.currentItem, (ItemStack) null);
                 }

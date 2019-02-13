@@ -68,7 +68,7 @@ public class BlockReed extends Block {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Item.reed.shiftedIndex;
+        return Item.REEDS.shiftedIndex;
     }
 
     public boolean isOpaqueCube() {

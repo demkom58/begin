@@ -8,7 +8,7 @@ public class BlockClay extends Block {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Item.clay.shiftedIndex;
+        return Item.CLAY.shiftedIndex;
     }
 
     public int quantityDropped(Random var1) {

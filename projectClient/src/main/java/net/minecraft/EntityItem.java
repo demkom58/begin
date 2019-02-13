@@ -118,7 +118,7 @@ public class EntityItem extends Entity {
                     var1.triggerAchievement(AchievementList.mineWood);
                 }
 
-                if (this.item.itemID == Item.leather.shiftedIndex) {
+                if (this.item.itemID == Item.LEATHER.shiftedIndex) {
                     var1.triggerAchievement(AchievementList.killCow);
                 }
 

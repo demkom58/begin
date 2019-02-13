@@ -77,8 +77,8 @@ public class StatList {
             field_25093_z = new StatBase[32000];
 
             for (Integer var7 : var0) {
-                if (Item.itemsList[var7] != null) {
-                    String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", Item.itemsList[var7].func_25006_i());
+                if (Item.ITEMS_LIST[var7] != null) {
+                    String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", Item.ITEMS_LIST[var7].func_25006_i());
                     field_25093_z[var7] = (new StatCrafting(16842752 + var7, var3, var7)).func_27053_d();
                 }
             }
@@ -108,8 +108,8 @@ public class StatList {
         }
 
         for (int var5 = var3; var5 < var4; ++var5) {
-            if (Item.itemsList[var5] != null) {
-                String var6 = StatCollector.translateToLocalFormatted(var1, Item.itemsList[var5].func_25006_i());
+            if (Item.ITEMS_LIST[var5] != null) {
+                String var6 = StatCollector.translateToLocalFormatted(var1, Item.ITEMS_LIST[var5].func_25006_i());
                 var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).func_27053_d();
                 if (var5 >= Block.blocksList.length) {
                     field_25121_c.add(var0[var5]);
@@ -127,8 +127,8 @@ public class StatList {
         }
 
         for (int var5 = var3; var5 < var4; ++var5) {
-            if (Item.itemsList[var5] != null && Item.itemsList[var5].func_25005_e()) {
-                String var6 = StatCollector.translateToLocalFormatted(var1, Item.itemsList[var5].func_25006_i());
+            if (Item.ITEMS_LIST[var5] != null && Item.ITEMS_LIST[var5].func_25005_e()) {
+                String var6 = StatCollector.translateToLocalFormatted(var1, Item.ITEMS_LIST[var5].func_25006_i());
                 var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).func_27053_d();
             }
         }

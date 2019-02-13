@@ -606,7 +606,7 @@ public class NetClientHandler extends NetHandler {
     }
 
     public void func_28116_a(Packet131MapData var1) {
-        if (var1.field_28055_a == Item.mapItem.shiftedIndex) {
+        if (var1.field_28055_a == Item.MAP.shiftedIndex) {
             ItemMap.func_28013_a(var1.field_28054_b, this.mc.theWorld).func_28171_a(var1.field_28056_c);
         } else {
             System.out.println("Unknown itemid: " + var1.field_28054_b);

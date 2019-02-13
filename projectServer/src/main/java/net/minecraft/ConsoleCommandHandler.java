@@ -126,7 +126,7 @@ public class ConsoleCommandHandler {
                 if (var38 != null) {
                     try {
                         int var40 = Integer.parseInt(var27[2]);
-                        if (Item.itemsList[var40] != null) {
+                        if (Item.ITEMS_LIST[var40] != null) {
                             this.sendNoticeToOps(var4, "Giving " + var38.username + " some " + var40);
                             int var10 = 1;
                             if (var27.length > 3) {

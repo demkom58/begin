@@ -239,7 +239,7 @@ public class EntityEgg extends Entity {
     }
 
     public void onCollideWithPlayer(EntityPlayer var1) {
-        if (this.field_20052_f && this.field_20051_g == var1 && this.field_20057_a <= 0 && var1.inventory.addItemStackToInventory(new ItemStack(Item.arrow, 1))) {
+        if (this.field_20052_f && this.field_20051_g == var1 && this.field_20057_a <= 0 && var1.inventory.addItemStackToInventory(new ItemStack(Item.ARROW, 1))) {
             this.worldObj.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
             var1.onItemPickup(this, 1);
             this.setEntityDead();

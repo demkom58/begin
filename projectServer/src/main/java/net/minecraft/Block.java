@@ -124,17 +124,17 @@ public class Block {
         pressurePlateStone = (new BlockPressurePlate(70, stone.blockIndexInTexture, EnumMobType.MOBS, Material.rock)).setHardness(0.5F).setStepSound(soundStoneFootstep).setBlockName("pressurePlate").setRequiresSelfNotify();
         pressurePlatePlanks = (new BlockPressurePlate(72, planks.blockIndexInTexture, EnumMobType.EVERYTHING, Material.wood)).setHardness(0.5F).setStepSound(soundWoodFootstep).setBlockName("pressurePlate").setRequiresSelfNotify();
         button = (new BlockButton(77, stone.blockIndexInTexture)).setHardness(0.5F).setStepSound(soundStoneFootstep).setBlockName("button").setRequiresSelfNotify();
-        Item.itemsList[cloth.blockID] = (new ItemCloth(cloth.blockID - 256)).setItemName("cloth");
-        Item.itemsList[wood.blockID] = (new ItemLog(wood.blockID - 256)).setItemName("log");
-        Item.itemsList[stairSingle.blockID] = (new ItemSlab(stairSingle.blockID - 256)).setItemName("stoneSlab");
-        Item.itemsList[sapling.blockID] = (new ItemSapling(sapling.blockID - 256)).setItemName("sapling");
-        Item.itemsList[leaves.blockID] = (new ItemLeaves(leaves.blockID - 256)).setItemName("leaves");
-        Item.itemsList[pistonBase.blockID] = new ItemPiston(pistonBase.blockID - 256);
-        Item.itemsList[pistonStickyBase.blockID] = new ItemPiston(pistonStickyBase.blockID - 256);
+        Item.ITEMS_LIST[cloth.blockID] = (new ItemCloth(cloth.blockID - 256)).setItemName("cloth");
+        Item.ITEMS_LIST[wood.blockID] = (new ItemLog(wood.blockID - 256)).setItemName("log");
+        Item.ITEMS_LIST[stairSingle.blockID] = (new ItemSlab(stairSingle.blockID - 256)).setItemName("stoneSlab");
+        Item.ITEMS_LIST[sapling.blockID] = (new ItemSapling(sapling.blockID - 256)).setItemName("sapling");
+        Item.ITEMS_LIST[leaves.blockID] = (new ItemLeaves(leaves.blockID - 256)).setItemName("leaves");
+        Item.ITEMS_LIST[pistonBase.blockID] = new ItemPiston(pistonBase.blockID - 256);
+        Item.ITEMS_LIST[pistonStickyBase.blockID] = new ItemPiston(pistonStickyBase.blockID - 256);
 
         for (int var0 = 0; var0 < 256; ++var0) {
-            if (blocksList[var0] != null && Item.itemsList[var0] == null) {
-                Item.itemsList[var0] = new ItemBlock(var0 - 256);
+            if (blocksList[var0] != null && Item.ITEMS_LIST[var0] == null) {
+                Item.ITEMS_LIST[var0] = new ItemBlock(var0 - 256);
                 blocksList[var0].setFireBurnRates();
             }
         }

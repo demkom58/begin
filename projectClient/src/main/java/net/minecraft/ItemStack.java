@@ -62,7 +62,7 @@ public final class ItemStack {
     }
 
     public Item getItem() {
-        return Item.itemsList[this.itemID];
+        return Item.ITEMS_LIST[this.itemID];
     }
 
     public int getIconIndex() {
@@ -108,11 +108,11 @@ public final class ItemStack {
     }
 
     public boolean isItemStackDamageable() {
-        return Item.itemsList[this.itemID].getMaxDamage() > 0;
+        return Item.ITEMS_LIST[this.itemID].getMaxDamage() > 0;
     }
 
     public boolean getHasSubtypes() {
-        return Item.itemsList[this.itemID].getHasSubtypes();
+        return Item.ITEMS_LIST[this.itemID].getHasSubtypes();
     }
 
     public boolean isItemDamaged() {
@@ -132,7 +132,7 @@ public final class ItemStack {
     }
 
     public int getMaxDamage() {
-        return Item.itemsList[this.itemID].getMaxDamage();
+        return Item.ITEMS_LIST[this.itemID].getMaxDamage();
     }
 
     public void damageItem(int var1, Entity var2) {
@@ -155,7 +155,7 @@ public final class ItemStack {
     }
 
     public void hitEntity(EntityLiving var1, EntityPlayer var2) {
-        boolean var3 = Item.itemsList[this.itemID].hitEntity(this, var1, var2);
+        boolean var3 = Item.ITEMS_LIST[this.itemID].hitEntity(this, var1, var2);
         if (var3) {
             var2.addStat(StatList.field_25172_A[this.itemID], 1);
         }
@@ -163,7 +163,7 @@ public final class ItemStack {
     }
 
     public void onDestroyBlock(int var1, int var2, int var3, int var4, EntityPlayer var5) {
-        boolean var6 = Item.itemsList[this.itemID].onBlockDestroyed(this, var1, var2, var3, var4, var5);
+        boolean var6 = Item.ITEMS_LIST[this.itemID].onBlockDestroyed(this, var1, var2, var3, var4, var5);
         if (var6) {
             var5.addStat(StatList.field_25172_A[this.itemID], 1);
         }
@@ -171,18 +171,18 @@ public final class ItemStack {
     }
 
     public int getDamageVsEntity(Entity var1) {
-        return Item.itemsList[this.itemID].getDamageVsEntity(var1);
+        return Item.ITEMS_LIST[this.itemID].getDamageVsEntity(var1);
     }
 
     public boolean canHarvestBlock(Block var1) {
-        return Item.itemsList[this.itemID].canHarvestBlock(var1);
+        return Item.ITEMS_LIST[this.itemID].canHarvestBlock(var1);
     }
 
     public void func_1097_a(EntityPlayer var1) {
     }
 
     public void useItemOnEntity(EntityLiving var1) {
-        Item.itemsList[this.itemID].saddleEntity(this, var1);
+        Item.ITEMS_LIST[this.itemID].saddleEntity(this, var1);
     }
 
     public ItemStack copy() {
@@ -204,11 +204,11 @@ public final class ItemStack {
     }
 
     public String getItemName() {
-        return Item.itemsList[this.itemID].getItemNameIS(this);
+        return Item.ITEMS_LIST[this.itemID].getItemNameIS(this);
     }
 
     public String toString() {
-        return this.stackSize + "x" + Item.itemsList[this.itemID].getItemName() + "@" + this.itemDamage;
+        return this.stackSize + "x" + Item.ITEMS_LIST[this.itemID].getItemName() + "@" + this.itemDamage;
     }
 
     public void updateAnimation(World var1, Entity var2, int var3, boolean var4) {
@@ -216,12 +216,12 @@ public final class ItemStack {
             --this.animationsToGo;
         }
 
-        Item.itemsList[this.itemID].onUpdate(this, var1, var2, var3, var4);
+        Item.ITEMS_LIST[this.itemID].onUpdate(this, var1, var2, var3, var4);
     }
 
     public void onCrafting(World var1, EntityPlayer var2) {
         var2.addStat(StatList.field_25158_z[this.itemID], this.stackSize);
-        Item.itemsList[this.itemID].onCreated(this, var1, var2);
+        Item.ITEMS_LIST[this.itemID].onCreated(this, var1, var2);
     }
 
     public boolean isStackEqual(ItemStack var1) {

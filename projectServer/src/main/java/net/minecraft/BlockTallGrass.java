@@ -20,6 +20,6 @@ public class BlockTallGrass extends BlockFlower {
     }
 
     public int idDropped(int var1, Random var2) {
-        return var2.nextInt(8) == 0 ? Item.seeds.shiftedIndex : -1;
+        return var2.nextInt(8) == 0 ? Item.SEEDS.shiftedIndex : -1;
     }
 }

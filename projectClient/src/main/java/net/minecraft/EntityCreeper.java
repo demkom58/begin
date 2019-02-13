@@ -83,7 +83,7 @@ public class EntityCreeper extends EntityMob {
     public void onDeath(Entity var1) {
         super.onDeath(var1);
         if (var1 instanceof EntitySkeleton) {
-            this.dropItem(Item.record13.shiftedIndex + this.rand.nextInt(2), 1);
+            this.dropItem(Item.RECORD_13.shiftedIndex + this.rand.nextInt(2), 1);
         }
 
     }
@@ -129,7 +129,7 @@ public class EntityCreeper extends EntityMob {
     }
 
     protected int getDropItemId() {
-        return Item.gunpowder.shiftedIndex;
+        return Item.GUNPOWDER.shiftedIndex;
     }
 
     private int getCreeperState() {

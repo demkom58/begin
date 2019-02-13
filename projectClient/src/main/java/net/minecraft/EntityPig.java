@@ -45,7 +45,7 @@ public class EntityPig extends EntityAnimal {
     }
 
     protected int getDropItemId() {
-        return this.fire > 0 ? Item.porkCooked.shiftedIndex : Item.porkRaw.shiftedIndex;
+        return this.fire > 0 ? Item.PORKCHOP_COOKED.shiftedIndex : Item.PORKCHOP_RAW.shiftedIndex;
     }
 
     public boolean getSaddled() {

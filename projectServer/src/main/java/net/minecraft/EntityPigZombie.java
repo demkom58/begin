@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.List;
 
 public class EntityPigZombie extends EntityZombie {
-    private static final ItemStack defaultHeldItem = new ItemStack(Item.swordGold, 1);
+    private static final ItemStack defaultHeldItem = new ItemStack(Item.SWORD_GOLD, 1);
     private int angerLevel = 0;
     private int randomSoundDelay = 0;
 
@@ -85,6 +85,6 @@ public class EntityPigZombie extends EntityZombie {
     }
 
     protected int getDropItemId() {
-        return Item.porkCooked.shiftedIndex;
+        return Item.PORKCHOP_COOKED.shiftedIndex;
     }
 }
