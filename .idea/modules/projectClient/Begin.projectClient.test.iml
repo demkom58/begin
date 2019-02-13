@@ -10,11 +10,12 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Begin.projectClient.main" />
+    <orderEntry type="module" module-name="IdeaProjects.Begin.projectCommon.main" />
+    <orderEntry type="library" name="Gradle: it.unimi.dsi:fastutil:8.2.2" level="project" />
     <orderEntry type="library" name="Gradle: com.github.divinacode:Paulscode-SoundSystem:2013-04-17" level="project" />
     <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl_util:2.9.2" level="project" />
     <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl:2.9.3" level="project" />
     <orderEntry type="library" name="Gradle: net.java.jinput:jinput:2.0.9" level="project" />
-    <orderEntry type="module" module-name="IdeaProjects.Begin.projectCommon.main" />
     <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-windows:2.9.3" level="project" />
     <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-linux:2.9.3" level="project" />
     <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-osx:2.9.3" level="project" />

@@ -705,7 +705,7 @@ public abstract class EntityPlayer extends EntityLiving {
                     if (this.field_27995_d == null) {
                         this.field_27995_d = new ChunkCoordinates(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ));
                     } else if (this.field_27995_d.getSqDistanceTo(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) >= 1000.0D) {
-                        this.addStat(AchievementList.field_27102_q, 1);
+                        this.addStat(AchievementList.onARail, 1);
                     }
                 } else if (this.ridingEntity instanceof EntityBoat) {
                     this.addStat(StatList.field_27094_s, var7);
@@ -727,7 +727,7 @@ public abstract class EntityPlayer extends EntityLiving {
 
     public void func_27010_a(EntityLiving var1) {
         if (var1 instanceof EntityMob) {
-            this.func_27017_a(AchievementList.field_27100_s);
+            this.func_27017_a(AchievementList.killEnemy);
         }
 
     }

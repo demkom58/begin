@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import achievement.AchievementMap;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -40,7 +42,7 @@ public class StatBase {
 
         StatList.field_25123_a.add(this);
         StatList.field_25104_C.put(this.statId, this);
-        this.field_27057_h = AchievementMap.func_25132_a(this.statId);
+        this.field_27057_h = AchievementMap.getGuid(this.statId);
         return this;
     }
 

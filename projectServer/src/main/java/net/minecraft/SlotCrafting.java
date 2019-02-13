@@ -17,21 +17,21 @@ public class SlotCrafting extends Slot {
     public void onPickupFromSlot(ItemStack var1) {
         var1.func_28142_b(this.field_25004_e.worldObj, this.field_25004_e);
         if (var1.itemID == Block.workbench.blockID) {
-            this.field_25004_e.addStat(AchievementList.field_25130_d, 1);
+            this.field_25004_e.addStat(AchievementList.buildWorkBench, 1);
         } else if (var1.itemID == Item.pickaxeWood.shiftedIndex) {
-            this.field_25004_e.addStat(AchievementList.field_27110_i, 1);
+            this.field_25004_e.addStat(AchievementList.buildPickaxe, 1);
         } else if (var1.itemID == Block.stoneOvenIdle.blockID) {
-            this.field_25004_e.addStat(AchievementList.field_27109_j, 1);
+            this.field_25004_e.addStat(AchievementList.buildFurnace, 1);
         } else if (var1.itemID == Item.hoeWood.shiftedIndex) {
-            this.field_25004_e.addStat(AchievementList.field_27107_l, 1);
+            this.field_25004_e.addStat(AchievementList.buildHoe, 1);
         } else if (var1.itemID == Item.bread.shiftedIndex) {
-            this.field_25004_e.addStat(AchievementList.field_27106_m, 1);
+            this.field_25004_e.addStat(AchievementList.makeBread, 1);
         } else if (var1.itemID == Item.cake.shiftedIndex) {
-            this.field_25004_e.addStat(AchievementList.field_27105_n, 1);
+            this.field_25004_e.addStat(AchievementList.bakeCake, 1);
         } else if (var1.itemID == Item.pickaxeStone.shiftedIndex) {
-            this.field_25004_e.addStat(AchievementList.field_27104_o, 1);
+            this.field_25004_e.addStat(AchievementList.buildBetterPickaxe, 1);
         } else if (var1.itemID == Item.swordWood.shiftedIndex) {
-            this.field_25004_e.addStat(AchievementList.field_27101_r, 1);
+            this.field_25004_e.addStat(AchievementList.buildSword, 1);
         }
 
         for (int var2 = 0; var2 < this.craftMatrix.getSizeInventory(); ++var2) {

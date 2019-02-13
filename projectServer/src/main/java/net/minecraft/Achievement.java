@@ -1,12 +1,12 @@
 package net.minecraft;
 
 public class Achievement extends StatBase {
-    public final int field_25067_a;
-    public final int field_27991_b;
-    public final Achievement field_27992_c;
+    public final int displayColumn;
+    public final int displayRow;
+    public final Achievement parentAchievement;
     public final ItemStack theItemStack;
-    private final String field_27063_l;
-    private boolean field_27062_m;
+    private final String achievementDescription;
+    private boolean isSpecial;
 
     public Achievement(int var1, String var2, int var3, int var4, Item var5, Achievement var6) {
         this(var1, var2, var3, var4, new ItemStack(var5), var6);
@@ -19,26 +19,26 @@ public class Achievement extends StatBase {
     public Achievement(int var1, String var2, int var3, int var4, ItemStack var5, Achievement var6) {
         super(5242880 + var1, StatCollector.translateToLocal("achievement." + var2));
         this.theItemStack = var5;
-        this.field_27063_l = StatCollector.translateToLocal("achievement." + var2 + ".desc");
-        this.field_25067_a = var3;
-        this.field_27991_b = var4;
-        if (var3 < AchievementList.field_27114_a) {
-            AchievementList.field_27114_a = var3;
+        this.achievementDescription = StatCollector.translateToLocal("achievement." + var2 + ".desc");
+        this.displayColumn = var3;
+        this.displayRow = var4;
+        if (var3 < AchievementList.minDisplayColumn) {
+            AchievementList.minDisplayColumn = var3;
         }
 
-        if (var4 < AchievementList.field_27113_b) {
-            AchievementList.field_27113_b = var4;
+        if (var4 < AchievementList.minDisplayRow) {
+            AchievementList.minDisplayRow = var4;
         }
 
-        if (var3 > AchievementList.field_27112_c) {
-            AchievementList.field_27112_c = var3;
+        if (var3 > AchievementList.maxDisplayColumn) {
+            AchievementList.maxDisplayColumn = var3;
         }
 
-        if (var4 > AchievementList.field_27111_d) {
-            AchievementList.field_27111_d = var4;
+        if (var4 > AchievementList.maxDisplayRow) {
+            AchievementList.maxDisplayRow = var4;
         }
 
-        this.field_27992_c = var6;
+        this.parentAchievement = var6;
     }
 
     public Achievement func_27059_a() {
@@ -47,13 +47,13 @@ public class Achievement extends StatBase {
     }
 
     public Achievement func_27060_b() {
-        this.field_27062_m = true;
+        this.isSpecial = true;
         return this;
     }
 
     public Achievement func_27061_c() {
         super.func_27053_d();
-        AchievementList.field_25129_a.add(this);
+        AchievementList.achievementList.add(this);
         return this;
     }
 

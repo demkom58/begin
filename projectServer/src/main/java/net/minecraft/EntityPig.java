@@ -73,7 +73,7 @@ public class EntityPig extends EntityAnimal {
     protected void fall(float var1) {
         super.fall(var1);
         if (var1 > 5.0F && this.riddenByEntity instanceof EntityPlayer) {
-            ((EntityPlayer) this.riddenByEntity).func_27017_a(AchievementList.field_27098_u);
+            ((EntityPlayer) this.riddenByEntity).func_27017_a(AchievementList.flyPig);
         }
 
     }

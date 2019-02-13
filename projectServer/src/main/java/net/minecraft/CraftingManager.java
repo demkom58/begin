@@ -6,17 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CraftingManager {
-    private static final CraftingManager instance = new CraftingManager();
-    private List<IRecipe> recipes = new ArrayList();
+    private static final CraftingManager INSTANCE = new CraftingManager();
+    private List<IRecipe> recipes = new ArrayList<>();
 
     private CraftingManager() {
-        (new RecipesTools()).addRecipes(this);
-        (new RecipesWeapons()).addRecipes(this);
-        (new RecipesIngots()).addRecipes(this);
-        (new RecipesFood()).addRecipes(this);
-        (new RecipesCrafting()).addRecipes(this);
-        (new RecipesArmor()).addRecipes(this);
-        (new RecipesDyes()).addRecipes(this);
+        new RecipesTools().addRecipes(this);
+        new RecipesWeapons().addRecipes(this);
+        new RecipesIngots().addRecipes(this);
+        new RecipesFood().addRecipes(this);
+        new RecipesCrafting().addRecipes(this);
+        new RecipesArmor().addRecipes(this);
+        new RecipesDyes().addRecipes(this);
+
         this.addRecipe(new ItemStack(Item.paper, 3), "###", '#', Item.reed);
         this.addRecipe(new ItemStack(Item.book, 1), "#", "#", "#", '#', Item.paper);
         this.addRecipe(new ItemStack(Block.fence, 2), "###", "###", '#', Item.stick);
@@ -74,12 +75,13 @@ public class CraftingManager {
         this.addRecipe(new ItemStack(Block.pistonBase, 1), "TTT", "#X#", "#R#", '#', Block.cobblestone, 'X', Item.ingotIron, 'R', Item.redstone, 'T', Block.planks);
         this.addRecipe(new ItemStack(Block.pistonStickyBase, 1), "S", "P", 'S', Item.slimeBall, 'P', Block.pistonBase);
         this.addRecipe(new ItemStack(Item.bed, 1), "###", "XXX", '#', Block.cloth, 'X', Block.planks);
+
         Collections.sort(this.recipes, new RecipeSorter(this));
         System.out.println(this.recipes.size() + " recipes");
     }
 
-    public static final CraftingManager getInstance() {
-        return instance;
+    public static CraftingManager getInstance() {
+        return INSTANCE;
     }
 
     void addRecipe(ItemStack var1, Object... var2) {
@@ -106,7 +108,7 @@ public class CraftingManager {
         }
 
         HashMap<Character, ItemStack> var12;
-        for (var12 = new HashMap(); var4 < var2.length; var4 += 2) {
+        for (var12 = new HashMap<>(); var4 < var2.length; var4 += 2) {
             Character var13 = (Character) var2[var4];
             ItemStack var15 = null;
             if (var2[var4 + 1] instanceof Item) {
@@ -124,8 +126,8 @@ public class CraftingManager {
 
         for (int var16 = 0; var16 < var5 * var6; ++var16) {
             char var10 = var3.charAt(var16);
-            if (var12.containsKey(Character.valueOf(var10))) {
-                var14[var16] = var12.get(Character.valueOf(var10)).copy();
+            if (var12.containsKey(var10)) {
+                var14[var16] = var12.get(var10).copy();
             } else {
                 var14[var16] = null;
             }
