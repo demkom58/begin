@@ -1,11 +1,14 @@
 package net.minecraft;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectRBTreeMap;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class FurnaceRecipes {
-    private static final FurnaceRecipes smeltingBase = new FurnaceRecipes();
-    private Map<Integer, ItemStack> smeltingList = new HashMap<>();
+    private static final FurnaceRecipes SMELTING_BASE = new FurnaceRecipes();
+    private Int2ObjectMap<ItemStack> smeltingList = new Int2ObjectRBTreeMap<>();
 
     private FurnaceRecipes() {
         this.addSmelting(Block.oreIron.blockID, new ItemStack(Item.ingotIron));
@@ -20,16 +23,16 @@ public class FurnaceRecipes {
         this.addSmelting(Block.wood.blockID, new ItemStack(Item.coal, 1, 1));
     }
 
-    public static final FurnaceRecipes smelting() {
-        return smeltingBase;
+    public static FurnaceRecipes smelting() {
+        return SMELTING_BASE;
     }
 
-    public void addSmelting(int var1, ItemStack var2) {
-        this.smeltingList.put(Integer.valueOf(var1), var2);
+    public void addSmelting(int id, ItemStack result) {
+        this.smeltingList.put(id, result);
     }
 
-    public ItemStack getSmeltingResult(int var1) {
-        return this.smeltingList.get(Integer.valueOf(var1));
+    public ItemStack getSmeltingResult(int id) {
+        return this.smeltingList.get(id);
     }
 
     public Map<Integer, ItemStack> getSmeltingList() {

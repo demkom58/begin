@@ -1,5 +1,9 @@
 package net.minecraft;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.HashMap;
@@ -8,8 +12,8 @@ import java.util.Map;
 public class EntityList {
     private static Map<String, Class> stringToClassMapping = new HashMap<>();
     private static Map<Class, String> classToStringMapping = new HashMap<>();
-    private static Map<Integer, Class> IDtoClassMapping = new HashMap<>();
-    private static Map<Class, Integer> classToIDMapping = new HashMap<>();
+    private static Int2ObjectMap<Class> IDtoClassMapping = new Int2ObjectArrayMap<>();
+    private static Object2IntMap<Class> classToIDMapping = new Object2IntArrayMap<>();
 
     static {
         addMapping(EntityArrow.class, "Arrow", 10);
@@ -49,9 +53,9 @@ public class EntityList {
         Entity entity = null;
 
         try {
-            Class clszz = stringToClassMapping.get(var0);
-            if (clszz != null) {
-                entity = (Entity) clszz.getConstructor(World.class).newInstance(var1);
+            Class clazz = stringToClassMapping.get(var0);
+            if (clazz != null) {
+                entity = (Entity) clazz.getConstructor(World.class).newInstance(var1);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,8 +72,8 @@ public class EntityList {
             if (clazz != null) {
                 entity = (Entity) clazz.getConstructor(World.class).newInstance(world);
             }
-        } catch (Exception var4) {
-            var4.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         if (entity != null) {

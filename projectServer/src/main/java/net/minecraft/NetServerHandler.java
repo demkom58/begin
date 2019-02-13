@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import it.unimi.dsi.fastutil.ints.Int2ShortMap;
+import it.unimi.dsi.fastutil.ints.Int2ShortRBTreeMap;
 import net.minecraft.server.MinecraftServer;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     private double lastPosY;
     private double lastPosZ;
     private boolean hasMoved = true;
-    private Map<Integer, Short> field_10_k = new HashMap<>();
+    private Int2ShortMap field_10_k = new Int2ShortRBTreeMap();
 
     public NetServerHandler(MinecraftServer var1, NetworkManager var2, EntityPlayerMP var3) {
         this.mcServer = var1;
