@@ -1,5 +1,12 @@
 package net.minecraft;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectRBTreeMap;
+import it.unimi.dsi.fastutil.ints.IntArraySet;
+import it.unimi.dsi.fastutil.ints.IntSet;
+import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -10,11 +17,11 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class Packet {
-    private static Map<Integer, Class<? extends Packet>> packetIdToClassMap = new HashMap<>();
-    private static Map<Class<? extends Packet>, Integer> packetClassToIdMap = new HashMap<>();
-    private static Set<Integer> clientPacketIdList = new HashSet<>();
-    private static Set<Integer> serverPacketIdList = new HashSet<>();
-    private static Map<Integer, PacketCounter> packetStats = new HashMap<>();
+    private static Int2ObjectMap<Class<? extends Packet>> packetIdToClassMap = new Int2ObjectRBTreeMap<>();
+    private static Object2IntMap<Class<? extends Packet>> packetClassToIdMap = new Object2IntArrayMap<>();
+    private static IntSet clientPacketIdList = new IntArraySet();
+    private static IntSet serverPacketIdList = new IntArraySet();
+    private static Int2ObjectMap<PacketCounter> packetStats = new Int2ObjectRBTreeMap<>();
     private static int totalPacketsCount = 0;
 
     static {

@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectRBTreeMap;
+
 import java.util.*;
 
 public class StatList {
@@ -10,7 +13,7 @@ public class StatList {
     public static StatBase[] field_25093_z;
     public static StatBase[] field_25107_A;
     public static StatBase[] field_25105_B;
-    protected static Map<Integer, StatBase> field_25104_C = new HashMap<>();
+    protected static Int2ObjectMap<StatBase> field_25104_C = new Int2ObjectRBTreeMap<>();
     public static StatBase field_25119_e = (new StatBasic(1000, StatCollector.translateToLocal("stat.startGame"))).func_27052_e().func_27053_d();
     public static StatBase field_25118_f = (new StatBasic(1001, StatCollector.translateToLocal("stat.createWorld"))).func_27052_e().func_27053_d();
     public static StatBase field_25117_g = (new StatBasic(1002, StatCollector.translateToLocal("stat.loadWorld"))).func_27052_e().func_27053_d();

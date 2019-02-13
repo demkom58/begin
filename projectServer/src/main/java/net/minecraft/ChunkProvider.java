@@ -1,14 +1,16 @@
 package net.minecraft;
 
+import it.unimi.dsi.fastutil.ints.*;
+
 import java.io.IOException;
 import java.util.*;
 
 public class ChunkProvider implements IChunkProvider {
-    private Set<Integer> field_28062_a = new HashSet<>();
+    private IntSet field_28062_a = new IntRBTreeSet();
     private Chunk field_28061_b;
     private IChunkProvider chunkGenerator;
     private IChunkLoader field_28066_d;
-    private Map<Integer, Chunk> field_28065_e = new HashMap<>();
+    private Int2ObjectMap<Chunk> field_28065_e = new Int2ObjectRBTreeMap<>();
     private List<Chunk> field_28064_f = new ArrayList<>();
     private World worldObj;
 

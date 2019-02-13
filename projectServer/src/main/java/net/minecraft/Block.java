@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Block {
-    public static final StepSound soundPowderFootstep = new StepSound("stone", 1.0F, 1.0F);
+    public static final StepSound SOUND_POWDER_FOOTSTEP = new StepSound("stone", 1.0F, 1.0F);
     public static final StepSound soundWoodFootstep = new StepSound("wood", 1.0F, 1.0F);
     public static final StepSound soundGravelFootstep = new StepSound("gravel", 1.0F, 1.0F);
     public static final StepSound soundGrassFootstep = new StepSound("grass", 1.0F, 1.0F);
@@ -75,7 +75,7 @@ public class Block {
     public static final Block mobSpawner = (new BlockMobSpawner(52, 65)).setHardness(5.0F).setStepSound(soundMetalFootstep).setBlockName("mobSpawner").disableStats();
     public static final Block stairCompactPlanks = (new BlockStairs(53, planks)).setBlockName("stairsWood").setRequiresSelfNotify();
     public static final Block chest = (new BlockChest(54)).setHardness(2.5F).setStepSound(soundWoodFootstep).setBlockName("chest").setRequiresSelfNotify();
-    public static final Block redstoneWire = (new BlockRedstoneWire(55, 164)).setHardness(0.0F).setStepSound(soundPowderFootstep).setBlockName("redstoneDust").disableStats().setRequiresSelfNotify();
+    public static final Block redstoneWire = (new BlockRedstoneWire(55, 164)).setHardness(0.0F).setStepSound(SOUND_POWDER_FOOTSTEP).setBlockName("redstoneDust").disableStats().setRequiresSelfNotify();
     public static final Block oreDiamond = (new BlockOre(56, 50)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundStoneFootstep).setBlockName("oreDiamond");
     public static final Block blockDiamond = (new BlockOreStorage(57, 24)).setHardness(5.0F).setResistance(10.0F).setStepSound(soundMetalFootstep).setBlockName("blockDiamond");
     public static final Block workbench = (new BlockWorkbench(58)).setHardness(2.5F).setStepSound(soundWoodFootstep).setBlockName("workbench");
@@ -162,7 +162,7 @@ public class Block {
     protected Block(int var1, Material var2) {
         this.blockConstructorCalled = true;
         this.enableStats = true;
-        this.stepSound = soundPowderFootstep;
+        this.stepSound = SOUND_POWDER_FOOTSTEP;
         this.blockParticleGravity = 1.0F;
         this.slipperiness = 0.6F;
         if (blocksList[var1] != null) {

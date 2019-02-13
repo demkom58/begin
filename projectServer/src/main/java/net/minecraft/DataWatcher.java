@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectRBTreeMap;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -21,7 +24,7 @@ public class DataWatcher {
         dataTypes.put(ChunkCoordinates.class, 6);
     }
 
-    private final Map<Integer, WatchableObject> watchedObjects = new HashMap<>();
+    private final Int2ObjectMap<WatchableObject> watchedObjects = new Int2ObjectRBTreeMap<>();
     private boolean objectChanged;
 
     public static void writeObjectsInListToStream(List<WatchableObject> var0, DataOutputStream var1) throws IOException {
