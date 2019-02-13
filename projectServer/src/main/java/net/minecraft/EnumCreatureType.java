@@ -1,20 +1,20 @@
 package net.minecraft;
 
 public enum EnumCreatureType {
-    monster(IMob.class, 70, Material.air, false),
-    creature(EntityAnimal.class, 15, Material.air, true),
-    waterCreature(EntityWaterMob.class, 5, Material.water, true);
+    MONSTER(IMob.class, 70, Material.air, false),
+    CREATURE(EntityAnimal.class, 15, Material.air, true),
+    WATER_CREATURE(EntityWaterMob.class, 5, Material.water, true);
 
     private final Class creatureClass;
     private final int maxNumberOfCreature;
     private final Material creatureMaterial;
-    private final boolean field_21106_g;
+    private final boolean peacefulCreature;
 
-    EnumCreatureType(Class var3, int var4, Material var5, boolean var6) {
-        this.creatureClass = var3;
-        this.maxNumberOfCreature = var4;
-        this.creatureMaterial = var5;
-        this.field_21106_g = var6;
+    EnumCreatureType(Class creatureClass, int maxNumberOfCreature, Material creatureMaterial, boolean peacefulCreature) {
+        this.creatureClass = creatureClass;
+        this.maxNumberOfCreature = maxNumberOfCreature;
+        this.creatureMaterial = creatureMaterial;
+        this.peacefulCreature = peacefulCreature;
     }
 
     public Class getCreatureClass() {
@@ -29,7 +29,7 @@ public enum EnumCreatureType {
         return this.creatureMaterial;
     }
 
-    public boolean func_21103_d() {
-        return this.field_21106_g;
+    public boolean isPeacefulCreature() {
+        return this.peacefulCreature;
     }
 }

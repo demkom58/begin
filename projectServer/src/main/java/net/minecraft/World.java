@@ -451,13 +451,13 @@ public class World implements IBlockAccess {
     }
 
     public void neighborLightPropagationChanged(EnumSkyBlock var1, int var2, int var3, int var4, int var5) {
-        if (!this.worldProvider.field_4306_c || var1 != EnumSkyBlock.Sky) {
+        if (!this.worldProvider.field_4306_c || var1 != EnumSkyBlock.SKY) {
             if (this.blockExists(var2, var3, var4)) {
-                if (var1 == EnumSkyBlock.Sky) {
+                if (var1 == EnumSkyBlock.SKY) {
                     if (this.canExistingBlockSeeTheSky(var2, var3, var4)) {
                         var5 = 15;
                     }
-                } else if (var1 == EnumSkyBlock.Block) {
+                } else if (var1 == EnumSkyBlock.BLOCK) {
                     int var6 = this.getBlockId(var2, var3, var4);
                     if (Block.lightValue[var6] > var5) {
                         var5 = Block.lightValue[var6];
@@ -491,7 +491,7 @@ public class World implements IBlockAccess {
                 return var7.getSavedLightValue(var1, var2 & 15, var3, var4 & 15);
             }
         } else {
-            return var1.field_984_c;
+            return var1.lightValue;
         }
     }
 
@@ -1431,7 +1431,7 @@ public class World implements IBlockAccess {
     }
 
     public void func_484_a(EnumSkyBlock skyBlock, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8) {
-        if (!this.worldProvider.field_4306_c || skyBlock != EnumSkyBlock.Sky) {
+        if (!this.worldProvider.field_4306_c || skyBlock != EnumSkyBlock.SKY) {
             ++field_4268_y;
 
             try {
@@ -1645,7 +1645,7 @@ public class World implements IBlockAccess {
                 int var10 = var16.getBlockID(var21, var9, var8);
                 var21 = var21 + var14;
                 var8 = var8 + var15;
-                if (var10 == 0 && this.getBlockLightValueNoChecks(var21, var9, var8) <= this.rand.nextInt(8) && this.getSavedLightValue(EnumSkyBlock.Sky, var21, var9, var8) <= 0) {
+                if (var10 == 0 && this.getBlockLightValueNoChecks(var21, var9, var8) <= this.rand.nextInt(8) && this.getSavedLightValue(EnumSkyBlock.SKY, var21, var9, var8) <= 0) {
                     EntityPlayer var11 = this.getClosestPlayer((double) var21 + 0.5D, (double) var9 + 0.5D, (double) var8 + 0.5D, 8.0D);
                     if (var11 != null && var11.getDistanceSq((double) var21 + 0.5D, (double) var9 + 0.5D, (double) var8 + 0.5D) > 4.0D) {
                         this.playSoundEffect((double) var21 + 0.5D, (double) var9 + 0.5D, (double) var8 + 0.5D, "ambient.cave.cave", 0.7F, 0.8F + this.rand.nextFloat() * 0.2F);
@@ -1672,7 +1672,7 @@ public class World implements IBlockAccess {
                 int var24 = var19 & 15;
                 int var28 = var19 >> 8 & 15;
                 int var31 = this.getTopSolidOrLiquidBlock(var24 + var14, var28 + var15);
-                if (this.getWorldChunkManager().getBiomeGenAt(var24 + var14, var28 + var15).getEnableSnow() && var31 >= 0 && var31 < 128 && var16.getSavedLightValue(EnumSkyBlock.Block, var24, var31, var28) < 10) {
+                if (this.getWorldChunkManager().getBiomeGenAt(var24 + var14, var28 + var15).getEnableSnow() && var31 >= 0 && var31 < 128 && var16.getSavedLightValue(EnumSkyBlock.BLOCK, var24, var31, var28) < 10) {
                     int var33 = var16.getBlockID(var24, var31 - 1, var28);
                     int var35 = var16.getBlockID(var24, var31, var28);
                     if (this.func_27068_v() && var35 == 0 && Block.snow.canPlaceBlockAt(this, var24 + var14, var31, var28 + var15) && var33 != 0 && var33 != Block.ice.blockID && Block.blocksList[var33].blockMaterial.getIsSolid()) {

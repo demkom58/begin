@@ -73,7 +73,7 @@ public class EntityMob extends EntityCreature implements IMob {
         int var1 = MathHelper.floor_double(this.posX);
         int var2 = MathHelper.floor_double(this.boundingBox.minY);
         int var3 = MathHelper.floor_double(this.posZ);
-        if (this.worldObj.getSavedLightValue(EnumSkyBlock.Sky, var1, var2, var3) > this.rand.nextInt(32)) {
+        if (this.worldObj.getSavedLightValue(EnumSkyBlock.SKY, var1, var2, var3) > this.rand.nextInt(32)) {
             return false;
         } else {
             int var4 = this.worldObj.getBlockLightValue(var1, var2, var3);

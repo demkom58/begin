@@ -72,11 +72,11 @@ public class MetadataChunkBlock {
                             }
 
                             int var20 = 0;
-                            if (this.field_957_a == EnumSkyBlock.Sky) {
+                            if (this.field_957_a == EnumSkyBlock.SKY) {
                                 if (var1.canExistingBlockSeeTheSky(var10, var28, var11)) {
                                     var20 = 15;
                                 }
-                            } else if (this.field_957_a == EnumSkyBlock.Block) {
+                            } else if (this.field_957_a == EnumSkyBlock.BLOCK) {
                                 var20 = Block.lightValue[var18];
                             }
 

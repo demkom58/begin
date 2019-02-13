@@ -1,12 +1,12 @@
 package net.minecraft;
 
 public enum EnumSkyBlock {
-    Sky(15),
-    Block(0);
+    SKY(15),
+    BLOCK(0);
 
-    public final int field_1722_c;
+    public final int lightValue;
 
-    private EnumSkyBlock(int var3) {
-        this.field_1722_c = var3;
+    EnumSkyBlock(int lightValue) {
+        this.lightValue = lightValue;
     }
 }

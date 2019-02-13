@@ -139,12 +139,12 @@ public class BiomeGenBase {
     }
 
     public List getSpawnableList(EnumCreatureType var1) {
-        if (var1 == EnumCreatureType.monster) {
+        if (var1 == EnumCreatureType.MONSTER) {
             return this.spawnableMonsterList;
-        } else if (var1 == EnumCreatureType.creature) {
+        } else if (var1 == EnumCreatureType.CREATURE) {
             return this.spawnableCreatureList;
         } else {
-            return var1 == EnumCreatureType.waterCreature ? this.spawnableWaterCreatureList : null;
+            return var1 == EnumCreatureType.WATER_CREATURE ? this.spawnableWaterCreatureList : null;
         }
     }
 

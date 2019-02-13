@@ -40,7 +40,7 @@ public final class SpawnerAnimals {
             ChunkCoordinates var36 = var0.getSpawnPoint();
 
             for (EnumCreatureType var40 : EnumCreatureType.values()) {
-                if ((!var40.func_21103_d() || var2) && (var40.func_21103_d() || var1) && var0.countEntities(var40.getCreatureClass()) <= var40.getMaxNumberOfCreature() * eligibleChunksForSpawning.size() / 256) {
+                if ((!var40.isPeacefulCreature() || var2) && (var40.isPeacefulCreature() || var1) && var0.countEntities(var40.getCreatureClass()) <= var40.getMaxNumberOfCreature() * eligibleChunksForSpawning.size() / 256) {
                     label130:
                     for (ChunkCoordIntPair var10 : eligibleChunksForSpawning) {
                         BiomeGenBase var11 = var0.getWorldChunkManager().func_4066_a(var10);
@@ -169,7 +169,7 @@ public final class SpawnerAnimals {
                     for (var13 = var11; var13 > 2 && !var0.isBlockNormalCube(var9, var13 - 1, var10); --var13) {
                     }
 
-                    while (!func_21167_a(EnumCreatureType.monster, var0, var9, var13, var10) && var13 < var11 + 16 && var13 < 128) {
+                    while (!func_21167_a(EnumCreatureType.MONSTER, var0, var9, var13, var10) && var13 < var11 + 16 && var13 < 128) {
                         ++var13;
                     }
 

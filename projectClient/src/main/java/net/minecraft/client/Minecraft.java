@@ -137,17 +137,17 @@ public abstract class Minecraft implements Runnable {
     private static EnumOS2 getOs() {
         String var0 = System.getProperty("os.name").toLowerCase();
         if (var0.contains("win")) {
-            return EnumOS2.windows;
+            return EnumOS2.WINDOWS;
         } else if (var0.contains("mac")) {
-            return EnumOS2.macos;
+            return EnumOS2.MACOS;
         } else if (var0.contains("solaris")) {
-            return EnumOS2.solaris;
+            return EnumOS2.SOLARIS;
         } else if (var0.contains("sunos")) {
-            return EnumOS2.solaris;
+            return EnumOS2.SOLARIS;
         } else if (var0.contains("linux")) {
-            return EnumOS2.linux;
+            return EnumOS2.LINUX;
         } else {
-            return var0.contains("unix") ? EnumOS2.linux : EnumOS2.unknown;
+            return var0.contains("unix") ? EnumOS2.LINUX : EnumOS2.UNKNOWN;
         }
     }
 
