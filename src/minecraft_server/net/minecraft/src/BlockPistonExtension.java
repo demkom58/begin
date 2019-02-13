@@ -63,7 +63,7 @@ public class BlockPistonExtension extends Block {
       return 0;
    }
 
-   public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList var6) {
+   public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList<AxisAlignedBB> var6) {
       int var7 = var1.getBlockMetadata(var2, var3, var4);
       switch(func_31045_b(var7)) {
       case 0:

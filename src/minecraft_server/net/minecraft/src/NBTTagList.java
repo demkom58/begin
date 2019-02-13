@@ -29,7 +29,7 @@ public class NBTTagList extends NBTBase {
    void readTagContents(DataInput var1) throws IOException {
       this.tagType = var1.readByte();
       int var2 = var1.readInt();
-      this.tagList = new ArrayList();
+      this.tagList = new ArrayList<>();
 
       for(int var3 = 0; var3 < var2; ++var3) {
          NBTBase nbtBase = NBTBase.createTagOfType(this.tagType);

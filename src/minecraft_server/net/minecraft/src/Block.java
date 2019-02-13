@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Block {
@@ -236,10 +237,10 @@ public class Block {
       return this.blockIndexInTexture;
    }
 
-   public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList var6) {
-      AxisAlignedBB var7 = this.getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
-      if (var7 != null && var5.intersectsWith(var7)) {
-         var6.add(var7);
+   public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, List<AxisAlignedBB> var6) {
+      AxisAlignedBB axis = this.getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
+      if (axis != null && var5.intersectsWith(axis)) {
+         var6.add(axis);
       }
 
    }

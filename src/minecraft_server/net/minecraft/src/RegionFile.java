@@ -17,7 +17,7 @@ public class RegionFile {
    private RandomAccessFile dataFile;
    private final int[] offsets = new int[1024];
    private final int[] chunkTimestamps = new int[1024];
-   private ArrayList sectorFree;
+   private ArrayList<Boolean> sectorFree;
    private int sizeDelta;
    private long lastModified = 0L;
 
@@ -51,14 +51,14 @@ public class RegionFile {
          }
 
          int var9 = (int)this.dataFile.length() / 4096;
-         this.sectorFree = new ArrayList(var9);
+         this.sectorFree = new ArrayList<>(var9);
 
          for(int var3 = 0; var3 < var9; ++var3) {
-            this.sectorFree.add(Boolean.valueOf(true));
+            this.sectorFree.add(Boolean.TRUE);
          }
 
-         this.sectorFree.set(0, Boolean.valueOf(false));
-         this.sectorFree.set(1, Boolean.valueOf(false));
+         this.sectorFree.set(0, Boolean.FALSE);
+         this.sectorFree.set(1, Boolean.FALSE);
          this.dataFile.seek(0L);
 
          for(int var10 = 0; var10 < 1024; ++var10) {
@@ -66,7 +66,7 @@ public class RegionFile {
             this.offsets[var10] = var4;
             if (var4 != 0 && (var4 >> 8) + (var4 & 255) <= this.sectorFree.size()) {
                for(int var5 = 0; var5 < (var4 & 255); ++var5) {
-                  this.sectorFree.set((var4 >> 8) + var5, Boolean.valueOf(false));
+                  this.sectorFree.set((var4 >> 8) + var5, Boolean.FALSE);
                }
             }
          }
@@ -75,8 +75,8 @@ public class RegionFile {
             int var12 = this.dataFile.readInt();
             this.chunkTimestamps[var11] = var12;
          }
-      } catch (IOException var6) {
-         var6.printStackTrace();
+      } catch (IOException e) {
+         e.printStackTrace();
       }
 
    }
@@ -146,7 +146,7 @@ public class RegionFile {
                   }
                }
             }
-         } catch (IOException var10) {
+         } catch (IOException e) {
             this.debugln("READ", var1, var2, "exception");
             return null;
          }
@@ -172,20 +172,20 @@ public class RegionFile {
             this.write(var6, var3, var4);
          } else {
             for(int var9 = 0; var9 < var7; ++var9) {
-               this.sectorFree.set(var6 + var9, Boolean.valueOf(true));
+               this.sectorFree.set(var6 + var9, Boolean.TRUE);
             }
 
-            int var15 = this.sectorFree.indexOf(Boolean.valueOf(true));
+            int var15 = this.sectorFree.indexOf(Boolean.TRUE);
             int var10 = 0;
             if (var15 != -1) {
                for(int var11 = var15; var11 < this.sectorFree.size(); ++var11) {
                   if (var10 != 0) {
-                     if (((Boolean)this.sectorFree.get(var11)).booleanValue()) {
+                     if (this.sectorFree.get(var11)) {
                         ++var10;
                      } else {
                         var10 = 0;
                      }
-                  } else if (((Boolean)this.sectorFree.get(var11)).booleanValue()) {
+                  } else if (this.sectorFree.get(var11)) {
                      var15 = var11;
                      var10 = 1;
                   }
@@ -202,7 +202,7 @@ public class RegionFile {
                this.setOffset(var1, var2, var15 << 8 | var8);
 
                for(int var17 = 0; var17 < var8; ++var17) {
-                  this.sectorFree.set(var6 + var17, Boolean.valueOf(false));
+                  this.sectorFree.set(var6 + var17, Boolean.FALSE);
                }
 
                this.write(var6, var3, var4);
@@ -213,7 +213,7 @@ public class RegionFile {
 
                for(int var16 = 0; var16 < var8; ++var16) {
                   this.dataFile.write(emptySector);
-                  this.sectorFree.add(Boolean.valueOf(false));
+                  this.sectorFree.add(Boolean.FALSE);
                }
 
                this.sizeDelta += 4096 * var8;

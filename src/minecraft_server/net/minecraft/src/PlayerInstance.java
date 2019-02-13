@@ -21,7 +21,7 @@ class PlayerInstance {
 
     public PlayerInstance(PlayerManager var1, int var2, int var3) {
         this.playerManager = var1;
-        this.players = new ArrayList();
+        this.players = new ArrayList<>();
         this.blocksToUpdate = new short[10];
         this.numBlocksToUpdate = 0;
         this.chunkX = var2;

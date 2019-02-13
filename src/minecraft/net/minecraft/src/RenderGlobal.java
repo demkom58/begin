@@ -11,7 +11,7 @@ import org.lwjgl.opengl.ARBOcclusionQuery;
 import org.lwjgl.opengl.GL11;
 
 public class RenderGlobal implements IWorldAccess {
-   public List tileEntities = new ArrayList();
+   public List<TileEntity> tileEntities = new ArrayList();
    private World worldObj;
    private RenderEngine renderEngine;
    private List worldRenderersToUpdate = new ArrayList();

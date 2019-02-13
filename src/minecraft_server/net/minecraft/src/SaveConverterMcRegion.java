@@ -26,10 +26,10 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 
    public boolean converMapToMCRegion(String var1, IProgressUpdate var2) {
       var2.setLoadingProgress(0);
-      ArrayList var3 = new ArrayList();
-      ArrayList var4 = new ArrayList();
-      ArrayList var5 = new ArrayList();
-      ArrayList var6 = new ArrayList();
+      ArrayList<ChunkFile> var3 = new ArrayList<>();
+      ArrayList<File> var4 = new ArrayList<>();
+      ArrayList<ChunkFile> var5 = new ArrayList<>();
+      ArrayList<File> var6 = new ArrayList<>();
       File var7 = new File(this.field_22106_a, var1);
       File var8 = new File(var7, "DIM-1");
       System.out.println("Scanning folders...");
@@ -42,10 +42,10 @@ public class SaveConverterMcRegion extends SaveFormatOld {
       System.out.println("Total conversion count is " + var9);
       this.func_22107_a(var7, var3, 0, var9, var2);
       this.func_22107_a(var8, var5, var3.size(), var9, var2);
-      WorldInfo var10 = this.getWorldInfo(var1);
-      var10.setVersion(19132);
-      ISaveHandler var11 = this.func_22105_a(var1, false);
-      var11.func_22094_a(var10);
+      WorldInfo worldInfo = this.getWorldInfo(var1);
+      worldInfo.setVersion(19132);
+      ISaveHandler saveHandler = this.func_22105_a(var1, false);
+      saveHandler.func_22094_a(worldInfo);
       this.func_22109_a(var4, var3.size() + var5.size(), var9, var2);
       if (var8.exists()) {
          this.func_22109_a(var6, var3.size() + var5.size() + var4.size(), var9, var2);
@@ -54,7 +54,7 @@ public class SaveConverterMcRegion extends SaveFormatOld {
       return true;
    }
 
-   private void func_22108_a(File var1, ArrayList var2, ArrayList var3) {
+   private void func_22108_a(File var1, ArrayList<ChunkFile> var2, ArrayList<File> var3) {
       ChunkFolderPattern var4 = new ChunkFolderPattern();
       ChunkFilePattern var5 = new ChunkFilePattern();
       File[] var6 = var1.listFiles(var4);

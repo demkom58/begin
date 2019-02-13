@@ -23,7 +23,7 @@ public class Chunk {
     public long lastSaveTime;
 
     public Chunk(World var1, int var2, int var3) {
-        this.chunkTileEntityMap = new HashMap();
+        this.chunkTileEntityMap = new HashMap<>();
         this.entities = new List[8];
         this.isTerrainPopulated = false;
         this.isModified = false;
@@ -35,7 +35,7 @@ public class Chunk {
         this.heightMap = new byte[256];
 
         for (int var4 = 0; var4 < this.entities.length; ++var4) {
-            this.entities[var4] = new ArrayList();
+            this.entities[var4] = new ArrayList<>();
         }
 
     }

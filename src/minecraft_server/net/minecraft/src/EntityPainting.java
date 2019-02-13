@@ -24,7 +24,7 @@ public class EntityPainting extends Entity {
       this.xPosition = var2;
       this.yPosition = var3;
       this.zPosition = var4;
-      ArrayList var6 = new ArrayList();
+      ArrayList<EnumArt> var6 = new ArrayList<>();
 
       for(EnumArt var10 : EnumArt.values()) {
          this.art = var10;
@@ -35,7 +35,7 @@ public class EntityPainting extends Entity {
       }
 
       if (var6.size() > 0) {
-         this.art = (EnumArt)var6.get(this.rand.nextInt(var6.size()));
+         this.art = var6.get(this.rand.nextInt(var6.size()));
       }
 
       this.func_179_a(var5);

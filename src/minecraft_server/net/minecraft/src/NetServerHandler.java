@@ -406,7 +406,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
          logger.info(var1);
          this.mcServer.configManager.sendPacketToAllPlayers(new Packet3Chat(var1));
       } else if (var1.toLowerCase().startsWith("/kill")) {
-         this.playerEntity.attackEntityFrom((Entity)null, 1000);
+         this.playerEntity.attackEntityFrom(null, 1000);
       } else if (var1.toLowerCase().startsWith("/tell ")) {
          String[] var2 = var1.split(" ");
          if (var2.length >= 3) {
@@ -497,13 +497,13 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             this.playerEntity.updateHeldItem();
             this.playerEntity.isChangingQuantityOnly = false;
          } else {
-            this.field_10_k.put(Integer.valueOf(this.playerEntity.currentCraftingInventory.windowId), Short.valueOf(var1.action));
+            this.field_10_k.put(this.playerEntity.currentCraftingInventory.windowId, var1.action);
             this.playerEntity.playerNetServerHandler.sendPacket(new Packet106Transaction(var1.window_Id, var1.action, false));
             this.playerEntity.currentCraftingInventory.setCanCraft(this.playerEntity, false);
-            ArrayList var3 = new ArrayList();
+            ArrayList<ItemStack> var3 = new ArrayList<>();
 
             for(int var4 = 0; var4 < this.playerEntity.currentCraftingInventory.inventorySlots.size(); ++var4) {
-               var3.add(((Slot)this.playerEntity.currentCraftingInventory.inventorySlots.get(var4)).getStack());
+               var3.add(this.playerEntity.currentCraftingInventory.inventorySlots.get(var4).getStack());
             }
 
             this.playerEntity.updateCraftingInventory(this.playerEntity.currentCraftingInventory, var3);
@@ -513,7 +513,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
    }
 
    public void func_20008_a(Packet106Transaction var1) {
-      Short var2 = (Short)this.field_10_k.get(this.playerEntity.currentCraftingInventory.windowId);
+      Short var2 = this.field_10_k.get(this.playerEntity.currentCraftingInventory.windowId);
       if (var2 != null && var1.shortWindowId == var2.shortValue() && this.playerEntity.currentCraftingInventory.windowId == var1.windowId && !this.playerEntity.currentCraftingInventory.getCanCraft(this.playerEntity)) {
          this.playerEntity.currentCraftingInventory.setCanCraft(this.playerEntity, true);
       }

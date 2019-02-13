@@ -105,7 +105,7 @@ public class CraftingManager {
          }
       }
 
-      HashMap var12;
+      HashMap<Character, ItemStack> var12;
       for(var12 = new HashMap(); var4 < var2.length; var4 += 2) {
          Character var13 = (Character)var2[var4];
          ItemStack var15 = null;
@@ -135,7 +135,7 @@ public class CraftingManager {
    }
 
    void addShapelessRecipe(ItemStack var1, Object... var2) {
-      ArrayList var3 = new ArrayList();
+      ArrayList<ItemStack> var3 = new ArrayList<>();
 
       for(Object var7 : var2) {
          if (var7 instanceof ItemStack) {

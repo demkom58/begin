@@ -9,41 +9,41 @@ import java.util.List;
 import java.util.Map;
 
 public class DataWatcher {
-    private static final HashMap dataTypes = new HashMap();
+    private static final HashMap<Class, Integer> dataTypes = new HashMap<>();
     private final Map<Integer, WatchableObject> watchedObjects = new HashMap<>();
     private boolean objectChanged;
 
     public void addObject(int var1, Object var2) {
-        Integer var3 = (Integer) dataTypes.get(var2.getClass());
+        Integer var3 = dataTypes.get(var2.getClass());
         if (var3 == null) {
             throw new IllegalArgumentException("Unknown data type: " + var2.getClass());
         } else if (var1 > 31) {
             throw new IllegalArgumentException("Data value id is too big with " + var1 + "! (Max is " + 31 + ")");
         } else if (this.watchedObjects.containsKey(var1)) {
             throw new IllegalArgumentException("Duplicate id value for " + var1 + "!");
-        } else {
-            WatchableObject var4 = new WatchableObject(var3, var1, var2);
-            this.watchedObjects.put(var1, var4);
         }
+
+        WatchableObject watchableObject = new WatchableObject(var3, var1, var2);
+        this.watchedObjects.put(var1, watchableObject);
     }
 
     public byte getWatchableObjectByte(int var1) {
-        return ((Byte) this.watchedObjects.get(Integer.valueOf(var1)).getObject()).byteValue();
+        return (Byte) this.watchedObjects.get(var1).getObject();
     }
 
     public int getWatchableObjectInteger(int var1) {
-        return ((Integer) this.watchedObjects.get(Integer.valueOf(var1)).getObject()).intValue();
+        return (Integer) this.watchedObjects.get(var1).getObject();
     }
 
     public String getWatchableObjectString(int var1) {
-        return (String) this.watchedObjects.get(Integer.valueOf(var1)).getObject();
+        return (String) this.watchedObjects.get(var1).getObject();
     }
 
     public void updateObject(int var1, Object var2) {
-        WatchableObject var3 = this.watchedObjects.get(Integer.valueOf(var1));
-        if (!var2.equals(var3.getObject())) {
-            var3.setObject(var2);
-            var3.setWatching(true);
+        WatchableObject watchableObject = this.watchedObjects.get(var1);
+        if (!var2.equals(watchableObject.getObject())) {
+            watchableObject.setObject(var2);
+            watchableObject.setWatching(true);
             this.objectChanged = true;
         }
 
@@ -95,16 +95,16 @@ public class DataWatcher {
         var0.writeByte(var2);
         switch (var1.getObjectType()) {
             case 0:
-                var0.writeByte(((Byte) var1.getObject()).byteValue());
+                var0.writeByte((Byte) var1.getObject());
                 break;
             case 1:
-                var0.writeShort(((Short) var1.getObject()).shortValue());
+                var0.writeShort((Short) var1.getObject());
                 break;
             case 2:
-                var0.writeInt(((Integer) var1.getObject()).intValue());
+                var0.writeInt((Integer) var1.getObject());
                 break;
             case 3:
-                var0.writeFloat(((Float) var1.getObject()).floatValue());
+                var0.writeFloat((Float) var1.getObject());
                 break;
             case 4:
                 Packet.writeString((String) var1.getObject(), var0);
@@ -129,7 +129,7 @@ public class DataWatcher {
 
         for (byte var2 = var0.readByte(); var2 != 127; var2 = var0.readByte()) {
             if (var1 == null) {
-                var1 = new ArrayList();
+                var1 = new ArrayList<>();
             }
 
             int var3 = (var2 & 224) >> 5;
@@ -171,12 +171,12 @@ public class DataWatcher {
     }
 
     static {
-        dataTypes.put(Byte.class, Integer.valueOf(0));
-        dataTypes.put(Short.class, Integer.valueOf(1));
-        dataTypes.put(Integer.class, Integer.valueOf(2));
-        dataTypes.put(Float.class, Integer.valueOf(3));
-        dataTypes.put(String.class, Integer.valueOf(4));
-        dataTypes.put(ItemStack.class, Integer.valueOf(5));
-        dataTypes.put(ChunkCoordinates.class, Integer.valueOf(6));
+        dataTypes.put(Byte.class, 0);
+        dataTypes.put(Short.class, 1);
+        dataTypes.put(Integer.class, 2);
+        dataTypes.put(Float.class, 3);
+        dataTypes.put(String.class, 4);
+        dataTypes.put(ItemStack.class, 5);
+        dataTypes.put(ChunkCoordinates.class, 6);
     }
 }

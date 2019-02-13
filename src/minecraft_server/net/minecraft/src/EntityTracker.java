@@ -95,7 +95,7 @@ public class EntityTracker {
    }
 
    public void updateTrackedEntities() {
-      ArrayList var1 = new ArrayList();
+      ArrayList<Entity> var1 = new ArrayList<>();
 
       for(EntityTrackerEntry var3 : this.trackedEntitySet) {
          var3.updatePlayerList(this.mcServer.getWorldManager(this.field_28113_e).playerEntities);

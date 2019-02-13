@@ -19,24 +19,24 @@ class NetworkAcceptThread extends Thread {
    }
 
    public void run() {
-      HashMap var1 = new HashMap();
+      HashMap<InetAddress, Long> var1 = new HashMap<>();
 
       while(this.field_985_b.field_973_b) {
          try {
             Socket var2 = NetworkListenThread.func_713_a(this.field_985_b).accept();
             if (var2 != null) {
                InetAddress var3 = var2.getInetAddress();
-               if (var1.containsKey(var3) && !"127.0.0.1".equals(var3.getHostAddress()) && System.currentTimeMillis() - ((Long)var1.get(var3)).longValue() < 5000L) {
-                  var1.put(var3, Long.valueOf(System.currentTimeMillis()));
+               if (var1.containsKey(var3) && !"127.0.0.1".equals(var3.getHostAddress()) && System.currentTimeMillis() - var1.get(var3) < 5000L) {
+                  var1.put(var3, System.currentTimeMillis());
                   var2.close();
                } else {
-                  var1.put(var3, Long.valueOf(System.currentTimeMillis()));
+                  var1.put(var3, System.currentTimeMillis());
                   NetLoginHandler var4 = new NetLoginHandler(this.mcServer, var2, "Connection #" + NetworkListenThread.func_712_b(this.field_985_b));
                   NetworkListenThread.func_716_a(this.field_985_b, var4);
                }
             }
-         } catch (IOException var5) {
-            var5.printStackTrace();
+         } catch (IOException e) {
+            e.printStackTrace();
          }
       }
 
