@@ -20,22 +20,43 @@ public class MinecraftServer implements Runnable, ICommandListener {
     public PropertyManager propertyManagerObj;
     public WorldServer[] worldMngr;
     public ServerConfigurationManager configManager;
-    private ConsoleCommandHandler commandHandler;
-    private boolean serverRunning = true;
     public boolean serverStopped = false;
-    int deathTime = 0;
     public String currentTask;
     public int percentDone;
-    private List<IUpdatePlayerListBox> updatePlayerListBoxes = new ArrayList<>();
-    private List<ServerCommand> commands = Collections.synchronizedList(new ArrayList<>());
     public EntityTracker[] entityTracker = new EntityTracker[2];
     public boolean onlineMode;
     public boolean spawnPeacefulMobs;
     public boolean pvpOn;
     public boolean allowFlight;
+    int deathTime = 0;
+    private ConsoleCommandHandler commandHandler;
+    private boolean serverRunning = true;
+    private List<IUpdatePlayerListBox> updatePlayerListBoxes = new ArrayList<>();
+    private List<ServerCommand> commands = Collections.synchronizedList(new ArrayList<>());
 
     public MinecraftServer() {
         new ThreadSleepForever(this);
+    }
+
+    public static void main(String[] args) {
+        StatList.func_27092_a();
+
+        try {
+            MinecraftServer minecraftServer = new MinecraftServer();
+            if (!GraphicsEnvironment.isHeadless() && (args.length <= 0 || !args[0].equals("nogui"))) {
+                ServerGUI.initGui(minecraftServer);
+            }
+
+            (new ThreadServerApplication("Server thread", minecraftServer)).start();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Failed to start the minecraft server", e);
+        }
+
+    }
+
+    // $FF: synthetic method
+    public static boolean isServerRunning(MinecraftServer var0) {
+        return var0.serverRunning;
     }
 
     private boolean startServer() throws UnknownHostException {
@@ -296,7 +317,8 @@ public class MinecraftServer implements Runnable, ICommandListener {
                 }
 
                 worldServer.tick();
-                while (worldServer.func_6156_d()) { }
+                while (worldServer.func_6156_d()) {
+                }
 
                 worldServer.updateEntities();
             }
@@ -337,22 +359,6 @@ public class MinecraftServer implements Runnable, ICommandListener {
         this.updatePlayerListBoxes.add(var1);
     }
 
-    public static void main(String[] args) {
-        StatList.func_27092_a();
-
-        try {
-            MinecraftServer minecraftServer = new MinecraftServer();
-            if (!GraphicsEnvironment.isHeadless() && (args.length <= 0 || !args[0].equals("nogui"))) {
-                ServerGUI.initGui(minecraftServer);
-            }
-
-            (new ThreadServerApplication("Server thread", minecraftServer)).start();
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Failed to start the minecraft server", e);
-        }
-
-    }
-
     public File getFile(String var1) {
         return new File(var1);
     }
@@ -375,10 +381,5 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
     public EntityTracker getEntityTracker(int var1) {
         return var1 == -1 ? this.entityTracker[1] : this.entityTracker[0];
-    }
-
-    // $FF: synthetic method
-    public static boolean isServerRunning(MinecraftServer var0) {
-        return var0.serverRunning;
     }
 }

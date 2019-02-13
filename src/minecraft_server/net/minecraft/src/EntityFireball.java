@@ -3,25 +3,22 @@ package net.minecraft.src;
 import java.util.List;
 
 public class EntityFireball extends Entity {
+    public int shake = 0;
+    public EntityLiving owner;
+    public double field_9199_b;
+    public double field_9198_c;
+    public double field_9196_d;
     private int xTile = -1;
     private int yTile = -1;
     private int zTile = -1;
     private int inTile = 0;
     private boolean inGround = false;
-    public int shake = 0;
-    public EntityLiving owner;
     private int field_9190_an;
     private int ticksInAir = 0;
-    public double field_9199_b;
-    public double field_9198_c;
-    public double field_9196_d;
 
     public EntityFireball(World var1) {
         super(var1);
         this.setSize(1.0F, 1.0F);
-    }
-
-    protected void entityInit() {
     }
 
     public EntityFireball(World var1, EntityLiving var2, double var3, double var5, double var7) {
@@ -39,6 +36,9 @@ public class EntityFireball extends Entity {
         this.field_9199_b = var3 / var9 * 0.1D;
         this.field_9198_c = var5 / var9 * 0.1D;
         this.field_9196_d = var7 / var9 * 0.1D;
+    }
+
+    protected void entityInit() {
     }
 
     public void onUpdate() {

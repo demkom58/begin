@@ -5,17 +5,17 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class NBTTagEnd extends NBTBase {
-   void readTagContents(DataInput var1) throws IOException {
-   }
+    void readTagContents(DataInput var1) throws IOException {
+    }
 
-   void writeTagContents(DataOutput var1) throws IOException {
-   }
+    void writeTagContents(DataOutput var1) throws IOException {
+    }
 
-   public byte getType() {
-      return 0;
-   }
+    public byte getType() {
+        return 0;
+    }
 
-   public String toString() {
-      return "END";
-   }
+    public String toString() {
+        return "END";
+    }
 }

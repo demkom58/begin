@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class ChunkProviderServer implements IChunkProvider {
+    public boolean chunkLoadOverride = false;
     private Set<Integer> chunkCoords = new HashSet<>();
     private Chunk dummyChunk;
     private IChunkProvider serverChunkGenerator;
     private IChunkLoader chunkLoader;
-    public boolean chunkLoadOverride = false;
     private Map<Integer, Chunk> id2ChunkMap = new HashMap<>();
     private List<Chunk> chunks = new ArrayList<>();
     private WorldServer world;

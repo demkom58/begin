@@ -14,6 +14,22 @@ public class BlockRedstoneWire extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
     }
 
+    public static boolean isPowerProviderOrWire(IBlockAccess var0, int var1, int var2, int var3, int var4) {
+        int var5 = var0.getBlockId(var1, var2, var3);
+        if (var5 == Block.redstoneWire.blockID) {
+            return true;
+        } else if (var5 == 0) {
+            return false;
+        } else if (Block.blocksList[var5].canProvidePower()) {
+            return true;
+        } else if (var5 != Block.redstoneRepeaterIdle.blockID && var5 != Block.redstoneRepeaterActive.blockID) {
+            return false;
+        } else {
+            int var6 = var0.getBlockMetadata(var1, var2, var3);
+            return var4 == ModelBed.field_22153_b[var6 & 3];
+        }
+    }
+
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         return this.blockIndexInTexture;
     }
@@ -323,21 +339,5 @@ public class BlockRedstoneWire extends Block {
 
     public boolean canProvidePower() {
         return this.wiresProvidePower;
-    }
-
-    public static boolean isPowerProviderOrWire(IBlockAccess var0, int var1, int var2, int var3, int var4) {
-        int var5 = var0.getBlockId(var1, var2, var3);
-        if (var5 == Block.redstoneWire.blockID) {
-            return true;
-        } else if (var5 == 0) {
-            return false;
-        } else if (Block.blocksList[var5].canProvidePower()) {
-            return true;
-        } else if (var5 != Block.redstoneRepeaterIdle.blockID && var5 != Block.redstoneRepeaterActive.blockID) {
-            return false;
-        } else {
-            int var6 = var0.getBlockMetadata(var1, var2, var3);
-            return var4 == ModelBed.field_22153_b[var6 & 3];
-        }
     }
 }

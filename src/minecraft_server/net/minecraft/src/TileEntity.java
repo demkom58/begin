@@ -6,6 +6,18 @@ import java.util.Map;
 public class TileEntity {
     private static Map<String, Class<? extends TileEntity>> nameToClassMap = new HashMap<>();
     private static Map<Class<? extends TileEntity>, String> classToNameMap = new HashMap<>();
+
+    static {
+        addMapping(TileEntityFurnace.class, "Furnace");
+        addMapping(TileEntityChest.class, "Chest");
+        addMapping(TileEntityRecordPlayer.class, "RecordPlayer");
+        addMapping(TileEntityDispenser.class, "Trap");
+        addMapping(TileEntitySign.class, "Sign");
+        addMapping(TileEntityMobSpawner.class, "MobSpawner");
+        addMapping(TileEntityNote.class, "Music");
+        addMapping(TileEntityPiston.class, "Piston");
+    }
+
     public World worldObj;
     public int xCoord;
     public int yCoord;
@@ -19,27 +31,6 @@ public class TileEntity {
             nameToClassMap.put(name, clazz);
             classToNameMap.put(clazz, name);
         }
-    }
-
-    public void readFromNBT(NBTTagCompound compound) {
-        this.xCoord = compound.getInteger("x");
-        this.yCoord = compound.getInteger("y");
-        this.zCoord = compound.getInteger("z");
-    }
-
-    public void writeToNBT(NBTTagCompound compound) {
-        String name = classToNameMap.get(this.getClass());
-        if (name == null) {
-            throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
-        }
-
-        compound.setString("id", name);
-        compound.setInteger("x", this.xCoord);
-        compound.setInteger("y", this.yCoord);
-        compound.setInteger("z", this.zCoord);
-    }
-
-    public void updateEntity() {
     }
 
     public static TileEntity createAndLoadEntity(NBTTagCompound compound) {
@@ -61,6 +52,27 @@ public class TileEntity {
         }
 
         return tileEntity;
+    }
+
+    public void readFromNBT(NBTTagCompound compound) {
+        this.xCoord = compound.getInteger("x");
+        this.yCoord = compound.getInteger("y");
+        this.zCoord = compound.getInteger("z");
+    }
+
+    public void writeToNBT(NBTTagCompound compound) {
+        String name = classToNameMap.get(this.getClass());
+        if (name == null) {
+            throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");
+        }
+
+        compound.setString("id", name);
+        compound.setInteger("x", this.xCoord);
+        compound.setInteger("y", this.yCoord);
+        compound.setInteger("z", this.zCoord);
+    }
+
+    public void updateEntity() {
     }
 
     public int func_31005_e() {
@@ -88,16 +100,5 @@ public class TileEntity {
 
     public void validate() {
         this.tileEntityInvalid = false;
-    }
-
-    static {
-        addMapping(TileEntityFurnace.class, "Furnace");
-        addMapping(TileEntityChest.class, "Chest");
-        addMapping(TileEntityRecordPlayer.class, "RecordPlayer");
-        addMapping(TileEntityDispenser.class, "Trap");
-        addMapping(TileEntitySign.class, "Sign");
-        addMapping(TileEntityMobSpawner.class, "MobSpawner");
-        addMapping(TileEntityNote.class, "Music");
-        addMapping(TileEntityPiston.class, "Piston");
     }
 }

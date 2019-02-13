@@ -5,28 +5,28 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class NBTTagInt extends NBTBase {
-   public int intValue;
+    public int intValue;
 
-   public NBTTagInt() {
-   }
+    public NBTTagInt() {
+    }
 
-   public NBTTagInt(int var1) {
-      this.intValue = var1;
-   }
+    public NBTTagInt(int var1) {
+        this.intValue = var1;
+    }
 
-   void writeTagContents(DataOutput var1) throws IOException {
-      var1.writeInt(this.intValue);
-   }
+    void writeTagContents(DataOutput var1) throws IOException {
+        var1.writeInt(this.intValue);
+    }
 
-   void readTagContents(DataInput var1) throws IOException {
-      this.intValue = var1.readInt();
-   }
+    void readTagContents(DataInput var1) throws IOException {
+        this.intValue = var1.readInt();
+    }
 
-   public byte getType() {
-      return 3;
-   }
+    public byte getType() {
+        return 3;
+    }
 
-   public String toString() {
-      return "" + this.intValue;
-   }
+    public String toString() {
+        return "" + this.intValue;
+    }
 }

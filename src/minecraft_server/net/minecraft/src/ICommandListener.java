@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
 public interface ICommandListener {
-   void log(String var1);
+    void log(String var1);
 
-   String getUsername();
+    String getUsername();
 }

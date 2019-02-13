@@ -13,8 +13,8 @@ public class MapData extends MapDataBase {
     public byte[] colors = new byte[16384];
     public int field_28159_g;
     public List<MapInfo> mapInfoList = new ArrayList<>();
-    private Map<EntityPlayer, MapInfo> playerMapInfoMap = new HashMap<>();
     public List<MapCoord> mapCoordList = new ArrayList<>();
+    private Map<EntityPlayer, MapInfo> playerMapInfoMap = new HashMap<>();
 
     public MapData(String var1) {
         super(var1);

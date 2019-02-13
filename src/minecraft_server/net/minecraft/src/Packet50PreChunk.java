@@ -5,38 +5,38 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class Packet50PreChunk extends Packet {
-   public int xPosition;
-   public int yPosition;
-   public boolean mode;
+    public int xPosition;
+    public int yPosition;
+    public boolean mode;
 
-   public Packet50PreChunk() {
-      this.isChunkDataPacket = false;
-   }
+    public Packet50PreChunk() {
+        this.isChunkDataPacket = false;
+    }
 
-   public Packet50PreChunk(int var1, int var2, boolean var3) {
-      this.isChunkDataPacket = false;
-      this.xPosition = var1;
-      this.yPosition = var2;
-      this.mode = var3;
-   }
+    public Packet50PreChunk(int var1, int var2, boolean var3) {
+        this.isChunkDataPacket = false;
+        this.xPosition = var1;
+        this.yPosition = var2;
+        this.mode = var3;
+    }
 
-   public void readPacketData(DataInputStream inputStream) throws IOException {
-      this.xPosition = inputStream.readInt();
-      this.yPosition = inputStream.readInt();
-      this.mode = inputStream.read() != 0;
-   }
+    public void readPacketData(DataInputStream inputStream) throws IOException {
+        this.xPosition = inputStream.readInt();
+        this.yPosition = inputStream.readInt();
+        this.mode = inputStream.read() != 0;
+    }
 
-   public void writePacketData(DataOutputStream outputStream) throws IOException {
-      outputStream.writeInt(this.xPosition);
-      outputStream.writeInt(this.yPosition);
-      outputStream.write(this.mode ? 1 : 0);
-   }
+    public void writePacketData(DataOutputStream outputStream) throws IOException {
+        outputStream.writeInt(this.xPosition);
+        outputStream.writeInt(this.yPosition);
+        outputStream.write(this.mode ? 1 : 0);
+    }
 
-   public void processPacket(NetHandler netHandler) {
-      netHandler.handlePreChunk(this);
-   }
+    public void processPacket(NetHandler netHandler) {
+        netHandler.handlePreChunk(this);
+    }
 
-   public int getPacketSize() {
-      return 9;
-   }
+    public int getPacketSize() {
+        return 9;
+    }
 }

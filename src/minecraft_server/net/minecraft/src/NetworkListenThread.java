@@ -11,13 +11,13 @@ import java.util.logging.Logger;
 
 public class NetworkListenThread {
     public static Logger logger = Logger.getLogger("Minecraft");
+    public volatile boolean field_973_b;
+    public MinecraftServer mcServer;
     private ServerSocket serverSocket;
     private Thread networkAcceptThread;
-    public volatile boolean field_973_b;
     private int field_977_f = 0;
     private ArrayList<NetLoginHandler> pendingConnections = new ArrayList<>();
     private ArrayList<NetServerHandler> playerList = new ArrayList<>();
-    public MinecraftServer mcServer;
 
     public NetworkListenThread(MinecraftServer var1, InetAddress var2, int var3) throws IOException {
         this.mcServer = var1;
@@ -26,6 +26,18 @@ public class NetworkListenThread {
         this.field_973_b = true;
         this.networkAcceptThread = new NetworkAcceptThread(this, "Listen thread", var1);
         this.networkAcceptThread.start();
+    }
+
+    static ServerSocket func_713_a(NetworkListenThread var0) {
+        return var0.serverSocket;
+    }
+
+    static int func_712_b(NetworkListenThread var0) {
+        return var0.field_977_f++;
+    }
+
+    static void func_716_a(NetworkListenThread var0, NetLoginHandler var1) {
+        var0.addPendingConnection(var1);
     }
 
     public void addPlayer(NetServerHandler var1) {
@@ -75,17 +87,5 @@ public class NetworkListenThread {
             var7.netManager.func_28138_a();
         }
 
-    }
-
-    static ServerSocket func_713_a(NetworkListenThread var0) {
-        return var0.serverSocket;
-    }
-
-    static int func_712_b(NetworkListenThread var0) {
-        return var0.field_977_f++;
-    }
-
-    static void func_716_a(NetworkListenThread var0, NetLoginHandler var1) {
-        var0.addPendingConnection(var1);
     }
 }
