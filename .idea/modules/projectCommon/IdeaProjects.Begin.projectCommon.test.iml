@@ -10,6 +10,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="IdeaProjects.Begin.projectCommon.main" />
+    <orderEntry type="library" name="Gradle: it.unimi.dsi:fastutil:8.2.2" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="Begin.projectCommon.main" />
 </module>

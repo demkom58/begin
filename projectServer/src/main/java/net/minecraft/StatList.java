@@ -39,7 +39,7 @@ public class StatList {
     private static boolean field_25099_E = false;
 
     static {
-        AchievementList.func_27097_a();
+        AchievementList.func_27374_a();
     }
 
     public static void func_27092_a() {
@@ -64,19 +64,19 @@ public class StatList {
             Set<Integer> var0 = new HashSet<>();
 
             for (IRecipe var2 : CraftingManager.getInstance().getRecipeList()) {
-                var0.add(Integer.valueOf(var2.func_25077_b().itemID));
+                var0.add(var2.func_25077_b().itemID);
             }
 
             for (ItemStack var6 : FurnaceRecipes.smelting().getSmeltingList().values()) {
-                var0.add(Integer.valueOf(var6.itemID));
+                var0.add(var6.itemID);
             }
 
             field_25093_z = new StatBase[32000];
 
             for (Integer var7 : var0) {
-                if (Item.itemsList[var7.intValue()] != null) {
-                    String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", Item.itemsList[var7.intValue()].func_25006_i());
-                    field_25093_z[var7.intValue()] = (new StatCrafting(16842752 + var7.intValue(), var3, var7.intValue())).func_27053_d();
+                if (Item.itemsList[var7] != null) {
+                    String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", Item.itemsList[var7].func_25006_i());
+                    field_25093_z[var7] = (new StatCrafting(16842752 + var7, var3, var7)).func_27053_d();
                 }
             }
 

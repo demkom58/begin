@@ -15,11 +15,11 @@ public class SlotFurnace extends Slot {
     public void onPickupFromSlot(ItemStack var1) {
         var1.func_28142_b(this.field_27007_d.worldObj, this.field_27007_d);
         if (var1.itemID == Item.ingotIron.shiftedIndex) {
-            this.field_27007_d.addStat(AchievementList.field_27108_k, 1);
+            this.field_27007_d.addStat(AchievementList.acquireIron, 1);
         }
 
         if (var1.itemID == Item.fishCooked.shiftedIndex) {
-            this.field_27007_d.addStat(AchievementList.field_27103_p, 1);
+            this.field_27007_d.addStat(AchievementList.cookFish, 1);
         }
 
         super.onPickupFromSlot(var1);

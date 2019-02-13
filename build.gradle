@@ -7,18 +7,18 @@ targetCompatibility = JavaVersion.VERSION_11
 
 version = "1.7.3-Beta"
 
-repositories {
-    mavenCentral()
-    maven { url 'https://jitpack.io' }
-}
-
-dependencies {
-    
-}
-
 subprojects {
     apply plugin: "java"
     apply plugin: "idea"
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    
+    dependencies {
+        compile group: 'it.unimi.dsi', name: 'fastutil', version: '8.2.2'
+    }
 }
 
 task wrapper(type: Wrapper) {

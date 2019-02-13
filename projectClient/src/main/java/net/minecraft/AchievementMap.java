@@ -1,33 +1,34 @@
 package net.minecraft;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectRBTreeMap;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AchievementMap {
     public static AchievementMap instance = new AchievementMap();
-    private Map guidMap = new HashMap();
+    private Int2ObjectMap<String> guidMap = new Int2ObjectRBTreeMap<>();
 
     private AchievementMap() {
         try {
-            BufferedReader var1 = new BufferedReader(new InputStreamReader(AchievementMap.class.getResourceAsStream("/achievement/map.txt")));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(AchievementMap.class.getResourceAsStream("/achievement/map.txt")));
 
-            String var2;
-            while ((var2 = var1.readLine()) != null) {
-                String[] var3 = var2.split(",");
-                int var4 = Integer.parseInt(var3[0]);
-                this.guidMap.put(Integer.valueOf(var4), var3[1]);
+            String str;
+            while ((str = reader.readLine()) != null) {
+                String[] split = str.split(",");
+                int parsed = Integer.parseInt(split[0]);
+                this.guidMap.put(parsed, split[1]);
             }
 
-            var1.close();
-        } catch (Exception var5) {
-            var5.printStackTrace();
+            reader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
-    public static String getGuid(int var0) {
-        return (String) instance.guidMap.get(Integer.valueOf(var0));
+    public static String getGuid(int id) {
+        return instance.guidMap.get(id);
     }
 }
