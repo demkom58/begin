@@ -19,16 +19,16 @@ public enum EnumOptions {
     private final boolean enumBoolean;
     private final String enumString;
 
-    private EnumOptions(String var3, boolean var4, boolean var5) {
-        this.enumString = var3;
-        this.enumFloat = var4;
-        this.enumBoolean = var5;
+    EnumOptions(String enumString, boolean enumFloat, boolean enumBoolean) {
+        this.enumString = enumString;
+        this.enumFloat = enumFloat;
+        this.enumBoolean = enumBoolean;
     }
 
     public static EnumOptions getEnumOptions(int var0) {
-        for (EnumOptions var4 : values()) {
-            if (var4.returnEnumOrdinal() == var0) {
-                return var4;
+        for (EnumOptions options : values()) {
+            if (options.returnEnumOrdinal() == var0) {
+                return options;
             }
         }
 

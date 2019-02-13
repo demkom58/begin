@@ -144,10 +144,10 @@ public class Chunk {
     private void func_1020_f(int var1, int var2, int var3) {
         int var4 = this.worldObj.getHeightValue(var1, var2);
         if (var4 > var3) {
-            this.worldObj.scheduleLightingUpdate(EnumSkyBlock.Sky, var1, var3, var2, var1, var4, var2);
+            this.worldObj.scheduleLightingUpdate(EnumSkyBlock.SKY, var1, var3, var2, var1, var4, var2);
             this.isModified = true;
         } else if (var4 < var3) {
-            this.worldObj.scheduleLightingUpdate(EnumSkyBlock.Sky, var1, var4, var2, var1, var3, var2);
+            this.worldObj.scheduleLightingUpdate(EnumSkyBlock.SKY, var1, var4, var2, var1, var3, var2);
             this.isModified = true;
         }
 
@@ -189,7 +189,7 @@ public class Chunk {
                     this.skylightMap.setNibble(var1, var14, var3, 15);
                 }
             } else {
-                this.worldObj.scheduleLightingUpdate(EnumSkyBlock.Sky, var12, var4, var13, var12, var5, var13);
+                this.worldObj.scheduleLightingUpdate(EnumSkyBlock.SKY, var12, var4, var13, var12, var5, var13);
 
                 for (int var15 = var4; var15 < var5; ++var15) {
                     this.skylightMap.setNibble(var1, var15, var3, 0);
@@ -217,7 +217,7 @@ public class Chunk {
             }
 
             if (var5 != var10) {
-                this.worldObj.scheduleLightingUpdate(EnumSkyBlock.Sky, var12 - 1, var5, var13 - 1, var12 + 1, var10, var13 + 1);
+                this.worldObj.scheduleLightingUpdate(EnumSkyBlock.SKY, var12 - 1, var5, var13 - 1, var12 + 1, var10, var13 + 1);
             }
 
             this.isModified = true;
@@ -252,10 +252,10 @@ public class Chunk {
                     this.func_1003_g(var1, var2, var3);
                 }
 
-                this.worldObj.scheduleLightingUpdate(EnumSkyBlock.Sky, var9, var2, var10, var9, var2, var10);
+                this.worldObj.scheduleLightingUpdate(EnumSkyBlock.SKY, var9, var2, var10, var9, var2, var10);
             }
 
-            this.worldObj.scheduleLightingUpdate(EnumSkyBlock.Block, var9, var2, var10, var9, var2, var10);
+            this.worldObj.scheduleLightingUpdate(EnumSkyBlock.BLOCK, var9, var2, var10, var9, var2, var10);
             this.func_996_c(var1, var3);
             this.data.setNibble(var1, var2, var3, var5);
             if (var4 != 0) {
@@ -290,8 +290,8 @@ public class Chunk {
                 this.func_1003_g(var1, var2, var3);
             }
 
-            this.worldObj.scheduleLightingUpdate(EnumSkyBlock.Sky, var8, var2, var9, var8, var2, var9);
-            this.worldObj.scheduleLightingUpdate(EnumSkyBlock.Block, var8, var2, var9, var8, var2, var9);
+            this.worldObj.scheduleLightingUpdate(EnumSkyBlock.SKY, var8, var2, var9, var8, var2, var9);
+            this.worldObj.scheduleLightingUpdate(EnumSkyBlock.BLOCK, var8, var2, var9, var8, var2, var9);
             this.func_996_c(var1, var3);
             if (var4 != 0 && !this.worldObj.multiplayerWorld) {
                 Block.blocksList[var4].onBlockAdded(this.worldObj, var8, var2, var9);
@@ -312,19 +312,19 @@ public class Chunk {
     }
 
     public int getSavedLightValue(EnumSkyBlock var1, int var2, int var3, int var4) {
-        if (var1 == EnumSkyBlock.Sky) {
+        if (var1 == EnumSkyBlock.SKY) {
             return this.skylightMap.getNibble(var2, var3, var4);
         } else {
-            return var1 == EnumSkyBlock.Block ? this.blocklightMap.getNibble(var2, var3, var4) : 0;
+            return var1 == EnumSkyBlock.BLOCK ? this.blocklightMap.getNibble(var2, var3, var4) : 0;
         }
     }
 
     public void setLightValue(EnumSkyBlock var1, int var2, int var3, int var4, int var5) {
         this.isModified = true;
-        if (var1 == EnumSkyBlock.Sky) {
+        if (var1 == EnumSkyBlock.SKY) {
             this.skylightMap.setNibble(var2, var3, var4, var5);
         } else {
-            if (var1 != EnumSkyBlock.Block) {
+            if (var1 != EnumSkyBlock.BLOCK) {
                 return;
             }
 

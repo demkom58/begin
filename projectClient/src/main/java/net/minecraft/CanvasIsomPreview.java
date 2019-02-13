@@ -43,17 +43,17 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
     private static EnumOS1 getOs() {
         String var0 = System.getProperty("os.name").toLowerCase();
         if (var0.contains("win")) {
-            return EnumOS1.windows;
+            return EnumOS1.WINDOWS;
         } else if (var0.contains("mac")) {
-            return EnumOS1.macos;
+            return EnumOS1.MACOS;
         } else if (var0.contains("solaris")) {
-            return EnumOS1.solaris;
+            return EnumOS1.SOLARIS;
         } else if (var0.contains("sunos")) {
-            return EnumOS1.solaris;
+            return EnumOS1.SOLARIS;
         } else if (var0.contains("linux")) {
-            return EnumOS1.linux;
+            return EnumOS1.LINUX;
         } else {
-            return var0.contains("unix") ? EnumOS1.linux : EnumOS1.unknown;
+            return var0.contains("unix") ? EnumOS1.LINUX : EnumOS1.UNKNOWN;
         }
     }
 

@@ -213,7 +213,7 @@ public class EntityPainting extends Entity {
         }
 
         if (this.art == null) {
-            this.art = EnumArt.Kebab;
+            this.art = EnumArt.KEBAB;
         }
 
         this.func_179_a(this.direction);

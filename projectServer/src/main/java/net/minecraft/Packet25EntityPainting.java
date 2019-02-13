@@ -26,7 +26,7 @@ public class Packet25EntityPainting extends Packet {
 
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.entityId = inputStream.readInt();
-        this.title = readString(inputStream, EnumArt.field_27096_z);
+        this.title = readString(inputStream, EnumArt.maxArtTitleLength);
         this.xPosition = inputStream.readInt();
         this.yPosition = inputStream.readInt();
         this.zPosition = inputStream.readInt();

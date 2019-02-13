@@ -71,15 +71,15 @@ public class BlockPressurePlate extends Block {
         boolean var6 = false;
         float var7 = 0.125F;
         List<Entity> var8 = null;
-        if (this.triggerMobType == EnumMobType.everything) {
+        if (this.triggerMobType == EnumMobType.EVERYTHING) {
             var8 = var1.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var7), (double) var3, (double) ((float) var4 + var7), (double) ((float) (var2 + 1) - var7), (double) var3 + 0.25D, (double) ((float) (var4 + 1) - var7)));
         }
 
-        if (this.triggerMobType == EnumMobType.mobs) {
+        if (this.triggerMobType == EnumMobType.MOBS) {
             var8 = var1.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var7), (double) var3, (double) ((float) var4 + var7), (double) ((float) (var2 + 1) - var7), (double) var3 + 0.25D, (double) ((float) (var4 + 1) - var7)));
         }
 
-        if (this.triggerMobType == EnumMobType.players) {
+        if (this.triggerMobType == EnumMobType.PLAYERS) {
             var8 = var1.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var7), (double) var3, (double) ((float) var4 + var7), (double) ((float) (var2 + 1) - var7), (double) var3 + 0.25D, (double) ((float) (var4 + 1) - var7)));
         }
 

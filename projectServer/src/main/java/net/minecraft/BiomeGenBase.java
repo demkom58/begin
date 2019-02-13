@@ -125,13 +125,15 @@ public class BiomeGenBase {
     }
 
     public List<SpawnListEntry> getSpawnableList(EnumCreatureType type) {
-        if (type == EnumCreatureType.monster) {
+        if (type == EnumCreatureType.MONSTER) {
             return this.spawnableMonsterList;
-        } else if (type == EnumCreatureType.creature) {
+        }
+
+        if (type == EnumCreatureType.CREATURE) {
             return this.spawnableCreatureList;
         }
 
-        return type == EnumCreatureType.waterCreature ? this.spawnableWaterCreatureList : null;
+        return type == EnumCreatureType.WATER_CREATURE ? this.spawnableWaterCreatureList : null;
     }
 
     public boolean getEnableSnow() {

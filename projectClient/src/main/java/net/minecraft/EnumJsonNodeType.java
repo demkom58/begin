@@ -7,5 +7,5 @@ public enum EnumJsonNodeType {
     NUMBER,
     TRUE,
     FALSE,
-    NULL;
+    NULL
 }

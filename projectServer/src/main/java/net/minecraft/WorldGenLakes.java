@@ -73,7 +73,7 @@ public class WorldGenLakes extends WorldGenerator {
         for (int var37 = 0; var37 < 16; ++var37) {
             for (int var41 = 0; var41 < 16; ++var41) {
                 for (int var44 = 4; var44 < 8; ++var44) {
-                    if (var6[(var37 * 16 + var41) * 8 + var44] && var1.getBlockId(var3 + var37, var4 + var44 - 1, var5 + var41) == Block.dirt.blockID && var1.getSavedLightValue(EnumSkyBlock.Sky, var3 + var37, var4 + var44, var5 + var41) > 0) {
+                    if (var6[(var37 * 16 + var41) * 8 + var44] && var1.getBlockId(var3 + var37, var4 + var44 - 1, var5 + var41) == Block.dirt.blockID && var1.getSavedLightValue(EnumSkyBlock.SKY, var3 + var37, var4 + var44, var5 + var41) > 0) {
                         var1.setBlock(var3 + var37, var4 + var44 - 1, var5 + var41, Block.grass.blockID);
                     }
                 }
