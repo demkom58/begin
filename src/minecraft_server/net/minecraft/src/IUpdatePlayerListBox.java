@@ -1,5 +1,5 @@
 package net.minecraft.src;
 
 public interface IUpdatePlayerListBox {
-   void update();
+    void update();
 }

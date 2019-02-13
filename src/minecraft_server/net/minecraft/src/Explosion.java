@@ -4,14 +4,14 @@ import java.util.*;
 
 public class Explosion {
     public boolean isFlaming = false;
-    private Random ExplosionRNG = new Random();
-    private World worldObj;
     public double explosionX;
     public double explosionY;
     public double explosionZ;
     public Entity exploder;
     public float explosionSize;
     public Set<ChunkPosition> destroyedBlockPositions = new HashSet<>();
+    private Random ExplosionRNG = new Random();
+    private World worldObj;
 
     public Explosion(World world, Entity exploder, double x, double y, double z, float size) {
         this.worldObj = world;

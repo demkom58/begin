@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileEntityPiston extends TileEntity {
+    private static List<Entity> field_31013_m = new ArrayList<>();
     private int storedBlockID;
     private int storedMetadata;
     private int storedOrientation;
@@ -11,7 +12,6 @@ public class TileEntityPiston extends TileEntity {
     private boolean field_31018_j;
     private float progress;
     private float lastProgress;
-    private static List<Entity> field_31013_m = new ArrayList<>();
 
     public TileEntityPiston() {
     }

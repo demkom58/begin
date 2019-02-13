@@ -4,6 +4,8 @@ import java.util.*;
 
 public class Chunk {
     public static boolean isLit;
+    public final int xPosition;
+    public final int zPosition;
     public byte[] blocks;
     public boolean isChunkLoaded;
     public World worldObj;
@@ -12,8 +14,6 @@ public class Chunk {
     public NibbleArray blocklightMap;
     public byte[] heightMap;
     public int field_686_i;
-    public final int xPosition;
-    public final int zPosition;
     public Map<Object, TileEntity> chunkTileEntityMap;
     public List<Entity>[] entities;
     public boolean isTerrainPopulated;

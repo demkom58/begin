@@ -9,8 +9,8 @@ public abstract class Container {
     public List<ItemStack> inventoryItemStacks = new ArrayList<>();
     public List<Slot> inventorySlots = new ArrayList<>();
     public int windowId = 0;
-    private short field_20132_a = 0;
     protected List<ICrafting> crafters = new ArrayList<>();
+    private short field_20132_a = 0;
     private Set<EntityPlayer> field_20131_b = new HashSet<>();
 
     protected void addSlot(Slot slot) {

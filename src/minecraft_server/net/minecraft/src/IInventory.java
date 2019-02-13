@@ -1,19 +1,19 @@
 package net.minecraft.src;
 
 public interface IInventory {
-   int getSizeInventory();
+    int getSizeInventory();
 
-   ItemStack getStackInSlot(int var1);
+    ItemStack getStackInSlot(int var1);
 
-   ItemStack decrStackSize(int var1, int var2);
+    ItemStack decrStackSize(int var1, int var2);
 
-   void setInventorySlotContents(int var1, ItemStack var2);
+    void setInventorySlotContents(int var1, ItemStack var2);
 
-   String getInvName();
+    String getInvName();
 
-   int getInventoryStackLimit();
+    int getInventoryStackLimit();
 
-   void onInventoryChanged();
+    void onInventoryChanged();
 
-   boolean canInteractWith(EntityPlayer var1);
+    boolean canInteractWith(EntityPlayer var1);
 }

@@ -15,11 +15,11 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     public double field_9154_e;
     public List<ChunkCoordIntPair> loadedChunks = new LinkedList<>();
     public Set<ChunkCoordIntPair> field_420_ah = new HashSet<>();
+    public boolean isChangingQuantityOnly;
     private int lastHealth = -99999999;
     private int ticksOfInvuln = 60;
     private ItemStack[] playerInventory = new ItemStack[]{null, null, null, null, null};
     private int currentWindowId = 0;
-    public boolean isChangingQuantityOnly;
 
     public EntityPlayerMP(MinecraftServer var1, World var2, String var3, ItemInWorldManager var4) {
         super(var2);

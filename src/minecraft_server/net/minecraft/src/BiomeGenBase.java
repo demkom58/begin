@@ -18,6 +18,12 @@ public class BiomeGenBase {
     public static final BiomeGenBase tundra = (new BiomeGenBase()).setColor(5762041).setBiomeName("Tundra").setEnableSnow().func_4080_a(12899129);
     public static final BiomeGenBase hell = (new BiomeGenHell()).setColor(16711680).setBiomeName("Hell").setDisableRain();
     public static final BiomeGenBase field_28054_m = (new BiomeGenSky()).setColor(8421631).setBiomeName("Sky").setDisableRain();
+    private static BiomeGenBase[] biomeLookupTable = new BiomeGenBase[4096];
+
+    static {
+        generateBiomeLookup();
+    }
+
     public String biomeName;
     public int color;
     public byte topBlock;
@@ -28,7 +34,6 @@ public class BiomeGenBase {
     protected List<SpawnListEntry> spawnableWaterCreatureList;
     private boolean enableSnow;
     private boolean enableRain;
-    private static BiomeGenBase[] biomeLookupTable = new BiomeGenBase[4096];
 
     protected BiomeGenBase() {
         this.topBlock = (byte) Block.grass.blockID;
@@ -50,11 +55,6 @@ public class BiomeGenBase {
         this.spawnableWaterCreatureList.add(new SpawnListEntry(EntitySquid.class, 10));
     }
 
-    private BiomeGenBase setDisableRain() {
-        this.enableRain = false;
-        return this;
-    }
-
     public static void generateBiomeLookup() {
         for (int var0 = 0; var0 < 64; ++var0) {
             for (int var1 = 0; var1 < 64; ++var1) {
@@ -64,30 +64,6 @@ public class BiomeGenBase {
 
         desert.topBlock = desert.fillerBlock = (byte) Block.sand.blockID;
         iceDesert.topBlock = iceDesert.fillerBlock = (byte) Block.sand.blockID;
-    }
-
-    public WorldGenerator getRandomWorldGenForTrees(Random var1) {
-        return (var1.nextInt(10) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
-    }
-
-    protected BiomeGenBase setEnableSnow() {
-        this.enableSnow = true;
-        return this;
-    }
-
-    protected BiomeGenBase setBiomeName(String var1) {
-        this.biomeName = var1;
-        return this;
-    }
-
-    protected BiomeGenBase func_4080_a(int var1) {
-        this.field_6161_q = var1;
-        return this;
-    }
-
-    protected BiomeGenBase setColor(int var1) {
-        this.color = var1;
-        return this;
     }
 
     public static BiomeGenBase getBiomeFromLookup(double var0, double var2) {
@@ -119,6 +95,35 @@ public class BiomeGenBase {
         }
     }
 
+    private BiomeGenBase setDisableRain() {
+        this.enableRain = false;
+        return this;
+    }
+
+    public WorldGenerator getRandomWorldGenForTrees(Random var1) {
+        return (var1.nextInt(10) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
+    }
+
+    protected BiomeGenBase setEnableSnow() {
+        this.enableSnow = true;
+        return this;
+    }
+
+    protected BiomeGenBase setBiomeName(String var1) {
+        this.biomeName = var1;
+        return this;
+    }
+
+    protected BiomeGenBase func_4080_a(int var1) {
+        this.field_6161_q = var1;
+        return this;
+    }
+
+    protected BiomeGenBase setColor(int var1) {
+        this.color = var1;
+        return this;
+    }
+
     public List<SpawnListEntry> getSpawnableList(EnumCreatureType type) {
         if (type == EnumCreatureType.monster) {
             return this.spawnableMonsterList;
@@ -135,9 +140,5 @@ public class BiomeGenBase {
 
     public boolean canSpawnLightningBolt() {
         return !this.enableSnow && this.enableRain;
-    }
-
-    static {
-        generateBiomeLookup();
     }
 }

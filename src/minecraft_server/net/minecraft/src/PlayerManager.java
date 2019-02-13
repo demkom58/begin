@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerManager {
+    private final int[][] field_22089_e = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
     public List<EntityPlayerMP> players = new ArrayList<>();
     private PlayerHash playerInstances = new PlayerHash();
     private List<PlayerInstance> playerInstancesToUpdate = new ArrayList<>();
     private MinecraftServer mcServer;
     private int field_28110_e;
     private int playerViewRadius;
-    private final int[][] field_22089_e = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
     public PlayerManager(MinecraftServer mcServer, int var2, int viewRadius) {
         if (viewRadius > 15) {
@@ -26,6 +26,14 @@ public class PlayerManager {
         this.playerViewRadius = viewRadius;
         this.mcServer = mcServer;
         this.field_28110_e = var2;
+    }
+
+    static PlayerHash getPlayerInstances(PlayerManager playerManager) {
+        return playerManager.playerInstances;
+    }
+
+    static List<PlayerInstance> getPlayerInstancesToUpdate(PlayerManager playerManager) {
+        return playerManager.playerInstancesToUpdate;
     }
 
     public WorldServer getMinecraftServer() {
@@ -156,13 +164,5 @@ public class PlayerManager {
 
     public int getMaxTrackingDistance() {
         return this.playerViewRadius * 16 - 16;
-    }
-
-    static PlayerHash getPlayerInstances(PlayerManager playerManager) {
-        return playerManager.playerInstances;
-    }
-
-    static List<PlayerInstance> getPlayerInstancesToUpdate(PlayerManager playerManager) {
-        return playerManager.playerInstancesToUpdate;
     }
 }

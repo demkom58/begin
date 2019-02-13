@@ -3,54 +3,50 @@ package net.minecraft.src;
 import java.util.*;
 
 public class World implements IBlockAccess {
+    static int field_4268_y = 0;
+    public final WorldProvider worldProvider;
+    protected final int DIST_HASH_MAGIC = 1013904223;
+    protected final ISaveHandler worldFile;
     public boolean scheduledUpdatesAreImmediate = false;
-    private List<MetadataChunkBlock> field_821_y = new ArrayList();
     public List<Entity> loadedEntityList = new ArrayList<>();
-    private List<Entity> unloadedEntityList = new ArrayList<>();
-    private TreeSet<NextTickListEntry> scheduledTickTreeSet = new TreeSet<>();
-    private Set<NextTickListEntry> scheduledTickSet = new HashSet<>();
     public List<TileEntity> loadedTileEntityList = new ArrayList<>();
-    private List<TileEntity> field_20912_E = new ArrayList<>();
     public List<EntityPlayer> playerEntities = new ArrayList<>();
     public List<Entity> lightningEntities = new ArrayList<>();
-    private long field_6159_E = 16777215L;
     public int skylightSubtracted = 0;
+    public int field_27080_i = 0;
+    public boolean editingBlocks = false;
+    public int difficultySetting;
+    public Random rand = new Random();
+    public boolean isNewWorld = false;
+    public boolean worldChunkLoadOverride;
+    public MapStorage mapStorage;
+    public boolean singleplayerWorld;
     protected int distHashCounter = (new Random()).nextInt();
-    protected final int DIST_HASH_MAGIC = 1013904223;
     protected float field_27079_B;
     protected float field_27078_C;
     protected float field_27077_D;
     protected float field_27076_E;
     protected int field_27075_F = 0;
-    public int field_27080_i = 0;
-    public boolean editingBlocks = false;
-    private long lockTimestamp = System.currentTimeMillis();
     protected int autosavePeriod = 40;
-    public int difficultySetting;
-    public Random rand = new Random();
-    public boolean isNewWorld = false;
-    public final WorldProvider worldProvider;
     protected List<IWorldAccess> worldAccesses = new ArrayList<>();
     protected IChunkProvider chunkProvider;
-    protected final ISaveHandler worldFile;
     protected WorldInfo worldInfo;
-    public boolean worldChunkLoadOverride;
+    private List<MetadataChunkBlock> field_821_y = new ArrayList();
+    private List<Entity> unloadedEntityList = new ArrayList<>();
+    private TreeSet<NextTickListEntry> scheduledTickTreeSet = new TreeSet<>();
+    private Set<NextTickListEntry> scheduledTickSet = new HashSet<>();
+    private List<TileEntity> field_20912_E = new ArrayList<>();
+    private long field_6159_E = 16777215L;
+    private long lockTimestamp = System.currentTimeMillis();
     private boolean allPlayersSleeping;
-    public MapStorage mapStorage;
     private ArrayList<AxisAlignedBB> field_9207_I = new ArrayList<>();
     private boolean field_31048_L;
     private int field_4265_J = 0;
     private boolean spawnHostileMobs = true;
     private boolean spawnPeacefulMobs = true;
-    static int field_4268_y = 0;
     private Set<ChunkCoordIntPair> activeChunkSet = new HashSet<>();
     private int ambientTickCountdown;
     private List<Entity> entities;
-    public boolean singleplayerWorld;
-
-    public WorldChunkManager getWorldChunkManager() {
-        return this.worldProvider.worldChunkMgr;
-    }
 
     public World(ISaveHandler saveHandler, String var2, long var3, WorldProvider worldProvider) {
         this.ambientTickCountdown = this.rand.nextInt(12000);
@@ -84,6 +80,10 @@ public class World implements IBlockAccess {
 
         this.calculateInitialSkylight();
         this.func_27070_x();
+    }
+
+    public WorldChunkManager getWorldChunkManager() {
+        return this.worldProvider.worldChunkMgr;
     }
 
     protected IChunkProvider createChunkProvider() {
@@ -1979,10 +1979,6 @@ public class World implements IBlockAccess {
         this.worldFile.func_22091_b();
     }
 
-    public void setWorldTime(long var1) {
-        this.worldInfo.setWorldTime(var1);
-    }
-
     public void func_32005_b(long var1) {
         long var3 = var1 - this.worldInfo.getWorldTime();
 
@@ -1999,6 +1995,10 @@ public class World implements IBlockAccess {
 
     public long getWorldTime() {
         return this.worldInfo.getWorldTime();
+    }
+
+    public void setWorldTime(long var1) {
+        this.worldInfo.setWorldTime(var1);
     }
 
     public ChunkCoordinates getSpawnPoint() {

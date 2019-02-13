@@ -5,6 +5,7 @@ import java.util.Random;
 
 public abstract class Entity {
     private static int nextEntityID = 0;
+    public final AxisAlignedBB boundingBox;
     public int entityId;
     public double renderDistanceWeight;
     public boolean preventEntitySpawning;
@@ -24,7 +25,6 @@ public abstract class Entity {
     public float rotationPitch;
     public float prevRotationYaw;
     public float prevRotationPitch;
-    public final AxisAlignedBB boundingBox;
     public boolean onGround;
     public boolean isCollidedHorizontally;
     public boolean isCollidedVertically;
@@ -38,8 +38,6 @@ public abstract class Entity {
     public float height;
     public float prevDistanceWalkedModified;
     public float distanceWalkedModified;
-    protected float fallDistance;
-    private int nextStepDistance;
     public double lastTickPosX;
     public double lastTickPosY;
     public double lastTickPosZ;
@@ -47,25 +45,27 @@ public abstract class Entity {
     public float stepHeight;
     public boolean noClip;
     public float entityCollisionReduction;
-    protected Random rand;
     public int ticksExisted;
     public int fireResistance;
     public int fire;
-    protected int maxAir;
-    protected boolean inWater;
     public int field_9083_ac;
     public int air;
-    private boolean firstUpdate;
-    protected boolean isImmuneToFire;
-    protected DataWatcher dataWatcher;
     public float field_31001_bF;
-    private double entityRiderPitchDelta;
-    private double entityRiderYawDelta;
     public boolean addedToChunk;
     public int chunkCoordX;
     public int chunkCoordY;
     public int chunkCoordZ;
     public boolean field_28008_bI;
+    protected float fallDistance;
+    protected Random rand;
+    protected int maxAir;
+    protected boolean inWater;
+    protected boolean isImmuneToFire;
+    protected DataWatcher dataWatcher;
+    private int nextStepDistance;
+    private boolean firstUpdate;
+    private double entityRiderPitchDelta;
+    private double entityRiderYawDelta;
 
     public Entity(World var1) {
         this.entityId = nextEntityID++;

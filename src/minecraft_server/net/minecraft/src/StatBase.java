@@ -5,16 +5,16 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class StatBase {
-    public final int statId;
-    public final String statName;
-    public boolean field_27058_g;
-    public String field_27057_h;
-    private final IStatType field_25065_a;
-    private static NumberFormat field_25066_b = NumberFormat.getIntegerInstance(Locale.US);
     public static IStatType field_27056_i = new StatTypeSimple();
-    private static DecimalFormat field_25068_c = new DecimalFormat("########0.00");
     public static IStatType field_27055_j = new StatTypeTime();
     public static IStatType field_27054_k = new StatTypeDistance();
+    private static NumberFormat field_25066_b = NumberFormat.getIntegerInstance(Locale.US);
+    private static DecimalFormat field_25068_c = new DecimalFormat("########0.00");
+    public final int statId;
+    public final String statName;
+    private final IStatType field_25065_a;
+    public boolean field_27058_g;
+    public String field_27057_h;
 
     public StatBase(int var1, String var2, IStatType var3) {
         this.field_27058_g = false;

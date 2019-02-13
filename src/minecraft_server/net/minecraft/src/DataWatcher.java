@@ -10,81 +10,25 @@ import java.util.Map;
 
 public class DataWatcher {
     private static final HashMap<Class, Integer> dataTypes = new HashMap<>();
+
+    static {
+        dataTypes.put(Byte.class, 0);
+        dataTypes.put(Short.class, 1);
+        dataTypes.put(Integer.class, 2);
+        dataTypes.put(Float.class, 3);
+        dataTypes.put(String.class, 4);
+        dataTypes.put(ItemStack.class, 5);
+        dataTypes.put(ChunkCoordinates.class, 6);
+    }
+
     private final Map<Integer, WatchableObject> watchedObjects = new HashMap<>();
     private boolean objectChanged;
-
-    public void addObject(int var1, Object var2) {
-        Integer var3 = dataTypes.get(var2.getClass());
-        if (var3 == null) {
-            throw new IllegalArgumentException("Unknown data type: " + var2.getClass());
-        } else if (var1 > 31) {
-            throw new IllegalArgumentException("Data value id is too big with " + var1 + "! (Max is " + 31 + ")");
-        } else if (this.watchedObjects.containsKey(var1)) {
-            throw new IllegalArgumentException("Duplicate id value for " + var1 + "!");
-        }
-
-        WatchableObject watchableObject = new WatchableObject(var3, var1, var2);
-        this.watchedObjects.put(var1, watchableObject);
-    }
-
-    public byte getWatchableObjectByte(int var1) {
-        return (Byte) this.watchedObjects.get(var1).getObject();
-    }
-
-    public int getWatchableObjectInteger(int var1) {
-        return (Integer) this.watchedObjects.get(var1).getObject();
-    }
-
-    public String getWatchableObjectString(int var1) {
-        return (String) this.watchedObjects.get(var1).getObject();
-    }
-
-    public void updateObject(int var1, Object var2) {
-        WatchableObject watchableObject = this.watchedObjects.get(var1);
-        if (!var2.equals(watchableObject.getObject())) {
-            watchableObject.setObject(var2);
-            watchableObject.setWatching(true);
-            this.objectChanged = true;
-        }
-
-    }
-
-    public boolean hasObjectChanged() {
-        return this.objectChanged;
-    }
 
     public static void writeObjectsInListToStream(List<WatchableObject> var0, DataOutputStream var1) throws IOException {
         if (var0 != null) {
             for (WatchableObject var3 : var0) {
                 writeWatchableObject(var1, var3);
             }
-        }
-
-        var1.writeByte(127);
-    }
-
-    public ArrayList<WatchableObject> getChangedObjects() {
-        ArrayList<WatchableObject> var1 = null;
-        if (this.objectChanged) {
-            for (WatchableObject var3 : this.watchedObjects.values()) {
-                if (var3.getWatching()) {
-                    var3.setWatching(false);
-                    if (var1 == null) {
-                        var1 = new ArrayList<>();
-                    }
-
-                    var1.add(var3);
-                }
-            }
-        }
-
-        this.objectChanged = false;
-        return var1;
-    }
-
-    public void writeWatchableObjects(DataOutputStream var1) throws IOException {
-        for (WatchableObject var3 : this.watchedObjects.values()) {
-            writeWatchableObject(var1, var3);
         }
 
         var1.writeByte(127);
@@ -170,13 +114,70 @@ public class DataWatcher {
         return var1;
     }
 
-    static {
-        dataTypes.put(Byte.class, 0);
-        dataTypes.put(Short.class, 1);
-        dataTypes.put(Integer.class, 2);
-        dataTypes.put(Float.class, 3);
-        dataTypes.put(String.class, 4);
-        dataTypes.put(ItemStack.class, 5);
-        dataTypes.put(ChunkCoordinates.class, 6);
+    public void addObject(int var1, Object var2) {
+        Integer var3 = dataTypes.get(var2.getClass());
+        if (var3 == null) {
+            throw new IllegalArgumentException("Unknown data type: " + var2.getClass());
+        } else if (var1 > 31) {
+            throw new IllegalArgumentException("Data value id is too big with " + var1 + "! (Max is " + 31 + ")");
+        } else if (this.watchedObjects.containsKey(var1)) {
+            throw new IllegalArgumentException("Duplicate id value for " + var1 + "!");
+        }
+
+        WatchableObject watchableObject = new WatchableObject(var3, var1, var2);
+        this.watchedObjects.put(var1, watchableObject);
+    }
+
+    public byte getWatchableObjectByte(int var1) {
+        return (Byte) this.watchedObjects.get(var1).getObject();
+    }
+
+    public int getWatchableObjectInteger(int var1) {
+        return (Integer) this.watchedObjects.get(var1).getObject();
+    }
+
+    public String getWatchableObjectString(int var1) {
+        return (String) this.watchedObjects.get(var1).getObject();
+    }
+
+    public void updateObject(int var1, Object var2) {
+        WatchableObject watchableObject = this.watchedObjects.get(var1);
+        if (!var2.equals(watchableObject.getObject())) {
+            watchableObject.setObject(var2);
+            watchableObject.setWatching(true);
+            this.objectChanged = true;
+        }
+
+    }
+
+    public boolean hasObjectChanged() {
+        return this.objectChanged;
+    }
+
+    public ArrayList<WatchableObject> getChangedObjects() {
+        ArrayList<WatchableObject> var1 = null;
+        if (this.objectChanged) {
+            for (WatchableObject var3 : this.watchedObjects.values()) {
+                if (var3.getWatching()) {
+                    var3.setWatching(false);
+                    if (var1 == null) {
+                        var1 = new ArrayList<>();
+                    }
+
+                    var1.add(var3);
+                }
+            }
+        }
+
+        this.objectChanged = false;
+        return var1;
+    }
+
+    public void writeWatchableObjects(DataOutputStream var1) throws IOException {
+        for (WatchableObject var3 : this.watchedObjects.values()) {
+            writeWatchableObject(var1, var3);
+        }
+
+        var1.writeByte(127);
     }
 }

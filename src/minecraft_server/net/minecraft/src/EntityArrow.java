@@ -3,15 +3,15 @@ package net.minecraft.src;
 import java.util.List;
 
 public class EntityArrow extends Entity {
+    public boolean field_28012_a = false;
+    public int arrowShake = 0;
+    public EntityLiving owner;
     private int xTile = -1;
     private int yTile = -1;
     private int zTile = -1;
     private int inTile = 0;
     private int field_28011_h = 0;
     private boolean inGround = false;
-    public boolean field_28012_a = false;
-    public int arrowShake = 0;
-    public EntityLiving owner;
     private int ticksInGround;
     private int ticksInAir = 0;
 

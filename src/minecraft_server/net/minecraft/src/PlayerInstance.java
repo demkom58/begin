@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class PlayerInstance {
+    // $FF: synthetic field
+    final PlayerManager playerManager;
     private List<EntityPlayerMP> players;
     private int chunkX;
     private int chunkZ;
@@ -16,8 +18,6 @@ class PlayerInstance {
     private int maxY;
     private int minZ;
     private int maxZ;
-    // $FF: synthetic field
-    final PlayerManager playerManager;
 
     public PlayerInstance(PlayerManager var1, int var2, int var3) {
         this.playerManager = var1;
