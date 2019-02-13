@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class EntitySquid extends EntityWaterMob {
     public float field_21063_a = 0.0F;
     public float field_21062_b = 0.0F;

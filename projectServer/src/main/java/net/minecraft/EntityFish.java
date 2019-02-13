@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import java.util.List;
 
 public class EntityFish extends Entity {

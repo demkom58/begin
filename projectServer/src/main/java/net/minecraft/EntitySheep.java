@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import java.util.Random;
 
 public class EntitySheep extends EntityAnimal {

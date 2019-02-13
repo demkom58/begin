@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public abstract class MapDataBase {
     public final String field_28168_a;
     private boolean dirty;

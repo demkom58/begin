@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
 public class TileEntityFurnace extends TileEntity implements IInventory {
     public int furnaceBurnTime = 0;
     public int currentItemBurnTime = 0;

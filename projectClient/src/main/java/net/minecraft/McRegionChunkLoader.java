@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;

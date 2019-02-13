@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class EntityFX extends Entity {
     public static double interpPosX;
     public static double interpPosY;

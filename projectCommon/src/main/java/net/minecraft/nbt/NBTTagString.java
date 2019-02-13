@@ -1,4 +1,4 @@
-package net.minecraft;
+package net.minecraft.nbt;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -10,19 +10,19 @@ public class NBTTagString extends NBTBase {
     public NBTTagString() {
     }
 
-    public NBTTagString(String var1) {
-        this.stringValue = var1;
-        if (var1 == null) {
+    public NBTTagString(String value) {
+        this.stringValue = value;
+        if (value == null) {
             throw new IllegalArgumentException("Empty string not allowed");
         }
     }
 
-    void writeTagContents(DataOutput var1) throws IOException {
-        var1.writeUTF(this.stringValue);
+    void writeTagContents(DataOutput output) throws IOException {
+        output.writeUTF(this.stringValue);
     }
 
-    void readTagContents(DataInput var1) throws IOException {
-        this.stringValue = var1.readUTF();
+    void readTagContents(DataInput input) throws IOException {
+        this.stringValue = input.readUTF();
     }
 
     public byte getType() {

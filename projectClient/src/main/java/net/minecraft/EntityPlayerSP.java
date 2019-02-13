@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class EntityPlayerSP extends EntityPlayer {
     public MovementInput movementInput;

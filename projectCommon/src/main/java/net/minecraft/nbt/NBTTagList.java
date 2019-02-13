@@ -1,4 +1,4 @@
-package net.minecraft;
+package net.minecraft.nbt;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -10,30 +10,30 @@ public class NBTTagList extends NBTBase {
     private List<NBTBase> tagList = new ArrayList<>();
     private byte tagType;
 
-    void writeTagContents(DataOutput var1) throws IOException {
+    void writeTagContents(DataOutput output) throws IOException {
         if (this.tagList.size() > 0) {
             this.tagType = this.tagList.get(0).getType();
         } else {
             this.tagType = 1;
         }
 
-        var1.writeByte(this.tagType);
-        var1.writeInt(this.tagList.size());
+        output.writeByte(this.tagType);
+        output.writeInt(this.tagList.size());
 
-        for (int var2 = 0; var2 < this.tagList.size(); ++var2) {
-            this.tagList.get(var2).writeTagContents(var1);
+        for (int i = 0; i < this.tagList.size(); ++i) {
+            this.tagList.get(i).writeTagContents(output);
         }
 
     }
 
-    void readTagContents(DataInput var1) throws IOException {
-        this.tagType = var1.readByte();
-        int var2 = var1.readInt();
+    void readTagContents(DataInput input) throws IOException {
+        this.tagType = input.readByte();
+        int size = input.readInt();
         this.tagList = new ArrayList<>();
 
-        for (int var3 = 0; var3 < var2; ++var3) {
+        for (int i = 0; i < size; ++i) {
             NBTBase nbtBase = NBTBase.createTagOfType(this.tagType);
-            nbtBase.readTagContents(var1);
+            nbtBase.readTagContents(input);
             this.tagList.add(nbtBase);
         }
 

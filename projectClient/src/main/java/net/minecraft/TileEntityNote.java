@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class TileEntityNote extends TileEntity {
     public byte note = 0;
     public boolean previousRedstoneState = false;

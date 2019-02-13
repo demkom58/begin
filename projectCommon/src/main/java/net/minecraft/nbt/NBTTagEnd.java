@@ -1,14 +1,14 @@
-package net.minecraft;
+package net.minecraft.nbt;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
 public class NBTTagEnd extends NBTBase {
-    void readTagContents(DataInput var1) throws IOException {
+    void readTagContents(DataInput input) throws IOException {
     }
 
-    void writeTagContents(DataOutput var1) throws IOException {
+    void writeTagContents(DataOutput output) throws IOException {
     }
 
     public byte getType() {

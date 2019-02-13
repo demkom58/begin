@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
 public class TileEntityChest extends TileEntity implements IInventory {
     private ItemStack[] chestContents = new ItemStack[36];
 
