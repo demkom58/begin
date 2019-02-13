@@ -159,8 +159,8 @@ public class CraftingManager {
     public ItemStack findMatchingRecipe(InventoryCrafting var1) {
         for (int var2 = 0; var2 < this.recipes.size(); ++var2) {
             IRecipe var3 = this.recipes.get(var2);
-            if (var3.func_21134_a(var1)) {
-                return var3.func_21136_b(var1);
+            if (var3.matches(var1)) {
+                return var3.getCraftingResult(var1);
             }
         }
 

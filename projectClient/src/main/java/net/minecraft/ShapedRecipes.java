@@ -7,15 +7,15 @@ public class ShapedRecipes implements IRecipe {
     private ItemStack[] recipeItems;
     private ItemStack recipeOutput;
 
-    public ShapedRecipes(int var1, int var2, ItemStack[] var3, ItemStack var4) {
-        this.recipeOutputItemID = var4.itemID;
-        this.recipeWidth = var1;
-        this.recipeHeight = var2;
-        this.recipeItems = var3;
-        this.recipeOutput = var4;
+    public ShapedRecipes(int recipeWidth, int recipeHeight, ItemStack[] recipeItems, ItemStack recipeOutput) {
+        this.recipeOutputItemID = recipeOutput.itemID;
+        this.recipeWidth = recipeWidth;
+        this.recipeHeight = recipeHeight;
+        this.recipeItems = recipeItems;
+        this.recipeOutput = recipeOutput;
     }
 
-    public ItemStack getRecipeOutput() {
+    public ItemStack getCraftingResult() {
         return this.recipeOutput;
     }
 

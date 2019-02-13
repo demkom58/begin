@@ -67,7 +67,7 @@ public class StatList {
             Set<Integer> var0 = new HashSet<>();
 
             for (IRecipe var2 : CraftingManager.getInstance().getRecipeList()) {
-                var0.add(var2.func_25077_b().itemID);
+                var0.add(var2.getRecipeOutput().itemID);
             }
 
             for (ItemStack var6 : FurnaceRecipes.smelting().getSmeltingList().values()) {
