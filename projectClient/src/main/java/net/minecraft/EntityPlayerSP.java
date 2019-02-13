@@ -2,6 +2,7 @@ package net.minecraft;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
+import util.MathHelper;
 
 public class EntityPlayerSP extends EntityPlayer {
     public MovementInput movementInput;

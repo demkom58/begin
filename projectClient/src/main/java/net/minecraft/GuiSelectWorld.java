@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;

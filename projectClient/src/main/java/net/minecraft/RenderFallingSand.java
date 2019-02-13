@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
 
 public class RenderFallingSand extends Render {
     private RenderBlocks field_197_d = new RenderBlocks();

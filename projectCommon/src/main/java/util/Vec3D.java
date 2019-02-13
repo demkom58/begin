@@ -1,35 +1,40 @@
-package net.minecraft;
+package util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Vec3D {
-    private static List<Vec3D> vectorList = new ArrayList<>();
+    private static List vectorList = new ArrayList();
     private static int nextVector = 0;
     public double xCoord;
     public double yCoord;
     public double zCoord;
 
-    private Vec3D(double x, double y, double z) {
-        if (x == -0.0D) {
-            x = 0.0D;
+    private Vec3D(double var1, double var3, double var5) {
+        if (var1 == -0.0D) {
+            var1 = 0.0D;
         }
 
-        if (y == -0.0D) {
-            y = 0.0D;
+        if (var3 == -0.0D) {
+            var3 = 0.0D;
         }
 
-        if (z == -0.0D) {
-            z = 0.0D;
+        if (var5 == -0.0D) {
+            var5 = 0.0D;
         }
 
-        this.xCoord = x;
-        this.yCoord = y;
-        this.zCoord = z;
+        this.xCoord = var1;
+        this.yCoord = var3;
+        this.zCoord = var5;
     }
 
     public static Vec3D createVectorHelper(double var0, double var2, double var4) {
         return new Vec3D(var0, var2, var4);
+    }
+
+    public static void func_28215_a() {
+        vectorList.clear();
+        nextVector = 0;
     }
 
     public static void initialize() {
@@ -41,19 +46,27 @@ public class Vec3D {
             vectorList.add(createVectorHelper(0.0D, 0.0D, 0.0D));
         }
 
-        return vectorList.get(nextVector++).setComponents(var0, var2, var4);
+        return ((Vec3D) vectorList.get(nextVector++)).setComponents(var0, var2, var4);
     }
 
-    private Vec3D setComponents(double x, double y, double z) {
-        this.xCoord = x;
-        this.yCoord = y;
-        this.zCoord = z;
+    private Vec3D setComponents(double var1, double var3, double var5) {
+        this.xCoord = var1;
+        this.yCoord = var3;
+        this.zCoord = var5;
         return this;
+    }
+
+    public Vec3D subtract(Vec3D var1) {
+        return createVector(var1.xCoord - this.xCoord, var1.yCoord - this.yCoord, var1.zCoord - this.zCoord);
     }
 
     public Vec3D normalize() {
         double var1 = (double) MathHelper.sqrt_double(this.xCoord * this.xCoord + this.yCoord * this.yCoord + this.zCoord * this.zCoord);
         return var1 < 1.0E-4D ? createVector(0.0D, 0.0D, 0.0D) : createVector(this.xCoord / var1, this.yCoord / var1, this.zCoord / var1);
+    }
+
+    public Vec3D crossProduct(Vec3D var1) {
+        return createVector(this.yCoord * var1.zCoord - this.zCoord * var1.yCoord, this.zCoord * var1.xCoord - this.xCoord * var1.zCoord, this.xCoord * var1.yCoord - this.yCoord * var1.xCoord);
     }
 
     public Vec3D addVector(double var1, double var3, double var5) {
@@ -123,5 +136,27 @@ public class Vec3D {
 
     public String toString() {
         return "(" + this.xCoord + ", " + this.yCoord + ", " + this.zCoord + ")";
+    }
+
+    public void rotateAroundX(float var1) {
+        float var2 = MathHelper.cos(var1);
+        float var3 = MathHelper.sin(var1);
+        double var4 = this.xCoord;
+        double var6 = this.yCoord * (double) var2 + this.zCoord * (double) var3;
+        double var8 = this.zCoord * (double) var2 - this.yCoord * (double) var3;
+        this.xCoord = var4;
+        this.yCoord = var6;
+        this.zCoord = var8;
+    }
+
+    public void rotateAroundY(float var1) {
+        float var2 = MathHelper.cos(var1);
+        float var3 = MathHelper.sin(var1);
+        double var4 = this.xCoord * (double) var2 + this.zCoord * (double) var3;
+        double var6 = this.yCoord;
+        double var8 = this.zCoord * (double) var2 - this.xCoord * (double) var3;
+        this.xCoord = var4;
+        this.yCoord = var6;
+        this.zCoord = var8;
     }
 }

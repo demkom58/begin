@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class ItemDoor extends Item {
     private Material doorMaterial;
 

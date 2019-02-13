@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class ModelChicken extends ModelBase {
     public ModelRenderer head;
     public ModelRenderer body;

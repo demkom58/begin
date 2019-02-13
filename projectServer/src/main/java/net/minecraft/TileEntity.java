@@ -35,13 +35,14 @@ public class TileEntity {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static TileEntity createAndLoadEntity(NBTTagCompound compound) {
         TileEntity tileEntity = null;
 
         try {
             Class clazz = nameToClassMap.get(compound.getString("id"));
             if (clazz != null) {
-                tileEntity = (TileEntity) clazz.newInstance();
+                tileEntity = (TileEntity) clazz.getDeclaredConstructor().newInstance();
             }
         } catch (Exception e) {
             e.printStackTrace();

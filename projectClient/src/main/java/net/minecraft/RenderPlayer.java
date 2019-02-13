@@ -2,6 +2,7 @@ package net.minecraft;
 
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
 
 public class RenderPlayer extends RenderLiving {
     private static final String[] armorFilenamePrefix = new String[]{"cloth", "chain", "iron", "diamond", "gold"};

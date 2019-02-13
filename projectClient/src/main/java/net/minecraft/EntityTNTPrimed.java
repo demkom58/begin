@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import net.minecraft.nbt.NBTTagCompound;
+import util.MathHelper;
 
 public class EntityTNTPrimed extends Entity {
     public int fuse;

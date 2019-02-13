@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import net.minecraft.nbt.NBTTagCompound;
+import util.MathHelper;
 
 public class EntityMob extends EntityCreature implements IMob {
     protected int attackStrength = 2;

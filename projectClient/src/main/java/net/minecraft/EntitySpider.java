@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import net.minecraft.nbt.NBTTagCompound;
+import util.MathHelper;
 
 public class EntitySpider extends EntityMob {
     public EntitySpider(World var1) {

@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import net.minecraft.nbt.NBTTagCompound;
+import util.MathHelper;
 
 import java.util.List;
 
@@ -23,23 +24,23 @@ public class EntityWolf extends EntityAnimal {
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(16, (byte) 0);
         this.dataWatcher.addObject(17, "");
-        this.dataWatcher.addObject(18, new Integer(this.health));
+        this.dataWatcher.addObject(18, this.health);
     }
 
     protected boolean func_25017_l() {
         return false;
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
-        super.writeEntityToNBT(var1);
-        var1.setBoolean("Angry", this.getIsAngry());
-        var1.setBoolean("Sitting", this.getIsSitting());
+    public void writeEntityToNBT(NBTTagCompound compound) {
+        super.writeEntityToNBT(compound);
+        compound.setBoolean("Angry", this.getIsAngry());
+        compound.setBoolean("Sitting", this.getIsSitting());
         if (this.getOwner() == null) {
-            var1.setString("Owner", "");
+            compound.setString("Owner", "");
         } else {
-            var1.setString("Owner", this.getOwner());
+            compound.setString("Owner", this.getOwner());
         }
 
     }

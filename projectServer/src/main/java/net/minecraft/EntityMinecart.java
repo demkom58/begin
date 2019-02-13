@@ -2,6 +2,8 @@ package net.minecraft;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import util.MathHelper;
+import util.Vec3D;
 
 import java.util.List;
 

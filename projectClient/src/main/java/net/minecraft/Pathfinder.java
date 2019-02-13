@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class Pathfinder {
     private IBlockAccess worldMap;
     private Path path = new Path();

@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.Vec3D;
+
 public class MovingObjectPosition {
     public EnumMovingObjectType typeOfHit;
     public int blockX;

@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import util.MathHelper;
+import util.Vec3D;
+
 public class ItemBucket extends Item {
     private int isFull;
 

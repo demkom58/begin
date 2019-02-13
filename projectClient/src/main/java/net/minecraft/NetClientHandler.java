@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import net.minecraft.client.Minecraft;
+import util.MathHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;

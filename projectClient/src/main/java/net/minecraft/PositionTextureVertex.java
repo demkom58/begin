@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.Vec3D;
+
 public class PositionTextureVertex {
     public Vec3D vector3D;
     public float texturePositionX;

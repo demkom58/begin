@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class EntityNoteFX extends EntityFX {
     float field_21065_a;
 

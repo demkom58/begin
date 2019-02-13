@@ -3,12 +3,11 @@ package net.minecraft;
 import java.io.IOException;
 
 class NetworkWriterThread extends Thread {
-    // $FF: synthetic field
-    final NetworkManager netManager;
+    private final NetworkManager netManager;
 
-    NetworkWriterThread(NetworkManager var1, String var2) {
+    NetworkWriterThread(NetworkManager networkManager, String var2) {
         super(var2);
-        this.netManager = var1;
+        this.netManager = networkManager;
     }
 
     public void run() {
@@ -26,26 +25,23 @@ class NetworkWriterThread extends Thread {
                     break;
                 }
 
-                while (NetworkManager.sendNetworkPacket(this.netManager)) {
-                    ;
-                }
+                while (NetworkManager.sendNetworkPacket(this.netManager)) { }
 
                 try {
                     sleep(100L);
-                } catch (InterruptedException var16) {
-                    ;
+                } catch (InterruptedException e) {
                 }
 
                 try {
                     if (NetworkManager.func_28140_f(this.netManager) != null) {
                         NetworkManager.func_28140_f(this.netManager).flush();
                     }
-                } catch (IOException var18) {
+                } catch (IOException e) {
                     if (!NetworkManager.func_28138_e(this.netManager)) {
-                        NetworkManager.func_30005_a(this.netManager, var18);
+                        NetworkManager.func_30005_a(this.netManager, e);
                     }
 
-                    var18.printStackTrace();
+                    e.printStackTrace();
                 }
             } finally {
                 if (var13) {

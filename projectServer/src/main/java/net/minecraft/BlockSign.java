@@ -56,9 +56,10 @@ public class BlockSign extends BlockContainer {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     protected TileEntity getBlockEntity() {
         try {
-            return (TileEntity) this.signEntityClass.newInstance();
+            return (TileEntity) this.signEntityClass.getDeclaredConstructor().newInstance();
         } catch (Exception var2) {
             throw new RuntimeException(var2);
         }

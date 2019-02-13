@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 import java.util.ArrayList;
 
 public class BlockPistonBase extends Block {

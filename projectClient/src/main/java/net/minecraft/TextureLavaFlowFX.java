@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class TextureLavaFlowFX extends TextureFX {
     protected float[] field_1143_g = new float[256];
     protected float[] field_1142_h = new float[256];

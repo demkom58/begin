@@ -106,10 +106,11 @@ public abstract class Packet {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static Packet getNewPacket(int id) {
         try {
             Class packetClass = packetIdToClassMap.get(id);
-            return packetClass == null ? null : (Packet) packetClass.newInstance();
+            return packetClass == null ? null : (Packet) packetClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Skipping packet with id " + id);
@@ -187,7 +188,7 @@ public abstract class Packet {
     }
 
     public final int getPacketId() {
-        return packetClassToIdMap.get(this.getClass());
+        return packetClassToIdMap.getInt(this.getClass());
     }
 
     public abstract void readPacketData(DataInputStream inputStream) throws IOException;

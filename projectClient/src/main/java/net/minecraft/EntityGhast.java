@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import util.MathHelper;
+import util.Vec3D;
+
 public class EntityGhast extends EntityFlying implements IMob {
     public int courseChangeCooldown = 0;
     public double waypointX;

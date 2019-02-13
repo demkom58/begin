@@ -3,6 +3,7 @@ package net.minecraft;
 import it.unimi.dsi.fastutil.ints.Int2ShortMap;
 import it.unimi.dsi.fastutil.ints.Int2ShortRBTreeMap;
 import net.minecraft.server.MinecraftServer;
+import util.MathHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
