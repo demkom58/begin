@@ -48,7 +48,7 @@ public class BlockSnow extends Block {
     }
 
     public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
-        int var7 = Item.snowball.shiftedIndex;
+        int var7 = Item.SNOWBALL.shiftedIndex;
         float var8 = 0.7F;
         double var9 = (double) (var1.rand.nextFloat() * var8) + (double) (1.0F - var8) * 0.5D;
         double var11 = (double) (var1.rand.nextFloat() * var8) + (double) (1.0F - var8) * 0.5D;
@@ -61,7 +61,7 @@ public class BlockSnow extends Block {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Item.snowball.shiftedIndex;
+        return Item.SNOWBALL.shiftedIndex;
     }
 
     public int quantityDropped(Random var1) {

@@ -76,7 +76,7 @@ public class RenderItem extends Render {
             float var21 = 0.5F;
             float var22 = 0.25F;
             if (this.field_27004_a) {
-                int var23 = Item.itemsList[var10.itemID].getColorFromDamage(var10.getItemDamage());
+                int var23 = Item.ITEMS_LIST[var10.itemID].getColorFromDamage(var10.getItemDamage());
                 float var24 = (float) (var23 >> 16 & 255) / 255.0F;
                 float var25 = (float) (var23 >> 8 & 255) / 255.0F;
                 float var26 = (float) (var23 & 255) / 255.0F;
@@ -120,7 +120,7 @@ public class RenderItem extends Render {
             GL11.glScalef(1.0F, 1.0F, -1.0F);
             GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
-            int var15 = Item.itemsList[var3].getColorFromDamage(var4);
+            int var15 = Item.ITEMS_LIST[var3].getColorFromDamage(var4);
             float var16 = (float) (var15 >> 16 & 255) / 255.0F;
             float var12 = (float) (var15 >> 8 & 255) / 255.0F;
             float var13 = (float) (var15 & 255) / 255.0F;
@@ -141,7 +141,7 @@ public class RenderItem extends Render {
                 var2.bindTexture(var2.getTexture("/gui/items.png"));
             }
 
-            int var8 = Item.itemsList[var3].getColorFromDamage(var4);
+            int var8 = Item.ITEMS_LIST[var3].getColorFromDamage(var4);
             float var9 = (float) (var8 >> 16 & 255) / 255.0F;
             float var10 = (float) (var8 >> 8 & 255) / 255.0F;
             float var11 = (float) (var8 & 255) / 255.0F;

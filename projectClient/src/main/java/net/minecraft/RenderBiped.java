@@ -23,7 +23,7 @@ public class RenderBiped extends RenderLiving {
                 GL11.glRotatef(20.0F, 1.0F, 0.0F, 0.0F);
                 GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
                 GL11.glScalef(var6, -var6, var6);
-            } else if (Item.itemsList[var3.itemID].isFull3D()) {
+            } else if (Item.ITEMS_LIST[var3.itemID].isFull3D()) {
                 float var4 = 0.625F;
                 GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
                 GL11.glScalef(var4, -var4, var4);

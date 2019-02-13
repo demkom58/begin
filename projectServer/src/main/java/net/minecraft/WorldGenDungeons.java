@@ -104,27 +104,27 @@ public class WorldGenDungeons extends WorldGenerator {
     private ItemStack pickCheckLootItem(Random var1) {
         int var2 = var1.nextInt(11);
         if (var2 == 0) {
-            return new ItemStack(Item.saddle);
+            return new ItemStack(Item.SADDLE);
         } else if (var2 == 1) {
-            return new ItemStack(Item.ingotIron, var1.nextInt(4) + 1);
+            return new ItemStack(Item.INGOT_IRON, var1.nextInt(4) + 1);
         } else if (var2 == 2) {
-            return new ItemStack(Item.bread);
+            return new ItemStack(Item.BREAD);
         } else if (var2 == 3) {
-            return new ItemStack(Item.wheat, var1.nextInt(4) + 1);
+            return new ItemStack(Item.WHEAT, var1.nextInt(4) + 1);
         } else if (var2 == 4) {
-            return new ItemStack(Item.gunpowder, var1.nextInt(4) + 1);
+            return new ItemStack(Item.GUNPOWDER, var1.nextInt(4) + 1);
         } else if (var2 == 5) {
-            return new ItemStack(Item.silk, var1.nextInt(4) + 1);
+            return new ItemStack(Item.SILK, var1.nextInt(4) + 1);
         } else if (var2 == 6) {
-            return new ItemStack(Item.bucketEmpty);
+            return new ItemStack(Item.BUCKET_EMPTY);
         } else if (var2 == 7 && var1.nextInt(100) == 0) {
-            return new ItemStack(Item.appleGold);
+            return new ItemStack(Item.APPLE_GOLD);
         } else if (var2 == 8 && var1.nextInt(2) == 0) {
-            return new ItemStack(Item.redstone, var1.nextInt(4) + 1);
+            return new ItemStack(Item.REDSTONE, var1.nextInt(4) + 1);
         } else if (var2 == 9 && var1.nextInt(10) == 0) {
-            return new ItemStack(Item.itemsList[Item.record13.shiftedIndex + var1.nextInt(2)]);
+            return new ItemStack(Item.ITEMS_LIST[Item.RECORD_13.shiftedIndex + var1.nextInt(2)]);
         } else {
-            return var2 == 10 ? new ItemStack(Item.dyePowder, 1, 3) : null;
+            return var2 == 10 ? new ItemStack(Item.DYE_POWDER, 1, 3) : null;
         }
     }
 

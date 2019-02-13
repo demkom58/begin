@@ -56,7 +56,7 @@ public class BlockTNT extends Block {
     }
 
     public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (var5.getCurrentEquippedItem() != null && var5.getCurrentEquippedItem().itemID == Item.flintAndSteel.shiftedIndex) {
+        if (var5.getCurrentEquippedItem() != null && var5.getCurrentEquippedItem().itemID == Item.FLINT_AND_STEEL.shiftedIndex) {
             var1.setBlockMetadata(var2, var3, var4, 1);
         }
 

@@ -43,16 +43,16 @@ public class ItemBucket extends Item {
                 if (this.isFull == 0) {
                     if (var2.getBlockMaterial(var25, var26, var27) == Material.water && var2.getBlockMetadata(var25, var26, var27) == 0) {
                         var2.setBlockWithNotify(var25, var26, var27, 0);
-                        return new ItemStack(Item.bucketWater);
+                        return new ItemStack(Item.BUCKET_WATER);
                     }
 
                     if (var2.getBlockMaterial(var25, var26, var27) == Material.lava && var2.getBlockMetadata(var25, var26, var27) == 0) {
                         var2.setBlockWithNotify(var25, var26, var27, 0);
-                        return new ItemStack(Item.bucketLava);
+                        return new ItemStack(Item.BUCKET_LAVA);
                     }
                 } else {
                     if (this.isFull < 0) {
-                        return new ItemStack(Item.bucketEmpty);
+                        return new ItemStack(Item.BUCKET_EMPTY);
                     }
 
                     if (var24.sideHit == 0) {
@@ -90,11 +90,11 @@ public class ItemBucket extends Item {
                             var2.setBlockAndMetadataWithNotify(var25, var26, var27, this.isFull, 0);
                         }
 
-                        return new ItemStack(Item.bucketEmpty);
+                        return new ItemStack(Item.BUCKET_EMPTY);
                     }
                 }
             } else if (this.isFull == 0 && var24.entityHit instanceof EntityCow) {
-                return new ItemStack(Item.bucketMilk);
+                return new ItemStack(Item.BUCKET_MILK);
             }
 
             return var1;

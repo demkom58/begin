@@ -9,11 +9,11 @@ public class BlockOre extends Block {
 
     public int idDropped(int var1, Random var2) {
         if (this.blockID == Block.oreCoal.blockID) {
-            return Item.coal.shiftedIndex;
+            return Item.COAL.shiftedIndex;
         } else if (this.blockID == Block.oreDiamond.blockID) {
-            return Item.diamond.shiftedIndex;
+            return Item.DIAMOND.shiftedIndex;
         } else {
-            return this.blockID == Block.oreLapis.blockID ? Item.dyePowder.shiftedIndex : this.blockID;
+            return this.blockID == Block.oreLapis.blockID ? Item.DYE_POWDER.shiftedIndex : this.blockID;
         }
     }
 

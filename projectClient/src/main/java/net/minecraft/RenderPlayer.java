@@ -182,7 +182,7 @@ public class RenderPlayer extends RenderLiving {
             this.modelBipedMain.bipedRightArm.postRender(0.0625F);
             GL11.glTranslatef(-0.0625F, 0.4375F, 0.0625F);
             if (var1.fishEntity != null) {
-                var21 = new ItemStack(Item.stick);
+                var21 = new ItemStack(Item.STICK);
             }
 
             if (var21.itemID < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[var21.itemID].getRenderType())) {
@@ -192,9 +192,9 @@ public class RenderPlayer extends RenderLiving {
                 GL11.glRotatef(20.0F, 1.0F, 0.0F, 0.0F);
                 GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
                 GL11.glScalef(var24, -var24, var24);
-            } else if (Item.itemsList[var21.itemID].isFull3D()) {
+            } else if (Item.ITEMS_LIST[var21.itemID].isFull3D()) {
                 float var22 = 0.625F;
-                if (Item.itemsList[var21.itemID].shouldRotateAroundWhenRendering()) {
+                if (Item.ITEMS_LIST[var21.itemID].shouldRotateAroundWhenRendering()) {
                     GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
                     GL11.glTranslatef(0.0F, -0.125F, 0.0F);
                 }

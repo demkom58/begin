@@ -155,7 +155,7 @@ abstract class GuiSlotStats extends GuiSlot {
 
     protected void func_27267_a(StatCrafting var1, int var2, int var3) {
         if (var1 != null) {
-            Item var4 = Item.itemsList[var1.func_25072_b()];
+            Item var4 = Item.ITEMS_LIST[var1.func_25072_b()];
             String var5 = ("" + StringTranslate.getInstance().translateNamedKey(var4.getItemName())).trim();
             if (var5.length() > 0) {
                 int var6 = var2 + 12;

@@ -178,7 +178,7 @@ public class BlockDoor extends Block {
         if ((var1 & 8) != 0) {
             return 0;
         } else {
-            return this.blockMaterial == Material.iron ? Item.doorSteel.shiftedIndex : Item.doorWood.shiftedIndex;
+            return this.blockMaterial == Material.iron ? Item.DOOR_IRON.shiftedIndex : Item.DOOR_WOOD.shiftedIndex;
         }
     }
 

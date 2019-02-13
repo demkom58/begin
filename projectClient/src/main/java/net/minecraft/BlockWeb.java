@@ -28,6 +28,6 @@ public class BlockWeb extends Block {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Item.silk.shiftedIndex;
+        return Item.SILK.shiftedIndex;
     }
 }

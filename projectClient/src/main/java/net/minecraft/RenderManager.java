@@ -43,8 +43,8 @@ public class RenderManager {
         this.entityRenderMap.put(Entity.class, new RenderEntity());
         this.entityRenderMap.put(EntityPainting.class, new RenderPainting());
         this.entityRenderMap.put(EntityArrow.class, new RenderArrow());
-        this.entityRenderMap.put(EntitySnowball.class, new RenderSnowball(Item.snowball.getIconFromDamage(0)));
-        this.entityRenderMap.put(EntityEgg.class, new RenderSnowball(Item.egg.getIconFromDamage(0)));
+        this.entityRenderMap.put(EntitySnowball.class, new RenderSnowball(Item.SNOWBALL.getIconFromDamage(0)));
+        this.entityRenderMap.put(EntityEgg.class, new RenderSnowball(Item.EGG.getIconFromDamage(0)));
         this.entityRenderMap.put(EntityFireball.class, new RenderFireball());
         this.entityRenderMap.put(EntityItem.class, new RenderItem());
         this.entityRenderMap.put(EntityTNTPrimed.class, new RenderTNTPrimed());

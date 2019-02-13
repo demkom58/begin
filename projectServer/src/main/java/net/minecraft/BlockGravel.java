@@ -8,6 +8,6 @@ public class BlockGravel extends BlockSand {
     }
 
     public int idDropped(int var1, Random var2) {
-        return var2.nextInt(10) == 0 ? Item.flint.shiftedIndex : this.blockID;
+        return var2.nextInt(10) == 0 ? Item.FLINT.shiftedIndex : this.blockID;
     }
 }

@@ -133,7 +133,7 @@ public class EntityPainting extends Entity {
             this.field_695_c = 0;
             if (!this.func_410_i()) {
                 this.setEntityDead();
-                this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.painting)));
+                this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
             }
         }
 
@@ -201,7 +201,7 @@ public class EntityPainting extends Entity {
         if (!this.isDead && !this.worldObj.multiplayerWorld) {
             this.setEntityDead();
             this.setBeenAttacked();
-            this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.painting)));
+            this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
         }
 
         return true;
@@ -238,7 +238,7 @@ public class EntityPainting extends Entity {
     public void moveEntity(double var1, double var3, double var5) {
         if (!this.worldObj.multiplayerWorld && var1 * var1 + var3 * var3 + var5 * var5 > 0.0D) {
             this.setEntityDead();
-            this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.painting)));
+            this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
         }
 
     }
@@ -246,7 +246,7 @@ public class EntityPainting extends Entity {
     public void addVelocity(double var1, double var3, double var5) {
         if (!this.worldObj.multiplayerWorld && var1 * var1 + var3 * var3 + var5 * var5 > 0.0D) {
             this.setEntityDead();
-            this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.painting)));
+            this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
         }
 
     }

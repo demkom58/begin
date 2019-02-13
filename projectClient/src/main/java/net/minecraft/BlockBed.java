@@ -181,7 +181,7 @@ public class BlockBed extends Block {
     }
 
     public int idDropped(int var1, Random var2) {
-        return isBlockFootOfBed(var1) ? 0 : Item.bed.shiftedIndex;
+        return isBlockFootOfBed(var1) ? 0 : Item.BED.shiftedIndex;
     }
 
     private void setBounds() {

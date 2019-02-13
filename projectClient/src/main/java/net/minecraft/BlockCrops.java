@@ -95,7 +95,7 @@ public class BlockCrops extends BlockFlower {
                     float var9 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
                     float var10 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
                     float var11 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
-                    EntityItem var12 = new EntityItem(var1, (double) ((float) var2 + var9), (double) ((float) var3 + var10), (double) ((float) var4 + var11), new ItemStack(Item.seeds));
+                    EntityItem var12 = new EntityItem(var1, (double) ((float) var2 + var9), (double) ((float) var3 + var10), (double) ((float) var4 + var11), new ItemStack(Item.SEEDS));
                     var12.delayBeforeCanPickup = 10;
                     var1.entityJoinedWorld(var12);
                 }
@@ -105,7 +105,7 @@ public class BlockCrops extends BlockFlower {
     }
 
     public int idDropped(int var1, Random var2) {
-        return var1 == 7 ? Item.wheat.shiftedIndex : -1;
+        return var1 == 7 ? Item.WHEAT.shiftedIndex : -1;
     }
 
     public int quantityDropped(Random var1) {

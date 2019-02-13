@@ -94,18 +94,18 @@ public class BlockDispenser extends BlockContainer {
         if (var12 == null) {
             var1.func_28097_e(1001, var2, var3, var4, 0);
         } else {
-            if (var12.itemID == Item.arrow.shiftedIndex) {
+            if (var12.itemID == Item.ARROW.shiftedIndex) {
                 EntityArrow var19 = new EntityArrow(var1, var13, var15, var17);
                 var19.setArrowHeading((double) var9, 0.10000000149011612D, (double) var10, 1.1F, 6.0F);
                 var19.field_28012_a = true;
                 var1.entityJoinedWorld(var19);
                 var1.func_28097_e(1002, var2, var3, var4, 0);
-            } else if (var12.itemID == Item.egg.shiftedIndex) {
+            } else if (var12.itemID == Item.EGG.shiftedIndex) {
                 EntityEgg var22 = new EntityEgg(var1, var13, var15, var17);
                 var22.func_20078_a((double) var9, 0.10000000149011612D, (double) var10, 1.1F, 6.0F);
                 var1.entityJoinedWorld(var22);
                 var1.func_28097_e(1002, var2, var3, var4, 0);
-            } else if (var12.itemID == Item.snowball.shiftedIndex) {
+            } else if (var12.itemID == Item.SNOWBALL.shiftedIndex) {
                 EntitySnowball var23 = new EntitySnowball(var1, var13, var15, var17);
                 var23.func_6141_a((double) var9, 0.10000000149011612D, (double) var10, 1.1F, 6.0F);
                 var1.entityJoinedWorld(var23);

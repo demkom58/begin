@@ -121,8 +121,8 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
         for (int var2 = 0; var2 < this.inventory.getSizeInventory(); ++var2) {
             ItemStack var3 = this.inventory.getStackInSlot(var2);
-            if (var3 != null && Item.itemsList[var3.itemID].func_28019_b() && this.playerNetServerHandler.getNumChunkDataPackets() <= 2) {
-                Packet var4 = ((ItemMapBase) Item.itemsList[var3.itemID]).func_28022_b(var3, this.worldObj, this);
+            if (var3 != null && Item.ITEMS_LIST[var3.itemID].func_28019_b() && this.playerNetServerHandler.getNumChunkDataPackets() <= 2) {
+                Packet var4 = ((ItemMapBase) Item.ITEMS_LIST[var3.itemID]).func_28022_b(var3, this.worldObj, this);
                 if (var4 != null) {
                     this.playerNetServerHandler.sendPacket(var4);
                 }

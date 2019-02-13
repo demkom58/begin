@@ -1280,11 +1280,11 @@ public class RenderGlobal implements IWorldAccess {
                 } else if (var1.equals("reddust")) {
                     this.mc.effectRenderer.addEffect(new EntityReddustFX(this.worldObj, var2, var4, var6, (float) var8, (float) var10, (float) var12));
                 } else if (var1.equals("snowballpoof")) {
-                    this.mc.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.snowball));
+                    this.mc.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.SNOWBALL));
                 } else if (var1.equals("snowshovel")) {
                     this.mc.effectRenderer.addEffect(new EntitySnowShovelFX(this.worldObj, var2, var4, var6, var8, var10, var12));
                 } else if (var1.equals("slime")) {
-                    this.mc.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.slimeBall));
+                    this.mc.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.SLIMEBALL));
                 } else if (var1.equals("heart")) {
                     this.mc.effectRenderer.addEffect(new EntityHeartFX(this.worldObj, var2, var4, var6, var8, var10, var12));
                 }
@@ -1356,8 +1356,8 @@ public class RenderGlobal implements IWorldAccess {
                 this.worldObj.playSoundEffect((double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), (double) ((float) var5 + 0.5F), "random.fizz", 0.5F, 2.6F + (var7.nextFloat() - var7.nextFloat()) * 0.8F);
                 break;
             case 1005:
-                if (Item.itemsList[var6] instanceof ItemRecord) {
-                    this.worldObj.playRecord(((ItemRecord) Item.itemsList[var6]).recordName, var3, var4, var5);
+                if (Item.ITEMS_LIST[var6] instanceof ItemRecord) {
+                    this.worldObj.playRecord(((ItemRecord) Item.ITEMS_LIST[var6]).recordName, var3, var4, var5);
                 } else {
                     this.worldObj.playRecord((String) null, var3, var4, var5);
                 }

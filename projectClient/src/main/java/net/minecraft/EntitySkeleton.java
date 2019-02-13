@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import util.MathHelper;
 
 public class EntitySkeleton extends EntityMob {
-    private static final ItemStack defaultHeldItem = new ItemStack(Item.bow, 1);
+    private static final ItemStack defaultHeldItem = new ItemStack(Item.BOW, 1);
 
     public EntitySkeleton(World var1) {
         super(var1);
@@ -64,20 +64,20 @@ public class EntitySkeleton extends EntityMob {
     }
 
     protected int getDropItemId() {
-        return Item.arrow.shiftedIndex;
+        return Item.ARROW.shiftedIndex;
     }
 
     protected void dropFewItems() {
         int var1 = this.rand.nextInt(3);
 
         for (int var2 = 0; var2 < var1; ++var2) {
-            this.dropItem(Item.arrow.shiftedIndex, 1);
+            this.dropItem(Item.ARROW.shiftedIndex, 1);
         }
 
         var1 = this.rand.nextInt(3);
 
         for (int var4 = 0; var4 < var1; ++var4) {
-            this.dropItem(Item.bone.shiftedIndex, 1);
+            this.dropItem(Item.BONE.shiftedIndex, 1);
         }
 
     }

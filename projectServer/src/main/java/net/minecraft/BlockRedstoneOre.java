@@ -49,7 +49,7 @@ public class BlockRedstoneOre extends Block {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Item.redstone.shiftedIndex;
+        return Item.REDSTONE.shiftedIndex;
     }
 
     public int quantityDropped(Random var1) {

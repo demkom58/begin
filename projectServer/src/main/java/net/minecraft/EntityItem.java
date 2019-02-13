@@ -118,7 +118,7 @@ public class EntityItem extends Entity {
                     var1.func_27017_a(AchievementList.mineWood);
                 }
 
-                if (this.item.itemID == Item.leather.shiftedIndex) {
+                if (this.item.itemID == Item.LEATHER.shiftedIndex) {
                     var1.func_27017_a(AchievementList.killCow);
                 }
 

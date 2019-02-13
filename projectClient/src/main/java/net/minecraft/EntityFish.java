@@ -148,7 +148,7 @@ public class EntityFish extends Entity {
         } else {
             if (!this.worldObj.multiplayerWorld) {
                 ItemStack var1 = this.angler.getCurrentEquippedItem();
-                if (this.angler.isDead || !this.angler.isEntityAlive() || var1 == null || var1.getItem() != Item.fishingRod || this.getDistanceSqToEntity(this.angler) > 1024.0D) {
+                if (this.angler.isDead || !this.angler.isEntityAlive() || var1 == null || var1.getItem() != Item.FISHING_ROD || this.getDistanceSqToEntity(this.angler) > 1024.0D) {
                     this.setEntityDead();
                     this.angler.fishEntity = null;
                     return;
@@ -358,7 +358,7 @@ public class EntityFish extends Entity {
             this.bobber.motionZ += var6 * var10;
             var1 = 3;
         } else if (this.ticksCatchable > 0) {
-            EntityItem var13 = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.fishRaw));
+            EntityItem var13 = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.FISH_RAW));
             double var3 = this.angler.posX - this.posX;
             double var5 = this.angler.posY - this.posY;
             double var7 = this.angler.posZ - this.posZ;

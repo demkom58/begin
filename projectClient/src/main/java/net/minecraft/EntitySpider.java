@@ -71,7 +71,7 @@ public class EntitySpider extends EntityMob {
     }
 
     protected int getDropItemId() {
-        return Item.silk.shiftedIndex;
+        return Item.SILK.shiftedIndex;
     }
 
     public boolean isOnLadder() {

@@ -14,7 +14,7 @@ public class TextureWatchFX extends TextureFX {
     private double field_4221_k;
 
     public TextureWatchFX(Minecraft var1) {
-        super(Item.pocketSundial.getIconFromDamage(0));
+        super(Item.CLOCK.getIconFromDamage(0));
         this.mc = var1;
         this.tileImage = 1;
 

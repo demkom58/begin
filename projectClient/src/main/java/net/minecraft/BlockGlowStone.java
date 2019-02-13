@@ -12,6 +12,6 @@ public class BlockGlowStone extends Block {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Item.lightStoneDust.shiftedIndex;
+        return Item.LIGHT_STONE_DUST.shiftedIndex;
     }
 }

@@ -9,7 +9,6 @@ public class ItemMap extends ItemMapBase {
     }
 
     public MapData func_28023_a(ItemStack var1, World var2) {
-        (new StringBuilder()).append("map_").append(var1.getItemDamage()).toString();
         MapData var4 = (MapData) var2.func_28103_a(MapData.class, "map_" + var1.getItemDamage());
         if (var4 == null) {
             var1.setItemDamage(var2.func_28104_b("map"));
@@ -220,6 +219,6 @@ public class ItemMap extends ItemMapBase {
 
     public Packet func_28022_b(ItemStack var1, World var2, EntityPlayer var3) {
         byte[] var4 = this.func_28023_a(var1, var2).func_28154_a(var1, var2, var3);
-        return var4 == null ? null : new Packet131MapData((short) Item.field_28021_bb.shiftedIndex, (short) var1.getItemDamage(), var4);
+        return var4 == null ? null : new Packet131MapData((short) Item.MAP.shiftedIndex, (short) var1.getItemDamage(), var4);
     }
 }

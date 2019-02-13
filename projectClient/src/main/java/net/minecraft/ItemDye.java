@@ -52,9 +52,9 @@ public class ItemDye extends Item {
                         while (true) {
                             if (var13 >= var9 / 16) {
                                 if (var3.getBlockId(var10, var11, var12) == 0) {
-                                    if (itemRand.nextInt(10) != 0) {
+                                    if (ITEM_RAND.nextInt(10) != 0) {
                                         var3.setBlockAndMetadataWithNotify(var10, var11, var12, Block.tallGrass.blockID, 1);
-                                    } else if (itemRand.nextInt(3) != 0) {
+                                    } else if (ITEM_RAND.nextInt(3) != 0) {
                                         var3.setBlockWithNotify(var10, var11, var12, Block.plantYellow.blockID);
                                     } else {
                                         var3.setBlockWithNotify(var10, var11, var12, Block.plantRed.blockID);
@@ -63,9 +63,9 @@ public class ItemDye extends Item {
                                 break;
                             }
 
-                            var10 += itemRand.nextInt(3) - 1;
-                            var11 += (itemRand.nextInt(3) - 1) * itemRand.nextInt(3) / 2;
-                            var12 += itemRand.nextInt(3) - 1;
+                            var10 += ITEM_RAND.nextInt(3) - 1;
+                            var11 += (ITEM_RAND.nextInt(3) - 1) * ITEM_RAND.nextInt(3) / 2;
+                            var12 += ITEM_RAND.nextInt(3) - 1;
                             if (var3.getBlockId(var10, var11 - 1, var12) != Block.grass.blockID || var3.isBlockNormalCube(var10, var11, var12)) {
                                 break;
                             }

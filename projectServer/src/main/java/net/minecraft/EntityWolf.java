@@ -125,10 +125,10 @@ public class EntityWolf extends EntityAnimal {
                 EntityPlayer var2 = (EntityPlayer) var1;
                 ItemStack var3 = var2.inventory.getCurrentItem();
                 if (var3 != null) {
-                    if (!this.func_25030_y() && var3.itemID == Item.bone.shiftedIndex) {
+                    if (!this.func_25030_y() && var3.itemID == Item.BONE.shiftedIndex) {
                         this.field_25039_a = true;
-                    } else if (this.func_25030_y() && Item.itemsList[var3.itemID] instanceof ItemFood) {
-                        this.field_25039_a = ((ItemFood) Item.itemsList[var3.itemID]).func_25010_k();
+                    } else if (this.func_25030_y() && Item.ITEMS_LIST[var3.itemID] instanceof ItemFood) {
+                        this.field_25039_a = ((ItemFood) Item.ITEMS_LIST[var3.itemID]).func_25010_k();
                     }
                 }
             }
@@ -293,7 +293,7 @@ public class EntityWolf extends EntityAnimal {
     public boolean interact(EntityPlayer var1) {
         ItemStack var2 = var1.inventory.getCurrentItem();
         if (!this.func_25030_y()) {
-            if (var2 != null && var2.itemID == Item.bone.shiftedIndex && !this.getIsAngry()) {
+            if (var2 != null && var2.itemID == Item.BONE.shiftedIndex && !this.getIsAngry()) {
                 --var2.stackSize;
                 if (var2.stackSize <= 0) {
                     var1.inventory.setInventorySlotContents(var1.inventory.currentItem, null);
@@ -317,15 +317,15 @@ public class EntityWolf extends EntityAnimal {
                 return true;
             }
         } else {
-            if (var2 != null && Item.itemsList[var2.itemID] instanceof ItemFood) {
-                ItemFood var3 = (ItemFood) Item.itemsList[var2.itemID];
+            if (var2 != null && Item.ITEMS_LIST[var2.itemID] instanceof ItemFood) {
+                ItemFood var3 = (ItemFood) Item.ITEMS_LIST[var2.itemID];
                 if (var3.func_25010_k() && this.dataWatcher.getWatchableObjectInteger(18) < 20) {
                     --var2.stackSize;
                     if (var2.stackSize <= 0) {
                         var1.inventory.setInventorySlotContents(var1.inventory.currentItem, null);
                     }
 
-                    this.heal(((ItemFood) Item.porkRaw).getHealAmount());
+                    this.heal(((ItemFood) Item.PORKCHOP_RAW).getHealAmount());
                     return true;
                 }
             }

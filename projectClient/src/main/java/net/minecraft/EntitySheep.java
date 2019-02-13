@@ -30,7 +30,7 @@ public class EntitySheep extends EntityAnimal {
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(16, new Byte((byte) 0));
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     public boolean attackEntityFrom(Entity var1, int var2) {
@@ -50,7 +50,7 @@ public class EntitySheep extends EntityAnimal {
 
     public boolean interact(EntityPlayer var1) {
         ItemStack var2 = var1.inventory.getCurrentItem();
-        if (var2 != null && var2.itemID == Item.shears.shiftedIndex && !this.getSheared()) {
+        if (var2 != null && var2.itemID == Item.SHEARS.shiftedIndex && !this.getSheared()) {
             if (!this.worldObj.multiplayerWorld) {
                 this.setSheared(true);
                 int var3 = 2 + this.rand.nextInt(3);

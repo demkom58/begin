@@ -65,16 +65,17 @@ public class BlockSign extends BlockContainer {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     protected TileEntity getBlockEntity() {
         try {
-            return (TileEntity) this.signEntityClass.newInstance();
+            return (TileEntity) this.signEntityClass.getDeclaredConstructor().newInstance();
         } catch (Exception var2) {
             throw new RuntimeException(var2);
         }
     }
 
     public int idDropped(int var1, Random var2) {
-        return Item.sign.shiftedIndex;
+        return Item.SIGN.shiftedIndex;
     }
 
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {

@@ -177,7 +177,7 @@ public class BlockBed extends Block {
     }
 
     public int idDropped(int var1, Random var2) {
-        return func_22020_d(var1) ? 0 : Item.bed.shiftedIndex;
+        return func_22020_d(var1) ? 0 : Item.BED.shiftedIndex;
     }
 
     private void setBounds() {

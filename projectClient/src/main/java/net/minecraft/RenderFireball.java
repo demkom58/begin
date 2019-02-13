@@ -9,7 +9,7 @@ public class RenderFireball extends Render {
         GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
         float var10 = 2.0F;
         GL11.glScalef(var10 / 1.0F, var10 / 1.0F, var10 / 1.0F);
-        int var11 = Item.snowball.getIconFromDamage(0);
+        int var11 = Item.SNOWBALL.getIconFromDamage(0);
         this.loadTexture("/gui/items.png");
         Tessellator var12 = Tessellator.instance;
         float var13 = (float) (var11 % 16 * 16 + 0) / 256.0F;

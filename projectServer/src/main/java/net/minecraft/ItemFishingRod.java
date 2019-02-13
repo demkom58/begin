@@ -13,7 +13,7 @@ public class ItemFishingRod extends Item {
             var1.damageItem(var4, var3);
             var3.swingItem();
         } else {
-            var2.playSoundAtEntity(var3, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            var2.playSoundAtEntity(var3, "random.bow", 0.5F, 0.4F / (ITEM_RAND.nextFloat() * 0.4F + 0.8F));
             if (!var2.singleplayerWorld) {
                 var2.entityJoinedWorld(new EntityFish(var2, var3));
             }
