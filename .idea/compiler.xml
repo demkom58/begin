@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="Begin.client.main" target="11" />
+      <module name="Begin.client.test" target="11" />
+      <module name="Begin.main" target="11" />
+      <module name="Begin.projectClient.main" target="11" />
+      <module name="Begin.projectClient.test" target="11" />
+      <module name="Begin.projectCommon.main" target="11" />
+      <module name="Begin.projectCommon.test" target="11" />
+      <module name="Begin.projectServer.main" target="11" />
+      <module name="Begin.projectServer.test" target="11" />
+      <module name="Begin.test" target="11" />
+      <module name="IdeaProjects.Begin.main" target="11" />
+      <module name="IdeaProjects.Begin.projectCommon.main" target="11" />
+      <module name="IdeaProjects.Begin.projectCommon.test" target="11" />
+      <module name="IdeaProjects.Begin.projectServer.main" target="11" />
+      <module name="IdeaProjects.Begin.projectServer.test" target="11" />
+      <module name="IdeaProjects.Begin.test" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

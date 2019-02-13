@@ -1,0 +1,3 @@
+rootProject.name = "Begin"
+
+include('projectClient', 'projectCommon', 'projectServer')
