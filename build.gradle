@@ -1,0 +1,27 @@
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "application"
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+version = "1.7.3-Beta"
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    
+}
+
+subprojects {
+    apply plugin: "java"
+    apply plugin: "idea"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.10.2'
+}
+
