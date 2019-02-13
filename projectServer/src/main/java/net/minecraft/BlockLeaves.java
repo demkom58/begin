@@ -20,7 +20,7 @@ public class BlockLeaves extends BlockLeavesBase {
                 for (int var8 = -var5; var8 <= var5; ++var8) {
                     for (int var9 = -var5; var9 <= var5; ++var9) {
                         int var10 = world.getBlockId(x + var7, y + var8, z + var9);
-                        if (var10 == Block.leaves.blockID) {
+                        if (var10 == Block.LEAVES.blockID) {
                             int var11 = world.getBlockMetadata(x + var7, y + var8, z + var9);
                             world.setBlockMetadata(x + var7, y + var8, z + var9, var11 | 8);
                         }
@@ -49,9 +49,9 @@ public class BlockLeaves extends BlockLeavesBase {
                         for (int var13 = -var7; var13 <= var7; ++var13) {
                             for (int var14 = -var7; var14 <= var7; ++var14) {
                                 int var15 = world.getBlockId(x + var12, y + var13, z + var14);
-                                if (var15 == Block.wood.blockID) {
+                                if (var15 == Block.WOOD.blockID) {
                                     this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = 0;
-                                } else if (var15 == Block.leaves.blockID) {
+                                } else if (var15 == Block.LEAVES.blockID) {
                                     this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -2;
                                 } else {
                                     this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -1;
@@ -116,13 +116,13 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     public int idDropped(int var1, Random random) {
-        return Block.sapling.blockID;
+        return Block.SAPLING.blockID;
     }
 
     public void harvestBlock(World world, EntityPlayer entityPlayer, int var3, int var4, int var5, int var6) {
         if (!world.singleplayerWorld && entityPlayer.getCurrentEquippedItem() != null && entityPlayer.getCurrentEquippedItem().itemID == Item.SHEARS.shiftedIndex) {
             entityPlayer.addStat(StatList.mineBlockStatArray[this.blockID], 1);
-            this.dropBlockAsItem_do(world, var3, var4, var5, new ItemStack(Block.leaves.blockID, 1, var6 & 3));
+            this.dropBlockAsItem_do(world, var3, var4, var5, new ItemStack(Block.LEAVES.blockID, 1, var6 & 3));
         } else {
             super.harvestBlock(world, entityPlayer, var3, var4, var5, var6);
         }

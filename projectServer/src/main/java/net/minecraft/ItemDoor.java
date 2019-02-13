@@ -18,9 +18,9 @@ public class ItemDoor extends Item {
             ++var5;
             Block var8;
             if (this.field_260_a == Material.wood) {
-                var8 = Block.doorWood;
+                var8 = Block.DOOR_WOOD;
             } else {
-                var8 = Block.doorSteel;
+                var8 = Block.DOOR_STEEL;
             }
 
             if (!var8.canPlaceBlockAt(var3, var4, var5, var6)) {

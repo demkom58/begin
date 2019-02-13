@@ -11,7 +11,7 @@ public class BlockPistonBase extends Block {
     public BlockPistonBase(int var1, int var2, boolean var3) {
         super(var1, var2, Material.piston);
         this.isSticky = var3;
-        this.setStepSound(soundStoneFootstep);
+        this.setStepSound(SOUND_STONE_FOOTSTEP);
         this.setHardness(0.5F);
     }
 
@@ -48,19 +48,19 @@ public class BlockPistonBase extends Block {
     }
 
     private static boolean canPushBlock(int var0, World var1, int var2, int var3, int var4, boolean var5) {
-        if (var0 == Block.obsidian.blockID) {
+        if (var0 == Block.OBSIDIAN.blockID) {
             return false;
         } else {
-            if (var0 != Block.pistonBase.blockID && var0 != Block.pistonStickyBase.blockID) {
-                if (Block.blocksList[var0].getHardness() == -1.0F) {
+            if (var0 != Block.PISTON_BASE.blockID && var0 != Block.PISTON_STICKY_BASE.blockID) {
+                if (Block.BLOCKS_LIST[var0].getHardness() == -1.0F) {
                     return false;
                 }
 
-                if (Block.blocksList[var0].getMobilityFlag() == 2) {
+                if (Block.BLOCKS_LIST[var0].getMobilityFlag() == 2) {
                     return false;
                 }
 
-                if (!var5 && Block.blocksList[var0].getMobilityFlag() == 1) {
+                if (!var5 && Block.BLOCKS_LIST[var0].getMobilityFlag() == 1) {
                     return false;
                 }
             } else if (isExtended(var1.getBlockMetadata(var2, var3, var4))) {
@@ -90,7 +90,7 @@ public class BlockPistonBase extends Block {
                         return false;
                     }
 
-                    if (Block.blocksList[var9].getMobilityFlag() != 1) {
+                    if (Block.BLOCKS_LIST[var9].getMobilityFlag() != 1) {
                         if (var8 == 12) {
                             return false;
                         }
@@ -209,7 +209,7 @@ public class BlockPistonBase extends Block {
                 ((TileEntityPiston) var8).clearPistonTileEntity();
             }
 
-            world.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.blockID, var6);
+            world.setBlockAndMetadata(var2, var3, var4, Block.PISTON_MOVING.blockID, var6);
             world.setBlockTileEntity(var2, var3, var4, BlockPistonMoving.getTileEntity(this.blockID, var6, var6, false, true));
             if (this.isSticky) {
                 int var9 = var2 + PistonBlockTextures.field_31051_b[var6] * 2;
@@ -218,7 +218,7 @@ public class BlockPistonBase extends Block {
                 int var12 = world.getBlockId(var9, var10, var11);
                 int var13 = world.getBlockMetadata(var9, var10, var11);
                 boolean var14 = false;
-                if (var12 == Block.pistonMoving.blockID) {
+                if (var12 == Block.PISTON_MOVING.blockID) {
                     TileEntity var15 = world.getBlockTileEntity(var9, var10, var11);
                     if (var15 != null && var15 instanceof TileEntityPiston) {
                         TileEntityPiston var16 = (TileEntityPiston) var15;
@@ -231,7 +231,7 @@ public class BlockPistonBase extends Block {
                     }
                 }
 
-                if (var14 || var12 <= 0 || !canPushBlock(var12, world, var9, var10, var11, false) || Block.blocksList[var12].getMobilityFlag() != 0 && var12 != Block.pistonBase.blockID && var12 != Block.pistonStickyBase.blockID) {
+                if (var14 || var12 <= 0 || !canPushBlock(var12, world, var9, var10, var11, false) || Block.BLOCKS_LIST[var12].getMobilityFlag() != 0 && var12 != Block.PISTON_BASE.blockID && var12 != Block.PISTON_STICKY_BASE.blockID) {
                     if (!var14) {
                         this.ignoreUpdates = false;
                         world.setBlockWithNotify(var2 + PistonBlockTextures.field_31051_b[var6], var3 + PistonBlockTextures.field_31054_c[var6], var4 + PistonBlockTextures.field_31053_d[var6], 0);
@@ -244,7 +244,7 @@ public class BlockPistonBase extends Block {
                     var2 += PistonBlockTextures.field_31051_b[var6];
                     var3 += PistonBlockTextures.field_31054_c[var6];
                     var4 += PistonBlockTextures.field_31053_d[var6];
-                    world.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.blockID, var13);
+                    world.setBlockAndMetadata(var2, var3, var4, Block.PISTON_MOVING.blockID, var13);
                     world.setBlockTileEntity(var2, var3, var4, BlockPistonMoving.getTileEntity(var12, var13, var6, false, false));
                 }
             } else {
@@ -314,7 +314,7 @@ public class BlockPistonBase extends Block {
                         return false;
                     }
 
-                    if (Block.blocksList[var10].getMobilityFlag() != 1) {
+                    if (Block.BLOCKS_LIST[var10].getMobilityFlag() != 1) {
                         if (var9 == 12) {
                             return false;
                         }
@@ -326,7 +326,7 @@ public class BlockPistonBase extends Block {
                         continue;
                     }
 
-                    Block.blocksList[var10].dropBlockAsItem(var1, var6, var7, var8, var1.getBlockMetadata(var6, var7, var8));
+                    Block.BLOCKS_LIST[var10].dropBlockAsItem(var1, var6, var7, var8, var1.getBlockMetadata(var6, var7, var8));
                     var1.setBlockWithNotify(var6, var7, var8, 0);
                 }
             }
@@ -338,10 +338,10 @@ public class BlockPistonBase extends Block {
                 int var12 = var1.getBlockId(var9, var15, var11);
                 int var13 = var1.getBlockMetadata(var9, var15, var11);
                 if (var12 == this.blockID && var9 == var2 && var15 == var3 && var11 == var4) {
-                    var1.setBlockAndMetadata(var6, var7, var8, Block.pistonMoving.blockID, var5 | (this.isSticky ? 8 : 0));
-                    var1.setBlockTileEntity(var6, var7, var8, BlockPistonMoving.getTileEntity(Block.pistonExtension.blockID, var5 | (this.isSticky ? 8 : 0), var5, true, false));
+                    var1.setBlockAndMetadata(var6, var7, var8, Block.PISTON_MOVING.blockID, var5 | (this.isSticky ? 8 : 0));
+                    var1.setBlockTileEntity(var6, var7, var8, BlockPistonMoving.getTileEntity(Block.PISTON_EXTENSION.blockID, var5 | (this.isSticky ? 8 : 0), var5, true, false));
                 } else {
-                    var1.setBlockAndMetadata(var6, var7, var8, Block.pistonMoving.blockID, var13);
+                    var1.setBlockAndMetadata(var6, var7, var8, Block.PISTON_MOVING.blockID, var13);
                     var1.setBlockTileEntity(var6, var7, var8, BlockPistonMoving.getTileEntity(var12, var13, var5, true, false));
                 }
 

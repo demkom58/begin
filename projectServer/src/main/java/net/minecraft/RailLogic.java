@@ -22,7 +22,7 @@ class RailLogic {
 
         int blockId = world.getBlockId(trackX, trackY, trackZ);
         int blockMeta = world.getBlockMetadata(trackX, trackY, trackZ);
-        if (BlockRail.func_27033_a((BlockRail) Block.blocksList[blockId])) {
+        if (BlockRail.func_27033_a((BlockRail) Block.BLOCKS_LIST[blockId])) {
             this.field_27084_f = true;
             blockMeta &= -9;
         } else {

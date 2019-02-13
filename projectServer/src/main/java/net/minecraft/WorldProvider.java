@@ -46,7 +46,7 @@ public abstract class WorldProvider {
 
     public boolean canCoordinateBeSpawn(int var1, int var2) {
         int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
-        return var3 == Block.sand.blockID;
+        return var3 == Block.SAND.blockID;
     }
 
     public float calculateCelestialAngle(long var1, float var3) {

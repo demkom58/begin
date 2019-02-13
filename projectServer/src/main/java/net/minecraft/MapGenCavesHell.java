@@ -101,7 +101,7 @@ public class MapGenCavesHell extends MapGenBase {
                             for (int var42 = var36 + 1; !var58 && var42 >= var56 - 1; --var42) {
                                 int var43 = (var40 * 16 + var41) * 128 + var42;
                                 if (var42 >= 0 && var42 < 128) {
-                                    if (var3[var43] == Block.lavaMoving.blockID || var3[var43] == Block.lavaStill.blockID) {
+                                    if (var3[var43] == Block.LAVA_MOVING.blockID || var3[var43] == Block.LAVA_STILL.blockID) {
                                         var58 = true;
                                     }
 
@@ -125,7 +125,7 @@ public class MapGenCavesHell extends MapGenBase {
                                     double var48 = ((double) var47 + 0.5D - var6) / var29;
                                     if (var48 > -0.7D && var60 * var60 + var48 * var48 + var44 * var44 < 1.0D) {
                                         byte var50 = var3[var46];
-                                        if (var50 == Block.bloodStone.blockID || var50 == Block.dirt.blockID || var50 == Block.grass.blockID) {
+                                        if (var50 == Block.BLOOD_STONE.blockID || var50 == Block.DIRT.blockID || var50 == Block.GRASS.blockID) {
                                             var3[var46] = 0;
                                         }
                                     }

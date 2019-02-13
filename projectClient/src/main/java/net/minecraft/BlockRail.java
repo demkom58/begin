@@ -139,7 +139,7 @@ public class BlockRail extends Block {
                         var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.blockID);
                     }
                 }
-            } else if (var5 > 0 && Block.blocksList[var5].canProvidePower() && !this.isPowered && RailLogic.getNAdjacentTracks(new RailLogic(this, var1, var2, var3, var4)) == 3) {
+            } else if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower() && !this.isPowered && RailLogic.getNAdjacentTracks(new RailLogic(this, var1, var2, var3, var4)) == 3) {
                 this.func_4031_h(var1, var2, var3, var4, false);
             }
 

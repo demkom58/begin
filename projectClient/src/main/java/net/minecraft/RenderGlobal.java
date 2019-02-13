@@ -1058,7 +1058,7 @@ public class RenderGlobal implements IWorldAccess {
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
                 GL11.glPushMatrix();
                 int var8 = this.worldObj.getBlockId(var2.blockX, var2.blockY, var2.blockZ);
-                Block var9 = var8 > 0 ? Block.blocksList[var8] : null;
+                Block var9 = var8 > 0 ? Block.BLOCKS_LIST[var8] : null;
                 GL11.glDisable(3008 /*GL_ALPHA_TEST*/);
                 GL11.glPolygonOffset(-3.0F, -3.0F);
                 GL11.glEnable(32823 /*GL_POLYGON_OFFSET_FILL*/);
@@ -1132,11 +1132,11 @@ public class RenderGlobal implements IWorldAccess {
             float var6 = 0.002F;
             int var7 = this.worldObj.getBlockId(var2.blockX, var2.blockY, var2.blockZ);
             if (var7 > 0) {
-                Block.blocksList[var7].setBlockBoundsBasedOnState(this.worldObj, var2.blockX, var2.blockY, var2.blockZ);
+                Block.BLOCKS_LIST[var7].setBlockBoundsBasedOnState(this.worldObj, var2.blockX, var2.blockY, var2.blockZ);
                 double var8 = var1.lastTickPosX + (var1.posX - var1.lastTickPosX) * (double) var5;
                 double var10 = var1.lastTickPosY + (var1.posY - var1.lastTickPosY) * (double) var5;
                 double var12 = var1.lastTickPosZ + (var1.posZ - var1.lastTickPosZ) * (double) var5;
-                this.drawOutlinedBoundingBox(Block.blocksList[var7].getSelectedBoundingBoxFromPool(this.worldObj, var2.blockX, var2.blockY, var2.blockZ).expand((double) var6, (double) var6, (double) var6).getOffsetBoundingBox(-var8, -var10, -var12));
+                this.drawOutlinedBoundingBox(Block.BLOCKS_LIST[var7].getSelectedBoundingBoxFromPool(this.worldObj, var2.blockX, var2.blockY, var2.blockZ).expand((double) var6, (double) var6, (double) var6).getOffsetBoundingBox(-var8, -var10, -var12));
             }
 
             GL11.glDepthMask(true);
@@ -1384,7 +1384,7 @@ public class RenderGlobal implements IWorldAccess {
             case 2001:
                 int var16 = var6 & 255;
                 if (var16 > 0) {
-                    Block var17 = Block.blocksList[var16];
+                    Block var17 = Block.BLOCKS_LIST[var16];
                     this.mc.sndManager.playSound(var17.stepSound.stepSoundDir(), (float) var3 + 0.5F, (float) var4 + 0.5F, (float) var5 + 0.5F, (var17.stepSound.getVolume() + 1.0F) / 2.0F, var17.stepSound.getPitch() * 0.8F);
                 }
 

@@ -158,7 +158,7 @@ public class Pathfinder {
                     int var9 = this.worldMap.getBlockId(var6, var7, var8);
                     if (var9 > 0) {
                         if (var9 != Block.doorSteel.blockID && var9 != Block.doorWood.blockID) {
-                            Material var11 = Block.blocksList[var9].blockMaterial;
+                            Material var11 = Block.BLOCKS_LIST[var9].blockMaterial;
                             if (var11.getIsSolid()) {
                                 return 0;
                             }

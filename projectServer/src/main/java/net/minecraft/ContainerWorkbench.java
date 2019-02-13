@@ -52,7 +52,7 @@ public class ContainerWorkbench extends Container {
     }
 
     public boolean canInteractWith(EntityPlayer var1) {
-        if (this.field_20150_c.getBlockId(this.field_20149_h, this.field_20148_i, this.field_20147_j) != Block.workbench.blockID) {
+        if (this.field_20150_c.getBlockId(this.field_20149_h, this.field_20148_i, this.field_20147_j) != Block.WORKBENCH.blockID) {
             return false;
         } else {
             return var1.getDistanceSq((double) this.field_20149_h + 0.5D, (double) this.field_20148_i + 0.5D, (double) this.field_20147_j + 0.5D) <= 64.0D;

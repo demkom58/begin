@@ -8,7 +8,7 @@ public class BlockPistonExtension extends Block {
 
     public BlockPistonExtension(int var1, int var2) {
         super(var1, var2, Material.field_31067_B);
-        this.setStepSound(soundStoneFootstep);
+        this.setStepSound(SOUND_STONE_FOOTSTEP);
         this.setHardness(0.5F);
     }
 
@@ -35,7 +35,7 @@ public class BlockPistonExtension extends Block {
         if (var7 == Block.pistonBase.blockID || var7 == Block.pistonStickyBase.blockID) {
             var5 = var1.getBlockMetadata(var2, var3, var4);
             if (BlockPistonBase.isPowered(var5)) {
-                Block.blocksList[var7].dropBlockAsItem(var1, var2, var3, var4, var5);
+                Block.BLOCKS_LIST[var7].dropBlockAsItem(var1, var2, var3, var4, var5);
                 var1.setBlockWithNotify(var2, var3, var4, 0);
             }
         }
@@ -152,7 +152,7 @@ public class BlockPistonExtension extends Block {
         if (var7 != Block.pistonBase.blockID && var7 != Block.pistonStickyBase.blockID) {
             var1.setBlockWithNotify(var2, var3, var4, 0);
         } else {
-            Block.blocksList[var7].onNeighborBlockChange(var1, var2 - PistonBlockTextures.field_31056_b[var6], var3 - PistonBlockTextures.field_31059_c[var6], var4 - PistonBlockTextures.field_31058_d[var6], var5);
+            Block.BLOCKS_LIST[var7].onNeighborBlockChange(var1, var2 - PistonBlockTextures.field_31056_b[var6], var3 - PistonBlockTextures.field_31059_c[var6], var4 - PistonBlockTextures.field_31058_d[var6], var5);
         }
 
     }

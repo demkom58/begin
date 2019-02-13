@@ -66,7 +66,7 @@ public class MetadataChunkBlock {
                             int var16 = var1.getSavedLightValue(this.field_1299_a, var10, var28, var11);
                             int var17 = 0;
                             int var18 = var1.getBlockId(var10, var28, var11);
-                            int var19 = Block.lightOpacity[var18];
+                            int var19 = Block.LIGHT_OPACITY[var18];
                             if (var19 == 0) {
                                 var19 = 1;
                             }
@@ -77,7 +77,7 @@ public class MetadataChunkBlock {
                                     var20 = 15;
                                 }
                             } else if (this.field_1299_a == EnumSkyBlock.BLOCK) {
-                                var20 = Block.lightValue[var18];
+                                var20 = Block.LIGHT_VALUE[var18];
                             }
 
                             if (var19 >= 15 && var20 == 0) {

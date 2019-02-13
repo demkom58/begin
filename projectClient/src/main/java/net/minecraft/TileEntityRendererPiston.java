@@ -7,7 +7,7 @@ public class TileEntityRendererPiston extends TileEntitySpecialRenderer {
     private RenderBlocks field_31071_b;
 
     public void func_31070_a(TileEntityPiston var1, double var2, double var4, double var6, float var8) {
-        Block var9 = Block.blocksList[var1.getStoredBlockID()];
+        Block var9 = Block.BLOCKS_LIST[var1.getStoredBlockID()];
         if (var9 != null && var1.func_31008_a(var8) < 1.0F) {
             Tessellator var10 = Tessellator.instance;
             this.bindTextureByName("/terrain.png");

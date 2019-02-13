@@ -213,9 +213,9 @@ public abstract class BlockFluid extends Block {
                 if (var5) {
                     int var6 = var1.getBlockMetadata(var2, var3, var4);
                     if (var6 == 0) {
-                        var1.setBlockWithNotify(var2, var3, var4, Block.obsidian.blockID);
+                        var1.setBlockWithNotify(var2, var3, var4, Block.OBSIDIAN.blockID);
                     } else if (var6 <= 4) {
-                        var1.setBlockWithNotify(var2, var3, var4, Block.cobblestone.blockID);
+                        var1.setBlockWithNotify(var2, var3, var4, Block.COBBLESTONE.blockID);
                     }
 
                     this.func_300_h(var1, var2, var3, var4);

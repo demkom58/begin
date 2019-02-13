@@ -47,7 +47,7 @@ public class WorldGenForest extends WorldGenerator {
 
                             for (int var14 = var5 - var21; var14 <= var5 + var21; ++var14) {
                                 int var15 = var14 - var5;
-                                if ((Math.abs(var13) != var21 || Math.abs(var15) != var21 || var2.nextInt(2) != 0 && var19 != 0) && !Block.opaqueCubeLookup[var1.getBlockId(var22, var17, var14)]) {
+                                if ((Math.abs(var13) != var21 || Math.abs(var15) != var21 || var2.nextInt(2) != 0 && var19 != 0) && !Block.OPAQUE_CUBE_LOOKUP[var1.getBlockId(var22, var17, var14)]) {
                                     var1.setBlockAndMetadata(var22, var17, var14, Block.leaves.blockID, 2);
                                 }
                             }

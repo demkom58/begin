@@ -25,12 +25,12 @@ public class WorldProviderHell extends WorldProvider {
 
     public boolean canCoordinateBeSpawn(int var1, int var2) {
         int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
-        if (var3 == Block.bedrock.blockID) {
+        if (var3 == Block.BEDROCK.blockID) {
             return false;
         } else if (var3 == 0) {
             return false;
         } else {
-            return Block.opaqueCubeLookup[var3];
+            return Block.OPAQUE_CUBE_LOOKUP[var3];
         }
     }
 

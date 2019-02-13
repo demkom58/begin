@@ -112,9 +112,9 @@ public class EntityMinecart extends Entity implements IInventory {
                         }
                     }
 
-                    this.dropItemWithOffset(Block.chest.blockID, 1, 0.0F);
+                    this.dropItemWithOffset(Block.CHEST.blockID, 1, 0.0F);
                 } else if (this.minecartType == 2) {
-                    this.dropItemWithOffset(Block.stoneOvenIdle.blockID, 1, 0.0F);
+                    this.dropItemWithOffset(Block.FURNACE.blockID, 1, 0.0F);
                 }
             }
 
@@ -211,12 +211,12 @@ public class EntityMinecart extends Entity implements IInventory {
                 this.posY = (double) var2;
                 boolean var12 = false;
                 boolean var13 = false;
-                if (var9 == Block.railPowered.blockID) {
+                if (var9 == Block.RAIL_POWERED.blockID) {
                     var12 = (var11 & 8) != 0;
                     var13 = !var12;
                 }
 
-                if (((BlockRail) Block.blocksList[var9]).func_27028_d()) {
+                if (((BlockRail) Block.BLOCKS_LIST[var9]).func_27028_d()) {
                     var11 &= 7;
                 }
 
@@ -496,7 +496,7 @@ public class EntityMinecart extends Entity implements IInventory {
         if (BlockRail.func_27030_c(var10)) {
             int var11 = this.worldObj.getBlockMetadata(var7, var8, var9);
             var3 = (double) var8;
-            if (((BlockRail) Block.blocksList[var10]).func_27028_d()) {
+            if (((BlockRail) Block.BLOCKS_LIST[var10]).func_27028_d()) {
                 var11 &= 7;
             }
 

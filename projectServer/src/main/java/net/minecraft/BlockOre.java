@@ -8,20 +8,20 @@ public class BlockOre extends Block {
     }
 
     public int idDropped(int var1, Random random) {
-        if (this.blockID == Block.oreCoal.blockID) {
+        if (this.blockID == Block.ORE_COAL.blockID) {
             return Item.COAL.shiftedIndex;
-        } else if (this.blockID == Block.oreDiamond.blockID) {
+        } else if (this.blockID == Block.ORE_DIAMOND.blockID) {
             return Item.DIAMOND.shiftedIndex;
         } else {
-            return this.blockID == Block.oreLapis.blockID ? Item.DYE_POWDER.shiftedIndex : this.blockID;
+            return this.blockID == Block.ORE_LAPIS.blockID ? Item.DYE_POWDER.shiftedIndex : this.blockID;
         }
     }
 
     public int quantityDropped(Random random) {
-        return this.blockID == Block.oreLapis.blockID ? 4 + random.nextInt(5) : 1;
+        return this.blockID == Block.ORE_LAPIS.blockID ? 4 + random.nextInt(5) : 1;
     }
 
     protected int damageDropped(int var1) {
-        return this.blockID == Block.oreLapis.blockID ? 4 : 0;
+        return this.blockID == Block.ORE_LAPIS.blockID ? 4 : 0;
     }
 }

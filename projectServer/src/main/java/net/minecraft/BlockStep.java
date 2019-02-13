@@ -41,7 +41,7 @@ public class BlockStep extends Block {
     }
 
     public void onBlockAdded(World world, int x, int y, int z) {
-        if (this != Block.stairSingle) {
+        if (this != Block.STAIR_SINGLE) {
             super.onBlockAdded(world, x, y, z);
         }
 
@@ -49,16 +49,16 @@ public class BlockStep extends Block {
         int var6 = world.getBlockMetadata(x, y, z);
         int var7 = world.getBlockMetadata(x, y - 1, z);
         if (var6 == var7) {
-            if (var5 == stairSingle.blockID) {
+            if (var5 == STAIR_SINGLE.blockID) {
                 world.setBlockWithNotify(x, y, z, 0);
-                world.setBlockAndMetadataWithNotify(x, y - 1, z, Block.stairDouble.blockID, var6);
+                world.setBlockAndMetadataWithNotify(x, y - 1, z, Block.STAIR_DOUBLE.blockID, var6);
             }
 
         }
     }
 
     public int idDropped(int var1, Random random) {
-        return Block.stairSingle.blockID;
+        return Block.STAIR_SINGLE.blockID;
     }
 
     public int quantityDropped(Random random) {

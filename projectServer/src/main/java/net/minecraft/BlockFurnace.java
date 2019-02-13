@@ -20,9 +20,9 @@ public class BlockFurnace extends BlockContainer {
         TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
         field_28034_c = true;
         if (var0) {
-            var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenActive.blockID);
+            var1.setBlockWithNotify(var2, var3, var4, Block.FURNACE_ACTIVE.blockID);
         } else {
-            var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenIdle.blockID);
+            var1.setBlockWithNotify(var2, var3, var4, Block.FURNACE.blockID);
         }
 
         field_28034_c = false;
@@ -32,7 +32,7 @@ public class BlockFurnace extends BlockContainer {
     }
 
     public int idDropped(int var1, Random random) {
-        return Block.stoneOvenIdle.blockID;
+        return Block.FURNACE.blockID;
     }
 
     public void onBlockAdded(World world, int x, int y, int z) {
@@ -47,19 +47,19 @@ public class BlockFurnace extends BlockContainer {
             int var7 = var1.getBlockId(var2 - 1, var3, var4);
             int var8 = var1.getBlockId(var2 + 1, var3, var4);
             byte var9 = 3;
-            if (Block.opaqueCubeLookup[var5] && !Block.opaqueCubeLookup[var6]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var5] && !Block.OPAQUE_CUBE_LOOKUP[var6]) {
                 var9 = 3;
             }
 
-            if (Block.opaqueCubeLookup[var6] && !Block.opaqueCubeLookup[var5]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var6] && !Block.OPAQUE_CUBE_LOOKUP[var5]) {
                 var9 = 2;
             }
 
-            if (Block.opaqueCubeLookup[var7] && !Block.opaqueCubeLookup[var8]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var7] && !Block.OPAQUE_CUBE_LOOKUP[var8]) {
                 var9 = 5;
             }
 
-            if (Block.opaqueCubeLookup[var8] && !Block.opaqueCubeLookup[var7]) {
+            if (Block.OPAQUE_CUBE_LOOKUP[var8] && !Block.OPAQUE_CUBE_LOOKUP[var7]) {
                 var9 = 4;
             }
 

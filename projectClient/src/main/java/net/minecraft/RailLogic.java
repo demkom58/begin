@@ -22,7 +22,7 @@ class RailLogic {
         this.trackZ = var5;
         int var6 = var2.getBlockId(var3, var4, var5);
         int var7 = var2.getBlockMetadata(var3, var4, var5);
-        if (BlockRail.isPoweredBlockRail((BlockRail) Block.blocksList[var6])) {
+        if (BlockRail.isPoweredBlockRail((BlockRail) Block.BLOCKS_LIST[var6])) {
             this.isPoweredRail = true;
             var7 &= -9;
         } else {

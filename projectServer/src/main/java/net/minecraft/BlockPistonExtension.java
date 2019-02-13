@@ -8,7 +8,7 @@ public class BlockPistonExtension extends Block {
 
     public BlockPistonExtension(int var1, int var2) {
         super(var1, var2, Material.piston);
-        this.setStepSound(soundStoneFootstep);
+        this.setStepSound(SOUND_STONE_FOOTSTEP);
         this.setHardness(0.5F);
     }
 
@@ -24,10 +24,10 @@ public class BlockPistonExtension extends Block {
         y = y + PistonBlockTextures.field_31054_c[var6];
         z = z + PistonBlockTextures.field_31053_d[var6];
         int var7 = world.getBlockId(x, y, z);
-        if (var7 == Block.pistonBase.blockID || var7 == Block.pistonStickyBase.blockID) {
+        if (var7 == Block.PISTON_BASE.blockID || var7 == Block.PISTON_STICKY_BASE.blockID) {
             var5 = world.getBlockMetadata(x, y, z);
             if (BlockPistonBase.isExtended(var5)) {
-                Block.blocksList[var7].dropBlockAsItem(world, x, y, z, var5);
+                Block.BLOCKS_LIST[var7].dropBlockAsItem(world, x, y, z, var5);
                 world.setBlockWithNotify(x, y, z, 0);
             }
         }
@@ -137,10 +137,10 @@ public class BlockPistonExtension extends Block {
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         int var6 = func_31045_b(world.getBlockMetadata(var2, var3, var4));
         int var7 = world.getBlockId(var2 - PistonBlockTextures.field_31051_b[var6], var3 - PistonBlockTextures.field_31054_c[var6], var4 - PistonBlockTextures.field_31053_d[var6]);
-        if (var7 != Block.pistonBase.blockID && var7 != Block.pistonStickyBase.blockID) {
+        if (var7 != Block.PISTON_BASE.blockID && var7 != Block.PISTON_STICKY_BASE.blockID) {
             world.setBlockWithNotify(var2, var3, var4, 0);
         } else {
-            Block.blocksList[var7].onNeighborBlockChange(world, var2 - PistonBlockTextures.field_31051_b[var6], var3 - PistonBlockTextures.field_31054_c[var6], var4 - PistonBlockTextures.field_31053_d[var6], var5);
+            Block.BLOCKS_LIST[var7].onNeighborBlockChange(world, var2 - PistonBlockTextures.field_31051_b[var6], var3 - PistonBlockTextures.field_31054_c[var6], var4 - PistonBlockTextures.field_31053_d[var6], var5);
         }
 
     }

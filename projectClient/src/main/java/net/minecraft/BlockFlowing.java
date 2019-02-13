@@ -119,7 +119,7 @@ public class BlockFlowing extends BlockFluid {
                 if (this.blockMaterial == Material.lava) {
                     this.triggerLavaMixEffects(var1, var2, var3, var4);
                 } else {
-                    Block.blocksList[var6].dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
+                    Block.BLOCKS_LIST[var6].dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
                 }
             }
 
@@ -220,7 +220,7 @@ public class BlockFlowing extends BlockFluid {
             if (var5 == 0) {
                 return false;
             } else {
-                Material var6 = Block.blocksList[var5].blockMaterial;
+                Material var6 = Block.BLOCKS_LIST[var5].blockMaterial;
                 return var6.getIsSolid();
             }
         } else {

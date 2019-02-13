@@ -11,7 +11,7 @@ public class ItemSword extends Item {
     }
 
     public float getStrVsBlock(ItemStack var1, Block var2) {
-        return var2.blockID == Block.web.blockID ? 15.0F : 1.5F;
+        return var2.blockID == Block.WEB.blockID ? 15.0F : 1.5F;
     }
 
     public boolean hitEntity(ItemStack var1, EntityLiving var2, EntityLiving var3) {
@@ -29,6 +29,6 @@ public class ItemSword extends Item {
     }
 
     public boolean canHarvestBlock(Block var1) {
-        return var1.blockID == Block.web.blockID;
+        return var1.blockID == Block.WEB.blockID;
     }
 }

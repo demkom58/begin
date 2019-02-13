@@ -31,12 +31,12 @@ public class BlockRedstoneRepeater extends Block {
         int var6 = world.getBlockMetadata(x, y, z);
         boolean var7 = this.func_22012_g(world, x, y, z, var6);
         if (this.field_22015_c && !var7) {
-            world.setBlockAndMetadataWithNotify(x, y, z, Block.redstoneRepeaterIdle.blockID, var6);
+            world.setBlockAndMetadataWithNotify(x, y, z, Block.REDSTONE_REPEATER_IDLE.blockID, var6);
         } else if (!this.field_22015_c) {
-            world.setBlockAndMetadataWithNotify(x, y, z, Block.redstoneRepeaterActive.blockID, var6);
+            world.setBlockAndMetadataWithNotify(x, y, z, Block.REDSTONE_REPEATER_ACTIVE.blockID, var6);
             if (!var7) {
                 int var8 = (var6 & 12) >> 2;
-                world.scheduleUpdateTick(x, y, z, Block.redstoneRepeaterActive.blockID, field_22013_b[var8] * 2);
+                world.scheduleUpdateTick(x, y, z, Block.REDSTONE_REPEATER_ACTIVE.blockID, field_22013_b[var8] * 2);
             }
         }
 
@@ -98,13 +98,13 @@ public class BlockRedstoneRepeater extends Block {
         int var6 = var5 & 3;
         switch (var6) {
             case 0:
-                return var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 + 1, 3) || var1.getBlockId(var2, var3, var4 + 1) == Block.redstoneWire.blockID && var1.getBlockMetadata(var2, var3, var4 + 1) > 0;
+                return var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 + 1, 3) || var1.getBlockId(var2, var3, var4 + 1) == Block.REDSTONE_WIRE.blockID && var1.getBlockMetadata(var2, var3, var4 + 1) > 0;
             case 1:
-                return var1.isBlockIndirectlyProvidingPowerTo(var2 - 1, var3, var4, 4) || var1.getBlockId(var2 - 1, var3, var4) == Block.redstoneWire.blockID && var1.getBlockMetadata(var2 - 1, var3, var4) > 0;
+                return var1.isBlockIndirectlyProvidingPowerTo(var2 - 1, var3, var4, 4) || var1.getBlockId(var2 - 1, var3, var4) == Block.REDSTONE_WIRE.blockID && var1.getBlockMetadata(var2 - 1, var3, var4) > 0;
             case 2:
-                return var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 - 1, 2) || var1.getBlockId(var2, var3, var4 - 1) == Block.redstoneWire.blockID && var1.getBlockMetadata(var2, var3, var4 - 1) > 0;
+                return var1.isBlockIndirectlyProvidingPowerTo(var2, var3, var4 - 1, 2) || var1.getBlockId(var2, var3, var4 - 1) == Block.REDSTONE_WIRE.blockID && var1.getBlockMetadata(var2, var3, var4 - 1) > 0;
             case 3:
-                return var1.isBlockIndirectlyProvidingPowerTo(var2 + 1, var3, var4, 5) || var1.getBlockId(var2 + 1, var3, var4) == Block.redstoneWire.blockID && var1.getBlockMetadata(var2 + 1, var3, var4) > 0;
+                return var1.isBlockIndirectlyProvidingPowerTo(var2 + 1, var3, var4, 5) || var1.getBlockId(var2 + 1, var3, var4) == Block.REDSTONE_WIRE.blockID && var1.getBlockMetadata(var2 + 1, var3, var4) > 0;
             default:
                 return false;
         }

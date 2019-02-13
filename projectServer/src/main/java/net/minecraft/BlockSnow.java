@@ -30,7 +30,7 @@ public class BlockSnow extends Block {
 
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         int var5 = world.getBlockId(var2, var3 - 1, var4);
-        return (var5 != 0 && Block.blocksList[var5].isOpaqueCube()) && world.getBlockMaterial(var2, var3 - 1, var4).getIsSolid();
+        return (var5 != 0 && Block.BLOCKS_LIST[var5].isOpaqueCube()) && world.getBlockMaterial(var2, var3 - 1, var4).getIsSolid();
     }
 
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {

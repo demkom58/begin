@@ -397,7 +397,7 @@ public class World implements IBlockAccess {
 
     public Material getBlockMaterial(int var1, int var2, int var3) {
         int var4 = this.getBlockId(var1, var2, var3);
-        return var4 == 0 ? Material.air : Block.blocksList[var4].blockMaterial;
+        return var4 == 0 ? Material.air : Block.BLOCKS_LIST[var4].blockMaterial;
     }
 
     public int getBlockMetadata(int var1, int var2, int var3) {
@@ -420,7 +420,7 @@ public class World implements IBlockAccess {
     public void setBlockMetadataWithNotify(int var1, int var2, int var3, int var4) {
         if (this.setBlockMetadata(var1, var2, var3, var4)) {
             int var5 = this.getBlockId(var1, var2, var3);
-            if (Block.field_28032_t[var5 & 255]) {
+            if (Block.REQUIRES_SELF_NOTIFY[var5 & 255]) {
                 this.notifyBlockChange(var1, var2, var3, var5);
             } else {
                 this.notifyBlocksOfNeighborChange(var1, var2, var3, var5);
@@ -512,7 +512,7 @@ public class World implements IBlockAccess {
 
     private void notifyBlockOfNeighborChange(int var1, int var2, int var3, int var4) {
         if (!this.editingBlocks && !this.multiplayerWorld) {
-            Block var5 = Block.blocksList[this.getBlockId(var1, var2, var3)];
+            Block var5 = Block.BLOCKS_LIST[this.getBlockId(var1, var2, var3)];
             if (var5 != null) {
                 var5.onNeighborBlockChange(this, var1, var2, var3, var4);
             }
@@ -628,8 +628,8 @@ public class World implements IBlockAccess {
                     }
                 } else if (var1 == EnumSkyBlock.BLOCK) {
                     int var6 = this.getBlockId(var2, var3, var4);
-                    if (Block.lightValue[var6] > var5) {
-                        var5 = Block.lightValue[var6];
+                    if (Block.LIGHT_VALUE[var6] > var5) {
+                        var5 = Block.LIGHT_VALUE[var6];
                     }
                 }
 
@@ -720,7 +720,7 @@ public class World implements IBlockAccess {
 
                 int i2 = this.getBlockId(m, n, i1);
                 int i3 = this.getBlockMetadata(m, n, i1);
-                Block localBlock1 = Block.blocksList[i2];
+                Block localBlock1 = Block.BLOCKS_LIST[i2];
                 if ((!paramBoolean2 || localBlock1 == null || localBlock1.getCollisionBoundingBoxFromPool(this, m, n, i1) != null) && i2 > 0 && localBlock1.canCollideCheck(i3, paramBoolean)) {
                     MovingObjectPosition localMovingObjectPosition1 = localBlock1.collisionRayTrace(this, m, n, i1, var1, var2);
                     if (localMovingObjectPosition1 != null) {
@@ -843,7 +843,7 @@ public class World implements IBlockAccess {
 
                     int var35 = this.getBlockId(m, n, i1);
                     int var36 = this.getBlockMetadata(m, n, i1);
-                    Block var37 = Block.blocksList[var35];
+                    Block var37 = Block.BLOCKS_LIST[var35];
                     if ((!paramBoolean2 || var37 == null || var37.getCollisionBoundingBoxFromPool(this, m, n, i1) != null) && var35 > 0 && var37.canCollideCheck(var36, paramBoolean)) {
                         MovingObjectPosition var38 = var37.collisionRayTrace(this, m, n, i1, var1, var2);
                         if (var38 != null) {
@@ -970,7 +970,7 @@ public class World implements IBlockAccess {
             for (int var10 = var7; var10 < var8; ++var10) {
                 if (this.blockExists(var9, 64, var10)) {
                     for (int var11 = var5 - 1; var11 < var6; ++var11) {
-                        Block var12 = Block.blocksList[this.getBlockId(var9, var11, var10)];
+                        Block var12 = Block.BLOCKS_LIST[this.getBlockId(var9, var11, var10)];
                         if (var12 != null) {
                             var12.getCollidingBoundingBoxes(this, var9, var11, var10, var2, this.collidingBoundingBoxes);
                         }
@@ -1123,7 +1123,7 @@ public class World implements IBlockAccess {
 
         for (int var8 = var2 & 15; var4 > 0; --var4) {
             int var5 = var3.getBlockID(var1, var4, var8);
-            Material var6 = var5 == 0 ? Material.air : Block.blocksList[var5].blockMaterial;
+            Material var6 = var5 == 0 ? Material.air : Block.BLOCKS_LIST[var5].blockMaterial;
             if (var6.getIsSolid() || var6.getIsLiquid()) {
                 return var4 + 1;
             }
@@ -1153,7 +1153,7 @@ public class World implements IBlockAccess {
             if (this.checkChunksExist(var6.xCoord - var7, var6.yCoord - var7, var6.zCoord - var7, var6.xCoord + var7, var6.yCoord + var7, var6.zCoord + var7)) {
                 int var8 = this.getBlockId(var6.xCoord, var6.yCoord, var6.zCoord);
                 if (var8 == var6.blockID && var8 > 0) {
-                    Block.blocksList[var8].updateTick(this, var6.xCoord, var6.yCoord, var6.zCoord, this.rand);
+                    Block.BLOCKS_LIST[var8].updateTick(this, var6.xCoord, var6.yCoord, var6.zCoord, this.rand);
                 }
             }
 
@@ -1379,7 +1379,7 @@ public class World implements IBlockAccess {
         for (int var8 = var2; var8 < var3; ++var8) {
             for (int var9 = var4; var9 < var5; ++var9) {
                 for (int var10 = var6; var10 < var7; ++var10) {
-                    Block var11 = Block.blocksList[this.getBlockId(var8, var9, var10)];
+                    Block var11 = Block.BLOCKS_LIST[this.getBlockId(var8, var9, var10)];
                     if (var11 != null && var11.blockMaterial.getIsLiquid()) {
                         return true;
                     }
@@ -1429,7 +1429,7 @@ public class World implements IBlockAccess {
             for (int var12 = var4; var12 < var5; ++var12) {
                 for (int var13 = var6; var13 < var7; ++var13) {
                     for (int var14 = var8; var14 < var9; ++var14) {
-                        Block var15 = Block.blocksList[this.getBlockId(var12, var13, var14)];
+                        Block var15 = Block.BLOCKS_LIST[this.getBlockId(var12, var13, var14)];
                         if (var15 != null && var15.blockMaterial == var2) {
                             double var16 = (double) ((float) (var13 + 1) - BlockFluid.getPercentAir(this.getBlockMetadata(var12, var13, var14)));
                             if ((double) var7 >= var16) {
@@ -1464,7 +1464,7 @@ public class World implements IBlockAccess {
         for (int var9 = var3; var9 < var4; ++var9) {
             for (int var10 = var5; var10 < var6; ++var10) {
                 for (int var11 = var7; var11 < var8; ++var11) {
-                    Block var12 = Block.blocksList[this.getBlockId(var9, var10, var11)];
+                    Block var12 = Block.BLOCKS_LIST[this.getBlockId(var9, var10, var11)];
                     if (var12 != null && var12.blockMaterial == var2) {
                         return true;
                     }
@@ -1486,7 +1486,7 @@ public class World implements IBlockAccess {
         for (int var9 = var3; var9 < var4; ++var9) {
             for (int var10 = var5; var10 < var6; ++var10) {
                 for (int var11 = var7; var11 < var8; ++var11) {
-                    Block var12 = Block.blocksList[this.getBlockId(var9, var10, var11)];
+                    Block var12 = Block.BLOCKS_LIST[this.getBlockId(var9, var10, var11)];
                     if (var12 != null && var12.blockMaterial == var2) {
                         int var13 = this.getBlockMetadata(var9, var10, var11);
                         double var14 = (double) (var10 + 1);
@@ -1627,12 +1627,12 @@ public class World implements IBlockAccess {
     }
 
     public boolean isBlockOpaqueCube(int var1, int var2, int var3) {
-        Block var4 = Block.blocksList[this.getBlockId(var1, var2, var3)];
+        Block var4 = Block.BLOCKS_LIST[this.getBlockId(var1, var2, var3)];
         return var4 == null ? false : var4.isOpaqueCube();
     }
 
     public boolean isBlockNormalCube(int var1, int var2, int var3) {
-        Block var4 = Block.blocksList[this.getBlockId(var1, var2, var3)];
+        Block var4 = Block.BLOCKS_LIST[this.getBlockId(var1, var2, var3)];
         if (var4 == null) {
             return false;
         } else {
@@ -1920,7 +1920,7 @@ public class World implements IBlockAccess {
                 if (this.getWorldChunkManager().getBiomeGenAt(var24 + var14, var28 + var15).getEnableSnow() && var31 >= 0 && var31 < 128 && var16.getSavedLightValue(EnumSkyBlock.BLOCK, var24, var31, var28) < 10) {
                     int var33 = var16.getBlockID(var24, var31 - 1, var28);
                     int var35 = var16.getBlockID(var24, var31, var28);
-                    if (this.func_27161_C() && var35 == 0 && Block.snow.canPlaceBlockAt(this, var24 + var14, var31, var28 + var15) && var33 != 0 && var33 != Block.ice.blockID && Block.blocksList[var33].blockMaterial.getIsSolid()) {
+                    if (this.func_27161_C() && var35 == 0 && Block.snow.canPlaceBlockAt(this, var24 + var14, var31, var28 + var15) && var33 != 0 && var33 != Block.ice.blockID && Block.BLOCKS_LIST[var33].blockMaterial.getIsSolid()) {
                         this.setBlockWithNotify(var24 + var14, var31, var28 + var15, Block.snow.blockID);
                     }
 
@@ -1937,8 +1937,8 @@ public class World implements IBlockAccess {
                 int var32 = var25 >> 8 & 15;
                 int var34 = var25 >> 16 & 127;
                 int var36 = var16.blocks[var29 << 11 | var32 << 7 | var34] & 255;
-                if (Block.tickOnLoad[var36]) {
-                    Block.blocksList[var36].updateTick(this, var29 + var14, var34, var32 + var15, this.rand);
+                if (Block.TICK_ON_LOAD[var36]) {
+                    Block.BLOCKS_LIST[var36].updateTick(this, var29 + var14, var34, var32 + var15, this.rand);
                 }
             }
         }
@@ -1966,7 +1966,7 @@ public class World implements IBlockAccess {
                 if (this.checkChunksExist(var4.xCoord - var5, var4.yCoord - var5, var4.zCoord - var5, var4.xCoord + var5, var4.yCoord + var5, var4.zCoord + var5)) {
                     int var6 = this.getBlockId(var4.xCoord, var4.yCoord, var4.zCoord);
                     if (var6 == var4.blockID && var6 > 0) {
-                        Block.blocksList[var6].updateTick(this, var4.xCoord, var4.yCoord, var4.zCoord, this.rand);
+                        Block.BLOCKS_LIST[var6].updateTick(this, var4.xCoord, var4.yCoord, var4.zCoord, this.rand);
                     }
                 }
             }
@@ -1985,7 +1985,7 @@ public class World implements IBlockAccess {
             int var9 = var3 + this.rand.nextInt(var4) - this.rand.nextInt(var4);
             int var10 = this.getBlockId(var7, var8, var9);
             if (var10 > 0) {
-                Block.blocksList[var10].randomDisplayTick(this, var7, var8, var9, var5);
+                Block.BLOCKS_LIST[var10].randomDisplayTick(this, var7, var8, var9, var5);
             }
         }
 
@@ -2077,8 +2077,8 @@ public class World implements IBlockAccess {
 
     public boolean canBlockBePlacedAt(int var1, int var2, int var3, int var4, boolean var5, int var6) {
         int var7 = this.getBlockId(var2, var3, var4);
-        Block var8 = Block.blocksList[var7];
-        Block var9 = Block.blocksList[var1];
+        Block var8 = Block.BLOCKS_LIST[var7];
+        Block var9 = Block.BLOCKS_LIST[var1];
         AxisAlignedBB var10 = var9.getCollisionBoundingBoxFromPool(this, var2, var3, var4);
         if (var5) {
             var10 = null;
@@ -2127,7 +2127,7 @@ public class World implements IBlockAccess {
 
     public boolean isBlockProvidingPowerTo(int var1, int var2, int var3, int var4) {
         int var5 = this.getBlockId(var1, var2, var3);
-        return var5 == 0 ? false : Block.blocksList[var5].isIndirectlyPoweringTo(this, var1, var2, var3, var4);
+        return var5 == 0 ? false : Block.BLOCKS_LIST[var5].isIndirectlyPoweringTo(this, var1, var2, var3, var4);
     }
 
     public boolean isBlockGettingPowered(int var1, int var2, int var3) {
@@ -2151,7 +2151,7 @@ public class World implements IBlockAccess {
             return this.isBlockGettingPowered(var1, var2, var3);
         } else {
             int var5 = this.getBlockId(var1, var2, var3);
-            return var5 == 0 ? false : Block.blocksList[var5].isPoweringTo(this, var1, var2, var3, var4);
+            return var5 == 0 ? false : Block.BLOCKS_LIST[var5].isPoweringTo(this, var1, var2, var3, var4);
         }
     }
 
@@ -2347,7 +2347,7 @@ public class World implements IBlockAccess {
     public void playNoteAt(int var1, int var2, int var3, int var4, int var5) {
         int var6 = this.getBlockId(var1, var2, var3);
         if (var6 > 0) {
-            Block.blocksList[var6].playBlock(this, var1, var2, var3, var4, var5);
+            Block.BLOCKS_LIST[var6].playBlock(this, var1, var2, var3, var4, var5);
         }
 
     }

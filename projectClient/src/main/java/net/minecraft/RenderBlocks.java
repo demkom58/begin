@@ -292,7 +292,7 @@ public class RenderBlocks {
         int var5 = this.blockAccess.getBlockMetadata(var2, var3, var4);
         Tessellator var6 = Tessellator.instance;
         float var7 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
-        if (Block.lightValue[var1.blockID] > 0) {
+        if (Block.LIGHT_VALUE[var1.blockID] > 0) {
             var7 = 1.0F;
         }
 
@@ -322,7 +322,7 @@ public class RenderBlocks {
         this.renderStandardBlock(var1, var2, var3, var4);
         Tessellator var8 = Tessellator.instance;
         float var9 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
-        if (Block.lightValue[var1.blockID] > 0) {
+        if (Block.LIGHT_VALUE[var1.blockID] > 0) {
             var9 = (var9 + 1.0F) * 0.5F;
         }
 
@@ -678,7 +678,7 @@ public class RenderBlocks {
         }
 
         float var13 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
-        if (Block.lightValue[var1.blockID] > 0) {
+        if (Block.LIGHT_VALUE[var1.blockID] > 0) {
             var13 = 1.0F;
         }
 
@@ -1758,18 +1758,18 @@ public class RenderBlocks {
         this.aoLightValueXPos = var1.getBlockBrightness(this.blockAccess, var2 + 1, var3, var4);
         this.aoLightValueYPos = var1.getBlockBrightness(this.blockAccess, var2, var3 + 1, var4);
         this.aoLightValueZPos = var1.getBlockBrightness(this.blockAccess, var2, var3, var4 + 1);
-        this.field_22338_U = Block.canBlockGrass[this.blockAccess.getBlockId(var2 + 1, var3 + 1, var4)];
-        this.field_22359_ac = Block.canBlockGrass[this.blockAccess.getBlockId(var2 + 1, var3 - 1, var4)];
-        this.field_22334_Y = Block.canBlockGrass[this.blockAccess.getBlockId(var2 + 1, var3, var4 + 1)];
-        this.field_22363_aa = Block.canBlockGrass[this.blockAccess.getBlockId(var2 + 1, var3, var4 - 1)];
-        this.field_22337_V = Block.canBlockGrass[this.blockAccess.getBlockId(var2 - 1, var3 + 1, var4)];
-        this.field_22357_ad = Block.canBlockGrass[this.blockAccess.getBlockId(var2 - 1, var3 - 1, var4)];
-        this.field_22335_X = Block.canBlockGrass[this.blockAccess.getBlockId(var2 - 1, var3, var4 - 1)];
-        this.field_22333_Z = Block.canBlockGrass[this.blockAccess.getBlockId(var2 - 1, var3, var4 + 1)];
-        this.field_22336_W = Block.canBlockGrass[this.blockAccess.getBlockId(var2, var3 + 1, var4 + 1)];
-        this.field_22339_T = Block.canBlockGrass[this.blockAccess.getBlockId(var2, var3 + 1, var4 - 1)];
-        this.field_22355_ae = Block.canBlockGrass[this.blockAccess.getBlockId(var2, var3 - 1, var4 + 1)];
-        this.field_22361_ab = Block.canBlockGrass[this.blockAccess.getBlockId(var2, var3 - 1, var4 - 1)];
+        this.field_22338_U = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2 + 1, var3 + 1, var4)];
+        this.field_22359_ac = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2 + 1, var3 - 1, var4)];
+        this.field_22334_Y = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2 + 1, var3, var4 + 1)];
+        this.field_22363_aa = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2 + 1, var3, var4 - 1)];
+        this.field_22337_V = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2 - 1, var3 + 1, var4)];
+        this.field_22357_ad = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2 - 1, var3 - 1, var4)];
+        this.field_22335_X = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2 - 1, var3, var4 - 1)];
+        this.field_22333_Z = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2 - 1, var3, var4 + 1)];
+        this.field_22336_W = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2, var3 + 1, var4 + 1)];
+        this.field_22339_T = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2, var3 + 1, var4 - 1)];
+        this.field_22355_ae = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2, var3 - 1, var4 + 1)];
+        this.field_22361_ab = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(var2, var3 - 1, var4 - 1)];
         if (var1.blockIndexInTexture == 3) {
             var18 = false;
             var17 = false;
@@ -2573,7 +2573,7 @@ public class RenderBlocks {
             var13 = var12;
         }
 
-        if (Block.lightValue[var1.blockID] > 0) {
+        if (Block.LIGHT_VALUE[var1.blockID] > 0) {
             var13 = 1.0F;
         }
 
@@ -2585,7 +2585,7 @@ public class RenderBlocks {
             var13 = var12;
         }
 
-        if (Block.lightValue[var1.blockID] > 0) {
+        if (Block.LIGHT_VALUE[var1.blockID] > 0) {
             var13 = 1.0F;
         }
 
@@ -2597,7 +2597,7 @@ public class RenderBlocks {
             var13 = var12;
         }
 
-        if (Block.lightValue[var1.blockID] > 0) {
+        if (Block.LIGHT_VALUE[var1.blockID] > 0) {
             var13 = 1.0F;
         }
 
@@ -2616,7 +2616,7 @@ public class RenderBlocks {
             var13 = var12;
         }
 
-        if (Block.lightValue[var1.blockID] > 0) {
+        if (Block.LIGHT_VALUE[var1.blockID] > 0) {
             var13 = 1.0F;
         }
 
@@ -2635,7 +2635,7 @@ public class RenderBlocks {
             var13 = var12;
         }
 
-        if (Block.lightValue[var1.blockID] > 0) {
+        if (Block.LIGHT_VALUE[var1.blockID] > 0) {
             var13 = 1.0F;
         }
 
@@ -2654,7 +2654,7 @@ public class RenderBlocks {
             var13 = var12;
         }
 
-        if (Block.lightValue[var1.blockID] > 0) {
+        if (Block.LIGHT_VALUE[var1.blockID] > 0) {
             var13 = 1.0F;
         }
 

@@ -16,7 +16,7 @@ public class BlockSand extends Block {
         } else if (var4 == Block.fire.blockID) {
             return true;
         } else {
-            Material var5 = Block.blocksList[var4].blockMaterial;
+            Material var5 = Block.BLOCKS_LIST[var4].blockMaterial;
             if (var5 == Material.water) {
                 return true;
             } else {

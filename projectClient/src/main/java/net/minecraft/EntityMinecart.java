@@ -227,7 +227,7 @@ public class EntityMinecart extends Entity implements IInventory {
                     var13 = !var12;
                 }
 
-                if (((BlockRail) Block.blocksList[var9]).getIsPowered()) {
+                if (((BlockRail) Block.BLOCKS_LIST[var9]).getIsPowered()) {
                     var11 &= 7;
                 }
 
@@ -509,7 +509,7 @@ public class EntityMinecart extends Entity implements IInventory {
             return null;
         } else {
             int var13 = this.worldObj.getBlockMetadata(var9, var10, var11);
-            if (((BlockRail) Block.blocksList[var12]).getIsPowered()) {
+            if (((BlockRail) Block.BLOCKS_LIST[var12]).getIsPowered()) {
                 var13 &= 7;
             }
 
@@ -548,7 +548,7 @@ public class EntityMinecart extends Entity implements IInventory {
         if (BlockRail.isRailBlock(var10)) {
             int var11 = this.worldObj.getBlockMetadata(var7, var8, var9);
             var3 = (double) var8;
-            if (((BlockRail) Block.blocksList[var10]).getIsPowered()) {
+            if (((BlockRail) Block.BLOCKS_LIST[var10]).getIsPowered()) {
                 var11 &= 7;
             }
 

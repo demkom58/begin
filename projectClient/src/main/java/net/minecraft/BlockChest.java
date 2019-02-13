@@ -23,19 +23,19 @@ public class BlockChest extends BlockContainer {
             if (var6 != this.blockID && var7 != this.blockID) {
                 if (var8 != this.blockID && var9 != this.blockID) {
                     byte var15 = 3;
-                    if (Block.opaqueCubeLookup[var6] && !Block.opaqueCubeLookup[var7]) {
+                    if (Block.OPAQUE_CUBE_LOOKUP[var6] && !Block.OPAQUE_CUBE_LOOKUP[var7]) {
                         var15 = 3;
                     }
 
-                    if (Block.opaqueCubeLookup[var7] && !Block.opaqueCubeLookup[var6]) {
+                    if (Block.OPAQUE_CUBE_LOOKUP[var7] && !Block.OPAQUE_CUBE_LOOKUP[var6]) {
                         var15 = 2;
                     }
 
-                    if (Block.opaqueCubeLookup[var8] && !Block.opaqueCubeLookup[var9]) {
+                    if (Block.OPAQUE_CUBE_LOOKUP[var8] && !Block.OPAQUE_CUBE_LOOKUP[var9]) {
                         var15 = 5;
                     }
 
-                    if (Block.opaqueCubeLookup[var9] && !Block.opaqueCubeLookup[var8]) {
+                    if (Block.OPAQUE_CUBE_LOOKUP[var9] && !Block.OPAQUE_CUBE_LOOKUP[var8]) {
                         var15 = 4;
                     }
 
@@ -53,11 +53,11 @@ public class BlockChest extends BlockContainer {
                     }
 
                     byte var18 = 3;
-                    if ((Block.opaqueCubeLookup[var6] || Block.opaqueCubeLookup[var16]) && !Block.opaqueCubeLookup[var7] && !Block.opaqueCubeLookup[var17]) {
+                    if ((Block.OPAQUE_CUBE_LOOKUP[var6] || Block.OPAQUE_CUBE_LOOKUP[var16]) && !Block.OPAQUE_CUBE_LOOKUP[var7] && !Block.OPAQUE_CUBE_LOOKUP[var17]) {
                         var18 = 3;
                     }
 
-                    if ((Block.opaqueCubeLookup[var7] || Block.opaqueCubeLookup[var17]) && !Block.opaqueCubeLookup[var6] && !Block.opaqueCubeLookup[var16]) {
+                    if ((Block.OPAQUE_CUBE_LOOKUP[var7] || Block.OPAQUE_CUBE_LOOKUP[var17]) && !Block.OPAQUE_CUBE_LOOKUP[var6] && !Block.OPAQUE_CUBE_LOOKUP[var16]) {
                         var18 = 2;
                     }
 
@@ -78,11 +78,11 @@ public class BlockChest extends BlockContainer {
                 }
 
                 byte var13 = 5;
-                if ((Block.opaqueCubeLookup[var8] || Block.opaqueCubeLookup[var11]) && !Block.opaqueCubeLookup[var9] && !Block.opaqueCubeLookup[var12]) {
+                if ((Block.OPAQUE_CUBE_LOOKUP[var8] || Block.OPAQUE_CUBE_LOOKUP[var11]) && !Block.OPAQUE_CUBE_LOOKUP[var9] && !Block.OPAQUE_CUBE_LOOKUP[var12]) {
                     var13 = 5;
                 }
 
-                if ((Block.opaqueCubeLookup[var9] || Block.opaqueCubeLookup[var12]) && !Block.opaqueCubeLookup[var8] && !Block.opaqueCubeLookup[var11]) {
+                if ((Block.OPAQUE_CUBE_LOOKUP[var9] || Block.OPAQUE_CUBE_LOOKUP[var12]) && !Block.OPAQUE_CUBE_LOOKUP[var8] && !Block.OPAQUE_CUBE_LOOKUP[var11]) {
                     var13 = 4;
                 }
 

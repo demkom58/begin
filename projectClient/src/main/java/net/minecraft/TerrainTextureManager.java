@@ -54,10 +54,10 @@ public class TerrainTextureManager {
         }
 
         for (int var15 = 0; var15 < 256; ++var15) {
-            if (Block.blocksList[var15] != null) {
-                this.field_1182_g[var15 * 3 + 0] = Block.blocksList[var15].getBlockTextureFromSide(1);
-                this.field_1182_g[var15 * 3 + 1] = Block.blocksList[var15].getBlockTextureFromSide(2);
-                this.field_1182_g[var15 * 3 + 2] = Block.blocksList[var15].getBlockTextureFromSide(3);
+            if (Block.BLOCKS_LIST[var15] != null) {
+                this.field_1182_g[var15 * 3 + 0] = Block.BLOCKS_LIST[var15].getBlockTextureFromSide(1);
+                this.field_1182_g[var15 * 3 + 1] = Block.BLOCKS_LIST[var15].getBlockTextureFromSide(2);
+                this.field_1182_g[var15 * 3 + 2] = Block.BLOCKS_LIST[var15].getBlockTextureFromSide(3);
             }
         }
 
@@ -93,12 +93,12 @@ public class TerrainTextureManager {
                         for (int var14 = 0; var14 < 128; ++var14) {
                             int var15 = var11 - var10 - var14 + 160 - 16;
                             if (var15 < this.field_1183_f[var12] || var15 < this.field_1183_f[var12 + 1]) {
-                                Block var16 = Block.blocksList[var2.getBlockId(var9, var14, var8)];
+                                Block var16 = Block.BLOCKS_LIST[var2.getBlockId(var9, var14, var8)];
                                 if (var16 == null) {
                                     var13 = false;
                                 } else if (var16.blockMaterial == Material.water) {
                                     int var24 = var2.getBlockId(var9, var14 + 1, var8);
-                                    if (var24 == 0 || Block.blocksList[var24].blockMaterial != Material.water) {
+                                    if (var24 == 0 || Block.BLOCKS_LIST[var24].blockMaterial != Material.water) {
                                         float var26 = (float) var14 / 127.0F * 0.6F + 0.4F;
                                         float var28 = var2.getLightBrightness(var9, var14 + 1, var8) * var26;
                                         if (var15 >= 0 && var15 < 160) {

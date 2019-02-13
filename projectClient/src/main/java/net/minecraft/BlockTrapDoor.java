@@ -123,7 +123,7 @@ public class BlockTrapDoor extends Block {
                 this.dropBlockAsItem(var1, var2, var3, var4, var6);
             }
 
-            if (var5 > 0 && Block.blocksList[var5].canProvidePower()) {
+            if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower()) {
                 boolean var9 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4);
                 this.onPoweredBlockChange(var1, var2, var3, var4, var9);
             }

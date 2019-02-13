@@ -130,7 +130,7 @@ public class BlockBed extends Block {
 
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var1 == 0) {
-            return Block.planks.blockIndexInTexture;
+            return Block.PLANKS.blockIndexInTexture;
         } else {
             int var3 = func_22019_c(var2);
             int var4 = ModelBed.field_22155_c[var3][var1];
