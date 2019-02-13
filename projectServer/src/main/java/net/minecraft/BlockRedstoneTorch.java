@@ -42,39 +42,39 @@ public class BlockRedstoneTorch extends BlockTorch {
         return 2;
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        if (var1.getBlockMetadata(var2, var3, var4) == 0) {
-            super.onBlockAdded(var1, var2, var3, var4);
+    public void onBlockAdded(World world, int x, int y, int z) {
+        if (world.getBlockMetadata(x, y, z) == 0) {
+            super.onBlockAdded(world, x, y, z);
         }
 
         if (this.torchActive) {
-            var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.blockID);
-            var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.blockID);
-            var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, this.blockID);
-            var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, this.blockID);
-            var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, this.blockID);
-            var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, this.blockID);
+            world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
+            world.notifyBlocksOfNeighborChange(x, y + 1, z, this.blockID);
+            world.notifyBlocksOfNeighborChange(x - 1, y, z, this.blockID);
+            world.notifyBlocksOfNeighborChange(x + 1, y, z, this.blockID);
+            world.notifyBlocksOfNeighborChange(x, y, z - 1, this.blockID);
+            world.notifyBlocksOfNeighborChange(x, y, z + 1, this.blockID);
         }
 
     }
 
-    public void onBlockRemoval(World var1, int var2, int var3, int var4) {
+    public void onBlockRemoval(World world, int x, int y, int z) {
         if (this.torchActive) {
-            var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.blockID);
-            var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.blockID);
-            var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, this.blockID);
-            var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, this.blockID);
-            var1.notifyBlocksOfNeighborChange(var2, var3, var4 - 1, this.blockID);
-            var1.notifyBlocksOfNeighborChange(var2, var3, var4 + 1, this.blockID);
+            world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
+            world.notifyBlocksOfNeighborChange(x, y + 1, z, this.blockID);
+            world.notifyBlocksOfNeighborChange(x - 1, y, z, this.blockID);
+            world.notifyBlocksOfNeighborChange(x + 1, y, z, this.blockID);
+            world.notifyBlocksOfNeighborChange(x, y, z - 1, this.blockID);
+            world.notifyBlocksOfNeighborChange(x, y, z + 1, this.blockID);
         }
 
     }
 
-    public boolean isPoweringTo(IBlockAccess var1, int var2, int var3, int var4, int var5) {
+    public boolean isPoweringTo(IBlockAccess blockAccess, int var2, int var3, int var4, int var5) {
         if (!this.torchActive) {
             return false;
         } else {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+            int var6 = blockAccess.getBlockMetadata(var2, var3, var4);
             if (var6 == 5 && var5 == 1) {
                 return false;
             } else if (var6 == 3 && var5 == 3) {
@@ -104,43 +104,43 @@ public class BlockRedstoneTorch extends BlockTorch {
         }
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        boolean var6 = this.func_30003_g(var1, var2, var3, var4);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        boolean var6 = this.func_30003_g(world, x, y, z);
 
-        while (torchUpdates.size() > 0 && var1.getWorldTime() - torchUpdates.get(0).updateTime > 100L) {
+        while (torchUpdates.size() > 0 && world.getWorldTime() - torchUpdates.get(0).updateTime > 100L) {
             torchUpdates.remove(0);
         }
 
         if (this.torchActive) {
             if (var6) {
-                var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.torchRedstoneIdle.blockID, var1.getBlockMetadata(var2, var3, var4));
-                if (this.checkForBurnout(var1, var2, var3, var4, true)) {
-                    var1.playSoundEffect((double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), "random.fizz", 0.5F, 2.6F + (var1.rand.nextFloat() - var1.rand.nextFloat()) * 0.8F);
+                world.setBlockAndMetadataWithNotify(x, y, z, Block.torchRedstoneIdle.blockID, world.getBlockMetadata(x, y, z));
+                if (this.checkForBurnout(world, x, y, z, true)) {
+                    world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
 
                     for (int var7 = 0; var7 < 5; ++var7) {
-                        double var8 = (double) var2 + var5.nextDouble() * 0.6D + 0.2D;
-                        double var10 = (double) var3 + var5.nextDouble() * 0.6D + 0.2D;
-                        double var12 = (double) var4 + var5.nextDouble() * 0.6D + 0.2D;
-                        var1.spawnParticle("smoke", var8, var10, var12, 0.0D, 0.0D, 0.0D);
+                        double var8 = (double) x + random.nextDouble() * 0.6D + 0.2D;
+                        double var10 = (double) y + random.nextDouble() * 0.6D + 0.2D;
+                        double var12 = (double) z + random.nextDouble() * 0.6D + 0.2D;
+                        world.spawnParticle("smoke", var8, var10, var12, 0.0D, 0.0D, 0.0D);
                     }
                 }
             }
-        } else if (!var6 && !this.checkForBurnout(var1, var2, var3, var4, false)) {
-            var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.torchRedstoneActive.blockID, var1.getBlockMetadata(var2, var3, var4));
+        } else if (!var6 && !this.checkForBurnout(world, x, y, z, false)) {
+            world.setBlockAndMetadataWithNotify(x, y, z, Block.torchRedstoneActive.blockID, world.getBlockMetadata(x, y, z));
         }
 
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        super.onNeighborBlockChange(var1, var2, var3, var4, var5);
-        var1.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        super.onNeighborBlockChange(world, var2, var3, var4, var5);
+        world.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
     }
 
-    public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
-        return var5 == 0 && this.isPoweringTo(var1, var2, var3, var4, var5);
+    public boolean isIndirectlyPoweringTo(World world, int var2, int var3, int var4, int var5) {
+        return var5 == 0 && this.isPoweringTo(world, var2, var3, var4, var5);
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Block.torchRedstoneActive.blockID;
     }
 

@@ -40,28 +40,28 @@ public class BlockStep extends Block {
         return this.blockType;
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
+    public void onBlockAdded(World world, int x, int y, int z) {
         if (this != Block.stairSingle) {
-            super.onBlockAdded(var1, var2, var3, var4);
+            super.onBlockAdded(world, x, y, z);
         }
 
-        int var5 = var1.getBlockId(var2, var3 - 1, var4);
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
-        int var7 = var1.getBlockMetadata(var2, var3 - 1, var4);
+        int var5 = world.getBlockId(x, y - 1, z);
+        int var6 = world.getBlockMetadata(x, y, z);
+        int var7 = world.getBlockMetadata(x, y - 1, z);
         if (var6 == var7) {
             if (var5 == stairSingle.blockID) {
-                var1.setBlockWithNotify(var2, var3, var4, 0);
-                var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, Block.stairDouble.blockID, var6);
+                world.setBlockWithNotify(x, y, z, 0);
+                world.setBlockAndMetadataWithNotify(x, y - 1, z, Block.stairDouble.blockID, var6);
             }
 
         }
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Block.stairSingle.blockID;
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return this.blockType ? 2 : 1;
     }
 

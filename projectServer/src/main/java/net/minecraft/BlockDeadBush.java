@@ -17,7 +17,7 @@ public class BlockDeadBush extends BlockFlower {
         return this.blockIndexInTexture;
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return -1;
     }
 }

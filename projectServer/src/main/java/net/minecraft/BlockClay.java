@@ -7,11 +7,11 @@ public class BlockClay extends Block {
         super(var1, var2, Material.clay);
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Item.CLAY.shiftedIndex;
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 4;
     }
 }

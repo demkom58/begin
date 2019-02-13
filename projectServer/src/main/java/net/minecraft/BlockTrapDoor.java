@@ -27,13 +27,13 @@ public class BlockTrapDoor extends Block {
         return false;
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-        this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-        return super.getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        this.func_28039_c(var1.getBlockMetadata(var2, var3, var4));
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
+        this.func_28039_c(blockAccess.getBlockMetadata(var2, var3, var4));
     }
 
     public void func_28039_c(int var1) {
@@ -59,17 +59,17 @@ public class BlockTrapDoor extends Block {
 
     }
 
-    public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        this.blockActivated(var1, var2, var3, var4, var5);
+    public void onBlockClicked(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        this.blockActivated(world, var2, var3, var4, entityPlayer);
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
+    public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         if (this.blockMaterial == Material.iron) {
             return true;
         } else {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
-            var1.setBlockMetadataWithNotify(var2, var3, var4, var6 ^ 4);
-            var1.func_28101_a(var5, 1003, var2, var3, var4, 0);
+            int var6 = world.getBlockMetadata(var2, var3, var4);
+            world.setBlockMetadataWithNotify(var2, var3, var4, var6 ^ 4);
+            world.func_28101_a(entityPlayer, 1003, var2, var3, var4, 0);
             return true;
         }
     }
@@ -83,9 +83,9 @@ public class BlockTrapDoor extends Block {
         }
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!var1.singleplayerWorld) {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        if (!world.singleplayerWorld) {
+            int var6 = world.getBlockMetadata(var2, var3, var4);
             int var7 = var2;
             int var8 = var4;
             if ((var6 & 3) == 0) {
@@ -104,25 +104,25 @@ public class BlockTrapDoor extends Block {
                 --var7;
             }
 
-            if (!var1.isBlockNormalCube(var7, var3, var8)) {
-                var1.setBlockWithNotify(var2, var3, var4, 0);
-                this.dropBlockAsItem(var1, var2, var3, var4, var6);
+            if (!world.isBlockNormalCube(var7, var3, var8)) {
+                world.setBlockWithNotify(var2, var3, var4, 0);
+                this.dropBlockAsItem(world, var2, var3, var4, var6);
             }
 
             if (var5 > 0 && Block.blocksList[var5].canProvidePower()) {
-                boolean var9 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4);
-                this.func_28040_a(var1, var2, var3, var4, var9);
+                boolean var9 = world.isBlockIndirectlyGettingPowered(var2, var3, var4);
+                this.func_28040_a(world, var2, var3, var4, var9);
             }
 
         }
     }
 
-    public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
-        this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-        return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+    public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
+        this.setBlockBoundsBasedOnState(world, var2, var3, var4);
+        return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
     }
 
-    public void onBlockPlaced(World var1, int var2, int var3, int var4, int var5) {
+    public void onBlockPlaced(World world, int var2, int var3, int var4, int var5) {
         byte var6 = 0;
         if (var5 == 2) {
             var6 = 0;
@@ -140,32 +140,32 @@ public class BlockTrapDoor extends Block {
             var6 = 3;
         }
 
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
+        world.setBlockMetadataWithNotify(var2, var3, var4, var6);
     }
 
-    public boolean canPlaceBlockOnSide(World var1, int var2, int var3, int var4, int var5) {
+    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int var5) {
         if (var5 == 0) {
             return false;
         } else if (var5 == 1) {
             return false;
         } else {
             if (var5 == 2) {
-                ++var4;
+                ++z;
             }
 
             if (var5 == 3) {
-                --var4;
+                --z;
             }
 
             if (var5 == 4) {
-                ++var2;
+                ++x;
             }
 
             if (var5 == 5) {
-                --var2;
+                --x;
             }
 
-            return var1.isBlockNormalCube(var2, var3, var4);
+            return world.isBlockNormalCube(x, y, z);
         }
     }
 }

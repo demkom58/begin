@@ -6,13 +6,13 @@ public class BlockSponge extends Block {
         this.blockIndexInTexture = 48;
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
+    public void onBlockAdded(World world, int x, int y, int z) {
         byte var5 = 2;
 
-        for (int var6 = var2 - var5; var6 <= var2 + var5; ++var6) {
-            for (int var7 = var3 - var5; var7 <= var3 + var5; ++var7) {
-                for (int var8 = var4 - var5; var8 <= var4 + var5; ++var8) {
-                    if (var1.getBlockMaterial(var6, var7, var8) == Material.water) {
+        for (int var6 = x - var5; var6 <= x + var5; ++var6) {
+            for (int var7 = y - var5; var7 <= y + var5; ++var7) {
+                for (int var8 = z - var5; var8 <= z + var5; ++var8) {
+                    if (world.getBlockMaterial(var6, var7, var8) == Material.water) {
                     }
                 }
             }
@@ -20,13 +20,13 @@ public class BlockSponge extends Block {
 
     }
 
-    public void onBlockRemoval(World var1, int var2, int var3, int var4) {
+    public void onBlockRemoval(World world, int x, int y, int z) {
         byte var5 = 2;
 
-        for (int var6 = var2 - var5; var6 <= var2 + var5; ++var6) {
-            for (int var7 = var3 - var5; var7 <= var3 + var5; ++var7) {
-                for (int var8 = var4 - var5; var8 <= var4 + var5; ++var8) {
-                    var1.notifyBlocksOfNeighborChange(var6, var7, var8, var1.getBlockId(var6, var7, var8));
+        for (int var6 = x - var5; var6 <= x + var5; ++var6) {
+            for (int var7 = y - var5; var7 <= y + var5; ++var7) {
+                for (int var8 = z - var5; var8 <= z + var5; ++var8) {
+                    world.notifyBlocksOfNeighborChange(var6, var7, var8, world.getBlockId(var6, var7, var8));
                 }
             }
         }

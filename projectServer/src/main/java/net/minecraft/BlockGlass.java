@@ -7,7 +7,7 @@ public class BlockGlass extends BlockBreakable {
         super(var1, var2, var3, var4);
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 0;
     }
 }

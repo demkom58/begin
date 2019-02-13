@@ -15,15 +15,15 @@ public class BlockCrops extends BlockFlower {
         return var1 == Block.tilledField.blockID;
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        super.updateTick(var1, var2, var3, var4, var5);
-        if (var1.getBlockLightValue(var2, var3 + 1, var4) >= 9) {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        super.updateTick(world, x, y, z, random);
+        if (world.getBlockLightValue(x, y + 1, z) >= 9) {
+            int var6 = world.getBlockMetadata(x, y, z);
             if (var6 < 7) {
-                float var7 = this.getGrowthRate(var1, var2, var3, var4);
-                if (var5.nextInt((int) (100.0F / var7)) == 0) {
+                float var7 = this.getGrowthRate(world, x, y, z);
+                if (random.nextInt((int) (100.0F / var7)) == 0) {
                     ++var6;
-                    var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
+                    world.setBlockMetadataWithNotify(x, y, z, var6);
                 }
             }
         }
@@ -82,29 +82,29 @@ public class BlockCrops extends BlockFlower {
         return this.blockIndexInTexture + var2;
     }
 
-    public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
-        super.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, var6);
-        if (!var1.singleplayerWorld) {
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float chance) {
+        super.dropBlockAsItemWithChance(world, x, y, z, var5, chance);
+        if (!world.singleplayerWorld) {
             for (int var7 = 0; var7 < 3; ++var7) {
-                if (var1.rand.nextInt(15) <= var5) {
+                if (world.rand.nextInt(15) <= var5) {
                     float var8 = 0.7F;
-                    float var9 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
-                    float var10 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
-                    float var11 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
-                    EntityItem var12 = new EntityItem(var1, (double) ((float) var2 + var9), (double) ((float) var3 + var10), (double) ((float) var4 + var11), new ItemStack(Item.SEEDS));
+                    float var9 = world.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
+                    float var10 = world.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
+                    float var11 = world.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
+                    EntityItem var12 = new EntityItem(world, (double) ((float) x + var9), (double) ((float) y + var10), (double) ((float) z + var11), new ItemStack(Item.SEEDS));
                     var12.delayBeforeCanPickup = 10;
-                    var1.entityJoinedWorld(var12);
+                    world.entityJoinedWorld(var12);
                 }
             }
 
         }
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return var1 == 7 ? Item.WHEAT.shiftedIndex : -1;
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 1;
     }
 }

@@ -49,13 +49,13 @@ public class BlockDoor extends Block {
         return false;
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-        this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-        return super.getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        this.func_273_b(this.func_271_d(var1.getBlockMetadata(var2, var3, var4)));
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
+        this.func_273_b(this.func_271_d(blockAccess.getBlockMetadata(var2, var3, var4)));
     }
 
     public void func_273_b(int var1) {
@@ -79,29 +79,29 @@ public class BlockDoor extends Block {
 
     }
 
-    public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        this.blockActivated(var1, var2, var3, var4, var5);
+    public void onBlockClicked(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
+        this.blockActivated(world, var2, var3, var4, entityPlayer);
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
+    public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         if (this.blockMaterial == Material.iron) {
             return true;
         } else {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+            int var6 = world.getBlockMetadata(var2, var3, var4);
             if ((var6 & 8) != 0) {
-                if (var1.getBlockId(var2, var3 - 1, var4) == this.blockID) {
-                    this.blockActivated(var1, var2, var3 - 1, var4, var5);
+                if (world.getBlockId(var2, var3 - 1, var4) == this.blockID) {
+                    this.blockActivated(world, var2, var3 - 1, var4, entityPlayer);
                 }
 
                 return true;
             } else {
-                if (var1.getBlockId(var2, var3 + 1, var4) == this.blockID) {
-                    var1.setBlockMetadataWithNotify(var2, var3 + 1, var4, (var6 ^ 4) + 8);
+                if (world.getBlockId(var2, var3 + 1, var4) == this.blockID) {
+                    world.setBlockMetadataWithNotify(var2, var3 + 1, var4, (var6 ^ 4) + 8);
                 }
 
-                var1.setBlockMetadataWithNotify(var2, var3, var4, var6 ^ 4);
-                var1.markBlocksDirty(var2, var3 - 1, var4, var2, var3, var4);
-                var1.func_28101_a(var5, 1003, var2, var3, var4, 0);
+                world.setBlockMetadataWithNotify(var2, var3, var4, var6 ^ 4);
+                world.markBlocksDirty(var2, var3 - 1, var4, var2, var3, var4);
+                world.func_28101_a(entityPlayer, 1003, var2, var3, var4, 0);
                 return true;
             }
         }
@@ -128,44 +128,44 @@ public class BlockDoor extends Block {
         }
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        int var6 = world.getBlockMetadata(var2, var3, var4);
         if ((var6 & 8) != 0) {
-            if (var1.getBlockId(var2, var3 - 1, var4) != this.blockID) {
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+            if (world.getBlockId(var2, var3 - 1, var4) != this.blockID) {
+                world.setBlockWithNotify(var2, var3, var4, 0);
             }
 
             if (var5 > 0 && Block.blocksList[var5].canProvidePower()) {
-                this.onNeighborBlockChange(var1, var2, var3 - 1, var4, var5);
+                this.onNeighborBlockChange(world, var2, var3 - 1, var4, var5);
             }
         } else {
             boolean var7 = false;
-            if (var1.getBlockId(var2, var3 + 1, var4) != this.blockID) {
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+            if (world.getBlockId(var2, var3 + 1, var4) != this.blockID) {
+                world.setBlockWithNotify(var2, var3, var4, 0);
                 var7 = true;
             }
 
-            if (!var1.isBlockNormalCube(var2, var3 - 1, var4)) {
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+            if (!world.isBlockNormalCube(var2, var3 - 1, var4)) {
+                world.setBlockWithNotify(var2, var3, var4, 0);
                 var7 = true;
-                if (var1.getBlockId(var2, var3 + 1, var4) == this.blockID) {
-                    var1.setBlockWithNotify(var2, var3 + 1, var4, 0);
+                if (world.getBlockId(var2, var3 + 1, var4) == this.blockID) {
+                    world.setBlockWithNotify(var2, var3 + 1, var4, 0);
                 }
             }
 
             if (var7) {
-                if (!var1.singleplayerWorld) {
-                    this.dropBlockAsItem(var1, var2, var3, var4, var6);
+                if (!world.singleplayerWorld) {
+                    this.dropBlockAsItem(world, var2, var3, var4, var6);
                 }
             } else if (var5 > 0 && Block.blocksList[var5].canProvidePower()) {
-                boolean var8 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4) || var1.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
-                this.func_272_a(var1, var2, var3, var4, var8);
+                boolean var8 = world.isBlockIndirectlyGettingPowered(var2, var3, var4) || world.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
+                this.func_272_a(world, var2, var3, var4, var8);
             }
         }
 
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         if ((var1 & 8) != 0) {
             return 0;
         } else {
@@ -173,20 +173,20 @@ public class BlockDoor extends Block {
         }
     }
 
-    public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
-        this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-        return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+    public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
+        this.setBlockBoundsBasedOnState(world, var2, var3, var4);
+        return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
     }
 
     public int func_271_d(int var1) {
         return (var1 & 4) == 0 ? var1 - 1 & 3 : var1 & 3;
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         if (var3 >= 127) {
             return false;
         } else {
-            return var1.isBlockNormalCube(var2, var3 - 1, var4) && super.canPlaceBlockAt(var1, var2, var3, var4) && super.canPlaceBlockAt(var1, var2, var3 + 1, var4);
+            return world.isBlockNormalCube(var2, var3 - 1, var4) && super.canPlaceBlockAt(world, var2, var3, var4) && super.canPlaceBlockAt(world, var2, var3 + 1, var4);
         }
     }
 

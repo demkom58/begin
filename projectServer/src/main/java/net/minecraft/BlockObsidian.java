@@ -7,11 +7,11 @@ public class BlockObsidian extends BlockStone {
         super(var1, var2);
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 1;
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Block.obsidian.blockID;
     }
 }

@@ -7,7 +7,7 @@ public class BlockOre extends Block {
         super(var1, var2, Material.rock);
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         if (this.blockID == Block.oreCoal.blockID) {
             return Item.COAL.shiftedIndex;
         } else if (this.blockID == Block.oreDiamond.blockID) {
@@ -17,8 +17,8 @@ public class BlockOre extends Block {
         }
     }
 
-    public int quantityDropped(Random var1) {
-        return this.blockID == Block.oreLapis.blockID ? 4 + var1.nextInt(5) : 1;
+    public int quantityDropped(Random random) {
+        return this.blockID == Block.oreLapis.blockID ? 4 + random.nextInt(5) : 1;
     }
 
     protected int damageDropped(int var1) {

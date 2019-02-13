@@ -28,7 +28,7 @@ public class BlockFire extends Block {
         this.abilityToCatchFire[var1] = var3;
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
@@ -40,7 +40,7 @@ public class BlockFire extends Block {
         return false;
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 0;
     }
 
@@ -48,53 +48,53 @@ public class BlockFire extends Block {
         return 40;
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        boolean var6 = var1.getBlockId(var2, var3 - 1, var4) == Block.bloodStone.blockID;
-        if (!this.canPlaceBlockAt(var1, var2, var3, var4)) {
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        boolean var6 = world.getBlockId(x, y - 1, z) == Block.bloodStone.blockID;
+        if (!this.canPlaceBlockAt(world, x, y, z)) {
+            world.setBlockWithNotify(x, y, z, 0);
         }
 
-        if (var6 || !var1.func_27068_v() || !var1.canLightningStrikeAt(var2, var3, var4) && !var1.canLightningStrikeAt(var2 - 1, var3, var4) && !var1.canLightningStrikeAt(var2 + 1, var3, var4) && !var1.canLightningStrikeAt(var2, var3, var4 - 1) && !var1.canLightningStrikeAt(var2, var3, var4 + 1)) {
-            int var7 = var1.getBlockMetadata(var2, var3, var4);
+        if (var6 || !world.func_27068_v() || !world.canLightningStrikeAt(x, y, z) && !world.canLightningStrikeAt(x - 1, y, z) && !world.canLightningStrikeAt(x + 1, y, z) && !world.canLightningStrikeAt(x, y, z - 1) && !world.canLightningStrikeAt(x, y, z + 1)) {
+            int var7 = world.getBlockMetadata(x, y, z);
             if (var7 < 15) {
-                var1.setBlockMetadata(var2, var3, var4, var7 + var5.nextInt(3) / 2);
+                world.setBlockMetadata(x, y, z, var7 + random.nextInt(3) / 2);
             }
 
-            var1.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
-            if (!var6 && !this.func_268_g(var1, var2, var3, var4)) {
-                if (!var1.isBlockNormalCube(var2, var3 - 1, var4) || var7 > 3) {
-                    var1.setBlockWithNotify(var2, var3, var4, 0);
+            world.scheduleUpdateTick(x, y, z, this.blockID, this.tickRate());
+            if (!var6 && !this.func_268_g(world, x, y, z)) {
+                if (!world.isBlockNormalCube(x, y - 1, z) || var7 > 3) {
+                    world.setBlockWithNotify(x, y, z, 0);
                 }
 
-            } else if (!var6 && !this.canBlockCatchFire(var1, var2, var3 - 1, var4) && var7 == 15 && var5.nextInt(4) == 0) {
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+            } else if (!var6 && !this.canBlockCatchFire(world, x, y - 1, z) && var7 == 15 && random.nextInt(4) == 0) {
+                world.setBlockWithNotify(x, y, z, 0);
             } else {
-                this.tryToCatchBlockOnFire(var1, var2 + 1, var3, var4, 300, var5, var7);
-                this.tryToCatchBlockOnFire(var1, var2 - 1, var3, var4, 300, var5, var7);
-                this.tryToCatchBlockOnFire(var1, var2, var3 - 1, var4, 250, var5, var7);
-                this.tryToCatchBlockOnFire(var1, var2, var3 + 1, var4, 250, var5, var7);
-                this.tryToCatchBlockOnFire(var1, var2, var3, var4 - 1, 300, var5, var7);
-                this.tryToCatchBlockOnFire(var1, var2, var3, var4 + 1, 300, var5, var7);
+                this.tryToCatchBlockOnFire(world, x + 1, y, z, 300, random, var7);
+                this.tryToCatchBlockOnFire(world, x - 1, y, z, 300, random, var7);
+                this.tryToCatchBlockOnFire(world, x, y - 1, z, 250, random, var7);
+                this.tryToCatchBlockOnFire(world, x, y + 1, z, 250, random, var7);
+                this.tryToCatchBlockOnFire(world, x, y, z - 1, 300, random, var7);
+                this.tryToCatchBlockOnFire(world, x, y, z + 1, 300, random, var7);
 
-                for (int var8 = var2 - 1; var8 <= var2 + 1; ++var8) {
-                    for (int var9 = var4 - 1; var9 <= var4 + 1; ++var9) {
-                        for (int var10 = var3 - 1; var10 <= var3 + 4; ++var10) {
-                            if (var8 != var2 || var10 != var3 || var9 != var4) {
+                for (int var8 = x - 1; var8 <= x + 1; ++var8) {
+                    for (int var9 = z - 1; var9 <= z + 1; ++var9) {
+                        for (int var10 = y - 1; var10 <= y + 4; ++var10) {
+                            if (var8 != x || var10 != y || var9 != z) {
                                 int var11 = 100;
-                                if (var10 > var3 + 1) {
-                                    var11 += (var10 - (var3 + 1)) * 100;
+                                if (var10 > y + 1) {
+                                    var11 += (var10 - (y + 1)) * 100;
                                 }
 
-                                int var12 = this.getChanceOfNeighborsEncouragingFire(var1, var8, var10, var9);
+                                int var12 = this.getChanceOfNeighborsEncouragingFire(world, var8, var10, var9);
                                 if (var12 > 0) {
                                     int var13 = (var12 + 40) / (var7 + 30);
-                                    if (var13 > 0 && var5.nextInt(var11) <= var13 && (!var1.func_27068_v() || !var1.canLightningStrikeAt(var8, var10, var9)) && !var1.canLightningStrikeAt(var8 - 1, var10, var4) && !var1.canLightningStrikeAt(var8 + 1, var10, var9) && !var1.canLightningStrikeAt(var8, var10, var9 - 1) && !var1.canLightningStrikeAt(var8, var10, var9 + 1)) {
-                                        int var14 = var7 + var5.nextInt(5) / 4;
+                                    if (var13 > 0 && random.nextInt(var11) <= var13 && (!world.func_27068_v() || !world.canLightningStrikeAt(var8, var10, var9)) && !world.canLightningStrikeAt(var8 - 1, var10, z) && !world.canLightningStrikeAt(var8 + 1, var10, var9) && !world.canLightningStrikeAt(var8, var10, var9 - 1) && !world.canLightningStrikeAt(var8, var10, var9 + 1)) {
+                                        int var14 = var7 + random.nextInt(5) / 4;
                                         if (var14 > 15) {
                                             var14 = 15;
                                         }
 
-                                        var1.setBlockAndMetadataWithNotify(var8, var10, var9, this.blockID, var14);
+                                        world.setBlockAndMetadataWithNotify(var8, var10, var9, this.blockID, var14);
                                     }
                                 }
                             }
@@ -104,7 +104,7 @@ public class BlockFire extends Block {
 
             }
         } else {
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+            world.setBlockWithNotify(x, y, z, 0);
         }
     }
 
@@ -174,22 +174,22 @@ public class BlockFire extends Block {
         return var6 > var5 ? var6 : var5;
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return var1.isBlockNormalCube(var2, var3 - 1, var4) || this.func_268_g(var1, var2, var3, var4);
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
+        return world.isBlockNormalCube(var2, var3 - 1, var4) || this.func_268_g(world, var2, var3, var4);
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!var1.isBlockNormalCube(var2, var3 - 1, var4) && !this.func_268_g(var1, var2, var3, var4)) {
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        if (!world.isBlockNormalCube(var2, var3 - 1, var4) && !this.func_268_g(world, var2, var3, var4)) {
+            world.setBlockWithNotify(var2, var3, var4, 0);
         }
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        if (var1.getBlockId(var2, var3 - 1, var4) != Block.obsidian.blockID || !Block.portal.tryToCreatePortal(var1, var2, var3, var4)) {
-            if (!var1.isBlockNormalCube(var2, var3 - 1, var4) && !this.func_268_g(var1, var2, var3, var4)) {
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void onBlockAdded(World world, int x, int y, int z) {
+        if (world.getBlockId(x, y - 1, z) != Block.obsidian.blockID || !Block.portal.tryToCreatePortal(world, x, y, z)) {
+            if (!world.isBlockNormalCube(x, y - 1, z) && !this.func_268_g(world, x, y, z)) {
+                world.setBlockWithNotify(x, y, z, 0);
             } else {
-                var1.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
+                world.scheduleUpdateTick(x, y, z, this.blockID, this.tickRate());
             }
         }
     }

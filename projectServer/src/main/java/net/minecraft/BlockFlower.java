@@ -11,21 +11,21 @@ public class BlockFlower extends Block {
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, var3 * 3.0F, 0.5F + var3);
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return super.canPlaceBlockAt(var1, var2, var3, var4) && this.canThisPlantGrowOnThisBlockID(var1.getBlockId(var2, var3 - 1, var4));
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
+        return super.canPlaceBlockAt(world, var2, var3, var4) && this.canThisPlantGrowOnThisBlockID(world.getBlockId(var2, var3 - 1, var4));
     }
 
     protected boolean canThisPlantGrowOnThisBlockID(int var1) {
         return var1 == Block.grass.blockID || var1 == Block.dirt.blockID || var1 == Block.tilledField.blockID;
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        super.onNeighborBlockChange(var1, var2, var3, var4, var5);
-        this.func_276_g(var1, var2, var3, var4);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        super.onNeighborBlockChange(world, var2, var3, var4, var5);
+        this.func_276_g(world, var2, var3, var4);
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        this.func_276_g(var1, var2, var3, var4);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        this.func_276_g(world, x, y, z);
     }
 
     protected final void func_276_g(World var1, int var2, int var3, int var4) {
@@ -36,11 +36,11 @@ public class BlockFlower extends Block {
 
     }
 
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        return (var1.getBlockLightValueNoChecks(var2, var3, var4) >= 8 || var1.canBlockSeeTheSky(var2, var3, var4)) && this.canThisPlantGrowOnThisBlockID(var1.getBlockId(var2, var3 - 1, var4));
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        return (world.getBlockLightValueNoChecks(x, y, z) >= 8 || world.canBlockSeeTheSky(x, y, z)) && this.canThisPlantGrowOnThisBlockID(world.getBlockId(x, y - 1, z));
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 

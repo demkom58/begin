@@ -45,17 +45,17 @@ public class BlockPumpkin extends Block {
         }
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        super.onBlockAdded(var1, var2, var3, var4);
+    public void onBlockAdded(World world, int x, int y, int z) {
+        super.onBlockAdded(world, x, y, z);
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockId(var2, var3, var4);
-        return (var5 == 0 || Block.blocksList[var5].blockMaterial.func_27090_g()) && var1.isBlockNormalCube(var2, var3 - 1, var4);
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
+        int var5 = world.getBlockId(var2, var3, var4);
+        return (var5 == 0 || Block.blocksList[var5].blockMaterial.func_27090_g()) && world.isBlockNormalCube(var2, var3 - 1, var4);
     }
 
-    public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
-        int var6 = MathHelper.floor_double((double) (var5.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving) {
+        int var6 = MathHelper.floor_double((double) (entityLiving.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
+        world.setBlockMetadataWithNotify(x, y, z, var6);
     }
 }

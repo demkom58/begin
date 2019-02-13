@@ -12,17 +12,17 @@ public class BlockLeaves extends BlockLeavesBase {
         this.setTickOnLoad(true);
     }
 
-    public void onBlockRemoval(World var1, int var2, int var3, int var4) {
+    public void onBlockRemoval(World world, int x, int y, int z) {
         byte var5 = 1;
         int var6 = var5 + 1;
-        if (var1.checkChunksExist(var2 - var6, var3 - var6, var4 - var6, var2 + var6, var3 + var6, var4 + var6)) {
+        if (world.checkChunksExist(x - var6, y - var6, z - var6, x + var6, y + var6, z + var6)) {
             for (int var7 = -var5; var7 <= var5; ++var7) {
                 for (int var8 = -var5; var8 <= var5; ++var8) {
                     for (int var9 = -var5; var9 <= var5; ++var9) {
-                        int var10 = var1.getBlockId(var2 + var7, var3 + var8, var4 + var9);
+                        int var10 = world.getBlockId(x + var7, y + var8, z + var9);
                         if (var10 == Block.leaves.blockID) {
-                            int var11 = var1.getBlockMetadata(var2 + var7, var3 + var8, var4 + var9);
-                            var1.setBlockMetadata(var2 + var7, var3 + var8, var4 + var9, var11 | 8);
+                            int var11 = world.getBlockMetadata(x + var7, y + var8, z + var9);
+                            world.setBlockMetadata(x + var7, y + var8, z + var9, var11 | 8);
                         }
                     }
                 }
@@ -31,9 +31,9 @@ public class BlockLeaves extends BlockLeavesBase {
 
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (!var1.singleplayerWorld) {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        if (!world.singleplayerWorld) {
+            int var6 = world.getBlockMetadata(x, y, z);
             if ((var6 & 8) != 0) {
                 byte var7 = 4;
                 int var8 = var7 + 1;
@@ -44,11 +44,11 @@ public class BlockLeaves extends BlockLeavesBase {
                     this.adjacentTreeBlocks = new int[var9 * var9 * var9];
                 }
 
-                if (var1.checkChunksExist(var2 - var8, var3 - var8, var4 - var8, var2 + var8, var3 + var8, var4 + var8)) {
+                if (world.checkChunksExist(x - var8, y - var8, z - var8, x + var8, y + var8, z + var8)) {
                     for (int var12 = -var7; var12 <= var7; ++var12) {
                         for (int var13 = -var7; var13 <= var7; ++var13) {
                             for (int var14 = -var7; var14 <= var7; ++var14) {
-                                int var15 = var1.getBlockId(var2 + var12, var3 + var13, var4 + var14);
+                                int var15 = world.getBlockId(x + var12, y + var13, z + var14);
                                 if (var15 == Block.wood.blockID) {
                                     this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = 0;
                                 } else if (var15 == Block.leaves.blockID) {
@@ -97,9 +97,9 @@ public class BlockLeaves extends BlockLeavesBase {
 
                 int var17 = this.adjacentTreeBlocks[var11 * var10 + var11 * var9 + var11];
                 if (var17 >= 0) {
-                    var1.setBlockMetadata(var2, var3, var4, var6 & -9);
+                    world.setBlockMetadata(x, y, z, var6 & -9);
                 } else {
-                    this.removeLeaves(var1, var2, var3, var4);
+                    this.removeLeaves(world, x, y, z);
                 }
             }
 
@@ -111,20 +111,20 @@ public class BlockLeaves extends BlockLeavesBase {
         var1.setBlockWithNotify(var2, var3, var4, 0);
     }
 
-    public int quantityDropped(Random var1) {
-        return var1.nextInt(20) == 0 ? 1 : 0;
+    public int quantityDropped(Random random) {
+        return random.nextInt(20) == 0 ? 1 : 0;
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Block.sapling.blockID;
     }
 
-    public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
-        if (!var1.singleplayerWorld && var2.getCurrentEquippedItem() != null && var2.getCurrentEquippedItem().itemID == Item.SHEARS.shiftedIndex) {
-            var2.addStat(StatList.mineBlockStatArray[this.blockID], 1);
-            this.dropBlockAsItem_do(var1, var3, var4, var5, new ItemStack(Block.leaves.blockID, 1, var6 & 3));
+    public void harvestBlock(World world, EntityPlayer entityPlayer, int var3, int var4, int var5, int var6) {
+        if (!world.singleplayerWorld && entityPlayer.getCurrentEquippedItem() != null && entityPlayer.getCurrentEquippedItem().itemID == Item.SHEARS.shiftedIndex) {
+            entityPlayer.addStat(StatList.mineBlockStatArray[this.blockID], 1);
+            this.dropBlockAsItem_do(world, var3, var4, var5, new ItemStack(Block.leaves.blockID, 1, var6 & 3));
         } else {
-            super.harvestBlock(var1, var2, var3, var4, var5, var6);
+            super.harvestBlock(world, entityPlayer, var3, var4, var5, var6);
         }
 
     }
@@ -141,7 +141,7 @@ public class BlockLeaves extends BlockLeavesBase {
         return (var2 & 3) == 1 ? this.blockIndexInTexture + 80 : this.blockIndexInTexture;
     }
 
-    public void onEntityWalking(World var1, int var2, int var3, int var4, Entity var5) {
-        super.onEntityWalking(var1, var2, var3, var4, var5);
+    public void onEntityWalking(World world, int var2, int var3, int var4, Entity entity) {
+        super.onEntityWalking(world, var2, var3, var4, entity);
     }
 }

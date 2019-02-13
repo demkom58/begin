@@ -10,16 +10,16 @@ public class BlockMushroom extends BlockFlower {
         this.setTickOnLoad(true);
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (var5.nextInt(100) == 0) {
-            int var6 = var2 + var5.nextInt(3) - 1;
-            int var7 = var3 + var5.nextInt(2) - var5.nextInt(2);
-            int var8 = var4 + var5.nextInt(3) - 1;
-            if (var1.isAirBlock(var6, var7, var8) && this.canBlockStay(var1, var6, var7, var8)) {
-                int var10000 = var2 + (var5.nextInt(3) - 1);
-                var10000 = var4 + (var5.nextInt(3) - 1);
-                if (var1.isAirBlock(var6, var7, var8) && this.canBlockStay(var1, var6, var7, var8)) {
-                    var1.setBlockWithNotify(var6, var7, var8, this.blockID);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        if (random.nextInt(100) == 0) {
+            int var6 = x + random.nextInt(3) - 1;
+            int var7 = y + random.nextInt(2) - random.nextInt(2);
+            int var8 = z + random.nextInt(3) - 1;
+            if (world.isAirBlock(var6, var7, var8) && this.canBlockStay(world, var6, var7, var8)) {
+                int var10000 = x + (random.nextInt(3) - 1);
+                var10000 = z + (random.nextInt(3) - 1);
+                if (world.isAirBlock(var6, var7, var8) && this.canBlockStay(world, var6, var7, var8)) {
+                    world.setBlockWithNotify(var6, var7, var8, this.blockID);
                 }
             }
         }
@@ -30,9 +30,9 @@ public class BlockMushroom extends BlockFlower {
         return Block.opaqueCubeLookup[var1];
     }
 
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        if (var3 >= 0 && var3 < 128) {
-            return var1.getBlockLightValueNoChecks(var2, var3, var4) < 13 && this.canThisPlantGrowOnThisBlockID(var1.getBlockId(var2, var3 - 1, var4));
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        if (y >= 0 && y < 128) {
+            return world.getBlockLightValueNoChecks(x, y, z) < 13 && this.canThisPlantGrowOnThisBlockID(world.getBlockId(x, y - 1, z));
         } else {
             return false;
         }

@@ -10,7 +10,7 @@ public class BlockTorch extends Block {
         this.setTickOnLoad(true);
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
@@ -26,96 +26,96 @@ public class BlockTorch extends Block {
         return var1.isBlockNormalCube(var2, var3, var4) || var1.getBlockId(var2, var3, var4) == Block.fence.blockID;
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        if (var1.isBlockNormalCube(var2 - 1, var3, var4)) {
+    public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
+        if (world.isBlockNormalCube(var2 - 1, var3, var4)) {
             return true;
-        } else if (var1.isBlockNormalCube(var2 + 1, var3, var4)) {
+        } else if (world.isBlockNormalCube(var2 + 1, var3, var4)) {
             return true;
-        } else if (var1.isBlockNormalCube(var2, var3, var4 - 1)) {
+        } else if (world.isBlockNormalCube(var2, var3, var4 - 1)) {
             return true;
-        } else if (var1.isBlockNormalCube(var2, var3, var4 + 1)) {
+        } else if (world.isBlockNormalCube(var2, var3, var4 + 1)) {
             return true;
         } else {
-            return this.func_31028_g(var1, var2, var3 - 1, var4);
+            return this.func_31028_g(world, var2, var3 - 1, var4);
         }
     }
 
-    public void onBlockPlaced(World var1, int var2, int var3, int var4, int var5) {
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
-        if (var5 == 1 && this.func_31028_g(var1, var2, var3 - 1, var4)) {
+    public void onBlockPlaced(World world, int var2, int var3, int var4, int var5) {
+        int var6 = world.getBlockMetadata(var2, var3, var4);
+        if (var5 == 1 && this.func_31028_g(world, var2, var3 - 1, var4)) {
             var6 = 5;
         }
 
-        if (var5 == 2 && var1.isBlockNormalCube(var2, var3, var4 + 1)) {
+        if (var5 == 2 && world.isBlockNormalCube(var2, var3, var4 + 1)) {
             var6 = 4;
         }
 
-        if (var5 == 3 && var1.isBlockNormalCube(var2, var3, var4 - 1)) {
+        if (var5 == 3 && world.isBlockNormalCube(var2, var3, var4 - 1)) {
             var6 = 3;
         }
 
-        if (var5 == 4 && var1.isBlockNormalCube(var2 + 1, var3, var4)) {
+        if (var5 == 4 && world.isBlockNormalCube(var2 + 1, var3, var4)) {
             var6 = 2;
         }
 
-        if (var5 == 5 && var1.isBlockNormalCube(var2 - 1, var3, var4)) {
+        if (var5 == 5 && world.isBlockNormalCube(var2 - 1, var3, var4)) {
             var6 = 1;
         }
 
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
+        world.setBlockMetadataWithNotify(var2, var3, var4, var6);
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        super.updateTick(var1, var2, var3, var4, var5);
-        if (var1.getBlockMetadata(var2, var3, var4) == 0) {
-            this.onBlockAdded(var1, var2, var3, var4);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        super.updateTick(world, x, y, z, random);
+        if (world.getBlockMetadata(x, y, z) == 0) {
+            this.onBlockAdded(world, x, y, z);
         }
 
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        if (var1.isBlockNormalCube(var2 - 1, var3, var4)) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 1);
-        } else if (var1.isBlockNormalCube(var2 + 1, var3, var4)) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 2);
-        } else if (var1.isBlockNormalCube(var2, var3, var4 - 1)) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 3);
-        } else if (var1.isBlockNormalCube(var2, var3, var4 + 1)) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 4);
-        } else if (this.func_31028_g(var1, var2, var3 - 1, var4)) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 5);
+    public void onBlockAdded(World world, int x, int y, int z) {
+        if (world.isBlockNormalCube(x - 1, y, z)) {
+            world.setBlockMetadataWithNotify(x, y, z, 1);
+        } else if (world.isBlockNormalCube(x + 1, y, z)) {
+            world.setBlockMetadataWithNotify(x, y, z, 2);
+        } else if (world.isBlockNormalCube(x, y, z - 1)) {
+            world.setBlockMetadataWithNotify(x, y, z, 3);
+        } else if (world.isBlockNormalCube(x, y, z + 1)) {
+            world.setBlockMetadataWithNotify(x, y, z, 4);
+        } else if (this.func_31028_g(world, x, y - 1, z)) {
+            world.setBlockMetadataWithNotify(x, y, z, 5);
         }
 
-        this.dropTorchIfCantStay(var1, var2, var3, var4);
+        this.dropTorchIfCantStay(world, x, y, z);
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (this.dropTorchIfCantStay(var1, var2, var3, var4)) {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        if (this.dropTorchIfCantStay(world, var2, var3, var4)) {
+            int var6 = world.getBlockMetadata(var2, var3, var4);
             boolean var7 = false;
-            if (!var1.isBlockNormalCube(var2 - 1, var3, var4) && var6 == 1) {
+            if (!world.isBlockNormalCube(var2 - 1, var3, var4) && var6 == 1) {
                 var7 = true;
             }
 
-            if (!var1.isBlockNormalCube(var2 + 1, var3, var4) && var6 == 2) {
+            if (!world.isBlockNormalCube(var2 + 1, var3, var4) && var6 == 2) {
                 var7 = true;
             }
 
-            if (!var1.isBlockNormalCube(var2, var3, var4 - 1) && var6 == 3) {
+            if (!world.isBlockNormalCube(var2, var3, var4 - 1) && var6 == 3) {
                 var7 = true;
             }
 
-            if (!var1.isBlockNormalCube(var2, var3, var4 + 1) && var6 == 4) {
+            if (!world.isBlockNormalCube(var2, var3, var4 + 1) && var6 == 4) {
                 var7 = true;
             }
 
-            if (!this.func_31028_g(var1, var2, var3 - 1, var4) && var6 == 5) {
+            if (!this.func_31028_g(world, var2, var3 - 1, var4) && var6 == 5) {
                 var7 = true;
             }
 
             if (var7) {
-                this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+                this.dropBlockAsItem(world, var2, var3, var4, world.getBlockMetadata(var2, var3, var4));
+                world.setBlockWithNotify(var2, var3, var4, 0);
             }
         }
 
@@ -131,8 +131,8 @@ public class BlockTorch extends Block {
         }
     }
 
-    public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
-        int var7 = var1.getBlockMetadata(var2, var3, var4) & 7;
+    public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
+        int var7 = world.getBlockMetadata(var2, var3, var4) & 7;
         float var8 = 0.15F;
         if (var7 == 1) {
             this.setBlockBounds(0.0F, 0.2F, 0.5F - var8, var8 * 2.0F, 0.8F, 0.5F + var8);
@@ -147,6 +147,6 @@ public class BlockTorch extends Block {
             this.setBlockBounds(0.5F - var8, 0.0F, 0.5F - var8, 0.5F + var8, 0.6F, 0.5F + var8);
         }
 
-        return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+        return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
     }
 }

@@ -123,29 +123,29 @@ public class BlockPistonBase extends Block {
         return false;
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
+    public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         return false;
     }
 
-    public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
-        int var6 = determineOrientation(var1, var2, var3, var4, (EntityPlayer) var5);
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
-        if (!var1.singleplayerWorld) {
-            this.updatePistonState(var1, var2, var3, var4);
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving) {
+        int var6 = determineOrientation(world, x, y, z, (EntityPlayer) entityLiving);
+        world.setBlockMetadataWithNotify(x, y, z, var6);
+        if (!world.singleplayerWorld) {
+            this.updatePistonState(world, x, y, z);
         }
 
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!var1.singleplayerWorld && !this.ignoreUpdates) {
-            this.updatePistonState(var1, var2, var3, var4);
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        if (!world.singleplayerWorld && !this.ignoreUpdates) {
+            this.updatePistonState(world, var2, var3, var4);
         }
 
     }
 
-    public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        if (!var1.singleplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
-            this.updatePistonState(var1, var2, var3, var4);
+    public void onBlockAdded(World world, int x, int y, int z) {
+        if (!world.singleplayerWorld && world.getBlockTileEntity(x, y, z) == null) {
+            this.updatePistonState(world, x, y, z);
         }
 
     }
@@ -196,30 +196,30 @@ public class BlockPistonBase extends Block {
         }
     }
 
-    public void playBlock(World var1, int var2, int var3, int var4, int var5, int var6) {
+    public void playBlock(World world, int var2, int var3, int var4, int var5, int var6) {
         this.ignoreUpdates = true;
         if (var5 == 0) {
-            if (this.tryExtend(var1, var2, var3, var4, var6)) {
-                var1.setBlockMetadataWithNotify(var2, var3, var4, var6 | 8);
-                var1.playSoundEffect((double) var2 + 0.5D, (double) var3 + 0.5D, (double) var4 + 0.5D, "tile.piston.out", 0.5F, var1.rand.nextFloat() * 0.25F + 0.6F);
+            if (this.tryExtend(world, var2, var3, var4, var6)) {
+                world.setBlockMetadataWithNotify(var2, var3, var4, var6 | 8);
+                world.playSoundEffect((double) var2 + 0.5D, (double) var3 + 0.5D, (double) var4 + 0.5D, "tile.piston.out", 0.5F, world.rand.nextFloat() * 0.25F + 0.6F);
             }
         } else if (var5 == 1) {
-            TileEntity var8 = var1.getBlockTileEntity(var2 + PistonBlockTextures.field_31051_b[var6], var3 + PistonBlockTextures.field_31054_c[var6], var4 + PistonBlockTextures.field_31053_d[var6]);
+            TileEntity var8 = world.getBlockTileEntity(var2 + PistonBlockTextures.field_31051_b[var6], var3 + PistonBlockTextures.field_31054_c[var6], var4 + PistonBlockTextures.field_31053_d[var6]);
             if (var8 != null && var8 instanceof TileEntityPiston) {
                 ((TileEntityPiston) var8).clearPistonTileEntity();
             }
 
-            var1.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.blockID, var6);
-            var1.setBlockTileEntity(var2, var3, var4, BlockPistonMoving.getTileEntity(this.blockID, var6, var6, false, true));
+            world.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.blockID, var6);
+            world.setBlockTileEntity(var2, var3, var4, BlockPistonMoving.getTileEntity(this.blockID, var6, var6, false, true));
             if (this.isSticky) {
                 int var9 = var2 + PistonBlockTextures.field_31051_b[var6] * 2;
                 int var10 = var3 + PistonBlockTextures.field_31054_c[var6] * 2;
                 int var11 = var4 + PistonBlockTextures.field_31053_d[var6] * 2;
-                int var12 = var1.getBlockId(var9, var10, var11);
-                int var13 = var1.getBlockMetadata(var9, var10, var11);
+                int var12 = world.getBlockId(var9, var10, var11);
+                int var13 = world.getBlockMetadata(var9, var10, var11);
                 boolean var14 = false;
                 if (var12 == Block.pistonMoving.blockID) {
-                    TileEntity var15 = var1.getBlockTileEntity(var9, var10, var11);
+                    TileEntity var15 = world.getBlockTileEntity(var9, var10, var11);
                     if (var15 != null && var15 instanceof TileEntityPiston) {
                         TileEntityPiston var16 = (TileEntityPiston) var15;
                         if (var16.func_31008_d() == var6 && var16.func_31010_c()) {
@@ -231,36 +231,36 @@ public class BlockPistonBase extends Block {
                     }
                 }
 
-                if (var14 || var12 <= 0 || !canPushBlock(var12, var1, var9, var10, var11, false) || Block.blocksList[var12].getMobilityFlag() != 0 && var12 != Block.pistonBase.blockID && var12 != Block.pistonStickyBase.blockID) {
+                if (var14 || var12 <= 0 || !canPushBlock(var12, world, var9, var10, var11, false) || Block.blocksList[var12].getMobilityFlag() != 0 && var12 != Block.pistonBase.blockID && var12 != Block.pistonStickyBase.blockID) {
                     if (!var14) {
                         this.ignoreUpdates = false;
-                        var1.setBlockWithNotify(var2 + PistonBlockTextures.field_31051_b[var6], var3 + PistonBlockTextures.field_31054_c[var6], var4 + PistonBlockTextures.field_31053_d[var6], 0);
+                        world.setBlockWithNotify(var2 + PistonBlockTextures.field_31051_b[var6], var3 + PistonBlockTextures.field_31054_c[var6], var4 + PistonBlockTextures.field_31053_d[var6], 0);
                         this.ignoreUpdates = true;
                     }
                 } else {
                     this.ignoreUpdates = false;
-                    var1.setBlockWithNotify(var9, var10, var11, 0);
+                    world.setBlockWithNotify(var9, var10, var11, 0);
                     this.ignoreUpdates = true;
                     var2 += PistonBlockTextures.field_31051_b[var6];
                     var3 += PistonBlockTextures.field_31054_c[var6];
                     var4 += PistonBlockTextures.field_31053_d[var6];
-                    var1.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.blockID, var13);
-                    var1.setBlockTileEntity(var2, var3, var4, BlockPistonMoving.getTileEntity(var12, var13, var6, false, false));
+                    world.setBlockAndMetadata(var2, var3, var4, Block.pistonMoving.blockID, var13);
+                    world.setBlockTileEntity(var2, var3, var4, BlockPistonMoving.getTileEntity(var12, var13, var6, false, false));
                 }
             } else {
                 this.ignoreUpdates = false;
-                var1.setBlockWithNotify(var2 + PistonBlockTextures.field_31051_b[var6], var3 + PistonBlockTextures.field_31054_c[var6], var4 + PistonBlockTextures.field_31053_d[var6], 0);
+                world.setBlockWithNotify(var2 + PistonBlockTextures.field_31051_b[var6], var3 + PistonBlockTextures.field_31054_c[var6], var4 + PistonBlockTextures.field_31053_d[var6], 0);
                 this.ignoreUpdates = true;
             }
 
-            var1.playSoundEffect((double) var2 + 0.5D, (double) var3 + 0.5D, (double) var4 + 0.5D, "tile.piston.in", 0.5F, var1.rand.nextFloat() * 0.15F + 0.6F);
+            world.playSoundEffect((double) var2 + 0.5D, (double) var3 + 0.5D, (double) var4 + 0.5D, "tile.piston.in", 0.5F, world.rand.nextFloat() * 0.15F + 0.6F);
         }
 
         this.ignoreUpdates = false;
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
+        int var5 = blockAccess.getBlockMetadata(var2, var3, var4);
         if (isExtended(var5)) {
             switch (getOrientation(var5)) {
                 case 0:

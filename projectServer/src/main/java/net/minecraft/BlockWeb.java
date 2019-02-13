@@ -7,15 +7,15 @@ public class BlockWeb extends Block {
         super(var1, var2, Material.web);
     }
 
-    public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
-        var5.field_27012_bb = true;
+    public void onEntityCollidedWithBlock(World world, int var2, int var3, int var4, Entity entity) {
+        entity.field_27012_bb = true;
     }
 
     public boolean isOpaqueCube() {
         return false;
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
@@ -23,7 +23,7 @@ public class BlockWeb extends Block {
         return false;
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return Item.SILK.shiftedIndex;
     }
 }

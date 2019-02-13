@@ -17,30 +17,30 @@ public class BlockDetectorRail extends BlockRail {
         return true;
     }
 
-    public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
-        if (!var1.singleplayerWorld) {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void onEntityCollidedWithBlock(World world, int var2, int var3, int var4, Entity entity) {
+        if (!world.singleplayerWorld) {
+            int var6 = world.getBlockMetadata(var2, var3, var4);
             if ((var6 & 8) == 0) {
-                this.func_27035_f(var1, var2, var3, var4, var6);
+                this.func_27035_f(world, var2, var3, var4, var6);
             }
         }
     }
 
-    public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (!var1.singleplayerWorld) {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void updateTick(World world, int x, int y, int z, Random random) {
+        if (!world.singleplayerWorld) {
+            int var6 = world.getBlockMetadata(x, y, z);
             if ((var6 & 8) != 0) {
-                this.func_27035_f(var1, var2, var3, var4, var6);
+                this.func_27035_f(world, x, y, z, var6);
             }
         }
     }
 
-    public boolean isPoweringTo(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        return (var1.getBlockMetadata(var2, var3, var4) & 8) != 0;
+    public boolean isPoweringTo(IBlockAccess blockAccess, int var2, int var3, int var4, int var5) {
+        return (blockAccess.getBlockMetadata(var2, var3, var4) & 8) != 0;
     }
 
-    public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
-        if ((var1.getBlockMetadata(var2, var3, var4) & 8) == 0) {
+    public boolean isIndirectlyPoweringTo(World world, int var2, int var3, int var4, int var5) {
+        if ((world.getBlockMetadata(var2, var3, var4) & 8) == 0) {
             return false;
         } else {
             return var5 == 1;

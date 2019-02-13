@@ -11,11 +11,11 @@ public class BlockMobSpawner extends BlockContainer {
         return new TileEntityMobSpawner();
     }
 
-    public int idDropped(int var1, Random var2) {
+    public int idDropped(int var1, Random random) {
         return 0;
     }
 
-    public int quantityDropped(Random var1) {
+    public int quantityDropped(Random random) {
         return 0;
     }
 
