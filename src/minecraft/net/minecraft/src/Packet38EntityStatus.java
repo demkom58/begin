@@ -5,24 +5,24 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class Packet38EntityStatus extends Packet {
-   public int entityId;
-   public byte entityStatus;
+    public int entityId;
+    public byte entityStatus;
 
-   public void readPacketData(DataInputStream var1) throws IOException {
-      this.entityId = var1.readInt();
-      this.entityStatus = var1.readByte();
-   }
+    public void readPacketData(DataInputStream var1) throws IOException {
+        this.entityId = var1.readInt();
+        this.entityStatus = var1.readByte();
+    }
 
-   public void writePacketData(DataOutputStream var1) throws IOException {
-      var1.writeInt(this.entityId);
-      var1.writeByte(this.entityStatus);
-   }
+    public void writePacketData(DataOutputStream var1) throws IOException {
+        var1.writeInt(this.entityId);
+        var1.writeByte(this.entityStatus);
+    }
 
-   public void processPacket(NetHandler var1) {
-      var1.func_9447_a(this);
-   }
+    public void processPacket(NetHandler var1) {
+        var1.func_9447_a(this);
+    }
 
-   public int getPacketSize() {
-      return 5;
-   }
+    public int getPacketSize() {
+        return 5;
+    }
 }

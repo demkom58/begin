@@ -15,14 +15,15 @@ import java.io.File;
 
 public abstract class Minecraft implements Runnable {
     public static byte[] field_28006_b = new byte[10485760];
+    public static long[] frameTimes = new long[512];
+    public static long[] tickTimes = new long[512];
+    public static int numRecordedFrameTimes = 0;
+    public static long hasPaidCheckTime = 0L;
     private static Minecraft theMinecraft;
+    private static File minecraftDir = null;
     public PlayerController playerController;
-    private boolean fullscreen = false;
-    private boolean hasCrashed = false;
     public int displayWidth;
     public int displayHeight;
-    private OpenGlCapsChecker glCapabilities;
-    private Timer timer = new Timer(20.0F);
     public World theWorld;
     public RenderGlobal renderGlobal;
     public EntityPlayerSP thePlayer;
@@ -38,41 +39,40 @@ public abstract class Minecraft implements Runnable {
     public GuiScreen currentScreen = null;
     public LoadingScreenRenderer loadingScreen = new LoadingScreenRenderer(this);
     public EntityRenderer entityRenderer;
-    private ThreadDownloadResources downloadResourcesThread;
-    private int ticksRan = 0;
-    private int leftClickCounter = 0;
-    private int tempDisplayWidth;
-    private int tempDisplayHeight;
     public GuiAchievement guiAchievement = new GuiAchievement(this);
     public GuiIngame ingameGUI;
     public boolean skipRenderWorld = false;
     public ModelBiped field_9242_w = new ModelBiped(0.0F);
     public MovingObjectPosition objectMouseOver = null;
     public GameSettings gameSettings;
-    protected MinecraftApplet mcApplet;
     public SoundManager sndManager = new SoundManager();
     public MouseHelper mouseHelper;
     public TexturePackList texturePackList;
+    public StatFileWriter statFileWriter;
+    public volatile boolean running = true;
+    public String debug = "";
+    public boolean inGameHasFocus = false;
+    public boolean isRaining = false;
+    protected MinecraftApplet mcApplet;
+    boolean isTakingScreenshot = false;
+    long prevFrameTime = -1L;
+    long systemTime = System.currentTimeMillis();
+    private boolean fullscreen = false;
+    private boolean hasCrashed = false;
+    private OpenGlCapsChecker glCapabilities;
+    private Timer timer = new Timer(20.0F);
+    private ThreadDownloadResources downloadResourcesThread;
+    private int ticksRan = 0;
+    private int leftClickCounter = 0;
+    private int tempDisplayWidth;
+    private int tempDisplayHeight;
     private File mcDataDir;
     private ISaveFormat saveLoader;
-    public static long[] frameTimes = new long[512];
-    public static long[] tickTimes = new long[512];
-    public static int numRecordedFrameTimes = 0;
-    public static long hasPaidCheckTime = 0L;
-    public StatFileWriter statFileWriter;
     private String serverName;
     private int serverPort;
     private TextureWaterFX textureWaterFX = new TextureWaterFX();
     private TextureLavaFX textureLavaFX = new TextureLavaFX();
-    private static File minecraftDir = null;
-    public volatile boolean running = true;
-    public String debug = "";
-    boolean isTakingScreenshot = false;
-    long prevFrameTime = -1L;
-    public boolean inGameHasFocus = false;
     private int mouseTicksRan = 0;
-    public boolean isRaining = false;
-    long systemTime = System.currentTimeMillis();
     private int joinPlayerCounter = 0;
 
     public Minecraft(Component var1, Canvas var2, MinecraftApplet var3, int var4, int var5, boolean var6) {
@@ -90,6 +90,128 @@ public abstract class Minecraft implements Runnable {
         }
 
         theMinecraft = this;
+    }
+
+    public static File getMinecraftDir() {
+        if (minecraftDir == null) {
+            minecraftDir = getAppDir("minecraft");
+        }
+
+        return minecraftDir;
+    }
+
+    public static File getAppDir(String paramString) {
+        String userHome = System.getProperty("user.home", ".");
+        File localFile;
+        switch (EnumOSMappingHelper.enumOSMappingArray[getOs().ordinal()]) {
+            case 1:
+            case 2:
+                localFile = new File(userHome, '.' + paramString + '/');
+                break;
+            case 3:
+                String str2 = System.getenv("APPDATA");
+                if (str2 != null) {
+                    localFile = new File(str2, "." + paramString + '/');
+                } else {
+                    localFile = new File(userHome, '.' + paramString + '/');
+                }
+                break;
+            case 4:
+                localFile = new File(userHome, "Library/Application Support/" + paramString);
+
+                break;
+            default:
+                localFile = new File(userHome, paramString + '/');
+        }
+        if ((!localFile.exists()) &&
+                (!localFile.mkdirs())) {
+            throw new RuntimeException("The working directory could not be created: " + localFile);
+        }
+
+        return localFile;
+
+    }
+
+    private static EnumOS2 getOs() {
+        String var0 = System.getProperty("os.name").toLowerCase();
+        if (var0.contains("win")) {
+            return EnumOS2.windows;
+        } else if (var0.contains("mac")) {
+            return EnumOS2.macos;
+        } else if (var0.contains("solaris")) {
+            return EnumOS2.solaris;
+        } else if (var0.contains("sunos")) {
+            return EnumOS2.solaris;
+        } else if (var0.contains("linux")) {
+            return EnumOS2.linux;
+        } else {
+            return var0.contains("unix") ? EnumOS2.linux : EnumOS2.unknown;
+        }
+    }
+
+    public static void func_6269_a(String var0, String var1) {
+        startMainThread(var0, var1, null);
+    }
+
+    public static void startMainThread(String var0, String var1, String var2) {
+        boolean var3 = false;
+        Frame var5 = new Frame("Minecraft");
+        Canvas var6 = new Canvas();
+        var5.setLayout(new BorderLayout());
+        var5.add(var6, "Center");
+        var6.setPreferredSize(new Dimension(854, 480));
+        var5.pack();
+        var5.setLocationRelativeTo(null);
+        MinecraftImpl var7 = new MinecraftImpl(var5, var6, null, 854, 480, var3, var5);
+        Thread var8 = new Thread(var7, "Minecraft main thread");
+        var8.setPriority(10);
+        var7.minecraftUri = "www.minecraft.net";
+        if (var0 != null && var1 != null) {
+            var7.session = new Session(var0, var1);
+        } else {
+            var7.session = new Session("Player" + System.currentTimeMillis() % 1000L, "");
+        }
+
+        if (var2 != null) {
+            String[] var9 = var2.split(":");
+            var7.setServer(var9[0], Integer.parseInt(var9[1]));
+        }
+
+        var5.setVisible(true);
+        var5.addWindowListener(new GameWindowListener(var7, var8));
+        var8.start();
+    }
+
+    public static void main(String[] var0) {
+        String var1 = null;
+        String var2 = null;
+        var1 = "Player" + System.currentTimeMillis() % 1000L;
+        if (var0.length > 0) {
+            var1 = var0[0];
+        }
+
+        var2 = "-";
+        if (var0.length > 1) {
+            var2 = var0[1];
+        }
+
+        func_6269_a(var1, var2);
+    }
+
+    public static boolean isGuiEnabled() {
+        return theMinecraft == null || !theMinecraft.gameSettings.hideGUI;
+    }
+
+    public static boolean isFancyGraphicsEnabled() {
+        return theMinecraft != null && theMinecraft.gameSettings.fancyGraphics;
+    }
+
+    public static boolean isAmbientOcclusionEnabled() {
+        return theMinecraft != null && theMinecraft.gameSettings.ambientOcclusion;
+    }
+
+    public static boolean isDebugInfoEnabled() {
+        return theMinecraft != null && theMinecraft.gameSettings.showDebugInfo;
     }
 
     public void onMinecraftCrash(UnexpectedThrowable var1) {
@@ -257,63 +379,6 @@ public abstract class Minecraft implements Runnable {
         var9.addVertexWithUV((double) (var1 + var5), (double) (var2 + 0), 0.0D, (double) ((float) (var3 + var5) * var7), (double) ((float) (var4 + 0) * var8));
         var9.addVertexWithUV((double) (var1 + 0), (double) (var2 + 0), 0.0D, (double) ((float) (var3 + 0) * var7), (double) ((float) (var4 + 0) * var8));
         var9.draw();
-    }
-
-    public static File getMinecraftDir() {
-        if (minecraftDir == null) {
-            minecraftDir = getAppDir("minecraft");
-        }
-
-        return minecraftDir;
-    }
-
-    public static File getAppDir(String paramString) {
-        String userHome = System.getProperty("user.home", ".");
-        File localFile;
-        switch (EnumOSMappingHelper.enumOSMappingArray[getOs().ordinal()]) {
-            case 1:
-            case 2:
-                localFile = new File(userHome, '.' + paramString + '/');
-                break;
-            case 3:
-                String str2 = System.getenv("APPDATA");
-                if (str2 != null) {
-                    localFile = new File(str2, "." + paramString + '/');
-                } else {
-                    localFile = new File(userHome, '.' + paramString + '/');
-                }
-                break;
-            case 4:
-                localFile = new File(userHome, "Library/Application Support/" + paramString);
-
-                break;
-            default:
-                localFile = new File(userHome, paramString + '/');
-        }
-        if ((!localFile.exists()) &&
-                (!localFile.mkdirs())) {
-            throw new RuntimeException("The working directory could not be created: " + localFile);
-        }
-
-        return localFile;
-
-    }
-
-    private static EnumOS2 getOs() {
-        String var0 = System.getProperty("os.name").toLowerCase();
-        if (var0.contains("win")) {
-            return EnumOS2.windows;
-        } else if (var0.contains("mac")) {
-            return EnumOS2.macos;
-        } else if (var0.contains("solaris")) {
-            return EnumOS2.solaris;
-        } else if (var0.contains("sunos")) {
-            return EnumOS2.solaris;
-        } else if (var0.contains("linux")) {
-            return EnumOS2.linux;
-        } else {
-            return var0.contains("unix") ? EnumOS2.linux : EnumOS2.unknown;
-        }
     }
 
     public ISaveFormat getSaveLoader() {
@@ -1369,73 +1434,8 @@ public abstract class Minecraft implements Runnable {
 
     }
 
-    public static void func_6269_a(String var0, String var1) {
-        startMainThread(var0, var1, null);
-    }
-
-    public static void startMainThread(String var0, String var1, String var2) {
-        boolean var3 = false;
-        Frame var5 = new Frame("Minecraft");
-        Canvas var6 = new Canvas();
-        var5.setLayout(new BorderLayout());
-        var5.add(var6, "Center");
-        var6.setPreferredSize(new Dimension(854, 480));
-        var5.pack();
-        var5.setLocationRelativeTo(null);
-        MinecraftImpl var7 = new MinecraftImpl(var5, var6, null, 854, 480, var3, var5);
-        Thread var8 = new Thread(var7, "Minecraft main thread");
-        var8.setPriority(10);
-        var7.minecraftUri = "www.minecraft.net";
-        if (var0 != null && var1 != null) {
-            var7.session = new Session(var0, var1);
-        } else {
-            var7.session = new Session("Player" + System.currentTimeMillis() % 1000L, "");
-        }
-
-        if (var2 != null) {
-            String[] var9 = var2.split(":");
-            var7.setServer(var9[0], Integer.parseInt(var9[1]));
-        }
-
-        var5.setVisible(true);
-        var5.addWindowListener(new GameWindowListener(var7, var8));
-        var8.start();
-    }
-
     public NetClientHandler getSendQueue() {
         return this.thePlayer instanceof EntityClientPlayerMP ? ((EntityClientPlayerMP) this.thePlayer).sendQueue : null;
-    }
-
-    public static void main(String[] var0) {
-        String var1 = null;
-        String var2 = null;
-        var1 = "Player" + System.currentTimeMillis() % 1000L;
-        if (var0.length > 0) {
-            var1 = var0[0];
-        }
-
-        var2 = "-";
-        if (var0.length > 1) {
-            var2 = var0[1];
-        }
-
-        func_6269_a(var1, var2);
-    }
-
-    public static boolean isGuiEnabled() {
-        return theMinecraft == null || !theMinecraft.gameSettings.hideGUI;
-    }
-
-    public static boolean isFancyGraphicsEnabled() {
-        return theMinecraft != null && theMinecraft.gameSettings.fancyGraphics;
-    }
-
-    public static boolean isAmbientOcclusionEnabled() {
-        return theMinecraft != null && theMinecraft.gameSettings.ambientOcclusion;
-    }
-
-    public static boolean isDebugInfoEnabled() {
-        return theMinecraft != null && theMinecraft.gameSettings.showDebugInfo;
     }
 
     public boolean lineIsCommand(String var1) {

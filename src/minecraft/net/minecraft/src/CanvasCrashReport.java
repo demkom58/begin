@@ -1,11 +1,10 @@
 package net.minecraft.src;
 
-import java.awt.Canvas;
-import java.awt.Dimension;
+import java.awt.*;
 
 class CanvasCrashReport extends Canvas {
-   public CanvasCrashReport(int var1) {
-      this.setPreferredSize(new Dimension(var1, var1));
-      this.setMinimumSize(new Dimension(var1, var1));
-   }
+    public CanvasCrashReport(int var1) {
+        this.setPreferredSize(new Dimension(var1, var1));
+        this.setMinimumSize(new Dimension(var1, var1));
+    }
 }
