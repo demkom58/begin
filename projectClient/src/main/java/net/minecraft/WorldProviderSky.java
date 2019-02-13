@@ -5,7 +5,7 @@ import util.Vec3D;
 
 public class WorldProviderSky extends WorldProvider {
     public void registerWorldChunkManager() {
-        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.sky, 0.5D, 0.0D);
+        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.SKY, 0.5D, 0.0D);
         this.worldType = 1;
     }
 

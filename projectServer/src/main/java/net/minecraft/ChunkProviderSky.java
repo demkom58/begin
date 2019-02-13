@@ -368,31 +368,31 @@ public class ChunkProviderSky implements IChunkProvider {
             ++var47;
         }
 
-        if (var6 == BiomeGenBase.forest) {
+        if (var6 == BiomeGenBase.FOREST) {
             var47 += var35 + 5;
         }
 
-        if (var6 == BiomeGenBase.rainforest) {
+        if (var6 == BiomeGenBase.RAINFOREST) {
             var47 += var35 + 5;
         }
 
-        if (var6 == BiomeGenBase.seasonalForest) {
+        if (var6 == BiomeGenBase.SEASONAL_FOREST) {
             var47 += var35 + 2;
         }
 
-        if (var6 == BiomeGenBase.taiga) {
+        if (var6 == BiomeGenBase.TAIGA) {
             var47 += var35 + 5;
         }
 
-        if (var6 == BiomeGenBase.desert) {
+        if (var6 == BiomeGenBase.DESERT) {
             var47 -= 20;
         }
 
-        if (var6 == BiomeGenBase.tundra) {
+        if (var6 == BiomeGenBase.TUNDRA) {
             var47 -= 20;
         }
 
-        if (var6 == BiomeGenBase.plains) {
+        if (var6 == BiomeGenBase.PLAINS) {
             var47 -= 20;
         }
 
@@ -447,7 +447,7 @@ public class ChunkProviderSky implements IChunkProvider {
         }
 
         int var66 = 0;
-        if (var6 == BiomeGenBase.desert) {
+        if (var6 == BiomeGenBase.DESERT) {
             var66 += 10;
         }
 

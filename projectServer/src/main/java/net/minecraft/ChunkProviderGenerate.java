@@ -410,31 +410,31 @@ public class ChunkProviderGenerate implements IChunkProvider {
             ++var49;
         }
 
-        if (var6 == BiomeGenBase.forest) {
+        if (var6 == BiomeGenBase.FOREST) {
             var49 += var37 + 5;
         }
 
-        if (var6 == BiomeGenBase.rainforest) {
+        if (var6 == BiomeGenBase.RAINFOREST) {
             var49 += var37 + 5;
         }
 
-        if (var6 == BiomeGenBase.seasonalForest) {
+        if (var6 == BiomeGenBase.SEASONAL_FOREST) {
             var49 += var37 + 2;
         }
 
-        if (var6 == BiomeGenBase.taiga) {
+        if (var6 == BiomeGenBase.TAIGA) {
             var49 += var37 + 5;
         }
 
-        if (var6 == BiomeGenBase.desert) {
+        if (var6 == BiomeGenBase.DESERT) {
             var49 -= 20;
         }
 
-        if (var6 == BiomeGenBase.tundra) {
+        if (var6 == BiomeGenBase.TUNDRA) {
             var49 -= 20;
         }
 
-        if (var6 == BiomeGenBase.plains) {
+        if (var6 == BiomeGenBase.PLAINS) {
             var49 -= 20;
         }
 
@@ -447,19 +447,19 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
 
         byte var62 = 0;
-        if (var6 == BiomeGenBase.forest) {
+        if (var6 == BiomeGenBase.FOREST) {
             var62 = 2;
         }
 
-        if (var6 == BiomeGenBase.seasonalForest) {
+        if (var6 == BiomeGenBase.SEASONAL_FOREST) {
             var62 = 4;
         }
 
-        if (var6 == BiomeGenBase.taiga) {
+        if (var6 == BiomeGenBase.TAIGA) {
             var62 = 2;
         }
 
-        if (var6 == BiomeGenBase.plains) {
+        if (var6 == BiomeGenBase.PLAINS) {
             var62 = 3;
         }
 
@@ -471,29 +471,29 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
 
         byte var74 = 0;
-        if (var6 == BiomeGenBase.forest) {
+        if (var6 == BiomeGenBase.FOREST) {
             var74 = 2;
         }
 
-        if (var6 == BiomeGenBase.rainforest) {
+        if (var6 == BiomeGenBase.RAINFOREST) {
             var74 = 10;
         }
 
-        if (var6 == BiomeGenBase.seasonalForest) {
+        if (var6 == BiomeGenBase.SEASONAL_FOREST) {
             var74 = 2;
         }
 
-        if (var6 == BiomeGenBase.taiga) {
+        if (var6 == BiomeGenBase.TAIGA) {
             var74 = 1;
         }
 
-        if (var6 == BiomeGenBase.plains) {
+        if (var6 == BiomeGenBase.PLAINS) {
             var74 = 10;
         }
 
         for (int var77 = 0; var77 < var74; ++var77) {
             byte var86 = 1;
-            if (var6 == BiomeGenBase.rainforest && this.rand.nextInt(3) != 0) {
+            if (var6 == BiomeGenBase.RAINFOREST && this.rand.nextInt(3) != 0) {
                 var86 = 2;
             }
 
@@ -504,7 +504,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
 
         var74 = 0;
-        if (var6 == BiomeGenBase.desert) {
+        if (var6 == BiomeGenBase.DESERT) {
             var74 = 2;
         }
 
@@ -551,7 +551,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         }
 
         int var84 = 0;
-        if (var6 == BiomeGenBase.desert) {
+        if (var6 == BiomeGenBase.DESERT) {
             var84 += 10;
         }
 
