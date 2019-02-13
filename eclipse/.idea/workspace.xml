@@ -25,25 +25,675 @@
   <component name="ChangeListManager">
     <list default="true" id="ba981e90-de3d-4686-abdc-e6e3abd063e8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/client/Minecraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/client/Minecraft.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/client/MinecraftApplet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/client/MinecraftApplet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/isom/IsomPreviewApplet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/isom/IsomPreviewApplet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Achievement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Achievement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/AchievementList.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/AchievementList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/AchievementMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/AchievementMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/AxisAlignedBB.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/AxisAlignedBB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenForest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenForest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenHell.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenHell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenRainforest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenRainforest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenSky.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenSky.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenTaiga.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BiomeGenTaiga.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockBed.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockBed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockBookshelf.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockBookshelf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockBreakable.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockBreakable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockCactus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockCactus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockCake.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockCake.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockChest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockChest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockClay.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockClay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockCloth.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockCloth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockCrops.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockCrops.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockDeadBush.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockDeadBush.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockDetectorRail.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockDetectorRail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockDirt.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockDirt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockDispenser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockDispenser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockDoor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockDoor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFarmland.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFarmland.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFence.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFire.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFire.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFlower.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFlower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFlowing.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFlowing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFluid.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFluid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFurnace.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockFurnace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockGlass.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockGlass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockGlowStone.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockGlowStone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockGrass.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockGrass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockGravel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockGravel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockIce.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockIce.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockJukeBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockJukeBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLadder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLadder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLeaves.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLeaves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLeavesBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLeavesBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLever.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLever.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLockedChest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLockedChest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockMobSpawner.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockMobSpawner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockMushroom.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockMushroom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockNetherrack.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockNetherrack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockNote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockObsidian.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockObsidian.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockOre.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockOre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockOreStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockOreStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPistonBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPistonBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPistonExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPistonExtension.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPistonMoving.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPistonMoving.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPortal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPortal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPressurePlate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPressurePlate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPumpkin.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockPumpkin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockRail.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockRail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockRedstoneOre.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockRedstoneOre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockRedstoneRepeater.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockRedstoneRepeater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockRedstoneTorch.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockRedstoneTorch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockRedstoneWire.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockRedstoneWire.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockReed.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockReed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSandStone.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSandStone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSapling.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSapling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSign.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSnow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSnow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSnowBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSnowBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSoulSand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSoulSand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSponge.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockSponge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockStairs.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockStairs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockStationary.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockStationary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockStep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockStone.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockStone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockTNT.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockTNT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockTallGrass.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockTallGrass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockTorch.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockTorch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockTrapDoor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockTrapDoor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockWeb.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockWeb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockWorkbench.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/BlockWorkbench.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CanvasCrashReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CanvasCrashReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CanvasIsomPreview.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CanvasIsomPreview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CanvasMinecraftApplet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CanvasMinecraftApplet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CanvasMojangLogo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CanvasMojangLogo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChatAllowedCharacters.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChatAllowedCharacters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChatLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChatLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Chunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkBlockMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkBlockMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkCoordIntPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkCoordIntPair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkCoordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkCoordinates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkFilePattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkFilePattern.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkFolderPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkFolderPattern.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProviderClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProviderClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProviderGenerate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProviderGenerate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProviderHell.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProviderHell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProviderLoadOrGenerate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProviderLoadOrGenerate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProviderSky.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ChunkProviderSky.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ClippingHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ClippingHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ClippingHelperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ClippingHelperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CodecMus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CodecMus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ColorizerFoliage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ColorizerFoliage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ColorizerGrass.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ColorizerGrass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ColorizerWater.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ColorizerWater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CompressedStreamTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CompressedStreamTools.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Container.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Container.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ContainerChest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ContainerChest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ContainerDispenser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ContainerDispenser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ContainerFurnace.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ContainerFurnace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ContainerPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ContainerPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ContainerWorkbench.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ContainerWorkbench.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CraftingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/CraftingManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/DataWatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/DataWatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EffectRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EffectRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EmptyChunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EmptyChunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityAnimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityAnimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityArrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityArrow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityBoat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityBoat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityBubbleFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityBubbleFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityChicken.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityChicken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityClientPlayerMP.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityClientPlayerMP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityCow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityCow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityCreature.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityCreature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityCreeper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityCreeper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityDiggingFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityDiggingFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityEgg.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityEgg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityExplodeFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityExplodeFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFallingSand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFallingSand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFireball.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFireball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFish.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFish.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFlameFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFlameFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFlying.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFlying.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFootStepFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityFootStepFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityGhast.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityGhast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityGiantZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityGiantZombie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityHeartFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityHeartFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityLavaFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityLavaFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityLightningBolt.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityLightningBolt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityList.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityLiving.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityLiving.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityMinecart.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityMinecart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityMob.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityMob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityNoteFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityNoteFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityOtherPlayerMP.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityOtherPlayerMP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPainting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPainting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPickupFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPickupFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPigZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPigZombie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPlayerSP.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPlayerSP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPortalFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityPortalFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityRainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityRainFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityReddustFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityReddustFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySheep.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySheep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySkeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySkeleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySlime.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySlime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySlimeFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySlimeFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySmokeFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySmokeFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySnowShovelFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySnowShovelFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySnowball.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySnowball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySorter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySpider.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySpider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySplashFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySplashFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySquid.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntitySquid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityTNTPrimed.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityTNTPrimed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityWaterMob.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityWaterMob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityWeatherEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityWeatherEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityWolf.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityWolf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EntityZombie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumArt.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumArt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumCreatureType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumCreatureType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumJsonNodeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumJsonNodeType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumJsonNodeTypeMappingHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumJsonNodeTypeMappingHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumMobType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumMobType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumMovingObjectType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumMovingObjectType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumOS1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumOS1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumOS2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumOS2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumOSMappingHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumOSMappingHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumOptionsMappingHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumOptionsMappingHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumSkyBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumSkyBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumToolMaterial.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/EnumToolMaterial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Explosion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Explosion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/FontRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/FontRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Frustrum.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Frustrum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/FurnaceRecipes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/FurnaceRecipes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GLAllocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GLAllocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GameSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GameSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GameWindowListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GameWindowListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Gui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiAchievement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiAchievement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiAchievements.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiAchievements.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiChat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiChest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiChest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiConflictWarning.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiConflictWarning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiConnectFailed.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiConnectFailed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiConnecting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiConnecting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiControls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiCrafting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiCrafting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiCreateWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiCreateWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiDispenser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiDispenser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiDownloadTerrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiDownloadTerrain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiEditSign.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiEditSign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiErrorScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiErrorScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiFurnace.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiFurnace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiGameOver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiGameOver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiIngame.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiIngame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiIngameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiIngameMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiInventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiMainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiMainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiMultiplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiMultiplayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiParticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiParticle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiRenameWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiRenameWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSelectWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSelectWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSleepMP.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSleepMP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlider.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlotStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlotStats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlotStatsBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlotStatsBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlotStatsGeneral.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlotStatsGeneral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlotStatsItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSlotStatsItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSmallButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiSmallButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiStats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiTextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiTextField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiTexturePackSlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiTexturePackSlot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiTexturePacks.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiTexturePacks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiUnused.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiUnused.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiVideoSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiVideoSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiWorldSlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiWorldSlot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiYesNo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/GuiYesNo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IBlockAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IBlockAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ICamera.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ICamera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IChunkLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IChunkLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IChunkProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IChunkProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ICrafting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ICrafting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IInvBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IInvBasic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IInventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IProgressUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IProgressUpdate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ISaveFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ISaveFormat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ISaveHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ISaveHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IStatStringFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IStatStringFormat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IStatType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IStatType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IWorldAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IWorldAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ImageBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ImageBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ImageBufferDownload.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ImageBufferDownload.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/InventoryBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/InventoryBasic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/InventoryCraftResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/InventoryCraftResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/InventoryCrafting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/InventoryCrafting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/InventoryLargeChest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/InventoryLargeChest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/InventoryPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/InventoryPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IsoImageBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/IsoImageBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemArmor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemArmor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemAxe.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemAxe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemBed.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemBed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemBoat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemBoat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemBow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemBow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemBucket.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemBucket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemCloth.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemCloth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemCoal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemCoal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemCookie.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemCookie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemDoor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemDoor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemDye.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemDye.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemEgg.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemEgg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemFishingRod.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemFishingRod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemFlintAndSteel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemFlintAndSteel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemFood.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemFood.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemHoe.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemHoe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemLeaves.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemLeaves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemMapBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemMapBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemMinecart.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemMinecart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemPainting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemPainting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemPickaxe.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemPickaxe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemPiston.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemPiston.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemRedstone.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemRedstone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemReed.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemReed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSaddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSaddle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSapling.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSapling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSeeds.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSeeds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemShears.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemShears.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSign.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSlab.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSlab.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSnowball.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSnowball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSoup.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSoup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSpade.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSpade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemStack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSword.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemSword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ItemTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_ArrayNodeContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_ArrayNodeContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_ChainedFunctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_ChainedFunctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_CompactJsonFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_CompactJsonFormatter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_FieldNodeContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_FieldNodeContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_Functor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_Functor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_InvalidSyntaxException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_InvalidSyntaxException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JdomParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JdomParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonArrayNodeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonArrayNodeBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonArrayNodeSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonArrayNodeSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonElementNodeSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonElementNodeSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonEscapedString.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonEscapedString.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonFalseNodeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonFalseNodeBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonFieldBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonFieldBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonFieldNodeSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonFieldNodeSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonFormatter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonListenerToJdomAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonListenerToJdomAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeBuilders.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeBuilders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeDoesNotMatchJsonNodeSelectorException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeDoesNotMatchJsonNodeSelectorException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeDoesNotMatchPathElementsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeDoesNotMatchPathElementsException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeFactories.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeFactories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeList.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeSelectors.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNodeSelectors.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNullNodeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNullNodeBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNumberNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNumberNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNumberNodeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonNumberNodeBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonObjectNodeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonObjectNodeBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonObjectNodeList.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonObjectNodeList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonObjectNodeSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonObjectNodeSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonStringNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonStringNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonStringNodeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonStringNodeBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonStringNodeSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonStringNodeSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonTrueNodeBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_JsonTrueNodeBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_LeafFunctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_LeafFunctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_NodeContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_NodeContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_ObjectNodeContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_ObjectNodeContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_PositionTrackingPushbackReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_PositionTrackingPushbackReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_SajParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_SajParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_ThingWithPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/J_ThingWithPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/KeyBinding.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/KeyBinding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/LoadingScreenRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/LoadingScreenRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MCHash.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MCHash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MCHashEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MCHashEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MD5String.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MD5String.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapColor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapCoord.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapCoord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapDataBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapDataBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapGenBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapGenBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapGenCaves.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapGenCaves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapGenCavesHell.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapGenCavesHell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapItemRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapItemRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MapStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Material.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MaterialLiquid.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MaterialLiquid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MaterialLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MaterialLogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MaterialPortal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MaterialPortal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MaterialTransparent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MaterialTransparent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MathHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MathHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/McRegionChunkLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/McRegionChunkLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MetadataChunkBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MetadataChunkBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MinecraftAppletImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MinecraftAppletImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MinecraftException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MinecraftException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MinecraftImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MinecraftImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelBed.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelBed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelBiped.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelBiped.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelBoat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelBoat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelChicken.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelChicken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelCow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelCow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelCreeper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelCreeper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelGhast.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelGhast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelMinecart.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelMinecart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelPig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelPig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelQuadruped.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelQuadruped.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSheep1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSheep1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSheep2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSheep2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSkeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSkeleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSlime.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSlime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSpider.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSpider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSquid.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelSquid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelWolf.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelWolf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ModelZombie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MouseFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MouseFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MouseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MouseHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MovementInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MovementInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MovementInputFromOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MovementInputFromOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MovingObjectPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MovingObjectPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MusInputStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/MusInputStream.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagByte.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagByte.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagByteArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagByteArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagCompound.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagCompound.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagDouble.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagDouble.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagEnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagEnd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagFloat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagFloat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagInt.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagInt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagList.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagLong.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagLong.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagShort.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagShort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagString.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NBTTagString.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetworkManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetworkMasterThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetworkMasterThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetworkReaderThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetworkReaderThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetworkWriterThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NetworkWriterThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NextTickListEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NextTickListEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NibbleArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NibbleArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NoiseGenerator2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NoiseGenerator2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NoiseGeneratorOctaves.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NoiseGeneratorOctaves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NoiseGeneratorOctaves2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NoiseGeneratorOctaves2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NoiseGeneratorPerlin.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/NoiseGeneratorPerlin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/OpenGlCapsChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/OpenGlCapsChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/OsMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/OsMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet0KeepAlive.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet0KeepAlive.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet100OpenWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet100OpenWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet101CloseWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet101CloseWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet102WindowClick.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet102WindowClick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet103SetSlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet103SetSlot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet104WindowItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet104WindowItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet105UpdateProgressbar.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet105UpdateProgressbar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet106Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet106Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet10Flying.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet10Flying.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet11PlayerPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet11PlayerPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet12PlayerLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet12PlayerLook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet130UpdateSign.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet130UpdateSign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet131MapData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet131MapData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet13PlayerLookMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet13PlayerLookMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet14BlockDig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet14BlockDig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet15Place.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet15Place.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet16BlockItemSwitch.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet16BlockItemSwitch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet17Sleep.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet17Sleep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet18Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet18Animation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet19EntityAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet19EntityAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet1Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet1Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet200Statistic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet200Statistic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet20NamedEntitySpawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet20NamedEntitySpawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet21PickupSpawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet21PickupSpawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet22Collect.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet22Collect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet23VehicleSpawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet23VehicleSpawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet24MobSpawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet24MobSpawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet255KickDisconnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet255KickDisconnect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet25EntityPainting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet25EntityPainting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet27Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet27Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet28EntityVelocity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet28EntityVelocity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet29DestroyEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet29DestroyEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet2Handshake.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet2Handshake.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet30Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet30Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet31RelEntityMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet31RelEntityMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet32EntityLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet32EntityLook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet33RelEntityMoveLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet33RelEntityMoveLook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet34EntityTeleport.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet34EntityTeleport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet38EntityStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet38EntityStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet39AttachEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet39AttachEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet3Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet3Chat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet40EntityMetadata.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet40EntityMetadata.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet4UpdateTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet4UpdateTime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet50PreChunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet50PreChunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet51MapChunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet51MapChunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet52MultiBlockChange.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet52MultiBlockChange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet53BlockChange.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet53BlockChange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet54PlayNoteBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet54PlayNoteBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet5PlayerInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet5PlayerInventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet60Explosion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet60Explosion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet61DoorChange.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet61DoorChange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet6SpawnPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet6SpawnPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet70Bed.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet70Bed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet71Weather.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet71Weather.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet7UseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet7UseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet8UpdateHealth.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet8UpdateHealth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet9Respawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Packet9Respawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PacketCounter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PacketCounter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PanelCrashReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PanelCrashReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Particle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Particle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Path.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Path.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PathEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PathEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PathPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PathPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Pathfinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Pathfinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PistonBlockTextures.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PistonBlockTextures.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PlayerControllerMP.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PlayerControllerMP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PlayerControllerSP.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PlayerControllerSP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PlayerControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PlayerControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PositionTextureVertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/PositionTextureVertex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RailLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RailLogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipeSorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipeSorter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesArmor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesArmor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesCrafting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesCrafting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesDyes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesDyes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesFood.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesFood.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesIngots.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesIngots.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesTools.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesWeapons.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RecipesWeapons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RedstoneUpdateInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RedstoneUpdateInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RegionFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RegionFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RegionFileCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RegionFileCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RegionFileChunkBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RegionFileChunkBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Render.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Render.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderArrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderArrow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderBiped.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderBiped.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderBlocks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderBoat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderBoat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderChicken.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderChicken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderCow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderCow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderCreeper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderCreeper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderFallingSand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderFallingSand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderFireball.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderFireball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderFish.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderFish.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderGhast.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderGhast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderGiantZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderGiantZombie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderGlobal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderGlobal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockPistonBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockPistonBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockPistonExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockPistonExtension.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockRedstoneWire.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockRedstoneWire.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockStairs.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockStairs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Chunk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/CraftingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/CraftingManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/DataWatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/DataWatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityPainting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityPainting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityTracker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Explosion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Explosion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NBTTagList.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NBTTagList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetworkAcceptThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetworkAcceptThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetworkListenThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetworkListenThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/PlayerInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/PlayerInstance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/RegionFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/RegionFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/SaveConverterMcRegion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/SaveConverterMcRegion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderLightningBolt.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderLightningBolt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderList.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderLiving.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderLiving.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderMinecart.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderMinecart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderPainting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderPainting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderPig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderPig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSheep.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSheep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSlime.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSlime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSnowball.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSnowball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSorter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSpider.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSpider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSquid.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderSquid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderTNTPrimed.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderTNTPrimed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderWolf.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderWolf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveConverterMcRegion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveConverterMcRegion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveFormatComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveFormatComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveFormatOld.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveFormatOld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveHandlerMP.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveHandlerMP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveOldDir.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SaveOldDir.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ScaledResolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ScaledResolution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ScreenShotHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ScreenShotHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ShapedRecipes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ShapedRecipes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ShapelessRecipes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ShapelessRecipes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SignModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SignModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Slot.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Slot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SlotArmor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SlotArmor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SlotCrafting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SlotCrafting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SlotFurnace.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SlotFurnace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SorterStatsBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SorterStatsBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SorterStatsItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SorterStatsItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SoundManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SoundPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SoundPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SoundPoolEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SoundPoolEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SpawnListEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SpawnListEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SpawnerAnimals.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/SpawnerAnimals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatBasic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatCollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatCollector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatCrafting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatCrafting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatFileWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatFileWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatList.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatStringFormatKeyInv.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatStringFormatKeyInv.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatTypeDistance.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatTypeDistance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatTypeSimple.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatTypeSimple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatTypeTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatTypeTime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatsSyncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StatsSyncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StepSound.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StepSound.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StepSoundSand.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StepSoundSand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StepSoundStone.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StepSoundStone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StringTranslate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/StringTranslate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Teleporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Teleporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TerrainTextureManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TerrainTextureManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Tessellator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Tessellator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureCompassFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureCompassFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureFlamesFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureFlamesFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureLavaFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureLavaFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureLavaFlowFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureLavaFlowFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturePackBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturePackBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturePackCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturePackCustom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturePackDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturePackDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturePackList.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturePackList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturePortalFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturePortalFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureWatchFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureWatchFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureWaterFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureWaterFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureWaterFlowFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TextureWaterFlowFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturedQuad.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TexturedQuad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadCheckHasPaid.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadCheckHasPaid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadCloseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadCloseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadConnectToServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadConnectToServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadDownloadImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadDownloadImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadDownloadImageData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadDownloadImageData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadDownloadResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadDownloadResources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadRunIsoClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadRunIsoClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadSleepForever.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadSleepForever.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadStatSyncherReceive.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadStatSyncherReceive.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadStatSyncherSend.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/ThreadStatSyncherSend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityChest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityChest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityDispenser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityDispenser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityFurnace.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityFurnace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityMobSpawner.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityMobSpawner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityMobSpawnerRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityMobSpawnerRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityNote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityPiston.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityPiston.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityRecordPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityRecordPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityRendererPiston.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntityRendererPiston.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntitySign.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntitySign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntitySignRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntitySignRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntitySpecialRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/TileEntitySpecialRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Timer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Timer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/UnexpectedThrowable.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/UnexpectedThrowable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Vec3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/Vec3D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WatchableObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WatchableObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldBlockPositionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldBlockPositionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldChunkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldChunkManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldChunkManagerHell.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldChunkManagerHell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenBigTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenBigTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenCactus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenCactus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenClay.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenClay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenDeadBush.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenDeadBush.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenDungeons.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenDungeons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenFire.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenFire.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenFlowers.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenFlowers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenForest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenForest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenGlowStone1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenGlowStone1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenGlowStone2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenGlowStone2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenHellLava.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenHellLava.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenLakes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenLakes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenLiquids.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenLiquids.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenMinable.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenMinable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenPumpkin.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenPumpkin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenReed.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenReed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenTaiga1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenTaiga1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenTaiga2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenTaiga2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenTallGrass.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenTallGrass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenTrees.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenTrees.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldProviderHell.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldProviderHell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldProviderSky.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldProviderSky.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/minecraft/net/minecraft/src/WorldRenderer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/Client/bin/" />
     <ignored path="$PROJECT_DIR$/Server/bin/" />
@@ -59,7 +709,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Explosion.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="108">
-              <caret line="111" column="9" lean-forward="true" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
+              <caret line="111" column="9" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -68,7 +718,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/SaveConverterMcRegion.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="121">
-              <caret line="39" selection-start-line="39" selection-end-line="39" />
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
             </state>
           </provider>
         </entry>
@@ -77,7 +727,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockRedstoneWire.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="213">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+              <caret line="56" selection-start-line="56" selection-end-line="56" />
             </state>
           </provider>
         </entry>
@@ -86,7 +736,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Block.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="290">
-              <caret line="244" lean-forward="true" selection-start-line="244" selection-end-line="244" />
+              <caret line="267" selection-start-line="267" selection-end-line="267" />
             </state>
           </provider>
         </entry>
@@ -95,7 +745,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityPainting.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="14">
-              <caret line="22" column="17" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+              <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -104,7 +754,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetServerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="83">
-              <caret line="498" column="17" selection-start-line="498" selection-start-column="17" selection-end-line="498" selection-end-column="17" />
+              <caret line="499" column="20" selection-start-line="499" selection-start-column="20" selection-end-line="499" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -113,7 +763,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockPistonBase.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="290">
-              <caret line="201" column="4" lean-forward="true" selection-start-line="201" selection-start-column="4" selection-end-line="201" selection-end-column="4" />
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
             </state>
           </provider>
         </entry>
@@ -122,7 +772,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockStairs.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="83">
-              <caret line="27" column="4" lean-forward="true" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+              <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -131,7 +781,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockPistonExtension.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="175">
-              <caret line="83" column="72" lean-forward="true" selection-start-line="83" selection-start-column="72" selection-end-line="83" selection-end-column="72" />
+              <caret line="87" column="79" selection-start-line="87" selection-start-column="79" selection-end-line="87" selection-end-column="79" />
             </state>
           </provider>
         </entry>
@@ -140,7 +790,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetworkAcceptThread.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="336">
-              <caret line="43" column="1" lean-forward="true" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
+              <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -149,7 +799,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetworkListenThread.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="203">
-              <caret line="78" lean-forward="true" selection-start-line="78" selection-end-line="78" />
+              <caret line="41" selection-start-line="41" selection-end-line="41" />
             </state>
           </provider>
         </entry>
@@ -158,7 +808,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/RegionFile.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="350">
-              <caret line="267" lean-forward="true" selection-start-line="267" selection-end-line="267" />
+              <caret line="262" selection-start-line="262" selection-end-line="262" />
             </state>
           </provider>
         </entry>
@@ -166,8 +816,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/CraftingManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="105" column="7" lean-forward="true" selection-start-line="105" selection-start-column="7" selection-end-line="105" selection-end-column="7" />
+            <state relative-caret-position="2300">
+              <caret line="105" column="9" selection-start-line="105" selection-start-column="9" selection-end-line="105" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -185,7 +835,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityMinecart.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="10258">
-              <caret line="458" column="30" selection-start-line="458" selection-start-column="30" selection-end-line="458" selection-end-column="30" />
+              <caret line="458" column="35" selection-start-line="458" selection-start-column="35" selection-end-line="458" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -194,7 +844,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockRedstoneTorch.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="460">
-              <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+              <caret line="28" column="38" selection-start-line="28" selection-start-column="38" selection-end-line="28" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -212,7 +862,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Packet24MobSpawn.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1127">
-              <caret line="52" column="4" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="4" />
+              <caret line="52" column="5" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -230,7 +880,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Packet104WindowItems.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
-              <caret line="18" column="63" selection-start-line="18" selection-start-column="63" selection-end-line="18" selection-end-column="63" />
+              <caret line="18" column="66" selection-start-line="18" selection-start-column="66" selection-end-line="18" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -238,8 +888,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/AxisAlignedBB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="667">
-              <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+            <state relative-caret-position="345">
+              <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -248,7 +898,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="4094">
-              <caret line="182" column="29" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
+              <caret line="196" column="34" selection-start-line="196" selection-start-column="34" selection-end-line="196" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -266,7 +916,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Packet40EntityMetadata.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="299">
-              <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
+              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -275,7 +925,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/DataWatcher.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="88">
-              <caret line="170" column="5" lean-forward="true" selection-start-line="170" selection-start-column="5" selection-end-line="170" selection-end-column="5" />
+              <caret line="114" column="5" selection-start-line="114" selection-start-column="5" selection-end-line="114" selection-end-column="5" />
               <folding>
                 <element signature="e#1174#1175#0" expanded="true" />
                 <element signature="e#1245#1246#0" expanded="true" />
@@ -292,7 +942,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EmptyChunk.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1771">
-              <caret line="99" column="90" selection-start-line="99" selection-start-column="90" selection-end-line="99" selection-end-column="90" />
+              <caret line="99" column="91" selection-start-line="99" selection-start-column="91" selection-end-line="99" selection-end-column="91" />
             </state>
           </provider>
         </entry>
@@ -310,7 +960,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Chunk.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+              <caret line="60" selection-start-line="60" selection-end-line="60" />
             </state>
           </provider>
         </entry>
@@ -319,7 +969,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderGlobal.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="23">
-              <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+              <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -328,7 +978,7 @@
         <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityTracker.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="129">
-              <caret line="98" selection-start-line="98" selection-end-line="98" />
+              <caret line="99" selection-start-line="99" selection-end-line="99" />
             </state>
           </provider>
         </entry>
@@ -448,41 +1098,18 @@
           <expand>
             <path>
               <item name="Begin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="47feb1d3:ProjectViewModuleNode" />
+              <item name="Client" type="47feb1d3:ProjectViewModuleNode" />
             </path>
             <path>
               <item name="Begin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="minecraft_server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Begin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="minecraft_server" type="462c0819:PsiDirectoryNode" />
-              <item name="net" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Begin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="minecraft_server" type="462c0819:PsiDirectoryNode" />
-              <item name="net" type="462c0819:PsiDirectoryNode" />
+              <item name="Client" type="47feb1d3:ProjectViewModuleNode" />
               <item name="minecraft" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Begin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="minecraft_server" type="462c0819:PsiDirectoryNode" />
-              <item name="net" type="462c0819:PsiDirectoryNode" />
+              <item name="Client" type="47feb1d3:ProjectViewModuleNode" />
               <item name="minecraft" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Begin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="minecraft_server" type="462c0819:PsiDirectoryNode" />
               <item name="net" type="462c0819:PsiDirectoryNode" />
-              <item name="minecraft" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -589,7 +1216,7 @@
       <option name="presentableId" value="Default" />
       <updated>1549995864865</updated>
       <workItem from="1549995871524" duration="13566000" />
-      <workItem from="1550055061190" duration="1616000" />
+      <workItem from="1550055061190" duration="1892000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1549998937972</created>
@@ -619,17 +1246,30 @@
       <option name="project" value="LOCAL" />
       <updated>1550012302646</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="More generic">
+      <created>1550056948800</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1550056948800</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Server code style fixes">
+      <created>1550057104708</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1550057104708</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15182000" />
+    <option name="totallyTimeSpent" value="15458000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="348" y="413" width="1580" height="684" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19868422" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1609808" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -674,7 +1314,9 @@
     <MESSAGE value="Commented resource downloader thread" />
     <MESSAGE value="Small client refactoring" />
     <MESSAGE value="Tons of fixes generic collections" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tons of fixes generic collections" />
+    <MESSAGE value="More generic" />
+    <MESSAGE value="Server code style fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Server code style fixes" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://$PROJECT_DIR$/../jars/bin/lwjgl.jar!/org/lwjgl/opengl/GL11.class">
@@ -1049,14 +1691,14 @@
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityMinecart.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10258">
-          <caret line="458" column="30" selection-start-line="458" selection-start-column="30" selection-end-line="458" selection-end-column="30" />
+          <caret line="458" column="35" selection-start-line="458" selection-start-column="35" selection-end-line="458" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockRedstoneTorch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
-          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+          <caret line="28" column="38" selection-start-line="28" selection-start-column="38" selection-end-line="28" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -1070,7 +1712,7 @@
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Packet24MobSpawn.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1127">
-          <caret line="52" column="4" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="4" />
+          <caret line="52" column="5" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1084,21 +1726,21 @@
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Packet104WindowItems.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
-          <caret line="18" column="63" selection-start-line="18" selection-start-column="63" selection-end-line="18" selection-end-column="63" />
+          <caret line="18" column="66" selection-start-line="18" selection-start-column="66" selection-end-line="18" selection-end-column="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/AxisAlignedBB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+        <state relative-caret-position="345">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4094">
-          <caret line="182" column="29" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
+          <caret line="196" column="34" selection-start-line="196" selection-start-column="34" selection-end-line="196" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -1112,14 +1754,14 @@
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Packet40EntityMetadata.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
-          <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
+          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EmptyChunk.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1771">
-          <caret line="99" column="90" selection-start-line="99" selection-start-column="90" selection-end-line="99" selection-end-column="90" />
+          <caret line="99" column="91" selection-start-line="99" selection-start-column="91" selection-end-line="99" selection-end-column="91" />
         </state>
       </provider>
     </entry>
@@ -1133,112 +1775,112 @@
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Chunk.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft/net/minecraft/src/RenderGlobal.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
-          <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityTracker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="129">
-          <caret line="98" selection-start-line="98" selection-end-line="98" />
+          <caret line="99" selection-start-line="99" selection-end-line="99" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Explosion.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
-          <caret line="111" column="9" lean-forward="true" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
+          <caret line="111" column="9" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/SaveConverterMcRegion.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="121">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockRedstoneWire.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/Block.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
-          <caret line="244" lean-forward="true" selection-start-line="244" selection-end-line="244" />
+          <caret line="267" selection-start-line="267" selection-end-line="267" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetworkListenThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
-          <caret line="78" lean-forward="true" selection-start-line="78" selection-end-line="78" />
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/RegionFile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
-          <caret line="267" lean-forward="true" selection-start-line="267" selection-end-line="267" />
+          <caret line="262" selection-start-line="262" selection-end-line="262" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/EntityPainting.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14">
-          <caret line="22" column="17" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+          <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="83">
-          <caret line="498" column="17" selection-start-line="498" selection-start-column="17" selection-end-line="498" selection-end-column="17" />
+          <caret line="499" column="20" selection-start-line="499" selection-start-column="20" selection-end-line="499" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockPistonBase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
-          <caret line="201" column="4" lean-forward="true" selection-start-line="201" selection-start-column="4" selection-end-line="201" selection-end-column="4" />
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockStairs.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="83">
-          <caret line="27" column="4" lean-forward="true" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/BlockPistonExtension.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
-          <caret line="83" column="72" lean-forward="true" selection-start-line="83" selection-start-column="72" selection-end-line="83" selection-end-column="72" />
+          <caret line="87" column="79" selection-start-line="87" selection-start-column="79" selection-end-line="87" selection-end-column="79" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/NetworkAcceptThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
-          <caret line="43" column="1" lean-forward="true" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
+          <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/DataWatcher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
-          <caret line="170" column="5" lean-forward="true" selection-start-line="170" selection-start-column="5" selection-end-line="170" selection-end-column="5" />
+          <caret line="114" column="5" selection-start-line="114" selection-start-column="5" selection-end-line="114" selection-end-column="5" />
           <folding>
             <element signature="e#1174#1175#0" expanded="true" />
             <element signature="e#1245#1246#0" expanded="true" />
@@ -1252,8 +1894,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../src/minecraft_server/net/minecraft/src/CraftingManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="105" column="7" lean-forward="true" selection-start-line="105" selection-start-column="7" selection-end-line="105" selection-end-column="7" />
+        <state relative-caret-position="2300">
+          <caret line="105" column="9" selection-start-line="105" selection-start-column="9" selection-end-line="105" selection-end-column="9" />
         </state>
       </provider>
     </entry>

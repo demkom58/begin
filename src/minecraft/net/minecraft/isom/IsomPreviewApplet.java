@@ -1,22 +1,23 @@
 package net.minecraft.isom;
 
-import java.applet.Applet;
-import java.awt.BorderLayout;
 import net.minecraft.src.CanvasIsomPreview;
 
+import java.applet.Applet;
+import java.awt.*;
+
 public class IsomPreviewApplet extends Applet {
-   private CanvasIsomPreview a = new CanvasIsomPreview();
+    private CanvasIsomPreview a = new CanvasIsomPreview();
 
-   public IsomPreviewApplet() {
-      this.setLayout(new BorderLayout());
-      this.add(this.a, "Center");
-   }
+    public IsomPreviewApplet() {
+        this.setLayout(new BorderLayout());
+        this.add(this.a, "Center");
+    }
 
-   public void start() {
-      this.a.func_1272_b();
-   }
+    public void start() {
+        this.a.func_1272_b();
+    }
 
-   public void stop() {
-      this.a.exit();
-   }
+    public void stop() {
+        this.a.exit();
+    }
 }
