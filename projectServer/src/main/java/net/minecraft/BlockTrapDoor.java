@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.Vec3D;
+
 public class BlockTrapDoor extends Block {
     protected BlockTrapDoor(int var1, Material var2) {
         super(var1, var2);

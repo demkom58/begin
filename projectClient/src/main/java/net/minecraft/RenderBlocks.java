@@ -2,6 +2,8 @@ package net.minecraft;
 
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
+import util.Vec3D;
 
 public class RenderBlocks {
     public static boolean fancyGrass = true;

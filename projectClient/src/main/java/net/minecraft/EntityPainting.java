@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import net.minecraft.nbt.NBTTagCompound;
+import util.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;

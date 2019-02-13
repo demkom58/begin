@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
 
 public class EntityFootStepFX extends EntityFX {
     private int field_27018_a = 0;

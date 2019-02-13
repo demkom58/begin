@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class PathPoint {
     public final int xCoord;
     public final int yCoord;

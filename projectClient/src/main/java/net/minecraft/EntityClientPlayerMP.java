@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import net.minecraft.client.Minecraft;
+import util.MathHelper;
 
 public class EntityClientPlayerMP extends EntityPlayerSP {
     public NetClientHandler sendQueue;

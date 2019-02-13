@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import util.MathHelper;
+import util.Vec3D;
+
 public abstract class WorldProvider {
     public World worldObj;
     public WorldChunkManager worldChunkMgr;

@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 import java.util.Date;
 
 class GuiWorldSlot extends GuiSlot {

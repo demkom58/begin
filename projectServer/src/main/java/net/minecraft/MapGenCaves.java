@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 import java.util.Random;
 
 public class MapGenCaves extends MapGenBase {

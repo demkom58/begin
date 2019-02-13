@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 import java.util.*;
 
 public class Chunk {

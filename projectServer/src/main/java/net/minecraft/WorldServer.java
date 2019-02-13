@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import net.minecraft.server.MinecraftServer;
+import util.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;

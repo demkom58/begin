@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import util.MathHelper;
+import util.Vec3D;
+
 public class EntityCreature extends EntityLiving {
     protected Entity playerToAttack;
     protected boolean hasAttacked = false;

@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import org.lwjgl.opengl.GL11;
+import util.Vec3D;
 
 import java.nio.FloatBuffer;
 

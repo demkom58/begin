@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class ItemMap extends ItemMapBase {
     protected ItemMap(int var1) {
         super(var1);

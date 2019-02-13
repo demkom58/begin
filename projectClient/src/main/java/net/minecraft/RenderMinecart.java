@@ -1,6 +1,8 @@
 package net.minecraft;
 
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
+import util.Vec3D;
 
 public class RenderMinecart extends Render {
     protected ModelBase modelMinecart;

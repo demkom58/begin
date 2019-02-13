@@ -3,6 +3,8 @@ package net.minecraft;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.ARBOcclusionQuery;
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
+import util.Vec3D;
 
 import java.nio.IntBuffer;
 import java.util.*;

@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class EntityFlying extends EntityLiving {
     public EntityFlying(World var1) {
         super(var1);

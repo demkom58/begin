@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class ModelBiped extends ModelBase {
     public ModelRenderer bipedHead;
     public ModelRenderer bipedHeadwear;

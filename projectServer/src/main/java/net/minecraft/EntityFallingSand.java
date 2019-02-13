@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import net.minecraft.nbt.NBTTagCompound;
+import util.MathHelper;
 
 public class EntityFallingSand extends Entity {
     public int blockID;

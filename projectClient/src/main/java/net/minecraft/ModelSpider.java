@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class ModelSpider extends ModelBase {
     public ModelRenderer spiderHead;
     public ModelRenderer spiderNeck;

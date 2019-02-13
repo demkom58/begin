@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
 
 public class EntityPickupFX extends EntityFX {
     private Entity field_675_a;

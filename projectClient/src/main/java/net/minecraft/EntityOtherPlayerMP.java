@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class EntityOtherPlayerMP extends EntityPlayer {
     float field_20924_a = 0.0F;
     private int field_785_bg;

@@ -177,7 +177,7 @@ public class ChunkProviderServer implements IChunkProvider {
         if (!this.world.levelSaving) {
             for (int i = 0; i < 100; ++i) {
                 if (!this.chunkCoords.isEmpty()) {
-                    Integer id = this.chunkCoords.iterator().next();
+                    int id = this.chunkCoords.iterator().nextInt();
                     Chunk chunk = this.id2ChunkMap.get(id);
                     chunk.onChunkUnload();
                     this.saveChunk(chunk);

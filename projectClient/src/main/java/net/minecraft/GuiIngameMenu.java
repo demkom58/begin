@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class GuiIngameMenu extends GuiScreen {
     private int updateCounter2 = 0;
     private int updateCounter = 0;

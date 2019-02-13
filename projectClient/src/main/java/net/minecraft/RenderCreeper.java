@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
 
 public class RenderCreeper extends RenderLiving {
     private ModelBase field_27008_a = new ModelCreeper(2.0F);

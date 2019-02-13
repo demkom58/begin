@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import util.MathHelper;
+import util.Vec3D;
+
 public class ItemBoat extends Item {
     public ItemBoat(int var1) {
         super(var1);

@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class ItemBed extends Item {
     public ItemBed(int var1) {
         super(var1);

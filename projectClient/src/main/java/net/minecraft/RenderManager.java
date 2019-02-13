@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
 
 import java.util.HashMap;
 import java.util.Map;

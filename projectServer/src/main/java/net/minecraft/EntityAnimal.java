@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import net.minecraft.nbt.NBTTagCompound;
+import util.MathHelper;
 
 public abstract class EntityAnimal extends EntityCreature implements IAnimals {
     public EntityAnimal(World var1) {

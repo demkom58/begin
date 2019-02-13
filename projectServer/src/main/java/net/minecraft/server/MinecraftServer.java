@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import net.minecraft.*;
+import util.Vec3D;
 
 import java.awt.*;
 import java.io.File;

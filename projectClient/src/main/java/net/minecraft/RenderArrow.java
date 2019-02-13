@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
 
 public class RenderArrow extends Render {
     public void renderArrow(EntityArrow var1, double var2, double var4, double var6, float var8, float var9) {

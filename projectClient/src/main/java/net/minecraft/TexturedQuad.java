@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.Vec3D;
+
 public class TexturedQuad {
     public PositionTextureVertex[] vertexPositions;
     public int nVertices;

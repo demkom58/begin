@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class ItemSign extends Item {
     public ItemSign(int var1) {
         super(var1);

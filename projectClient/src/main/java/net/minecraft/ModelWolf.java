@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
 
 public class ModelWolf extends ModelBase {
     public ModelRenderer wolfHeadMain;

@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.Vec3D;
+
 import java.util.Random;
 
 public class BlockDoor extends Block {

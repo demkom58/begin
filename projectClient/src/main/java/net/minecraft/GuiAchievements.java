@@ -2,6 +2,7 @@ package net.minecraft;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import util.MathHelper;
 
 import java.util.Random;
 

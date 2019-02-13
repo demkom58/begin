@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;

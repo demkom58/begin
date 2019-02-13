@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class ModelCreeper extends ModelBase {
     public ModelRenderer head;
     public ModelRenderer field_1270_b;

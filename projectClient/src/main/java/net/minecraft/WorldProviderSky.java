@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import util.MathHelper;
+import util.Vec3D;
+
 public class WorldProviderSky extends WorldProvider {
     public void registerWorldChunkManager() {
         this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.sky, 0.5D, 0.0D);

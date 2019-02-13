@@ -1,6 +1,7 @@
 package net.minecraft;
 
 import org.lwjgl.input.Keyboard;
+import util.MathHelper;
 
 import java.util.Random;
 

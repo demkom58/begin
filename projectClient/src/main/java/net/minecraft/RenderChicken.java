@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class RenderChicken extends RenderLiving {
     public RenderChicken(ModelBase var1, float var2) {
         super(var1, var2);

@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class ModelQuadruped extends ModelBase {
     public ModelRenderer head = new ModelRenderer(0, 0);
     public ModelRenderer body;

@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import util.MathHelper;
+import util.Vec3D;
+
 import java.util.ArrayList;
 import java.util.Random;
 

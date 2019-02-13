@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import util.MathHelper;
+
 public class BlockPumpkin extends Block {
     private boolean blockType;
 
