@@ -27,16 +27,16 @@ public class GuiControls extends GuiScreen {
         this.screenTitle = var1.translateKey("controls.title");
     }
 
-    protected void actionPerformed(GuiButton var1) {
+    protected void actionPerformed(GuiButton button) {
         for (int var2 = 0; var2 < this.options.keyBindings.length; ++var2) {
             ((GuiButton) this.controlList.get(var2)).displayString = this.options.getOptionDisplayString(var2);
         }
 
-        if (var1.id == 200) {
+        if (button.id == 200) {
             this.mc.displayGuiScreen(this.parentScreen);
         } else {
-            this.buttonId = var1.id;
-            var1.displayString = "> " + this.options.getOptionDisplayString(var1.id) + " <";
+            this.buttonId = button.id;
+            button.displayString = "> " + this.options.getOptionDisplayString(button.id) + " <";
         }
 
     }

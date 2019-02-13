@@ -19,12 +19,12 @@ public class GuiIngameMenu extends GuiScreen {
         this.controlList.add(new GuiButton(6, this.width / 2 + 2, this.height / 4 + 48 + var1, 98, 20, StatCollector.translateToLocal("gui.stats")));
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.id == 0) {
+    protected void actionPerformed(GuiButton button) {
+        if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
         }
 
-        if (var1.id == 1) {
+        if (button.id == 1) {
             this.mc.statFileWriter.readStat(StatList.leaveGameStat, 1);
             if (this.mc.isMultiplayerWorld()) {
                 this.mc.theWorld.sendQuittingDisconnectingPacket();
@@ -34,16 +34,16 @@ public class GuiIngameMenu extends GuiScreen {
             this.mc.displayGuiScreen(new GuiMainMenu());
         }
 
-        if (var1.id == 4) {
+        if (button.id == 4) {
             this.mc.displayGuiScreen((GuiScreen) null);
             this.mc.setIngameFocus();
         }
 
-        if (var1.id == 5) {
+        if (button.id == 5) {
             this.mc.displayGuiScreen(new GuiAchievements(this.mc.statFileWriter));
         }
 
-        if (var1.id == 6) {
+        if (button.id == 6) {
             this.mc.displayGuiScreen(new GuiStats(this, this.mc.statFileWriter));
         }
 

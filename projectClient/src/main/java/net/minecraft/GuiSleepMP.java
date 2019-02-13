@@ -33,11 +33,11 @@ public class GuiSleepMP extends GuiChat {
         super.drawScreen(var1, var2, var3);
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.id == 1) {
+    protected void actionPerformed(GuiButton button) {
+        if (button.id == 1) {
             this.func_22115_j();
         } else {
-            super.actionPerformed(var1);
+            super.actionPerformed(button);
         }
 
     }

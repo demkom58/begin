@@ -15,27 +15,31 @@ public class SaveConverterMcRegion extends SaveFormatOld {
         return "Scaevolus' McRegion";
     }
 
-    public List func_22176_b() {
-        ArrayList var1 = new ArrayList();
-        File[] var2 = this.field_22180_a.listFiles();
+    public List<SaveFormatComparator> func_22176_b() {
+        List<SaveFormatComparator> loaded = new ArrayList<>();
+        File[] files = this.field_22180_a.listFiles();
 
-        for (File var6 : var2) {
-            if (var6.isDirectory()) {
-                String var7 = var6.getName();
-                WorldInfo var8 = this.func_22173_b(var7);
-                if (var8 != null) {
-                    boolean var9 = var8.getSaveVersion() != 19132;
-                    String var10 = var8.getWorldName();
-                    if (var10 == null || MathHelper.stringNullOrLengthZero(var10)) {
-                        var10 = var7;
+        if (files == null) {
+            return loaded;
+        }
+
+        for (File file : files) {
+            if (file.isDirectory()) {
+                String name = file.getName();
+                WorldInfo worldInfo = this.func_22173_b(name);
+                if (worldInfo != null) {
+                    boolean badVersion = worldInfo.getSaveVersion() != 19132;
+                    String worldName = worldInfo.getWorldName();
+                    if (worldName == null || MathHelper.stringNullOrLengthZero(worldName)) {
+                        worldName = name;
                     }
 
-                    var1.add(new SaveFormatComparator(var7, var10, var8.getLastTimePlayed(), var8.getSizeOnDisk(), var9));
+                    loaded.add(new SaveFormatComparator(name, worldName, worldInfo.getLastTimePlayed(), worldInfo.getSizeOnDisk(), badVersion));
                 }
             }
         }
 
-        return var1;
+        return loaded;
     }
 
     public void flushCache() {

@@ -31,11 +31,11 @@ public class GuiMultiplayer extends GuiScreen {
         Keyboard.enableRepeatEvents(false);
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.enabled) {
-            if (var1.id == 1) {
+    protected void actionPerformed(GuiButton button) {
+        if (button.enabled) {
+            if (button.id == 1) {
                 this.mc.displayGuiScreen(this.parentScreen);
-            } else if (var1.id == 0) {
+            } else if (button.id == 0) {
                 String var2 = this.field_22111_h.getText().trim();
                 this.mc.gameSettings.lastServer = var2.replaceAll(":", "_");
                 this.mc.gameSettings.saveOptions();

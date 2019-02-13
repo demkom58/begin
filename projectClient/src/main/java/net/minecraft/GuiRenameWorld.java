@@ -34,11 +34,11 @@ public class GuiRenameWorld extends GuiScreen {
         Keyboard.enableRepeatEvents(false);
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.enabled) {
-            if (var1.id == 1) {
+    protected void actionPerformed(GuiButton button) {
+        if (button.enabled) {
+            if (button.id == 1) {
                 this.mc.displayGuiScreen(this.field_22112_a);
-            } else if (var1.id == 0) {
+            } else if (button.id == 0) {
                 ISaveFormat var2 = this.mc.getSaveLoader();
                 var2.func_22170_a(this.field_22113_i, this.field_22114_h.getText().trim());
                 this.mc.displayGuiScreen(this.field_22112_a);

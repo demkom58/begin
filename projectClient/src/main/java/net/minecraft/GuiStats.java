@@ -143,18 +143,18 @@ public class GuiStats extends GuiScreen {
 
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.enabled) {
-            if (var1.id == 0) {
+    protected void actionPerformed(GuiButton button) {
+        if (button.enabled) {
+            if (button.id == 0) {
                 this.mc.displayGuiScreen(this.field_27152_a);
-            } else if (var1.id == 1) {
+            } else if (button.id == 1) {
                 this.field_27155_p = this.field_27151_l;
-            } else if (var1.id == 3) {
+            } else if (button.id == 3) {
                 this.field_27155_p = this.field_27150_m;
-            } else if (var1.id == 2) {
+            } else if (button.id == 2) {
                 this.field_27155_p = this.field_27157_n;
             } else {
-                this.field_27155_p.actionPerformed(var1);
+                this.field_27155_p.actionPerformed(button);
             }
 
         }

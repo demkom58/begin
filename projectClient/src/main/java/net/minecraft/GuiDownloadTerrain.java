@@ -27,7 +27,7 @@ public class GuiDownloadTerrain extends GuiScreen {
 
     }
 
-    protected void actionPerformed(GuiButton var1) {
+    protected void actionPerformed(GuiButton button) {
     }
 
     public void drawScreen(int var1, int var2, float var3) {

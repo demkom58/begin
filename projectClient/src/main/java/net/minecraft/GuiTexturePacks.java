@@ -85,15 +85,15 @@ public class GuiTexturePacks extends GuiScreen {
         this.guiTexturePackSlot.registerScrollButtons(this.controlList, 7, 8);
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.enabled) {
-            if (var1.id == 5) {
+    protected void actionPerformed(GuiButton button) {
+        if (button.enabled) {
+            if (button.id == 5) {
                 Sys.openURL("file://" + this.fileLocation);
-            } else if (var1.id == 6) {
+            } else if (button.id == 6) {
                 this.mc.renderEngine.refreshTextures();
                 this.mc.displayGuiScreen(this.guiScreen);
             } else {
-                this.guiTexturePackSlot.actionPerformed(var1);
+                this.guiTexturePackSlot.actionPerformed(button);
             }
 
         }

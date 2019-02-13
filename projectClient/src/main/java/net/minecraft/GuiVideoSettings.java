@@ -29,14 +29,14 @@ public class GuiVideoSettings extends GuiScreen {
         this.controlList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, var1.translateKey("gui.done")));
     }
 
-    protected void actionPerformed(GuiButton var1) {
-        if (var1.enabled) {
-            if (var1.id < 100 && var1 instanceof GuiSmallButton) {
-                this.guiGameSettings.setOptionValue(((GuiSmallButton) var1).returnEnumOptions(), 1);
-                var1.displayString = this.guiGameSettings.getKeyBinding(EnumOptions.getEnumOptions(var1.id));
+    protected void actionPerformed(GuiButton button) {
+        if (button.enabled) {
+            if (button.id < 100 && button instanceof GuiSmallButton) {
+                this.guiGameSettings.setOptionValue(((GuiSmallButton) button).returnEnumOptions(), 1);
+                button.displayString = this.guiGameSettings.getKeyBinding(EnumOptions.getEnumOptions(button.id));
             }
 
-            if (var1.id == 200) {
+            if (button.id == 200) {
                 this.mc.gameSettings.saveOptions();
                 this.mc.displayGuiScreen(this.field_22110_h);
             }
