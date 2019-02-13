@@ -7,5 +7,5 @@ public interface IRecipe {
 
     int getRecipeSize();
 
-    ItemStack getRecipeOutput();
+    ItemStack getCraftingResult();
 }
