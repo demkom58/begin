@@ -4,7 +4,7 @@ import util.Vec3D;
 
 public class WorldProviderHell extends WorldProvider {
     public void registerWorldChunkManager() {
-        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.hell, 1.0D, 0.0D);
+        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.HELL, 1.0D, 0.0D);
         this.isNether = true;
         this.isHellWorld = true;
         this.hasNoSky = true;

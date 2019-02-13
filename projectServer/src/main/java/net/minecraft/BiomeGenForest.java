@@ -7,11 +7,11 @@ public class BiomeGenForest extends BiomeGenBase {
         this.spawnableCreatureList.add(new SpawnListEntry(EntityWolf.class, 2));
     }
 
-    public WorldGenerator getRandomWorldGenForTrees(Random var1) {
-        if (var1.nextInt(5) == 0) {
+    public WorldGenerator getRandomWorldGenForTrees(Random random) {
+        if (random.nextInt(5) == 0) {
             return new WorldGenForest();
-        } else {
-            return (var1.nextInt(3) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
         }
+
+        return (random.nextInt(3) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
     }
 }

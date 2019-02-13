@@ -5,19 +5,19 @@ import java.util.List;
 import java.util.Random;
 
 public class BiomeGenBase {
-    public static final BiomeGenBase rainforest = (new BiomeGenRainforest()).setColor(588342).setBiomeName("Rainforest").func_4080_a(2094168);
-    public static final BiomeGenBase swampland = (new BiomeGenSwamp()).setColor(522674).setBiomeName("Swampland").func_4080_a(9154376);
-    public static final BiomeGenBase seasonalForest = (new BiomeGenBase()).setColor(10215459).setBiomeName("Seasonal Forest");
-    public static final BiomeGenBase forest = (new BiomeGenForest()).setColor(353825).setBiomeName("Forest").func_4080_a(5159473);
-    public static final BiomeGenBase savanna = (new BiomeGenDesert()).setColor(14278691).setBiomeName("Savanna");
-    public static final BiomeGenBase shrubland = (new BiomeGenBase()).setColor(10595616).setBiomeName("Shrubland");
-    public static final BiomeGenBase taiga = (new BiomeGenTaiga()).setColor(3060051).setBiomeName("Taiga").setEnableSnow().func_4080_a(8107825);
-    public static final BiomeGenBase desert = (new BiomeGenDesert()).setColor(16421912).setBiomeName("Desert").setDisableRain();
-    public static final BiomeGenBase plains = (new BiomeGenDesert()).setColor(16767248).setBiomeName("Plains");
-    public static final BiomeGenBase iceDesert = (new BiomeGenDesert()).setColor(16772499).setBiomeName("Ice Desert").setEnableSnow().setDisableRain().func_4080_a(12899129);
-    public static final BiomeGenBase tundra = (new BiomeGenBase()).setColor(5762041).setBiomeName("Tundra").setEnableSnow().func_4080_a(12899129);
-    public static final BiomeGenBase hell = (new BiomeGenHell()).setColor(16711680).setBiomeName("Hell").setDisableRain();
-    public static final BiomeGenBase field_28054_m = (new BiomeGenSky()).setColor(8421631).setBiomeName("Sky").setDisableRain();
+    public static final BiomeGenBase RAINFOREST = new BiomeGenRainforest().setColor(588342).setBiomeName("Rainforest").func_4080_a(2094168);
+    public static final BiomeGenBase SWAMPLAND = new BiomeGenSwamp().setColor(522674).setBiomeName("Swampland").func_4080_a(9154376);
+    public static final BiomeGenBase SEASONAL_FOREST = new BiomeGenBase().setColor(10215459).setBiomeName("Seasonal Forest");
+    public static final BiomeGenBase FOREST = new BiomeGenForest().setColor(353825).setBiomeName("Forest").func_4080_a(5159473);
+    public static final BiomeGenBase SAVANNA = new BiomeGenDesert().setColor(14278691).setBiomeName("Savanna");
+    public static final BiomeGenBase SHRUBLAND = new BiomeGenBase().setColor(10595616).setBiomeName("Shrubland");
+    public static final BiomeGenBase TAIGA = new BiomeGenTaiga().setColor(3060051).setBiomeName("Taiga").setEnableSnow().func_4080_a(8107825);
+    public static final BiomeGenBase DESERT = new BiomeGenDesert().setColor(16421912).setBiomeName("Desert").setDisableRain();
+    public static final BiomeGenBase PLAINS = new BiomeGenDesert().setColor(16767248).setBiomeName("Plains");
+    public static final BiomeGenBase ICE_DESERT = new BiomeGenDesert().setColor(16772499).setBiomeName("Ice Desert").setEnableSnow().setDisableRain().func_4080_a(12899129);
+    public static final BiomeGenBase TUNDRA = new BiomeGenBase().setColor(5762041).setBiomeName("Tundra").setEnableSnow().func_4080_a(12899129);
+    public static final BiomeGenBase HELL = new BiomeGenHell().setColor(16711680).setBiomeName("Hell").setDisableRain();
+    public static final BiomeGenBase SKY = new BiomeGenSky().setColor(8421631).setBiomeName("Sky").setDisableRain();
     private static BiomeGenBase[] biomeLookupTable = new BiomeGenBase[4096];
 
     static {
@@ -62,8 +62,8 @@ public class BiomeGenBase {
             }
         }
 
-        desert.topBlock = desert.fillerBlock = (byte) Block.sand.blockID;
-        iceDesert.topBlock = iceDesert.fillerBlock = (byte) Block.sand.blockID;
+        DESERT.topBlock = DESERT.fillerBlock = (byte) Block.sand.blockID;
+        ICE_DESERT.topBlock = ICE_DESERT.fillerBlock = (byte) Block.sand.blockID;
     }
 
     public static BiomeGenBase getBiomeFromLookup(double var0, double var2) {
@@ -75,23 +75,23 @@ public class BiomeGenBase {
     public static BiomeGenBase getBiome(float var0, float var1) {
         var1 = var1 * var0;
         if (var0 < 0.1F) {
-            return tundra;
+            return TUNDRA;
         } else if (var1 < 0.2F) {
             if (var0 < 0.5F) {
-                return tundra;
+                return TUNDRA;
             } else {
-                return var0 < 0.95F ? savanna : desert;
+                return var0 < 0.95F ? SAVANNA : DESERT;
             }
         } else if (var1 > 0.5F && var0 < 0.7F) {
-            return swampland;
+            return SWAMPLAND;
         } else if (var0 < 0.5F) {
-            return taiga;
+            return TAIGA;
         } else if (var0 < 0.97F) {
-            return var1 < 0.35F ? shrubland : forest;
+            return var1 < 0.35F ? SHRUBLAND : FOREST;
         } else if (var1 < 0.45F) {
-            return plains;
+            return PLAINS;
         } else {
-            return var1 < 0.9F ? seasonalForest : rainforest;
+            return var1 < 0.9F ? SEASONAL_FOREST : RAINFOREST;
         }
     }
 
