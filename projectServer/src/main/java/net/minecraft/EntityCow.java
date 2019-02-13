@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class EntityCow extends EntityAnimal {
     public EntityCow(World var1) {
         super(var1);

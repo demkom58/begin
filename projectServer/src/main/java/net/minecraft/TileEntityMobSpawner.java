@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class TileEntityMobSpawner extends TileEntity {
     public int delay = -1;
     public double yaw;

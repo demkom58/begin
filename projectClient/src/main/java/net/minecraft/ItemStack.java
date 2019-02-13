@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public final class ItemStack {
     public int stackSize;
     public int animationsToGo;

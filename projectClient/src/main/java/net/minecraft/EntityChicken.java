@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class EntityChicken extends EntityAnimal {
     public boolean field_753_a = false;
     public float field_752_b = 0.0F;

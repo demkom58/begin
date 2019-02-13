@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class EntitySkeleton extends EntityMob {
     private static final ItemStack defaultHeldItem = new ItemStack(Item.bow, 1);
 

@@ -1,5 +1,9 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagShort;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -108,7 +112,7 @@ public class MapStorage {
                 NBTTagCompound var3 = CompressedStreamTools.func_1141_a(var2);
                 var2.close();
 
-                for (NBTBase var5 : var3.func_28110_c()) {
+                for (NBTBase var5 : var3.tags()) {
                     if (var5 instanceof NBTTagShort) {
                         NBTTagShort var6 = (NBTTagShort) var5;
                         String var7 = var6.getKey();

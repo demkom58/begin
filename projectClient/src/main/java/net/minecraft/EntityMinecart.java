@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
 import java.util.List;
 
 public class EntityMinecart extends Entity implements IInventory {

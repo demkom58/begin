@@ -1,4 +1,4 @@
-package net.minecraft;
+package net.minecraft.nbt;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -7,28 +7,29 @@ import java.io.IOException;
 public abstract class NBTBase {
     private String key = null;
 
-    public static NBTBase readTag(DataInput var0) throws IOException {
-        byte var1 = var0.readByte();
-        if (var1 == 0) {
+    public static NBTBase readTag(DataInput input) throws IOException {
+        byte aByte = input.readByte();
+        if (aByte == 0) {
             return new NBTTagEnd();
         }
 
-        NBTBase var2 = createTagOfType(var1);
-        var2.key = var0.readUTF();
-        var2.readTagContents(var0);
-        return var2;
+        NBTBase type = createTagOfType(aByte);
+        type.key = input.readUTF();
+        type.readTagContents(input);
+        return type;
     }
 
-    public static void writeTag(NBTBase var0, DataOutput var1) throws IOException {
-        var1.writeByte(var0.getType());
-        if (var0.getType() != 0) {
-            var1.writeUTF(var0.getKey());
-            var0.writeTagContents(var1);
+    public static void writeTag(NBTBase nbtBase, DataOutput output) throws IOException {
+        output.writeByte(nbtBase.getType());
+
+        if (nbtBase.getType() != 0) {
+            output.writeUTF(nbtBase.getKey());
+            nbtBase.writeTagContents(output);
         }
     }
 
-    public static NBTBase createTagOfType(byte var0) {
-        switch (var0) {
+    public static NBTBase createTagOfType(byte id) {
+        switch (id) {
             case 0:
                 return new NBTTagEnd();
             case 1:
@@ -56,8 +57,8 @@ public abstract class NBTBase {
         }
     }
 
-    public static String getTagName(byte var0) {
-        switch (var0) {
+    public static String getTagName(byte id) {
+        switch (id) {
             case 0:
                 return "TAG_End";
             case 1:
@@ -85,9 +86,9 @@ public abstract class NBTBase {
         }
     }
 
-    abstract void writeTagContents(DataOutput var1) throws IOException;
+    abstract void writeTagContents(DataOutput output) throws IOException;
 
-    abstract void readTagContents(DataInput var1) throws IOException;
+    abstract void readTagContents(DataInput input) throws IOException;
 
     public abstract byte getType();
 
@@ -95,8 +96,8 @@ public abstract class NBTBase {
         return this.key == null ? "" : this.key;
     }
 
-    public NBTBase setKey(String var1) {
-        this.key = var1;
+    public NBTBase setKey(String key) {
+        this.key = key;
         return this;
     }
 }

@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class TileEntitySign extends TileEntity {
     public String[] signText = new String[]{"", "", "", ""};
     public int lineBeingEdited = -1;

@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class TileEntityRecordPlayer extends TileEntity {
     public int field_28009_a;
 

@@ -1,4 +1,4 @@
-package net.minecraft;
+package net.minecraft.nbt;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -10,19 +10,19 @@ public class NBTTagByteArray extends NBTBase {
     public NBTTagByteArray() {
     }
 
-    public NBTTagByteArray(byte[] var1) {
-        this.byteArray = var1;
+    public NBTTagByteArray(byte[] value) {
+        this.byteArray = value;
     }
 
-    void writeTagContents(DataOutput var1) throws IOException {
-        var1.writeInt(this.byteArray.length);
-        var1.write(this.byteArray);
+    void writeTagContents(DataOutput output) throws IOException {
+        output.writeInt(this.byteArray.length);
+        output.write(this.byteArray);
     }
 
-    void readTagContents(DataInput var1) throws IOException {
-        int var2 = var1.readInt();
+    void readTagContents(DataInput input) throws IOException {
+        int var2 = input.readInt();
         this.byteArray = new byte[var2];
-        var1.readFully(this.byteArray);
+        input.readFully(this.byteArray);
     }
 
     public byte getType() {

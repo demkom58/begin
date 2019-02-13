@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class EntityCreeper extends EntityMob {
     int timeSinceIgnited;
     int lastActiveTime;

@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import java.io.*;
 import java.util.List;
 import java.util.logging.Logger;

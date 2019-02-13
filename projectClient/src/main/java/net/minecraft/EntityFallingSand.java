@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class EntityFallingSand extends Entity {
     public int blockID;
     public int fallTime = 0;
