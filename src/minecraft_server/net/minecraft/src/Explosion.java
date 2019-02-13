@@ -95,11 +95,11 @@ public class Explosion {
         }
 
         this.explosionSize = var1;
-        ArrayList var38 = new ArrayList();
+        ArrayList<ChunkPosition> var38 = new ArrayList();
         var38.addAll(this.destroyedBlockPositions);
         if (this.isFlaming) {
             for (int var40 = var38.size() - 1; var40 >= 0; --var40) {
-                ChunkPosition var41 = (ChunkPosition) var38.get(var40);
+                ChunkPosition var41 = var38.get(var40);
                 int var42 = var41.x;
                 int var45 = var41.y;
                 int var16 = var41.z;
@@ -115,11 +115,11 @@ public class Explosion {
 
     public void doEffects(boolean var1) {
         this.worldObj.playSoundEffect(this.explosionX, this.explosionY, this.explosionZ, "random.explode", 4.0F, (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
-        ArrayList var2 = new ArrayList();
+        ArrayList<ChunkPosition> var2 = new ArrayList();
         var2.addAll(this.destroyedBlockPositions);
 
         for (int var3 = var2.size() - 1; var3 >= 0; --var3) {
-            ChunkPosition var4 = (ChunkPosition) var2.get(var3);
+            ChunkPosition var4 = var2.get(var3);
             int var5 = var4.x;
             int var6 = var4.y;
             int var7 = var4.z;
