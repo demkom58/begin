@@ -6,7 +6,7 @@ public enum EnumSkyBlock {
 
     public final int field_984_c;
 
-    private EnumSkyBlock(int var3) {
+    EnumSkyBlock(int var3) {
         this.field_984_c = var3;
     }
 }

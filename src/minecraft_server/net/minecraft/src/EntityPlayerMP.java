@@ -130,7 +130,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         }
 
         if (var1 && !this.loadedChunks.isEmpty()) {
-            ChunkCoordIntPair var7 = (ChunkCoordIntPair) this.loadedChunks.get(0);
+            ChunkCoordIntPair var7 = this.loadedChunks.get(0);
             if (var7 != null) {
                 boolean var8 = false;
                 if (this.playerNetServerHandler.getNumChunkDataPackets() < 4) {

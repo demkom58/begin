@@ -12,7 +12,6 @@ public class BlockCactus extends Block {
         if (var1.isAirBlock(var2, var3 + 1, var4)) {
             int var6;
             for (var6 = 1; var1.getBlockId(var2, var3 - var6, var4) == this.blockID; ++var6) {
-                ;
             }
 
             if (var6 < 3) {
@@ -50,7 +49,7 @@ public class BlockCactus extends Block {
     }
 
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return !super.canPlaceBlockAt(var1, var2, var3, var4) ? false : this.canBlockStay(var1, var2, var3, var4);
+        return super.canPlaceBlockAt(var1, var2, var3, var4) && this.canBlockStay(var1, var2, var3, var4);
     }
 
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
@@ -77,6 +76,6 @@ public class BlockCactus extends Block {
     }
 
     public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
-        var5.attackEntityFrom((Entity) null, 1);
+        var5.attackEntityFrom(null, 1);
     }
 }

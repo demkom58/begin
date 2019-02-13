@@ -46,7 +46,7 @@ public final class ItemStack {
         if (var0 == null && var1 == null) {
             return true;
         } else {
-            return var0 != null && var1 != null ? var0.isItemStackEqual(var1) : false;
+            return (var0 != null && var1 != null) && var0.isItemStackEqual(var1);
         }
     }
 

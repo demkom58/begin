@@ -90,7 +90,6 @@ public class BlockPortal extends BlockBreakable {
 
         int var8;
         for (var8 = var3; var1.getBlockId(var2, var8 - 1, var4) == this.blockID; --var8) {
-            ;
         }
 
         if (var1.getBlockId(var2, var8 - 1, var4) != Block.obsidian.blockID) {
@@ -98,7 +97,6 @@ public class BlockPortal extends BlockBreakable {
         } else {
             int var9;
             for (var9 = 1; var9 < 4 && var1.getBlockId(var2, var8 + var9, var4) == this.blockID; ++var9) {
-                ;
             }
 
             if (var9 == 3 && var1.getBlockId(var2, var8 + var9, var4) == Block.obsidian.blockID) {

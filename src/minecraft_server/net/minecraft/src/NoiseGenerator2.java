@@ -22,7 +22,6 @@ public class NoiseGenerator2 {
         this.field_4318_c = var1.nextDouble() * 256.0D;
 
         for (int var2 = 0; var2 < 256; this.field_4316_e[var2] = var2++) {
-            ;
         }
 
         for (int var5 = 0; var5 < 256; ++var5) {

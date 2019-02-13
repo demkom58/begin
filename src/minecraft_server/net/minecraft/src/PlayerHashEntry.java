@@ -31,9 +31,7 @@ class PlayerHashEntry {
             if (var3 == var4 || var3 != null && var3.equals(var4)) {
                 Object var5 = this.func_735_b();
                 Object var6 = var2.func_735_b();
-                if (var5 == var6 || var5 != null && var5.equals(var6)) {
-                    return true;
-                }
+                return var5 == var6 || var5 != null && var5.equals(var6);
             }
 
             return false;

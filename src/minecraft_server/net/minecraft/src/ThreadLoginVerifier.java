@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 class ThreadLoginVerifier extends Thread {
     // $FF: synthetic field
@@ -19,7 +20,7 @@ class ThreadLoginVerifier extends Thread {
     public void run() {
         try {
             String var1 = NetLoginHandler.getServerId(this.loginHandler);
-            URL var2 = new URL("http://www.minecraft.net/game/checkserver.jsp?user=" + URLEncoder.encode(this.loginPacket.username, "UTF-8") + "&serverId=" + URLEncoder.encode(var1, "UTF-8"));
+            URL var2 = new URL("http://www.minecraft.net/game/checkserver.jsp?user=" + URLEncoder.encode(this.loginPacket.username, StandardCharsets.UTF_8) + "&serverId=" + URLEncoder.encode(var1, StandardCharsets.UTF_8));
             BufferedReader var3 = new BufferedReader(new InputStreamReader(var2.openStream()));
             String var4 = var3.readLine();
             var3.close();

@@ -27,13 +27,11 @@ class NetworkWriterThread extends Thread {
                 }
 
                 while (NetworkManager.sendNetworkPacket(this.netManager)) {
-                    ;
                 }
 
                 try {
                     sleep(100L);
                 } catch (InterruptedException var16) {
-                    ;
                 }
 
                 try {

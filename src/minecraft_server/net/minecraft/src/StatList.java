@@ -91,7 +91,7 @@ public class StatList {
             if (Block.blocksList[var3] != null && Block.blocksList[var3].getEnableStats()) {
                 String var4 = StatCollector.translateToLocalFormatted(var0, Block.blocksList[var3].getNameLocalizedForStats());
                 var2[var3] = (new StatCrafting(var1 + var3, var4, var3)).func_27053_d();
-                field_25120_d.add((StatCrafting) var2[var3]);
+                field_25120_d.add(var2[var3]);
             }
         }
 
@@ -109,7 +109,7 @@ public class StatList {
                 String var6 = StatCollector.translateToLocalFormatted(var1, Item.itemsList[var5].func_25006_i());
                 var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).func_27053_d();
                 if (var5 >= Block.blocksList.length) {
-                    field_25121_c.add((StatCrafting) var0[var5]);
+                    field_25121_c.add(var0[var5]);
                 }
             }
         }

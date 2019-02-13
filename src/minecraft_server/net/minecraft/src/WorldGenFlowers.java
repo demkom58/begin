@@ -14,7 +14,7 @@ public class WorldGenFlowers extends WorldGenerator {
             int var7 = var3 + var2.nextInt(8) - var2.nextInt(8);
             int var8 = var4 + var2.nextInt(4) - var2.nextInt(4);
             int var9 = var5 + var2.nextInt(8) - var2.nextInt(8);
-            if (var1.isAirBlock(var7, var8, var9) && ((BlockFlower) Block.blocksList[this.plantBlockId]).canBlockStay(var1, var7, var8, var9)) {
+            if (var1.isAirBlock(var7, var8, var9) && Block.blocksList[this.plantBlockId].canBlockStay(var1, var7, var8, var9)) {
                 var1.setBlock(var7, var8, var9, this.plantBlockId);
             }
         }

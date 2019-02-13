@@ -251,7 +251,7 @@ public class InventoryPlayer implements IInventory {
             return true;
         } else {
             ItemStack var2 = this.getStackInSlot(this.currentItem);
-            return var2 != null ? var2.canHarvestBlock(var1) : false;
+            return var2 != null && var2.canHarvestBlock(var1);
         }
     }
 

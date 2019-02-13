@@ -10,7 +10,7 @@ public enum EnumCreatureType {
     private final Material creatureMaterial;
     private final boolean field_21106_g;
 
-    private EnumCreatureType(Class var3, int var4, Material var5, boolean var6) {
+    EnumCreatureType(Class var3, int var4, Material var5, boolean var6) {
         this.creatureClass = var3;
         this.maxNumberOfCreature = var4;
         this.creatureMaterial = var5;

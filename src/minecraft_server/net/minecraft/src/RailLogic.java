@@ -75,7 +75,7 @@ class RailLogic {
 
     private void func_591_b() {
         for (int var1 = 0; var1 < this.connectedTracks.size(); ++var1) {
-            RailLogic var2 = this.getMinecartTrackLogic((ChunkPosition) this.connectedTracks.get(var1));
+            RailLogic var2 = this.getMinecartTrackLogic(this.connectedTracks.get(var1));
             if (var2 != null && var2.isConnectedTo(this)) {
                 this.connectedTracks.set(var1, new ChunkPosition(var2.trackX, var2.trackY, var2.trackZ));
             } else {
@@ -107,7 +107,7 @@ class RailLogic {
 
     private boolean isConnectedTo(RailLogic var1) {
         for (int var2 = 0; var2 < this.connectedTracks.size(); ++var2) {
-            ChunkPosition var3 = (ChunkPosition) this.connectedTracks.get(var2);
+            ChunkPosition var3 = this.connectedTracks.get(var2);
             if (var3.x == var1.trackX && var3.z == var1.trackZ) {
                 return true;
             }
@@ -118,7 +118,7 @@ class RailLogic {
 
     private boolean func_599_b(int var1, int var2, int var3) {
         for (int var4 = 0; var4 < this.connectedTracks.size(); ++var4) {
-            ChunkPosition var5 = (ChunkPosition) this.connectedTracks.get(var4);
+            ChunkPosition var5 = this.connectedTracks.get(var4);
             if (var5.x == var1 && var5.z == var3) {
                 return true;
             }
@@ -156,7 +156,7 @@ class RailLogic {
         } else if (this.connectedTracks.size() == 0) {
             return true;
         } else {
-            ChunkPosition var2 = (ChunkPosition) this.connectedTracks.get(0);
+            ChunkPosition var2 = this.connectedTracks.get(0);
             return var1.trackY == this.trackY && var2.y == this.trackY ? true : true;
         }
     }
@@ -348,7 +348,7 @@ class RailLogic {
             this.worldObj.setBlockMetadataWithNotify(this.trackX, this.trackY, this.trackZ, var8);
 
             for (int var9 = 0; var9 < this.connectedTracks.size(); ++var9) {
-                RailLogic var10 = this.getMinecartTrackLogic((ChunkPosition) this.connectedTracks.get(var9));
+                RailLogic var10 = this.getMinecartTrackLogic(this.connectedTracks.get(var9));
                 if (var10 != null) {
                     var10.func_591_b();
                     if (var10.handleKeyPress(this)) {

@@ -125,10 +125,10 @@ public class NetworkManager {
         boolean var1 = false;
 
         try {
-            if (!this.dataPackets.isEmpty() && (this.chunkDataSendCounter == 0 || System.currentTimeMillis() - ((Packet) this.dataPackets.get(0)).creationTimeMillis >= (long) this.chunkDataSendCounter)) {
+            if (!this.dataPackets.isEmpty() && (this.chunkDataSendCounter == 0 || System.currentTimeMillis() - this.dataPackets.get(0).creationTimeMillis >= (long) this.chunkDataSendCounter)) {
                 Packet var2;
                 synchronized (this.sendQueueLock) {
-                    var2 = (Packet) this.dataPackets.remove(0);
+                    var2 = this.dataPackets.remove(0);
                     this.sendQueueByteLength -= var2.getPacketSize() + 1;
                 }
 
@@ -139,10 +139,10 @@ public class NetworkManager {
                 var1 = true;
             }
 
-            if (this.field_20175_w-- <= 0 && !this.chunkDataPackets.isEmpty() && (this.chunkDataSendCounter == 0 || System.currentTimeMillis() - ((Packet) this.chunkDataPackets.get(0)).creationTimeMillis >= (long) this.chunkDataSendCounter)) {
+            if (this.field_20175_w-- <= 0 && !this.chunkDataPackets.isEmpty() && (this.chunkDataSendCounter == 0 || System.currentTimeMillis() - this.chunkDataPackets.get(0).creationTimeMillis >= (long) this.chunkDataSendCounter)) {
                 Packet var9;
                 synchronized (this.sendQueueLock) {
-                    var9 = (Packet) this.chunkDataPackets.remove(0);
+                    var9 = this.chunkDataPackets.remove(0);
                     this.sendQueueByteLength -= var9.getPacketSize() + 1;
                 }
 
@@ -211,21 +211,18 @@ public class NetworkManager {
                 this.socketInputStream.close();
                 this.socketInputStream = null;
             } catch (Throwable var6) {
-                ;
             }
 
             try {
                 this.socketOutputStream.close();
                 this.socketOutputStream = null;
             } catch (Throwable var5) {
-                ;
             }
 
             try {
                 this.networkSocket.close();
                 this.networkSocket = null;
             } catch (Throwable var4) {
-                ;
             }
 
         }
@@ -247,7 +244,7 @@ public class NetworkManager {
         int var1 = 100;
 
         while (!this.readPackets.isEmpty() && var1-- >= 0) {
-            Packet var2 = (Packet) this.readPackets.remove(0);
+            Packet var2 = this.readPackets.remove(0);
             var2.processPacket(this.netHandler);
         }
 

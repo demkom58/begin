@@ -12,7 +12,7 @@ public enum EnumToolMaterial {
     private final float efficiencyOnProperMaterial;
     private final int damageVsEntity;
 
-    private EnumToolMaterial(int var3, int var4, float var5, int var6) {
+    EnumToolMaterial(int var3, int var4, float var5, int var6) {
         this.harvestLevel = var3;
         this.maxUses = var4;
         this.efficiencyOnProperMaterial = var5;

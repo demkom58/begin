@@ -90,7 +90,7 @@ public class BlockBed extends Block {
                     var11 = (var11 + (double) var4 + 0.5D) / 2.0D;
                 }
 
-                var1.newExplosion((Entity) null, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), 5.0F, true);
+                var1.newExplosion(null, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), 5.0F, true);
                 return true;
             } else {
                 if (func_22018_f(var6)) {

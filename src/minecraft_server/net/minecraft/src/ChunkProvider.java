@@ -155,7 +155,7 @@ public class ChunkProvider implements IChunkProvider {
     public boolean func_361_a() {
         for (int var1 = 0; var1 < 100; ++var1) {
             if (!this.field_28062_a.isEmpty()) {
-                Integer var2 = (Integer) this.field_28062_a.iterator().next();
+                Integer var2 = this.field_28062_a.iterator().next();
                 Chunk var3 = this.field_28065_e.get(var2);
                 var3.onChunkUnload();
                 this.func_28059_b(var3);

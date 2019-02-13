@@ -18,11 +18,11 @@ public class BlockRedstoneRepeater extends Block {
     }
 
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return !var1.isBlockNormalCube(var2, var3 - 1, var4) ? false : super.canPlaceBlockAt(var1, var2, var3, var4);
+        return var1.isBlockNormalCube(var2, var3 - 1, var4) && super.canPlaceBlockAt(var1, var2, var3, var4);
     }
 
     public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        return !var1.isBlockNormalCube(var2, var3 - 1, var4) ? false : super.canBlockStay(var1, var2, var3, var4);
+        return var1.isBlockNormalCube(var2, var3 - 1, var4) && super.canBlockStay(var1, var2, var3, var4);
     }
 
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {

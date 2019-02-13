@@ -60,7 +60,7 @@ public abstract class BlockFluid extends Block {
         } else if (var6 == Material.ice) {
             return false;
         } else {
-            return var5 == 1 ? true : super.shouldSideBeRendered(var1, var2, var3, var4, var5);
+            return var5 == 1 || super.shouldSideBeRendered(var1, var2, var3, var4, var5);
         }
     }
 

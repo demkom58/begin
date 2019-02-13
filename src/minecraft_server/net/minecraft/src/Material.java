@@ -85,7 +85,7 @@ public class Material {
     }
 
     public boolean getIsOpaque() {
-        return this.isTranslucent ? false : this.getIsSolid();
+        return !this.isTranslucent && this.getIsSolid();
     }
 
     public boolean func_31055_i() {

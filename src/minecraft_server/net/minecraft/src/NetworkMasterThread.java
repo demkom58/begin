@@ -15,7 +15,6 @@ class NetworkMasterThread extends Thread {
                 try {
                     NetworkManager.getReadThread(this.netManager).stop();
                 } catch (Throwable var3) {
-                    ;
                 }
             }
 
@@ -23,7 +22,6 @@ class NetworkMasterThread extends Thread {
                 try {
                     NetworkManager.getWriteThread(this.netManager).stop();
                 } catch (Throwable var2) {
-                    ;
                 }
             }
         } catch (InterruptedException var4) {

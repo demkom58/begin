@@ -19,7 +19,7 @@ public class PlayerListBox extends JList implements IUpdatePlayerListBox {
             Vector var1 = new Vector();
 
             for (int var2 = 0; var2 < this.mcServer.configManager.playerEntities.size(); ++var2) {
-                var1.add(((EntityPlayerMP) this.mcServer.configManager.playerEntities.get(var2)).username);
+                var1.add(this.mcServer.configManager.playerEntities.get(var2).username);
             }
 
             this.setListData(var1);

@@ -77,7 +77,7 @@ public class BlockTrapDoor extends Block {
         boolean var7 = (var6 & 4) > 0;
         if (var7 != var5) {
             var1.setBlockMetadataWithNotify(var2, var3, var4, var6 ^ 4);
-            var1.func_28101_a((EntityPlayer) null, 1003, var2, var3, var4, 0);
+            var1.func_28101_a(null, 1003, var2, var3, var4, 0);
         }
     }
 

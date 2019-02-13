@@ -9,7 +9,7 @@ public class BlockFence extends Block {
         if (var1.getBlockId(var2, var3 - 1, var4) == this.blockID) {
             return true;
         } else {
-            return !var1.getBlockMaterial(var2, var3 - 1, var4).isSolid() ? false : super.canPlaceBlockAt(var1, var2, var3, var4);
+            return var1.getBlockMaterial(var2, var3 - 1, var4).isSolid() && super.canPlaceBlockAt(var1, var2, var3, var4);
         }
     }
 

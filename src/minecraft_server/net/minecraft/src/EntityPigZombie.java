@@ -51,7 +51,7 @@ public class EntityPigZombie extends EntityZombie {
             List<Entity> var3 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(32.0D, 32.0D, 32.0D));
 
             for (int var4 = 0; var4 < var3.size(); ++var4) {
-                Entity var5 = (Entity) var3.get(var4);
+                Entity var5 = var3.get(var4);
                 if (var5 instanceof EntityPigZombie) {
                     EntityPigZombie var6 = (EntityPigZombie) var5;
                     var6.becomeAngryAt(var1);

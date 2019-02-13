@@ -111,7 +111,7 @@ public class EntityEgg extends Entity {
             double var6 = 0.0D;
 
             for (int var8 = 0; var8 < var5.size(); ++var8) {
-                Entity var9 = (Entity) var5.get(var8);
+                Entity var9 = var5.get(var8);
                 if (var9.canBeCollidedWith() && (var9 != this.field_20083_aj || this.field_20079_al >= 5)) {
                     float var10 = 0.3F;
                     AxisAlignedBB var11 = var9.boundingBox.expand((double) var10, (double) var10, (double) var10);
@@ -133,7 +133,6 @@ public class EntityEgg extends Entity {
 
         if (var3 != null) {
             if (var3.entityHit != null && var3.entityHit.attackEntityFrom(this.field_20083_aj, 0)) {
-                ;
             }
 
             if (!this.worldObj.singleplayerWorld && this.rand.nextInt(8) == 0) {
@@ -163,7 +162,6 @@ public class EntityEgg extends Entity {
         this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
         for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var20) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-            ;
         }
 
         while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
