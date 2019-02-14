@@ -216,7 +216,7 @@ public class BlockFlowing extends BlockFluid {
 
     private boolean blockBlocksFlow(World var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockId(var2, var3, var4);
-        if (var5 != Block.doorWood.blockID && var5 != Block.doorSteel.blockID && var5 != Block.signPost.blockID && var5 != Block.ladder.blockID && var5 != Block.reed.blockID) {
+        if (var5 != Block.DOOR_WOOD.blockID && var5 != Block.DOOR_IRON.blockID && var5 != Block.SIGN.blockID && var5 != Block.LADDER.blockID && var5 != Block.REEDS.blockID) {
             if (var5 == 0) {
                 return false;
             } else {

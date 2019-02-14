@@ -555,7 +555,7 @@ public abstract class EntityLiving extends Entity {
         int var1 = MathHelper.floor_double(this.posX);
         int var2 = MathHelper.floor_double(this.boundingBox.minY);
         int var3 = MathHelper.floor_double(this.posZ);
-        return this.worldObj.getBlockId(var1, var2, var3) == Block.ladder.blockID;
+        return this.worldObj.getBlockId(var1, var2, var3) == Block.LADDER.blockID;
     }
 
     public void writeEntityToNBT(NBTTagCompound var1) {

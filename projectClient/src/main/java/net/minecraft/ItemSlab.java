@@ -8,7 +8,7 @@ public class ItemSlab extends ItemBlock {
     }
 
     public int getIconFromDamage(int var1) {
-        return Block.stairSingle.getBlockTextureFromSideAndMetadata(2, var1);
+        return Block.STAIR_SINGLE.getBlockTextureFromSideAndMetadata(2, var1);
     }
 
     public int getPlacedBlockMetadata(int var1) {

@@ -5,7 +5,7 @@ public class TextureFlamesFX extends TextureFX {
     protected float[] field_1132_h = new float[320];
 
     public TextureFlamesFX(int var1) {
-        super(Block.fire.blockIndexInTexture + var1 * 16);
+        super(Block.FIRE.blockIndexInTexture + var1 * 16);
     }
 
     public void onTick() {

@@ -41,7 +41,7 @@ public class BlockStep extends Block {
     }
 
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        if (this != Block.stairSingle) {
+        if (this != Block.STAIR_SINGLE) {
             super.onBlockAdded(var1, var2, var3, var4);
         }
 
@@ -49,16 +49,16 @@ public class BlockStep extends Block {
         int var6 = var1.getBlockMetadata(var2, var3, var4);
         int var7 = var1.getBlockMetadata(var2, var3 - 1, var4);
         if (var6 == var7) {
-            if (var5 == stairSingle.blockID) {
+            if (var5 == STAIR_SINGLE.blockID) {
                 var1.setBlockWithNotify(var2, var3, var4, 0);
-                var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, Block.stairDouble.blockID, var6);
+                var1.setBlockAndMetadataWithNotify(var2, var3 - 1, var4, Block.STAIR_DOUBLE.blockID, var6);
             }
 
         }
     }
 
     public int idDropped(int var1, Random var2) {
-        return Block.stairSingle.blockID;
+        return Block.STAIR_SINGLE.blockID;
     }
 
     public int quantityDropped(Random var1) {
@@ -74,7 +74,7 @@ public class BlockStep extends Block {
     }
 
     public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        if (this != Block.stairSingle) {
+        if (this != Block.STAIR_SINGLE) {
             super.shouldSideBeRendered(var1, var2, var3, var4, var5);
         }
 

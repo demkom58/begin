@@ -82,7 +82,7 @@ public class RenderManager {
         this.fontRenderer = var3;
         if (var4.isPlayerSleeping()) {
             int var7 = var1.getBlockId(MathHelper.floor_double(var4.posX), MathHelper.floor_double(var4.posY), MathHelper.floor_double(var4.posZ));
-            if (var7 == Block.blockBed.blockID) {
+            if (var7 == Block.BED.blockID) {
                 int var8 = var1.getBlockMetadata(MathHelper.floor_double(var4.posX), MathHelper.floor_double(var4.posY), MathHelper.floor_double(var4.posZ));
                 int var9 = var8 & 3;
                 this.playerViewY = (float) (var9 * 90 + 180);

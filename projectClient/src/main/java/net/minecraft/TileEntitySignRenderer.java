@@ -9,7 +9,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer {
         Block var9 = var1.getBlockType();
         GL11.glPushMatrix();
         float var10 = 0.6666667F;
-        if (var9 == Block.signPost) {
+        if (var9 == Block.SIGN) {
             GL11.glTranslatef((float) var2 + 0.5F, (float) var4 + 0.75F * var10, (float) var6 + 0.5F);
             float var11 = (float) (var1.getBlockMetadata() * 360) / 16.0F;
             GL11.glRotatef(-var11, 0.0F, 1.0F, 0.0F);

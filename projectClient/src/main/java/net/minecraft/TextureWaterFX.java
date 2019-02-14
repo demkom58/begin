@@ -8,7 +8,7 @@ public class TextureWaterFX extends TextureFX {
     private int tickCounter = 0;
 
     public TextureWaterFX() {
-        super(Block.waterMoving.blockIndexInTexture);
+        super(Block.WATER_MOVING.blockIndexInTexture);
     }
 
     public void onTick() {

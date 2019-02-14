@@ -32,7 +32,7 @@ public class BlockPistonExtension extends Block {
         var3 = var3 + PistonBlockTextures.field_31059_c[var6];
         var4 = var4 + PistonBlockTextures.field_31058_d[var6];
         int var7 = var1.getBlockId(var2, var3, var4);
-        if (var7 == Block.pistonBase.blockID || var7 == Block.pistonStickyBase.blockID) {
+        if (var7 == Block.PISTON_BASE.blockID || var7 == Block.PISTON_STICKY_BASE.blockID) {
             var5 = var1.getBlockMetadata(var2, var3, var4);
             if (BlockPistonBase.isPowered(var5)) {
                 Block.BLOCKS_LIST[var7].dropBlockAsItem(var1, var2, var3, var4, var5);
@@ -149,7 +149,7 @@ public class BlockPistonExtension extends Block {
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         int var6 = func_31050_c(var1.getBlockMetadata(var2, var3, var4));
         int var7 = var1.getBlockId(var2 - PistonBlockTextures.field_31056_b[var6], var3 - PistonBlockTextures.field_31059_c[var6], var4 - PistonBlockTextures.field_31058_d[var6]);
-        if (var7 != Block.pistonBase.blockID && var7 != Block.pistonStickyBase.blockID) {
+        if (var7 != Block.PISTON_BASE.blockID && var7 != Block.PISTON_STICKY_BASE.blockID) {
             var1.setBlockWithNotify(var2, var3, var4, 0);
         } else {
             Block.BLOCKS_LIST[var7].onNeighborBlockChange(var1, var2 - PistonBlockTextures.field_31056_b[var6], var3 - PistonBlockTextures.field_31059_c[var6], var4 - PistonBlockTextures.field_31058_d[var6], var5);

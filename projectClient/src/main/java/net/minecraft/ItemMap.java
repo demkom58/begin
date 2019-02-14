@@ -79,9 +79,9 @@ public class ItemMap extends ItemMapBase {
                                 int var33 = var21 + var22 * 231871;
                                 var33 = var33 * var33 * 31287121 + var33 * 11;
                                 if ((var33 >> 20 & 1) == 0) {
-                                    var26[Block.dirt.blockID] += 10;
+                                    var26[Block.DIRT.blockID] += 10;
                                 } else {
-                                    var26[Block.stone.blockID] += 10;
+                                    var26[Block.STONE.blockID] += 10;
                                 }
 
                                 var31 = 100.0D;

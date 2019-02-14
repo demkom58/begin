@@ -652,7 +652,7 @@ public class RenderBlocks {
         Tessellator var8 = Tessellator.instance;
         boolean var9 = this.overrideBlockTexture >= 0;
         if (!var9) {
-            this.overrideBlockTexture = Block.cobblestone.blockIndexInTexture;
+            this.overrideBlockTexture = Block.COBBLESTONE.blockIndexInTexture;
         }
 
         float var10 = 0.25F;
@@ -824,7 +824,7 @@ public class RenderBlocks {
         double var14 = (double) ((float) var9 / 256.0F);
         double var16 = (double) (((float) var9 + 15.99F) / 256.0F);
         float var18 = 1.4F;
-        if (!this.blockAccess.isBlockNormalCube(var2, var3 - 1, var4) && !Block.fire.canBlockCatchFire(this.blockAccess, var2, var3 - 1, var4)) {
+        if (!this.blockAccess.isBlockNormalCube(var2, var3 - 1, var4) && !Block.FIRE.canBlockCatchFire(this.blockAccess, var2, var3 - 1, var4)) {
             float var60 = 0.2F;
             float var20 = 0.0625F;
             if ((var2 + var3 + var4 & 1) == 1) {
@@ -840,7 +840,7 @@ public class RenderBlocks {
                 var10 = var62;
             }
 
-            if (Block.fire.canBlockCatchFire(this.blockAccess, var2 - 1, var3, var4)) {
+            if (Block.FIRE.canBlockCatchFire(this.blockAccess, var2 - 1, var3, var4)) {
                 var5.addVertexWithUV((double) ((float) var2 + var60), (double) ((float) var3 + var18 + var20), (double) (var4 + 1), var12, var14);
                 var5.addVertexWithUV((double) (var2 + 0), (double) ((float) (var3 + 0) + var20), (double) (var4 + 1), var12, var16);
                 var5.addVertexWithUV((double) (var2 + 0), (double) ((float) (var3 + 0) + var20), (double) (var4 + 0), var10, var16);
@@ -851,7 +851,7 @@ public class RenderBlocks {
                 var5.addVertexWithUV((double) ((float) var2 + var60), (double) ((float) var3 + var18 + var20), (double) (var4 + 1), var12, var14);
             }
 
-            if (Block.fire.canBlockCatchFire(this.blockAccess, var2 + 1, var3, var4)) {
+            if (Block.FIRE.canBlockCatchFire(this.blockAccess, var2 + 1, var3, var4)) {
                 var5.addVertexWithUV((double) ((float) (var2 + 1) - var60), (double) ((float) var3 + var18 + var20), (double) (var4 + 0), var10, var14);
                 var5.addVertexWithUV((double) (var2 + 1 - 0), (double) ((float) (var3 + 0) + var20), (double) (var4 + 0), var10, var16);
                 var5.addVertexWithUV((double) (var2 + 1 - 0), (double) ((float) (var3 + 0) + var20), (double) (var4 + 1), var12, var16);
@@ -862,7 +862,7 @@ public class RenderBlocks {
                 var5.addVertexWithUV((double) ((float) (var2 + 1) - var60), (double) ((float) var3 + var18 + var20), (double) (var4 + 0), var10, var14);
             }
 
-            if (Block.fire.canBlockCatchFire(this.blockAccess, var2, var3, var4 - 1)) {
+            if (Block.FIRE.canBlockCatchFire(this.blockAccess, var2, var3, var4 - 1)) {
                 var5.addVertexWithUV((double) (var2 + 0), (double) ((float) var3 + var18 + var20), (double) ((float) var4 + var60), var12, var14);
                 var5.addVertexWithUV((double) (var2 + 0), (double) ((float) (var3 + 0) + var20), (double) (var4 + 0), var12, var16);
                 var5.addVertexWithUV((double) (var2 + 1), (double) ((float) (var3 + 0) + var20), (double) (var4 + 0), var10, var16);
@@ -873,7 +873,7 @@ public class RenderBlocks {
                 var5.addVertexWithUV((double) (var2 + 0), (double) ((float) var3 + var18 + var20), (double) ((float) var4 + var60), var12, var14);
             }
 
-            if (Block.fire.canBlockCatchFire(this.blockAccess, var2, var3, var4 + 1)) {
+            if (Block.FIRE.canBlockCatchFire(this.blockAccess, var2, var3, var4 + 1)) {
                 var5.addVertexWithUV((double) (var2 + 1), (double) ((float) var3 + var18 + var20), (double) ((float) (var4 + 1) - var60), var10, var14);
                 var5.addVertexWithUV((double) (var2 + 1), (double) ((float) (var3 + 0) + var20), (double) (var4 + 1 - 0), var10, var16);
                 var5.addVertexWithUV((double) (var2 + 0), (double) ((float) (var3 + 0) + var20), (double) (var4 + 1 - 0), var12, var16);
@@ -884,7 +884,7 @@ public class RenderBlocks {
                 var5.addVertexWithUV((double) (var2 + 1), (double) ((float) var3 + var18 + var20), (double) ((float) (var4 + 1) - var60), var10, var14);
             }
 
-            if (Block.fire.canBlockCatchFire(this.blockAccess, var2, var3 + 1, var4)) {
+            if (Block.FIRE.canBlockCatchFire(this.blockAccess, var2, var3 + 1, var4)) {
                 double var63 = (double) var2 + 0.5D + 0.5D;
                 double var65 = (double) var2 + 0.5D - 0.5D;
                 double var67 = (double) var4 + 0.5D + 0.5D;
@@ -1134,7 +1134,7 @@ public class RenderBlocks {
             var17 = (double) (((float) (var13 + 16) + 15.99F) / 256.0F);
             var19 = (double) ((float) var14 / 256.0F);
             var21 = (double) (((float) var14 + 15.99F) / 256.0F);
-            if (this.blockAccess.isBlockNormalCube(var2 - 1, var3, var4) && this.blockAccess.getBlockId(var2 - 1, var3 + 1, var4) == Block.redstoneWire.blockID) {
+            if (this.blockAccess.isBlockNormalCube(var2 - 1, var3, var4) && this.blockAccess.getBlockId(var2 - 1, var3 + 1, var4) == Block.REDSTONE_WIRE.blockID) {
                 var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
                 var5.addVertexWithUV((double) ((float) var2 + 0.015625F), (double) ((float) (var3 + 1) + 0.021875F), (double) (var4 + 1), var17, var19);
                 var5.addVertexWithUV((double) ((float) var2 + 0.015625F), (double) (var3 + 0), (double) (var4 + 1), var15, var19);
@@ -1147,7 +1147,7 @@ public class RenderBlocks {
                 var5.addVertexWithUV((double) ((float) var2 + 0.015625F), (double) ((float) (var3 + 1) + 0.021875F), (double) (var4 + 0), var17, var21 + 0.0625D);
             }
 
-            if (this.blockAccess.isBlockNormalCube(var2 + 1, var3, var4) && this.blockAccess.getBlockId(var2 + 1, var3 + 1, var4) == Block.redstoneWire.blockID) {
+            if (this.blockAccess.isBlockNormalCube(var2 + 1, var3, var4) && this.blockAccess.getBlockId(var2 + 1, var3 + 1, var4) == Block.REDSTONE_WIRE.blockID) {
                 var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
                 var5.addVertexWithUV((double) ((float) (var2 + 1) - 0.015625F), (double) (var3 + 0), (double) (var4 + 1), var15, var21);
                 var5.addVertexWithUV((double) ((float) (var2 + 1) - 0.015625F), (double) ((float) (var3 + 1) + 0.021875F), (double) (var4 + 1), var17, var21);
@@ -1160,7 +1160,7 @@ public class RenderBlocks {
                 var5.addVertexWithUV((double) ((float) (var2 + 1) - 0.015625F), (double) (var3 + 0), (double) (var4 + 0), var15, var19 + 0.0625D);
             }
 
-            if (this.blockAccess.isBlockNormalCube(var2, var3, var4 - 1) && this.blockAccess.getBlockId(var2, var3 + 1, var4 - 1) == Block.redstoneWire.blockID) {
+            if (this.blockAccess.isBlockNormalCube(var2, var3, var4 - 1) && this.blockAccess.getBlockId(var2, var3 + 1, var4 - 1) == Block.REDSTONE_WIRE.blockID) {
                 var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
                 var5.addVertexWithUV((double) (var2 + 1), (double) (var3 + 0), (double) ((float) var4 + 0.015625F), var15, var21);
                 var5.addVertexWithUV((double) (var2 + 1), (double) ((float) (var3 + 1) + 0.021875F), (double) ((float) var4 + 0.015625F), var17, var21);
@@ -1173,7 +1173,7 @@ public class RenderBlocks {
                 var5.addVertexWithUV((double) (var2 + 0), (double) (var3 + 0), (double) ((float) var4 + 0.015625F), var15, var19 + 0.0625D);
             }
 
-            if (this.blockAccess.isBlockNormalCube(var2, var3, var4 + 1) && this.blockAccess.getBlockId(var2, var3 + 1, var4 + 1) == Block.redstoneWire.blockID) {
+            if (this.blockAccess.isBlockNormalCube(var2, var3, var4 + 1) && this.blockAccess.getBlockId(var2, var3 + 1, var4 + 1) == Block.REDSTONE_WIRE.blockID) {
                 var5.setColorOpaque_F(var8 * var10, var8 * var11, var8 * var12);
                 var5.addVertexWithUV((double) (var2 + 1), (double) ((float) (var3 + 1) + 0.021875F), (double) ((float) (var4 + 1) - 0.015625F), var17, var19);
                 var5.addVertexWithUV((double) (var2 + 1), (double) (var3 + 0), (double) ((float) (var4 + 1) - 0.015625F), var15, var19);
@@ -1332,7 +1332,7 @@ public class RenderBlocks {
         double var19 = (double) var2;
         double var20 = (double) var3;
         double var15 = (double) var4;
-        if (var1 == Block.tallGrass) {
+        if (var1 == Block.TALLGRASS) {
             long var17 = (long) (var2 * 3129871) ^ (long) var4 * 116129781L ^ (long) var3;
             var17 = var17 * var17 * 42317861L + var17 * 11L;
             var19 += ((double) ((float) (var17 >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
@@ -2250,7 +2250,7 @@ public class RenderBlocks {
         float var23 = var10;
         float var24 = var12;
         float var25 = var13;
-        if (var1 != Block.grass) {
+        if (var1 != Block.GRASS) {
             var17 = var10 * var5;
             var18 = var12 * var5;
             var19 = var13 * var5;

@@ -544,7 +544,7 @@ public class World implements IBlockAccess {
         if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
             if (var4) {
                 int var5 = this.getBlockId(var1, var2, var3);
-                if (var5 == Block.stairSingle.blockID || var5 == Block.tilledField.blockID || var5 == Block.stairCompactCobblestone.blockID || var5 == Block.stairCompactPlanks.blockID) {
+                if (var5 == Block.STAIR_SINGLE.blockID || var5 == Block.FARMLAND.blockID || var5 == Block.STAIR_COMPACT_COBBLESTONE.blockID || var5 == Block.STAIR_COMPACT_PLANKS.blockID) {
                     int var6 = this.getBlockLightValue_do(var1, var2 + 1, var3, false);
                     int var7 = this.getBlockLightValue_do(var1 + 1, var2, var3, false);
                     int var8 = this.getBlockLightValue_do(var1 - 1, var2, var3, false);
@@ -1402,7 +1402,7 @@ public class World implements IBlockAccess {
                 for (int var9 = var4; var9 < var5; ++var9) {
                     for (int var10 = var6; var10 < var7; ++var10) {
                         int var11 = this.getBlockId(var8, var9, var10);
-                        if (var11 == Block.fire.blockID || var11 == Block.lavaMoving.blockID || var11 == Block.lavaStill.blockID) {
+                        if (var11 == Block.FIRE.blockID || var11 == Block.LAVA_MOVING.blockID || var11 == Block.LAVA_STILL.blockID) {
                             return true;
                         }
                     }
@@ -1567,7 +1567,7 @@ public class World implements IBlockAccess {
             ++var2;
         }
 
-        if (this.getBlockId(var2, var3, var4) == Block.fire.blockID) {
+        if (this.getBlockId(var2, var3, var4) == Block.FIRE.blockID) {
             this.func_28107_a(var1, 1004, var2, var3, var4, 0);
             this.setBlockWithNotify(var2, var3, var4, 0);
         }
@@ -1920,12 +1920,12 @@ public class World implements IBlockAccess {
                 if (this.getWorldChunkManager().getBiomeGenAt(var24 + var14, var28 + var15).getEnableSnow() && var31 >= 0 && var31 < 128 && var16.getSavedLightValue(EnumSkyBlock.BLOCK, var24, var31, var28) < 10) {
                     int var33 = var16.getBlockID(var24, var31 - 1, var28);
                     int var35 = var16.getBlockID(var24, var31, var28);
-                    if (this.func_27161_C() && var35 == 0 && Block.snow.canPlaceBlockAt(this, var24 + var14, var31, var28 + var15) && var33 != 0 && var33 != Block.ice.blockID && Block.BLOCKS_LIST[var33].blockMaterial.getIsSolid()) {
-                        this.setBlockWithNotify(var24 + var14, var31, var28 + var15, Block.snow.blockID);
+                    if (this.func_27161_C() && var35 == 0 && Block.SNOW.canPlaceBlockAt(this, var24 + var14, var31, var28 + var15) && var33 != 0 && var33 != Block.ICE.blockID && Block.BLOCKS_LIST[var33].blockMaterial.getIsSolid()) {
+                        this.setBlockWithNotify(var24 + var14, var31, var28 + var15, Block.SNOW.blockID);
                     }
 
-                    if (var33 == Block.waterStill.blockID && var16.getBlockMetadata(var24, var31 - 1, var28) == 0) {
-                        this.setBlockWithNotify(var24 + var14, var31 - 1, var28 + var15, Block.ice.blockID);
+                    if (var33 == Block.WATER_STILL.blockID && var16.getBlockMetadata(var24, var31 - 1, var28) == 0) {
+                        this.setBlockWithNotify(var24 + var14, var31 - 1, var28 + var15, Block.ICE.blockID);
                     }
                 }
             }
@@ -2087,7 +2087,7 @@ public class World implements IBlockAccess {
         if (var10 != null && !this.checkIfAABBIsClear(var10)) {
             return false;
         } else {
-            if (var8 == Block.waterMoving || var8 == Block.waterStill || var8 == Block.lavaMoving || var8 == Block.lavaStill || var8 == Block.fire || var8 == Block.snow) {
+            if (var8 == Block.WATER_MOVING || var8 == Block.WATER_STILL || var8 == Block.LAVA_MOVING || var8 == Block.LAVA_STILL || var8 == Block.FIRE || var8 == Block.SNOW) {
                 var8 = null;
             }
 

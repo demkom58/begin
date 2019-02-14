@@ -74,8 +74,8 @@ public class WorldGenLakes extends WorldGenerator {
         for (int var37 = 0; var37 < 16; ++var37) {
             for (int var41 = 0; var41 < 16; ++var41) {
                 for (int var44 = 4; var44 < 8; ++var44) {
-                    if (var6[(var37 * 16 + var41) * 8 + var44] && var1.getBlockId(var3 + var37, var4 + var44 - 1, var5 + var41) == Block.dirt.blockID && var1.getSavedLightValue(EnumSkyBlock.SKY, var3 + var37, var4 + var44, var5 + var41) > 0) {
-                        var1.setBlock(var3 + var37, var4 + var44 - 1, var5 + var41, Block.grass.blockID);
+                    if (var6[(var37 * 16 + var41) * 8 + var44] && var1.getBlockId(var3 + var37, var4 + var44 - 1, var5 + var41) == Block.DIRT.blockID && var1.getSavedLightValue(EnumSkyBlock.SKY, var3 + var37, var4 + var44, var5 + var41) > 0) {
+                        var1.setBlock(var3 + var37, var4 + var44 - 1, var5 + var41, Block.GRASS.blockID);
                     }
                 }
             }
@@ -87,7 +87,7 @@ public class WorldGenLakes extends WorldGenerator {
                     for (int var45 = 0; var45 < 8; ++var45) {
                         boolean var47 = !var6[(var38 * 16 + var42) * 8 + var45] && (var38 < 15 && var6[((var38 + 1) * 16 + var42) * 8 + var45] || var38 > 0 && var6[((var38 - 1) * 16 + var42) * 8 + var45] || var42 < 15 && var6[(var38 * 16 + var42 + 1) * 8 + var45] || var42 > 0 && var6[(var38 * 16 + (var42 - 1)) * 8 + var45] || var45 < 7 && var6[(var38 * 16 + var42) * 8 + var45 + 1] || var45 > 0 && var6[(var38 * 16 + var42) * 8 + (var45 - 1)]);
                         if (var47 && (var45 < 4 || var2.nextInt(2) != 0) && var1.getBlockMaterial(var3 + var38, var4 + var45, var5 + var42).isSolid()) {
-                            var1.setBlock(var3 + var38, var4 + var45, var5 + var42, Block.stone.blockID);
+                            var1.setBlock(var3 + var38, var4 + var45, var5 + var42, Block.STONE.blockID);
                         }
                     }
                 }

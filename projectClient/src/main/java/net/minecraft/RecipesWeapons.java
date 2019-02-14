@@ -2,7 +2,7 @@ package net.minecraft;
 
 public class RecipesWeapons {
     private String[][] recipePatterns = new String[][]{{"X", "X", "#"}};
-    private Object[][] recipeItems = new Object[][]{{Block.planks, Block.cobblestone, Item.INGOT_IRON, Item.DIAMOND, Item.INGOT_GOLD}, {Item.SWORD_WOOD, Item.SWORD_STONE, Item.SWORD_IRON, Item.SWORD_DIAMOND, Item.SWORD_GOLD}};
+    private Object[][] recipeItems = new Object[][]{{Block.PLANKS, Block.COBBLESTONE, Item.INGOT_IRON, Item.DIAMOND, Item.INGOT_GOLD}, {Item.SWORD_WOOD, Item.SWORD_STONE, Item.SWORD_IRON, Item.SWORD_DIAMOND, Item.SWORD_GOLD}};
 
     public void addRecipes(CraftingManager var1) {
         for (int var2 = 0; var2 < this.recipeItems[0].length; ++var2) {

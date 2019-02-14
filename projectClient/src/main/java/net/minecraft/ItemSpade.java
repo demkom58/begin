@@ -1,17 +1,17 @@
 package net.minecraft;
 
 public class ItemSpade extends ItemTool {
-    private static Block[] blocksEffectiveAgainst = new Block[]{Block.grass, Block.dirt, Block.sand, Block.gravel, Block.snow, Block.blockSnow, Block.blockClay, Block.tilledField};
+    private static Block[] blocksEffectiveAgainst = new Block[]{Block.GRASS, Block.DIRT, Block.SAND, Block.GRAVEL, Block.SNOW, Block.BLOCK_SNOW, Block.BLOCK_CLAY, Block.FARMLAND};
 
     public ItemSpade(int var1, EnumToolMaterial var2) {
         super(var1, 1, var2, blocksEffectiveAgainst);
     }
 
     public boolean canHarvestBlock(Block var1) {
-        if (var1 == Block.snow) {
+        if (var1 == Block.SNOW) {
             return true;
         } else {
-            return var1 == Block.blockSnow;
+            return var1 == Block.BLOCK_SNOW;
         }
     }
 }

@@ -5,7 +5,7 @@ public class EntitySlimeFX extends EntityFX {
         super(var1, var2, var4, var6, 0.0D, 0.0D, 0.0D);
         this.particleTextureIndex = var8.getIconFromDamage(0);
         this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
-        this.particleGravity = Block.blockSnow.blockParticleGravity;
+        this.particleGravity = Block.BLOCK_SNOW.blockParticleGravity;
         this.particleScale /= 2.0F;
     }
 

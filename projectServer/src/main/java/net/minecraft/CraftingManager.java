@@ -23,7 +23,7 @@ public class CraftingManager {
         this.addRecipe(new ItemStack(Block.FENCE, 2), "###", "###", '#', Item.STICK);
         this.addRecipe(new ItemStack(Block.JUKEBOX, 1), "###", "#X#", "###", '#', Block.PLANKS, 'X', Item.DIAMOND);
         this.addRecipe(new ItemStack(Block.MUSIC_BLOCK, 1), "###", "#X#", "###", '#', Block.PLANKS, 'X', Item.REDSTONE);
-        this.addRecipe(new ItemStack(Block.BOOK_SHELF, 1), "###", "XXX", "###", '#', Block.PLANKS, 'X', Item.BOOK);
+        this.addRecipe(new ItemStack(Block.BOOKSHELF, 1), "###", "XXX", "###", '#', Block.PLANKS, 'X', Item.BOOK);
         this.addRecipe(new ItemStack(Block.BLOCK_SNOW, 1), "##", "##", '#', Item.SNOWBALL);
         this.addRecipe(new ItemStack(Block.BLOCK_CLAY, 1), "##", "##", '#', Item.CLAY);
         this.addRecipe(new ItemStack(Block.BRICK, 1), "##", "##", '#', Item.BRICK);
@@ -46,7 +46,7 @@ public class CraftingManager {
         this.addRecipe(new ItemStack(Block.TORCH_WOOD, 4), "X", "#", 'X', Item.COAL, '#', Item.STICK);
         this.addRecipe(new ItemStack(Block.TORCH_WOOD, 4), "X", "#", 'X', new ItemStack(Item.COAL, 1, 1), '#', Item.STICK);
         this.addRecipe(new ItemStack(Item.BOWL_EMPTY, 4), "# #", " # ", '#', Block.PLANKS);
-        this.addRecipe(new ItemStack(Block.MINECART_TRACK, 16), "X X", "X#X", "X X", 'X', Item.INGOT_IRON, '#', Item.STICK);
+        this.addRecipe(new ItemStack(Block.RAIL, 16), "X X", "X#X", "X X", 'X', Item.INGOT_IRON, '#', Item.STICK);
         this.addRecipe(new ItemStack(Block.RAIL_POWERED, 6), "X X", "X#X", "XRX", 'X', Item.INGOT_GOLD, 'R', Item.REDSTONE, '#', Item.STICK);
         this.addRecipe(new ItemStack(Block.RAIL_DETECTOR, 6), "X X", "X#X", "XRX", 'X', Item.INGOT_IRON, 'R', Item.REDSTONE, '#', Block.PRESSURE_PLATE_STONE);
         this.addRecipe(new ItemStack(Item.MINECART, 1), "# #", "###", '#', Item.INGOT_IRON);

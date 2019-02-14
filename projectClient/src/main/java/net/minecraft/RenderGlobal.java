@@ -181,7 +181,7 @@ public class RenderGlobal implements IWorldAccess {
     }
 
     public void loadRenderers() {
-        Block.leaves.setGraphicsLevel(this.mc.gameSettings.fancyGraphics);
+        Block.LEAVES.setGraphicsLevel(this.mc.gameSettings.fancyGraphics);
         this.renderDistance = this.mc.gameSettings.renderDistance;
         if (this.worldRenderers != null) {
             for (int var1 = 0; var1 < this.worldRenderers.length; ++var1) {
@@ -1066,7 +1066,7 @@ public class RenderGlobal implements IWorldAccess {
                 double var12 = var1.lastTickPosY + (var1.posY - var1.lastTickPosY) * (double) var5;
                 double var14 = var1.lastTickPosZ + (var1.posZ - var1.lastTickPosZ) * (double) var5;
                 if (var9 == null) {
-                    var9 = Block.stone;
+                    var9 = Block.STONE;
                 }
 
                 GL11.glEnable(3008 /*GL_ALPHA_TEST*/);

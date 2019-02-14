@@ -115,9 +115,9 @@ public class EntityMinecart extends Entity implements IInventory {
                         }
                     }
 
-                    this.dropItemWithOffset(Block.chest.blockID, 1, 0.0F);
+                    this.dropItemWithOffset(Block.CHEST.blockID, 1, 0.0F);
                 } else if (this.minecartType == 2) {
-                    this.dropItemWithOffset(Block.stoneOvenIdle.blockID, 1, 0.0F);
+                    this.dropItemWithOffset(Block.FURNACE.blockID, 1, 0.0F);
                 }
             }
 
@@ -222,7 +222,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 this.posY = (double) var2;
                 boolean var12 = false;
                 boolean var13 = false;
-                if (var9 == Block.railPowered.blockID) {
+                if (var9 == Block.RAIL_POWERED.blockID) {
                     var12 = (var11 & 8) != 0;
                     var13 = !var12;
                 }

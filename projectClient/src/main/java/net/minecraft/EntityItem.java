@@ -114,7 +114,7 @@ public class EntityItem extends Entity {
         if (!this.worldObj.multiplayerWorld) {
             int var2 = this.item.stackSize;
             if (this.delayBeforeCanPickup == 0 && var1.inventory.addItemStackToInventory(this.item)) {
-                if (this.item.itemID == Block.wood.blockID) {
+                if (this.item.itemID == Block.WOOD.blockID) {
                     var1.triggerAchievement(AchievementList.mineWood);
                 }
 

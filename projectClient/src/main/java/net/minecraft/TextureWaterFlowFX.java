@@ -8,7 +8,7 @@ public class TextureWaterFlowFX extends TextureFX {
     private int field_1134_k = 0;
 
     public TextureWaterFlowFX() {
-        super(Block.waterMoving.blockIndexInTexture + 1);
+        super(Block.WATER_MOVING.blockIndexInTexture + 1);
         this.tileSize = 2;
     }
 

@@ -13,7 +13,7 @@ public class WorldGenTallGrass extends WorldGenerator {
 
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
         int var11;
-        for (var11 = 0; ((var11 = var1.getBlockId(var3, var4, var5)) == 0 || var11 == Block.leaves.blockID) && var4 > 0; --var4) {
+        for (var11 = 0; ((var11 = var1.getBlockId(var3, var4, var5)) == 0 || var11 == Block.LEAVES.blockID) && var4 > 0; --var4) {
             ;
         }
 

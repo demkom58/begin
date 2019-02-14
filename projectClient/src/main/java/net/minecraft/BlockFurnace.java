@@ -20,9 +20,9 @@ public class BlockFurnace extends BlockContainer {
         TileEntity var6 = var1.getBlockTileEntity(var2, var3, var4);
         keepFurnaceInventory = true;
         if (var0) {
-            var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenActive.blockID);
+            var1.setBlockWithNotify(var2, var3, var4, Block.FURNACE_ACTIVE.blockID);
         } else {
-            var1.setBlockWithNotify(var2, var3, var4, Block.stoneOvenIdle.blockID);
+            var1.setBlockWithNotify(var2, var3, var4, Block.FURNACE.blockID);
         }
 
         keepFurnaceInventory = false;
@@ -32,7 +32,7 @@ public class BlockFurnace extends BlockContainer {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Block.stoneOvenIdle.blockID;
+        return Block.FURNACE.blockID;
     }
 
     public void onBlockAdded(World var1, int var2, int var3, int var4) {

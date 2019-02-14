@@ -9,7 +9,7 @@ public class TexturePortalFX extends TextureFX {
     private byte[][] portalTextureData = new byte[32][1024];
 
     public TexturePortalFX() {
-        super(Block.portal.blockIndexInTexture);
+        super(Block.PORTAL.blockIndexInTexture);
         Random var1 = new Random(100L);
 
         for (int var2 = 0; var2 < 32; ++var2) {

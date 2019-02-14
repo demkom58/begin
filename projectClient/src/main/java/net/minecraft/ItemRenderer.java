@@ -373,7 +373,7 @@ public class ItemRenderer {
 
         for (int var4 = 0; var4 < 2; ++var4) {
             GL11.glPushMatrix();
-            int var5 = Block.fire.blockIndexInTexture + var4 * 16;
+            int var5 = Block.FIRE.blockIndexInTexture + var4 * 16;
             int var6 = (var5 & 15) << 4;
             int var7 = var5 & 240;
             float var8 = (float) var6 / 256.0F;

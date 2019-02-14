@@ -81,7 +81,7 @@ public class BlockCactus extends Block {
             return false;
         } else {
             int var5 = var1.getBlockId(var2, var3 - 1, var4);
-            return var5 == Block.cactus.blockID || var5 == Block.sand.blockID;
+            return var5 == Block.CACTUS.blockID || var5 == Block.SAND.blockID;
         }
     }
 

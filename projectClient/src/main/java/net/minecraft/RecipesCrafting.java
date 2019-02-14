@@ -2,9 +2,9 @@ package net.minecraft;
 
 public class RecipesCrafting {
     public void addRecipes(CraftingManager var1) {
-        var1.addRecipe(new ItemStack(Block.chest), "###", "# #", "###", '#', Block.planks);
-        var1.addRecipe(new ItemStack(Block.stoneOvenIdle), "###", "# #", "###", '#', Block.cobblestone);
-        var1.addRecipe(new ItemStack(Block.workbench), "##", "##", '#', Block.planks);
-        var1.addRecipe(new ItemStack(Block.sandStone), "##", "##", '#', Block.sand);
+        var1.addRecipe(new ItemStack(Block.CHEST), "###", "# #", "###", '#', Block.PLANKS);
+        var1.addRecipe(new ItemStack(Block.FURNACE), "###", "# #", "###", '#', Block.COBBLESTONE);
+        var1.addRecipe(new ItemStack(Block.WORKBENCH), "##", "##", '#', Block.PLANKS);
+        var1.addRecipe(new ItemStack(Block.SAND_STONE), "##", "##", '#', Block.SAND);
     }
 }

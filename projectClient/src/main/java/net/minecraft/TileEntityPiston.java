@@ -73,7 +73,7 @@ public class TileEntityPiston extends TileEntity {
             var1 = 1.0F - var1;
         }
 
-        AxisAlignedBB var3 = Block.pistonMoving.func_31035_a(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, var1, this.field_31025_c);
+        AxisAlignedBB var3 = Block.PISTON_MOVING.func_31035_a(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, var1, this.field_31025_c);
         if (var3 != null) {
             List var4 = this.worldObj.getEntitiesWithinAABBExcludingEntity((Entity) null, var3);
             if (!var4.isEmpty()) {
@@ -94,7 +94,7 @@ public class TileEntityPiston extends TileEntity {
             this.field_31020_l = this.field_31022_k = 1.0F;
             this.worldObj.removeBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
             this.func_31005_i();
-            if (this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.pistonMoving.blockID) {
+            if (this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.PISTON_MOVING.blockID) {
                 this.worldObj.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, this.storedMetadata);
             }
         }
@@ -107,7 +107,7 @@ public class TileEntityPiston extends TileEntity {
             this.func_31010_a(1.0F, 0.25F);
             this.worldObj.removeBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
             this.func_31005_i();
-            if (this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.pistonMoving.blockID) {
+            if (this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.PISTON_MOVING.blockID) {
                 this.worldObj.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, this.storedMetadata);
             }
 

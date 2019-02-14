@@ -66,7 +66,7 @@ public class ChunkCache implements IBlockAccess {
         if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
             if (var4) {
                 int var5 = this.getBlockId(var1, var2, var3);
-                if (var5 == Block.stairSingle.blockID || var5 == Block.tilledField.blockID || var5 == Block.stairCompactPlanks.blockID || var5 == Block.stairCompactCobblestone.blockID) {
+                if (var5 == Block.STAIR_SINGLE.blockID || var5 == Block.FARMLAND.blockID || var5 == Block.STAIR_COMPACT_PLANKS.blockID || var5 == Block.STAIR_COMPACT_COBBLESTONE.blockID) {
                     int var13 = this.getLightValueExt(var1, var2 + 1, var3, false);
                     int var7 = this.getLightValueExt(var1 + 1, var2, var3, false);
                     int var8 = this.getLightValueExt(var1 - 1, var2, var3, false);

@@ -42,7 +42,7 @@ public class BlockLeaves extends BlockLeavesBase {
                 for (int var8 = -var5; var8 <= var5; ++var8) {
                     for (int var9 = -var5; var9 <= var5; ++var9) {
                         int var10 = var1.getBlockId(var2 + var7, var3 + var8, var4 + var9);
-                        if (var10 == Block.leaves.blockID) {
+                        if (var10 == Block.LEAVES.blockID) {
                             int var11 = var1.getBlockMetadata(var2 + var7, var3 + var8, var4 + var9);
                             var1.setBlockMetadata(var2 + var7, var3 + var8, var4 + var9, var11 | 8);
                         }
@@ -71,9 +71,9 @@ public class BlockLeaves extends BlockLeavesBase {
                         for (int var13 = -var7; var13 <= var7; ++var13) {
                             for (int var14 = -var7; var14 <= var7; ++var14) {
                                 int var15 = var1.getBlockId(var2 + var12, var3 + var13, var4 + var14);
-                                if (var15 == Block.wood.blockID) {
+                                if (var15 == Block.WOOD.blockID) {
                                     this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = 0;
-                                } else if (var15 == Block.leaves.blockID) {
+                                } else if (var15 == Block.LEAVES.blockID) {
                                     this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -2;
                                 } else {
                                     this.adjacentTreeBlocks[(var12 + var11) * var10 + (var13 + var11) * var9 + var14 + var11] = -1;
@@ -138,13 +138,13 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Block.sapling.blockID;
+        return Block.SAPLING.blockID;
     }
 
     public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
         if (!var1.multiplayerWorld && var2.getCurrentEquippedItem() != null && var2.getCurrentEquippedItem().itemID == Item.SHEARS.shiftedIndex) {
             var2.addStat(StatList.mineBlockStatArray[this.blockID], 1);
-            this.dropBlockAsItem_do(var1, var3, var4, var5, new ItemStack(Block.leaves.blockID, 1, var6 & 3));
+            this.dropBlockAsItem_do(var1, var3, var4, var5, new ItemStack(Block.LEAVES.blockID, 1, var6 & 3));
         } else {
             super.harvestBlock(var1, var2, var3, var4, var5, var6);
         }

@@ -15,7 +15,7 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        return var1 == 1 ? Block.redstoneWire.getBlockTextureFromSideAndMetadata(var1, var2) : super.getBlockTextureFromSideAndMetadata(var1, var2);
+        return var1 == 1 ? Block.REDSTONE_WIRE.getBlockTextureFromSideAndMetadata(var1, var2) : super.getBlockTextureFromSideAndMetadata(var1, var2);
     }
 
     private boolean checkForBurnout(World var1, int var2, int var3, int var4, boolean var5) {
@@ -113,7 +113,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
         if (this.torchActive) {
             if (var6) {
-                var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.torchRedstoneIdle.blockID, var1.getBlockMetadata(var2, var3, var4));
+                var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.TORCH_REDSTONE_IDLE.blockID, var1.getBlockMetadata(var2, var3, var4));
                 if (this.checkForBurnout(var1, var2, var3, var4, true)) {
                     var1.playSoundEffect((double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), "random.fizz", 0.5F, 2.6F + (var1.rand.nextFloat() - var1.rand.nextFloat()) * 0.8F);
 
@@ -126,7 +126,7 @@ public class BlockRedstoneTorch extends BlockTorch {
                 }
             }
         } else if (!var6 && !this.checkForBurnout(var1, var2, var3, var4, false)) {
-            var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.torchRedstoneActive.blockID, var1.getBlockMetadata(var2, var3, var4));
+            var1.setBlockAndMetadataWithNotify(var2, var3, var4, Block.TORCH_REDSTONE_ACTIVE.blockID, var1.getBlockMetadata(var2, var3, var4));
         }
 
     }
@@ -141,7 +141,7 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Block.torchRedstoneActive.blockID;
+        return Block.TORCH_REDSTONE_ACTIVE.blockID;
     }
 
     public boolean canProvidePower() {
