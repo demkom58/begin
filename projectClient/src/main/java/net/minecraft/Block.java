@@ -95,7 +95,7 @@ public class Block {
     public static final Block SIGN_WALL = new BlockSign(68, TileEntitySign.class, false).setHardness(1.0F).setStepSound(SOUND_WOOD_FOOTSTEP).setBlockName("sign").disableStats().disableNeighborNotifyOnMetadataChange();
     public static final Block LEVER = new BlockLever(69, 96).setHardness(0.5F).setStepSound(SOUND_WOOD_FOOTSTEP).setBlockName("lever").disableNeighborNotifyOnMetadataChange();
     public static final Block PRESSURE_PLATE_STONE;
-    public static final Block DOOR_STEEL = new BlockDoor(71, Material.iron).setHardness(5.0F).setStepSound(SOUND_METAL_FOOTSTEP).setBlockName("doorIron").disableStats().disableNeighborNotifyOnMetadataChange();
+    public static final Block DOOR_IRON = new BlockDoor(71, Material.iron).setHardness(5.0F).setStepSound(SOUND_METAL_FOOTSTEP).setBlockName("doorIron").disableStats().disableNeighborNotifyOnMetadataChange();
     public static final Block PRESSURE_PLATE_PLANKS;
     public static final Block ORE_REDSTONE = new BlockRedstoneOre(73, 51, false).setHardness(3.0F).setResistance(5.0F).setStepSound(SOUND_STONE_FOOTSTEP).setBlockName("oreRedstone").disableNeighborNotifyOnMetadataChange();
     public static final Block ORE_REDSTONE_GLOWING = new BlockRedstoneOre(74, 51, true).setLightValue(0.625F).setHardness(3.0F).setResistance(5.0F).setStepSound(SOUND_STONE_FOOTSTEP).setBlockName("oreRedstone").disableNeighborNotifyOnMetadataChange();
