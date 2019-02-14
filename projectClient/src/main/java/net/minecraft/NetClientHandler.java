@@ -109,11 +109,11 @@ public class NetClientHandler extends NetHandler {
         }
 
         if (var1.type == 70) {
-            var8 = new EntityFallingSand(this.worldClient, var2, var4, var6, Block.sand.blockID);
+            var8 = new EntityFallingSand(this.worldClient, var2, var4, var6, Block.SAND.blockID);
         }
 
         if (var1.type == 71) {
-            var8 = new EntityFallingSand(this.worldClient, var2, var4, var6, Block.gravel.blockID);
+            var8 = new EntityFallingSand(this.worldClient, var2, var4, var6, Block.GRAVEL.blockID);
         }
 
         if (var8 != null) {

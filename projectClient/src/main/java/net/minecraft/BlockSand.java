@@ -13,7 +13,7 @@ public class BlockSand extends Block {
         int var4 = var0.getBlockId(var1, var2, var3);
         if (var4 == 0) {
             return true;
-        } else if (var4 == Block.fire.blockID) {
+        } else if (var4 == Block.FIRE.blockID) {
             return true;
         } else {
             Material var5 = Block.BLOCKS_LIST[var4].blockMaterial;

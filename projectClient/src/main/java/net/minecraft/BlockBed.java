@@ -130,7 +130,7 @@ public class BlockBed extends Block {
 
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var1 == 0) {
-            return Block.planks.blockIndexInTexture;
+            return Block.PLANKS.blockIndexInTexture;
         } else {
             int var3 = getDirectionFromMetadata(var2);
             int var4 = ModelBed.bedDirection[var3][var1];

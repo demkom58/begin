@@ -15,11 +15,11 @@ public class BlockRail extends Block {
 
     public static final boolean func_27029_g(World var0, int var1, int var2, int var3) {
         int var4 = var0.getBlockId(var1, var2, var3);
-        return var4 == Block.MINECART_TRACK.blockID || var4 == Block.RAIL_POWERED.blockID || var4 == Block.RAIL_DETECTOR.blockID;
+        return var4 == Block.RAIL.blockID || var4 == Block.RAIL_POWERED.blockID || var4 == Block.RAIL_DETECTOR.blockID;
     }
 
     public static final boolean func_27030_c(int var0) {
-        return var0 == Block.MINECART_TRACK.blockID || var0 == Block.RAIL_POWERED.blockID || var0 == Block.RAIL_DETECTOR.blockID;
+        return var0 == Block.RAIL.blockID || var0 == Block.RAIL_POWERED.blockID || var0 == Block.RAIL_DETECTOR.blockID;
     }
 
     // $FF: synthetic method

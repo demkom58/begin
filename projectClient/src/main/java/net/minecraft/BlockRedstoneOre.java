@@ -35,15 +35,15 @@ public class BlockRedstoneOre extends Block {
 
     private void func_320_h(World var1, int var2, int var3, int var4) {
         this.func_319_i(var1, var2, var3, var4);
-        if (this.blockID == Block.oreRedstone.blockID) {
-            var1.setBlockWithNotify(var2, var3, var4, Block.oreRedstoneGlowing.blockID);
+        if (this.blockID == Block.ORE_REDSTONE.blockID) {
+            var1.setBlockWithNotify(var2, var3, var4, Block.ORE_REDSTONE_GLOWING.blockID);
         }
 
     }
 
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (this.blockID == Block.oreRedstoneGlowing.blockID) {
-            var1.setBlockWithNotify(var2, var3, var4, Block.oreRedstone.blockID);
+        if (this.blockID == Block.ORE_REDSTONE_GLOWING.blockID) {
+            var1.setBlockWithNotify(var2, var3, var4, Block.ORE_REDSTONE.blockID);
         }
 
     }

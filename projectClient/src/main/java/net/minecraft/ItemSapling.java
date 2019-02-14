@@ -12,6 +12,6 @@ public class ItemSapling extends ItemBlock {
     }
 
     public int getIconFromDamage(int var1) {
-        return Block.sapling.getBlockTextureFromSideAndMetadata(0, var1);
+        return Block.SAPLING.getBlockTextureFromSideAndMetadata(0, var1);
     }
 }

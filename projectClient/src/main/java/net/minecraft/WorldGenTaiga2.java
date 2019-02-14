@@ -22,7 +22,7 @@ public class WorldGenTaiga2 extends WorldGenerator {
                     for (int var14 = var5 - var12; var14 <= var5 + var12 && var10; ++var14) {
                         if (var11 >= 0 && var11 < 128) {
                             int var15 = var1.getBlockId(var13, var11, var14);
-                            if (var15 != 0 && var15 != Block.leaves.blockID) {
+                            if (var15 != 0 && var15 != Block.LEAVES.blockID) {
                                 var10 = false;
                             }
                         } else {
@@ -36,8 +36,8 @@ public class WorldGenTaiga2 extends WorldGenerator {
                 return false;
             } else {
                 int var21 = var1.getBlockId(var3, var4 - 1, var5);
-                if ((var21 == Block.grass.blockID || var21 == Block.dirt.blockID) && var4 < 128 - var6 - 1) {
-                    var1.setBlock(var3, var4 - 1, var5, Block.dirt.blockID);
+                if ((var21 == Block.GRASS.blockID || var21 == Block.DIRT.blockID) && var4 < 128 - var6 - 1) {
+                    var1.setBlock(var3, var4 - 1, var5, Block.DIRT.blockID);
                     int var23 = var2.nextInt(2);
                     int var24 = 1;
                     byte var25 = 0;
@@ -51,7 +51,7 @@ public class WorldGenTaiga2 extends WorldGenerator {
                             for (int var19 = var5 - var23; var19 <= var5 + var23; ++var19) {
                                 int var20 = var19 - var5;
                                 if ((Math.abs(var18) != var23 || Math.abs(var20) != var23 || var23 <= 0) && !Block.OPAQUE_CUBE_LOOKUP[var1.getBlockId(var17, var16, var19)]) {
-                                    var1.setBlockAndMetadata(var17, var16, var19, Block.leaves.blockID, 1);
+                                    var1.setBlockAndMetadata(var17, var16, var19, Block.LEAVES.blockID, 1);
                                 }
                             }
                         }
@@ -72,8 +72,8 @@ public class WorldGenTaiga2 extends WorldGenerator {
 
                     for (int var28 = 0; var28 < var6 - var27; ++var28) {
                         int var29 = var1.getBlockId(var3, var4 + var28, var5);
-                        if (var29 == 0 || var29 == Block.leaves.blockID) {
-                            var1.setBlockAndMetadata(var3, var4 + var28, var5, Block.wood.blockID, 1);
+                        if (var29 == 0 || var29 == Block.LEAVES.blockID) {
+                            var1.setBlockAndMetadata(var3, var4 + var28, var5, Block.WOOD.blockID, 1);
                         }
                     }
 

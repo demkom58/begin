@@ -19,7 +19,7 @@ class SlotArmor extends Slot {
     public boolean isItemValid(ItemStack var1) {
         if (var1.getItem() instanceof ItemArmor) {
             return ((ItemArmor) var1.getItem()).armorType == this.armorType;
-        } else if (var1.getItem().shiftedIndex == Block.pumpkin.blockID) {
+        } else if (var1.getItem().shiftedIndex == Block.PUMPKIN.blockID) {
             return this.armorType == 0;
         } else {
             return false;

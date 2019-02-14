@@ -478,15 +478,15 @@ public abstract class Entity {
                 int var26 = MathHelper.floor_double(this.posY - 0.20000000298023224D - (double) this.yOffset);
                 int var46 = MathHelper.floor_double(this.posZ);
                 int var52 = this.worldObj.getBlockId(var43, var26, var46);
-                if (this.worldObj.getBlockId(var43, var26 - 1, var46) == Block.fence.blockID) {
+                if (this.worldObj.getBlockId(var43, var26 - 1, var46) == Block.FENCE.blockID) {
                     var52 = this.worldObj.getBlockId(var43, var26 - 1, var46);
                 }
 
                 if (this.distanceWalkedModified > (float) this.nextStepDistance && var52 > 0) {
                     ++this.nextStepDistance;
                     StepSound var29 = Block.BLOCKS_LIST[var52].stepSound;
-                    if (this.worldObj.getBlockId(var43, var26 + 1, var46) == Block.snow.blockID) {
-                        var29 = Block.snow.stepSound;
+                    if (this.worldObj.getBlockId(var43, var26 + 1, var46) == Block.SNOW.blockID) {
+                        var29 = Block.SNOW.stepSound;
                         this.worldObj.playSoundAtEntity(this, var29.func_1145_d(), var29.getVolume() * 0.15F, var29.getPitch());
                     } else if (!Block.BLOCKS_LIST[var52].blockMaterial.getIsLiquid()) {
                         this.worldObj.playSoundAtEntity(this, var29.func_1145_d(), var29.getVolume() * 0.15F, var29.getPitch());

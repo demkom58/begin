@@ -12,15 +12,15 @@ public class BlockFire extends Block {
     }
 
     public void initializeBlock() {
-        this.setBurnRate(Block.planks.blockID, 5, 20);
-        this.setBurnRate(Block.fence.blockID, 5, 20);
-        this.setBurnRate(Block.stairCompactPlanks.blockID, 5, 20);
-        this.setBurnRate(Block.wood.blockID, 5, 5);
-        this.setBurnRate(Block.leaves.blockID, 30, 60);
-        this.setBurnRate(Block.bookShelf.blockID, 30, 20);
-        this.setBurnRate(Block.tnt.blockID, 15, 100);
-        this.setBurnRate(Block.tallGrass.blockID, 60, 100);
-        this.setBurnRate(Block.cloth.blockID, 30, 60);
+        this.setBurnRate(Block.PLANKS.blockID, 5, 20);
+        this.setBurnRate(Block.FENCE.blockID, 5, 20);
+        this.setBurnRate(Block.STAIR_COMPACT_PLANKS.blockID, 5, 20);
+        this.setBurnRate(Block.WOOD.blockID, 5, 5);
+        this.setBurnRate(Block.LEAVES.blockID, 30, 60);
+        this.setBurnRate(Block.BOOKSHELF.blockID, 30, 20);
+        this.setBurnRate(Block.TNT.blockID, 15, 100);
+        this.setBurnRate(Block.TALLGRASS.blockID, 60, 100);
+        this.setBurnRate(Block.CLOTH.blockID, 30, 60);
     }
 
     private void setBurnRate(int var1, int var2, int var3) {
@@ -53,7 +53,7 @@ public class BlockFire extends Block {
     }
 
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-        boolean var6 = var1.getBlockId(var2, var3 - 1, var4) == Block.netherrack.blockID;
+        boolean var6 = var1.getBlockId(var2, var3 - 1, var4) == Block.BLOOD_STONE.blockID;
         if (!this.canPlaceBlockAt(var1, var2, var3, var4)) {
             var1.setBlockWithNotify(var2, var3, var4, 0);
         }
@@ -115,7 +115,7 @@ public class BlockFire extends Block {
     private void tryToCatchBlockOnFire(World var1, int var2, int var3, int var4, int var5, Random var6, int var7) {
         int var8 = this.abilityToCatchFire[var1.getBlockId(var2, var3, var4)];
         if (var6.nextInt(var5) < var8) {
-            boolean var9 = var1.getBlockId(var2, var3, var4) == Block.tnt.blockID;
+            boolean var9 = var1.getBlockId(var2, var3, var4) == Block.TNT.blockID;
             if (var6.nextInt(var7 + 10) < 5 && !var1.canBlockBeRainedOn(var2, var3, var4)) {
                 int var10 = var7 + var6.nextInt(5) / 4;
                 if (var10 > 15) {
@@ -128,7 +128,7 @@ public class BlockFire extends Block {
             }
 
             if (var9) {
-                Block.tnt.onBlockDestroyedByPlayer(var1, var2, var3, var4, 1);
+                Block.TNT.onBlockDestroyedByPlayer(var1, var2, var3, var4, 1);
             }
         }
 
@@ -189,7 +189,7 @@ public class BlockFire extends Block {
     }
 
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
-        if (var1.getBlockId(var2, var3 - 1, var4) != Block.obsidian.blockID || !Block.portal.tryToCreatePortal(var1, var2, var3, var4)) {
+        if (var1.getBlockId(var2, var3 - 1, var4) != Block.OBSIDIAN.blockID || !Block.PORTAL.tryToCreatePortal(var1, var2, var3, var4)) {
             if (!var1.isBlockNormalCube(var2, var3 - 1, var4) && !this.func_263_h(var1, var2, var3, var4)) {
                 var1.setBlockWithNotify(var2, var3, var4, 0);
             } else {
@@ -203,8 +203,8 @@ public class BlockFire extends Block {
             var1.playSoundEffect((double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), "fire.fire", 1.0F + var5.nextFloat(), var5.nextFloat() * 0.7F + 0.3F);
         }
 
-        if (!var1.isBlockNormalCube(var2, var3 - 1, var4) && !Block.fire.canBlockCatchFire(var1, var2, var3 - 1, var4)) {
-            if (Block.fire.canBlockCatchFire(var1, var2 - 1, var3, var4)) {
+        if (!var1.isBlockNormalCube(var2, var3 - 1, var4) && !Block.FIRE.canBlockCatchFire(var1, var2, var3 - 1, var4)) {
+            if (Block.FIRE.canBlockCatchFire(var1, var2 - 1, var3, var4)) {
                 for (int var10 = 0; var10 < 2; ++var10) {
                     float var15 = (float) var2 + var5.nextFloat() * 0.1F;
                     float var20 = (float) var3 + var5.nextFloat();
@@ -213,7 +213,7 @@ public class BlockFire extends Block {
                 }
             }
 
-            if (Block.fire.canBlockCatchFire(var1, var2 + 1, var3, var4)) {
+            if (Block.FIRE.canBlockCatchFire(var1, var2 + 1, var3, var4)) {
                 for (int var11 = 0; var11 < 2; ++var11) {
                     float var16 = (float) (var2 + 1) - var5.nextFloat() * 0.1F;
                     float var21 = (float) var3 + var5.nextFloat();
@@ -222,7 +222,7 @@ public class BlockFire extends Block {
                 }
             }
 
-            if (Block.fire.canBlockCatchFire(var1, var2, var3, var4 - 1)) {
+            if (Block.FIRE.canBlockCatchFire(var1, var2, var3, var4 - 1)) {
                 for (int var12 = 0; var12 < 2; ++var12) {
                     float var17 = (float) var2 + var5.nextFloat();
                     float var22 = (float) var3 + var5.nextFloat();
@@ -231,7 +231,7 @@ public class BlockFire extends Block {
                 }
             }
 
-            if (Block.fire.canBlockCatchFire(var1, var2, var3, var4 + 1)) {
+            if (Block.FIRE.canBlockCatchFire(var1, var2, var3, var4 + 1)) {
                 for (int var13 = 0; var13 < 2; ++var13) {
                     float var18 = (float) var2 + var5.nextFloat();
                     float var23 = (float) var3 + var5.nextFloat();
@@ -240,7 +240,7 @@ public class BlockFire extends Block {
                 }
             }
 
-            if (Block.fire.canBlockCatchFire(var1, var2, var3 + 1, var4)) {
+            if (Block.FIRE.canBlockCatchFire(var1, var2, var3 + 1, var4)) {
                 for (int var14 = 0; var14 < 2; ++var14) {
                     float var19 = (float) var2 + var5.nextFloat();
                     float var24 = (float) (var3 + 1) - var5.nextFloat() * 0.1F;

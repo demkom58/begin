@@ -15,7 +15,7 @@ public class EntityDiggingFX extends EntityFX {
     }
 
     public EntityDiggingFX func_4041_a(int var1, int var2, int var3) {
-        if (this.field_4082_a == Block.grass) {
+        if (this.field_4082_a == Block.GRASS) {
             return this;
         } else {
             int var4 = this.field_4082_a.colorMultiplier(this.worldObj, var1, var2, var3);

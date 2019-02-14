@@ -40,7 +40,7 @@ public class BlockStationary extends BlockFluid {
                 int var8 = var1.getBlockId(var2, var3, var4);
                 if (var8 == 0) {
                     if (this.func_301_k(var1, var2 - 1, var3, var4) || this.func_301_k(var1, var2 + 1, var3, var4) || this.func_301_k(var1, var2, var3, var4 - 1) || this.func_301_k(var1, var2, var3, var4 + 1) || this.func_301_k(var1, var2, var3 - 1, var4) || this.func_301_k(var1, var2, var3 + 1, var4)) {
-                        var1.setBlockWithNotify(var2, var3, var4, Block.fire.blockID);
+                        var1.setBlockWithNotify(var2, var3, var4, Block.FIRE.blockID);
                         return;
                     }
                 } else if (Block.BLOCKS_LIST[var8].blockMaterial.getIsSolid()) {

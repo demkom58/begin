@@ -38,7 +38,7 @@ public class GuiIngame extends Gui {
         }
 
         ItemStack var9 = this.mc.thePlayer.inventory.armorItemInSlot(3);
-        if (!this.mc.gameSettings.thirdPersonView && var9 != null && var9.itemID == Block.pumpkin.blockID) {
+        if (!this.mc.gameSettings.thirdPersonView && var9 != null && var9.itemID == Block.PUMPKIN.blockID) {
             this.renderPumpkinBlur(var6, var7);
         }
 
@@ -319,10 +319,10 @@ public class GuiIngame extends Gui {
         GL11.glBlendFunc(770, 771);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, var1);
         GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTexture("/terrain.png"));
-        float var4 = (float) (Block.portal.blockIndexInTexture % 16) / 16.0F;
-        float var5 = (float) (Block.portal.blockIndexInTexture / 16) / 16.0F;
-        float var6 = (float) (Block.portal.blockIndexInTexture % 16 + 1) / 16.0F;
-        float var7 = (float) (Block.portal.blockIndexInTexture / 16 + 1) / 16.0F;
+        float var4 = (float) (Block.PORTAL.blockIndexInTexture % 16) / 16.0F;
+        float var5 = (float) (Block.PORTAL.blockIndexInTexture / 16) / 16.0F;
+        float var6 = (float) (Block.PORTAL.blockIndexInTexture % 16 + 1) / 16.0F;
+        float var7 = (float) (Block.PORTAL.blockIndexInTexture / 16 + 1) / 16.0F;
         Tessellator var8 = Tessellator.instance;
         var8.startDrawingQuads();
         var8.addVertexWithUV(0.0D, (double) var3, -90.0D, (double) var4, (double) var7);

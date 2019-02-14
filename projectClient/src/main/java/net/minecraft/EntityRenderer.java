@@ -196,7 +196,7 @@ public class EntityRenderer {
             GL11.glTranslatef(0.0F, 0.3F, 0.0F);
             if (!this.mc.gameSettings.field_22273_E) {
                 int var10 = this.mc.theWorld.getBlockId(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
-                if (var10 == Block.blockBed.blockID) {
+                if (var10 == Block.BED.blockID) {
                     int var11 = this.mc.theWorld.getBlockMetadata(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
                     int var12 = var11 & 3;
                     GL11.glRotatef((float) (var12 * 90), 0.0F, 1.0F, 0.0F);

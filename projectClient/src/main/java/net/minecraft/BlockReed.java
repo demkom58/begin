@@ -35,7 +35,7 @@ public class BlockReed extends Block {
         int var5 = var1.getBlockId(var2, var3 - 1, var4);
         if (var5 == this.blockID) {
             return true;
-        } else if (var5 != Block.grass.blockID && var5 != Block.dirt.blockID) {
+        } else if (var5 != Block.GRASS.blockID && var5 != Block.DIRT.blockID) {
             return false;
         } else if (var1.getBlockMaterial(var2 - 1, var3 - 1, var4) == Material.water) {
             return true;

@@ -16,11 +16,11 @@ public class SlotCrafting extends Slot {
 
     public void onPickupFromSlot(ItemStack var1) {
         var1.onCrafting(this.thePlayer.worldObj, this.thePlayer);
-        if (var1.itemID == Block.workbench.blockID) {
+        if (var1.itemID == Block.WORKBENCH.blockID) {
             this.thePlayer.addStat(AchievementList.buildWorkBench, 1);
         } else if (var1.itemID == Item.PICKAXE_WOOD.shiftedIndex) {
             this.thePlayer.addStat(AchievementList.buildPickaxe, 1);
-        } else if (var1.itemID == Block.stoneOvenIdle.blockID) {
+        } else if (var1.itemID == Block.FURNACE.blockID) {
             this.thePlayer.addStat(AchievementList.buildFurnace, 1);
         } else if (var1.itemID == Item.HOE_WOOD.shiftedIndex) {
             this.thePlayer.addStat(AchievementList.buildHoe, 1);

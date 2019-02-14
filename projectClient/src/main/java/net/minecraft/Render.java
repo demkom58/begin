@@ -101,7 +101,7 @@ public abstract class Render {
 
     private void renderEntityOnFire(Entity var1, double var2, double var4, double var6, float var8) {
         GL11.glDisable(2896 /*GL_LIGHTING*/);
-        int var9 = Block.fire.blockIndexInTexture;
+        int var9 = Block.FIRE.blockIndexInTexture;
         int var10 = (var9 & 15) << 4;
         int var11 = var9 & 240;
         float var12 = (float) var10 / 256.0F;

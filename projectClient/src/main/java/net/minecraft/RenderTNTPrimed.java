@@ -30,14 +30,14 @@ public class RenderTNTPrimed extends Render {
 
         float var14 = (1.0F - ((float) var1.fuse - var9 + 1.0F) / 100.0F) * 0.8F;
         this.loadTexture("/terrain.png");
-        this.blockRenderer.renderBlockOnInventory(Block.tnt, 0, var1.getEntityBrightness(var9));
+        this.blockRenderer.renderBlockOnInventory(Block.TNT, 0, var1.getEntityBrightness(var9));
         if (var1.fuse / 5 % 2 == 0) {
             GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
             GL11.glDisable(2896 /*GL_LIGHTING*/);
             GL11.glEnable(3042 /*GL_BLEND*/);
             GL11.glBlendFunc(770, 772);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, var14);
-            this.blockRenderer.renderBlockOnInventory(Block.tnt, 0, 1.0F);
+            this.blockRenderer.renderBlockOnInventory(Block.TNT, 0, 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glDisable(3042 /*GL_BLEND*/);
             GL11.glEnable(2896 /*GL_LIGHTING*/);

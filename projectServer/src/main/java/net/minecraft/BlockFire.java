@@ -17,7 +17,7 @@ public class BlockFire extends Block {
         this.setBurnRate(Block.STAIR_COMPACT_PLANKS.blockID, 5, 20);
         this.setBurnRate(Block.WOOD.blockID, 5, 5);
         this.setBurnRate(Block.LEAVES.blockID, 30, 60);
-        this.setBurnRate(Block.BOOK_SHELF.blockID, 30, 20);
+        this.setBurnRate(Block.BOOKSHELF.blockID, 30, 20);
         this.setBurnRate(Block.TNT.blockID, 15, 100);
         this.setBurnRate(Block.TALLGRASS.blockID, 60, 100);
         this.setBurnRate(Block.CLOTH.blockID, 30, 60);

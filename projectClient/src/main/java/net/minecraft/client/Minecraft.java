@@ -899,16 +899,16 @@ public abstract class Minecraft implements Runnable {
     private void clickMiddleMouseButton() {
         if (this.objectMouseOver != null) {
             int var1 = this.theWorld.getBlockId(this.objectMouseOver.blockX, this.objectMouseOver.blockY, this.objectMouseOver.blockZ);
-            if (var1 == Block.grass.blockID) {
-                var1 = Block.dirt.blockID;
+            if (var1 == Block.GRASS.blockID) {
+                var1 = Block.DIRT.blockID;
             }
 
-            if (var1 == Block.stairDouble.blockID) {
-                var1 = Block.stairSingle.blockID;
+            if (var1 == Block.STAIR_DOUBLE.blockID) {
+                var1 = Block.STAIR_SINGLE.blockID;
             }
 
-            if (var1 == Block.bedrock.blockID) {
-                var1 = Block.stone.blockID;
+            if (var1 == Block.BEDROCK.blockID) {
+                var1 = Block.STONE.blockID;
             }
 
             this.thePlayer.inventory.setCurrentItem(var1, this.playerController instanceof PlayerControllerTest);

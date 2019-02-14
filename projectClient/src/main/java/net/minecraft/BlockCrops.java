@@ -12,7 +12,7 @@ public class BlockCrops extends BlockFlower {
     }
 
     protected boolean canThisPlantGrowOnThisBlockID(int var1) {
-        return var1 == Block.tilledField.blockID;
+        return var1 == Block.FARMLAND.blockID;
     }
 
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
@@ -52,7 +52,7 @@ public class BlockCrops extends BlockFlower {
             for (int var18 = var4 - 1; var18 <= var4 + 1; ++var18) {
                 int var19 = var1.getBlockId(var17, var3 - 1, var18);
                 float var20 = 0.0F;
-                if (var19 == Block.tilledField.blockID) {
+                if (var19 == Block.FARMLAND.blockID) {
                     var20 = 1.0F;
                     if (var1.getBlockMetadata(var17, var3 - 1, var18) > 0) {
                         var20 = 3.0F;

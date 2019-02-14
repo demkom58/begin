@@ -60,7 +60,7 @@ public abstract class EntityPlayer extends EntityLiving {
         var2.prepareChunk(var1.x + 3 >> 4, var1.z - 3 >> 4);
         var2.prepareChunk(var1.x - 3 >> 4, var1.z + 3 >> 4);
         var2.prepareChunk(var1.x + 3 >> 4, var1.z + 3 >> 4);
-        if (var0.getBlockId(var1.x, var1.y, var1.z) != Block.blockBed.blockID) {
+        if (var0.getBlockId(var1.x, var1.y, var1.z) != Block.BED.blockID) {
             return null;
         } else {
             ChunkCoordinates var3 = BlockBed.getNearestEmptyChunkCoordinates(var0, var1.x, var1.y, var1.z, 0);
@@ -616,7 +616,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.resetHeight();
         ChunkCoordinates var4 = this.bedChunkCoordinates;
         ChunkCoordinates var5 = this.bedChunkCoordinates;
-        if (var4 != null && this.worldObj.getBlockId(var4.x, var4.y, var4.z) == Block.blockBed.blockID) {
+        if (var4 != null && this.worldObj.getBlockId(var4.x, var4.y, var4.z) == Block.BED.blockID) {
             BlockBed.setBedOccupied(this.worldObj, var4.x, var4.y, var4.z, false);
             var5 = BlockBed.getNearestEmptyChunkCoordinates(this.worldObj, var4.x, var4.y, var4.z, 0);
             if (var5 == null) {
@@ -644,7 +644,7 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     private boolean isInBed() {
-        return this.worldObj.getBlockId(this.bedChunkCoordinates.x, this.bedChunkCoordinates.y, this.bedChunkCoordinates.z) == Block.blockBed.blockID;
+        return this.worldObj.getBlockId(this.bedChunkCoordinates.x, this.bedChunkCoordinates.y, this.bedChunkCoordinates.z) == Block.BED.blockID;
     }
 
     public float getBedOrientationInDegrees() {

@@ -8,7 +8,7 @@ public class ItemLog extends ItemBlock {
     }
 
     public int getIconFromDamage(int var1) {
-        return Block.wood.getBlockTextureFromSideAndMetadata(2, var1);
+        return Block.WOOD.getBlockTextureFromSideAndMetadata(2, var1);
     }
 
     public int getPlacedBlockMetadata(int var1) {

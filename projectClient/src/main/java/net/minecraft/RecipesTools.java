@@ -8,7 +8,7 @@ public class RecipesTools {
             {"XX", " #", " #"}
     };
     private Object[][] recipeItems = new Object[][]{
-            {Block.planks, Block.cobblestone, Item.INGOT_IRON, Item.DIAMOND, Item.INGOT_GOLD},
+            {Block.PLANKS, Block.COBBLESTONE, Item.INGOT_IRON, Item.DIAMOND, Item.INGOT_GOLD},
             {Item.PICKAXE_WOOD, Item.PICKAXE_STONE, Item.PICKAXE_IRON, Item.PICKAXE_DIAMOND, Item.PICKAXE_GOLD},
             {Item.SHOVEL_WOOD, Item.SHOVEL_STONE, Item.SHOVEL_IRON, Item.SHOVEL_DIAMOND, Item.SHOVEL_GOLD},
             {Item.AXE_WOOD, Item.AXE_STONE, Item.AXE_IRON, Item.AXE_DIAMOND, Item.AXE_GOLD},

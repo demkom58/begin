@@ -6,10 +6,10 @@ public class WorldGenGlowStone2 extends WorldGenerator {
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
         if (!var1.isAirBlock(var3, var4, var5)) {
             return false;
-        } else if (var1.getBlockId(var3, var4 + 1, var5) != Block.netherrack.blockID) {
+        } else if (var1.getBlockId(var3, var4 + 1, var5) != Block.BLOOD_STONE.blockID) {
             return false;
         } else {
-            var1.setBlockWithNotify(var3, var4, var5, Block.glowStone.blockID);
+            var1.setBlockWithNotify(var3, var4, var5, Block.GLOW_STONE.blockID);
 
             for (int var6 = 0; var6 < 1500; ++var6) {
                 int var7 = var3 + var2.nextInt(8) - var2.nextInt(8);
@@ -44,13 +44,13 @@ public class WorldGenGlowStone2 extends WorldGenerator {
                             var12 = var1.getBlockId(var7, var8, var9 + 1);
                         }
 
-                        if (var12 == Block.glowStone.blockID) {
+                        if (var12 == Block.GLOW_STONE.blockID) {
                             ++var10;
                         }
                     }
 
                     if (var10 == 1) {
-                        var1.setBlockWithNotify(var7, var8, var9, Block.glowStone.blockID);
+                        var1.setBlockWithNotify(var7, var8, var9, Block.GLOW_STONE.blockID);
                     }
                 }
             }

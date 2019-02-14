@@ -16,13 +16,13 @@ public class BlockRedstoneWire extends Block {
 
     public static boolean isPowerProviderOrWire(IBlockAccess var0, int var1, int var2, int var3, int var4) {
         int var5 = var0.getBlockId(var1, var2, var3);
-        if (var5 == Block.redstoneWire.blockID) {
+        if (var5 == Block.REDSTONE_WIRE.blockID) {
             return true;
         } else if (var5 == 0) {
             return false;
         } else if (Block.BLOCKS_LIST[var5].canProvidePower()) {
             return true;
-        } else if (var5 != Block.redstoneRepeaterIdle.blockID && var5 != Block.redstoneRepeaterActive.blockID) {
+        } else if (var5 != Block.REDSTONE_REPEATER_IDLE.blockID && var5 != Block.REDSTONE_REPEATER_ACTIVE.blockID) {
             return false;
         } else {
             int var6 = var0.getBlockMetadata(var1, var2, var3);

@@ -25,11 +25,11 @@ public abstract class BlockFluid extends Block {
     public static double func_293_a(IBlockAccess var0, int var1, int var2, int var3, Material var4) {
         Vec3D var5 = null;
         if (var4 == Material.water) {
-            var5 = ((BlockFluid) Block.waterMoving).getFlowVector(var0, var1, var2, var3);
+            var5 = ((BlockFluid) Block.WATER_MOVING).getFlowVector(var0, var1, var2, var3);
         }
 
         if (var4 == Material.lava) {
-            var5 = ((BlockFluid) Block.lavaMoving).getFlowVector(var0, var1, var2, var3);
+            var5 = ((BlockFluid) Block.LAVA_MOVING).getFlowVector(var0, var1, var2, var3);
         }
 
         return var5.xCoord == 0.0D && var5.zCoord == 0.0D ? -1000.0D : Math.atan2(var5.zCoord, var5.xCoord) - 1.5707963267948966D;
@@ -272,9 +272,9 @@ public abstract class BlockFluid extends Block {
                 if (var5) {
                     int var6 = var1.getBlockMetadata(var2, var3, var4);
                     if (var6 == 0) {
-                        var1.setBlockWithNotify(var2, var3, var4, Block.obsidian.blockID);
+                        var1.setBlockWithNotify(var2, var3, var4, Block.OBSIDIAN.blockID);
                     } else if (var6 <= 4) {
-                        var1.setBlockWithNotify(var2, var3, var4, Block.cobblestone.blockID);
+                        var1.setBlockWithNotify(var2, var3, var4, Block.COBBLESTONE.blockID);
                     }
 
                     this.triggerLavaMixEffects(var1, var2, var3, var4);

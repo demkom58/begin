@@ -17,7 +17,7 @@ public class BlockDispenser extends BlockContainer {
     }
 
     public int idDropped(int var1, Random var2) {
-        return Block.dispenser.blockID;
+        return Block.DISPENSER.blockID;
     }
 
     public void onBlockAdded(World var1, int var2, int var3, int var4) {

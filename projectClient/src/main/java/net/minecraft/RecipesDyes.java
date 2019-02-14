@@ -3,11 +3,11 @@ package net.minecraft;
 public class RecipesDyes {
     public void addRecipes(CraftingManager var1) {
         for (int var2 = 0; var2 < 16; ++var2) {
-            var1.addShapelessRecipe(new ItemStack(Block.cloth, 1, BlockCloth.func_21035_d(var2)), new ItemStack(Item.DYE_POWDER, 1, var2), new ItemStack(Item.ITEMS_LIST[Block.cloth.blockID], 1, 0));
+            var1.addShapelessRecipe(new ItemStack(Block.CLOTH, 1, BlockCloth.func_21035_d(var2)), new ItemStack(Item.DYE_POWDER, 1, var2), new ItemStack(Item.ITEMS_LIST[Block.CLOTH.blockID], 1, 0));
         }
 
-        var1.addShapelessRecipe(new ItemStack(Item.DYE_POWDER, 2, 11), Block.plantYellow);
-        var1.addShapelessRecipe(new ItemStack(Item.DYE_POWDER, 2, 1), Block.plantRed);
+        var1.addShapelessRecipe(new ItemStack(Item.DYE_POWDER, 2, 11), Block.PLANT_YELLOW);
+        var1.addShapelessRecipe(new ItemStack(Item.DYE_POWDER, 2, 1), Block.PLANT_RED);
         var1.addShapelessRecipe(new ItemStack(Item.DYE_POWDER, 3, 15), Item.BONE);
         var1.addShapelessRecipe(new ItemStack(Item.DYE_POWDER, 2, 9), new ItemStack(Item.DYE_POWDER, 1, 1), new ItemStack(Item.DYE_POWDER, 1, 15));
         var1.addShapelessRecipe(new ItemStack(Item.DYE_POWDER, 2, 14), new ItemStack(Item.DYE_POWDER, 1, 1), new ItemStack(Item.DYE_POWDER, 1, 11));

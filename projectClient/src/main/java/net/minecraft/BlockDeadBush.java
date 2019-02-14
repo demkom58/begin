@@ -10,7 +10,7 @@ public class BlockDeadBush extends BlockFlower {
     }
 
     protected boolean canThisPlantGrowOnThisBlockID(int var1) {
-        return var1 == Block.sand.blockID;
+        return var1 == Block.SAND.blockID;
     }
 
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {

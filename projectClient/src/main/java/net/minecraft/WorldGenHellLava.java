@@ -10,29 +10,29 @@ public class WorldGenHellLava extends WorldGenerator {
     }
 
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
-        if (var1.getBlockId(var3, var4 + 1, var5) != Block.netherrack.blockID) {
+        if (var1.getBlockId(var3, var4 + 1, var5) != Block.BLOOD_STONE.blockID) {
             return false;
-        } else if (var1.getBlockId(var3, var4, var5) != 0 && var1.getBlockId(var3, var4, var5) != Block.netherrack.blockID) {
+        } else if (var1.getBlockId(var3, var4, var5) != 0 && var1.getBlockId(var3, var4, var5) != Block.BLOOD_STONE.blockID) {
             return false;
         } else {
             int var6 = 0;
-            if (var1.getBlockId(var3 - 1, var4, var5) == Block.netherrack.blockID) {
+            if (var1.getBlockId(var3 - 1, var4, var5) == Block.BLOOD_STONE.blockID) {
                 ++var6;
             }
 
-            if (var1.getBlockId(var3 + 1, var4, var5) == Block.netherrack.blockID) {
+            if (var1.getBlockId(var3 + 1, var4, var5) == Block.BLOOD_STONE.blockID) {
                 ++var6;
             }
 
-            if (var1.getBlockId(var3, var4, var5 - 1) == Block.netherrack.blockID) {
+            if (var1.getBlockId(var3, var4, var5 - 1) == Block.BLOOD_STONE.blockID) {
                 ++var6;
             }
 
-            if (var1.getBlockId(var3, var4, var5 + 1) == Block.netherrack.blockID) {
+            if (var1.getBlockId(var3, var4, var5 + 1) == Block.BLOOD_STONE.blockID) {
                 ++var6;
             }
 
-            if (var1.getBlockId(var3, var4 - 1, var5) == Block.netherrack.blockID) {
+            if (var1.getBlockId(var3, var4 - 1, var5) == Block.BLOOD_STONE.blockID) {
                 ++var6;
             }
 

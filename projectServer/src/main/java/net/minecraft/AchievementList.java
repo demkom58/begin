@@ -20,7 +20,7 @@ public class AchievementList {
     public static Achievement bakeCake = (new Achievement(8, "bakeCake", 0, -5, Item.CAKE, buildHoe)).func_27061_c();
     public static Achievement buildBetterPickaxe = (new Achievement(9, "buildBetterPickaxe", 6, 2, Item.PICKAXE_STONE, buildPickaxe)).func_27061_c();
     public static Achievement cookFish = (new Achievement(10, "cookFish", 2, 6, Item.FISH_COOKED, buildFurnace)).func_27061_c();
-    public static Achievement onARail = (new Achievement(11, "onARail", 2, 3, Block.MINECART_TRACK, acquireIron)).func_27060_b().func_27061_c();
+    public static Achievement onARail = (new Achievement(11, "onARail", 2, 3, Block.RAIL, acquireIron)).func_27060_b().func_27061_c();
     public static Achievement buildSword = (new Achievement(12, "buildSword", 6, -1, Item.SWORD_WOOD, buildWorkBench)).func_27061_c();
     public static Achievement killEnemy = (new Achievement(13, "killEnemy", 8, -1, Item.BONE, buildSword)).func_27061_c();
     public static Achievement killCow = (new Achievement(14, "killCow", 7, -3, Item.LEATHER, buildSword)).func_27061_c();
