@@ -2,7 +2,7 @@ package net.minecraft;
 
 public class BlockOreStorage extends Block {
     public BlockOreStorage(int var1, int var2) {
-        super(var1, Material.iron);
+        super(var1, Material.IRON);
         this.blockIndexInTexture = var2;
     }
 

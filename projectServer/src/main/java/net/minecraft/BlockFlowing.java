@@ -21,7 +21,7 @@ public class BlockFlowing extends BlockFluid {
     public void updateTick(World world, int x, int y, int z, Random random) {
         int var6 = this.func_301_g(world, x, y, z);
         byte var7 = 1;
-        if (this.blockMaterial == Material.lava && !world.worldProvider.isHellWorld) {
+        if (this.blockMaterial == Material.LAVA && !world.worldProvider.isHellWorld) {
             var7 = 2;
         }
 
@@ -47,7 +47,7 @@ public class BlockFlowing extends BlockFluid {
                 }
             }
 
-            if (this.field_659_a >= 2 && this.blockMaterial == Material.water) {
+            if (this.field_659_a >= 2 && this.blockMaterial == Material.WATER) {
                 if (world.getBlockMaterial(x, y - 1, z).isSolid()) {
                     var10 = 0;
                 } else if (world.getBlockMaterial(x, y - 1, z) == this.blockMaterial && world.getBlockMetadata(x, y, z) == 0) {
@@ -55,7 +55,7 @@ public class BlockFlowing extends BlockFluid {
                 }
             }
 
-            if (this.blockMaterial == Material.lava && var6 < 8 && var10 < 8 && var10 > var6 && random.nextInt(4) != 0) {
+            if (this.blockMaterial == Material.LAVA && var6 < 8 && var10 < 8 && var10 > var6 && random.nextInt(4) != 0) {
                 var10 = var6;
                 var8 = false;
             }
@@ -116,7 +116,7 @@ public class BlockFlowing extends BlockFluid {
         if (this.func_312_l(var1, var2, var3, var4)) {
             int var6 = var1.getBlockId(var2, var3, var4);
             if (var6 > 0) {
-                if (this.blockMaterial == Material.lava) {
+                if (this.blockMaterial == Material.LAVA) {
                     this.func_300_h(var1, var2, var3, var4);
                 } else {
                     Block.BLOCKS_LIST[var6].dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
@@ -249,7 +249,7 @@ public class BlockFlowing extends BlockFluid {
         Material var5 = var1.getBlockMaterial(var2, var3, var4);
         if (var5 == this.blockMaterial) {
             return false;
-        } else if (var5 == Material.lava) {
+        } else if (var5 == Material.LAVA) {
             return false;
         } else {
             return !this.func_309_k(var1, var2, var3, var4);

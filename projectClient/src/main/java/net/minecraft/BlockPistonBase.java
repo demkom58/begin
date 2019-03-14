@@ -9,7 +9,7 @@ public class BlockPistonBase extends Block {
     private boolean field_31048_b;
 
     public BlockPistonBase(int var1, int var2, boolean var3) {
-        super(var1, var2, Material.field_31067_B);
+        super(var1, var2, Material.PISTON);
         this.isSticky = var3;
         this.setStepSound(SOUND_STONE_FOOTSTEP);
         this.setHardness(0.5F);

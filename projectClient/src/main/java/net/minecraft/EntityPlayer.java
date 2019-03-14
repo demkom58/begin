@@ -306,7 +306,7 @@ public abstract class EntityPlayer extends EntityLiving {
 
     public float getCurrentPlayerStrVsBlock(Block var1) {
         float var2 = this.inventory.getStrVsBlock(var1);
-        if (this.isInsideOfMaterial(Material.water)) {
+        if (this.isInsideOfMaterial(Material.WATER)) {
             var2 /= 5.0F;
         }
 
@@ -716,7 +716,7 @@ public abstract class EntityPlayer extends EntityLiving {
 
     private void addMovementStat(double var1, double var3, double var5) {
         if (this.ridingEntity == null) {
-            if (this.isInsideOfMaterial(Material.water)) {
+            if (this.isInsideOfMaterial(Material.WATER)) {
                 int var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
                 if (var7 > 0) {
                     this.addStat(StatList.distanceDoveStat, var7);

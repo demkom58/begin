@@ -2,7 +2,7 @@ package net.minecraft;
 
 public class BlockSoulSand extends Block {
     public BlockSoulSand(int var1, int var2) {
-        super(var1, var2, Material.sand);
+        super(var1, var2, Material.SAND);
     }
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {

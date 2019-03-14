@@ -7,7 +7,7 @@ public class BlockPistonExtension extends Block {
     private int field_31053_a = -1;
 
     public BlockPistonExtension(int var1, int var2) {
-        super(var1, var2, Material.field_31067_B);
+        super(var1, var2, Material.PISTON);
         this.setStepSound(SOUND_STONE_FOOTSTEP);
         this.setHardness(0.5F);
     }

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockWeb extends Block {
     public BlockWeb(int var1, int var2) {
-        super(var1, var2, Material.field_31068_A);
+        super(var1, var2, Material.WEB);
     }
 
     public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {

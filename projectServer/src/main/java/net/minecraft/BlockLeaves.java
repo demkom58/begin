@@ -7,7 +7,7 @@ public class BlockLeaves extends BlockLeavesBase {
     private int baseIndexInPNG;
 
     protected BlockLeaves(int var1, int var2) {
-        super(var1, var2, Material.leaves, false);
+        super(var1, var2, Material.LEAVES, false);
         this.baseIndexInPNG = var2;
         this.setTickOnLoad(true);
     }

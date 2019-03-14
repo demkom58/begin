@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockIce extends BlockBreakable {
     public BlockIce(int var1, int var2) {
-        super(var1, var2, Material.ice, false);
+        super(var1, var2, Material.ICE, false);
         this.slipperiness = 0.98F;
         this.setTickOnLoad(true);
     }

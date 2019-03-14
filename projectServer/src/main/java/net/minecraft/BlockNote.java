@@ -2,7 +2,7 @@ package net.minecraft;
 
 public class BlockNote extends BlockContainer {
     public BlockNote(int var1) {
-        super(var1, 74, Material.wood);
+        super(var1, 74, Material.WOOD);
     }
 
     public int getBlockTextureFromSide(int var1) {

@@ -27,7 +27,7 @@ public class MapItemRenderer {
             if (var5 / 4 == 0) {
                 this.field_28159_a[var4] = (var4 + var4 / 128 & 1) * 8 + 16 << 24;
             } else {
-                int var6 = MapColor.mapColorArray[var5 / 4].colorValue;
+                int var6 = MapColor.MAP_COLOR_ARRAY[var5 / 4].colorValue;
                 int var7 = var5 & 3;
                 short var8 = 220;
                 if (var7 == 2) {

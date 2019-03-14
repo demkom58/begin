@@ -480,7 +480,7 @@ public class ChunkProviderSky implements IChunkProvider {
                 int var105 = var96 - (var5 + 8);
                 int var20 = this.field_28081_p.findTopSolidBlock(var86, var96);
                 double var21 = this.field_28074_w[var102 * 16 + var105] - (double) (var20 - 64) / 64.0D * 0.3D;
-                if (var21 < 0.5D && var20 > 0 && var20 < 128 && this.field_28081_p.isAirBlock(var86, var20, var96) && this.field_28081_p.getBlockMaterial(var86, var20 - 1, var96).getIsSolid() && this.field_28081_p.getBlockMaterial(var86, var20 - 1, var96) != Material.ice) {
+                if (var21 < 0.5D && var20 > 0 && var20 < 128 && this.field_28081_p.isAirBlock(var86, var20, var96) && this.field_28081_p.getBlockMaterial(var86, var20 - 1, var96).getIsSolid() && this.field_28081_p.getBlockMaterial(var86, var20 - 1, var96) != Material.ICE) {
                     this.field_28081_p.setBlockWithNotify(var86, var20, var96, Block.SNOW.blockID);
                 }
             }

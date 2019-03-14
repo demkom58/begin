@@ -1,34 +1,34 @@
 package net.minecraft;
 
 public class Material {
-    public static final Material air = new MaterialTransparent(MapColor.airColor);
-    public static final Material grassMaterial = new Material(MapColor.grassColor);
-    public static final Material ground = new Material(MapColor.dirtColor);
-    public static final Material wood = (new Material(MapColor.woodColor)).setBurning();
-    public static final Material rock = (new Material(MapColor.stoneColor)).setNoHarvest();
-    public static final Material iron = (new Material(MapColor.ironColor)).setNoHarvest();
-    public static final Material water = (new MaterialLiquid(MapColor.waterColor)).setNoPushMobility();
-    public static final Material lava = (new MaterialLiquid(MapColor.tntColor)).setNoPushMobility();
-    public static final Material leaves = (new Material(MapColor.foliageColor)).setBurning().setIsTranslucent().setNoPushMobility();
-    public static final Material plants = (new MaterialLogic(MapColor.foliageColor)).setNoPushMobility();
-    public static final Material sponge = new Material(MapColor.clothColor);
-    public static final Material cloth = (new Material(MapColor.clothColor)).setBurning();
-    public static final Material fire = (new MaterialTransparent(MapColor.airColor)).setNoPushMobility();
-    public static final Material sand = new Material(MapColor.sandColor);
-    public static final Material circuits = (new MaterialLogic(MapColor.airColor)).setNoPushMobility();
-    public static final Material glass = (new Material(MapColor.airColor)).setIsTranslucent();
-    public static final Material tnt = (new Material(MapColor.tntColor)).setBurning().setIsTranslucent();
-    public static final Material field_4262_q = (new Material(MapColor.foliageColor)).setNoPushMobility();
-    public static final Material ice = (new Material(MapColor.iceColor)).setIsTranslucent();
-    public static final Material snow = (new MaterialLogic(MapColor.snowColor)).setIsGroundCover().setIsTranslucent().setNoHarvest().setNoPushMobility();
-    public static final Material builtSnow = (new Material(MapColor.snowColor)).setNoHarvest();
-    public static final Material cactus = (new Material(MapColor.foliageColor)).setIsTranslucent().setNoPushMobility();
-    public static final Material clay = new Material(MapColor.clayColor);
-    public static final Material pumpkin = (new Material(MapColor.foliageColor)).setNoPushMobility();
-    public static final Material portal = (new MaterialPortal(MapColor.airColor)).setImmovableMobility();
-    public static final Material cakeMaterial = (new Material(MapColor.airColor)).setNoPushMobility();
-    public static final Material field_31068_A = (new Material(MapColor.clothColor)).setNoHarvest().setNoPushMobility();
-    public static final Material field_31067_B = (new Material(MapColor.stoneColor)).setImmovableMobility();
+    public static final Material AIR = new MaterialTransparent(MapColor.AIR_COLOR);
+    public static final Material GRASS_MATERIAL = new Material(MapColor.GRASS_COLOR);
+    public static final Material GROUND = new Material(MapColor.DIRT_COLOR);
+    public static final Material WOOD = new Material(MapColor.WOOD_COLOR).setBurning();
+    public static final Material ROCK = new Material(MapColor.STONE_COLOR).setNoHarvest();
+    public static final Material IRON = new Material(MapColor.IRON_COLOR).setNoHarvest();
+    public static final Material WATER = new MaterialLiquid(MapColor.WATER_COLOR).setNoPushMobility();
+    public static final Material LAVA = new MaterialLiquid(MapColor.TNT_COLOR).setNoPushMobility();
+    public static final Material LEAVES = new Material(MapColor.FOLIAGE_COLOR).setBurning().setIsTranslucent().setNoPushMobility();
+    public static final Material PLANTS = new MaterialLogic(MapColor.FOLIAGE_COLOR).setNoPushMobility();
+    public static final Material SPONGE = new Material(MapColor.CLOTH_COLOR);
+    public static final Material CLOTH = new Material(MapColor.CLOTH_COLOR).setBurning();
+    public static final Material FIRE = new MaterialTransparent(MapColor.AIR_COLOR).setNoPushMobility();
+    public static final Material SAND = new Material(MapColor.SAND_COLOR);
+    public static final Material CIRCUITS = new MaterialLogic(MapColor.AIR_COLOR).setNoPushMobility();
+    public static final Material GLASS = new Material(MapColor.AIR_COLOR).setIsTranslucent();
+    public static final Material TNT = new Material(MapColor.TNT_COLOR).setBurning().setIsTranslucent();
+    public static final Material WUG = new Material(MapColor.FOLIAGE_COLOR).setNoPushMobility();
+    public static final Material ICE = new Material(MapColor.ICE_COLOR).setIsTranslucent();
+    public static final Material SNOW = new MaterialLogic(MapColor.SNOW_COLOR).setIsGroundCover().setIsTranslucent().setNoHarvest().setNoPushMobility();
+    public static final Material BUILT_SNOW = new Material(MapColor.SNOW_COLOR).setNoHarvest();
+    public static final Material CACTUS = new Material(MapColor.FOLIAGE_COLOR).setIsTranslucent().setNoPushMobility();
+    public static final Material CLAY = new Material(MapColor.CLAY_COLOR);
+    public static final Material PUMPKIN = new Material(MapColor.FOLIAGE_COLOR).setNoPushMobility();
+    public static final Material PORTAL = new MaterialPortal(MapColor.AIR_COLOR).setImmovableMobility();
+    public static final Material CAKE = new Material(MapColor.AIR_COLOR).setNoPushMobility();
+    public static final Material WEB = new Material(MapColor.CLOTH_COLOR).setNoHarvest().setNoPushMobility();
+    public static final Material PISTON = new Material(MapColor.STONE_COLOR).setImmovableMobility();
     public final MapColor materialMapColor;
     private boolean canBurn;
     private boolean groundCover;
@@ -36,8 +36,8 @@ public class Material {
     private boolean canHarvest = true;
     private int mobilityFlag;
 
-    public Material(MapColor var1) {
-        this.materialMapColor = var1;
+    public Material(MapColor materialMapColor) {
+        this.materialMapColor = materialMapColor;
     }
 
     public boolean getIsLiquid() {

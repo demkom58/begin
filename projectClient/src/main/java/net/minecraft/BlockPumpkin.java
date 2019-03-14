@@ -6,7 +6,7 @@ public class BlockPumpkin extends Block {
     private boolean blockType;
 
     protected BlockPumpkin(int var1, int var2, boolean var3) {
-        super(var1, Material.pumpkin);
+        super(var1, Material.PUMPKIN);
         this.blockIndexInTexture = var2;
         this.setTickOnLoad(true);
         this.blockType = var3;

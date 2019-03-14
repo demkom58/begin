@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockPortal extends BlockBreakable {
     public BlockPortal(int var1, int var2) {
-        super(var1, var2, Material.portal, false);
+        super(var1, var2, Material.PORTAL, false);
     }
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {

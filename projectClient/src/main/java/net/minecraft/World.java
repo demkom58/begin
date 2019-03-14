@@ -397,7 +397,7 @@ public class World implements IBlockAccess {
 
     public Material getBlockMaterial(int var1, int var2, int var3) {
         int var4 = this.getBlockId(var1, var2, var3);
-        return var4 == 0 ? Material.air : Block.BLOCKS_LIST[var4].blockMaterial;
+        return var4 == 0 ? Material.AIR : Block.BLOCKS_LIST[var4].blockMaterial;
     }
 
     public int getBlockMetadata(int var1, int var2, int var3) {
@@ -1123,7 +1123,7 @@ public class World implements IBlockAccess {
 
         for (int var8 = var2 & 15; var4 > 0; --var4) {
             int var5 = var3.getBlockID(var1, var4, var8);
-            Material var6 = var5 == 0 ? Material.air : Block.BLOCKS_LIST[var5].blockMaterial;
+            Material var6 = var5 == 0 ? Material.AIR : Block.BLOCKS_LIST[var5].blockMaterial;
             if (var6.getIsSolid() || var6.getIsLiquid()) {
                 return var4 + 1;
             }

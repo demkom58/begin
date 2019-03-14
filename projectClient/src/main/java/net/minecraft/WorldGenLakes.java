@@ -81,7 +81,7 @@ public class WorldGenLakes extends WorldGenerator {
             }
         }
 
-        if (Block.BLOCKS_LIST[this.field_15235_a].blockMaterial == Material.lava) {
+        if (Block.BLOCKS_LIST[this.field_15235_a].blockMaterial == Material.LAVA) {
             for (int var38 = 0; var38 < 16; ++var38) {
                 for (int var42 = 0; var42 < 16; ++var42) {
                     for (int var45 = 0; var45 < 8; ++var45) {

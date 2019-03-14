@@ -10,7 +10,7 @@ public class BlockRedstoneWire extends Block {
     private Set field_21031_b = new HashSet();
 
     public BlockRedstoneWire(int var1, int var2) {
-        super(var1, var2, Material.circuits);
+        super(var1, var2, Material.CIRCUITS);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
     }
 

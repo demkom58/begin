@@ -6,7 +6,7 @@ public class BlockBed extends Block {
     public static final int[][] field_22023_a = new int[][]{{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
 
     public BlockBed(int var1) {
-        super(var1, 134, Material.cloth);
+        super(var1, 134, Material.CLOTH);
         this.setBounds();
     }
 

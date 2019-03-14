@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockClay extends Block {
     public BlockClay(int var1, int var2) {
-        super(var1, var2, Material.clay);
+        super(var1, var2, Material.CLAY);
     }
 
     public int idDropped(int var1, Random random) {

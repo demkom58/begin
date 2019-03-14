@@ -2,7 +2,7 @@ package net.minecraft;
 
 public class BlockSandStone extends Block {
     public BlockSandStone(int var1) {
-        super(var1, 192, Material.rock);
+        super(var1, 192, Material.ROCK);
     }
 
     public int getBlockTextureFromSide(int var1) {

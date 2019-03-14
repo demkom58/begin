@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockFlower extends Block {
     protected BlockFlower(int var1, int var2) {
-        super(var1, Material.plants);
+        super(var1, Material.PLANTS);
         this.blockIndexInTexture = var2;
         this.setTickOnLoad(true);
         float var3 = 0.2F;

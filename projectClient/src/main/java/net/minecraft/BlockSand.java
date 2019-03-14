@@ -6,7 +6,7 @@ public class BlockSand extends Block {
     public static boolean fallInstantly = false;
 
     public BlockSand(int var1, int var2) {
-        super(var1, var2, Material.sand);
+        super(var1, var2, Material.SAND);
     }
 
     public static boolean canFallBelow(World var0, int var1, int var2, int var3) {
@@ -17,10 +17,10 @@ public class BlockSand extends Block {
             return true;
         } else {
             Material var5 = Block.BLOCKS_LIST[var4].blockMaterial;
-            if (var5 == Material.water) {
+            if (var5 == Material.WATER) {
                 return true;
             } else {
-                return var5 == Material.lava;
+                return var5 == Material.LAVA;
             }
         }
     }

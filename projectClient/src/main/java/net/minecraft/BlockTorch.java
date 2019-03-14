@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class BlockTorch extends Block {
     protected BlockTorch(int var1, int var2) {
-        super(var1, var2, Material.circuits);
+        super(var1, var2, Material.CIRCUITS);
         this.setTickOnLoad(true);
     }
 

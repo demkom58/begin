@@ -303,7 +303,7 @@ public class ItemRenderer {
             }
         }
 
-        if (this.mc.thePlayer.isInsideOfMaterial(Material.water)) {
+        if (this.mc.thePlayer.isInsideOfMaterial(Material.WATER)) {
             int var15 = this.mc.renderEngine.getTexture("/misc/water.png");
             GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, var15);
             this.renderWarpedTextureOverlay(var1);

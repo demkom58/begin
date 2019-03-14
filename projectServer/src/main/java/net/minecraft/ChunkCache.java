@@ -59,7 +59,7 @@ public class ChunkCache implements IBlockAccess {
 
     public Material getBlockMaterial(int var1, int var2, int var3) {
         int var4 = this.getBlockId(var1, var2, var3);
-        return var4 == 0 ? Material.air : Block.BLOCKS_LIST[var4].blockMaterial;
+        return var4 == 0 ? Material.AIR : Block.BLOCKS_LIST[var4].blockMaterial;
     }
 
     public boolean isBlockNormalCube(int var1, int var2, int var3) {

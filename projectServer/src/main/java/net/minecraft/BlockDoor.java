@@ -8,7 +8,7 @@ public class BlockDoor extends Block {
     protected BlockDoor(int var1, Material var2) {
         super(var1, var2);
         this.blockIndexInTexture = 97;
-        if (var2 == Material.iron) {
+        if (var2 == Material.IRON) {
             ++this.blockIndexInTexture;
         }
 
@@ -84,7 +84,7 @@ public class BlockDoor extends Block {
     }
 
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
-        if (this.blockMaterial == Material.iron) {
+        if (this.blockMaterial == Material.IRON) {
             return true;
         } else {
             int var6 = world.getBlockMetadata(var2, var3, var4);
@@ -169,7 +169,7 @@ public class BlockDoor extends Block {
         if ((var1 & 8) != 0) {
             return 0;
         } else {
-            return this.blockMaterial == Material.iron ? Item.DOOR_IRON.shiftedIndex : Item.DOOR_WOOD.shiftedIndex;
+            return this.blockMaterial == Material.IRON ? Item.DOOR_IRON.shiftedIndex : Item.DOOR_WOOD.shiftedIndex;
         }
     }
 

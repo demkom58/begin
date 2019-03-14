@@ -140,7 +140,7 @@ public class EntityRenderer {
     private float getFOVModifier(float var1) {
         EntityLiving var2 = this.mc.renderViewEntity;
         float var3 = 70.0F;
-        if (var2.isInsideOfMaterial(Material.water)) {
+        if (var2.isInsideOfMaterial(Material.WATER)) {
             var3 = 60.0F;
         }
 
@@ -501,7 +501,7 @@ public class EntityRenderer {
             RenderHelper.disableStandardItemLighting();
             this.setupFog(0, var1);
             var6.renderParticles(var4, var1);
-            if (this.mc.objectMouseOver != null && var4.isInsideOfMaterial(Material.water) && var4 instanceof EntityPlayer) {
+            if (this.mc.objectMouseOver != null && var4.isInsideOfMaterial(Material.WATER) && var4 instanceof EntityPlayer) {
                 EntityPlayer var21 = (EntityPlayer) var4;
                 GL11.glDisable(3008 /*GL_ALPHA_TEST*/);
                 var5.drawBlockBreaking(var21, this.mc.objectMouseOver, 0, var21.inventory.getCurrentItem(), var1);
@@ -543,7 +543,7 @@ public class EntityRenderer {
             GL11.glDepthMask(true);
             GL11.glEnable(2884 /*GL_CULL_FACE*/);
             GL11.glDisable(3042 /*GL_BLEND*/);
-            if (this.cameraZoom == 1.0D && var4 instanceof EntityPlayer && this.mc.objectMouseOver != null && !var4.isInsideOfMaterial(Material.water)) {
+            if (this.cameraZoom == 1.0D && var4 instanceof EntityPlayer && this.mc.objectMouseOver != null && !var4.isInsideOfMaterial(Material.WATER)) {
                 EntityPlayer var23 = (EntityPlayer) var4;
                 GL11.glDisable(3008 /*GL_ALPHA_TEST*/);
                 var5.drawBlockBreaking(var23, this.mc.objectMouseOver, 0, var23.inventory.getCurrentItem(), var1);
@@ -603,7 +603,7 @@ public class EntityRenderer {
                     float var20 = this.random.nextFloat();
                     float var21 = this.random.nextFloat();
                     if (var19 > 0) {
-                        if (Block.BLOCKS_LIST[var19].blockMaterial == Material.lava) {
+                        if (Block.BLOCKS_LIST[var19].blockMaterial == Material.LAVA) {
                             this.mc.effectRenderer.addEffect(new EntitySmokeFX(var3, (double) ((float) var16 + var20), (double) ((float) var18 + 0.1F) - Block.BLOCKS_LIST[var19].minY, (double) ((float) var17 + var21), 0.0D, 0.0D, 0.0D));
                         } else {
                             ++var14;
@@ -814,11 +814,11 @@ public class EntityRenderer {
             this.fogColorRed = (float) var19.xCoord;
             this.fogColorGreen = (float) var19.yCoord;
             this.fogColorBlue = (float) var19.zCoord;
-        } else if (var3.isInsideOfMaterial(Material.water)) {
+        } else if (var3.isInsideOfMaterial(Material.WATER)) {
             this.fogColorRed = 0.02F;
             this.fogColorGreen = 0.02F;
             this.fogColorBlue = 0.2F;
-        } else if (var3.isInsideOfMaterial(Material.lava)) {
+        } else if (var3.isInsideOfMaterial(Material.LAVA)) {
             this.fogColorRed = 0.6F;
             this.fogColorGreen = 0.1F;
             this.fogColorBlue = 0.0F;
@@ -856,7 +856,7 @@ public class EntityRenderer {
                 float var8 = (var4 * 30.0F + var5 * 70.0F) / 100.0F;
                 float var9 = (var4 * 30.0F + var6 * 70.0F) / 100.0F;
             }
-        } else if (var3.isInsideOfMaterial(Material.water)) {
+        } else if (var3.isInsideOfMaterial(Material.WATER)) {
             GL11.glFogi(2917 /*GL_FOG_MODE*/, 2048 /*GL_EXP*/);
             GL11.glFogf(2914 /*GL_FOG_DENSITY*/, 0.1F);
             float var10 = 0.4F;
@@ -867,7 +867,7 @@ public class EntityRenderer {
                 float var18 = (var10 * 30.0F + var12 * 70.0F) / 100.0F;
                 float var20 = (var10 * 30.0F + var14 * 70.0F) / 100.0F;
             }
-        } else if (var3.isInsideOfMaterial(Material.lava)) {
+        } else if (var3.isInsideOfMaterial(Material.LAVA)) {
             GL11.glFogi(2917 /*GL_FOG_MODE*/, 2048 /*GL_EXP*/);
             GL11.glFogf(2914 /*GL_FOG_DENSITY*/, 2.0F);
             float var11 = 0.4F;

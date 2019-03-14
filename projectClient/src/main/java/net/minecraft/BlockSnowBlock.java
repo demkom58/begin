@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockSnowBlock extends Block {
     protected BlockSnowBlock(int var1, int var2) {
-        super(var1, var2, Material.builtSnow);
+        super(var1, var2, Material.BUILT_SNOW);
         this.setTickOnLoad(true);
     }
 

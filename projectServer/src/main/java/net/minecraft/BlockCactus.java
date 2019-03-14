@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockCactus extends Block {
     protected BlockCactus(int var1, int var2) {
-        super(var1, var2, Material.cactus);
+        super(var1, var2, Material.CACTUS);
         this.setTickOnLoad(true);
     }
 

@@ -15,10 +15,10 @@ public class ItemPickaxe extends ItemTool {
                 if (var1 != Block.BLOCK_IRON && var1 != Block.ORE_IRON) {
                     if (var1 != Block.BLOCK_LAPIS && var1 != Block.ORE_LAPIS) {
                         if (var1 != Block.ORE_REDSTONE && var1 != Block.ORE_REDSTONE_GLOWING) {
-                            if (var1.blockMaterial == Material.rock) {
+                            if (var1.blockMaterial == Material.ROCK) {
                                 return true;
                             } else {
-                                return var1.blockMaterial == Material.iron;
+                                return var1.blockMaterial == Material.IRON;
                             }
                         } else {
                             return this.toolMaterial.getHarvestLevel() >= 2;

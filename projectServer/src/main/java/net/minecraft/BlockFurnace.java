@@ -10,7 +10,7 @@ public class BlockFurnace extends BlockContainer {
     private Random field_28033_a = new Random();
 
     protected BlockFurnace(int var1, boolean var2) {
-        super(var1, Material.rock);
+        super(var1, Material.ROCK);
         this.isActive = var2;
         this.blockIndexInTexture = 45;
     }

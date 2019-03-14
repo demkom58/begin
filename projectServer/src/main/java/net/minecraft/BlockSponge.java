@@ -2,7 +2,7 @@ package net.minecraft;
 
 public class BlockSponge extends Block {
     protected BlockSponge(int var1) {
-        super(var1, Material.sponge);
+        super(var1, Material.SPONGE);
         this.blockIndexInTexture = 48;
     }
 
@@ -12,7 +12,7 @@ public class BlockSponge extends Block {
         for (int var6 = x - var5; var6 <= x + var5; ++var6) {
             for (int var7 = y - var5; var7 <= y + var5; ++var7) {
                 for (int var8 = z - var5; var8 <= z + var5; ++var8) {
-                    if (world.getBlockMaterial(var6, var7, var8) == Material.water) {
+                    if (world.getBlockMaterial(var6, var7, var8) == Material.WATER) {
                     }
                 }
             }

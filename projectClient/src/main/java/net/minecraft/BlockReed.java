@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockReed extends Block {
     protected BlockReed(int var1, int var2) {
-        super(var1, Material.plants);
+        super(var1, Material.PLANTS);
         this.blockIndexInTexture = var2;
         float var3 = 0.375F;
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, 1.0F, 0.5F + var3);
@@ -37,14 +37,14 @@ public class BlockReed extends Block {
             return true;
         } else if (var5 != Block.GRASS.blockID && var5 != Block.DIRT.blockID) {
             return false;
-        } else if (var1.getBlockMaterial(var2 - 1, var3 - 1, var4) == Material.water) {
+        } else if (var1.getBlockMaterial(var2 - 1, var3 - 1, var4) == Material.WATER) {
             return true;
-        } else if (var1.getBlockMaterial(var2 + 1, var3 - 1, var4) == Material.water) {
+        } else if (var1.getBlockMaterial(var2 + 1, var3 - 1, var4) == Material.WATER) {
             return true;
-        } else if (var1.getBlockMaterial(var2, var3 - 1, var4 - 1) == Material.water) {
+        } else if (var1.getBlockMaterial(var2, var3 - 1, var4 - 1) == Material.WATER) {
             return true;
         } else {
-            return var1.getBlockMaterial(var2, var3 - 1, var4 + 1) == Material.water;
+            return var1.getBlockMaterial(var2, var3 - 1, var4 + 1) == Material.WATER;
         }
     }
 

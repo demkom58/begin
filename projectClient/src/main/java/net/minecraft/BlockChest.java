@@ -6,7 +6,7 @@ public class BlockChest extends BlockContainer {
     private Random random = new Random();
 
     protected BlockChest(int var1) {
-        super(var1, Material.wood);
+        super(var1, Material.WOOD);
         this.blockIndexInTexture = 26;
     }
 

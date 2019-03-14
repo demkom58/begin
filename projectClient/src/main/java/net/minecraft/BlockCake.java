@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockCake extends Block {
     protected BlockCake(int var1, int var2) {
-        super(var1, var2, Material.cakeMaterial);
+        super(var1, var2, Material.CAKE);
         this.setTickOnLoad(true);
     }
 

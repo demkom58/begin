@@ -2,7 +2,7 @@ package net.minecraft;
 
 public class BlockWorkbench extends Block {
     protected BlockWorkbench(int var1) {
-        super(var1, Material.wood);
+        super(var1, Material.WOOD);
         this.blockIndexInTexture = 59;
     }
 

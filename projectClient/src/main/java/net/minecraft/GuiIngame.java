@@ -116,7 +116,7 @@ public class GuiIngame extends Gui {
                 }
             }
 
-            if (this.mc.thePlayer.isInsideOfMaterial(Material.water)) {
+            if (this.mc.thePlayer.isInsideOfMaterial(Material.WATER)) {
                 int var29 = (int) Math.ceil((double) (this.mc.thePlayer.air - 2) * 10.0D / 300.0D);
                 int var34 = (int) Math.ceil((double) this.mc.thePlayer.air * 10.0D / 300.0D) - var29;
 

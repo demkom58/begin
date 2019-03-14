@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockPistonMoving extends BlockContainer {
     public BlockPistonMoving(int var1) {
-        super(var1, Material.field_31067_B);
+        super(var1, Material.PISTON);
         this.setHardness(-1.0F);
     }
 
