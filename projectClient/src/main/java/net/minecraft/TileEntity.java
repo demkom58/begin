@@ -83,7 +83,7 @@ public class TileEntity {
 
     public void onInventoryChanged() {
         if (this.worldObj != null) {
-            this.worldObj.func_698_b(this.xCoord, this.yCoord, this.zCoord, this);
+            this.worldObj.updateTileEntityChunkAndDoNothing(this.xCoord, this.yCoord, this.zCoord, this);
         }
 
     }
@@ -103,7 +103,7 @@ public class TileEntity {
         return this.field_31007_h;
     }
 
-    public void func_31005_i() {
+    public void invalidate() {
         this.field_31007_h = true;
     }
 

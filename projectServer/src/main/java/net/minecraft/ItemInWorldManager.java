@@ -39,7 +39,7 @@ public class ItemInWorldManager {
     }
 
     public void func_324_a(int var1, int var2, int var3, int var4) {
-        this.thisWorld.func_28096_a(null, var1, var2, var3, var4);
+        this.thisWorld.onBlockHit(null, var1, var2, var3, var4);
         this.field_22055_d = this.field_22051_j;
         int var5 = this.thisWorld.getBlockId(var1, var2, var3);
         if (var5 > 0) {

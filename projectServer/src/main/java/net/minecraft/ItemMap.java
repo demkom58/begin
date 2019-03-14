@@ -9,9 +9,9 @@ public class ItemMap extends ItemMapBase {
     }
 
     public MapData func_28023_a(ItemStack var1, World var2) {
-        MapData var4 = (MapData) var2.func_28103_a(MapData.class, "map_" + var1.getItemDamage());
+        MapData var4 = (MapData) var2.loadItemData(MapData.class, "map_" + var1.getItemDamage());
         if (var4 == null) {
-            var1.setItemDamage(var2.func_28104_b("map"));
+            var1.setItemDamage(var2.getUniqueDataId("map"));
             String var3 = "map_" + var1.getItemDamage();
             var4 = new MapData(var3);
             var4.xCenter = var2.getWorldInfo().getSpawnX();
@@ -19,7 +19,7 @@ public class ItemMap extends ItemMapBase {
             var4.scale = 3;
             var4.dimension = (byte) var2.worldProvider.worldType;
             var4.func_28146_a();
-            var2.func_28102_a(var3, var4);
+            var2.setItemData(var3, var4);
         }
 
         return var4;
@@ -35,7 +35,7 @@ public class ItemMap extends ItemMapBase {
             int var9 = MathHelper.floor_double(var2.posX - (double) var7) / var6 + var4 / 2;
             int var10 = MathHelper.floor_double(var2.posZ - (double) var8) / var6 + var5 / 2;
             int var11 = 128 / var6;
-            if (var1.worldProvider.field_4306_c) {
+            if (var1.worldProvider.hasNoSky) {
                 var11 /= 2;
             }
 
@@ -63,7 +63,7 @@ public class ItemMap extends ItemMapBase {
                             int var29 = var22 & 15;
                             int var30 = 0;
                             double var31 = 0.0D;
-                            if (var1.worldProvider.field_4306_c) {
+                            if (var1.worldProvider.hasNoSky) {
                                 int var33 = var21 + var22 * 231871;
                                 var33 = var33 * var33 * 31287121 + var33 * 11;
                                 if ((var33 >> 20 & 1) == 0) {
@@ -206,10 +206,10 @@ public class ItemMap extends ItemMapBase {
     }
 
     public void func_28020_c(ItemStack var1, World var2, EntityPlayer var3) {
-        var1.setItemDamage(var2.func_28104_b("map"));
+        var1.setItemDamage(var2.getUniqueDataId("map"));
         String var4 = "map_" + var1.getItemDamage();
         MapData var5 = new MapData(var4);
-        var2.func_28102_a(var4, var5);
+        var2.setItemData(var4, var5);
         var5.xCenter = MathHelper.floor_double(var3.posX);
         var5.zCenter = MathHelper.floor_double(var3.posZ);
         var5.scale = 3;

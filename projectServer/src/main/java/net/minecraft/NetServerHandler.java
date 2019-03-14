@@ -6,8 +6,6 @@ import net.minecraft.server.MinecraftServer;
 import util.MathHelper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class NetServerHandler extends NetHandler implements ICommandListener {
@@ -93,7 +91,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.playerEntity.motionX = var31;
                 this.playerEntity.motionZ = var34;
                 if (this.playerEntity.ridingEntity != null) {
-                    var2.func_12017_b(this.playerEntity.ridingEntity, true);
+                    var2.superUpdateEntityWithOptionalForce(this.playerEntity.ridingEntity, true);
                 }
 
                 if (this.playerEntity.ridingEntity != null) {
