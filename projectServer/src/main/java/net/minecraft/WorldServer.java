@@ -11,26 +11,26 @@ public class WorldServer extends World {
     public boolean field_819_z = false;
     public boolean levelSaving;
     private MinecraftServer mcServer;
-    private MCHash field_20912_E = new MCHash();
+    private MCHash hash = new MCHash();
 
-    public WorldServer(MinecraftServer var1, ISaveHandler var2, String var3, int var4, long var5) {
-        super(var2, var3, var5, WorldProvider.func_4091_a(var4));
-        this.mcServer = var1;
+    public WorldServer(MinecraftServer mcServer, ISaveHandler saveHandler, String var3, int var4, long var5) {
+        super(saveHandler, var3, var5, WorldProvider.func_4091_a(var4));
+        this.mcServer = mcServer;
     }
 
-    public void updateEntityWithOptionalForce(Entity var1, boolean var2) {
-        if (!this.mcServer.spawnPeacefulMobs && (var1 instanceof EntityAnimal || var1 instanceof EntityWaterMob)) {
-            var1.setEntityDead();
+    public void updateEntityWithOptionalForce(Entity entity, boolean chunk) {
+        if (!this.mcServer.spawnPeacefulMobs && (entity instanceof EntityAnimal || entity instanceof EntityWaterMob)) {
+            entity.setEntityDead();
         }
 
-        if (var1.riddenByEntity == null || !(var1.riddenByEntity instanceof EntityPlayer)) {
-            super.updateEntityWithOptionalForce(var1, var2);
+        if (entity.riddenByEntity == null || !(entity.riddenByEntity instanceof EntityPlayer)) {
+            super.updateEntityWithOptionalForce(entity, chunk);
         }
 
     }
 
-    public void func_12017_b(Entity var1, boolean var2) {
-        super.updateEntityWithOptionalForce(var1, var2);
+    public void superUpdateEntityWithOptionalForce(Entity entity, boolean chunk) {
+        super.updateEntityWithOptionalForce(entity, chunk);
     }
 
     protected IChunkProvider createChunkProvider() {
@@ -64,16 +64,16 @@ public class WorldServer extends World {
 
     protected void obtainEntitySkin(Entity var1) {
         super.obtainEntitySkin(var1);
-        this.field_20912_E.addKey(var1.entityId, var1);
+        this.hash.addKey(var1.entityId, var1);
     }
 
     protected void releaseEntitySkin(Entity var1) {
         super.releaseEntitySkin(var1);
-        this.field_20912_E.removeObject(var1.entityId);
+        this.hash.removeObject(var1.entityId);
     }
 
     public Entity func_6158_a(int var1) {
-        return (Entity) this.field_20912_E.lookup(var1);
+        return (Entity) this.hash.lookup(var1);
     }
 
     public boolean addLightningBolt(Entity var1) {
@@ -91,12 +91,12 @@ public class WorldServer extends World {
     }
 
     public Explosion newExplosion(Entity exploder, double x, double y, double z, float size, boolean flaming) {
-        Explosion var10 = new Explosion(this, exploder, x, y, z, size);
-        var10.isFlaming = flaming;
-        var10.doExplosion();
-        var10.doEffects(false);
-        this.mcServer.configManager.sendPacketToPlayersAroundPoint(x, y, z, 64.0D, this.worldProvider.worldType, new Packet60Explosion(x, y, z, size, var10.destroyedBlockPositions));
-        return var10;
+        Explosion explosion = new Explosion(this, exploder, x, y, z, size);
+        explosion.isFlaming = flaming;
+        explosion.doExplosion();
+        explosion.doEffects(false);
+        this.mcServer.configManager.sendPacketToPlayersAroundPoint(x, y, z, 64.0D, this.worldProvider.worldType, new Packet60Explosion(x, y, z, size, explosion.destroyedBlockPositions));
+        return explosion;
     }
 
     public void playNoteAt(int var1, int var2, int var3, int var4, int var5) {

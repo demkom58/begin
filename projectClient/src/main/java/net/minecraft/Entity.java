@@ -290,7 +290,7 @@ public abstract class Entity {
         if (var8.size() > 0) {
             return false;
         } else {
-            return !this.worldObj.getIsAnyLiquid(var7);
+            return !this.worldObj.isAnyLiquid(var7);
         }
     }
 

@@ -146,7 +146,7 @@ public class EntityWolf extends EntityAnimal {
             this.field_25052_g = true;
             this.timeWolfIsShaking = 0.0F;
             this.prevTimeWolfIsShaking = 0.0F;
-            this.worldObj.func_9425_a(this, (byte) 8);
+            this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 8);
         }
 
     }
@@ -338,10 +338,10 @@ public class EntityWolf extends EntityAnimal {
                         this.health = 20;
                         this.setWolfOwner(var1.username);
                         this.showHeartsOrSmokeFX(true);
-                        this.worldObj.func_9425_a(this, (byte) 7);
+                        this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 7);
                     } else {
                         this.showHeartsOrSmokeFX(false);
-                        this.worldObj.func_9425_a(this, (byte) 6);
+                        this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 6);
                     }
                 }
 

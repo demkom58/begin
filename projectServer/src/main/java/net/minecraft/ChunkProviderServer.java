@@ -84,7 +84,7 @@ public class ChunkProviderServer implements IChunkProvider {
     public Chunk provideChunk(int x, int z) {
         Chunk chunk = this.id2ChunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
         if (chunk == null) {
-            return !this.world.worldChunkLoadOverride && !this.chunkLoadOverride ? this.dummyChunk : this.loadChunk(x, z);
+            return !this.world.findingSpawnPoint && !this.chunkLoadOverride ? this.dummyChunk : this.loadChunk(x, z);
         }
 
         return chunk;

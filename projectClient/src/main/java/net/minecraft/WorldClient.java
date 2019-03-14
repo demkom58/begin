@@ -206,7 +206,7 @@ public class WorldClient extends World {
             }
 
             this.prevRainingStrength = this.rainingStrength;
-            if (this.worldInfo.getRaining()) {
+            if (this.worldInfo.isRaining()) {
                 this.rainingStrength = (float) ((double) this.rainingStrength + 0.01D);
             } else {
                 this.rainingStrength = (float) ((double) this.rainingStrength - 0.01D);

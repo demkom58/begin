@@ -253,7 +253,7 @@ public abstract class Entity {
             return false;
         }
 
-        return !this.worldObj.getIsAnyLiquid(var7);
+        return !this.worldObj.isAnyLiquid(var7);
     }
 
     public void moveEntity(double var1, double var3, double var5) {

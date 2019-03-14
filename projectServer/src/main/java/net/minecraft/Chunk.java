@@ -77,7 +77,7 @@ public class Chunk {
                     var1 = var4;
                 }
 
-                if (!this.worldObj.worldProvider.field_4306_c) {
+                if (!this.worldObj.worldProvider.hasNoSky) {
                     int var6 = 15;
                     int var7 = 127;
 
@@ -222,7 +222,7 @@ public class Chunk {
             }
 
             this.data.setNibble(var1, var2, var3, var5);
-            if (!this.worldObj.worldProvider.field_4306_c) {
+            if (!this.worldObj.worldProvider.hasNoSky) {
                 if (Block.LIGHT_OPACITY[var6 & 255] != 0) {
                     if (var2 >= var7) {
                         this.func_339_g(var1, var2 + 1, var3);

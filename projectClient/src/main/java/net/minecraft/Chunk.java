@@ -445,7 +445,7 @@ public class Chunk {
         if (this.isChunkLoaded) {
             TileEntity var5 = this.chunkTileEntityMap.remove(var4);
             if (var5 != null) {
-                var5.func_31005_i();
+                var5.invalidate();
             }
         }
 
@@ -465,7 +465,7 @@ public class Chunk {
         this.isChunkLoaded = false;
 
         for (TileEntity var2 : this.chunkTileEntityMap.values()) {
-            var2.func_31005_i();
+            var2.invalidate();
         }
 
         for (int var3 = 0; var3 < this.entities.length; ++var3) {

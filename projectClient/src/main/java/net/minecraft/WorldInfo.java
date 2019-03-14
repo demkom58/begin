@@ -207,7 +207,7 @@ public class WorldInfo {
         this.thunderTime = thunderTime;
     }
 
-    public boolean getRaining() {
+    public boolean isRaining() {
         return this.raining;
     }
 

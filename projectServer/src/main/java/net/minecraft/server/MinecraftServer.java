@@ -25,6 +25,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
     public String currentTask;
     public int percentDone;
     public EntityTracker[] entityTracker = new EntityTracker[2];
+    public boolean allowNether;
     public boolean onlineMode;
     public boolean spawnPeacefulMobs;
     public boolean pvpOn;
@@ -76,6 +77,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         this.propertyManagerObj = new PropertyManager(new File("server.properties"));
         String var2 = this.propertyManagerObj.getStringProperty("server-ip", "");
         this.onlineMode = this.propertyManagerObj.getBooleanProperty("online-mode", true);
+        this.allowNether = this.propertyManagerObj.getBooleanProperty("allow-nether", true);
         this.spawnPeacefulMobs = this.propertyManagerObj.getBooleanProperty("spawn-animals", true);
         this.pvpOn = this.propertyManagerObj.getBooleanProperty("pvp", true);
         this.allowFlight = this.propertyManagerObj.getBooleanProperty("allow-flight", false);
@@ -171,7 +173,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
                         var10.chunkProviderServer.loadChunk(var11.posX + var12 >> 4, var11.posZ + var13 >> 4);
 
-                        while (var10.func_6156_d() && this.serverRunning) {
+                        while (var10.updatingLighting() && this.serverRunning) {
                         }
                     }
                 }
@@ -311,14 +313,14 @@ public class MinecraftServer implements Runnable, ICommandListener {
         ++this.deathTime;
 
         for (int i = 0; i < this.worldMngr.length; ++i) {
-            if (i == 0 || this.propertyManagerObj.getBooleanProperty("allow-nether", true)) {
+            if (i == 0 || allowNether) {
                 WorldServer worldServer = this.worldMngr[i];
                 if (this.deathTime % 20 == 0) {
                     this.configManager.sendPacketToAllPlayersInDimension(new Packet4UpdateTime(worldServer.getWorldTime()), worldServer.worldProvider.worldType);
                 }
 
                 worldServer.tick();
-                while (worldServer.func_6156_d()) {
+                while (worldServer.updatingLighting()) {
                 }
 
                 worldServer.updateEntities();
@@ -356,20 +358,20 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
     }
 
-    public void func_6022_a(IUpdatePlayerListBox var1) {
-        this.updatePlayerListBoxes.add(var1);
+    public void addPlayerListBox(IUpdatePlayerListBox listBox) {
+        this.updatePlayerListBoxes.add(listBox);
     }
 
-    public File getFile(String var1) {
-        return new File(var1);
+    public File getFile(String file) {
+        return new File(file);
     }
 
-    public void log(String var1) {
-        LOGGER.info(var1);
+    public void log(String message) {
+        LOGGER.info(message);
     }
 
-    public void logWarning(String var1) {
-        LOGGER.warning(var1);
+    public void logWarning(String message) {
+        LOGGER.warning(message);
     }
 
     public String getUsername() {

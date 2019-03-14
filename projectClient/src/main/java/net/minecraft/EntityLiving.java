@@ -337,7 +337,7 @@ public abstract class EntityLiving extends Entity {
 
                 this.attackedAtYaw = 0.0F;
                 if (var3) {
-                    this.worldObj.func_9425_a(this, (byte) 2);
+                    this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 2);
                     this.setBeenAttacked();
                     if (var1 != null) {
                         double var4 = var1.posX - this.posX;
@@ -423,7 +423,7 @@ public abstract class EntityLiving extends Entity {
             this.dropFewItems();
         }
 
-        this.worldObj.func_9425_a(this, (byte) 3);
+        this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 3);
     }
 
     protected void dropFewItems() {
@@ -785,7 +785,7 @@ public abstract class EntityLiving extends Entity {
     }
 
     public boolean getCanSpawnHere() {
-        return this.worldObj.checkIfAABBIsClear(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.worldObj.getIsAnyLiquid(this.boundingBox);
+        return this.worldObj.checkIfAABBIsClear(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.worldObj.isAnyLiquid(this.boundingBox);
     }
 
     protected void kill() {

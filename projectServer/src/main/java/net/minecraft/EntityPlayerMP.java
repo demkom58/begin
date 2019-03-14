@@ -29,7 +29,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         int var6 = var5.posX;
         int var7 = var5.posZ;
         int var8 = var5.posY;
-        if (!var2.worldProvider.field_4306_c) {
+        if (!var2.worldProvider.hasNoSky) {
             var6 += this.rand.nextInt(20) - 10;
             var8 = var2.findTopSolidBlock(var6, var7);
             var7 += this.rand.nextInt(20) - 10;

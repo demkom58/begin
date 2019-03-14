@@ -36,7 +36,7 @@ public class ItemBucket extends Item {
                 int var25 = var24.blockX;
                 int var26 = var24.blockY;
                 int var27 = var24.blockZ;
-                if (!var2.func_6466_a(var3, var25, var26, var27)) {
+                if (!var2.canMineBlock(var3, var25, var26, var27)) {
                     return var1;
                 }
 

@@ -5,7 +5,7 @@ public abstract class WorldProvider {
     public WorldChunkManager worldChunkMgr;
     public boolean field_6167_c = false;
     public boolean isHellWorld = false;
-    public boolean field_4306_c = false;
+    public boolean hasNoSky = false;
     public float[] lightBrightnessTable = new float[16];
     public int worldType = 0;
     private float[] field_6164_h = new float[4];
