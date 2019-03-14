@@ -55,7 +55,7 @@ public class ServerConfigurationManager {
         this.playerManagerObj[0].removePlayer(var1);
         this.playerManagerObj[1].removePlayer(var1);
         this.getPlayerManager(var1.dimension).addPlayer(var1);
-        WorldServer var2 = this.mcServer.getWorldManager(var1.dimension);
+        WorldServer var2 = this.mcServer.getWorldServer(var1.dimension);
         var2.chunkProviderServer.loadChunk((int) var1.posX >> 4, (int) var1.posZ >> 4);
     }
 
@@ -73,7 +73,7 @@ public class ServerConfigurationManager {
 
     public void playerLoggedIn(EntityPlayerMP var1) {
         this.playerEntities.add(var1);
-        WorldServer var2 = this.mcServer.getWorldManager(var1.dimension);
+        WorldServer var2 = this.mcServer.getWorldServer(var1.dimension);
         var2.chunkProviderServer.loadChunk((int) var1.posX >> 4, (int) var1.posZ >> 4);
 
         while (var2.getCollidingBoundingBoxes(var1, var1.boundingBox).size() != 0) {
@@ -90,7 +90,7 @@ public class ServerConfigurationManager {
 
     public void playerLoggedOut(EntityPlayerMP var1) {
         this.playerNBTManagerObj.writePlayerData(var1);
-        this.mcServer.getWorldManager(var1.dimension).removePlayerForLogoff(var1);
+        this.mcServer.getWorldServer(var1.dimension).removePlayerForLogoff(var1);
         this.playerEntities.remove(var1);
         this.getPlayerManager(var1.dimension).removePlayer(var1);
     }
@@ -120,7 +120,7 @@ public class ServerConfigurationManager {
                     }
                 }
 
-                return new EntityPlayerMP(this.mcServer, this.mcServer.getWorldManager(0), var2, new ItemInWorldManager(this.mcServer.getWorldManager(0)));
+                return new EntityPlayerMP(this.mcServer, this.mcServer.getWorldServer(0), var2, new ItemInWorldManager(this.mcServer.getWorldServer(0)));
             }
         }
     }
@@ -130,15 +130,15 @@ public class ServerConfigurationManager {
         this.mcServer.getEntityTracker(var1.dimension).untrackEntity(var1);
         this.getPlayerManager(var1.dimension).removePlayer(var1);
         this.playerEntities.remove(var1);
-        this.mcServer.getWorldManager(var1.dimension).removePlayer(var1);
+        this.mcServer.getWorldServer(var1.dimension).removePlayer(var1);
         ChunkCoordinates var3 = var1.getSpawnChunk();
         var1.dimension = var2;
-        EntityPlayerMP var4 = new EntityPlayerMP(this.mcServer, this.mcServer.getWorldManager(var1.dimension), var1.username, new ItemInWorldManager(this.mcServer.getWorldManager(var1.dimension)));
+        EntityPlayerMP var4 = new EntityPlayerMP(this.mcServer, this.mcServer.getWorldServer(var1.dimension), var1.username, new ItemInWorldManager(this.mcServer.getWorldServer(var1.dimension)));
         var4.entityId = var1.entityId;
         var4.playerNetServerHandler = var1.playerNetServerHandler;
-        WorldServer var5 = this.mcServer.getWorldManager(var1.dimension);
+        WorldServer var5 = this.mcServer.getWorldServer(var1.dimension);
         if (var3 != null) {
-            ChunkCoordinates var6 = EntityPlayer.func_25051_a(this.mcServer.getWorldManager(var1.dimension), var3);
+            ChunkCoordinates var6 = EntityPlayer.func_25051_a(this.mcServer.getWorldServer(var1.dimension), var3);
             if (var6 != null) {
                 var4.setLocationAndAngles((double) ((float) var6.posX + 0.5F), (double) ((float) var6.posY + 0.1F), (double) ((float) var6.posZ + 0.5F), 0.0F, 0.0F);
                 var4.setSpawnChunk(var3);
@@ -165,7 +165,7 @@ public class ServerConfigurationManager {
     }
 
     public void sendPlayerToOtherDimension(EntityPlayerMP var1) {
-        WorldServer var2 = this.mcServer.getWorldManager(var1.dimension);
+        WorldServer var2 = this.mcServer.getWorldServer(var1.dimension);
         byte var3 = 0;
         if (var1.dimension == -1) {
             var3 = 0;
@@ -174,7 +174,7 @@ public class ServerConfigurationManager {
         }
 
         var1.dimension = var3;
-        WorldServer var4 = this.mcServer.getWorldManager(var1.dimension);
+        WorldServer var4 = this.mcServer.getWorldServer(var1.dimension);
         var1.playerNetServerHandler.sendPacket(new Packet9Respawn((byte) var1.dimension));
         var2.removePlayer(var1);
         var1.isDead = false;

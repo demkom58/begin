@@ -55,7 +55,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void handleFlying(Packet10Flying var1) {
-        WorldServer var2 = this.mcServer.getWorldManager(this.playerEntity.dimension);
+        WorldServer var2 = this.mcServer.getWorldServer(this.playerEntity.dimension);
         this.field_22003_h = true;
         if (!this.hasMoved) {
             double var3 = var1.yPosition - this.lastPosY;
@@ -222,7 +222,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void handleBlockDig(Packet14BlockDig var1) {
-        WorldServer var2 = this.mcServer.getWorldManager(this.playerEntity.dimension);
+        WorldServer var2 = this.mcServer.getWorldServer(this.playerEntity.dimension);
         if (var1.status == 4) {
             this.playerEntity.dropCurrentItem();
         } else {
@@ -282,7 +282,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void handlePlace(Packet15Place var1) {
-        WorldServer var2 = this.mcServer.getWorldManager(this.playerEntity.dimension);
+        WorldServer var2 = this.mcServer.getWorldServer(this.playerEntity.dimension);
         ItemStack var3 = this.playerEntity.inventory.getCurrentItem();
         boolean var4 = var2.field_819_z = var2.worldProvider.worldType != 0 || this.mcServer.configManager.isOp(this.playerEntity.username);
         if (var1.direction == 255) {
@@ -467,7 +467,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void func_6006_a(Packet7UseEntity var1) {
-        WorldServer var2 = this.mcServer.getWorldManager(this.playerEntity.dimension);
+        WorldServer var2 = this.mcServer.getWorldServer(this.playerEntity.dimension);
         Entity var3 = var2.func_6158_a(var1.targetEntity);
         if (var3 != null && this.playerEntity.canEntityBeSeen(var3) && this.playerEntity.getDistanceSqToEntity(var3) < 36.0D) {
             if (var1.isLeftClick == 0) {
@@ -523,7 +523,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     public void handleUpdateSign(Packet130UpdateSign var1) {
-        WorldServer var2 = this.mcServer.getWorldManager(this.playerEntity.dimension);
+        WorldServer var2 = this.mcServer.getWorldServer(this.playerEntity.dimension);
         if (var2.blockExists(var1.xPosition, var1.yPosition, var1.zPosition)) {
             TileEntity var3 = var2.getBlockTileEntity(var1.xPosition, var1.yPosition, var1.zPosition);
             if (var3 instanceof TileEntitySign) {

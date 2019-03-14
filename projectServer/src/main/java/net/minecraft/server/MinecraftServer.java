@@ -16,17 +16,21 @@ import java.util.logging.Logger;
 public class MinecraftServer implements Runnable, ICommandListener {
     public static final Logger LOGGER = Logger.getLogger("Minecraft");
 
-    public static Map<String, Integer> toProcess = new HashMap<>();
+    public String serverIp;
+    public int port;
+    public InetAddress inetAddress;
     public NetworkListenThread networkServer;
+
+    public static Map<String, Integer> toProcess = new HashMap<>();
     public PropertyManager propertyManagerObj;
-    public WorldServer[] worldMngr;
+    public WorldServer[] worldServers;
     public ServerConfigurationManager configManager;
     public boolean serverStopped = false;
     public String currentTask;
     public int percentDone;
     public EntityTracker[] entityTracker = new EntityTracker[2];
-    public boolean allowNether;
     public boolean onlineMode;
+    public boolean allowNether;
     public boolean spawnPeacefulMobs;
     public boolean pvpOn;
     public boolean allowFlight;
@@ -44,28 +48,28 @@ public class MinecraftServer implements Runnable, ICommandListener {
         StatList.func_27092_a();
 
         try {
-            MinecraftServer minecraftServer = new MinecraftServer();
+            MinecraftServer mcServer = new MinecraftServer();
             if (!GraphicsEnvironment.isHeadless() && (args.length <= 0 || !args[0].equals("nogui"))) {
-                ServerGUI.initGui(minecraftServer);
+                ServerGUI.initGui(mcServer);
             }
 
-            (new ThreadServerApplication("Server thread", minecraftServer)).start();
+            new ThreadServerApplication("Server thread", mcServer).start();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Failed to start the minecraft server", e);
         }
 
     }
 
-    // $FF: synthetic method
-    public static boolean isServerRunning(MinecraftServer var0) {
-        return var0.serverRunning;
+    public static boolean isServerRunning(MinecraftServer mcServer) {
+        return mcServer.serverRunning;
     }
 
     private boolean startServer() throws UnknownHostException {
         this.commandHandler = new ConsoleCommandHandler(this);
-        ThreadCommandReader var1 = new ThreadCommandReader(this);
-        var1.setDaemon(true);
-        var1.start();
+        ThreadCommandReader threadCommandReader = new ThreadCommandReader(this);
+        threadCommandReader.setDaemon(true);
+        threadCommandReader.start();
+
         ConsoleLogManager.init();
         LOGGER.info("Starting minecraft server version Beta 1.7.3");
         if (Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L) {
@@ -75,22 +79,22 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
         LOGGER.info("Loading properties");
         this.propertyManagerObj = new PropertyManager(new File("server.properties"));
-        String var2 = this.propertyManagerObj.getStringProperty("server-ip", "");
         this.onlineMode = this.propertyManagerObj.getBooleanProperty("online-mode", true);
         this.allowNether = this.propertyManagerObj.getBooleanProperty("allow-nether", true);
         this.spawnPeacefulMobs = this.propertyManagerObj.getBooleanProperty("spawn-animals", true);
         this.pvpOn = this.propertyManagerObj.getBooleanProperty("pvp", true);
         this.allowFlight = this.propertyManagerObj.getBooleanProperty("allow-flight", false);
-        InetAddress var3 = null;
-        if (var2.length() > 0) {
-            var3 = InetAddress.getByName(var2);
+
+        serverIp = this.propertyManagerObj.getStringProperty("server-ip", "");
+        port = this.propertyManagerObj.getIntProperty("server-port", 25565);
+        if (serverIp.length() > 0) {
+            inetAddress = InetAddress.getByName(serverIp);
         }
 
-        int var4 = this.propertyManagerObj.getIntProperty("server-port", 25565);
-        LOGGER.info("Starting Minecraft server on " + (var2.length() == 0 ? "*" : var2) + ":" + var4);
+        LOGGER.info("Starting Minecraft server on " + (serverIp.length() == 0 ? "*" : serverIp) + ":" + port);
 
         try {
-            this.networkServer = new NetworkListenThread(this, var3, var4);
+            this.networkServer = new NetworkListenThread(this, inetAddress, port);
         } catch (IOException e1) {
             LOGGER.warning("**** FAILED TO BIND TO PORT!");
             LOGGER.log(Level.WARNING, "The exception was: " + e1.toString());
@@ -108,72 +112,73 @@ public class MinecraftServer implements Runnable, ICommandListener {
         this.configManager = new ServerConfigurationManager(this);
         this.entityTracker[0] = new EntityTracker(this, 0);
         this.entityTracker[1] = new EntityTracker(this, -1);
-        long var5 = System.nanoTime();
-        String var7 = this.propertyManagerObj.getStringProperty("level-name", "world");
-        String var8 = this.propertyManagerObj.getStringProperty("level-seed", "");
-        long var9 = (new Random()).nextLong();
-        if (var8.length() > 0) {
+        final long serverLoadStartStamp = System.nanoTime();
+
+        String levelName = this.propertyManagerObj.getStringProperty("level-name", "world");
+        String levelSeed = this.propertyManagerObj.getStringProperty("level-seed", "");
+
+        long seed = new Random().nextLong();
+        if (levelSeed.length() > 0) {
             try {
-                var9 = Long.parseLong(var8);
+                seed = Long.parseLong(levelSeed);
             } catch (NumberFormatException e) {
-                var9 = (long) var8.hashCode();
+                seed = (long) levelSeed.hashCode();
             }
         }
 
-        LOGGER.info("Preparing level \"" + var7 + "\"");
-        this.initWorld(new SaveConverterMcRegion(new File(".")), var7, var9);
-        LOGGER.info("Done (" + (System.nanoTime() - var5) + "ns)! For help, type \"help\" or \"?\"");
+        LOGGER.info("Preparing level \"" + levelName + "\"");
+        this.initWorld(new SaveConverterMcRegion(new File(".")), levelName, seed);
+        LOGGER.info("Done (" + (System.nanoTime() - serverLoadStartStamp) + "ns)! For help, type \"help\" or \"?\"");
         return true;
     }
 
-    private void initWorld(ISaveFormat saveFormat, String type, long var3) {
+    private void initWorld(ISaveFormat saveFormat, String type, long seed) {
         if (saveFormat.isOldSaveType(type)) {
             LOGGER.info("Converting map!");
             saveFormat.converMapToMCRegion(type, new ConvertProgressUpdater(this));
         }
 
-        this.worldMngr = new WorldServer[2];
+        this.worldServers = new WorldServer[2];
         SaveOldDir saveOldDir = new SaveOldDir(new File("."), type, true);
 
-        for (int i = 0; i < this.worldMngr.length; ++i) {
+        for (int i = 0; i < this.worldServers.length; ++i) {
             if (i == 0) {
-                this.worldMngr[i] = new WorldServer(this, saveOldDir, type, i == 0 ? 0 : -1, var3);
+                this.worldServers[i] = new WorldServer(this, saveOldDir, type, i == 0 ? 0 : -1, seed);
             } else {
-                this.worldMngr[i] = new WorldServerMulti(this, saveOldDir, type, i == 0 ? 0 : -1, var3, this.worldMngr[0]);
+                this.worldServers[i] = new WorldServerMulti(this, saveOldDir, type, i == 0 ? 0 : -1, seed, this.worldServers[0]);
             }
 
-            this.worldMngr[i].addWorldAccess(new WorldManager(this, this.worldMngr[i]));
-            this.worldMngr[i].difficultySetting = this.propertyManagerObj.getBooleanProperty("spawn-monsters", true) ? 1 : 0;
-            this.worldMngr[i].setAllowedSpawnTypes(this.propertyManagerObj.getBooleanProperty("spawn-monsters", true), this.spawnPeacefulMobs);
-            this.configManager.setPlayerManager(this.worldMngr);
+            this.worldServers[i].addWorldAccess(new WorldManager(this, this.worldServers[i]));
+            this.worldServers[i].difficultySetting = this.propertyManagerObj.getBooleanProperty("spawn-monsters", true) ? 1 : 0;
+            this.worldServers[i].setAllowedSpawnTypes(this.propertyManagerObj.getBooleanProperty("spawn-monsters", true), this.spawnPeacefulMobs);
+            this.configManager.setPlayerManager(this.worldServers);
         }
 
         short var18 = 196;
-        long var7 = System.currentTimeMillis();
+        long preparingStart = System.currentTimeMillis();
+        for (int i = 0; i < this.worldServers.length; ++i) {
+            LOGGER.info("Preparing start region for level " + i);
+            if (i == 0 || this.propertyManagerObj.getBooleanProperty("allow-nether", true)) {
+                WorldServer worldServer = this.worldServers[i];
+                ChunkCoordinates chunkCoordinates = worldServer.getSpawnPoint();
 
-        for (int var9 = 0; var9 < this.worldMngr.length; ++var9) {
-            LOGGER.info("Preparing start region for level " + var9);
-            if (var9 == 0 || this.propertyManagerObj.getBooleanProperty("allow-nether", true)) {
-                WorldServer var10 = this.worldMngr[var9];
-                ChunkCoordinates var11 = var10.getSpawnPoint();
-
-                for (int var12 = -var18; var12 <= var18 && this.serverRunning; var12 += 16) {
-                    for (int var13 = -var18; var13 <= var18 && this.serverRunning; var13 += 16) {
+                for (int j = -var18; j <= var18 && this.serverRunning; j += 16) {
+                    for (int k = -var18; k <= var18 && this.serverRunning; k += 16) {
                         long var14 = System.currentTimeMillis();
-                        if (var14 < var7) {
-                            var7 = var14;
+                        if (var14 < preparingStart) {
+                            preparingStart = var14;
                         }
 
-                        if (var14 > var7 + 1000L) {
+                        if (var14 > preparingStart + 1000L) {
                             int var16 = (var18 * 2 + 1) * (var18 * 2 + 1);
-                            int var17 = (var12 + var18) * (var18 * 2 + 1) + var13 + 1;
+                            int var17 = (j + var18) * (var18 * 2 + 1) + k + 1;
                             this.outputPercentRemaining("Preparing spawn area", var17 * 100 / var16);
-                            var7 = var14;
+                            preparingStart = var14;
                         }
 
-                        var10.chunkProviderServer.loadChunk(var11.posX + var12 >> 4, var11.posZ + var13 >> 4);
+                        worldServer.chunkProviderServer.loadChunk(chunkCoordinates.posX + j >> 4, chunkCoordinates.posZ + k >> 4);
 
-                        while (var10.updatingLighting() && this.serverRunning) {
+                        while (worldServer.updatingLighting() && this.serverRunning) {
                         }
                     }
                 }
@@ -183,10 +188,10 @@ public class MinecraftServer implements Runnable, ICommandListener {
         this.clearCurrentTask();
     }
 
-    private void outputPercentRemaining(String var1, int var2) {
-        this.currentTask = var1;
-        this.percentDone = var2;
-        LOGGER.info(var1 + ": " + var2 + "%");
+    private void outputPercentRemaining(String currentTask, int percentDone) {
+        this.currentTask = currentTask;
+        this.percentDone = percentDone;
+        LOGGER.info(currentTask + ": " + percentDone + "%");
     }
 
     private void clearCurrentTask() {
@@ -197,10 +202,10 @@ public class MinecraftServer implements Runnable, ICommandListener {
     private void saveServerWorld() {
         LOGGER.info("Saving chunks");
 
-        for (int var1 = 0; var1 < this.worldMngr.length; ++var1) {
-            WorldServer var2 = this.worldMngr[var1];
-            var2.saveWorld(true, null);
-            var2.func_30006_w();
+        for (int i = 0; i < this.worldServers.length; ++i) {
+            WorldServer worldServer = this.worldServers[i];
+            worldServer.saveWorld(true, null);
+            worldServer.func_30006_w();
         }
 
     }
@@ -211,9 +216,9 @@ public class MinecraftServer implements Runnable, ICommandListener {
             this.configManager.savePlayerStates();
         }
 
-        for (int var1 = 0; var1 < this.worldMngr.length; ++var1) {
-            WorldServer var2 = this.worldMngr[var1];
-            if (var2 != null) {
+        for (int i = 0; i < this.worldServers.length; ++i) {
+            WorldServer worldServer = this.worldServers[i];
+            if (worldServer != null) {
                 this.saveServerWorld();
             }
         }
@@ -244,7 +249,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
                     left += lastTickTime;
                     lastTickStartMillis = tickStartMillis;
-                    if (this.worldMngr[0].isAllPlayersFullyAsleep()) {
+                    if (this.worldServers[0].isAllPlayersFullyAsleep()) {
                         this.doTick();
                         left = 0L;
                     } else {
@@ -312,9 +317,9 @@ public class MinecraftServer implements Runnable, ICommandListener {
         Vec3D.initialize();
         ++this.deathTime;
 
-        for (int i = 0; i < this.worldMngr.length; ++i) {
+        for (int i = 0; i < this.worldServers.length; ++i) {
             if (i == 0 || allowNether) {
-                WorldServer worldServer = this.worldMngr[i];
+                WorldServer worldServer = this.worldServers[i];
                 if (this.deathTime % 20 == 0) {
                     this.configManager.sendPacketToAllPlayersInDimension(new Packet4UpdateTime(worldServer.getWorldTime()), worldServer.worldProvider.worldType);
                 }
@@ -352,8 +357,8 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
     public void commandLineParser() {
         while (this.commands.size() > 0) {
-            ServerCommand var1 = this.commands.remove(0);
-            this.commandHandler.handleCommand(var1);
+            ServerCommand serverCommand = this.commands.remove(0);
+            this.commandHandler.handleCommand(serverCommand);
         }
 
     }
@@ -378,8 +383,8 @@ public class MinecraftServer implements Runnable, ICommandListener {
         return "CONSOLE";
     }
 
-    public WorldServer getWorldManager(int var1) {
-        return var1 == -1 ? this.worldMngr[1] : this.worldMngr[0];
+    public WorldServer getWorldServer(int world) {
+        return world == -1 ? this.worldServers[1] : this.worldServers[0];
     }
 
     public EntityTracker getEntityTracker(int var1) {
