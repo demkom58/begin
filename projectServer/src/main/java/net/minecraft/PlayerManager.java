@@ -37,7 +37,7 @@ public class PlayerManager {
     }
 
     public WorldServer getMinecraftServer() {
-        return this.mcServer.getWorldManager(this.field_28110_e);
+        return this.mcServer.getWorldServer(this.field_28110_e);
     }
 
     public void updatePlayerInstances() {

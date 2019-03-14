@@ -93,9 +93,9 @@ public class NetLoginHandler extends NetHandler {
         EntityPlayerMP var2 = this.mcServer.configManager.login(this, var1.username);
         if (var2 != null) {
             this.mcServer.configManager.readPlayerDataFromFile(var2);
-            var2.setWorldHandler(this.mcServer.getWorldManager(var2.dimension));
+            var2.setWorldHandler(this.mcServer.getWorldServer(var2.dimension));
             logger.info(this.getUserAndIPString() + " logged in with entity id " + var2.entityId + " at (" + var2.posX + ", " + var2.posY + ", " + var2.posZ + ")");
-            WorldServer var3 = this.mcServer.getWorldManager(var2.dimension);
+            WorldServer var3 = this.mcServer.getWorldServer(var2.dimension);
             ChunkCoordinates var4 = var3.getSpawnPoint();
             NetServerHandler var5 = new NetServerHandler(this.mcServer, this.netManager, var2);
             var5.sendPacket(new Packet1Login("", var2.entityId, var3.getRandomSeed(), (byte) var3.worldProvider.worldType));

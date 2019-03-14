@@ -30,8 +30,8 @@ public class ConsoleCommandHandler {
                     var5.savePlayerStates();
                 }
 
-                for (int var6 = 0; var6 < this.minecraftServer.worldMngr.length; ++var6) {
-                    WorldServer var7 = this.minecraftServer.worldMngr[var6];
+                for (int var6 = 0; var6 < this.minecraftServer.worldServers.length; ++var6) {
+                    WorldServer var7 = this.minecraftServer.worldServers[var6];
                     var7.saveWorld(true, null);
                 }
 
@@ -39,15 +39,15 @@ public class ConsoleCommandHandler {
             } else if (var2.toLowerCase().startsWith("save-off")) {
                 this.sendNoticeToOps(var4, "Disabling level saving..");
 
-                for (int var17 = 0; var17 < this.minecraftServer.worldMngr.length; ++var17) {
-                    WorldServer var30 = this.minecraftServer.worldMngr[var17];
+                for (int var17 = 0; var17 < this.minecraftServer.worldServers.length; ++var17) {
+                    WorldServer var30 = this.minecraftServer.worldServers[var17];
                     var30.levelSaving = true;
                 }
             } else if (var2.toLowerCase().startsWith("save-on")) {
                 this.sendNoticeToOps(var4, "Enabling level saving..");
 
-                for (int var18 = 0; var18 < this.minecraftServer.worldMngr.length; ++var18) {
-                    WorldServer var31 = this.minecraftServer.worldMngr[var18];
+                for (int var18 = 0; var18 < this.minecraftServer.worldServers.length; ++var18) {
+                    WorldServer var31 = this.minecraftServer.worldServers[var18];
                     var31.levelSaving = false;
                 }
             } else if (var2.toLowerCase().startsWith("op ")) {
@@ -162,15 +162,15 @@ public class ConsoleCommandHandler {
                 try {
                     int var39 = Integer.parseInt(var28[2]);
                     if ("add".equalsIgnoreCase(var36)) {
-                        for (int var41 = 0; var41 < this.minecraftServer.worldMngr.length; ++var41) {
-                            WorldServer var43 = this.minecraftServer.worldMngr[var41];
+                        for (int var41 = 0; var41 < this.minecraftServer.worldServers.length; ++var41) {
+                            WorldServer var43 = this.minecraftServer.worldServers[var41];
                             var43.func_32005_b(var43.getWorldTime() + (long) var39);
                         }
 
                         this.sendNoticeToOps(var4, "Added " + var39 + " to time");
                     } else if ("set".equalsIgnoreCase(var36)) {
-                        for (int var42 = 0; var42 < this.minecraftServer.worldMngr.length; ++var42) {
-                            WorldServer var44 = this.minecraftServer.worldMngr[var42];
+                        for (int var42 = 0; var42 < this.minecraftServer.worldServers.length; ++var42) {
+                            WorldServer var44 = this.minecraftServer.worldServers[var42];
                             var44.func_32005_b((long) var39);
                         }
 

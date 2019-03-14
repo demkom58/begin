@@ -138,7 +138,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
                 }
 
                 if (var8) {
-                    WorldServer var9 = this.mcServer.getWorldManager(this.dimension);
+                    WorldServer var9 = this.mcServer.getWorldServer(this.dimension);
                     this.loadedChunks.remove(var7);
                     this.playerNetServerHandler.sendPacket(new Packet51MapChunk(var7.chunkXPos * 16, 0, var7.chunkZPos * 16, 16, 128, 16, var9));
                     List<TileEntity> var5 = var9.getTileEntityList(var7.chunkXPos * 16, 0, var7.chunkZPos * 16, var7.chunkXPos * 16 + 16, 128, var7.chunkZPos * 16 + 16);
