@@ -19,8 +19,8 @@ public class ConsoleLogManager {
             FileHandler var2 = new FileHandler("server.log", true);
             var2.setFormatter(var0);
             logger.addHandler(var2);
-        } catch (Exception var3) {
-            logger.log(Level.WARNING, "Failed to log to server.log", var3);
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Failed to log to server.log", e);
         }
 
     }

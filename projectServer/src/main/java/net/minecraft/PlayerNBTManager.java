@@ -37,8 +37,8 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
                 var2.close();
             }
 
-        } catch (IOException var7) {
-            var7.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
             throw new RuntimeException("Failed to check session lock, aborting");
         }
     }
@@ -60,7 +60,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
                 var2.close();
             }
 
-        } catch (IOException var7) {
+        } catch (IOException e) {
             throw new MinecraftException("Failed to check session lock, aborting");
         }
     }
@@ -75,15 +75,15 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
         }
     }
 
-    public WorldInfo func_22096_c() {
+    public WorldInfo loadWorldInfo() {
         File var1 = new File(this.worldDir, "level.dat");
         if (var1.exists()) {
             try {
                 NBTTagCompound var7 = CompressedStreamTools.func_770_a(new FileInputStream(var1));
                 NBTTagCompound var8 = var7.getCompoundTag("Data");
                 return new WorldInfo(var8);
-            } catch (Exception var5) {
-                var5.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -93,16 +93,16 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
                 NBTTagCompound var2 = CompressedStreamTools.func_770_a(new FileInputStream(var1));
                 NBTTagCompound var3 = var2.getCompoundTag("Data");
                 return new WorldInfo(var3);
-            } catch (Exception var4) {
-                var4.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
         return null;
     }
 
-    public void func_22095_a(WorldInfo var1, List<EntityPlayer> var2) {
-        NBTTagCompound var3 = var1.func_22183_a(var2);
+    public void saveWorldInfoAndPlayer(WorldInfo var1, List<EntityPlayer> var2) {
+        NBTTagCompound var3 = var1.getNBTTagCompoundWithPlayer(var2);
         NBTTagCompound var4 = new NBTTagCompound();
         var4.setTag("Data", var3);
 
@@ -131,7 +131,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
     }
 
     public void func_22094_a(WorldInfo var1) {
-        NBTTagCompound var2 = var1.func_22185_a();
+        NBTTagCompound var2 = var1.getNBTTagCompound();
         NBTTagCompound var3 = new NBTTagCompound();
         var3.setTag("Data", var2);
 
@@ -153,8 +153,8 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
             if (var4.exists()) {
                 var4.delete();
             }
-        } catch (Exception var7) {
-            var7.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -171,7 +171,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
             }
 
             var3.renameTo(var4);
-        } catch (Exception var5) {
+        } catch (Exception e) {
             logger.warning("Failed to save player data for " + var1.username);
         }
 
@@ -191,7 +191,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
             if (var2.exists()) {
                 return CompressedStreamTools.func_770_a(new FileInputStream(var2));
             }
-        } catch (Exception var3) {
+        } catch (Exception e) {
             logger.warning("Failed to load player data for " + var1);
         }
 

@@ -54,8 +54,8 @@ public class NetLoginHandler extends NetHandler {
             this.netManager.addToSendQueue(new Packet255KickDisconnect(var1));
             this.netManager.serverShutdown();
             this.finishedProcessing = true;
-        } catch (Exception var3) {
-            var3.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

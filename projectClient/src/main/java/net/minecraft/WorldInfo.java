@@ -21,89 +21,90 @@ public class WorldInfo {
     private boolean thundering;
     private int thunderTime;
 
-    public WorldInfo(NBTTagCompound var1) {
-        this.randomSeed = var1.getLong("RandomSeed");
-        this.spawnX = var1.getInteger("SpawnX");
-        this.spawnY = var1.getInteger("SpawnY");
-        this.spawnZ = var1.getInteger("SpawnZ");
-        this.worldTime = var1.getLong("Time");
-        this.lastTimePlayed = var1.getLong("LastPlayed");
-        this.sizeOnDisk = var1.getLong("SizeOnDisk");
-        this.levelName = var1.getString("LevelName");
-        this.saveVersion = var1.getInteger("version");
-        this.rainTime = var1.getInteger("rainTime");
-        this.raining = var1.getBoolean("raining");
-        this.thunderTime = var1.getInteger("thunderTime");
-        this.thundering = var1.getBoolean("thundering");
-        if (var1.hasKey("Player")) {
-            this.playerTag = var1.getCompoundTag("Player");
+    public WorldInfo(NBTTagCompound compound) {
+        this.randomSeed = compound.getLong("RandomSeed");
+        this.spawnX = compound.getInteger("SpawnX");
+        this.spawnY = compound.getInteger("SpawnY");
+        this.spawnZ = compound.getInteger("SpawnZ");
+        this.worldTime = compound.getLong("Time");
+        this.lastTimePlayed = compound.getLong("LastPlayed");
+        this.sizeOnDisk = compound.getLong("SizeOnDisk");
+        this.levelName = compound.getString("LevelName");
+        this.saveVersion = compound.getInteger("version");
+        this.rainTime = compound.getInteger("rainTime");
+        this.raining = compound.getBoolean("raining");
+        this.thunderTime = compound.getInteger("thunderTime");
+        this.thundering = compound.getBoolean("thundering");
+        if (compound.hasKey("Player")) {
+            this.playerTag = compound.getCompoundTag("Player");
             this.dimension = this.playerTag.getInteger("Dimension");
         }
 
     }
 
-    public WorldInfo(long var1, String var3) {
-        this.randomSeed = var1;
-        this.levelName = var3;
+    public WorldInfo(long randomSeed, String levelName) {
+        this.randomSeed = randomSeed;
+        this.levelName = levelName;
     }
 
-    public WorldInfo(WorldInfo var1) {
-        this.randomSeed = var1.randomSeed;
-        this.spawnX = var1.spawnX;
-        this.spawnY = var1.spawnY;
-        this.spawnZ = var1.spawnZ;
-        this.worldTime = var1.worldTime;
-        this.lastTimePlayed = var1.lastTimePlayed;
-        this.sizeOnDisk = var1.sizeOnDisk;
-        this.playerTag = var1.playerTag;
-        this.dimension = var1.dimension;
-        this.levelName = var1.levelName;
-        this.saveVersion = var1.saveVersion;
-        this.rainTime = var1.rainTime;
-        this.raining = var1.raining;
-        this.thunderTime = var1.thunderTime;
-        this.thundering = var1.thundering;
+    public WorldInfo(WorldInfo info) {
+        this.randomSeed = info.randomSeed;
+        this.spawnX = info.spawnX;
+        this.spawnY = info.spawnY;
+        this.spawnZ = info.spawnZ;
+        this.worldTime = info.worldTime;
+        this.lastTimePlayed = info.lastTimePlayed;
+        this.sizeOnDisk = info.sizeOnDisk;
+        this.playerTag = info.playerTag;
+        this.dimension = info.dimension;
+        this.levelName = info.levelName;
+        this.saveVersion = info.saveVersion;
+        this.rainTime = info.rainTime;
+        this.raining = info.raining;
+        this.thunderTime = info.thunderTime;
+        this.thundering = info.thundering;
     }
 
     public NBTTagCompound getNBTTagCompound() {
-        NBTTagCompound var1 = new NBTTagCompound();
-        this.updateTagCompound(var1, this.playerTag);
-        return var1;
+        NBTTagCompound compound = new NBTTagCompound();
+        this.updateTagCompound(compound, this.playerTag);
+        return compound;
     }
 
-    public NBTTagCompound getNBTTagCompoundWithPlayer(List var1) {
+    public NBTTagCompound getNBTTagCompoundWithPlayer(List<EntityPlayer> entityPlayers) {
         NBTTagCompound var2 = new NBTTagCompound();
-        EntityPlayer var3 = null;
+        EntityPlayer entityPlayer = null;
         NBTTagCompound var4 = null;
-        if (var1.size() > 0) {
-            var3 = (EntityPlayer) var1.get(0);
+
+        if (entityPlayers.size() > 0) {
+            entityPlayer = entityPlayers.get(0);
         }
 
-        if (var3 != null) {
+        if (entityPlayer != null) {
             var4 = new NBTTagCompound();
-            var3.writeToNBT(var4);
+            entityPlayer.writeToNBT(var4);
         }
 
         this.updateTagCompound(var2, var4);
         return var2;
     }
 
-    private void updateTagCompound(NBTTagCompound var1, NBTTagCompound var2) {
-        var1.setLong("RandomSeed", this.randomSeed);
-        var1.setInteger("SpawnX", this.spawnX);
-        var1.setInteger("SpawnY", this.spawnY);
-        var1.setInteger("SpawnZ", this.spawnZ);
-        var1.setLong("Time", this.worldTime);
-        var1.setLong("SizeOnDisk", this.sizeOnDisk);
-        var1.setLong("LastPlayed", System.currentTimeMillis());
-        var1.setString("LevelName", this.levelName);
-        var1.setInteger("version", this.saveVersion);
-        var1.setInteger("rainTime", this.rainTime);
-        var1.setBoolean("raining", this.raining);
-        var1.setInteger("thunderTime", this.thunderTime);
-        var1.setBoolean("thundering", this.thundering);
-        if (var2 != null) {
-            var1.setCompoundTag("Player", var2);
+    private void updateTagCompound(NBTTagCompound compound, NBTTagCompound playerCompound) {
+        compound.setLong("RandomSeed", this.randomSeed);
+        compound.setInteger("SpawnX", this.spawnX);
+        compound.setInteger("SpawnY", this.spawnY);
+        compound.setInteger("SpawnZ", this.spawnZ);
+        compound.setLong("Time", this.worldTime);
+        compound.setLong("SizeOnDisk", this.sizeOnDisk);
+        compound.setLong("LastPlayed", System.currentTimeMillis());
+        compound.setString("LevelName", this.levelName);
+        compound.setInteger("version", this.saveVersion);
+        compound.setInteger("rainTime", this.rainTime);
+        compound.setBoolean("raining", this.raining);
+        compound.setInteger("thunderTime", this.thunderTime);
+        compound.setBoolean("thundering", this.thundering);
+        if (playerCompound != null) {
+            compound.setCompoundTag("Player", playerCompound);
         }
 
     }
@@ -116,109 +117,109 @@ public class WorldInfo {
         return this.spawnX;
     }
 
-    public void setSpawnX(int var1) {
-        this.spawnX = var1;
+    public void setSpawnX(int spawnX) {
+        this.spawnX = spawnX;
     }
 
     public int getSpawnY() {
         return this.spawnY;
     }
 
-    public void setSpawnY(int var1) {
-        this.spawnY = var1;
+    public void setSpawnY(int spawnY) {
+        this.spawnY = spawnY;
     }
 
     public int getSpawnZ() {
         return this.spawnZ;
     }
 
-    public void setSpawnZ(int var1) {
-        this.spawnZ = var1;
+    public void setSpawnZ(int spawnZ) {
+        this.spawnZ = spawnZ;
     }
 
     public long getWorldTime() {
         return this.worldTime;
     }
 
-    public void setWorldTime(long var1) {
-        this.worldTime = var1;
+    public void setWorldTime(long worldTime) {
+        this.worldTime = worldTime;
     }
 
     public long getSizeOnDisk() {
         return this.sizeOnDisk;
     }
 
-    public void setSizeOnDisk(long var1) {
-        this.sizeOnDisk = var1;
+    public void setSizeOnDisk(long sizeOnDisk) {
+        this.sizeOnDisk = sizeOnDisk;
     }
 
     public NBTTagCompound getPlayerNBTTagCompound() {
         return this.playerTag;
     }
 
-    public void setPlayerNBTTagCompound(NBTTagCompound var1) {
-        this.playerTag = var1;
+    public void setPlayerNBTTagCompound(NBTTagCompound playerTag) {
+        this.playerTag = playerTag;
     }
 
     public int getDimension() {
         return this.dimension;
     }
 
-    public void setSpawn(int var1, int var2, int var3) {
-        this.spawnX = var1;
-        this.spawnY = var2;
-        this.spawnZ = var3;
+    public void setSpawn(int spawnX, int spawnY, int spawnZ) {
+        this.spawnX = spawnX;
+        this.spawnY = spawnY;
+        this.spawnZ = spawnZ;
     }
 
     public String getWorldName() {
         return this.levelName;
     }
 
-    public void setWorldName(String var1) {
-        this.levelName = var1;
+    public void setWorldName(String levelName) {
+        this.levelName = levelName;
     }
 
     public int getSaveVersion() {
         return this.saveVersion;
     }
 
-    public void setSaveVersion(int var1) {
-        this.saveVersion = var1;
+    public void setSaveVersion(int saveVersion) {
+        this.saveVersion = saveVersion;
     }
 
     public long getLastTimePlayed() {
         return this.lastTimePlayed;
     }
 
-    public boolean getThundering() {
+    public boolean isThundering() {
         return this.thundering;
     }
 
-    public void setThundering(boolean var1) {
-        this.thundering = var1;
+    public void setThundering(boolean thundering) {
+        this.thundering = thundering;
     }
 
     public int getThunderTime() {
         return this.thunderTime;
     }
 
-    public void setThunderTime(int var1) {
-        this.thunderTime = var1;
+    public void setThunderTime(int thunderTime) {
+        this.thunderTime = thunderTime;
     }
 
     public boolean getRaining() {
         return this.raining;
     }
 
-    public void setRaining(boolean var1) {
-        this.raining = var1;
+    public void setRaining(boolean raining) {
+        this.raining = raining;
     }
 
     public int getRainTime() {
         return this.rainTime;
     }
 
-    public void setRainTime(int var1) {
-        this.rainTime = var1;
+    public void setRainTime(int rainTime) {
+        this.rainTime = rainTime;
     }
 }

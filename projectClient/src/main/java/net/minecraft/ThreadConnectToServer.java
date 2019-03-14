@@ -30,25 +30,25 @@ class ThreadConnectToServer extends Thread {
             }
 
             GuiConnecting.getNetClientHandler(this.connectingGui).addToSendQueue(new Packet2Handshake(this.mc.session.username));
-        } catch (UnknownHostException var2) {
+        } catch (UnknownHostException e) {
             if (GuiConnecting.isCancelled(this.connectingGui)) {
                 return;
             }
 
-            this.mc.displayGuiScreen(new GuiConnectFailed("connect.failed", "disconnect.genericReason", new Object[]{"Unknown host '" + this.hostName + "'"}));
-        } catch (ConnectException var3) {
+            this.mc.displayGuiScreen(new GuiConnectFailed("connect.failed", "disconnect.genericReason", "Unknown host '" + this.hostName + "'"));
+        } catch (ConnectException e) {
             if (GuiConnecting.isCancelled(this.connectingGui)) {
                 return;
             }
 
-            this.mc.displayGuiScreen(new GuiConnectFailed("connect.failed", "disconnect.genericReason", new Object[]{var3.getMessage()}));
-        } catch (Exception var4) {
+            this.mc.displayGuiScreen(new GuiConnectFailed("connect.failed", "disconnect.genericReason", e.getMessage()));
+        } catch (Exception e) {
             if (GuiConnecting.isCancelled(this.connectingGui)) {
                 return;
             }
 
-            var4.printStackTrace();
-            this.mc.displayGuiScreen(new GuiConnectFailed("connect.failed", "disconnect.genericReason", new Object[]{var4.toString()}));
+            e.printStackTrace();
+            this.mc.displayGuiScreen(new GuiConnectFailed("connect.failed", "disconnect.genericReason", e.toString()));
         }
 
     }

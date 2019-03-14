@@ -10,8 +10,8 @@ public final class J_InvalidSyntaxException extends Exception {
         this.field_27190_b = var2.func_27330_b();
     }
 
-    J_InvalidSyntaxException(String var1, Throwable var2, J_ThingWithPosition var3) {
-        super("At line " + var3.func_27330_b() + ", column " + var3.func_27331_a() + ":  " + var1, var2);
+    J_InvalidSyntaxException(String var1, Throwable throwable, J_ThingWithPosition var3) {
+        super("At line " + var3.func_27330_b() + ", column " + var3.func_27331_a() + ":  " + var1, throwable);
         this.field_27191_a = var3.func_27331_a();
         this.field_27190_b = var3.func_27330_b();
     }

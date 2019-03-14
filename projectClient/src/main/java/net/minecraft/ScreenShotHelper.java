@@ -59,9 +59,9 @@ public class ScreenShotHelper {
             var15.setRGB(0, 0, var1, var2, imageData, 0, var1);
             ImageIO.write(var15, "png", var5);
             return "Saved screenshot as " + var5.getName();
-        } catch (Exception var14) {
-            var14.printStackTrace();
-            return "Failed to save: " + var14;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Failed to save: " + e;
         }
     }
 }

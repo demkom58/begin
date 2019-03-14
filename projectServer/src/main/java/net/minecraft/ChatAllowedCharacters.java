@@ -22,7 +22,7 @@ public class ChatAllowedCharacters {
             }
 
             var1.close();
-        } catch (Exception var3) {
+        } catch (Exception e) {
         }
 
         return var0;

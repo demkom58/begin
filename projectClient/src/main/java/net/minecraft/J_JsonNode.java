@@ -23,8 +23,8 @@ public abstract class J_JsonNode {
     private Object func_27219_a(J_JsonNodeSelector var1, J_JsonNode var2, Object[] var3) {
         try {
             return var1.func_27357_b(var2);
-        } catch (J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException var5) {
-            throw J_JsonNodeDoesNotMatchPathElementsException.func_27319_a(var5, var3, J_JsonNodeFactories.func_27315_a(var2));
+        } catch (J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException e) {
+            throw J_JsonNodeDoesNotMatchPathElementsException.func_27319_a(e, var3, J_JsonNodeFactories.func_27315_a(var2));
         }
     }
 }

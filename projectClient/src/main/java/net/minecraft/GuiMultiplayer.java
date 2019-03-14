@@ -67,7 +67,7 @@ public class GuiMultiplayer extends GuiScreen {
     private int parseIntWithDefault(String var1, int var2) {
         try {
             return Integer.parseInt(var1.trim());
-        } catch (Exception var4) {
+        } catch (Exception e) {
             return var2;
         }
     }

@@ -17,16 +17,16 @@ public final class J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException extend
         return new J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException(var0, new LinkedList());
     }
 
-    static J_JsonNodeDoesNotMatchJsonNodeSelectorException func_27323_a(J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException var0, J_JsonNodeSelector var1) {
-        LinkedList var2 = new LinkedList(var0.field_27325_b);
+    static J_JsonNodeDoesNotMatchJsonNodeSelectorException func_27323_a(J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException e, J_JsonNodeSelector var1) {
+        LinkedList var2 = new LinkedList(e.field_27325_b);
         var2.add(var1);
-        return new J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException(var0.field_27326_a, var2);
+        return new J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException(e.field_27326_a, var2);
     }
 
-    static J_JsonNodeDoesNotMatchJsonNodeSelectorException func_27321_b(J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException var0, J_JsonNodeSelector var1) {
+    static J_JsonNodeDoesNotMatchJsonNodeSelectorException func_27321_b(J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException e, J_JsonNodeSelector var1) {
         LinkedList var2 = new LinkedList();
         var2.add(var1);
-        return new J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException(var0.field_27326_a, var2);
+        return new J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException(e.field_27326_a, var2);
     }
 
     static String func_27324_a(List var0) {

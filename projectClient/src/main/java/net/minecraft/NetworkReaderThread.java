@@ -30,13 +30,13 @@ class NetworkReaderThread extends Thread {
                 }
 
                 while (NetworkManager.readNetworkPacket(this.netManager)) {
-                    ;
+
                 }
 
                 try {
                     sleep(100L);
-                } catch (InterruptedException var15) {
-                    ;
+                } catch (InterruptedException e) {
+
                 }
             } finally {
                 if (var12) {

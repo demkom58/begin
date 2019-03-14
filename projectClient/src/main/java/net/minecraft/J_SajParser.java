@@ -388,9 +388,9 @@ public final class J_SajParser {
             try {
                 int var4 = Integer.parseInt(String.valueOf(var2), 16);
                 return var4;
-            } catch (NumberFormatException var6) {
+            } catch (NumberFormatException e) {
                 var1.func_27335_a(var2);
-                throw new J_InvalidSyntaxException("Unable to parse [" + String.valueOf(var2) + "] as a hexidecimal number.", var6, var1);
+                throw new J_InvalidSyntaxException("Unable to parse [" + String.valueOf(var2) + "] as a hexidecimal number.", e, var1);
             }
         }
     }

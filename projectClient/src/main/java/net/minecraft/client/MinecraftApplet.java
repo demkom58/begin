@@ -77,11 +77,11 @@ public class MinecraftApplet extends Applet {
 
             try {
                 this.mcThread.join(10000L);
-            } catch (InterruptedException var4) {
+            } catch (InterruptedException e) {
                 try {
                     this.mc.shutdownMinecraftApplet();
-                } catch (Exception var3) {
-                    var3.printStackTrace();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
                 }
             }
 
@@ -97,8 +97,7 @@ public class MinecraftApplet extends Applet {
         try {
             this.removeAll();
             this.validate();
-        } catch (Exception var2) {
-            ;
+        } catch (Exception e) {
         }
 
     }

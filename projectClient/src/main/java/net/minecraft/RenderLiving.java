@@ -105,8 +105,8 @@ public class RenderLiving extends Render {
             }
 
             GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
-        } catch (Exception var24) {
-            var24.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         GL11.glEnable(2884 /*GL_CULL_FACE*/);

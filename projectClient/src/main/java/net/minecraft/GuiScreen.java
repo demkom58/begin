@@ -28,8 +28,8 @@ public class GuiScreen extends Gui {
                 String var1 = (String) var0.getTransferData(DataFlavor.stringFlavor);
                 return var1;
             }
-        } catch (Exception var2) {
-            ;
+        } catch (Exception e) {
+
         }
 
         return null;

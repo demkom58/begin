@@ -2,10 +2,10 @@ package net.minecraft;
 
 public class UnexpectedThrowable {
     public final String description;
-    public final Throwable exception;
+    public final Throwable throwable;
 
-    public UnexpectedThrowable(String var1, Throwable var2) {
+    public UnexpectedThrowable(String var1, Throwable throwable) {
         this.description = var1;
-        this.exception = var2;
+        this.throwable = throwable;
     }
 }

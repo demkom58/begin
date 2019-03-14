@@ -103,8 +103,8 @@ public abstract class Packet {
         try {
             Class var1 = (Class) packetIdToClassMap.get(Integer.valueOf(var0));
             return var1 == null ? null : (Packet) var1.newInstance();
-        } catch (Exception var2) {
-            var2.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Skipping packet with id " + var0);
             return null;
         }
@@ -130,7 +130,7 @@ public abstract class Packet {
             }
 
             var3.readPacketData(var0);
-        } catch (EOFException var5) {
+        } catch (EOFException e) {
             System.out.println("Reached end of stream");
             return null;
         }

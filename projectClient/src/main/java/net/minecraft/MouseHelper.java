@@ -23,8 +23,8 @@ public class MouseHelper {
 
         try {
             this.cursor = new Cursor(32, 32, 16, 16, 1, var3, var2);
-        } catch (LWJGLException var5) {
-            var5.printStackTrace();
+        } catch (LWJGLException e) {
+            e.printStackTrace();
         }
 
     }

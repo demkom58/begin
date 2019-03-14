@@ -171,7 +171,7 @@ public class GameSettings {
 
     public boolean getOptionOrdinalValue(EnumOptions var1) {
         // $FF: Couldn't be decompiled
-        switch (EnumOptionsMappingHelper.enumOptionsMappingHelperArray[var1.ordinal()]) {
+        switch (EnumOptionsMappingHelper.VALUES[var1.ordinal()]) {
             case 1:
                 return this.invertMouse;
             case 2:
@@ -296,15 +296,15 @@ public class GameSettings {
                             this.keyBindings[var4].keyCode = Integer.parseInt(var3[1]);
                         }
                     }
-                } catch (Exception var5) {
+                } catch (Exception e) {
                     System.out.println("Skipping bad option: " + var2);
                 }
             }
 
             var1.close();
-        } catch (Exception var6) {
+        } catch (Exception e1) {
             System.out.println("Failed to load options");
-            var6.printStackTrace();
+            e1.printStackTrace();
         }
 
     }
@@ -341,9 +341,9 @@ public class GameSettings {
             }
 
             var1.close();
-        } catch (Exception var3) {
+        } catch (Exception e) {
             System.out.println("Failed to save options");
-            var3.printStackTrace();
+            e.printStackTrace();
         }
 
     }

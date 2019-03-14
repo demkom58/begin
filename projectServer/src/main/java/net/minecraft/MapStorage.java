@@ -42,8 +42,8 @@ public class MapStorage {
                     var5.close();
                     dataBase.func_28148_a(var6.getCompoundTag("data"));
                 }
-            } catch (Exception var8) {
-                var8.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -68,7 +68,7 @@ public class MapStorage {
         }
     }
 
-    public void func_28176_a() {
+    public void saveAllData() {
         for (int var1 = 0; var1 < this.field_28182_c.size(); ++var1) {
             MapDataBase var2 = this.field_28182_c.get(var1);
             if (var2.func_28150_b()) {
@@ -92,8 +92,8 @@ public class MapStorage {
                     CompressedStreamTools.writeGzippedCompoundToOutputStream(var4, var5);
                     var5.close();
                 }
-            } catch (Exception var6) {
-                var6.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }
@@ -121,8 +121,8 @@ public class MapStorage {
                     }
                 }
             }
-        } catch (Exception var9) {
-            var9.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -153,8 +153,8 @@ public class MapStorage {
                     CompressedStreamTools.func_771_a(var4, var10);
                     var10.close();
                 }
-            } catch (Exception var8) {
-                var8.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             return var2.shortValue();

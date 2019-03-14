@@ -228,7 +228,7 @@ public class Chunk {
         return this.blocks[var1 << 11 | var3 << 7 | var2] & 255;
     }
 
-    public boolean setBlockIDWithMetadata(int var1, int var2, int var3, int var4, int var5) {
+    public boolean setBlockMetadata(int var1, int var2, int var3, int var4, int var5) {
         byte var6 = (byte) var4;
         int var7 = this.heightMap[var3 << 4 | var1] & 255;
         int var8 = this.blocks[var1 << 11 | var3 << 7 | var2] & 255;

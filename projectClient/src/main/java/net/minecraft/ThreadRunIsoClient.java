@@ -14,8 +14,8 @@ class ThreadRunIsoClient extends Thread {
 
             try {
                 Thread.sleep(1L);
-            } catch (Exception var2) {
-                ;
+            } catch (Exception e) {
+
             }
         }
 

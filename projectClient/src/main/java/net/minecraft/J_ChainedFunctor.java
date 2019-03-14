@@ -17,15 +17,15 @@ final class J_ChainedFunctor implements J_Functor {
         Object var2;
         try {
             var2 = this.field_27062_a.func_27357_b(var1);
-        } catch (J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException var6) {
-            throw J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException.func_27321_b(var6, this.field_27062_a);
+        } catch (J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException e) {
+            throw J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException.func_27321_b(e, this.field_27062_a);
         }
 
         try {
             Object var3 = this.field_27061_b.func_27357_b(var2);
             return var3;
-        } catch (J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException var5) {
-            throw J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException.func_27323_a(var5, this.field_27062_a);
+        } catch (J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException e) {
+            throw J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException.func_27323_a(e, this.field_27062_a);
         }
     }
 

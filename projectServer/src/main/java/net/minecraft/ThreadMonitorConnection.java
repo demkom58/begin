@@ -15,8 +15,8 @@ class ThreadMonitorConnection extends Thread {
                 NetworkManager.getWriteThread(this.netManager).interrupt();
                 this.netManager.networkShutdown("disconnect.closed");
             }
-        } catch (Exception var2) {
-            var2.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

@@ -16,7 +16,7 @@ public class WorldClient extends World {
         super(new SaveHandlerMP(), "MpServer", WorldProvider.getProviderForDimension(var4), var2);
         this.sendQueue = var1;
         this.setSpawnPoint(new ChunkCoordinates(8, 64, 8));
-        this.field_28108_z = var1.field_28118_b;
+        this.mapStorage = var1.field_28118_b;
     }
 
     public void tick() {
@@ -221,7 +221,7 @@ public class WorldClient extends World {
             }
 
             this.prevThunderingStrength = this.thunderingStrength;
-            if (this.worldInfo.getThundering()) {
+            if (this.worldInfo.isThundering()) {
                 this.thunderingStrength = (float) ((double) this.thunderingStrength + 0.01D);
             } else {
                 this.thunderingStrength = (float) ((double) this.thunderingStrength - 0.01D);

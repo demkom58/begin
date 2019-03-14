@@ -114,8 +114,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 
                 try {
                     Thread.yield();
-                } catch (Exception var14) {
-                    ;
+                } catch (Exception e) {
                 }
 
             }

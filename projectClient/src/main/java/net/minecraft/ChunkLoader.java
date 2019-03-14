@@ -156,8 +156,8 @@ public class ChunkLoader implements IChunkLoader {
 
                 var7.func_25124_i();
                 return var7;
-            } catch (Exception var8) {
-                var8.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -188,8 +188,8 @@ public class ChunkLoader implements IChunkLoader {
             var10.renameTo(var3);
             WorldInfo var8 = var1.getWorldInfo();
             var8.setSizeOnDisk(var8.getSizeOnDisk() + var3.length());
-        } catch (Exception var9) {
-            var9.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

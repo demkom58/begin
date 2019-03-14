@@ -175,7 +175,7 @@ public class ChunkProvider implements IChunkProvider {
         return this.chunkGenerator.func_361_a();
     }
 
-    public boolean func_364_b() {
+    public boolean canSave() {
         return true;
     }
 }

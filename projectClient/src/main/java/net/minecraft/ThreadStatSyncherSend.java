@@ -16,8 +16,8 @@ class ThreadStatSyncherSend extends Thread {
     public void run() {
         try {
             StatsSyncher.func_27412_a(this.field_27232_b, this.field_27233_a, StatsSyncher.func_27414_e(this.field_27232_b), StatsSyncher.func_27417_f(this.field_27232_b), StatsSyncher.func_27419_g(this.field_27232_b));
-        } catch (Exception var5) {
-            var5.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             StatsSyncher.func_27416_a(this.field_27232_b, false);
         }

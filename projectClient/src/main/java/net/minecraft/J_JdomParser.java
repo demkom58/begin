@@ -15,8 +15,8 @@ public final class J_JdomParser {
         try {
             J_JsonRootNode var2 = this.func_27366_a(new StringReader(var1));
             return var2;
-        } catch (IOException var4) {
-            throw new RuntimeException("Coding failure in Argo:  StringWriter gave an IOException", var4);
+        } catch (IOException e) {
+            throw new RuntimeException("Coding failure in Argo:  StringWriter gave an IOException", e);
         }
     }
 }

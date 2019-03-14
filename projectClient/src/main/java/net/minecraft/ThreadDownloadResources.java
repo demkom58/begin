@@ -50,9 +50,9 @@ public class ThreadDownloadResources extends Thread {
                     }
                 }
             }
-        } catch (Exception var13) {
+        } catch (Exception e) {
             this.loadResource(this.resourcesFolder, "");
-            var13.printStackTrace();
+            e.printStackTrace();
         }
 
     }
@@ -70,7 +70,7 @@ public class ThreadDownloadResources extends Thread {
             } else {
                 try {
                     this.mc.installResource(var2 + var3[var4].getName(), var3[var4]);
-                } catch (Exception var6) {
+                } catch (Exception e) {
                     System.out.println("Failed to add " + var2 + var3[var4].getName());
                 }
             }
@@ -101,8 +101,8 @@ public class ThreadDownloadResources extends Thread {
             }
 
             this.mc.installResource(var2, var8);
-        } catch (Exception var10) {
-            var10.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

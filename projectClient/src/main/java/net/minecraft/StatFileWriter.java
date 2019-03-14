@@ -55,12 +55,12 @@ public class StatFileWriter {
 
             MD5String var14 = new MD5String(var2);
             String var15 = var14.func_27369_a(var3.toString());
-            if (!var15.equals(var4.func_27213_a(new Object[]{"checksum"}))) {
+            if (!var15.equals(var4.func_27213_a("checksum"))) {
                 System.out.println("CHECKSUM MISMATCH");
                 return null;
             }
-        } catch (J_InvalidSyntaxException var13) {
-            var13.printStackTrace();
+        } catch (J_InvalidSyntaxException e) {
+            e.printStackTrace();
         }
 
         return var1;

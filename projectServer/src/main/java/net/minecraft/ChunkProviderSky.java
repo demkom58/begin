@@ -497,7 +497,7 @@ public class ChunkProviderSky implements IChunkProvider {
         return false;
     }
 
-    public boolean func_364_b() {
+    public boolean canSave() {
         return true;
     }
 }

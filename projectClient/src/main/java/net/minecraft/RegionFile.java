@@ -49,11 +49,11 @@ public class RegionFile {
             this.sectorFree = new ArrayList(var9);
 
             for (int var3 = 0; var3 < var9; ++var3) {
-                this.sectorFree.add(Boolean.valueOf(true));
+                this.sectorFree.add(Boolean.TRUE);
             }
 
-            this.sectorFree.set(0, Boolean.valueOf(false));
-            this.sectorFree.set(1, Boolean.valueOf(false));
+            this.sectorFree.set(0, Boolean.FALSE);
+            this.sectorFree.set(1, Boolean.FALSE);
             this.dataFile.seek(0L);
 
             for (int var10 = 0; var10 < 1024; ++var10) {
@@ -61,7 +61,7 @@ public class RegionFile {
                 this.offsets[var10] = var4;
                 if (var4 != 0 && (var4 >> 8) + (var4 & 255) <= this.sectorFree.size()) {
                     for (int var5 = 0; var5 < (var4 & 255); ++var5) {
-                        this.sectorFree.set((var4 >> 8) + var5, Boolean.valueOf(false));
+                        this.sectorFree.set((var4 >> 8) + var5, Boolean.FALSE);
                     }
                 }
             }
@@ -70,8 +70,8 @@ public class RegionFile {
                 int var12 = this.dataFile.readInt();
                 this.field_22217_e[var11] = var12;
             }
-        } catch (IOException var6) {
-            var6.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -141,7 +141,7 @@ public class RegionFile {
                         }
                     }
                 }
-            } catch (IOException var10) {
+            } catch (IOException e) {
                 this.debugln("READ", var1, var2, "exception");
                 return null;
             }
@@ -218,8 +218,8 @@ public class RegionFile {
             }
 
             this.func_22208_b(var1, var2, (int) (System.currentTimeMillis() / 1000L));
-        } catch (IOException var12) {
-            var12.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

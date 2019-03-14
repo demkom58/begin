@@ -277,8 +277,8 @@ public class ServerConfigurationManager {
             }
 
             var1.close();
-        } catch (Exception var3) {
-            logger.warning("Failed to load ban list: " + var3);
+        } catch (Exception e) {
+            logger.warning("Failed to load ban list: " + e);
         }
 
     }
@@ -292,8 +292,8 @@ public class ServerConfigurationManager {
             }
 
             var1.close();
-        } catch (Exception var4) {
-            logger.warning("Failed to save ban list: " + var4);
+        } catch (Exception e) {
+            logger.warning("Failed to save ban list: " + e);
         }
 
     }
@@ -319,8 +319,8 @@ public class ServerConfigurationManager {
             }
 
             var1.close();
-        } catch (Exception var3) {
-            logger.warning("Failed to load ip ban list: " + var3);
+        } catch (Exception e) {
+            logger.warning("Failed to load ip ban list: " + e);
         }
 
     }
@@ -334,8 +334,8 @@ public class ServerConfigurationManager {
             }
 
             var1.close();
-        } catch (Exception var4) {
-            logger.warning("Failed to save ip ban list: " + var4);
+        } catch (Exception e) {
+            logger.warning("Failed to save ip ban list: " + e);
         }
 
     }
@@ -361,8 +361,8 @@ public class ServerConfigurationManager {
             }
 
             var1.close();
-        } catch (Exception var3) {
-            logger.warning("Failed to load ip ban list: " + var3);
+        } catch (Exception e) {
+            logger.warning("Failed to load ip ban list: " + e);
         }
 
     }
@@ -376,8 +376,8 @@ public class ServerConfigurationManager {
             }
 
             var1.close();
-        } catch (Exception var4) {
-            logger.warning("Failed to save ip ban list: " + var4);
+        } catch (Exception e) {
+            logger.warning("Failed to save ip ban list: " + e);
         }
 
     }
@@ -393,8 +393,8 @@ public class ServerConfigurationManager {
             }
 
             var1.close();
-        } catch (Exception var3) {
-            logger.warning("Failed to load white-list: " + var3);
+        } catch (Exception e) {
+            logger.warning("Failed to load white-list: " + e);
         }
 
     }
@@ -408,8 +408,8 @@ public class ServerConfigurationManager {
             }
 
             var1.close();
-        } catch (Exception var4) {
-            logger.warning("Failed to save white-list: " + var4);
+        } catch (Exception e) {
+            logger.warning("Failed to save white-list: " + e);
         }
 
     }

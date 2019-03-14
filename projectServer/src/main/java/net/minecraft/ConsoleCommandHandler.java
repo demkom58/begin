@@ -145,7 +145,7 @@ public class ConsoleCommandHandler {
                         } else {
                             var3.log("There's no item with id " + var40);
                         }
-                    } catch (NumberFormatException var11) {
+                    } catch (NumberFormatException e) {
                         var3.log("There's no item with id " + var27[2]);
                     }
                 } else {
@@ -178,7 +178,7 @@ public class ConsoleCommandHandler {
                     } else {
                         var3.log("Unknown method, use either \"add\" or \"set\"");
                     }
-                } catch (NumberFormatException var12) {
+                } catch (NumberFormatException e) {
                     var3.log("Unable to convert time value, " + var28[2]);
                 }
             } else if (var2.toLowerCase().startsWith("say ")) {
@@ -276,7 +276,7 @@ public class ConsoleCommandHandler {
     private int tryParse(String var1, int var2) {
         try {
             return Integer.parseInt(var1);
-        } catch (NumberFormatException var4) {
+        } catch (NumberFormatException e) {
             return var2;
         }
     }

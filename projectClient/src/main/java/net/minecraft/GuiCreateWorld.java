@@ -65,7 +65,7 @@ public class GuiCreateWorld extends GuiScreen {
             if (button.id == 1) {
                 this.mc.displayGuiScreen(this.field_22131_a);
             } else if (button.id == 0) {
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
                 if (this.createClicked) {
                     return;
                 }
@@ -79,14 +79,14 @@ public class GuiCreateWorld extends GuiScreen {
                         if (var5 != 0L) {
                             var2 = var5;
                         }
-                    } catch (NumberFormatException var7) {
+                    } catch (NumberFormatException e) {
                         var2 = (long) var4.hashCode();
                     }
                 }
 
                 this.mc.playerController = new PlayerControllerSP(this.mc);
                 this.mc.startWorld(this.folderName, this.textboxWorldName.getText(), var2);
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
             }
 
         }

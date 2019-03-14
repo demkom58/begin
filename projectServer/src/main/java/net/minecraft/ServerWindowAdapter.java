@@ -19,8 +19,8 @@ final class ServerWindowAdapter extends WindowAdapter {
         while (!this.mcServer.serverStopped) {
             try {
                 Thread.sleep(100L);
-            } catch (InterruptedException var3) {
-                var3.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 

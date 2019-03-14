@@ -10,11 +10,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PanelCrashReport extends Panel {
-    public PanelCrashReport(UnexpectedThrowable var1) {
+    public PanelCrashReport(UnexpectedThrowable unexpectedThrowable) {
         this.setBackground(new Color(3028036));
         this.setLayout(new BorderLayout());
         StringWriter var2 = new StringWriter();
-        var1.exception.printStackTrace(new PrintWriter(var2));
+        unexpectedThrowable.throwable.printStackTrace(new PrintWriter(var2));
         String var3 = var2.toString();
         String var4 = "";
         String var5 = "";
@@ -29,8 +29,8 @@ public class PanelCrashReport extends Panel {
             var5 = var5 + "LWJGL: " + Sys.getVersion() + "\n";
             var4 = GL11.glGetString(7936 /*GL_VENDOR*/);
             var5 = var5 + "OpenGL: " + GL11.glGetString(7937 /*GL_RENDERER*/) + " version " + GL11.glGetString(7938 /*GL_VERSION*/) + ", " + GL11.glGetString(7936 /*GL_VENDOR*/) + "\n";
-        } catch (Throwable var8) {
-            var5 = var5 + "[failed to get system properties (" + var8 + ")]\n";
+        } catch (Throwable throwable) {
+            var5 = var5 + "[failed to get system properties (" + throwable + ")]\n";
         }
 
         var5 = var5 + "\n";

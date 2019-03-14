@@ -14,9 +14,9 @@ public final class MinecraftImpl extends Minecraft {
         this.mcFrame = var7;
     }
 
-    public void displayUnexpectedThrowable(UnexpectedThrowable var1) {
+    public void displayUnexpectedThrowable(UnexpectedThrowable throwable) {
         this.mcFrame.removeAll();
-        this.mcFrame.add(new PanelCrashReport(var1), "Center");
+        this.mcFrame.add(new PanelCrashReport(throwable), "Center");
         this.mcFrame.validate();
     }
 }

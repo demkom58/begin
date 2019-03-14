@@ -69,8 +69,8 @@ public class TexturePackList {
                         }
 
                         var1.add(var12);
-                    } catch (IOException var9) {
-                        var9.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }

@@ -38,8 +38,8 @@ public class SaveFormatOld implements ISaveFormat {
                     NBTTagCompound var9 = CompressedStreamTools.func_770_a(new FileInputStream(var3));
                     NBTTagCompound var10 = var9.getCompoundTag("Data");
                     return new WorldInfo(var10);
-                } catch (Exception var7) {
-                    var7.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -49,8 +49,8 @@ public class SaveFormatOld implements ISaveFormat {
                     NBTTagCompound var4 = CompressedStreamTools.func_770_a(new FileInputStream(var3));
                     NBTTagCompound var5 = var4.getCompoundTag("Data");
                     return new WorldInfo(var5);
-                } catch (Exception var6) {
-                    var6.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 

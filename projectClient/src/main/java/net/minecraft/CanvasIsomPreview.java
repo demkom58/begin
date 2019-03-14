@@ -177,8 +177,8 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
 
             try {
                 Thread.sleep(2L);
-            } catch (InterruptedException var5) {
-                var5.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 
