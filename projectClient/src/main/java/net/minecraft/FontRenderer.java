@@ -17,8 +17,8 @@ public class FontRenderer {
         BufferedImage var4;
         try {
             var4 = ImageIO.read(RenderEngine.class.getResourceAsStream(var2));
-        } catch (IOException var18) {
-            throw new RuntimeException(var18);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         int var5 = var4.getWidth();

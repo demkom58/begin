@@ -15,8 +15,8 @@ class ThreadCloseConnection extends Thread {
                 NetworkManager.getWriteThread(this.field_28109_a).interrupt();
                 this.field_28109_a.networkShutdown("disconnect.closed");
             }
-        } catch (Exception var2) {
-            var2.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

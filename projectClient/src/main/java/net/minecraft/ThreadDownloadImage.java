@@ -33,12 +33,9 @@ class ThreadDownloadImage extends Thread {
                 } else {
                     this.imageData.image = this.buffer.parseUserSkin(ImageIO.read(var1.getInputStream()));
                 }
-
-                return;
             }
-        } catch (Exception var6) {
-            var6.printStackTrace();
-            return;
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             var1.disconnect();
         }

@@ -25,8 +25,8 @@ public class TextureWatchFX extends TextureFX {
             var2.getRGB(var3, var4, 16, 16, this.watchIconImageData, 0, 16);
             var2 = ImageIO.read(Minecraft.class.getResource("/misc/dial.png"));
             var2.getRGB(0, 0, 16, 16, this.dialImageData, 0, 16);
-        } catch (IOException var5) {
-            var5.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

@@ -130,14 +130,14 @@ public class StatsSyncher {
 
             Map var5 = StatFileWriter.func_27177_a(var4.toString());
             return var5;
-        } catch (Exception var15) {
-            var15.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (var2 != null) {
                 try {
                     var2.close();
-                } catch (Exception var14) {
-                    var14.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -197,8 +197,8 @@ public class StatsSyncher {
 
             try {
                 Thread.sleep(100L);
-            } catch (InterruptedException var10) {
-                var10.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 
@@ -206,8 +206,8 @@ public class StatsSyncher {
 
         try {
             this.func_27410_a(var1, this.field_27434_e, this.field_27432_g, this.field_27430_i);
-        } catch (Exception var8) {
-            var8.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             this.field_27438_a = false;
         }

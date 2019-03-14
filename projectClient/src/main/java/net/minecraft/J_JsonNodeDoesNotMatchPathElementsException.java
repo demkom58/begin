@@ -3,16 +3,16 @@ package net.minecraft;
 public final class J_JsonNodeDoesNotMatchPathElementsException extends J_JsonNodeDoesNotMatchJsonNodeSelectorException {
     private static final J_JsonFormatter field_27320_a = new J_CompactJsonFormatter();
 
-    private J_JsonNodeDoesNotMatchPathElementsException(J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException var1, Object[] var2, J_JsonRootNode var3) {
-        super(func_27318_b(var1, var2, var3));
+    private J_JsonNodeDoesNotMatchPathElementsException(J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException e, Object[] var2, J_JsonRootNode var3) {
+        super(func_27318_b(e, var2, var3));
     }
 
-    static J_JsonNodeDoesNotMatchPathElementsException func_27319_a(J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException var0, Object[] var1, J_JsonRootNode var2) {
-        return new J_JsonNodeDoesNotMatchPathElementsException(var0, var1, var2);
+    static J_JsonNodeDoesNotMatchPathElementsException func_27319_a(J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException e, Object[] var1, J_JsonRootNode var2) {
+        return new J_JsonNodeDoesNotMatchPathElementsException(e, var1, var2);
     }
 
-    private static String func_27318_b(J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException var0, Object[] var1, J_JsonRootNode var2) {
-        return "Failed to find " + var0.field_27326_a.toString() + " at [" + J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException.func_27324_a(var0.field_27325_b) + "] while resolving [" + func_27317_a(var1) + "] in " + field_27320_a.func_27327_a(var2) + ".";
+    private static String func_27318_b(J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException e, Object[] var1, J_JsonRootNode var2) {
+        return "Failed to find " + e.field_27326_a.toString() + " at [" + J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException.func_27324_a(e.field_27325_b) + "] while resolving [" + func_27317_a(var1) + "] in " + field_27320_a.func_27327_a(var2) + ".";
     }
 
     private static String func_27317_a(Object[] var0) {

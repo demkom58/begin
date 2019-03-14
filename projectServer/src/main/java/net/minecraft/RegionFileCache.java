@@ -43,8 +43,8 @@ public class RegionFileCache {
                 if (var2 != null) {
                     var2.close();
                 }
-            } catch (IOException var3) {
-                var3.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 

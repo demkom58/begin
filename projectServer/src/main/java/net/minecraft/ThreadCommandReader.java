@@ -22,8 +22,8 @@ public class ThreadCommandReader extends Thread {
             while (!this.mcServer.serverStopped && MinecraftServer.isServerRunning(this.mcServer) && (var2 = var1.readLine()) != null) {
                 this.mcServer.addCommand(var2, this.mcServer);
             }
-        } catch (IOException var4) {
-            var4.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

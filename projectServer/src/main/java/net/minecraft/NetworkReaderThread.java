@@ -34,8 +34,7 @@ class NetworkReaderThread extends Thread {
 
                 try {
                     sleep(100L);
-                } catch (InterruptedException var15) {
-                }
+                } catch (InterruptedException e) { }
             } finally {
                 if (var12) {
                     synchronized (NetworkManager.threadSyncObject) {

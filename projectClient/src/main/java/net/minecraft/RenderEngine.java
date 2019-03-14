@@ -69,8 +69,8 @@ public class RenderEngine {
 
                 this.field_28151_c.put(var1, var7);
                 return var7;
-            } catch (IOException var5) {
-                var5.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
                 int[] var4 = this.func_28148_b(this.missingTextureImage);
                 this.field_28151_c.put(var1, var4);
                 return var4;
@@ -122,14 +122,14 @@ public class RenderEngine {
                     }
                 }
 
-                this.textureMap.put(var1, Integer.valueOf(var6));
+                this.textureMap.put(var1, var6);
                 return var6;
-            } catch (IOException var5) {
-                var5.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
                 GLAllocation.generateTextureNames(this.singleIntBuffer);
                 int var4 = this.singleIntBuffer.get(0);
                 this.setupTexture(this.missingTextureImage, var4);
-                this.textureMap.put(var1, Integer.valueOf(var4));
+                this.textureMap.put(var1, var4);
                 return var4;
             }
         }
@@ -141,7 +141,7 @@ public class RenderEngine {
         Graphics var4 = var3.getGraphics();
 
         for (int var5 = 0; var5 < var2; ++var5) {
-            var4.drawImage(var1, -var5 * 16, var5 * var1.getHeight(), (ImageObserver) null);
+            var4.drawImage(var1, -var5 * 16, var5 * var1.getHeight(), null);
         }
 
         var4.dispose();
@@ -293,7 +293,7 @@ public class RenderEngine {
     }
 
     public int getTextureForDownloadableImage(String var1, String var2) {
-        ThreadDownloadImageData var3 = (ThreadDownloadImageData) this.urlToImageDataMap.get(var1);
+        ThreadDownloadImageData var3 = this.urlToImageDataMap.get(var1);
         if (var3 != null && var3.image != null && !var3.textureSetupComplete) {
             if (var3.textureName < 0) {
                 var3.textureName = this.allocateAndSetupTexture(var3.image);
@@ -312,7 +312,7 @@ public class RenderEngine {
     }
 
     public ThreadDownloadImageData obtainImageData(String var1, ImageBuffer var2) {
-        ThreadDownloadImageData var3 = (ThreadDownloadImageData) this.urlToImageDataMap.get(var1);
+        ThreadDownloadImageData var3 = this.urlToImageDataMap.get(var1);
         if (var3 == null) {
             this.urlToImageDataMap.put(var1, new ThreadDownloadImageData(var1, var2));
         } else {
@@ -323,7 +323,7 @@ public class RenderEngine {
     }
 
     public void releaseImageData(String var1) {
-        ThreadDownloadImageData var2 = (ThreadDownloadImageData) this.urlToImageDataMap.get(var1);
+        ThreadDownloadImageData var2 = this.urlToImageDataMap.get(var1);
         if (var2 != null) {
             --var2.referenceCount;
             if (var2.referenceCount == 0) {
@@ -471,8 +471,8 @@ public class RenderEngine {
                 this.setupTexture(var14, var5);
                 this.blurTexture = false;
                 this.clampTexture = false;
-            } catch (IOException var7) {
-                var7.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 
@@ -494,8 +494,8 @@ public class RenderEngine {
                 this.func_28147_a(var15, (int[]) this.field_28151_c.get(var13));
                 this.blurTexture = false;
                 this.clampTexture = false;
-            } catch (IOException var6) {
-                var6.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 

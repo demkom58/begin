@@ -31,8 +31,8 @@ public class GuiMainMenu extends GuiScreen {
             }
 
             this.splashText = (String) var1.get(rand.nextInt(var1.size()));
-        } catch (Exception var4) {
-            ;
+        } catch (Exception e) {
+
         }
 
     }

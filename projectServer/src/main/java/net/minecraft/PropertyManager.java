@@ -17,8 +17,8 @@ public class PropertyManager {
         if (var1.exists()) {
             try {
                 this.serverProperties.load(new FileInputStream(var1));
-            } catch (Exception var3) {
-                logger.log(Level.WARNING, "Failed to load " + var1, var3);
+            } catch (Exception e) {
+                logger.log(Level.WARNING, "Failed to load " + var1, e);
                 this.generateNewProperties();
             }
         } else {
@@ -36,8 +36,8 @@ public class PropertyManager {
     public void saveProperties() {
         try {
             this.serverProperties.store(new FileOutputStream(this.serverPropertiesFile), "Minecraft server properties");
-        } catch (Exception var2) {
-            logger.log(Level.WARNING, "Failed to save " + this.serverPropertiesFile, var2);
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Failed to save " + this.serverPropertiesFile, e);
             this.generateNewProperties();
         }
 
@@ -55,7 +55,7 @@ public class PropertyManager {
     public int getIntProperty(String var1, int var2) {
         try {
             return Integer.parseInt(this.getStringProperty(var1, "" + var2));
-        } catch (Exception var4) {
+        } catch (Exception e) {
             this.serverProperties.setProperty(var1, "" + var2);
             return var2;
         }
@@ -64,7 +64,7 @@ public class PropertyManager {
     public boolean getBooleanProperty(String var1, boolean var2) {
         try {
             return Boolean.parseBoolean(this.getStringProperty(var1, "" + var2));
-        } catch (Exception var4) {
+        } catch (Exception e) {
             this.serverProperties.setProperty(var1, "" + var2);
             return var2;
         }

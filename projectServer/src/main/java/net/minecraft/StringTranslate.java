@@ -11,8 +11,8 @@ public class StringTranslate {
         try {
             this.translateTable.load(StringTranslate.class.getResourceAsStream("/lang/en_US.lang"));
             this.translateTable.load(StringTranslate.class.getResourceAsStream("/lang/stats_US.lang"));
-        } catch (IOException var2) {
-            var2.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

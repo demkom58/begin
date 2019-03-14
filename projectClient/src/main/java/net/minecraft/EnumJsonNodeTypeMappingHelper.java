@@ -3,50 +3,36 @@ package net.minecraft;
 // $FF: synthetic class
 class EnumJsonNodeTypeMappingHelper {
     // $FF: synthetic field
-    static final int[] field_27341_a = new int[EnumJsonNodeType.values().length];
+    static final int[] VALUES = new int[EnumJsonNodeType.values().length];
 
     static {
         try {
-            field_27341_a[EnumJsonNodeType.ARRAY.ordinal()] = 1;
-        } catch (NoSuchFieldError var7) {
-            ;
-        }
+            VALUES[EnumJsonNodeType.ARRAY.ordinal()] = 1;
+        } catch (NoSuchFieldError error) { }
 
         try {
-            field_27341_a[EnumJsonNodeType.OBJECT.ordinal()] = 2;
-        } catch (NoSuchFieldError var6) {
-            ;
-        }
+            VALUES[EnumJsonNodeType.OBJECT.ordinal()] = 2;
+        } catch (NoSuchFieldError error) { }
 
         try {
-            field_27341_a[EnumJsonNodeType.STRING.ordinal()] = 3;
-        } catch (NoSuchFieldError var5) {
-            ;
-        }
+            VALUES[EnumJsonNodeType.STRING.ordinal()] = 3;
+        } catch (NoSuchFieldError error) { }
 
         try {
-            field_27341_a[EnumJsonNodeType.NUMBER.ordinal()] = 4;
-        } catch (NoSuchFieldError var4) {
-            ;
-        }
+            VALUES[EnumJsonNodeType.NUMBER.ordinal()] = 4;
+        } catch (NoSuchFieldError error) { }
 
         try {
-            field_27341_a[EnumJsonNodeType.FALSE.ordinal()] = 5;
-        } catch (NoSuchFieldError var3) {
-            ;
-        }
+            VALUES[EnumJsonNodeType.FALSE.ordinal()] = 5;
+        } catch (NoSuchFieldError error) { }
 
         try {
-            field_27341_a[EnumJsonNodeType.TRUE.ordinal()] = 6;
-        } catch (NoSuchFieldError var2) {
-            ;
-        }
+            VALUES[EnumJsonNodeType.TRUE.ordinal()] = 6;
+        } catch (NoSuchFieldError error) { }
 
         try {
-            field_27341_a[EnumJsonNodeType.NULL.ordinal()] = 7;
-        } catch (NoSuchFieldError var1) {
-            ;
-        }
+            VALUES[EnumJsonNodeType.NULL.ordinal()] = 7;
+        } catch (NoSuchFieldError error) { }
 
     }
 }

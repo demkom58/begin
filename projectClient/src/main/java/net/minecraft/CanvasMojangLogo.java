@@ -12,8 +12,7 @@ class CanvasMojangLogo extends Canvas {
     public CanvasMojangLogo() {
         try {
             this.logo = ImageIO.read(PanelCrashReport.class.getResource("/gui/logo.png"));
-        } catch (IOException var2) {
-            ;
+        } catch (IOException e) {
         }
 
         byte var1 = 100;

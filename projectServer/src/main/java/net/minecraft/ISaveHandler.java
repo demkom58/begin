@@ -4,13 +4,13 @@ import java.io.File;
 import java.util.List;
 
 public interface ISaveHandler {
-    WorldInfo func_22096_c();
+    WorldInfo loadWorldInfo();
 
     void func_22091_b();
 
     IChunkLoader func_22092_a(WorldProvider var1);
 
-    void func_22095_a(WorldInfo var1, List<EntityPlayer> var2);
+    void saveWorldInfoAndPlayer(WorldInfo var1, List<EntityPlayer> var2);
 
     void func_22094_a(WorldInfo var1);
 

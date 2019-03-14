@@ -21,8 +21,8 @@ public final class GameWindowListener extends WindowAdapter {
 
         try {
             this.mcThread.join();
-        } catch (InterruptedException var3) {
-            var3.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         System.exit(0);

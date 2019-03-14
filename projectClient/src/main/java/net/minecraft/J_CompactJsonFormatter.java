@@ -10,8 +10,8 @@ public final class J_CompactJsonFormatter implements J_JsonFormatter {
 
         try {
             this.func_27329_a(var1, var2);
-        } catch (IOException var4) {
-            throw new RuntimeException("Coding failure in Argo:  StringWriter gave an IOException", var4);
+        } catch (IOException e) {
+            throw new RuntimeException("Coding failure in Argo:  StringWriter gave an IOException", e);
         }
 
         return var2.toString();

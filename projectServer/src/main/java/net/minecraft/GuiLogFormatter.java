@@ -35,10 +35,10 @@ class GuiLogFormatter extends Formatter {
 
         var2.append(var1.getMessage());
         var2.append('\n');
-        Throwable var4 = var1.getThrown();
-        if (var4 != null) {
+        Throwable thrown = var1.getThrown();
+        if (thrown != null) {
             StringWriter var5 = new StringWriter();
-            var4.printStackTrace(new PrintWriter(var5));
+            thrown.printStackTrace(new PrintWriter(var5));
             var2.append(var5.toString());
         }
 

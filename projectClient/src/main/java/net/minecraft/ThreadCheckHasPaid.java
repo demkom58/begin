@@ -22,8 +22,8 @@ public class ThreadCheckHasPaid extends Thread {
             }
 
             var1.disconnect();
-        } catch (Exception var2) {
-            var2.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

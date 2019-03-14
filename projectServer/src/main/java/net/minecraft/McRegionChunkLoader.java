@@ -54,8 +54,8 @@ public class McRegionChunkLoader implements IChunkLoader {
             var3.close();
             WorldInfo var6 = var1.getWorldInfo();
             var6.setSizeOnDisk(var6.getSizeOnDisk() + (long) RegionFileCache.func_22121_b(this.worldFolder, var2.xPosition, var2.zPosition));
-        } catch (Exception var7) {
-            var7.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

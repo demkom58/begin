@@ -90,8 +90,8 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 
                     var13.close();
                     var12.close();
-                } catch (IOException var15) {
-                    var15.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
 

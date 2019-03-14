@@ -46,8 +46,8 @@ public class NetworkManager {
         try {
             var1.setSoTimeout(30000);
             var1.setTrafficClass(24);
-        } catch (SocketException var5) {
-            System.err.println(var5.getMessage());
+        } catch (SocketException e) {
+            System.err.println(e.getMessage());
         }
 
         this.socketInputStream = new DataInputStream(var1.getInputStream());
@@ -89,8 +89,8 @@ public class NetworkManager {
     }
 
     // $FF: synthetic method
-    static void func_30005_a(NetworkManager var0, Exception var1) {
-        var0.onNetworkError(var1);
+    static void func_30005_a(NetworkManager var0, Exception e) {
+        var0.onNetworkError(e);
     }
 
     // $FF: synthetic method
@@ -151,9 +151,9 @@ public class NetworkManager {
             }
 
             return var1;
-        } catch (Exception var8) {
+        } catch (Exception e) {
             if (!this.isTerminating) {
-                this.onNetworkError(var8);
+                this.onNetworkError(e);
             }
 
             return false;
@@ -181,18 +181,18 @@ public class NetworkManager {
             }
 
             return var1;
-        } catch (Exception var3) {
+        } catch (Exception e) {
             if (!this.isTerminating) {
-                this.onNetworkError(var3);
+                this.onNetworkError(e);
             }
 
             return false;
         }
     }
 
-    private void onNetworkError(Exception var1) {
-        var1.printStackTrace();
-        this.networkShutdown("disconnect.genericReason", "Internal exception: " + var1.toString());
+    private void onNetworkError(Exception e) {
+        e.printStackTrace();
+        this.networkShutdown("disconnect.genericReason", "Internal exception: " + e.toString());
     }
 
     public void networkShutdown(String var1, Object... var2) {
@@ -206,22 +206,19 @@ public class NetworkManager {
             try {
                 this.socketInputStream.close();
                 this.socketInputStream = null;
-            } catch (Throwable var6) {
-                ;
+            } catch (Throwable throwable) {
             }
 
             try {
                 this.socketOutputStream.close();
                 this.socketOutputStream = null;
-            } catch (Throwable var5) {
-                ;
+            } catch (Throwable throwable) {
             }
 
             try {
                 this.networkSocket.close();
                 this.networkSocket = null;
-            } catch (Throwable var4) {
-                ;
+            } catch (Throwable throwable) {
             }
 
         }

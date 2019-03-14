@@ -42,33 +42,25 @@ public class TexturePackCustom extends TexturePackBase {
                 this.secondDescriptionLine = this.truncateString(var4.readLine());
                 var4.close();
                 var3.close();
-            } catch (Exception var20) {
-                ;
-            }
+            } catch (Exception e) { }
 
             try {
                 var3 = var2.getInputStream(var2.getEntry("pack.png"));
                 this.texturePackThumbnail = ImageIO.read(var3);
                 var3.close();
-            } catch (Exception var19) {
-                ;
-            }
+            } catch (Exception e) { }
 
             var2.close();
-        } catch (Exception var21) {
-            var21.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             try {
                 var3.close();
-            } catch (Exception var18) {
-                ;
-            }
+            } catch (Exception e) { }
 
             try {
                 var2.close();
-            } catch (Exception var17) {
-                ;
-            }
+            } catch (Exception e) { }
 
         }
 
@@ -98,18 +90,14 @@ public class TexturePackCustom extends TexturePackBase {
     public void func_6482_a() {
         try {
             this.texturePackZipFile = new ZipFile(this.texturePackFile);
-        } catch (Exception var2) {
-            ;
-        }
+        } catch (Exception e) { }
 
     }
 
     public void closeTexturePackFile() {
         try {
             this.texturePackZipFile.close();
-        } catch (Exception var2) {
-            ;
-        }
+        } catch (Exception e) { }
 
         this.texturePackZipFile = null;
     }
@@ -120,9 +108,7 @@ public class TexturePackCustom extends TexturePackBase {
             if (var2 != null) {
                 return this.texturePackZipFile.getInputStream(var2);
             }
-        } catch (Exception var3) {
-            ;
-        }
+        } catch (Exception e) { }
 
         return TexturePackBase.class.getResourceAsStream(var1);
     }

@@ -43,8 +43,8 @@ public class TileEntity {
             if (var2 != null) {
                 var1 = (TileEntity) var2.newInstance();
             }
-        } catch (Exception var3) {
-            var3.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         if (var1 != null) {

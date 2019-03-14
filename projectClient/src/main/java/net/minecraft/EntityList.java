@@ -53,8 +53,8 @@ public class EntityList {
             if (var3 != null) {
                 var2 = (Entity) var3.getConstructor(World.class).newInstance(var1);
             }
-        } catch (Exception var4) {
-            var4.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return var2;
@@ -68,8 +68,8 @@ public class EntityList {
             if (var3 != null) {
                 var2 = (Entity) var3.getConstructor(World.class).newInstance(var1);
             }
-        } catch (Exception var4) {
-            var4.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         if (var2 != null) {
@@ -85,12 +85,12 @@ public class EntityList {
         Entity var2 = null;
 
         try {
-            Class var3 = (Class) IDtoClassMapping.get(Integer.valueOf(var0));
+            Class var3 = (Class) IDtoClassMapping.get(var0);
             if (var3 != null) {
                 var2 = (Entity) var3.getConstructor(World.class).newInstance(var1);
             }
-        } catch (Exception var4) {
-            var4.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         if (var2 == null) {

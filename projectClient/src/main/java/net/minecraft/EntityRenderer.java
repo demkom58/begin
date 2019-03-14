@@ -382,8 +382,8 @@ public class EntityRenderer {
                     if (var8 > 0L && var8 < 500L) {
                         try {
                             Thread.sleep(var8);
-                        } catch (InterruptedException var12) {
-                            var12.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -408,8 +408,8 @@ public class EntityRenderer {
                     if (var18 > 0L && var18 < 500L) {
                         try {
                             Thread.sleep(var18);
-                        } catch (InterruptedException var11) {
-                            var11.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
                     }
                 }

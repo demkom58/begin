@@ -32,8 +32,8 @@ public class MapStorage {
                     if (var4 != null && var4.exists()) {
                         try {
                             var3 = (MapDataBase) var1.getConstructor(String.class).newInstance(var2);
-                        } catch (Exception var7) {
-                            throw new RuntimeException("Failed to instantiate " + var1.toString(), var7);
+                        } catch (Exception e) {
+                            throw new RuntimeException("Failed to instantiate " + var1.toString(), e);
                         }
 
                         FileInputStream var5 = new FileInputStream(var4);
@@ -41,8 +41,8 @@ public class MapStorage {
                         var5.close();
                         var3.readFromNBT(var6.getCompoundTag("data"));
                     }
-                } catch (Exception var8) {
-                    var8.printStackTrace();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
                 }
             }
 
@@ -92,8 +92,8 @@ public class MapStorage {
                     CompressedStreamTools.writeGzippedCompoundToOutputStream(var4, var5);
                     var5.close();
                 }
-            } catch (Exception var6) {
-                var6.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }
@@ -121,18 +121,18 @@ public class MapStorage {
                     }
                 }
             }
-        } catch (Exception var9) {
-            var9.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
     public int getUniqueDataId(String var1) {
-        Short var2 = (Short) this.idCounts.get(var1);
+        Short var2 = this.idCounts.get(var1);
         if (var2 == null) {
             var2 = 0;
         } else {
-            var2 = (short) (var2.shortValue() + 1);
+            var2 = (short) (var2 + 1);
         }
 
         this.idCounts.put(var1, var2);
@@ -145,7 +145,7 @@ public class MapStorage {
                     NBTTagCompound var4 = new NBTTagCompound();
 
                     for (String var6 : this.idCounts.keySet()) {
-                        short var7 = ((Short) this.idCounts.get(var6)).shortValue();
+                        short var7 = this.idCounts.get(var6).shortValue();
                         var4.setShort(var6, var7);
                     }
 
@@ -153,8 +153,8 @@ public class MapStorage {
                     CompressedStreamTools.func_1139_a(var4, var10);
                     var10.close();
                 }
-            } catch (Exception var8) {
-                var8.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             return var2.shortValue();

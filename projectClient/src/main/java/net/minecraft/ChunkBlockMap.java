@@ -13,8 +13,8 @@ public class ChunkBlockMap {
 
                 field_26003_a[var0] = var1;
             }
-        } catch (Exception var2) {
-            var2.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

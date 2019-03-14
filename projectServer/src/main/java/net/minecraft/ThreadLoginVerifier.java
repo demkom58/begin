@@ -29,9 +29,9 @@ class ThreadLoginVerifier extends Thread {
             } else {
                 this.loginHandler.kickUser("Failed to verify username!");
             }
-        } catch (Exception var5) {
-            this.loginHandler.kickUser("Failed to verify username! [internal error " + var5 + "]");
-            var5.printStackTrace();
+        } catch (Exception e) {
+            this.loginHandler.kickUser("Failed to verify username! [internal error " + e + "]");
+            e.printStackTrace();
         }
 
     }

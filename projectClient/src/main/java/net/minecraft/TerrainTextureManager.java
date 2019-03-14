@@ -49,8 +49,8 @@ public class TerrainTextureManager {
                     this.field_1181_a[var3 * 3 + 2] = (float) (var6 / var9);
                 }
             }
-        } catch (IOException var14) {
-            var14.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         for (int var15 = 0; var15 < 256; ++var15) {

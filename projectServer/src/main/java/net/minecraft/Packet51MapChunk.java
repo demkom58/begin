@@ -59,7 +59,7 @@ public class Packet51MapChunk extends Packet {
 
         try {
             var3.inflate(this.chunk);
-        } catch (DataFormatException var8) {
+        } catch (DataFormatException e) {
             throw new IOException("Bad compressed data format");
         } finally {
             var3.end();

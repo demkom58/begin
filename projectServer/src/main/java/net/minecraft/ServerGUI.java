@@ -20,8 +20,8 @@ public class ServerGUI extends JComponent implements ICommandListener {
         try {
             this.add(this.getLogComponent(), "Center");
             this.add(this.getStatsComponent(), "West");
-        } catch (Exception var3) {
-            var3.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -29,7 +29,8 @@ public class ServerGUI extends JComponent implements ICommandListener {
     public static void initGui(MinecraftServer var0) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception var3) {
+        } catch (Exception e) {
+
         }
 
         ServerGUI var1 = new ServerGUI(var0);

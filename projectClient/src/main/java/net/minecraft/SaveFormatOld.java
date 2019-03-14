@@ -62,8 +62,8 @@ public class SaveFormatOld implements ISaveFormat {
                     NBTTagCompound var9 = CompressedStreamTools.func_1138_a(new FileInputStream(var3));
                     NBTTagCompound var10 = var9.getCompoundTag("Data");
                     return new WorldInfo(var10);
-                } catch (Exception var7) {
-                    var7.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -73,8 +73,8 @@ public class SaveFormatOld implements ISaveFormat {
                     NBTTagCompound var4 = CompressedStreamTools.func_1138_a(new FileInputStream(var3));
                     NBTTagCompound var5 = var4.getCompoundTag("Data");
                     return new WorldInfo(var5);
-                } catch (Exception var6) {
-                    var6.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -92,8 +92,8 @@ public class SaveFormatOld implements ISaveFormat {
                     NBTTagCompound var6 = var5.getCompoundTag("Data");
                     var6.setString("LevelName", var2);
                     CompressedStreamTools.writeGzippedCompoundToOutputStream(var5, new FileOutputStream(var4));
-                } catch (Exception var7) {
-                    var7.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 

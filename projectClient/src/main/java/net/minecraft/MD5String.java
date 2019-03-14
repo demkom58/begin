@@ -17,8 +17,8 @@ public class MD5String {
             MessageDigest var3 = MessageDigest.getInstance("MD5");
             var3.update(var2.getBytes(), 0, var2.length());
             return (new BigInteger(1, var3.digest())).toString(16);
-        } catch (NoSuchAlgorithmException var4) {
-            throw new RuntimeException(var4);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
     }
 }

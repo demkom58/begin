@@ -113,7 +113,7 @@ public class EntityArrow extends Entity {
             ++this.ticksInAir;
             Vec3D var16 = Vec3D.createVector(this.posX, this.posY, this.posZ);
             Vec3D var19 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-            MovingObjectPosition var3 = this.worldObj.func_28099_a(var16, var19, false, true);
+            MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var16, var19, false, true);
             var16 = Vec3D.createVector(this.posX, this.posY, this.posZ);
             var19 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
             if (var3 != null) {

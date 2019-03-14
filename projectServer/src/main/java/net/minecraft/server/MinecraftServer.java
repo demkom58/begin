@@ -89,9 +89,9 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
         try {
             this.networkServer = new NetworkListenThread(this, var3, var4);
-        } catch (IOException var13) {
+        } catch (IOException e1) {
             LOGGER.warning("**** FAILED TO BIND TO PORT!");
-            LOGGER.log(Level.WARNING, "The exception was: " + var13.toString());
+            LOGGER.log(Level.WARNING, "The exception was: " + e1.toString());
             LOGGER.warning("Perhaps a server is already running on that port?");
             return false;
         }
@@ -113,7 +113,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         if (var8.length() > 0) {
             try {
                 var9 = Long.parseLong(var8);
-            } catch (NumberFormatException var12) {
+            } catch (NumberFormatException e) {
                 var9 = (long) var8.hashCode();
             }
         }
@@ -124,25 +124,25 @@ public class MinecraftServer implements Runnable, ICommandListener {
         return true;
     }
 
-    private void initWorld(ISaveFormat var1, String var2, long var3) {
-        if (var1.isOldSaveType(var2)) {
+    private void initWorld(ISaveFormat saveFormat, String type, long var3) {
+        if (saveFormat.isOldSaveType(type)) {
             LOGGER.info("Converting map!");
-            var1.converMapToMCRegion(var2, new ConvertProgressUpdater(this));
+            saveFormat.converMapToMCRegion(type, new ConvertProgressUpdater(this));
         }
 
         this.worldMngr = new WorldServer[2];
-        SaveOldDir var5 = new SaveOldDir(new File("."), var2, true);
+        SaveOldDir saveOldDir = new SaveOldDir(new File("."), type, true);
 
-        for (int var6 = 0; var6 < this.worldMngr.length; ++var6) {
-            if (var6 == 0) {
-                this.worldMngr[var6] = new WorldServer(this, var5, var2, var6 == 0 ? 0 : -1, var3);
+        for (int i = 0; i < this.worldMngr.length; ++i) {
+            if (i == 0) {
+                this.worldMngr[i] = new WorldServer(this, saveOldDir, type, i == 0 ? 0 : -1, var3);
             } else {
-                this.worldMngr[var6] = new WorldServerMulti(this, var5, var2, var6 == 0 ? 0 : -1, var3, this.worldMngr[0]);
+                this.worldMngr[i] = new WorldServerMulti(this, saveOldDir, type, i == 0 ? 0 : -1, var3, this.worldMngr[0]);
             }
 
-            this.worldMngr[var6].addWorldAccess(new WorldManager(this, this.worldMngr[var6]));
-            this.worldMngr[var6].difficultySetting = this.propertyManagerObj.getBooleanProperty("spawn-monsters", true) ? 1 : 0;
-            this.worldMngr[var6].setAllowedSpawnTypes(this.propertyManagerObj.getBooleanProperty("spawn-monsters", true), this.spawnPeacefulMobs);
+            this.worldMngr[i].addWorldAccess(new WorldManager(this, this.worldMngr[i]));
+            this.worldMngr[i].difficultySetting = this.propertyManagerObj.getBooleanProperty("spawn-monsters", true) ? 1 : 0;
+            this.worldMngr[i].setAllowedSpawnTypes(this.propertyManagerObj.getBooleanProperty("spawn-monsters", true), this.spawnPeacefulMobs);
             this.configManager.setPlayerManager(this.worldMngr);
         }
 

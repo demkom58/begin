@@ -80,8 +80,8 @@ public class ChunkProvider implements IChunkProvider {
                 }
 
                 return var3;
-            } catch (Exception var4) {
-                var4.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
                 return null;
             }
         }
@@ -91,8 +91,8 @@ public class ChunkProvider implements IChunkProvider {
         if (this.chunkLoader != null) {
             try {
                 this.chunkLoader.saveExtraChunkData(this.field_28066_g, var1);
-            } catch (Exception var3) {
-                var3.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }
@@ -103,8 +103,8 @@ public class ChunkProvider implements IChunkProvider {
             try {
                 var1.lastSaveTime = this.field_28066_g.getWorldTime();
                 this.chunkLoader.saveChunk(this.field_28066_g, var1);
-            } catch (IOException var3) {
-                var3.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
         }

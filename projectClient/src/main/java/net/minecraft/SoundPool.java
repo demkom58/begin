@@ -31,9 +31,9 @@ public class SoundPool {
             this.allSoundPoolEntries.add(var4);
             ++this.numberOfSoundPoolEntries;
             return var4;
-        } catch (MalformedURLException var5) {
-            var5.printStackTrace();
-            throw new RuntimeException(var5);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

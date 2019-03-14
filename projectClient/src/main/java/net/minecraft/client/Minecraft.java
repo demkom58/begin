@@ -216,12 +216,12 @@ public abstract class Minecraft implements Runnable {
         return theMinecraft != null && theMinecraft.gameSettings.showDebugInfo;
     }
 
-    public void onMinecraftCrash(UnexpectedThrowable var1) {
+    public void onMinecraftCrash(UnexpectedThrowable throwable) {
         this.hasCrashed = true;
-        this.displayUnexpectedThrowable(var1);
+        this.displayUnexpectedThrowable(throwable);
     }
 
-    public abstract void displayUnexpectedThrowable(UnexpectedThrowable var1);
+    public abstract void displayUnexpectedThrowable(UnexpectedThrowable throwable);
 
     public void setServer(String var1, int var2) {
         this.serverName = var1;
@@ -257,12 +257,12 @@ public abstract class Minecraft implements Runnable {
 
         try {
             Display.create();
-        } catch (LWJGLException var6) {
-            var6.printStackTrace();
+        } catch (LWJGLException e) {
+            e.printStackTrace();
 
             try {
                 Thread.sleep(1000L);
-            } catch (InterruptedException var5) {
+            } catch (InterruptedException e1) {
             }
 
             Display.create();
@@ -288,8 +288,8 @@ public abstract class Minecraft implements Runnable {
 
         try {
             Controllers.create();
-        } catch (Exception var4) {
-            var4.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         this.checkGLError("Pre startup");
@@ -870,8 +870,8 @@ public abstract class Minecraft implements Runnable {
 
             Display.setFullscreen(this.fullscreen);
             Display.update();
-        } catch (Exception var2) {
-            var2.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

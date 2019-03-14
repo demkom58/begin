@@ -196,7 +196,7 @@ public class ChunkProviderServer implements IChunkProvider {
         return this.serverChunkGenerator.func_361_a();
     }
 
-    public boolean func_364_b() {
+    public boolean canSave() {
         return !this.world.levelSaving;
     }
 }

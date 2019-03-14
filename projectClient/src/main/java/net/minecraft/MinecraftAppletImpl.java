@@ -14,10 +14,10 @@ public class MinecraftAppletImpl extends Minecraft {
         this.mainFrame = var1;
     }
 
-    public void displayUnexpectedThrowable(UnexpectedThrowable var1) {
+    public void displayUnexpectedThrowable(UnexpectedThrowable throwable) {
         this.mainFrame.removeAll();
         this.mainFrame.setLayout(new BorderLayout());
-        this.mainFrame.add(new PanelCrashReport(var1), "Center");
+        this.mainFrame.add(new PanelCrashReport(throwable), "Center");
         this.mainFrame.validate();
     }
 }

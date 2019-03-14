@@ -15,8 +15,8 @@ class ThreadStatSyncherReceive extends Thread {
             } else if (StatsSyncher.func_27423_b(this.field_27231_a).exists()) {
                 StatsSyncher.func_27421_a(this.field_27231_a, StatsSyncher.func_27409_a(this.field_27231_a, StatsSyncher.func_27423_b(this.field_27231_a), StatsSyncher.func_27411_c(this.field_27231_a), StatsSyncher.func_27413_d(this.field_27231_a)));
             }
-        } catch (Exception var5) {
-            var5.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             StatsSyncher.func_27416_a(this.field_27231_a, false);
         }

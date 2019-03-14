@@ -138,7 +138,7 @@ public abstract class Packet {
             }
 
             packet.readPacketData(inputStream);
-        } catch (EOFException var5) {
+        } catch (EOFException e) {
             System.out.println("Reached end of stream");
             return null;
         }

@@ -3,38 +3,28 @@ package net.minecraft;
 // $FF: synthetic class
 class EnumOptionsMappingHelper {
     // $FF: synthetic field
-    static final int[] enumOptionsMappingHelperArray = new int[EnumOptions.values().length];
+    static final int[] VALUES = new int[EnumOptions.values().length];
 
     static {
         try {
-            enumOptionsMappingHelperArray[EnumOptions.INVERT_MOUSE.ordinal()] = 1;
-        } catch (NoSuchFieldError var5) {
-            ;
-        }
+            VALUES[EnumOptions.INVERT_MOUSE.ordinal()] = 1;
+        } catch (NoSuchFieldError error) { }
 
         try {
-            enumOptionsMappingHelperArray[EnumOptions.VIEW_BOBBING.ordinal()] = 2;
-        } catch (NoSuchFieldError var4) {
-            ;
-        }
+            VALUES[EnumOptions.VIEW_BOBBING.ordinal()] = 2;
+        } catch (NoSuchFieldError error) { }
 
         try {
-            enumOptionsMappingHelperArray[EnumOptions.ANAGLYPH.ordinal()] = 3;
-        } catch (NoSuchFieldError var3) {
-            ;
-        }
+            VALUES[EnumOptions.ANAGLYPH.ordinal()] = 3;
+        } catch (NoSuchFieldError error) { }
 
         try {
-            enumOptionsMappingHelperArray[EnumOptions.ADVANCED_OPENGL.ordinal()] = 4;
-        } catch (NoSuchFieldError var2) {
-            ;
-        }
+            VALUES[EnumOptions.ADVANCED_OPENGL.ordinal()] = 4;
+        } catch (NoSuchFieldError error) { }
 
         try {
-            enumOptionsMappingHelperArray[EnumOptions.AMBIENT_OCCLUSION.ordinal()] = 5;
-        } catch (NoSuchFieldError var1) {
-            ;
-        }
+            VALUES[EnumOptions.AMBIENT_OCCLUSION.ordinal()] = 5;
+        } catch (NoSuchFieldError error) { }
 
     }
 }

@@ -37,8 +37,8 @@ public class SaveHandler implements ISaveHandler {
                 var2.close();
             }
 
-        } catch (IOException var7) {
-            var7.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
             throw new RuntimeException("Failed to check session lock, aborting");
         }
     }
@@ -60,7 +60,7 @@ public class SaveHandler implements ISaveHandler {
                 var2.close();
             }
 
-        } catch (IOException var7) {
+        } catch (IOException e) {
             throw new MinecraftException("Failed to check session lock, aborting");
         }
     }
@@ -82,8 +82,8 @@ public class SaveHandler implements ISaveHandler {
                 NBTTagCompound var7 = CompressedStreamTools.func_1138_a(new FileInputStream(var1));
                 NBTTagCompound var8 = var7.getCompoundTag("Data");
                 return new WorldInfo(var8);
-            } catch (Exception var5) {
-                var5.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -93,8 +93,8 @@ public class SaveHandler implements ISaveHandler {
                 NBTTagCompound var2 = CompressedStreamTools.func_1138_a(new FileInputStream(var1));
                 NBTTagCompound var3 = var2.getCompoundTag("Data");
                 return new WorldInfo(var3);
-            } catch (Exception var4) {
-                var4.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -124,8 +124,8 @@ public class SaveHandler implements ISaveHandler {
             if (var5.exists()) {
                 var5.delete();
             }
-        } catch (Exception var8) {
-            var8.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -153,8 +153,8 @@ public class SaveHandler implements ISaveHandler {
             if (var4.exists()) {
                 var4.delete();
             }
-        } catch (Exception var7) {
-            var7.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

@@ -13,5 +13,5 @@ public interface IChunkProvider {
 
     boolean func_361_a();
 
-    boolean func_364_b();
+    boolean canSave();
 }
