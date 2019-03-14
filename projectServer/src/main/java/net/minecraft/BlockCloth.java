@@ -2,7 +2,7 @@ package net.minecraft;
 
 public class BlockCloth extends Block {
     public BlockCloth() {
-        super(35, 64, Material.cloth);
+        super(35, 64, Material.CLOTH);
     }
 
     public static int func_21033_c(int var0) {

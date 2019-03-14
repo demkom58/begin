@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockFarmland extends Block {
     protected BlockFarmland(int var1) {
-        super(var1, Material.ground);
+        super(var1, Material.GROUND);
         this.blockIndexInTexture = 87;
         this.setTickOnLoad(true);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
@@ -72,7 +72,7 @@ public class BlockFarmland extends Block {
         for (int var5 = var2 - 4; var5 <= var2 + 4; ++var5) {
             for (int var6 = var3; var6 <= var3 + 1; ++var6) {
                 for (int var7 = var4 - 4; var7 <= var4 + 4; ++var7) {
-                    if (var1.getBlockMaterial(var5, var6, var7) == Material.water) {
+                    if (var1.getBlockMaterial(var5, var6, var7) == Material.WATER) {
                         return true;
                     }
                 }

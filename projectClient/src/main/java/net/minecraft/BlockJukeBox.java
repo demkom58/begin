@@ -2,7 +2,7 @@ package net.minecraft;
 
 public class BlockJukeBox extends BlockContainer {
     protected BlockJukeBox(int var1, int var2) {
-        super(var1, var2, Material.wood);
+        super(var1, var2, Material.WOOD);
     }
 
     public int getBlockTextureFromSide(int var1) {

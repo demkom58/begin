@@ -41,12 +41,12 @@ public class ItemBucket extends Item {
                 }
 
                 if (this.isFull == 0) {
-                    if (var2.getBlockMaterial(var25, var26, var27) == Material.water && var2.getBlockMetadata(var25, var26, var27) == 0) {
+                    if (var2.getBlockMaterial(var25, var26, var27) == Material.WATER && var2.getBlockMetadata(var25, var26, var27) == 0) {
                         var2.setBlockWithNotify(var25, var26, var27, 0);
                         return new ItemStack(Item.BUCKET_WATER);
                     }
 
-                    if (var2.getBlockMaterial(var25, var26, var27) == Material.lava && var2.getBlockMetadata(var25, var26, var27) == 0) {
+                    if (var2.getBlockMaterial(var25, var26, var27) == Material.LAVA && var2.getBlockMetadata(var25, var26, var27) == 0) {
                         var2.setBlockWithNotify(var25, var26, var27, 0);
                         return new ItemStack(Item.BUCKET_LAVA);
                     }

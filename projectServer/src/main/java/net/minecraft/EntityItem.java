@@ -46,7 +46,7 @@ public class EntityItem extends Entity {
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
         this.motionY -= 0.03999999910593033D;
-        if (this.worldObj.getBlockMaterial(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) == Material.lava) {
+        if (this.worldObj.getBlockMaterial(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) == Material.LAVA) {
             this.motionY = 0.20000000298023224D;
             this.motionX = (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
             this.motionZ = (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
@@ -80,7 +80,7 @@ public class EntityItem extends Entity {
     }
 
     public boolean handleWaterMovement() {
-        return this.worldObj.handleMaterialAcceleration(this.boundingBox, Material.water, this);
+        return this.worldObj.handleMaterialAcceleration(this.boundingBox, Material.WATER, this);
     }
 
     protected void dealFireDamage(int var1) {

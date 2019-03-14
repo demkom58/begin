@@ -72,13 +72,13 @@ public class Item {
     public static final Item PAINTING = new ItemPainting(65).setIconCoord(10, 1).setItemName("painting");
     public static final Item APPLE_GOLD = new ItemFood(66, 42, false).setIconCoord(11, 0).setItemName("appleGold");
     public static final Item SIGN = new ItemSign(67).setIconCoord(10, 2).setItemName("sign");
-    public static final Item DOOR_WOOD = new ItemDoor(68, Material.wood).setIconCoord(11, 2).setItemName("doorWood");
+    public static final Item DOOR_WOOD = new ItemDoor(68, Material.WOOD).setIconCoord(11, 2).setItemName("doorWood");
     public static final Item BUCKET_EMPTY = new ItemBucket(69, 0).setIconCoord(10, 4).setItemName("bucket");
     public static final Item BUCKET_WATER;
     public static final Item BUCKET_LAVA;
     public static final Item MINECART = new ItemMinecart(72, 0).setIconCoord(7, 8).setItemName("minecart");
     public static final Item SADDLE = new ItemSaddle(73).setIconCoord(8, 6).setItemName("saddle");
-    public static final Item DOOR_IRON = new ItemDoor(74, Material.iron).setIconCoord(12, 2).setItemName("doorIron");
+    public static final Item DOOR_IRON = new ItemDoor(74, Material.IRON).setIconCoord(12, 2).setItemName("doorIron");
     public static final Item REDSTONE = new ItemRedstone(75).setIconCoord(8, 3).setItemName("redstone");
     public static final Item SNOWBALL = new ItemSnowball(76).setIconCoord(14, 0).setItemName("snowball");
     public static final Item BOAT = new ItemBoat(77).setIconCoord(8, 8).setItemName("boat");

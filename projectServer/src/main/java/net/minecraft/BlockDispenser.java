@@ -8,7 +8,7 @@ public class BlockDispenser extends BlockContainer {
     private Random field_28032_a = new Random();
 
     protected BlockDispenser(int var1) {
-        super(var1, Material.rock);
+        super(var1, Material.ROCK);
         this.blockIndexInTexture = 45;
     }
 

@@ -6,7 +6,7 @@ public class BlockRedstoneOre extends Block {
     private boolean field_665_a;
 
     public BlockRedstoneOre(int var1, int var2, boolean var3) {
-        super(var1, var2, Material.rock);
+        super(var1, var2, Material.ROCK);
         if (var3) {
             this.setTickOnLoad(true);
         }

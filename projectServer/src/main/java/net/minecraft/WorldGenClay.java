@@ -14,7 +14,7 @@ public class WorldGenClay extends WorldGenerator {
     }
 
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
-        if (var1.getBlockMaterial(var3, var4, var5) != Material.water) {
+        if (var1.getBlockMaterial(var3, var4, var5) != Material.WATER) {
             return false;
         } else {
             float var6 = var2.nextFloat() * 3.1415927F;

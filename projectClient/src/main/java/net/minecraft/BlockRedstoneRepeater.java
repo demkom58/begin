@@ -10,7 +10,7 @@ public class BlockRedstoneRepeater extends Block {
     private final boolean isRepeaterPowered;
 
     protected BlockRedstoneRepeater(int var1, boolean var2) {
-        super(var1, 6, Material.circuits);
+        super(var1, 6, Material.CIRCUITS);
         this.isRepeaterPowered = var2;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockLog extends Block {
     protected BlockLog(int var1) {
-        super(var1, Material.wood);
+        super(var1, Material.WOOD);
         this.blockIndexInTexture = 20;
     }
 

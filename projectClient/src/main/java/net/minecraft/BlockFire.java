@@ -7,7 +7,7 @@ public class BlockFire extends Block {
     private int[] abilityToCatchFire = new int[256];
 
     protected BlockFire(int var1, int var2) {
-        super(var1, var2, Material.fire);
+        super(var1, var2, Material.FIRE);
         this.setTickOnLoad(true);
     }
 

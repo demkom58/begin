@@ -118,7 +118,7 @@ public abstract class EntityLiving extends Entity {
             this.fire = 0;
         }
 
-        if (this.isEntityAlive() && this.isInsideOfMaterial(Material.water) && !this.canBreatheUnderwater()) {
+        if (this.isEntityAlive() && this.isInsideOfMaterial(Material.WATER) && !this.canBreatheUnderwater()) {
             --this.air;
             if (this.air == -20) {
                 this.air = 0;

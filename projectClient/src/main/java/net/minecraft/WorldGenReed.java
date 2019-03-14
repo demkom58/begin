@@ -8,7 +8,7 @@ public class WorldGenReed extends WorldGenerator {
             int var7 = var3 + var2.nextInt(4) - var2.nextInt(4);
             int var8 = var4;
             int var9 = var5 + var2.nextInt(4) - var2.nextInt(4);
-            if (var1.isAirBlock(var7, var4, var9) && (var1.getBlockMaterial(var7 - 1, var4 - 1, var9) == Material.water || var1.getBlockMaterial(var7 + 1, var4 - 1, var9) == Material.water || var1.getBlockMaterial(var7, var4 - 1, var9 - 1) == Material.water || var1.getBlockMaterial(var7, var4 - 1, var9 + 1) == Material.water)) {
+            if (var1.isAirBlock(var7, var4, var9) && (var1.getBlockMaterial(var7 - 1, var4 - 1, var9) == Material.WATER || var1.getBlockMaterial(var7 + 1, var4 - 1, var9) == Material.WATER || var1.getBlockMaterial(var7, var4 - 1, var9 - 1) == Material.WATER || var1.getBlockMaterial(var7, var4 - 1, var9 + 1) == Material.WATER)) {
                 int var10 = 2 + var2.nextInt(var2.nextInt(3) + 1);
 
                 for (int var11 = 0; var11 < var10; ++var11) {

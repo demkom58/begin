@@ -96,9 +96,9 @@ public class TerrainTextureManager {
                                 Block var16 = Block.BLOCKS_LIST[var2.getBlockId(var9, var14, var8)];
                                 if (var16 == null) {
                                     var13 = false;
-                                } else if (var16.blockMaterial == Material.water) {
+                                } else if (var16.blockMaterial == Material.WATER) {
                                     int var24 = var2.getBlockId(var9, var14 + 1, var8);
-                                    if (var24 == 0 || Block.BLOCKS_LIST[var24].blockMaterial != Material.water) {
+                                    if (var24 == 0 || Block.BLOCKS_LIST[var24].blockMaterial != Material.WATER) {
                                         float var26 = (float) var14 / 127.0F * 0.6F + 0.4F;
                                         float var28 = var2.getLightBrightness(var9, var14 + 1, var8) * var26;
                                         if (var15 >= 0 && var15 < 160) {

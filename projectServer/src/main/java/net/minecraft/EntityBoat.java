@@ -112,7 +112,7 @@ public class EntityBoat extends Entity {
             double var5 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double) (var4 + 0) / (double) var1 - 0.125D;
             double var7 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double) (var4 + 1) / (double) var1 - 0.125D;
             AxisAlignedBB var9 = AxisAlignedBB.getBoundingBoxFromPool(this.boundingBox.minX, var5, this.boundingBox.minZ, this.boundingBox.maxX, var7, this.boundingBox.maxZ);
-            if (this.worldObj.isAABBInMaterial(var9, Material.water)) {
+            if (this.worldObj.isAABBInMaterial(var9, Material.WATER)) {
                 var2 += 1.0D / (double) var1;
             }
         }

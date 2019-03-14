@@ -2,7 +2,7 @@ package net.minecraft;
 
 public class BlockLever extends Block {
     protected BlockLever(int var1, int var2) {
-        super(var1, var2, Material.circuits);
+        super(var1, var2, Material.CIRCUITS);
     }
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {

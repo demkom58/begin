@@ -6,7 +6,7 @@ public class BlockStationary extends BlockFluid {
     protected BlockStationary(int var1, Material var2) {
         super(var1, var2);
         this.setTickOnLoad(false);
-        if (var2 == Material.lava) {
+        if (var2 == Material.LAVA) {
             this.setTickOnLoad(true);
         }
 
@@ -30,7 +30,7 @@ public class BlockStationary extends BlockFluid {
     }
 
     public void updateTick(World world, int x, int y, int z, Random random) {
-        if (this.blockMaterial == Material.lava) {
+        if (this.blockMaterial == Material.LAVA) {
             int var6 = random.nextInt(3);
 
             for (int var7 = 0; var7 < var6; ++var7) {

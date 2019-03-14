@@ -86,7 +86,7 @@ public class ItemMap extends ItemMapBase {
                                                 var36 = var27.getBlockID(var43 + var28, var35 - 1, var34 + var29);
                                                 if (var36 == 0) {
                                                     var37 = false;
-                                                } else if (var35 > 0 && var36 > 0 && Block.BLOCKS_LIST[var36].blockMaterial.field_28131_A == MapColor.field_28199_b) {
+                                                } else if (var35 > 0 && var36 > 0 && Block.BLOCKS_LIST[var36].blockMaterial.materialMapColor == MapColor.AIR_COLOR) {
                                                     var37 = false;
                                                 }
 
@@ -146,8 +146,8 @@ public class ItemMap extends ItemMapBase {
 
                             int var51 = 0;
                             if (var45 > 0) {
-                                MapColor var53 = Block.BLOCKS_LIST[var45].blockMaterial.field_28131_A;
-                                if (var53 == MapColor.field_28187_n) {
+                                MapColor var53 = Block.BLOCKS_LIST[var45].blockMaterial.materialMapColor;
+                                if (var53 == MapColor.WATER_COLOR) {
                                     var47 = (double) var30 * 0.1D + (double) (var12 + var17 & 1) * 0.2D;
                                     var50 = 1;
                                     if (var47 < 0.5D) {
@@ -159,7 +159,7 @@ public class ItemMap extends ItemMapBase {
                                     }
                                 }
 
-                                var51 = var53.field_28184_q;
+                                var51 = var53.colorIndex;
                             }
 
                             var15 = var31;

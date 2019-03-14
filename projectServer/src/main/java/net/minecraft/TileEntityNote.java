@@ -30,22 +30,22 @@ public class TileEntityNote extends TileEntity {
     }
 
     public void triggerNote(World var1, int var2, int var3, int var4) {
-        if (var1.getBlockMaterial(var2, var3 + 1, var4) == Material.air) {
+        if (var1.getBlockMaterial(var2, var3 + 1, var4) == Material.AIR) {
             Material var5 = var1.getBlockMaterial(var2, var3 - 1, var4);
             byte var6 = 0;
-            if (var5 == Material.rock) {
+            if (var5 == Material.ROCK) {
                 var6 = 1;
             }
 
-            if (var5 == Material.sand) {
+            if (var5 == Material.SAND) {
                 var6 = 2;
             }
 
-            if (var5 == Material.glass) {
+            if (var5 == Material.GLASS) {
                 var6 = 3;
             }
 
-            if (var5 == Material.wood) {
+            if (var5 == Material.WOOD) {
                 var6 = 4;
             }
 

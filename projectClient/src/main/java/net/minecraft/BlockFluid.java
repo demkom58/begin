@@ -6,7 +6,7 @@ import java.util.Random;
 
 public abstract class BlockFluid extends Block {
     protected BlockFluid(int var1, Material var2) {
-        super(var1, (var2 == Material.lava ? 14 : 12) * 16 + 13, var2);
+        super(var1, (var2 == Material.LAVA ? 14 : 12) * 16 + 13, var2);
         float var3 = 0.0F;
         float var4 = 0.0F;
         this.setBlockBounds(0.0F + var4, 0.0F + var3, 0.0F + var4, 1.0F + var4, 1.0F + var3, 1.0F + var4);
@@ -24,11 +24,11 @@ public abstract class BlockFluid extends Block {
 
     public static double func_293_a(IBlockAccess var0, int var1, int var2, int var3, Material var4) {
         Vec3D var5 = null;
-        if (var4 == Material.water) {
+        if (var4 == Material.WATER) {
             var5 = ((BlockFluid) Block.WATER_MOVING).getFlowVector(var0, var1, var2, var3);
         }
 
-        if (var4 == Material.lava) {
+        if (var4 == Material.LAVA) {
             var5 = ((BlockFluid) Block.LAVA_MOVING).getFlowVector(var0, var1, var2, var3);
         }
 
@@ -76,7 +76,7 @@ public abstract class BlockFluid extends Block {
         Material var6 = var1.getBlockMaterial(var2, var3, var4);
         if (var6 == this.blockMaterial) {
             return false;
-        } else if (var6 == Material.ice) {
+        } else if (var6 == Material.ICE) {
             return false;
         } else {
             return var5 == 1 ? true : super.getIsBlockSolid(var1, var2, var3, var4, var5);
@@ -87,7 +87,7 @@ public abstract class BlockFluid extends Block {
         Material var6 = var1.getBlockMaterial(var2, var3, var4);
         if (var6 == this.blockMaterial) {
             return false;
-        } else if (var6 == Material.ice) {
+        } else if (var6 == Material.ICE) {
             return false;
         } else {
             return var5 == 1 ? true : super.shouldSideBeRendered(var1, var2, var3, var4, var5);
@@ -199,10 +199,10 @@ public abstract class BlockFluid extends Block {
     }
 
     public int tickRate() {
-        if (this.blockMaterial == Material.water) {
+        if (this.blockMaterial == Material.WATER) {
             return 5;
         } else {
-            return this.blockMaterial == Material.lava ? 30 : 0;
+            return this.blockMaterial == Material.LAVA ? 30 : 0;
         }
     }
 
@@ -217,18 +217,18 @@ public abstract class BlockFluid extends Block {
     }
 
     public int getRenderBlockPass() {
-        return this.blockMaterial == Material.water ? 1 : 0;
+        return this.blockMaterial == Material.WATER ? 1 : 0;
     }
 
     public void randomDisplayTick(World var1, int var2, int var3, int var4, Random var5) {
-        if (this.blockMaterial == Material.water && var5.nextInt(64) == 0) {
+        if (this.blockMaterial == Material.WATER && var5.nextInt(64) == 0) {
             int var6 = var1.getBlockMetadata(var2, var3, var4);
             if (var6 > 0 && var6 < 8) {
                 var1.playSoundEffect((double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), "liquid.water", var5.nextFloat() * 0.25F + 0.75F, var5.nextFloat() * 1.0F + 0.5F);
             }
         }
 
-        if (this.blockMaterial == Material.lava && var1.getBlockMaterial(var2, var3 + 1, var4) == Material.air && !var1.isBlockOpaqueCube(var2, var3 + 1, var4) && var5.nextInt(100) == 0) {
+        if (this.blockMaterial == Material.LAVA && var1.getBlockMaterial(var2, var3 + 1, var4) == Material.AIR && !var1.isBlockOpaqueCube(var2, var3 + 1, var4) && var5.nextInt(100) == 0) {
             double var12 = (double) ((float) var2 + var5.nextFloat());
             double var8 = (double) var3 + this.maxY;
             double var10 = (double) ((float) var4 + var5.nextFloat());
@@ -247,25 +247,25 @@ public abstract class BlockFluid extends Block {
 
     private void checkForHarden(World var1, int var2, int var3, int var4) {
         if (var1.getBlockId(var2, var3, var4) == this.blockID) {
-            if (this.blockMaterial == Material.lava) {
+            if (this.blockMaterial == Material.LAVA) {
                 boolean var5 = false;
-                if (var5 || var1.getBlockMaterial(var2, var3, var4 - 1) == Material.water) {
+                if (var5 || var1.getBlockMaterial(var2, var3, var4 - 1) == Material.WATER) {
                     var5 = true;
                 }
 
-                if (var5 || var1.getBlockMaterial(var2, var3, var4 + 1) == Material.water) {
+                if (var5 || var1.getBlockMaterial(var2, var3, var4 + 1) == Material.WATER) {
                     var5 = true;
                 }
 
-                if (var5 || var1.getBlockMaterial(var2 - 1, var3, var4) == Material.water) {
+                if (var5 || var1.getBlockMaterial(var2 - 1, var3, var4) == Material.WATER) {
                     var5 = true;
                 }
 
-                if (var5 || var1.getBlockMaterial(var2 + 1, var3, var4) == Material.water) {
+                if (var5 || var1.getBlockMaterial(var2 + 1, var3, var4) == Material.WATER) {
                     var5 = true;
                 }
 
-                if (var5 || var1.getBlockMaterial(var2, var3 + 1, var4) == Material.water) {
+                if (var5 || var1.getBlockMaterial(var2, var3 + 1, var4) == Material.WATER) {
                     var5 = true;
                 }
 

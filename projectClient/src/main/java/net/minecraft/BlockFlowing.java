@@ -21,7 +21,7 @@ public class BlockFlowing extends BlockFluid {
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         int var6 = this.getFlowDecay(var1, var2, var3, var4);
         byte var7 = 1;
-        if (this.blockMaterial == Material.lava && !var1.worldProvider.isHellWorld) {
+        if (this.blockMaterial == Material.LAVA && !var1.worldProvider.isHellWorld) {
             var7 = 2;
         }
 
@@ -47,7 +47,7 @@ public class BlockFlowing extends BlockFluid {
                 }
             }
 
-            if (this.numAdjacentSources >= 2 && this.blockMaterial == Material.water) {
+            if (this.numAdjacentSources >= 2 && this.blockMaterial == Material.WATER) {
                 if (var1.getBlockMaterial(var2, var3 - 1, var4).isSolid()) {
                     var10 = 0;
                 } else if (var1.getBlockMaterial(var2, var3 - 1, var4) == this.blockMaterial && var1.getBlockMetadata(var2, var3, var4) == 0) {
@@ -55,7 +55,7 @@ public class BlockFlowing extends BlockFluid {
                 }
             }
 
-            if (this.blockMaterial == Material.lava && var6 < 8 && var10 < 8 && var10 > var6 && var5.nextInt(4) != 0) {
+            if (this.blockMaterial == Material.LAVA && var6 < 8 && var10 < 8 && var10 > var6 && var5.nextInt(4) != 0) {
                 var10 = var6;
                 var8 = false;
             }
@@ -116,7 +116,7 @@ public class BlockFlowing extends BlockFluid {
         if (this.liquidCanDisplaceBlock(var1, var2, var3, var4)) {
             int var6 = var1.getBlockId(var2, var3, var4);
             if (var6 > 0) {
-                if (this.blockMaterial == Material.lava) {
+                if (this.blockMaterial == Material.LAVA) {
                     this.triggerLavaMixEffects(var1, var2, var3, var4);
                 } else {
                     Block.BLOCKS_LIST[var6].dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
@@ -249,7 +249,7 @@ public class BlockFlowing extends BlockFluid {
         Material var5 = var1.getBlockMaterial(var2, var3, var4);
         if (var5 == this.blockMaterial) {
             return false;
-        } else if (var5 == Material.lava) {
+        } else if (var5 == Material.LAVA) {
             return false;
         } else {
             return !this.blockBlocksFlow(var1, var2, var3, var4);

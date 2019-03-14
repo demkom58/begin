@@ -8,7 +8,7 @@ public class BlockRail extends Block {
     private final boolean field_27034_a;
 
     protected BlockRail(int var1, int var2, boolean var3) {
-        super(var1, var2, Material.circuits);
+        super(var1, var2, Material.CIRCUITS);
         this.field_27034_a = var3;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }

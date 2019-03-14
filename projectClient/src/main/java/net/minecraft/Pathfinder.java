@@ -163,11 +163,11 @@ public class Pathfinder {
                                 return 0;
                             }
 
-                            if (var11 == Material.water) {
+                            if (var11 == Material.WATER) {
                                 return -1;
                             }
 
-                            if (var11 == Material.lava) {
+                            if (var11 == Material.LAVA) {
                                 return -2;
                             }
                         } else {

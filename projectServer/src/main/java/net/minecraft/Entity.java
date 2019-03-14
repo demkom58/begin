@@ -541,7 +541,7 @@ public abstract class Entity {
     }
 
     public boolean handleWaterMovement() {
-        return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, -0.4000000059604645D, 0.0D).getInsetBoundingBox(0.001D, 0.001D, 0.001D), Material.water, this);
+        return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, -0.4000000059604645D, 0.0D).getInsetBoundingBox(0.001D, 0.001D, 0.001D), Material.WATER, this);
     }
 
     public boolean isInsideOfMaterial(Material var1) {
@@ -564,7 +564,7 @@ public abstract class Entity {
     }
 
     public boolean handleLavaMovement() {
-        return this.worldObj.isMaterialInBB(this.boundingBox.expand(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.lava);
+        return this.worldObj.isMaterialInBB(this.boundingBox.expand(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.LAVA);
     }
 
     public void moveFlying(float var1, float var2, float var3) {

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BlockTNT extends Block {
     public BlockTNT(int var1, int var2) {
-        super(var1, var2, Material.tnt);
+        super(var1, var2, Material.TNT);
     }
 
     public int getBlockTextureFromSide(int var1) {
