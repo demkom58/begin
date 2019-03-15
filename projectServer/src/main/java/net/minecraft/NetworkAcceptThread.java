@@ -1,39 +1,38 @@
 package net.minecraft;
 
+import it.unimi.dsi.fastutil.objects.Object2LongMap;
+import it.unimi.dsi.fastutil.objects.Object2LongRBTreeMap;
 import net.minecraft.server.MinecraftServer;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.HashMap;
 
 class NetworkAcceptThread extends Thread {
-    // $FF: synthetic field
     final MinecraftServer mcServer;
-    // $FF: synthetic field
-    final NetworkListenThread field_985_b;
+    final NetworkListenThread listenThread;
 
-    NetworkAcceptThread(NetworkListenThread var1, String var2, MinecraftServer var3) {
-        super(var2);
-        this.field_985_b = var1;
-        this.mcServer = var3;
+    NetworkAcceptThread(NetworkListenThread listenThread, String name, MinecraftServer mcServer) {
+        super(name);
+        this.listenThread = listenThread;
+        this.mcServer = mcServer;
     }
 
     public void run() {
-        HashMap<InetAddress, Long> var1 = new HashMap<>();
+        Object2LongMap<InetAddress> map = new Object2LongRBTreeMap<>();
 
-        while (this.field_985_b.field_973_b) {
+        while (this.listenThread.field_973_b) {
             try {
-                Socket var2 = NetworkListenThread.func_713_a(this.field_985_b).accept();
-                if (var2 != null) {
-                    InetAddress var3 = var2.getInetAddress();
-                    if (var1.containsKey(var3) && !"127.0.0.1".equals(var3.getHostAddress()) && System.currentTimeMillis() - var1.get(var3) < 5000L) {
-                        var1.put(var3, System.currentTimeMillis());
-                        var2.close();
+                Socket socket = NetworkListenThread.func_713_a(this.listenThread).accept();
+                if (socket != null) {
+                    InetAddress address = socket.getInetAddress();
+                    if (map.containsKey(address) && !"127.0.0.1".equals(address.getHostAddress()) && System.currentTimeMillis() - map.getLong(address) < 5000L) {
+                        map.put(address, System.currentTimeMillis());
+                        socket.close();
                     } else {
-                        var1.put(var3, System.currentTimeMillis());
-                        NetLoginHandler var4 = new NetLoginHandler(this.mcServer, var2, "Connection #" + NetworkListenThread.func_712_b(this.field_985_b));
-                        NetworkListenThread.func_716_a(this.field_985_b, var4);
+                        map.put(address, System.currentTimeMillis());
+                        NetLoginHandler loginHandler = new NetLoginHandler(this.mcServer, socket, "Connection #" + NetworkListenThread.func_712_b(this.listenThread));
+                        NetworkListenThread.func_716_a(this.listenThread, loginHandler);
                     }
                 }
             } catch (IOException e) {
