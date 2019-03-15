@@ -4,6 +4,9 @@ import util.MathHelper;
 import util.Vec3D;
 
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class World implements IBlockAccess {
     static int lightingUpdatesScheduled = 0;
@@ -1479,52 +1482,77 @@ public class World implements IBlockAccess {
     }
 
     public void calculateInitialSkylight() {
-        int var1 = this.calculateSkylightSubtracted(1.0F);
-        if (var1 != this.skylightSubtracted) {
-            this.skylightSubtracted = var1;
+        int skylight = this.calculateSkylightSubtracted(1.0F);
+        if (skylight != this.skylightSubtracted) {
+            this.skylightSubtracted = skylight;
         }
 
     }
 
-    public void setAllowedSpawnTypes(boolean var1, boolean var2) {
-        this.spawnHostileMobs = var1;
-        this.spawnPeacefulMobs = var2;
+    public void setAllowedSpawnTypes(boolean spawnHostileMobs, boolean spawnPeacefulMobs) {
+        this.spawnHostileMobs = spawnHostileMobs;
+        this.spawnPeacefulMobs = spawnPeacefulMobs;
     }
 
+    final ExecutorService executorService = Executors.newFixedThreadPool(4);
     public void tick() {
-        this.updateWeather();
-        if (this.isAllPlayersFullyAsleep()) {
-            boolean var1 = false;
-            if (this.spawnHostileMobs && this.difficultySetting >= 1) {
-                var1 = SpawnerAnimals.performSleepSpawning(this, this.playerEntities);
+        CountDownLatch latch = new CountDownLatch(4);
+
+        executorService.submit(() -> {
+            this.updateWeather();
+
+            if (this.isAllPlayersFullyAsleep()) {
+                boolean spawned = false;
+                if (this.spawnHostileMobs && this.difficultySetting >= 1) {
+                    spawned = SpawnerAnimals.performSleepSpawning(this, this.playerEntities);
+                }
+
+                if (!spawned) {
+                    long newTime = this.worldInfo.getWorldTime() + 24000L;
+                    this.worldInfo.setWorldTime(newTime - newTime % 24000L);
+                    this.wakeUpAllPlayers();
+                }
             }
 
-            if (!var1) {
-                long var2 = this.worldInfo.getWorldTime() + 24000L;
-                this.worldInfo.setWorldTime(var2 - var2 % 24000L);
-                this.wakeUpAllPlayers();
+            latch.countDown();
+        });
+
+        executorService.submit(() -> {
+            SpawnerAnimals.performSpawning(this, this.spawnHostileMobs, this.spawnPeacefulMobs);
+            this.chunkProvider.func_361_a();
+            latch.countDown();
+        });
+
+        executorService.submit(() -> {
+            int light = this.calculateSkylightSubtracted(1.0F);
+            if (light != this.skylightSubtracted) {
+                this.skylightSubtracted = light;
+
+                for (int i = 0; i < this.worldAccesses.size(); ++i) {
+                    this.worldAccesses.get(i).updateAllRenderers();
+                }
             }
-        }
+            latch.countDown();
+        });
 
-        SpawnerAnimals.performSpawning(this, this.spawnHostileMobs, this.spawnPeacefulMobs);
-        this.chunkProvider.func_361_a();
-        int var4 = this.calculateSkylightSubtracted(1.0F);
-        if (var4 != this.skylightSubtracted) {
-            this.skylightSubtracted = var4;
-
-            for (int i = 0; i < this.worldAccesses.size(); ++i) {
-                this.worldAccesses.get(i).updateAllRenderers();
+        executorService.submit(() -> {
+            long newTime = this.worldInfo.getWorldTime() + 1L;
+            if (newTime % (long) this.autosavePeriod == 0L) {
+                this.saveWorld(false, null);
             }
-        }
 
-        long var6 = this.worldInfo.getWorldTime() + 1L;
-        if (var6 % (long) this.autosavePeriod == 0L) {
-            this.saveWorld(false, null);
-        }
+            this.worldInfo.setWorldTime(newTime);
+            latch.countDown();
+        });
 
-        this.worldInfo.setWorldTime(var6);
         this.TickUpdates(false);
         this.doRandomUpdateTicks();
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void func_27070_x() {

@@ -49,8 +49,8 @@ public class ConsoleCommandHandler {
             } else if (cmd.startsWith("save-off")) {
                 this.sendNoticeToOps(username, "Disabling level saving..");
 
-                for (int var17 = 0; var17 < this.minecraftServer.worldServers.length; ++var17) {
-                    WorldServer var30 = this.minecraftServer.worldServers[var17];
+                for (int i = 0; i < this.minecraftServer.worldServers.length; ++i) {
+                    WorldServer var30 = this.minecraftServer.worldServers[i];
                     var30.levelSaving = true;
                 }
             } else if (cmd.startsWith("save-on")) {
