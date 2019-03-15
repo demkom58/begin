@@ -44,12 +44,12 @@ public class NetworkListenThread {
         this.playerList.add(var1);
     }
 
-    private void addPendingConnection(NetLoginHandler var1) {
-        if (var1 == null) {
-            throw new IllegalArgumentException("Got null pendingconnection!");
+    private void addPendingConnection(NetLoginHandler loginHandler) {
+        if (loginHandler == null) {
+            throw new IllegalArgumentException("Got null pending connection!");
         }
 
-        this.pendingConnections.add(var1);
+        this.pendingConnections.add(loginHandler);
     }
 
     public void handleNetworkListenThread() {

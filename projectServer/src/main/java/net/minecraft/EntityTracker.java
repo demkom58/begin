@@ -74,7 +74,7 @@ public class EntityTracker {
             EntityTrackerEntry var5 = new EntityTrackerEntry(var1, var2, var3, var4);
             this.trackedEntitySet.add(var5);
             this.trackedEntityHashTable.addKey(var1.entityId, var5);
-            var5.updatePlayerEntities(this.mcServer.getWorldManager(this.field_28113_e).playerEntities);
+            var5.updatePlayerEntities(this.mcServer.getWorldServer(this.field_28113_e).playerEntities);
         }
     }
 
@@ -99,7 +99,7 @@ public class EntityTracker {
         ArrayList<Entity> var1 = new ArrayList<>();
 
         for (EntityTrackerEntry var3 : this.trackedEntitySet) {
-            var3.updatePlayerList(this.mcServer.getWorldManager(this.field_28113_e).playerEntities);
+            var3.updatePlayerList(this.mcServer.getWorldServer(this.field_28113_e).playerEntities);
             if (var3.playerEntitiesUpdated && var3.trackedEntity instanceof EntityPlayerMP) {
                 var1.add(var3.trackedEntity);
             }
