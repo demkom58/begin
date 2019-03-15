@@ -164,58 +164,59 @@ public class ServerConfigurationManager {
         return var4;
     }
 
-    public void sendPlayerToOtherDimension(EntityPlayerMP var1) {
-        WorldServer var2 = this.mcServer.getWorldServer(var1.dimension);
-        byte var3 = 0;
-        if (var1.dimension == -1) {
-            var3 = 0;
+    public void sendPlayerToOtherDimension(EntityPlayerMP player) {
+        WorldServer server = this.mcServer.getWorldServer(player.dimension);
+
+        final byte newDimension;
+        if (player.dimension == -1) {
+            newDimension = 0;
         } else {
-            var3 = -1;
+            newDimension = -1;
         }
 
-        var1.dimension = var3;
-        WorldServer var4 = this.mcServer.getWorldServer(var1.dimension);
-        var1.playerNetServerHandler.sendPacket(new Packet9Respawn((byte) var1.dimension));
-        var2.removePlayer(var1);
-        var1.isDead = false;
-        double var5 = var1.posX;
-        double var7 = var1.posZ;
+        player.dimension = newDimension;
+        WorldServer worldServer = this.mcServer.getWorldServer(player.dimension);
+        player.playerNetServerHandler.sendPacket(new Packet9Respawn((byte) player.dimension));
+        server.removePlayer(player);
+        player.isDead = false;
+        double x = player.posX;
+        double z = player.posZ;
         double var9 = 8.0D;
-        if (var1.dimension == -1) {
-            var5 = var5 / var9;
-            var7 = var7 / var9;
-            var1.setLocationAndAngles(var5, var1.posY, var7, var1.rotationYaw, var1.rotationPitch);
-            if (var1.isEntityAlive()) {
-                var2.updateEntityWithOptionalForce(var1, false);
+        if (player.dimension == -1) {
+            x = x / var9;
+            z = z / var9;
+            player.setLocationAndAngles(x, player.posY, z, player.rotationYaw, player.rotationPitch);
+            if (player.isEntityAlive()) {
+                server.updateEntityWithOptionalForce(player, false);
             }
         } else {
-            var5 = var5 * var9;
-            var7 = var7 * var9;
-            var1.setLocationAndAngles(var5, var1.posY, var7, var1.rotationYaw, var1.rotationPitch);
-            if (var1.isEntityAlive()) {
-                var2.updateEntityWithOptionalForce(var1, false);
+            x = x * var9;
+            z = z * var9;
+            player.setLocationAndAngles(x, player.posY, z, player.rotationYaw, player.rotationPitch);
+            if (player.isEntityAlive()) {
+                server.updateEntityWithOptionalForce(player, false);
             }
         }
 
-        if (var1.isEntityAlive()) {
-            var4.entityJoinedWorld(var1);
-            var1.setLocationAndAngles(var5, var1.posY, var7, var1.rotationYaw, var1.rotationPitch);
-            var4.updateEntityWithOptionalForce(var1, false);
-            var4.chunkProviderServer.chunkLoadOverride = true;
-            (new Teleporter()).setExitLocation(var4, var1);
-            var4.chunkProviderServer.chunkLoadOverride = false;
+        if (player.isEntityAlive()) {
+            worldServer.entityJoinedWorld(player);
+            player.setLocationAndAngles(x, player.posY, z, player.rotationYaw, player.rotationPitch);
+            worldServer.updateEntityWithOptionalForce(player, false);
+            worldServer.chunkProviderServer.chunkLoadOverride = true;
+            new Teleporter().setExitLocation(worldServer, player);
+            worldServer.chunkProviderServer.chunkLoadOverride = false;
         }
 
-        this.func_28172_a(var1);
-        var1.playerNetServerHandler.teleportTo(var1.posX, var1.posY, var1.posZ, var1.rotationYaw, var1.rotationPitch);
-        var1.setWorldHandler(var4);
-        this.func_28170_a(var1, var4);
-        this.func_30008_g(var1);
+        this.func_28172_a(player);
+        player.playerNetServerHandler.teleportTo(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
+        player.setWorldHandler(worldServer);
+        this.func_28170_a(player, worldServer);
+        this.func_30008_g(player);
     }
 
     public void onTick() {
-        for (int var1 = 0; var1 < this.playerManagerObj.length; ++var1) {
-            this.playerManagerObj[var1].updatePlayerInstances();
+        for (int i = 0; i < this.playerManagerObj.length; ++i) {
+            this.playerManagerObj[i].updatePlayerInstances();
         }
 
     }
@@ -224,36 +225,36 @@ public class ServerConfigurationManager {
         this.getPlayerManager(var4).markBlockNeedsUpdate(var1, var2, var3);
     }
 
-    public void sendPacketToAllPlayers(Packet var1) {
-        for (int var2 = 0; var2 < this.playerEntities.size(); ++var2) {
-            EntityPlayerMP var3 = this.playerEntities.get(var2);
-            var3.playerNetServerHandler.sendPacket(var1);
+    public void sendPacketToAllPlayers(Packet packet) {
+        for (int i = 0; i < this.playerEntities.size(); ++i) {
+            EntityPlayerMP player = this.playerEntities.get(i);
+            player.playerNetServerHandler.sendPacket(packet);
         }
 
     }
 
-    public void sendPacketToAllPlayersInDimension(Packet var1, int var2) {
-        for (int var3 = 0; var3 < this.playerEntities.size(); ++var3) {
-            EntityPlayerMP var4 = this.playerEntities.get(var3);
-            if (var4.dimension == var2) {
-                var4.playerNetServerHandler.sendPacket(var1);
+    public void sendPacketToAllPlayersInDimension(Packet packet, int dimensionId) {
+        for (int i = 0; i < this.playerEntities.size(); ++i) {
+            EntityPlayerMP player = this.playerEntities.get(i);
+            if (player.dimension == dimensionId) {
+                player.playerNetServerHandler.sendPacket(packet);
             }
         }
 
     }
 
     public String getPlayerList() {
-        String var1 = "";
+        StringBuilder builder = new StringBuilder();
 
         for (int var2 = 0; var2 < this.playerEntities.size(); ++var2) {
             if (var2 > 0) {
-                var1 = var1 + ", ";
+                builder.append(", ");
             }
 
-            var1 = var1 + this.playerEntities.get(var2).username;
+            builder.append(this.playerEntities.get(var2).username);
         }
 
-        return var1;
+        return builder.toString();
     }
 
     public void banPlayer(String var1) {

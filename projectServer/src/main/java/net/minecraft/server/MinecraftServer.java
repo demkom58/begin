@@ -128,7 +128,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         this.configManager = new ServerConfigurationManager(this);
         this.entityTracker[0] = new EntityTracker(this, 0);
         this.entityTracker[1] = new EntityTracker(this, -1);
-        final long serverLoadStartStamp = System.nanoTime();
+        final long serverLoadStartStamp = System.currentTimeMillis();
 
         String levelName = this.propertyManagerObj.getStringProperty("level-name", "world");
         String levelSeed = this.propertyManagerObj.getStringProperty("level-seed", "");
@@ -144,7 +144,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
         LOGGER.info("Preparing level \"" + levelName + "\"");
         this.initWorld(new SaveConverterMcRegion(new File(".")), levelName, seed);
-        LOGGER.info("Done (" + (System.nanoTime() - serverLoadStartStamp) + "ns)! For help, type \"help\" or \"?\"");
+        LOGGER.info("Done (" + (System.currentTimeMillis() - serverLoadStartStamp) + "ms)! For help, type \"help\" or \"?\"");
         return true;
     }
 
@@ -337,8 +337,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
                 }
 
                 worldServer.tick();
-                while (worldServer.updatingLighting()) {
-                }
+                while (worldServer.updatingLighting()) { }
                 worldServer.updateEntities();
             }
         }
