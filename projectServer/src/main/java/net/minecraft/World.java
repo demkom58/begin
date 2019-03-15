@@ -9,6 +9,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class World implements IBlockAccess {
+    private final ExecutorService tickService = Executors.newFixedThreadPool(4);
+
     static int lightingUpdatesScheduled = 0;
     public final WorldProvider worldProvider;
     protected final int DIST_HASH_MAGIC = 1013904223;
@@ -23,7 +25,7 @@ public class World implements IBlockAccess {
     public boolean editingBlocks = false;
     public int difficultySetting;
     public Random rand = new Random();
-    public boolean isNewWorld = false;
+    public boolean isNewWorld;
     public boolean findingSpawnPoint;
     public MapStorage mapStorage;
     public boolean singleplayerWorld;
@@ -42,8 +44,6 @@ public class World implements IBlockAccess {
     private TreeSet<NextTickListEntry> scheduledTickTreeSet = new TreeSet<>();
     private Set<NextTickListEntry> scheduledTickSet = new HashSet<>();
     private List<TileEntity> field_20912_E = new ArrayList<>();
-    private long field_6159_E = 16777215L;
-    private long lockTimestamp = System.currentTimeMillis();
     private boolean allPlayersSleeping;
     private ArrayList<AxisAlignedBB> collidingBoundingBoxes = new ArrayList<>();
     private boolean field_31048_L;
@@ -1494,11 +1494,10 @@ public class World implements IBlockAccess {
         this.spawnPeacefulMobs = spawnPeacefulMobs;
     }
 
-    final ExecutorService executorService = Executors.newFixedThreadPool(4);
     public void tick() {
         CountDownLatch latch = new CountDownLatch(4);
 
-        executorService.execute(() -> {
+        tickService.execute(() -> {
             this.updateWeather();
 
             if (this.isAllPlayersFullyAsleep()) {
@@ -1517,13 +1516,13 @@ public class World implements IBlockAccess {
             latch.countDown();
         });
 
-        executorService.execute(() -> {
+        tickService.execute(() -> {
             SpawnerAnimals.performSpawning(this, this.spawnHostileMobs, this.spawnPeacefulMobs);
             this.chunkProvider.func_361_a();
             latch.countDown();
         });
 
-        executorService.execute(() -> {
+        tickService.execute(() -> {
             int light = this.calculateSkylightSubtracted(1.0F);
             if (light != this.skylightSubtracted) {
                 this.skylightSubtracted = light;
@@ -1535,7 +1534,7 @@ public class World implements IBlockAccess {
             latch.countDown();
         });
 
-        executorService.execute(() -> {
+        tickService.execute(() -> {
             long newTime = this.worldInfo.getWorldTime() + 1L;
             if (newTime % (long) this.autosavePeriod == 0L) {
                 this.saveWorld(false, null);
