@@ -1498,7 +1498,7 @@ public class World implements IBlockAccess {
     public void tick() {
         CountDownLatch latch = new CountDownLatch(4);
 
-        executorService.submit(() -> {
+        executorService.execute(() -> {
             this.updateWeather();
 
             if (this.isAllPlayersFullyAsleep()) {
@@ -1517,13 +1517,13 @@ public class World implements IBlockAccess {
             latch.countDown();
         });
 
-        executorService.submit(() -> {
+        executorService.execute(() -> {
             SpawnerAnimals.performSpawning(this, this.spawnHostileMobs, this.spawnPeacefulMobs);
             this.chunkProvider.func_361_a();
             latch.countDown();
         });
 
-        executorService.submit(() -> {
+        executorService.execute(() -> {
             int light = this.calculateSkylightSubtracted(1.0F);
             if (light != this.skylightSubtracted) {
                 this.skylightSubtracted = light;
@@ -1535,7 +1535,7 @@ public class World implements IBlockAccess {
             latch.countDown();
         });
 
-        executorService.submit(() -> {
+        executorService.execute(() -> {
             long newTime = this.worldInfo.getWorldTime() + 1L;
             if (newTime % (long) this.autosavePeriod == 0L) {
                 this.saveWorld(false, null);
