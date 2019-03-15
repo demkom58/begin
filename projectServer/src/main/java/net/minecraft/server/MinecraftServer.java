@@ -20,8 +20,6 @@ public class MinecraftServer implements Runnable, ICommandListener {
     public int port;
     public InetAddress inetAddress;
     public NetworkListenThread networkServer;
-
-    public static Map<String, Integer> toProcess = new HashMap<>();
     public PropertyManager propertyManagerObj;
     public WorldServer[] worldServers;
     public ServerConfigurationManager configManager;
@@ -298,36 +296,20 @@ public class MinecraftServer implements Runnable, ICommandListener {
     }
 
     private void doTick() {
-        List<String> shouldRemoved = new ArrayList<>();
-
-        for (String key : toProcess.keySet()) {
-            int left = toProcess.get(key);
-            if (left > 0) {
-                toProcess.put(key, left - 1);
-            } else {
-                shouldRemoved.add(key);
-            }
-        }
-
-        for (int i = 0; i < shouldRemoved.size(); ++i) {
-            toProcess.remove(shouldRemoved.get(i));
-        }
-
         AxisAlignedBB.clearBoundingBoxPool();
         Vec3D.initialize();
         ++this.deathTime;
 
         for (int i = 0; i < this.worldServers.length; ++i) {
             if (i == 0 || allowNether) {
-                WorldServer worldServer = this.worldServers[i];
+                final WorldServer worldServer = this.worldServers[i];
+
                 if (this.deathTime % 20 == 0) {
                     this.configManager.sendPacketToAllPlayersInDimension(new Packet4UpdateTime(worldServer.getWorldTime()), worldServer.worldProvider.worldType);
                 }
 
                 worldServer.tick();
-                while (worldServer.updatingLighting()) {
-                }
-
+                while (worldServer.updatingLighting()) { }
                 worldServer.updateEntities();
             }
         }
