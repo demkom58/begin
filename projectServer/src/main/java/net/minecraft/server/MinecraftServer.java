@@ -1,5 +1,6 @@
 package net.minecraft.server;
 
+import com.demkom58.util.RollingAverage;
 import net.minecraft.*;
 import util.Vec3D;
 
@@ -8,13 +9,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.*;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MinecraftServer implements Runnable, ICommandListener {
     public static final Logger LOGGER = Logger.getLogger("Minecraft");
+    public static MinecraftServer SERVER;
 
     public String serverIp;
     public int port;
@@ -38,7 +42,21 @@ public class MinecraftServer implements Runnable, ICommandListener {
     private List<IUpdatePlayerListBox> updatePlayerListBoxes = new ArrayList<>();
     private List<ServerCommand> commands = Collections.synchronizedList(new ArrayList<>());
 
+    /**
+     * Tick variables and constants.
+     */
+    public static final int TPS = 20;
+    public static final long SEC_IN_NANO = 1000000000;
+    public static final long TICK_TIME = SEC_IN_NANO / TPS;
+    public static final long MAX_CATCHUP_BUFFER = TICK_TIME * TPS * 60L;
+    public static final int SAMPLE_INTERVAL = 20;
+    public static int currentTick = 0;
+    public final RollingAverage tps1 = new RollingAverage(60);
+    public final RollingAverage tps5 = new RollingAverage(60 * 5);
+    public final RollingAverage tps15 = new RollingAverage(60 * 15);
+
     public MinecraftServer() {
+        SERVER = this;
         new ThreadSleepForever(this);
     }
 
@@ -62,7 +80,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         return mcServer.serverRunning;
     }
 
-    private boolean startServer() throws UnknownHostException {
+    private boolean init() throws UnknownHostException {
         this.commandHandler = new ConsoleCommandHandler(this);
         ThreadCommandReader threadCommandReader = new ThreadCommandReader(this);
         threadCommandReader.setDaemon(true);
@@ -152,7 +170,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
             this.configManager.setPlayerManager(this.worldServers);
         }
 
-        short var18 = 196;
+        short loadRange = 196;
         long preparingStart = System.currentTimeMillis();
         for (int i = 0; i < this.worldServers.length; ++i) {
             LOGGER.info("Preparing start region for level " + i);
@@ -160,16 +178,16 @@ public class MinecraftServer implements Runnable, ICommandListener {
                 WorldServer worldServer = this.worldServers[i];
                 ChunkCoordinates chunkCoordinates = worldServer.getSpawnPoint();
 
-                for (int j = -var18; j <= var18 && this.serverRunning; j += 16) {
-                    for (int k = -var18; k <= var18 && this.serverRunning; k += 16) {
+                for (int j = -loadRange; j <= loadRange && this.serverRunning; j += 16) {
+                    for (int k = -loadRange; k <= loadRange && this.serverRunning; k += 16) {
                         long var14 = System.currentTimeMillis();
                         if (var14 < preparingStart) {
                             preparingStart = var14;
                         }
 
                         if (var14 > preparingStart + 1000L) {
-                            int var16 = (var18 * 2 + 1) * (var18 * 2 + 1);
-                            int var17 = (j + var18) * (var18 * 2 + 1) + k + 1;
+                            int var16 = (loadRange * 2 + 1) * (loadRange * 2 + 1);
+                            int var17 = (j + loadRange) * (loadRange * 2 + 1) + k + 1;
                             this.outputPercentRemaining("Preparing spawn area", var17 * 100 / var16);
                             preparingStart = var14;
                         }
@@ -229,33 +247,43 @@ public class MinecraftServer implements Runnable, ICommandListener {
 
     public void run() {
         try {
-            if (this.startServer()) {
-                long lastTickStartMillis = System.currentTimeMillis();
+            if (this.init()) {
+                long start = System.nanoTime(), lastTick = start - TICK_TIME, catchupTime =0, curTime, wait, tickSection = start;
 
-                for (long left = 0L; this.serverRunning; Thread.sleep(1L)) {
-                    long tickStartMillis = System.currentTimeMillis();
-                    long lastTickTime = tickStartMillis - lastTickStartMillis;
-                    if (lastTickTime > 2000L) {
-                        LOGGER.warning("Can't keep up! Did the system time change, or is the server overloaded?");
-                        lastTickTime = 2000L;
-                    }
+                while (this.serverRunning) {
+                    curTime = System.nanoTime();
+                    wait = TICK_TIME - (curTime - lastTick);
 
-                    if (lastTickTime < 0L) {
-                        LOGGER.warning("Time ran backwards! Did the system time change?");
-                        lastTickTime = 0L;
-                    }
-
-                    left += lastTickTime;
-                    lastTickStartMillis = tickStartMillis;
-                    if (this.worldServers[0].isAllPlayersFullyAsleep()) {
-                        this.doTick();
-                        left = 0L;
-                    } else {
-                        while (left > 50L) {
-                            left -= 50L;
-                            this.doTick();
+                    if (wait > 0) {
+                        if (catchupTime < 2E6) {
+                            wait += Math.abs(catchupTime);
+                        } else if (wait < catchupTime) {
+                            catchupTime -= wait;
+                            wait = 0;
+                        } else {
+                            wait -= catchupTime;
+                            catchupTime = 0;
                         }
                     }
+
+                    if (wait > 0) {
+                        Thread.sleep(wait / 1_000_000);
+                        curTime = System.nanoTime();
+                        wait = TICK_TIME - (curTime - lastTick);
+                    }
+
+                    catchupTime = Math.min(MAX_CATCHUP_BUFFER, catchupTime - wait);
+                    if (++MinecraftServer.currentTick % SAMPLE_INTERVAL == 0) {
+                        final long diff = curTime - tickSection;
+                        double currentTps = 1E9 / diff * SAMPLE_INTERVAL;
+                        tps1.add(currentTps, diff);
+                        tps5.add(currentTps, diff);
+                        tps15.add(currentTps, diff);
+
+                        tickSection = curTime;
+                    }
+                    lastTick = curTime;
+                    doTick();
                 }
             } else {
                 while (this.serverRunning) {
@@ -303,13 +331,14 @@ public class MinecraftServer implements Runnable, ICommandListener {
         for (int i = 0; i < this.worldServers.length; ++i) {
             if (i == 0 || allowNether) {
                 final WorldServer worldServer = this.worldServers[i];
-
                 if (this.deathTime % 20 == 0) {
-                    this.configManager.sendPacketToAllPlayersInDimension(new Packet4UpdateTime(worldServer.getWorldTime()), worldServer.worldProvider.worldType);
+                    Packet4UpdateTime packet = new Packet4UpdateTime(worldServer.getWorldTime());
+                    this.configManager.sendPacketToAllPlayersInDimension(packet, worldServer.worldProvider.worldType);
                 }
 
                 worldServer.tick();
-                while (worldServer.updatingLighting()) { }
+                while (worldServer.updatingLighting()) {
+                }
                 worldServer.updateEntities();
             }
         }
