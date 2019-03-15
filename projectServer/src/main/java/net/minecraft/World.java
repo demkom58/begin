@@ -4,13 +4,8 @@ import util.MathHelper;
 import util.Vec3D;
 
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class World implements IBlockAccess {
-    private final ExecutorService tickService = Executors.newFixedThreadPool(4);
-
     static int lightingUpdatesScheduled = 0;
     public final WorldProvider worldProvider;
     protected final int DIST_HASH_MAGIC = 1013904223;
@@ -1495,63 +1490,43 @@ public class World implements IBlockAccess {
     }
 
     public void tick() {
-        CountDownLatch latch = new CountDownLatch(4);
+        this.doRandomUpdateTicks();
+        this.updateWeather();
 
-        tickService.execute(() -> {
-            this.updateWeather();
-
-            if (this.isAllPlayersFullyAsleep()) {
-                boolean spawned = false;
-                if (this.spawnHostileMobs && this.difficultySetting >= 1) {
-                    spawned = SpawnerAnimals.performSleepSpawning(this, this.playerEntities);
-                }
-
-                if (!spawned) {
-                    long newTime = this.worldInfo.getWorldTime() + 24000L;
-                    this.worldInfo.setWorldTime(newTime - newTime % 24000L);
-                    this.wakeUpAllPlayers();
-                }
+        if (this.isAllPlayersFullyAsleep()) {
+            boolean spawned = false;
+            if (this.spawnHostileMobs && this.difficultySetting >= 1) {
+                spawned = SpawnerAnimals.performSleepSpawning(this, this.playerEntities);
             }
 
-            latch.countDown();
-        });
-
-        tickService.execute(() -> {
-            SpawnerAnimals.performSpawning(this, this.spawnHostileMobs, this.spawnPeacefulMobs);
-            this.chunkProvider.func_361_a();
-            latch.countDown();
-        });
-
-        tickService.execute(() -> {
-            int light = this.calculateSkylightSubtracted(1.0F);
-            if (light != this.skylightSubtracted) {
-                this.skylightSubtracted = light;
-
-                for (int i = 0; i < this.worldAccesses.size(); ++i) {
-                    this.worldAccesses.get(i).updateAllRenderers();
-                }
+            if (!spawned) {
+                long newTime = this.worldInfo.getWorldTime() + 24000L;
+                this.worldInfo.setWorldTime(newTime - newTime % 24000L);
+                this.wakeUpAllPlayers();
             }
-            latch.countDown();
-        });
+        }
 
-        tickService.execute(() -> {
-            long newTime = this.worldInfo.getWorldTime() + 1L;
-            if (newTime % (long) this.autosavePeriod == 0L) {
-                this.saveWorld(false, null);
+
+        this.chunkProvider.func_361_a();
+        int light = this.calculateSkylightSubtracted(1.0F);
+        if (light != this.skylightSubtracted) {
+            this.skylightSubtracted = light;
+
+            for (int i = 0; i < this.worldAccesses.size(); ++i) {
+                this.worldAccesses.get(i).updateAllRenderers();
             }
+        }
+        SpawnerAnimals.performSpawning(this, this.spawnHostileMobs, this.spawnPeacefulMobs);
+        long start = System.nanoTime();
 
-            this.worldInfo.setWorldTime(newTime);
-            latch.countDown();
-        });
+        long newTime = this.worldInfo.getWorldTime() + 1L;
+        if (newTime % (long) this.autosavePeriod == 0L) {
+            this.saveWorld(false, null);
+        }
+
+        this.worldInfo.setWorldTime(newTime);
 
         this.TickUpdates(false);
-        this.doRandomUpdateTicks();
-
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     private void func_27070_x() {
@@ -1725,11 +1700,12 @@ public class World implements IBlockAccess {
                 }
             }
         }
-
     }
 
     public boolean TickUpdates(boolean var1) {
-        int var2 = this.scheduledTickTreeSet.size();
+        int var2;
+
+        var2 = this.scheduledTickTreeSet.size();
         if (var2 != this.scheduledTickSet.size()) {
             throw new IllegalStateException("TickNextTick list out of synch");
         }

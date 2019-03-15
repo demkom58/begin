@@ -3,12 +3,23 @@ apply plugin: "application"
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
-mainClassName = "net.minecraft.server.MinecraftServer"
+String quasarVersion = '0.8.0'
 
-repositories {
-    mavenCentral()
+configurations {
+    quasar
+}
+
+application {
+    mainClassName = "net.minecraft.server.MinecraftServer"
 }
 
 dependencies {
     implementation project(":projectCommon")
+    compile group: 'co.paralleluniverse', name: 'quasar-core', version: quasarVersion
+    quasar group: 'co.paralleluniverse', name: 'quasar-core', version: quasarVersion
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs "-javaagent:${configurations.quasar.iterator().next()}"
+    setWorkingDir(new File(workingDir.getParentFile(), "jars"))
 }
