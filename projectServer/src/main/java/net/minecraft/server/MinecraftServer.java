@@ -48,7 +48,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
     /**
      * Tick variables and constants.
      */
-    public static final int TPS = 30;
+    public static final int TPS = 20;
     public static final long SEC_IN_NANO = 1000000000;
     public static final long TICK_TIME = SEC_IN_NANO / TPS;
     public static final long MAX_CATCHUP_BUFFER = TICK_TIME * TPS * 60L;
