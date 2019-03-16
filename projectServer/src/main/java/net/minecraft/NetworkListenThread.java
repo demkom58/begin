@@ -54,37 +54,37 @@ public class NetworkListenThread {
 
     public void handleNetworkListenThread() {
         for (int i = 0; i < this.pendingConnections.size(); ++i) {
-            NetLoginHandler var2 = this.pendingConnections.get(i);
+            NetLoginHandler loginHandler = this.pendingConnections.get(i);
 
             try {
-                var2.tryLogin();
+                loginHandler.tryLogin();
             } catch (Exception e) {
-                var2.kickUser("Internal server error");
+                loginHandler.kickUser("Internal server error");
                 logger.log(Level.WARNING, "Failed to handle packet: " + e, e);
             }
 
-            if (var2.finishedProcessing) {
+            if (loginHandler.finishedProcessing) {
                 this.pendingConnections.remove(i--);
             }
 
-            var2.netManager.func_28138_a();
+            loginHandler.netManager.func_28138_a();
         }
 
         for (int i = 0; i < this.playerList.size(); ++i) {
-            NetServerHandler var7 = this.playerList.get(i);
+            NetServerHandler serverHandler = this.playerList.get(i);
 
             try {
-                var7.handlePackets();
+                serverHandler.handlePackets();
             } catch (Exception e) {
                 logger.log(Level.WARNING, "Failed to handle packet: " + e, e);
-                var7.kickPlayer("Internal server error");
+                serverHandler.kickPlayer("Internal server error");
             }
 
-            if (var7.connectionClosed) {
+            if (serverHandler.connectionClosed) {
                 this.playerList.remove(i--);
             }
 
-            var7.netManager.func_28138_a();
+            serverHandler.netManager.func_28138_a();
         }
 
     }

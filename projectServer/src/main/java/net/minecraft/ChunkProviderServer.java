@@ -199,4 +199,33 @@ public class ChunkProviderServer implements IChunkProvider {
     public boolean canSave() {
         return !this.world.levelSaving;
     }
+
+    public Chunk getDummyChunk() {
+        return dummyChunk;
+    }
+
+    public IChunkLoader getChunkLoader() {
+        return chunkLoader;
+    }
+
+    public IChunkProvider getServerChunkGenerator() {
+        return serverChunkGenerator;
+    }
+
+    public Int2ObjectMap<Chunk> getId2ChunkMap() {
+        return id2ChunkMap;
+    }
+
+    public IntSet getChunkCoords() {
+        return chunkCoords;
+    }
+
+    public List<Chunk> getChunks() {
+        return chunks;
+    }
+
+    public WorldServer getWorld() {
+        return world;
+    }
+
 }

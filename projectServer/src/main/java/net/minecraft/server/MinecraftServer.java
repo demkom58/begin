@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import co.aikar.timings.MinecraftTimings;
+import co.aikar.timings.TimingsManager;
 import com.demkom58.util.RollingAverage;
 import net.minecraft.*;
 import util.Vec3D;
@@ -20,6 +22,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
     public static final Logger LOGGER = Logger.getLogger("Minecraft");
     public static MinecraftServer SERVER;
 
+    private Thread primaryThread;
     public String serverIp;
     public int port;
     public InetAddress inetAddress;
@@ -45,7 +48,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
     /**
      * Tick variables and constants.
      */
-    public static final int TPS = 20;
+    public static final int TPS = 30;
     public static final long SEC_IN_NANO = 1000000000;
     public static final long TICK_TIME = SEC_IN_NANO / TPS;
     public static final long MAX_CATCHUP_BUFFER = TICK_TIME * TPS * 60L;
@@ -56,7 +59,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
     public final RollingAverage tps15 = new RollingAverage(60 * 15);
 
     public MinecraftServer() {
-        SERVER = this;
+        MinecraftServer.SERVER = this;
         new ThreadSleepForever(this);
     }
 
@@ -81,6 +84,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
     }
 
     private boolean init() throws UnknownHostException {
+        this.primaryThread = Thread.currentThread();
         this.commandHandler = new ConsoleCommandHandler(this);
         ThreadCommandReader threadCommandReader = new ThreadCommandReader(this);
         threadCommandReader.setDaemon(true);
@@ -245,6 +249,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         this.serverRunning = false;
     }
 
+    @Override
     public void run() {
         try {
             if (this.init()) {
@@ -324,41 +329,63 @@ public class MinecraftServer implements Runnable, ICommandListener {
     }
 
     private void doTick() {
+        TimingsManager.FULL_SERVER_TICK.startTiming();
         AxisAlignedBB.clearBoundingBoxPool();
         Vec3D.initialize();
         ++this.deathTime;
 
+
         for (int i = 0; i < this.worldServers.length; ++i) {
             if (i == 0 || allowNether) {
                 final WorldServer worldServer = this.worldServers[i];
+
+                MinecraftTimings.timeUpdateTimer.startTiming();
                 if (this.deathTime % 20 == 0) {
                     Packet4UpdateTime packet = new Packet4UpdateTime(worldServer.getWorldTime());
                     this.configManager.sendPacketToAllPlayersInDimension(packet, worldServer.worldProvider.worldType);
                 }
+                MinecraftTimings.timeUpdateTimer.stopTiming();
 
-                worldServer.tick();
+                worldServer.timings.doTick.startTiming();
+                worldServer.doTick();
+                worldServer.timings.doTick.stopTiming();
+
+                worldServer.timings.lightingQueueTimer.startTiming();
                 while (worldServer.updatingLighting()) { }
-                worldServer.updateEntities();
+                worldServer.timings.lightingQueueTimer.stopTiming();
+
+                worldServer.timings.tickEntities.startTiming();
+                worldServer.tickEntities();
+                worldServer.timings.tickEntities.stopTiming();
             }
         }
 
+        MinecraftTimings.connectionTimer.startTiming();
         this.networkServer.handleNetworkListenThread();
+        MinecraftTimings.connectionTimer.stopTiming();
+
+        MinecraftTimings.configManagerTick.startTiming();
         this.configManager.onTick();
+        MinecraftTimings.configManagerTick.stopTiming();
 
-        for (int i = 0; i < this.entityTracker.length; ++i) {
+        MinecraftTimings.trackedEntitiesTick.startTiming();
+        for (int i = 0; i < this.entityTracker.length; ++i)
             this.entityTracker[i].updateTrackedEntities();
-        }
+        MinecraftTimings.trackedEntitiesTick.stopTiming();
 
-        for (int i = 0; i < this.updatePlayerListBoxes.size(); ++i) {
+        MinecraftTimings.playerListTimer.startTiming();
+        for (int i = 0; i < this.updatePlayerListBoxes.size(); ++i)
             this.updatePlayerListBoxes.get(i).update();
-        }
+        MinecraftTimings.playerListTimer.stopTiming();
 
         try {
+            MinecraftTimings.serverCommandTimer.startTiming();
             this.commandLineParser();
+            MinecraftTimings.serverCommandTimer.stopTiming();
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Unexpected exception while parsing console command", e);
         }
-
+        TimingsManager.FULL_SERVER_TICK.stopTiming();
     }
 
     public void addCommand(String name, ICommandListener listener) {
@@ -400,4 +427,9 @@ public class MinecraftServer implements Runnable, ICommandListener {
     public EntityTracker getEntityTracker(int var1) {
         return var1 == -1 ? this.entityTracker[1] : this.entityTracker[0];
     }
+
+    public boolean isPrimaryThread() {
+        return Thread.currentThread().equals(primaryThread);
+    }
+
 }

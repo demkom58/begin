@@ -1,17 +1,27 @@
 package net.minecraft;
 
+import co.aikar.timings.TimingsCommand;
 import net.minecraft.server.MinecraftServer;
 import util.MathHelper;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.Set;
 import java.util.logging.Logger;
 
 public class ConsoleCommandHandler {
     private static Logger minecraftLogger = Logger.getLogger("Minecraft");
-    private MinecraftServer minecraftServer;
+    private final TimingsCommand timingsCommand = new TimingsCommand();
+    private final DecimalFormat format;
+    private final MinecraftServer minecraftServer;
 
     public ConsoleCommandHandler(MinecraftServer var1) {
+        DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols(Locale.getDefault());
+        formatSymbols.setDecimalSeparator('.');
+        format = new DecimalFormat(".##", formatSymbols);
+
         this.minecraftServer = var1;
     }
 
@@ -23,12 +33,14 @@ public class ConsoleCommandHandler {
         final String cmd = commandName.toLowerCase();
 
         if (!cmd.startsWith("help") && !cmd.startsWith("?")) {
-            if (cmd.startsWith("tps")) {
-                final DecimalFormat format = new DecimalFormat(".##");
+            if (cmd.startsWith(timingsCommand.name)) {
+                final String[] s = commandName.split(" ");
+                timingsCommand.execute(Arrays.copyOfRange(s, 1, s.length));
+            } else if (cmd.startsWith("tps")) {
                 String tps1 = format.format(minecraftServer.tps1.getAverage());
                 String tps5 = format.format(minecraftServer.tps5.getAverage());
                 String tps15 = format.format(minecraftServer.tps15.getAverage());
-                listener.log("TPS from last 1m, 5m, 15m: " + tps15 + ", " + tps5 + ", " + tps1);
+                listener.log("TPS from last 15m, 5m, 1m: " + tps15 + ", " + tps5 + ", " + tps1);
             } else if (cmd.startsWith("list")) {
                 listener.log("Connected players: " + configManager.getPlayerList());
             } else if (cmd.startsWith("stop")) {
@@ -276,6 +288,7 @@ public class ConsoleCommandHandler {
         listener.log("   say <message>             broadcasts a message to all players");
         listener.log("   time <add|set> <amount>   adds to or sets the world time (0-24000)");
         listener.log("   tps                       shows near tps history");
+        listener.log("   timings                   shows multiple sub-commands that help to profile server.");
     }
 
     private void sendNoticeToOps(String var1, String var2) {

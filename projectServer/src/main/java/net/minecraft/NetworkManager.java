@@ -1,5 +1,8 @@
 package net.minecraft;
 
+import co.aikar.timings.MinecraftTimings;
+import co.aikar.timings.Timing;
+
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -244,8 +247,11 @@ public class NetworkManager {
         int var1 = 100;
 
         while (!this.readPackets.isEmpty() && var1-- >= 0) {
-            Packet var2 = this.readPackets.remove(0);
-            var2.processPacket(this.netHandler);
+            Packet packet = this.readPackets.remove(0);
+            try (Timing timing = MinecraftTimings.getPacketTiming(packet).startTiming()) {
+                packet.processPacket(this.netHandler);
+            }
+
         }
 
         this.func_28138_a();

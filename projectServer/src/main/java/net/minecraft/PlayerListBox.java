@@ -9,20 +9,20 @@ public class PlayerListBox extends JList implements IUpdatePlayerListBox {
     private MinecraftServer mcServer;
     private int updateCounter = 0;
 
-    public PlayerListBox(MinecraftServer var1) {
-        this.mcServer = var1;
-        var1.addPlayerListBox(this);
+    public PlayerListBox(MinecraftServer mcServer) {
+        this.mcServer = mcServer;
+        mcServer.addPlayerListBox(this);
     }
 
     public void update() {
         if (this.updateCounter++ % 20 == 0) {
-            Vector var1 = new Vector();
+            Vector<String> vec = new Vector<>();
 
-            for (int var2 = 0; var2 < this.mcServer.configManager.playerEntities.size(); ++var2) {
-                var1.add(this.mcServer.configManager.playerEntities.get(var2).username);
+            for (int i = 0; i < this.mcServer.configManager.playerEntities.size(); ++i) {
+                vec.add(this.mcServer.configManager.playerEntities.get(i).username);
             }
 
-            this.setListData(var1);
+            this.setListData(vec);
         }
 
     }

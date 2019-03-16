@@ -24,12 +24,12 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     private boolean hasMoved = true;
     private Int2ShortMap field_10_k = new Int2ShortRBTreeMap();
 
-    public NetServerHandler(MinecraftServer var1, NetworkManager var2, EntityPlayerMP var3) {
-        this.mcServer = var1;
-        this.netManager = var2;
-        var2.setNetHandler(this);
-        this.playerEntity = var3;
-        var3.playerNetServerHandler = this;
+    public NetServerHandler(MinecraftServer mcServer, NetworkManager netManager, EntityPlayerMP playerEntity) {
+        this.mcServer = mcServer;
+        this.netManager = netManager;
+        netManager.setNetHandler(this);
+        this.playerEntity = playerEntity;
+        playerEntity.playerNetServerHandler = this;
     }
 
     public void handlePackets() {
@@ -50,16 +50,16 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         this.connectionClosed = true;
     }
 
-    public void handleMovementTypePacket(Packet27Position var1) {
-        this.playerEntity.setMovementType(var1.func_22031_c(), var1.func_22028_e(), var1.func_22032_g(), var1.func_22030_h(), var1.func_22029_d(), var1.func_22033_f());
+    public void handleMovementTypePacket(Packet27Position packet) {
+        this.playerEntity.setMovementType(packet.func_22031_c(), packet.func_22028_e(), packet.func_22032_g(), packet.func_22030_h(), packet.func_22029_d(), packet.func_22033_f());
     }
 
-    public void handleFlying(Packet10Flying var1) {
-        WorldServer var2 = this.mcServer.getWorldServer(this.playerEntity.dimension);
+    public void handleFlying(Packet10Flying packet) {
+        WorldServer worldServer = this.mcServer.getWorldServer(this.playerEntity.dimension);
         this.field_22003_h = true;
         if (!this.hasMoved) {
-            double var3 = var1.yPosition - this.lastPosY;
-            if (var1.xPosition == this.lastPosX && var3 * var3 < 0.01D && var1.zPosition == this.lastPosZ) {
+            double var3 = packet.yPosition - this.lastPosY;
+            if (packet.xPosition == this.lastPosX && var3 * var3 < 0.01D && packet.zPosition == this.lastPosZ) {
                 this.hasMoved = true;
             }
         }
@@ -74,24 +74,24 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 double var30 = this.playerEntity.posZ;
                 double var31 = 0.0D;
                 double var34 = 0.0D;
-                if (var1.rotating) {
-                    var27 = var1.yaw;
-                    var4 = var1.pitch;
+                if (packet.rotating) {
+                    var27 = packet.yaw;
+                    var4 = packet.pitch;
                 }
 
-                if (var1.moving && var1.yPosition == -999.0D && var1.stance == -999.0D) {
-                    var31 = var1.xPosition;
-                    var34 = var1.zPosition;
+                if (packet.moving && packet.yPosition == -999.0D && packet.stance == -999.0D) {
+                    var31 = packet.xPosition;
+                    var34 = packet.zPosition;
                 }
 
-                this.playerEntity.onGround = var1.onGround;
+                this.playerEntity.onGround = packet.onGround;
                 this.playerEntity.onUpdateEntity(true);
                 this.playerEntity.moveEntity(var31, 0.0D, var34);
                 this.playerEntity.setPositionAndRotation(var28, var29, var30, var27, var4);
                 this.playerEntity.motionX = var31;
                 this.playerEntity.motionZ = var34;
                 if (this.playerEntity.ridingEntity != null) {
-                    var2.superUpdateEntityWithOptionalForce(this.playerEntity.ridingEntity, true);
+                    worldServer.superUpdateEntityWithOptionalForce(this.playerEntity.ridingEntity, true);
                 }
 
                 if (this.playerEntity.ridingEntity != null) {
@@ -102,14 +102,14 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.lastPosX = this.playerEntity.posX;
                 this.lastPosY = this.playerEntity.posY;
                 this.lastPosZ = this.playerEntity.posZ;
-                var2.updateEntity(this.playerEntity);
+                worldServer.updateEntity(this.playerEntity);
                 return;
             }
 
             if (this.playerEntity.func_22057_E()) {
                 this.playerEntity.onUpdateEntity(true);
                 this.playerEntity.setPositionAndRotation(this.lastPosX, this.lastPosY, this.lastPosZ, this.playerEntity.rotationYaw, this.playerEntity.rotationPitch);
-                var2.updateEntity(this.playerEntity);
+                worldServer.updateEntity(this.playerEntity);
                 return;
             }
 
@@ -122,30 +122,30 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             double var9 = this.playerEntity.posZ;
             float var11 = this.playerEntity.rotationYaw;
             float var12 = this.playerEntity.rotationPitch;
-            if (var1.moving && var1.yPosition == -999.0D && var1.stance == -999.0D) {
-                var1.moving = false;
+            if (packet.moving && packet.yPosition == -999.0D && packet.stance == -999.0D) {
+                packet.moving = false;
             }
 
-            if (var1.moving) {
-                var5 = var1.xPosition;
-                var7 = var1.yPosition;
-                var9 = var1.zPosition;
-                double var13 = var1.stance - var1.yPosition;
+            if (packet.moving) {
+                var5 = packet.xPosition;
+                var7 = packet.yPosition;
+                var9 = packet.zPosition;
+                double var13 = packet.stance - packet.yPosition;
                 if (!this.playerEntity.func_22057_E() && (var13 > 1.65D || var13 < 0.1D)) {
                     this.kickPlayer("Illegal stance");
                     logger.warning(this.playerEntity.username + " had an illegal stance: " + var13);
                     return;
                 }
 
-                if (Math.abs(var1.xPosition) > 3.2E7D || Math.abs(var1.zPosition) > 3.2E7D) {
+                if (Math.abs(packet.xPosition) > 3.2E7D || Math.abs(packet.zPosition) > 3.2E7D) {
                     this.kickPlayer("Illegal position");
                     return;
                 }
             }
 
-            if (var1.rotating) {
-                var11 = var1.yaw;
-                var12 = var1.pitch;
+            if (packet.rotating) {
+                var11 = packet.yaw;
+                var12 = packet.pitch;
             }
 
             this.playerEntity.onUpdateEntity(true);
@@ -166,7 +166,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             float var21 = 0.0625F;
-            boolean var22 = var2.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.boundingBox.copy().getInsetBoundingBox((double) var21, (double) var21, (double) var21)).size() == 0;
+            boolean var22 = worldServer.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.boundingBox.copy().getInsetBoundingBox((double) var21, (double) var21, (double) var21)).size() == 0;
             this.playerEntity.moveEntity(var32, var15, var17);
             var32 = var5 - this.playerEntity.posX;
             var15 = var7 - this.playerEntity.posY;
@@ -185,14 +185,14 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             this.playerEntity.setPositionAndRotation(var5, var7, var9, var11, var12);
-            boolean var24 = var2.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.boundingBox.copy().getInsetBoundingBox((double) var21, (double) var21, (double) var21)).size() == 0;
+            boolean var24 = worldServer.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.boundingBox.copy().getInsetBoundingBox((double) var21, (double) var21, (double) var21)).size() == 0;
             if (var22 && (var23 || !var24) && !this.playerEntity.func_22057_E()) {
                 this.teleportTo(this.lastPosX, this.lastPosY, this.lastPosZ, var11, var12);
                 return;
             }
 
             AxisAlignedBB var25 = this.playerEntity.boundingBox.copy().expand((double) var21, (double) var21, (double) var21).addCoord(0.0D, -0.55D, 0.0D);
-            if (!this.mcServer.allowFlight && !var2.func_27069_b(var25)) {
+            if (!this.mcServer.allowFlight && !worldServer.func_27069_b(var25)) {
                 if (var15 >= -0.03125D) {
                     ++this.playerInAirTime;
                     if (this.playerInAirTime > 80) {
@@ -205,9 +205,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.playerInAirTime = 0;
             }
 
-            this.playerEntity.onGround = var1.onGround;
+            this.playerEntity.onGround = packet.onGround;
             this.mcServer.configManager.func_613_b(this.playerEntity);
-            this.playerEntity.handleFalling(this.playerEntity.posY - var26, var1.onGround);
+            this.playerEntity.handleFalling(this.playerEntity.posY - var26, packet.onGround);
         }
 
     }

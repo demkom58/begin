@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import co.aikar.timings.MinecraftTimings;
+import co.aikar.timings.Timing;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.HashMap;
@@ -20,6 +22,7 @@ public class TileEntity {
         addMapping(TileEntityPiston.class, "Piston");
     }
 
+    public Timing tickTimer = MinecraftTimings.getTileEntityTimings(this);
     public World worldObj;
     public int xCoord;
     public int yCoord;
@@ -104,4 +107,5 @@ public class TileEntity {
     public void validate() {
         this.tileEntityInvalid = false;
     }
+
 }

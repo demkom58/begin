@@ -1,5 +1,7 @@
 package net.minecraft;
 
+import co.aikar.timings.MinecraftTimings;
+import co.aikar.timings.Timing;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagDouble;
 import net.minecraft.nbt.NBTTagFloat;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class Entity {
+    public Timing tickTimer = MinecraftTimings.getEntityTimings(this);
     private static int nextEntityID = 0;
     public final AxisAlignedBB boundingBox;
     public int entityId;

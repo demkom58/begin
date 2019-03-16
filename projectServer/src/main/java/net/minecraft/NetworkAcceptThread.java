@@ -7,6 +7,8 @@ import net.minecraft.server.MinecraftServer;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 class NetworkAcceptThread extends Thread {
     final MinecraftServer mcServer;
@@ -19,14 +21,14 @@ class NetworkAcceptThread extends Thread {
     }
 
     public void run() {
-        Object2LongMap<InetAddress> map = new Object2LongRBTreeMap<>();
+        Map<InetAddress, Long> map = new HashMap<>();
 
         while (this.listenThread.field_973_b) {
             try {
                 Socket socket = NetworkListenThread.func_713_a(this.listenThread).accept();
                 if (socket != null) {
                     InetAddress address = socket.getInetAddress();
-                    if (map.containsKey(address) && !"127.0.0.1".equals(address.getHostAddress()) && System.currentTimeMillis() - map.getLong(address) < 5000L) {
+                    if (map.containsKey(address) && !"127.0.0.1".equals(address.getHostAddress()) && System.currentTimeMillis() - map.get(address) < 5000L) {
                         map.put(address, System.currentTimeMillis());
                         socket.close();
                     } else {

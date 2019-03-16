@@ -1,11 +1,13 @@
 package net.minecraft;
 
+import co.aikar.timings.WorldTimingsHandler;
 import util.MathHelper;
 import util.Vec3D;
 
 import java.util.*;
 
 public class World implements IBlockAccess {
+    public final WorldTimingsHandler timings;
     static int lightingUpdatesScheduled = 0;
     public final WorldProvider worldProvider;
     protected final int DIST_HASH_MAGIC = 1013904223;
@@ -70,7 +72,7 @@ public class World implements IBlockAccess {
             this.worldInfo = new WorldInfo(randomSeed, levelName);
             isNew = true;
         } else {
-            this.worldInfo.setWorldName(levelName);
+            this.worldInfo.setLevelName(levelName);
         }
 
         this.worldProvider.registerWorld(this);
@@ -81,6 +83,7 @@ public class World implements IBlockAccess {
 
         this.calculateInitialSkylight();
         this.func_27070_x();
+        this.timings = new WorldTimingsHandler(this);
     }
 
     public WorldChunkManager getWorldChunkManager() {
@@ -715,28 +718,29 @@ public class World implements IBlockAccess {
         return true;
     }
 
-    public boolean entityJoinedWorld(Entity var1) {
-        int var2 = MathHelper.floor_double(var1.posX / 16.0D);
-        int var3 = MathHelper.floor_double(var1.posZ / 16.0D);
-        boolean var4 = false;
-        if (var1 instanceof EntityPlayer) {
-            var4 = true;
+    public boolean entityJoinedWorld(Entity entity) {
+        int x = MathHelper.floor_double(entity.posX / 16.0D);
+        int z = MathHelper.floor_double(entity.posZ / 16.0D);
+        boolean isPlayer = false;
+        if (entity instanceof EntityPlayer) {
+            isPlayer = true;
         }
 
-        if (!var4 && !this.chunkExists(var2, var3)) {
+        if (!isPlayer && !this.chunkExists(x, z)) {
             return false;
-        } else {
-            if (var1 instanceof EntityPlayer) {
-                EntityPlayer var5 = (EntityPlayer) var1;
-                this.playerEntities.add(var5);
-                this.updateAllPlayersSleepingFlag();
-            }
-
-            this.getChunkFromChunkCoords(var2, var3).addEntity(var1);
-            this.loadedEntityList.add(var1);
-            this.obtainEntitySkin(var1);
-            return true;
         }
+
+        if (entity instanceof EntityPlayer) {
+            EntityPlayer entityPlayer = (EntityPlayer) entity;
+            this.playerEntities.add(entityPlayer);
+            this.updateAllPlayersSleepingFlag();
+        }
+
+        this.getChunkFromChunkCoords(x, z).addEntity(entity);
+        this.loadedEntityList.add(entity);
+        this.obtainEntitySkin(entity);
+
+        return true;
     }
 
     protected void obtainEntitySkin(Entity var1) {
@@ -911,91 +915,99 @@ public class World implements IBlockAccess {
         }
     }
 
-    public void updateEntities() {
-        for (int var1 = 0; var1 < this.weatherEffects.size(); ++var1) {
-            Entity var2 = this.weatherEffects.get(var1);
-            var2.onUpdate();
-            if (var2.isDead) {
-                this.weatherEffects.remove(var1--);
+    public void tickEntities() {
+        for (int i = 0; i < this.weatherEffects.size(); ++i) {
+            Entity entity = this.weatherEffects.get(i);
+
+            entity.tickTimer.startTiming();
+            entity.onUpdate();
+            entity.tickTimer.stopTiming();
+
+            if (entity.isDead) {
+                this.weatherEffects.remove(i--);
             }
         }
 
         this.loadedEntityList.removeAll(this.unloadedEntityList);
 
-        for (int var5 = 0; var5 < this.unloadedEntityList.size(); ++var5) {
-            Entity var9 = this.unloadedEntityList.get(var5);
-            int var3 = var9.chunkCoordX;
-            int var4 = var9.chunkCoordZ;
-            if (var9.addedToChunk && this.chunkExists(var3, var4)) {
-                this.getChunkFromChunkCoords(var3, var4).removeEntity(var9);
+        for (int i = 0; i < this.unloadedEntityList.size(); ++i) {
+            Entity entity = this.unloadedEntityList.get(i);
+            int coordX = entity.chunkCoordX;
+            int coordZ = entity.chunkCoordZ;
+            if (entity.addedToChunk && this.chunkExists(coordX, coordZ)) {
+                this.getChunkFromChunkCoords(coordX, coordZ).removeEntity(entity);
             }
         }
 
-        for (int var6 = 0; var6 < this.unloadedEntityList.size(); ++var6) {
-            this.releaseEntitySkin(this.unloadedEntityList.get(var6));
+        for (int i = 0; i < this.unloadedEntityList.size(); ++i) {
+            this.releaseEntitySkin(this.unloadedEntityList.get(i));
         }
 
         this.unloadedEntityList.clear();
 
-        for (int var7 = 0; var7 < this.loadedEntityList.size(); ++var7) {
-            Entity var10 = this.loadedEntityList.get(var7);
-            if (var10.ridingEntity != null) {
-                if (!var10.ridingEntity.isDead && var10.ridingEntity.riddenByEntity == var10) {
+        for (int i = 0; i < this.loadedEntityList.size(); ++i) {
+            Entity entity = this.loadedEntityList.get(i);
+            if (entity.ridingEntity != null) {
+                if (!entity.ridingEntity.isDead && entity.ridingEntity.riddenByEntity == entity) {
                     continue;
                 }
 
-                var10.ridingEntity.riddenByEntity = null;
-                var10.ridingEntity = null;
+                entity.ridingEntity.riddenByEntity = null;
+                entity.ridingEntity = null;
             }
 
-            if (!var10.isDead) {
-                this.updateEntity(var10);
+            if (!entity.isDead) {
+                entity.tickTimer.startTiming();
+                this.updateEntity(entity);
+                entity.tickTimer.stopTiming();
             }
 
-            if (var10.isDead) {
-                int var13 = var10.chunkCoordX;
-                int var16 = var10.chunkCoordZ;
-                if (var10.addedToChunk && this.chunkExists(var13, var16)) {
-                    this.getChunkFromChunkCoords(var13, var16).removeEntity(var10);
+            if (entity.isDead) {
+                int coordX = entity.chunkCoordX;
+                int coordZ = entity.chunkCoordZ;
+                if (entity.addedToChunk && this.chunkExists(coordX, coordZ)) {
+                    this.getChunkFromChunkCoords(coordX, coordZ).removeEntity(entity);
                 }
 
-                this.loadedEntityList.remove(var7--);
-                this.releaseEntitySkin(var10);
+                this.loadedEntityList.remove(i--);
+                this.releaseEntitySkin(entity);
             }
         }
 
         this.field_31048_L = true;
-        Iterator var8 = this.loadedTileEntityList.iterator();
+        Iterator<TileEntity> entityIterator = this.loadedTileEntityList.iterator();
 
-        while (var8.hasNext()) {
-            TileEntity var11 = (TileEntity) var8.next();
-            if (!var11.isInvalid()) {
-                var11.updateEntity();
+        while (entityIterator.hasNext()) {
+            TileEntity tileEntity = entityIterator.next();
+            if (!tileEntity.isInvalid()) {
+                tileEntity.tickTimer.startTiming();
+                tileEntity.updateEntity();
+                tileEntity.tickTimer.stopTiming();;
             }
 
-            if (var11.isInvalid()) {
-                var8.remove();
-                Chunk var14 = this.getChunkFromChunkCoords(var11.xCoord >> 4, var11.zCoord >> 4);
-                if (var14 != null) {
-                    var14.removeChunkBlockTileEntity(var11.xCoord & 15, var11.yCoord, var11.zCoord & 15);
+            if (tileEntity.isInvalid()) {
+                entityIterator.remove();
+                Chunk chunk = this.getChunkFromChunkCoords(tileEntity.xCoord >> 4, tileEntity.zCoord >> 4);
+                if (chunk != null) {
+                    chunk.removeChunkBlockTileEntity(tileEntity.xCoord & 15, tileEntity.yCoord, tileEntity.zCoord & 15);
                 }
             }
         }
 
         this.field_31048_L = false;
         if (!this.field_20912_E.isEmpty()) {
-            for (TileEntity var15 : this.field_20912_E) {
-                if (!var15.isInvalid()) {
-                    if (!this.loadedTileEntityList.contains(var15)) {
-                        this.loadedTileEntityList.add(var15);
+            for (TileEntity tileEntity : this.field_20912_E) {
+                if (!tileEntity.isInvalid()) {
+                    if (!this.loadedTileEntityList.contains(tileEntity)) {
+                        this.loadedTileEntityList.add(tileEntity);
                     }
 
-                    Chunk var17 = this.getChunkFromChunkCoords(var15.xCoord >> 4, var15.zCoord >> 4);
-                    if (var17 != null) {
-                        var17.setChunkBlockTileEntity(var15.xCoord & 15, var15.yCoord, var15.zCoord & 15, var15);
+                    Chunk chunk = this.getChunkFromChunkCoords(tileEntity.xCoord >> 4, tileEntity.zCoord >> 4);
+                    if (chunk != null) {
+                        chunk.setChunkBlockTileEntity(tileEntity.xCoord & 15, tileEntity.yCoord, tileEntity.zCoord & 15, tileEntity);
                     }
 
-                    this.markBlockNeedsUpdate(var15.xCoord, var15.yCoord, var15.zCoord);
+                    this.markBlockNeedsUpdate(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
                 }
             }
 
@@ -1489,7 +1501,7 @@ public class World implements IBlockAccess {
         this.spawnPeacefulMobs = spawnPeacefulMobs;
     }
 
-    public void tick() {
+    public void doTick() {
         this.doRandomUpdateTicks();
         this.updateWeather();
 

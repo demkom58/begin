@@ -1,5 +1,6 @@
 package net.minecraft;
 
+import co.aikar.timings.MinecraftTimings;
 import net.minecraft.server.MinecraftServer;
 
 import java.io.*;
@@ -14,7 +15,7 @@ public class ServerConfigurationManager {
     public List<EntityPlayerMP> playerEntities = new ArrayList<>();
     private MinecraftServer mcServer;
     private PlayerManager[] playerManagerObj = new PlayerManager[2];
-    private int maxPlayers;
+    public int maxPlayers;
     private Set<String> bannedPlayers = new HashSet<>();
     private Set<String> bannedIPs = new HashSet<>();
     private Set<String> ops = new HashSet<>();
@@ -485,10 +486,11 @@ public class ServerConfigurationManager {
     }
 
     public void savePlayerStates() {
+        MinecraftTimings.savePlayers.startTiming();
         for (int var1 = 0; var1 < this.playerEntities.size(); ++var1) {
             this.playerNBTManagerObj.writePlayerData(this.playerEntities.get(var1));
         }
-
+        MinecraftTimings.savePlayers.startTiming();
     }
 
     public void sentTileEntityToPlayer(int var1, int var2, int var3, TileEntity var4) {

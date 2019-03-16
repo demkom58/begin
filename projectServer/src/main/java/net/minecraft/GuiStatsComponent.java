@@ -1,18 +1,28 @@
 package net.minecraft;
 
+import net.minecraft.server.MinecraftServer;
+
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class GuiStatsComponent extends JComponent {
+    private final DecimalFormat format;
     private int[] memoryUse = new int[256];
     private int updateCounter = 0;
     private String[] displayStrings = new String[10];
 
     public GuiStatsComponent() {
+        DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols(Locale.getDefault());
+        formatSymbols.setDecimalSeparator('.');
+        format = new DecimalFormat(".##", formatSymbols);
+
         this.setPreferredSize(new Dimension(256, 196));
         this.setMinimumSize(new Dimension(256, 196));
         this.setMaximumSize(new Dimension(256, 196));
-        (new Timer(500, new GuiStatsListener(this))).start();
+        new Timer(500, new GuiStatsListener(this)).start();
         this.setBackground(Color.BLACK);
     }
 
@@ -22,10 +32,18 @@ public class GuiStatsComponent extends JComponent {
     }
 
     private void updateStats() {
+        final MinecraftServer server = MinecraftServer.SERVER;
+
         long var1 = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
         System.gc();
         this.displayStrings[0] = "Memory use: " + var1 / 1024L / 1024L + " mb (" + Runtime.getRuntime().freeMemory() * 100L / Runtime.getRuntime().maxMemory() + "% free)";
         this.displayStrings[1] = "Threads: " + NetworkManager.numReadThreads + " + " + NetworkManager.numWriteThreads;
+
+        String tps1 = format.format(server.tps1.getAverage());
+        String tps5 = format.format(server.tps5.getAverage());
+        String tps15 = format.format(server.tps15.getAverage());
+        this.displayStrings[2] = "TPS 15m, 5m, 1m: " + tps15 + ", " + tps5 + ", " + tps1;
+
         this.memoryUse[this.updateCounter++ & 255] = (int) (var1 * 100L / Runtime.getRuntime().maxMemory());
         this.repaint();
     }

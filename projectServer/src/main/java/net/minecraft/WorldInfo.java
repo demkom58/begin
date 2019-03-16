@@ -151,7 +151,7 @@ public class WorldInfo {
         this.spawnZ = spawnZ;
     }
 
-    public void setWorldName(String levelName) {
+    public void setLevelName(String levelName) {
         this.levelName = levelName;
     }
 
@@ -194,4 +194,21 @@ public class WorldInfo {
     public void setRainTime(int rainTime) {
         this.rainTime = rainTime;
     }
+
+    public String getLevelName() {
+        return levelName;
+    }
+
+    public int getSaveVersion() {
+        return saveVersion;
+    }
+
+    public long getLastTimePlayed() {
+        return lastTimePlayed;
+    }
+
+    public NBTTagCompound getPlayerTag() {
+        return playerTag;
+    }
+
 }

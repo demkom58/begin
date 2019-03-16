@@ -16,7 +16,7 @@ public class Chunk {
     public NibbleArray blocklightMap;
     public byte[] heightMap;
     public int field_686_i;
-    public Map<Object, TileEntity> chunkTileEntityMap;
+    public Map<ChunkPosition, TileEntity> chunkTileEntityMap;
     public List<Entity>[] entities;
     public boolean isTerrainPopulated;
     public boolean isModified;
