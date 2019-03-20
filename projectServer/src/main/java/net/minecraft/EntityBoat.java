@@ -268,9 +268,9 @@ public class EntityBoat extends Entity {
             }
 
             for (int var37 = 0; var37 < 4; ++var37) {
-                int var38 = MathHelper.floor_double(this.posX + ((double) (var37 % 2) - 0.5D) * 0.8D);
-                int var40 = MathHelper.floor_double(this.posY);
-                int var20 = MathHelper.floor_double(this.posZ + ((double) (var37 / 2) - 0.5D) * 0.8D);
+                int var38 = MathHelper.floor(this.posX + ((double) (var37 % 2) - 0.5D) * 0.8D);
+                int var40 = MathHelper.floor(this.posY);
+                int var20 = MathHelper.floor(this.posZ + ((double) (var37 / 2) - 0.5D) * 0.8D);
                 if (this.worldObj.getBlockId(var38, var40, var20) == Block.SNOW.blockID) {
                     this.worldObj.setBlockWithNotify(var38, var40, var20, 0);
                 }

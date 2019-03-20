@@ -70,7 +70,7 @@ public class EntityRenderer {
             this.mc.renderViewEntity = this.mc.thePlayer;
         }
 
-        float var1 = this.mc.theWorld.getLightBrightness(MathHelper.floor_double(this.mc.renderViewEntity.posX), MathHelper.floor_double(this.mc.renderViewEntity.posY), MathHelper.floor_double(this.mc.renderViewEntity.posZ));
+        float var1 = this.mc.theWorld.getLightBrightness(MathHelper.floor(this.mc.renderViewEntity.posX), MathHelper.floor(this.mc.renderViewEntity.posY), MathHelper.floor(this.mc.renderViewEntity.posZ));
         float var2 = (float) (3 - this.mc.gameSettings.renderDistance) / 3.0F;
         float var3 = var1 * (1.0F - var2) + var2;
         this.fogColor1 += (var3 - this.fogColor1) * 0.1F;
@@ -195,9 +195,9 @@ public class EntityRenderer {
             var3 = (float) ((double) var3 + 1.0D);
             GL11.glTranslatef(0.0F, 0.3F, 0.0F);
             if (!this.mc.gameSettings.field_22273_E) {
-                int var10 = this.mc.theWorld.getBlockId(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
+                int var10 = this.mc.theWorld.getBlockId(MathHelper.floor(var2.posX), MathHelper.floor(var2.posY), MathHelper.floor(var2.posZ));
                 if (var10 == Block.BED.blockID) {
-                    int var11 = this.mc.theWorld.getBlockMetadata(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posY), MathHelper.floor_double(var2.posZ));
+                    int var11 = this.mc.theWorld.getBlockMetadata(MathHelper.floor(var2.posX), MathHelper.floor(var2.posY), MathHelper.floor(var2.posZ));
                     int var12 = var11 & 3;
                     GL11.glRotatef((float) (var12 * 90), 0.0F, 1.0F, 0.0F);
                 }
@@ -445,8 +445,8 @@ public class EntityRenderer {
         IChunkProvider var13 = this.mc.theWorld.getIChunkProvider();
         if (var13 instanceof ChunkProviderLoadOrGenerate) {
             ChunkProviderLoadOrGenerate var14 = (ChunkProviderLoadOrGenerate) var13;
-            int var15 = MathHelper.floor_float((float) ((int) var7)) >> 4;
-            int var16 = MathHelper.floor_float((float) ((int) var11)) >> 4;
+            int var15 = MathHelper.floor((float) ((int) var7)) >> 4;
+            int var16 = MathHelper.floor((float) ((int) var11)) >> 4;
             var14.setCurrentChunkOver(var15, var16);
         }
 
@@ -585,9 +585,9 @@ public class EntityRenderer {
             this.random.setSeed((long) this.rendererUpdateCount * 312987231L);
             EntityLiving var2 = this.mc.renderViewEntity;
             World var3 = this.mc.theWorld;
-            int var4 = MathHelper.floor_double(var2.posX);
-            int var5 = MathHelper.floor_double(var2.posY);
-            int var6 = MathHelper.floor_double(var2.posZ);
+            int var4 = MathHelper.floor(var2.posX);
+            int var5 = MathHelper.floor(var2.posY);
+            int var6 = MathHelper.floor(var2.posZ);
             byte var7 = 10;
             double var8 = 0.0D;
             double var10 = 0.0D;
@@ -621,7 +621,7 @@ public class EntityRenderer {
 
             if (var14 > 0 && this.random.nextInt(3) < this.rainSoundCounter++) {
                 this.rainSoundCounter = 0;
-                if (var10 > var2.posY + 1.0D && var3.findTopSolidBlock(MathHelper.floor_double(var2.posX), MathHelper.floor_double(var2.posZ)) > MathHelper.floor_double(var2.posY)) {
+                if (var10 > var2.posY + 1.0D && var3.findTopSolidBlock(MathHelper.floor(var2.posX), MathHelper.floor(var2.posZ)) > MathHelper.floor(var2.posY)) {
                     this.mc.theWorld.playSoundEffect(var8, var10, var12, "ambient.weather.rain", 0.1F, 0.5F);
                 } else {
                     this.mc.theWorld.playSoundEffect(var8, var10, var12, "ambient.weather.rain", 0.2F, 1.0F);
@@ -636,9 +636,9 @@ public class EntityRenderer {
         if (var2 > 0.0F) {
             EntityLiving var3 = this.mc.renderViewEntity;
             World var4 = this.mc.theWorld;
-            int var5 = MathHelper.floor_double(var3.posX);
-            int var6 = MathHelper.floor_double(var3.posY);
-            int var7 = MathHelper.floor_double(var3.posZ);
+            int var5 = MathHelper.floor(var3.posX);
+            int var6 = MathHelper.floor(var3.posY);
+            int var7 = MathHelper.floor(var3.posZ);
             Tessellator var8 = Tessellator.instance;
             GL11.glDisable(2884 /*GL_CULL_FACE*/);
             GL11.glNormal3f(0.0F, 1.0F, 0.0F);
@@ -649,7 +649,7 @@ public class EntityRenderer {
             double var9 = var3.lastTickPosX + (var3.posX - var3.lastTickPosX) * (double) var1;
             double var11 = var3.lastTickPosY + (var3.posY - var3.lastTickPosY) * (double) var1;
             double var13 = var3.lastTickPosZ + (var3.posZ - var3.lastTickPosZ) * (double) var1;
-            int var15 = MathHelper.floor_double(var11);
+            int var15 = MathHelper.floor(var11);
             byte var16 = 5;
             if (this.mc.gameSettings.fancyGraphics) {
                 var16 = 10;
@@ -691,7 +691,7 @@ public class EntityRenderer {
                             float var30 = this.random.nextFloat() + var27 * (float) this.random.nextGaussian() * 0.001F;
                             double var31 = (double) ((float) var19 + 0.5F) - var3.posX;
                             double var33 = (double) ((float) var20 + 0.5F) - var3.posZ;
-                            float var35 = MathHelper.sqrt_double(var31 * var31 + var33 * var33) / (float) var16;
+                            float var35 = MathHelper.sqrt(var31 * var31 + var33 * var33) / (float) var16;
                             var8.startDrawingQuads();
                             float var36 = var4.getLightBrightness(var19, var23, var20);
                             GL11.glColor4f(var36, var36, var36, ((1.0F - var35 * var35) * 0.3F + 0.5F) * var2);
@@ -739,7 +739,7 @@ public class EntityRenderer {
                             float var45 = ((float) (this.rendererUpdateCount + var38 * var38 * 3121 /*GL_RGBA_MODE*/ + var38 * 45238971 + var39 * var39 * 418711 + var39 * 13761 & 31) + var1) / 32.0F * (3.0F + this.random.nextFloat());
                             double var46 = (double) ((float) var38 + 0.5F) - var3.posX;
                             double var47 = (double) ((float) var39 + 0.5F) - var3.posZ;
-                            float var48 = MathHelper.sqrt_double(var46 * var46 + var47 * var47) / (float) var16;
+                            float var48 = MathHelper.sqrt(var46 * var46 + var47 * var47) / (float) var16;
                             var8.startDrawingQuads();
                             float var32 = var4.getLightBrightness(var38, 128, var39) * 0.85F + 0.15F;
                             GL11.glColor4f(var32, var32, var32, ((1.0F - var48 * var48) * 0.5F + 0.5F) * var2);

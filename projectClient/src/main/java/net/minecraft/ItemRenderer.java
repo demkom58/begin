@@ -133,7 +133,7 @@ public class ItemRenderer {
         RenderHelper.enableStandardItemLighting();
         GL11.glPopMatrix();
         ItemStack var5 = this.itemToRender;
-        float var6 = this.mc.theWorld.getLightBrightness(MathHelper.floor_double(var3.posX), MathHelper.floor_double(var3.posY), MathHelper.floor_double(var3.posZ));
+        float var6 = this.mc.theWorld.getLightBrightness(MathHelper.floor(var3.posX), MathHelper.floor(var3.posY), MathHelper.floor(var3.posZ));
         if (var5 != null) {
             int var7 = Item.ITEMS_LIST[var5.itemID].getColorFromDamage(var5.getItemDamage());
             float var8 = (float) (var7 >> 16 & 255) / 255.0F;
@@ -149,8 +149,8 @@ public class ItemRenderer {
             float var16 = 0.8F;
             float var23 = var3.getSwingProgress(var1);
             float var31 = MathHelper.sin(var23 * 3.1415927F);
-            float var40 = MathHelper.sin(MathHelper.sqrt_float(var23) * 3.1415927F);
-            GL11.glTranslatef(-var40 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(var23) * 3.1415927F * 2.0F) * 0.2F, -var31 * 0.2F);
+            float var40 = MathHelper.sin(MathHelper.sqrt(var23) * 3.1415927F);
+            GL11.glTranslatef(-var40 * 0.4F, MathHelper.sin(MathHelper.sqrt(var23) * 3.1415927F * 2.0F) * 0.2F, -var31 * 0.2F);
             var23 = 1.0F - var4 / 45.0F + 0.1F;
             if (var23 < 0.0F) {
                 var23 = 0.0F;
@@ -185,7 +185,7 @@ public class ItemRenderer {
 
             var31 = var3.getSwingProgress(var1);
             var40 = MathHelper.sin(var31 * var31 * 3.1415927F);
-            float var44 = MathHelper.sin(MathHelper.sqrt_float(var31) * 3.1415927F);
+            float var44 = MathHelper.sin(MathHelper.sqrt(var31) * 3.1415927F);
             GL11.glRotatef(-var40 * 20.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-var44 * 20.0F, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(-var44 * 80.0F, 1.0F, 0.0F, 0.0F);
@@ -214,14 +214,14 @@ public class ItemRenderer {
             float var14 = 0.8F;
             float var17 = var3.getSwingProgress(var1);
             float var26 = MathHelper.sin(var17 * 3.1415927F);
-            float var35 = MathHelper.sin(MathHelper.sqrt_float(var17) * 3.1415927F);
-            GL11.glTranslatef(-var35 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(var17) * 3.1415927F * 2.0F) * 0.2F, -var26 * 0.2F);
+            float var35 = MathHelper.sin(MathHelper.sqrt(var17) * 3.1415927F);
+            GL11.glTranslatef(-var35 * 0.4F, MathHelper.sin(MathHelper.sqrt(var17) * 3.1415927F * 2.0F) * 0.2F, -var26 * 0.2F);
             GL11.glTranslatef(0.7F * var14, -0.65F * var14 - (1.0F - var2) * 0.6F, -0.9F * var14);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
             var17 = var3.getSwingProgress(var1);
             var26 = MathHelper.sin(var17 * var17 * 3.1415927F);
-            var35 = MathHelper.sin(MathHelper.sqrt_float(var17) * 3.1415927F);
+            var35 = MathHelper.sin(MathHelper.sqrt(var17) * 3.1415927F);
             GL11.glRotatef(-var26 * 20.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-var35 * 20.0F, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(-var35 * 80.0F, 1.0F, 0.0F, 0.0F);
@@ -238,14 +238,14 @@ public class ItemRenderer {
             float var15 = 0.8F;
             float var20 = var3.getSwingProgress(var1);
             float var28 = MathHelper.sin(var20 * 3.1415927F);
-            float var37 = MathHelper.sin(MathHelper.sqrt_float(var20) * 3.1415927F);
-            GL11.glTranslatef(-var37 * 0.3F, MathHelper.sin(MathHelper.sqrt_float(var20) * 3.1415927F * 2.0F) * 0.4F, -var28 * 0.4F);
+            float var37 = MathHelper.sin(MathHelper.sqrt(var20) * 3.1415927F);
+            GL11.glTranslatef(-var37 * 0.3F, MathHelper.sin(MathHelper.sqrt(var20) * 3.1415927F * 2.0F) * 0.4F, -var28 * 0.4F);
             GL11.glTranslatef(0.8F * var15, -0.75F * var15 - (1.0F - var2) * 0.6F, -0.9F * var15);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
             var20 = var3.getSwingProgress(var1);
             var28 = MathHelper.sin(var20 * var20 * 3.1415927F);
-            var37 = MathHelper.sin(MathHelper.sqrt_float(var20) * 3.1415927F);
+            var37 = MathHelper.sin(MathHelper.sqrt(var20) * 3.1415927F);
             GL11.glRotatef(var37 * 70.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-var28 * 20.0F, 0.0F, 0.0F, 1.0F);
             GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTextureForDownloadableImage(this.mc.thePlayer.skinUrl, this.mc.thePlayer.getEntityTexture()));
@@ -276,9 +276,9 @@ public class ItemRenderer {
         }
 
         if (this.mc.thePlayer.isEntityInsideOpaqueBlock()) {
-            int var14 = MathHelper.floor_double(this.mc.thePlayer.posX);
-            int var3 = MathHelper.floor_double(this.mc.thePlayer.posY);
-            int var4 = MathHelper.floor_double(this.mc.thePlayer.posZ);
+            int var14 = MathHelper.floor(this.mc.thePlayer.posX);
+            int var3 = MathHelper.floor(this.mc.thePlayer.posY);
+            int var4 = MathHelper.floor(this.mc.thePlayer.posZ);
             int var5 = this.mc.renderEngine.getTexture("/terrain.png");
             GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, var5);
             int var6 = this.mc.theWorld.getBlockId(var14, var3, var4);
@@ -289,9 +289,9 @@ public class ItemRenderer {
                     float var8 = ((float) ((var7 >> 0) % 2) - 0.5F) * this.mc.thePlayer.width * 0.9F;
                     float var9 = ((float) ((var7 >> 1) % 2) - 0.5F) * this.mc.thePlayer.height * 0.2F;
                     float var10 = ((float) ((var7 >> 2) % 2) - 0.5F) * this.mc.thePlayer.width * 0.9F;
-                    int var11 = MathHelper.floor_float((float) var14 + var8);
-                    int var12 = MathHelper.floor_float((float) var3 + var9);
-                    int var13 = MathHelper.floor_float((float) var4 + var10);
+                    int var11 = MathHelper.floor((float) var14 + var8);
+                    int var12 = MathHelper.floor((float) var3 + var9);
+                    int var13 = MathHelper.floor((float) var4 + var10);
                     if (this.mc.theWorld.isBlockNormalCube(var11, var12, var13)) {
                         var6 = this.mc.theWorld.getBlockId(var11, var12, var13);
                     }

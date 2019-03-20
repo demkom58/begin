@@ -194,7 +194,7 @@ public abstract class EntityLiving extends Entity {
         this.onLivingUpdate();
         double var1 = this.posX - this.prevPosX;
         double var3 = this.posZ - this.prevPosZ;
-        float var5 = MathHelper.sqrt_double(var1 * var1 + var3 * var3);
+        float var5 = MathHelper.sqrt(var1 * var1 + var3 * var3);
         float var6 = this.renderYawOffset;
         float var7 = 0.0F;
         this.field_9124_aB = this.field_9123_aC;
@@ -374,7 +374,7 @@ public abstract class EntityLiving extends Entity {
     }
 
     public void knockBack(Entity var1, int var2, double var3, double var5) {
-        float var7 = MathHelper.sqrt_double(var3 * var3 + var5 * var5);
+        float var7 = MathHelper.sqrt(var3 * var3 + var5 * var5);
         float var8 = 0.4F;
         this.motionX /= 2.0D;
         this.motionY /= 2.0D;
@@ -426,7 +426,7 @@ public abstract class EntityLiving extends Entity {
         int var2 = (int) Math.ceil((double) (var1 - 3.0F));
         if (var2 > 0) {
             this.attackEntityFrom(null, var2);
-            int var3 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY - 0.20000000298023224D - (double) this.yOffset), MathHelper.floor_double(this.posZ));
+            int var3 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.posY - 0.20000000298023224D - (double) this.yOffset), MathHelper.floor(this.posZ));
             if (var3 > 0) {
                 StepSound var4 = Block.BLOCKS_LIST[var3].stepSound;
                 this.worldObj.playSoundAtEntity(this, var4.func_737_c(), var4.getVolume() * 0.5F, var4.getPitch() * 0.75F);
@@ -462,7 +462,7 @@ public abstract class EntityLiving extends Entity {
             float var9 = 0.91F;
             if (this.onGround) {
                 var9 = 0.54600006F;
-                int var4 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
+                int var4 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
                 if (var4 > 0) {
                     var9 = Block.BLOCKS_LIST[var4].slipperiness * 0.91F;
                 }
@@ -473,7 +473,7 @@ public abstract class EntityLiving extends Entity {
             var9 = 0.91F;
             if (this.onGround) {
                 var9 = 0.54600006F;
-                int var5 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
+                int var5 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
                 if (var5 > 0) {
                     var9 = Block.BLOCKS_LIST[var5].slipperiness * 0.91F;
                 }
@@ -521,7 +521,7 @@ public abstract class EntityLiving extends Entity {
         this.field_9142_bc = this.field_9141_bd;
         double var11 = this.posX - this.prevPosX;
         double var14 = this.posZ - this.prevPosZ;
-        float var7 = MathHelper.sqrt_double(var11 * var11 + var14 * var14) * 4.0F;
+        float var7 = MathHelper.sqrt(var11 * var11 + var14 * var14) * 4.0F;
         if (var7 > 1.0F) {
             var7 = 1.0F;
         }
@@ -531,9 +531,9 @@ public abstract class EntityLiving extends Entity {
     }
 
     public boolean isOnLadder() {
-        int var1 = MathHelper.floor_double(this.posX);
-        int var2 = MathHelper.floor_double(this.boundingBox.minY);
-        int var3 = MathHelper.floor_double(this.posZ);
+        int var1 = MathHelper.floor(this.posX);
+        int var2 = MathHelper.floor(this.boundingBox.minY);
+        int var3 = MathHelper.floor(this.posZ);
         return this.worldObj.getBlockId(var1, var2, var3) == Block.LADDER.blockID;
     }
 
@@ -723,7 +723,7 @@ public abstract class EntityLiving extends Entity {
             var6 = (var1.boundingBox.minY + var1.boundingBox.maxY) / 2.0D - (this.posY + (double) this.getEyeHeight());
         }
 
-        double var14 = (double) MathHelper.sqrt_double(var4 * var4 + var8 * var8);
+        double var14 = (double) MathHelper.sqrt(var4 * var4 + var8 * var8);
         float var12 = (float) (Math.atan2(var8, var4) * 180.0D / 3.1415927410125732D) - 90.0F;
         float var13 = (float) (-(Math.atan2(var6, var14) * 180.0D / 3.1415927410125732D));
         this.rotationPitch = -this.updateRotation(this.rotationPitch, var13, var3);
@@ -795,7 +795,7 @@ public abstract class EntityLiving extends Entity {
         return 4;
     }
 
-    public boolean func_22057_E() {
+    public boolean isSleeping() {
         return false;
     }
 }

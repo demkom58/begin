@@ -1,7 +1,6 @@
-package co.aikar.timings;
+package com.demkom58.timings;
 
 import net.minecraft.World;
-import net.minecraft.WorldServer;
 
 /**
  * Set of timers per world, to track world specific timings.
@@ -52,7 +51,7 @@ public class WorldTimingsHandler {
     public final Timing lightingQueueTimer;
 
     public WorldTimingsHandler(World world) {
-        String name = world.getWorldInfo().getLevelName() +" - ";
+        String name = world.getWorldInfo().getLevelName() + " - ";
 
         mobSpawn = Timings.ofSafe(name + "mobSpawn");
         doChunkUnload = Timings.ofSafe(name + "doChunkUnload");

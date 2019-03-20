@@ -91,23 +91,23 @@ public class RenderPainting extends Render {
     }
 
     private void func_160_a(EntityPainting var1, float var2, float var3) {
-        int var4 = MathHelper.floor_double(var1.posX);
-        int var5 = MathHelper.floor_double(var1.posY + (double) (var3 / 16.0F));
-        int var6 = MathHelper.floor_double(var1.posZ);
+        int var4 = MathHelper.floor(var1.posX);
+        int var5 = MathHelper.floor(var1.posY + (double) (var3 / 16.0F));
+        int var6 = MathHelper.floor(var1.posZ);
         if (var1.direction == 0) {
-            var4 = MathHelper.floor_double(var1.posX + (double) (var2 / 16.0F));
+            var4 = MathHelper.floor(var1.posX + (double) (var2 / 16.0F));
         }
 
         if (var1.direction == 1) {
-            var6 = MathHelper.floor_double(var1.posZ - (double) (var2 / 16.0F));
+            var6 = MathHelper.floor(var1.posZ - (double) (var2 / 16.0F));
         }
 
         if (var1.direction == 2) {
-            var4 = MathHelper.floor_double(var1.posX - (double) (var2 / 16.0F));
+            var4 = MathHelper.floor(var1.posX - (double) (var2 / 16.0F));
         }
 
         if (var1.direction == 3) {
-            var6 = MathHelper.floor_double(var1.posZ + (double) (var2 / 16.0F));
+            var6 = MathHelper.floor(var1.posZ + (double) (var2 / 16.0F));
         }
 
         float var7 = this.renderManager.worldObj.getLightBrightness(var4, var5, var6);

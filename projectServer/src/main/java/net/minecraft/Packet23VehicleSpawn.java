@@ -26,9 +26,9 @@ public class Packet23VehicleSpawn extends Packet {
 
     public Packet23VehicleSpawn(Entity var1, int var2, int var3) {
         this.entityId = var1.entityId;
-        this.xPosition = MathHelper.floor_double(var1.posX * 32.0D);
-        this.yPosition = MathHelper.floor_double(var1.posY * 32.0D);
-        this.zPosition = MathHelper.floor_double(var1.posZ * 32.0D);
+        this.xPosition = MathHelper.floor(var1.posX * 32.0D);
+        this.yPosition = MathHelper.floor(var1.posY * 32.0D);
+        this.zPosition = MathHelper.floor(var1.posZ * 32.0D);
         this.type = var2;
         this.field_28041_i = var3;
         if (var3 > 0) {

@@ -135,7 +135,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     }
 
     public boolean getCanSpawnHere() {
-        Chunk var1 = this.worldObj.getChunkFromBlockCoords(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posZ));
+        Chunk var1 = this.worldObj.getChunkFromBlockCoords(MathHelper.floor(this.posX), MathHelper.floor(this.posZ));
         return (this.getSlimeSize() == 1 || this.worldObj.difficultySetting > 0) && this.rand.nextInt(10) == 0 && var1.func_997_a(987234911L).nextInt(10) == 0 && this.posY < 16.0D;
     }
 

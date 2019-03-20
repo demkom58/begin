@@ -26,9 +26,9 @@ public class Packet21PickupSpawn extends Packet {
         this.itemID = var1.item.itemID;
         this.count = var1.item.stackSize;
         this.itemDamage = var1.item.getItemDamage();
-        this.xPosition = MathHelper.floor_double(var1.posX * 32.0D);
-        this.yPosition = MathHelper.floor_double(var1.posY * 32.0D);
-        this.zPosition = MathHelper.floor_double(var1.posZ * 32.0D);
+        this.xPosition = MathHelper.floor(var1.posX * 32.0D);
+        this.yPosition = MathHelper.floor(var1.posY * 32.0D);
+        this.zPosition = MathHelper.floor(var1.posZ * 32.0D);
         this.rotation = (byte) ((int) (var1.motionX * 128.0D));
         this.pitch = (byte) ((int) (var1.motionY * 128.0D));
         this.roll = (byte) ((int) (var1.motionZ * 128.0D));

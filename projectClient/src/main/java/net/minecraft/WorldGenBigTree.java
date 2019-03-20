@@ -53,8 +53,8 @@ public class WorldGenBigTree extends WorldGenerator {
                 for (double var9 = 0.5D; var7 < var1; ++var7) {
                     double var11 = this.field_873_j * (double) var8 * ((double) this.field_881_b.nextFloat() + 0.328D);
                     double var13 = (double) this.field_881_b.nextFloat() * 2.0D * 3.14159D;
-                    int var15 = MathHelper.floor_double(var11 * Math.sin(var13) + (double) this.basePos[0] + var9);
-                    int var16 = MathHelper.floor_double(var11 * Math.cos(var13) + (double) this.basePos[2] + var9);
+                    int var15 = MathHelper.floor(var11 * Math.sin(var13) + (double) this.basePos[0] + var9);
+                    int var16 = MathHelper.floor(var11 * Math.cos(var13) + (double) this.basePos[2] + var9);
                     int[] var17 = new int[]{var15, var3, var16};
                     int[] var18 = new int[]{var15, var3 + this.field_869_n, var16};
                     if (this.func_524_a(var17, var18) == -1) {
@@ -184,9 +184,9 @@ public class WorldGenBigTree extends WorldGenerator {
             int var15 = 0;
 
             for (int var16 = var4[var6] + var9; var15 != var16; var15 += var9) {
-                var14[var6] = MathHelper.floor_double((double) (var1[var6] + var15) + 0.5D);
-                var14[var7] = MathHelper.floor_double((double) var1[var7] + (double) var15 * var10 + 0.5D);
-                var14[var8] = MathHelper.floor_double((double) var1[var8] + (double) var15 * var12 + 0.5D);
+                var14[var6] = MathHelper.floor((double) (var1[var6] + var15) + 0.5D);
+                var14[var7] = MathHelper.floor((double) var1[var7] + (double) var15 * var10 + 0.5D);
+                var14[var8] = MathHelper.floor((double) var1[var8] + (double) var15 * var12 + 0.5D);
                 this.worldObj.setBlock(var14[0], var14[1], var14[2], var3);
             }
 
@@ -279,8 +279,8 @@ public class WorldGenBigTree extends WorldGenerator {
             int var15;
             for (var15 = var3[var5] + var8; var14 != var15; var14 += var8) {
                 var13[var5] = var1[var5] + var14;
-                var13[var6] = MathHelper.floor_double((double) var1[var6] + (double) var14 * var9);
-                var13[var7] = MathHelper.floor_double((double) var1[var7] + (double) var14 * var11);
+                var13[var6] = MathHelper.floor((double) var1[var6] + (double) var14 * var9);
+                var13[var7] = MathHelper.floor((double) var1[var7] + (double) var14 * var11);
                 int var16 = this.worldObj.getBlockId(var13[0], var13[1], var13[2]);
                 if (var16 != 0 && var16 != 18) {
                     break;

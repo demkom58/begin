@@ -194,7 +194,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.inventory.decrementAnimations();
         this.field_775_e = this.field_774_f;
         super.onLivingUpdate();
-        float var1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+        float var1 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         float var2 = (float) Math.atan(-this.motionY * 0.20000000298023224D) * 15.0F;
         if (var1 > 0.1F) {
             var1 = 0.1F;
@@ -329,7 +329,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.sleeping = var1.getBoolean("Sleeping");
         this.sleepTimer = var1.getShort("SleepTimer");
         if (this.sleeping) {
-            this.bedChunkCoordinates = new ChunkCoordinates(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ));
+            this.bedChunkCoordinates = new ChunkCoordinates(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ));
             this.wakeUpPlayer(true, true, false);
         }
 
@@ -717,12 +717,12 @@ public abstract class EntityPlayer extends EntityLiving {
     private void addMovementStat(double var1, double var3, double var5) {
         if (this.ridingEntity == null) {
             if (this.isInsideOfMaterial(Material.WATER)) {
-                int var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
+                int var7 = Math.round(MathHelper.sqrt(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
                 if (var7 > 0) {
                     this.addStat(StatList.distanceDoveStat, var7);
                 }
             } else if (this.isInWater()) {
-                int var8 = Math.round(MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
+                int var8 = Math.round(MathHelper.sqrt(var1 * var1 + var5 * var5) * 100.0F);
                 if (var8 > 0) {
                     this.addStat(StatList.distanceSwumStat, var8);
                 }
@@ -731,12 +731,12 @@ public abstract class EntityPlayer extends EntityLiving {
                     this.addStat(StatList.distanceClimbedStat, (int) Math.round(var3 * 100.0D));
                 }
             } else if (this.onGround) {
-                int var9 = Math.round(MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
+                int var9 = Math.round(MathHelper.sqrt(var1 * var1 + var5 * var5) * 100.0F);
                 if (var9 > 0) {
                     this.addStat(StatList.distanceWalkedStat, var9);
                 }
             } else {
-                int var10 = Math.round(MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
+                int var10 = Math.round(MathHelper.sqrt(var1 * var1 + var5 * var5) * 100.0F);
                 if (var10 > 25) {
                     this.addStat(StatList.distanceFlownStat, var10);
                 }
@@ -747,13 +747,13 @@ public abstract class EntityPlayer extends EntityLiving {
 
     private void addMountedMovementStat(double var1, double var3, double var5) {
         if (this.ridingEntity != null) {
-            int var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
+            int var7 = Math.round(MathHelper.sqrt(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
             if (var7 > 0) {
                 if (this.ridingEntity instanceof EntityMinecart) {
                     this.addStat(StatList.distanceByMinecartStat, var7);
                     if (this.startMinecartRidingCoordinate == null) {
-                        this.startMinecartRidingCoordinate = new ChunkCoordinates(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ));
-                    } else if (this.startMinecartRidingCoordinate.getSqDistanceTo(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) >= 1000.0D) {
+                        this.startMinecartRidingCoordinate = new ChunkCoordinates(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ));
+                    } else if (this.startMinecartRidingCoordinate.getSqDistanceTo(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) >= 1000.0D) {
                         this.addStat(AchievementList.onARail, 1);
                     }
                 } else if (this.ridingEntity instanceof EntityBoat) {

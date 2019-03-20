@@ -1,7 +1,7 @@
 package net.minecraft;
 
-import co.aikar.timings.MinecraftTimings;
-import co.aikar.timings.Timing;
+import com.demkom58.timings.MinecraftTimings;
+import com.demkom58.timings.Timing;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.HashMap;

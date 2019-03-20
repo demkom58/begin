@@ -194,9 +194,9 @@ public class EntityMinecart extends Entity implements IInventory {
             this.prevPosY = this.posY;
             this.prevPosZ = this.posZ;
             this.motionY -= 0.03999999910593033D;
-            int var1 = MathHelper.floor_double(this.posX);
-            int var2 = MathHelper.floor_double(this.posY);
-            int var3 = MathHelper.floor_double(this.posZ);
+            int var1 = MathHelper.floor(this.posX);
+            int var2 = MathHelper.floor(this.posY);
+            int var3 = MathHelper.floor(this.posZ);
             if (BlockRail.func_27029_g(this.worldObj, var1, var2 - 1, var3)) {
                 --var2;
             }
@@ -313,9 +313,9 @@ public class EntityMinecart extends Entity implements IInventory {
                 }
 
                 this.moveEntity(var59, 0.0D, var60);
-                if (var14[0][1] != 0 && MathHelper.floor_double(this.posX) - var1 == var14[0][0] && MathHelper.floor_double(this.posZ) - var3 == var14[0][2]) {
+                if (var14[0][1] != 0 && MathHelper.floor(this.posX) - var1 == var14[0][0] && MathHelper.floor(this.posZ) - var3 == var14[0][2]) {
                     this.setPosition(this.posX, this.posY + (double) var14[0][1], this.posZ);
-                } else if (var14[1][1] != 0 && MathHelper.floor_double(this.posX) - var1 == var14[1][0] && MathHelper.floor_double(this.posZ) - var3 == var14[1][2]) {
+                } else if (var14[1][1] != 0 && MathHelper.floor(this.posX) - var1 == var14[1][0] && MathHelper.floor(this.posZ) - var3 == var14[1][2]) {
                     this.setPosition(this.posX, this.posY + (double) var14[1][1], this.posZ);
                 }
 
@@ -325,7 +325,7 @@ public class EntityMinecart extends Entity implements IInventory {
                     this.motionZ *= 0.996999979019165D;
                 } else {
                     if (this.minecartType == 2) {
-                        double var61 = (double) MathHelper.sqrt_double(this.pushX * this.pushX + this.pushZ * this.pushZ);
+                        double var61 = (double) MathHelper.sqrt(this.pushX * this.pushX + this.pushZ * this.pushZ);
                         if (var61 > 0.01D) {
                             var6 = true;
                             this.pushX /= var61;
@@ -360,8 +360,8 @@ public class EntityMinecart extends Entity implements IInventory {
                     this.setPosition(this.posX, var62.yCoord, this.posZ);
                 }
 
-                int var63 = MathHelper.floor_double(this.posX);
-                int var64 = MathHelper.floor_double(this.posZ);
+                int var63 = MathHelper.floor(this.posX);
+                int var64 = MathHelper.floor(this.posZ);
                 if (var63 != var1 || var64 != var3) {
                     var23 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
                     this.motionX = var23 * (double) (var63 - var1);
@@ -369,7 +369,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 }
 
                 if (this.minecartType == 2) {
-                    double var42 = (double) MathHelper.sqrt_double(this.pushX * this.pushX + this.pushZ * this.pushZ);
+                    double var42 = (double) MathHelper.sqrt(this.pushX * this.pushX + this.pushZ * this.pushZ);
                     if (var42 > 0.01D && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.001D) {
                         this.pushX /= var42;
                         this.pushZ /= var42;
@@ -485,9 +485,9 @@ public class EntityMinecart extends Entity implements IInventory {
     }
 
     public Vec3D func_182_g(double var1, double var3, double var5) {
-        int var7 = MathHelper.floor_double(var1);
-        int var8 = MathHelper.floor_double(var3);
-        int var9 = MathHelper.floor_double(var5);
+        int var7 = MathHelper.floor(var1);
+        int var8 = MathHelper.floor(var3);
+        int var9 = MathHelper.floor(var5);
         if (BlockRail.func_27029_g(this.worldObj, var7, var8 - 1, var9)) {
             --var8;
         }
@@ -600,7 +600,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 double var4 = var1.posZ - this.posZ;
                 double var6 = var2 * var2 + var4 * var4;
                 if (var6 >= 9.999999747378752E-5D) {
-                    var6 = (double) MathHelper.sqrt_double(var6);
+                    var6 = (double) MathHelper.sqrt(var6);
                     var2 = var2 / var6;
                     var4 = var4 / var6;
                     double var8 = 1.0D / var6;

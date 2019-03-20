@@ -250,7 +250,7 @@ public class InventoryPlayer implements IInventory {
     }
 
     public boolean canHarvestBlock(Block var1) {
-        if (var1.blockMaterial.func_31055_i()) {
+        if (var1.blockMaterial.isHarvestable()) {
             return true;
         } else {
             ItemStack var2 = this.getStackInSlot(this.currentItem);

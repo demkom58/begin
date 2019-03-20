@@ -28,7 +28,7 @@ public class EntityFX extends Entity {
         this.motionY = var10 + (double) ((float) (Math.random() * 2.0D - 1.0D) * 0.4F);
         this.motionZ = var12 + (double) ((float) (Math.random() * 2.0D - 1.0D) * 0.4F);
         float var14 = (float) (Math.random() + Math.random() + 1.0D) * 0.15F;
-        float var15 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+        float var15 = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
         this.motionX = this.motionX / (double) var15 * (double) var14 * 0.4000000059604645D;
         this.motionY = this.motionY / (double) var15 * (double) var14 * 0.4000000059604645D + 0.10000000149011612D;
         this.motionZ = this.motionZ / (double) var15 * (double) var14 * 0.4000000059604645D;

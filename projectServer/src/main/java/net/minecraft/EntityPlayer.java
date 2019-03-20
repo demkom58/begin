@@ -71,7 +71,7 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     public void onUpdate() {
-        if (this.func_22057_E()) {
+        if (this.isSleeping()) {
             ++this.sleepTimer;
             if (this.sleepTimer > 100) {
                 this.sleepTimer = 100;
@@ -139,7 +139,7 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     protected boolean isMovementBlocked() {
-        return this.health <= 0 || this.func_22057_E();
+        return this.health <= 0 || this.isSleeping();
     }
 
     protected void usePersonalCraftingInventory() {
@@ -178,7 +178,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.inventory.decrementAnimations();
         this.field_9150_ao = this.field_9149_ap;
         super.onLivingUpdate();
-        float var1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+        float var1 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         float var2 = (float) Math.atan(-this.motionY * 0.20000000298023224D) * 15.0F;
         if (var1 > 0.1F) {
             var1 = 0.1F;
@@ -309,7 +309,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.sleeping = var1.getBoolean("Sleeping");
         this.sleepTimer = var1.getShort("SleepTimer");
         if (this.sleeping) {
-            this.playerLocation = new ChunkCoordinates(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ));
+            this.playerLocation = new ChunkCoordinates(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ));
             this.wakeUpPlayer(true, true, false);
         }
 
@@ -355,7 +355,7 @@ public abstract class EntityPlayer extends EntityLiving {
         if (this.health <= 0) {
             return false;
         } else {
-            if (this.func_22057_E() && !this.worldObj.singleplayerWorld) {
+            if (this.isSleeping() && !this.worldObj.singleplayerWorld) {
                 this.wakeUpPlayer(true, true, false);
             }
 
@@ -512,7 +512,7 @@ public abstract class EntityPlayer extends EntityLiving {
 
     public EnumStatus goToSleep(int var1, int var2, int var3) {
         if (!this.worldObj.singleplayerWorld) {
-            if (this.func_22057_E() || !this.isEntityAlive()) {
+            if (this.isSleeping() || !this.isEntityAlive()) {
                 return EnumStatus.OTHER_PROBLEM;
             }
 
@@ -622,7 +622,7 @@ public abstract class EntityPlayer extends EntityLiving {
         return this.worldObj.getBlockId(this.playerLocation.posX, this.playerLocation.posY, this.playerLocation.posZ) == Block.BED.blockID;
     }
 
-    public boolean func_22057_E() {
+    public boolean isSleeping() {
         return this.sleeping;
     }
 
@@ -669,12 +669,12 @@ public abstract class EntityPlayer extends EntityLiving {
     private void func_25045_g(double var1, double var3, double var5) {
         if (this.ridingEntity == null) {
             if (this.isInsideOfMaterial(Material.WATER)) {
-                int var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
+                int var7 = Math.round(MathHelper.sqrt(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
                 if (var7 > 0) {
                     this.addStat(StatList.field_25108_p, var7);
                 }
             } else if (this.isInWater()) {
-                int var8 = Math.round(MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
+                int var8 = Math.round(MathHelper.sqrt(var1 * var1 + var5 * var5) * 100.0F);
                 if (var8 > 0) {
                     this.addStat(StatList.field_25112_l, var8);
                 }
@@ -683,12 +683,12 @@ public abstract class EntityPlayer extends EntityLiving {
                     this.addStat(StatList.field_25110_n, (int) Math.round(var3 * 100.0D));
                 }
             } else if (this.onGround) {
-                int var9 = Math.round(MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
+                int var9 = Math.round(MathHelper.sqrt(var1 * var1 + var5 * var5) * 100.0F);
                 if (var9 > 0) {
                     this.addStat(StatList.field_25113_k, var9);
                 }
             } else {
-                int var10 = Math.round(MathHelper.sqrt_double(var1 * var1 + var5 * var5) * 100.0F);
+                int var10 = Math.round(MathHelper.sqrt(var1 * var1 + var5 * var5) * 100.0F);
                 if (var10 > 25) {
                     this.addStat(StatList.field_25109_o, var10);
                 }
@@ -699,13 +699,13 @@ public abstract class EntityPlayer extends EntityLiving {
 
     private void func_27015_h(double var1, double var3, double var5) {
         if (this.ridingEntity != null) {
-            int var7 = Math.round(MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
+            int var7 = Math.round(MathHelper.sqrt(var1 * var1 + var3 * var3 + var5 * var5) * 100.0F);
             if (var7 > 0) {
                 if (this.ridingEntity instanceof EntityMinecart) {
                     this.addStat(StatList.field_27095_r, var7);
                     if (this.field_27995_d == null) {
-                        this.field_27995_d = new ChunkCoordinates(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ));
-                    } else if (this.field_27995_d.getSqDistanceTo(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) >= 1000.0D) {
+                        this.field_27995_d = new ChunkCoordinates(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ));
+                    } else if (this.field_27995_d.getSqDistanceTo(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) >= 1000.0D) {
                         this.addStat(AchievementList.onARail, 1);
                     }
                 } else if (this.ridingEntity instanceof EntityBoat) {

@@ -24,9 +24,9 @@ public class Packet24MobSpawn extends Packet {
     public Packet24MobSpawn(EntityLiving var1) {
         this.entityId = var1.entityId;
         this.type = (byte) EntityList.getEntityID(var1);
-        this.xPosition = MathHelper.floor_double(var1.posX * 32.0D);
-        this.yPosition = MathHelper.floor_double(var1.posY * 32.0D);
-        this.zPosition = MathHelper.floor_double(var1.posZ * 32.0D);
+        this.xPosition = MathHelper.floor(var1.posX * 32.0D);
+        this.yPosition = MathHelper.floor(var1.posY * 32.0D);
+        this.zPosition = MathHelper.floor(var1.posZ * 32.0D);
         this.yaw = (byte) ((int) (var1.rotationYaw * 256.0F / 360.0F));
         this.pitch = (byte) ((int) (var1.rotationPitch * 256.0F / 360.0F));
         this.metaData = var1.getDataWatcher();

@@ -1,7 +1,7 @@
 package net.minecraft;
 
-import co.aikar.timings.MinecraftTimings;
-import co.aikar.timings.Timing;
+import com.demkom58.timings.MinecraftTimings;
+import com.demkom58.timings.Timing;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagDouble;
 import net.minecraft.nbt.NBTTagFloat;
@@ -176,13 +176,13 @@ public abstract class Entity {
         this.prevRotationYaw = this.rotationYaw;
         if (this.handleWaterMovement()) {
             if (!this.inWater && !this.firstUpdate) {
-                float var1 = MathHelper.sqrt_double(this.motionX * this.motionX * 0.20000000298023224D + this.motionY * this.motionY + this.motionZ * this.motionZ * 0.20000000298023224D) * 0.2F;
+                float var1 = MathHelper.sqrt(this.motionX * this.motionX * 0.20000000298023224D + this.motionY * this.motionY + this.motionZ * this.motionZ * 0.20000000298023224D) * 0.2F;
                 if (var1 > 1.0F) {
                     var1 = 1.0F;
                 }
 
                 this.worldObj.playSoundAtEntity(this, "random.splash", var1, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
-                float var2 = (float) MathHelper.floor_double(this.boundingBox.minY);
+                float var2 = (float) MathHelper.floor(this.boundingBox.minY);
 
                 for (int var3 = 0; (float) var3 < 1.0F + this.width * 20.0F; ++var3) {
                     float var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
@@ -438,10 +438,10 @@ public abstract class Entity {
             double var41 = this.posX - var7;
             double var42 = this.posZ - var9;
             if (this.func_25017_l() && !var18 && this.ridingEntity == null) {
-                this.distanceWalkedModified = (float) ((double) this.distanceWalkedModified + (double) MathHelper.sqrt_double(var41 * var41 + var42 * var42) * 0.6D);
-                int var43 = MathHelper.floor_double(this.posX);
-                int var26 = MathHelper.floor_double(this.posY - 0.20000000298023224D - (double) this.yOffset);
-                int var46 = MathHelper.floor_double(this.posZ);
+                this.distanceWalkedModified = (float) ((double) this.distanceWalkedModified + (double) MathHelper.sqrt(var41 * var41 + var42 * var42) * 0.6D);
+                int var43 = MathHelper.floor(this.posX);
+                int var26 = MathHelper.floor(this.posY - 0.20000000298023224D - (double) this.yOffset);
+                int var46 = MathHelper.floor(this.posZ);
                 int var52 = this.worldObj.getBlockId(var43, var26, var46);
                 if (this.worldObj.getBlockId(var43, var26 - 1, var46) == Block.FENCE.blockID) {
                     var52 = this.worldObj.getBlockId(var43, var26 - 1, var46);
@@ -453,7 +453,7 @@ public abstract class Entity {
                     if (this.worldObj.getBlockId(var43, var26 + 1, var46) == Block.SNOW.blockID) {
                         var29 = Block.SNOW.stepSound;
                         this.worldObj.playSoundAtEntity(this, var29.func_737_c(), var29.getVolume() * 0.15F, var29.getPitch());
-                    } else if (!Block.BLOCKS_LIST[var52].blockMaterial.getIsLiquid()) {
+                    } else if (!Block.BLOCKS_LIST[var52].blockMaterial.isLiquid()) {
                         this.worldObj.playSoundAtEntity(this, var29.func_737_c(), var29.getVolume() * 0.15F, var29.getPitch());
                     }
 
@@ -461,12 +461,12 @@ public abstract class Entity {
                 }
             }
 
-            int var44 = MathHelper.floor_double(this.boundingBox.minX + 0.001D);
-            int var45 = MathHelper.floor_double(this.boundingBox.minY + 0.001D);
-            int var47 = MathHelper.floor_double(this.boundingBox.minZ + 0.001D);
-            int var53 = MathHelper.floor_double(this.boundingBox.maxX - 0.001D);
-            int var55 = MathHelper.floor_double(this.boundingBox.maxY - 0.001D);
-            int var30 = MathHelper.floor_double(this.boundingBox.maxZ - 0.001D);
+            int var44 = MathHelper.floor(this.boundingBox.minX + 0.001D);
+            int var45 = MathHelper.floor(this.boundingBox.minY + 0.001D);
+            int var47 = MathHelper.floor(this.boundingBox.minZ + 0.001D);
+            int var53 = MathHelper.floor(this.boundingBox.maxX - 0.001D);
+            int var55 = MathHelper.floor(this.boundingBox.maxY - 0.001D);
+            int var30 = MathHelper.floor(this.boundingBox.maxZ - 0.001D);
             if (this.worldObj.checkChunksExist(var44, var45, var47, var53, var55, var30)) {
                 for (int var31 = var44; var31 <= var53; ++var31) {
                     for (int var32 = var45; var32 <= var55; ++var32) {
@@ -536,7 +536,7 @@ public abstract class Entity {
     }
 
     public boolean func_27008_Y() {
-        return this.inWater || this.worldObj.canLightningStrikeAt(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ));
+        return this.inWater || this.worldObj.canLightningStrikeAt(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ));
     }
 
     public boolean isInWater() {
@@ -549,9 +549,9 @@ public abstract class Entity {
 
     public boolean isInsideOfMaterial(Material var1) {
         double var2 = this.posY + (double) this.getEyeHeight();
-        int var4 = MathHelper.floor_double(this.posX);
-        int var5 = MathHelper.floor_float((float) MathHelper.floor_double(var2));
-        int var6 = MathHelper.floor_double(this.posZ);
+        int var4 = MathHelper.floor(this.posX);
+        int var5 = MathHelper.floor((float) MathHelper.floor(var2));
+        int var6 = MathHelper.floor(this.posZ);
         int var7 = this.worldObj.getBlockId(var4, var5, var6);
         if (var7 != 0 && Block.BLOCKS_LIST[var7].blockMaterial == var1) {
             float var8 = BlockFluid.setFluidHeight(this.worldObj.getBlockMetadata(var4, var5, var6)) - 0.11111111F;
@@ -571,7 +571,7 @@ public abstract class Entity {
     }
 
     public void moveFlying(float var1, float var2, float var3) {
-        float var4 = MathHelper.sqrt_float(var1 * var1 + var2 * var2);
+        float var4 = MathHelper.sqrt(var1 * var1 + var2 * var2);
         if (var4 >= 0.01F) {
             if (var4 < 1.0F) {
                 var4 = 1.0F;
@@ -588,11 +588,11 @@ public abstract class Entity {
     }
 
     public float getEntityBrightness(float var1) {
-        int var2 = MathHelper.floor_double(this.posX);
+        int var2 = MathHelper.floor(this.posX);
         double var3 = (this.boundingBox.maxY - this.boundingBox.minY) * 0.66D;
-        int var5 = MathHelper.floor_double(this.posY - (double) this.yOffset + var3);
-        int var6 = MathHelper.floor_double(this.posZ);
-        if (this.worldObj.checkChunksExist(MathHelper.floor_double(this.boundingBox.minX), MathHelper.floor_double(this.boundingBox.minY), MathHelper.floor_double(this.boundingBox.minZ), MathHelper.floor_double(this.boundingBox.maxX), MathHelper.floor_double(this.boundingBox.maxY), MathHelper.floor_double(this.boundingBox.maxZ))) {
+        int var5 = MathHelper.floor(this.posY - (double) this.yOffset + var3);
+        int var6 = MathHelper.floor(this.posZ);
+        if (this.worldObj.checkChunksExist(MathHelper.floor(this.boundingBox.minX), MathHelper.floor(this.boundingBox.minY), MathHelper.floor(this.boundingBox.minZ), MathHelper.floor(this.boundingBox.maxX), MathHelper.floor(this.boundingBox.maxY), MathHelper.floor(this.boundingBox.maxZ))) {
             float var7 = this.worldObj.getLightBrightness(var2, var5, var6);
             if (var7 < this.field_31001_bF) {
                 var7 = this.field_31001_bF;
@@ -641,7 +641,7 @@ public abstract class Entity {
         float var2 = (float) (this.posX - var1.posX);
         float var3 = (float) (this.posY - var1.posY);
         float var4 = (float) (this.posZ - var1.posZ);
-        return MathHelper.sqrt_float(var2 * var2 + var3 * var3 + var4 * var4);
+        return MathHelper.sqrt(var2 * var2 + var3 * var3 + var4 * var4);
     }
 
     public double getDistanceSq(double var1, double var3, double var5) {
@@ -655,7 +655,7 @@ public abstract class Entity {
         double var7 = this.posX - var1;
         double var9 = this.posY - var3;
         double var11 = this.posZ - var5;
-        return (double) MathHelper.sqrt_double(var7 * var7 + var9 * var9 + var11 * var11);
+        return (double) MathHelper.sqrt(var7 * var7 + var9 * var9 + var11 * var11);
     }
 
     public double getDistanceSqToEntity(Entity var1) {
@@ -672,9 +672,9 @@ public abstract class Entity {
         if (var1.riddenByEntity != this && var1.ridingEntity != this) {
             double var2 = var1.posX - this.posX;
             double var4 = var1.posZ - this.posZ;
-            double var6 = MathHelper.abs_max(var2, var4);
+            double var6 = MathHelper.absMax(var2, var4);
             if (var6 >= 0.009999999776482582D) {
-                var6 = (double) MathHelper.sqrt_double(var6);
+                var6 = (double) MathHelper.sqrt(var6);
                 var2 = var2 / var6;
                 var4 = var4 / var6;
                 double var8 = 1.0D / var6;
@@ -828,9 +828,9 @@ public abstract class Entity {
             float var2 = ((float) ((var1 >> 0) % 2) - 0.5F) * this.width * 0.9F;
             float var3 = ((float) ((var1 >> 1) % 2) - 0.5F) * 0.1F;
             float var4 = ((float) ((var1 >> 2) % 2) - 0.5F) * this.width * 0.9F;
-            int var5 = MathHelper.floor_double(this.posX + (double) var2);
-            int var6 = MathHelper.floor_double(this.posY + (double) this.getEyeHeight() + (double) var3);
-            int var7 = MathHelper.floor_double(this.posZ + (double) var4);
+            int var5 = MathHelper.floor(this.posX + (double) var2);
+            int var6 = MathHelper.floor(this.posY + (double) this.getEyeHeight() + (double) var3);
+            int var7 = MathHelper.floor(this.posZ + (double) var4);
             if (this.worldObj.isBlockNormalCube(var5, var6, var7)) {
                 return true;
             }
@@ -987,9 +987,9 @@ public abstract class Entity {
     }
 
     protected boolean func_28005_g(double var1, double var3, double var5) {
-        int var7 = MathHelper.floor_double(var1);
-        int var8 = MathHelper.floor_double(var3);
-        int var9 = MathHelper.floor_double(var5);
+        int var7 = MathHelper.floor(var1);
+        int var8 = MathHelper.floor(var3);
+        int var9 = MathHelper.floor(var5);
         double var10 = var1 - (double) var7;
         double var12 = var3 - (double) var8;
         double var14 = var5 - (double) var9;

@@ -493,7 +493,7 @@ public class ChunkProviderSky implements IChunkProvider {
         return true;
     }
 
-    public boolean func_361_a() {
+    public boolean cleanChunks() {
         return false;
     }
 

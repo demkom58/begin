@@ -131,7 +131,7 @@ public class BlockRedstoneRepeater extends Block {
     }
 
     public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
-        int var6 = ((MathHelper.floor_double((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
+        int var6 = ((MathHelper.floor((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
         var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
         boolean var7 = this.func_22022_g(var1, var2, var3, var4, var6);
         if (var7) {

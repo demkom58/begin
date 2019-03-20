@@ -173,7 +173,7 @@ public class ChunkProviderServer implements IChunkProvider {
         return true;
     }
 
-    public boolean func_361_a() {
+    public boolean cleanChunks() {
         if (!this.world.levelSaving) {
             for (int i = 0; i < 100; ++i) {
                 if (!this.chunkCoords.isEmpty()) {
@@ -193,7 +193,7 @@ public class ChunkProviderServer implements IChunkProvider {
             }
         }
 
-        return this.serverChunkGenerator.func_361_a();
+        return this.serverChunkGenerator.cleanChunks();
     }
 
     public boolean canSave() {

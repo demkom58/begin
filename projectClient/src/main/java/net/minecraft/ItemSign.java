@@ -38,7 +38,7 @@ public class ItemSign extends Item {
                 return false;
             } else {
                 if (var7 == 1) {
-                    var3.setBlockAndMetadataWithNotify(var4, var5, var6, Block.SIGN.blockID, MathHelper.floor_double((double) ((var2.rotationYaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15);
+                    var3.setBlockAndMetadataWithNotify(var4, var5, var6, Block.SIGN.blockID, MathHelper.floor((double) ((var2.rotationYaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15);
                 } else {
                     var3.setBlockAndMetadataWithNotify(var4, var5, var6, Block.SIGN_WALL.blockID, var7);
                 }

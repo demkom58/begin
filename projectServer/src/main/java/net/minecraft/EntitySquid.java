@@ -107,7 +107,7 @@ public class EntitySquid extends EntityWaterMob {
                 this.motionZ = (double) (this.field_21050_at * this.field_21055_ao);
             }
 
-            float var2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+            float var2 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.renderYawOffset += (-((float) Math.atan2(this.motionX, this.motionZ)) * 180.0F / 3.1415927F - this.renderYawOffset) * 0.1F;
             this.rotationYaw = this.renderYawOffset;
             this.field_21061_c += 3.1415927F * this.field_21053_aq * 1.5F;

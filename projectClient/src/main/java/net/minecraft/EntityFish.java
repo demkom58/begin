@@ -87,7 +87,7 @@ public class EntityFish extends Entity {
     }
 
     public void func_4042_a(double var1, double var3, double var5, float var7, float var8) {
-        float var9 = MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5);
+        float var9 = MathHelper.sqrt(var1 * var1 + var3 * var3 + var5 * var5);
         var1 = var1 / (double) var9;
         var3 = var3 / (double) var9;
         var5 = var5 / (double) var9;
@@ -100,7 +100,7 @@ public class EntityFish extends Entity {
         this.motionX = var1;
         this.motionY = var3;
         this.motionZ = var5;
-        float var10 = MathHelper.sqrt_double(var1 * var1 + var5 * var5);
+        float var10 = MathHelper.sqrt(var1 * var1 + var5 * var5);
         this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(var1, var5) * 180.0D / 3.1415927410125732D);
         this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, (double) var10) * 180.0D / 3.1415927410125732D);
         this.ticksInGround = 0;
@@ -236,7 +236,7 @@ public class EntityFish extends Entity {
 
             if (!this.inGround) {
                 this.moveEntity(this.motionX, this.motionY, this.motionZ);
-                float var26 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+                float var26 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
                 this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
                 for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var26) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
@@ -279,7 +279,7 @@ public class EntityFish extends Entity {
                         --this.ticksCatchable;
                     } else {
                         short var31 = 500;
-                        if (this.worldObj.canBlockBeRainedOn(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY) + 1, MathHelper.floor_double(this.posZ))) {
+                        if (this.worldObj.canBlockBeRainedOn(MathHelper.floor(this.posX), MathHelper.floor(this.posY) + 1, MathHelper.floor(this.posZ))) {
                             var31 = 300;
                         }
 
@@ -287,7 +287,7 @@ public class EntityFish extends Entity {
                             this.ticksCatchable = this.rand.nextInt(30) + 10;
                             this.motionY -= 0.20000000298023224D;
                             this.worldObj.playSoundAtEntity(this, "random.splash", 0.25F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
-                            float var33 = (float) MathHelper.floor_double(this.boundingBox.minY);
+                            float var33 = (float) MathHelper.floor(this.boundingBox.minY);
 
                             for (int var15 = 0; (float) var15 < 1.0F + this.width * 20.0F; ++var15) {
                                 float var35 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
@@ -351,10 +351,10 @@ public class EntityFish extends Entity {
             double var2 = this.angler.posX - this.posX;
             double var4 = this.angler.posY - this.posY;
             double var6 = this.angler.posZ - this.posZ;
-            double var8 = (double) MathHelper.sqrt_double(var2 * var2 + var4 * var4 + var6 * var6);
+            double var8 = (double) MathHelper.sqrt(var2 * var2 + var4 * var4 + var6 * var6);
             double var10 = 0.1D;
             this.bobber.motionX += var2 * var10;
-            this.bobber.motionY += var4 * var10 + (double) MathHelper.sqrt_double(var8) * 0.08D;
+            this.bobber.motionY += var4 * var10 + (double) MathHelper.sqrt(var8) * 0.08D;
             this.bobber.motionZ += var6 * var10;
             var1 = 3;
         } else if (this.ticksCatchable > 0) {
@@ -362,10 +362,10 @@ public class EntityFish extends Entity {
             double var3 = this.angler.posX - this.posX;
             double var5 = this.angler.posY - this.posY;
             double var7 = this.angler.posZ - this.posZ;
-            double var9 = (double) MathHelper.sqrt_double(var3 * var3 + var5 * var5 + var7 * var7);
+            double var9 = (double) MathHelper.sqrt(var3 * var3 + var5 * var5 + var7 * var7);
             double var11 = 0.1D;
             var13.motionX = var3 * var11;
-            var13.motionY = var5 * var11 + (double) MathHelper.sqrt_double(var9) * 0.08D;
+            var13.motionY = var5 * var11 + (double) MathHelper.sqrt(var9) * 0.08D;
             var13.motionZ = var7 * var11;
             this.worldObj.entityJoinedWorld(var13);
             this.angler.addStat(StatList.fishCaughtStat, 1);

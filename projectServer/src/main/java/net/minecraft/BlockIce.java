@@ -12,7 +12,7 @@ public class BlockIce extends BlockBreakable {
     public void harvestBlock(World world, EntityPlayer entityPlayer, int var3, int var4, int var5, int var6) {
         super.harvestBlock(world, entityPlayer, var3, var4, var5, var6);
         Material var7 = world.getBlockMaterial(var3, var4 - 1, var5);
-        if (var7.getIsSolid() || var7.getIsLiquid()) {
+        if (var7.getIsSolid() || var7.isLiquid()) {
             world.setBlockWithNotify(var3, var4, var5, Block.WATER_MOVING.blockID);
         }
 

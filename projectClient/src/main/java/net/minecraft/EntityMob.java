@@ -70,9 +70,9 @@ public class EntityMob extends EntityCreature implements IMob {
     }
 
     public boolean getCanSpawnHere() {
-        int var1 = MathHelper.floor_double(this.posX);
-        int var2 = MathHelper.floor_double(this.boundingBox.minY);
-        int var3 = MathHelper.floor_double(this.posZ);
+        int var1 = MathHelper.floor(this.posX);
+        int var2 = MathHelper.floor(this.boundingBox.minY);
+        int var3 = MathHelper.floor(this.posZ);
         if (this.worldObj.getSavedLightValue(EnumSkyBlock.SKY, var1, var2, var3) > this.rand.nextInt(32)) {
             return false;
         } else {

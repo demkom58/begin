@@ -231,9 +231,9 @@ public class EntityWolf extends EntityAnimal {
     private void getPathOrWalkableBlock(Entity var1, float var2) {
         PathEntity var3 = this.worldObj.getPathToEntity(this, var1, 16.0F);
         if (var3 == null && var2 > 12.0F) {
-            int var4 = MathHelper.floor_double(var1.posX) - 2;
-            int var5 = MathHelper.floor_double(var1.posZ) - 2;
-            int var6 = MathHelper.floor_double(var1.boundingBox.minY);
+            int var4 = MathHelper.floor(var1.posX) - 2;
+            int var5 = MathHelper.floor(var1.posZ) - 2;
+            int var6 = MathHelper.floor(var1.boundingBox.minY);
 
             for (int var7 = 0; var7 <= 4; ++var7) {
                 for (int var8 = 0; var8 <= 4; ++var8) {
@@ -304,7 +304,7 @@ public class EntityWolf extends EntityAnimal {
             if (this.onGround) {
                 double var8 = var1.posX - this.posX;
                 double var5 = var1.posZ - this.posZ;
-                float var7 = MathHelper.sqrt_double(var8 * var8 + var5 * var5);
+                float var7 = MathHelper.sqrt(var8 * var8 + var5 * var5);
                 this.motionX = var8 / (double) var7 * 0.5D * 0.800000011920929D + this.motionX * 0.20000000298023224D;
                 this.motionZ = var5 / (double) var7 * 0.5D * 0.800000011920929D + this.motionZ * 0.20000000298023224D;
                 this.motionY = 0.4000000059604645D;

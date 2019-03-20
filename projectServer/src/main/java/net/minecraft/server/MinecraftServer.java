@@ -1,7 +1,7 @@
 package net.minecraft.server;
 
-import co.aikar.timings.MinecraftTimings;
-import co.aikar.timings.TimingsManager;
+import com.demkom58.timings.MinecraftTimings;
+import com.demkom58.timings.TimingsManager;
 import com.demkom58.util.RollingAverage;
 import net.minecraft.*;
 import util.Vec3D;

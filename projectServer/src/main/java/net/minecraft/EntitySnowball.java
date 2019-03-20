@@ -51,7 +51,7 @@ public class EntitySnowball extends Entity {
     }
 
     public void func_6141_a(double var1, double var3, double var5, float var7, float var8) {
-        float var9 = MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5);
+        float var9 = MathHelper.sqrt(var1 * var1 + var3 * var3 + var5 * var5);
         var1 = var1 / (double) var9;
         var3 = var3 / (double) var9;
         var5 = var5 / (double) var9;
@@ -64,7 +64,7 @@ public class EntitySnowball extends Entity {
         this.motionX = var1;
         this.motionY = var3;
         this.motionZ = var5;
-        float var10 = MathHelper.sqrt_double(var1 * var1 + var5 * var5);
+        float var10 = MathHelper.sqrt(var1 * var1 + var5 * var5);
         this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(var1, var5) * 180.0D / 3.1415927410125732D);
         this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, (double) var10) * 180.0D / 3.1415927410125732D);
         this.ticksOnGround = 0;
@@ -149,7 +149,7 @@ public class EntitySnowball extends Entity {
         this.posX += this.motionX;
         this.posY += this.motionY;
         this.posZ += this.motionZ;
-        float var19 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+        float var19 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
         for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var19) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {

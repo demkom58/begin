@@ -50,9 +50,9 @@ public class EntityFallingSand extends Entity {
             this.motionX *= 0.9800000190734863D;
             this.motionY *= 0.9800000190734863D;
             this.motionZ *= 0.9800000190734863D;
-            int var1 = MathHelper.floor_double(this.posX);
-            int var2 = MathHelper.floor_double(this.posY);
-            int var3 = MathHelper.floor_double(this.posZ);
+            int var1 = MathHelper.floor(this.posX);
+            int var2 = MathHelper.floor(this.posY);
+            int var3 = MathHelper.floor(this.posZ);
             if (this.worldObj.getBlockId(var1, var2, var3) == this.blockID) {
                 this.worldObj.setBlockWithNotify(var1, var2, var3, 0);
             }

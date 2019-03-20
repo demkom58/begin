@@ -25,8 +25,8 @@ public final class SpawnerAnimals {
 
             for (int var3 = 0; var3 < var0.playerEntities.size(); ++var3) {
                 EntityPlayer var4 = var0.playerEntities.get(var3);
-                int var5 = MathHelper.floor_double(var4.posX / 16.0D);
-                int var6 = MathHelper.floor_double(var4.posZ / 16.0D);
+                int var5 = MathHelper.floor(var4.posX / 16.0D);
+                int var6 = MathHelper.floor(var4.posZ / 16.0D);
                 byte var7 = 8;
 
                 for (int var8 = -var7; var8 <= var7; ++var8) {
@@ -126,9 +126,9 @@ public final class SpawnerAnimals {
 
     private static boolean func_21167_a(EnumCreatureType var0, World var1, int var2, int var3, int var4) {
         if (var0.getCreatureMaterial() == Material.WATER) {
-            return var1.getBlockMaterial(var2, var3, var4).getIsLiquid() && !var1.isBlockNormalCube(var2, var3 + 1, var4);
+            return var1.getBlockMaterial(var2, var3, var4).isLiquid() && !var1.isBlockNormalCube(var2, var3 + 1, var4);
         } else {
-            return var1.isBlockNormalCube(var2, var3 - 1, var4) && !var1.isBlockNormalCube(var2, var3, var4) && !var1.getBlockMaterial(var2, var3, var4).getIsLiquid() && !var1.isBlockNormalCube(var2, var3 + 1, var4);
+            return var1.isBlockNormalCube(var2, var3 - 1, var4) && !var1.isBlockNormalCube(var2, var3, var4) && !var1.getBlockMaterial(var2, var3, var4).isLiquid() && !var1.isBlockNormalCube(var2, var3 + 1, var4);
         }
     }
 
@@ -154,9 +154,9 @@ public final class SpawnerAnimals {
                 boolean var7 = false;
 
                 for (int var8 = 0; var8 < 20 && !var7; ++var8) {
-                    int var9 = MathHelper.floor_double(var5.posX) + var0.rand.nextInt(32) - var0.rand.nextInt(32);
-                    int var10 = MathHelper.floor_double(var5.posZ) + var0.rand.nextInt(32) - var0.rand.nextInt(32);
-                    int var11 = MathHelper.floor_double(var5.posY) + var0.rand.nextInt(16) - var0.rand.nextInt(16);
+                    int var9 = MathHelper.floor(var5.posX) + var0.rand.nextInt(32) - var0.rand.nextInt(32);
+                    int var10 = MathHelper.floor(var5.posZ) + var0.rand.nextInt(32) - var0.rand.nextInt(32);
+                    int var11 = MathHelper.floor(var5.posY) + var0.rand.nextInt(16) - var0.rand.nextInt(16);
                     if (var11 < 1) {
                         var11 = 1;
                     } else if (var11 > 128) {
@@ -192,7 +192,7 @@ public final class SpawnerAnimals {
                             if (var18 != null && var18.pathLength > 1) {
                                 PathPoint var19 = var18.func_22211_c();
                                 if (Math.abs((double) var19.xCoord - var5.posX) < 1.5D && Math.abs((double) var19.zCoord - var5.posZ) < 1.5D && Math.abs((double) var19.yCoord - var5.posY) < 1.5D) {
-                                    ChunkCoordinates var20 = BlockBed.func_22021_g(var0, MathHelper.floor_double(var5.posX), MathHelper.floor_double(var5.posY), MathHelper.floor_double(var5.posZ), 1);
+                                    ChunkCoordinates var20 = BlockBed.func_22021_g(var0, MathHelper.floor(var5.posX), MathHelper.floor(var5.posY), MathHelper.floor(var5.posZ), 1);
                                     if (var20 == null) {
                                         var20 = new ChunkCoordinates(var9, var13 + 1, var10);
                                     }

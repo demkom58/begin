@@ -260,8 +260,8 @@ public class World implements IBlockAccess {
 
             if (this.chunkProvider instanceof ChunkProviderLoadOrGenerate) {
                 ChunkProviderLoadOrGenerate chunkProvider = (ChunkProviderLoadOrGenerate) this.chunkProvider;
-                int var4 = MathHelper.floor_float((float) ((int) entityPlayer.posX)) >> 4;
-                int var5 = MathHelper.floor_float((float) ((int) entityPlayer.posZ)) >> 4;
+                int var4 = MathHelper.floor((float) ((int) entityPlayer.posX)) >> 4;
+                int var5 = MathHelper.floor((float) ((int) entityPlayer.posZ)) >> 4;
                 chunkProvider.setCurrentChunkOver(var4, var5);
             }
 
@@ -709,13 +709,13 @@ public class World implements IBlockAccess {
     public MovingObjectPosition rayTraceBlocks(Vec3D var1, Vec3D var2, boolean paramBoolean, boolean paramBoolean2) {
         if (!Double.isNaN(var1.xCoord) && !Double.isNaN(var1.yCoord) && !Double.isNaN(var1.zCoord)) {
             if (!Double.isNaN(var2.xCoord) && !Double.isNaN(var2.yCoord) && !Double.isNaN(var2.zCoord)) {
-                int i = MathHelper.floor_double(var2.xCoord);
-                int j = MathHelper.floor_double(var2.yCoord);
-                int k = MathHelper.floor_double(var2.zCoord);
+                int i = MathHelper.floor(var2.xCoord);
+                int j = MathHelper.floor(var2.yCoord);
+                int k = MathHelper.floor(var2.zCoord);
 
-                int m = MathHelper.floor_double(var1.xCoord);
-                int n = MathHelper.floor_double(var1.yCoord);
-                int i1 = MathHelper.floor_double(var1.zCoord);
+                int m = MathHelper.floor(var1.xCoord);
+                int n = MathHelper.floor(var1.yCoord);
+                int i1 = MathHelper.floor(var1.zCoord);
 
                 int i2 = this.getBlockId(m, n, i1);
                 int i3 = this.getBlockMetadata(m, n, i1);
@@ -822,19 +822,19 @@ public class World implements IBlockAccess {
                     }
 
                     Vec3D var34 = Vec3D.createVector(var1.xCoord, var1.yCoord, var1.zCoord);
-                    m = (int) (var34.xCoord = (double) MathHelper.floor_double(var1.xCoord));
+                    m = (int) (var34.xCoord = (double) MathHelper.floor(var1.xCoord));
                     if (var33 == 5) {
                         --m;
                         ++var34.xCoord;
                     }
 
-                    n = (int) (var34.yCoord = (double) MathHelper.floor_double(var1.yCoord));
+                    n = (int) (var34.yCoord = (double) MathHelper.floor(var1.yCoord));
                     if (var33 == 1) {
                         --n;
                         ++var34.yCoord;
                     }
 
-                    i1 = (int) (var34.zCoord = (double) MathHelper.floor_double(var1.zCoord));
+                    i1 = (int) (var34.zCoord = (double) MathHelper.floor(var1.zCoord));
                     if (var33 == 3) {
                         --i1;
                         ++var34.zCoord;
@@ -894,8 +894,8 @@ public class World implements IBlockAccess {
     }
 
     public boolean entityJoinedWorld(Entity var1) {
-        int var2 = MathHelper.floor_double(var1.posX / 16.0D);
-        int var3 = MathHelper.floor_double(var1.posZ / 16.0D);
+        int var2 = MathHelper.floor(var1.posX / 16.0D);
+        int var3 = MathHelper.floor(var1.posZ / 16.0D);
         boolean var4 = false;
         if (var1 instanceof EntityPlayer) {
             var4 = true;
@@ -958,12 +958,12 @@ public class World implements IBlockAccess {
 
     public List getCollidingBoundingBoxes(Entity var1, AxisAlignedBB var2) {
         this.collidingBoundingBoxes.clear();
-        int var3 = MathHelper.floor_double(var2.minX);
-        int var4 = MathHelper.floor_double(var2.maxX + 1.0D);
-        int var5 = MathHelper.floor_double(var2.minY);
-        int var6 = MathHelper.floor_double(var2.maxY + 1.0D);
-        int var7 = MathHelper.floor_double(var2.minZ);
-        int var8 = MathHelper.floor_double(var2.maxZ + 1.0D);
+        int var3 = MathHelper.floor(var2.minX);
+        int var4 = MathHelper.floor(var2.maxX + 1.0D);
+        int var5 = MathHelper.floor(var2.minY);
+        int var6 = MathHelper.floor(var2.maxY + 1.0D);
+        int var7 = MathHelper.floor(var2.minZ);
+        int var8 = MathHelper.floor(var2.maxZ + 1.0D);
 
         for (int var9 = var3; var9 < var4; ++var9) {
             for (int var10 = var7; var10 < var8; ++var10) {
@@ -1025,8 +1025,8 @@ public class World implements IBlockAccess {
             var4 = 1.0F;
         }
 
-        int var5 = MathHelper.floor_double(var1.posX);
-        int var6 = MathHelper.floor_double(var1.posZ);
+        int var5 = MathHelper.floor(var1.posX);
+        int var6 = MathHelper.floor(var1.posZ);
         float var7 = (float) this.getWorldChunkManager().getTemperature(var5, var6);
         int var8 = this.getWorldChunkManager().getBiomeGenAt(var5, var6).getSkyColorByTemp(var7);
         float var9 = (float) (var8 >> 16 & 255) / 255.0F;
@@ -1278,8 +1278,8 @@ public class World implements IBlockAccess {
     }
 
     public void updateEntityWithOptionalForce(Entity entity, boolean chunk) {
-        int var3 = MathHelper.floor_double(entity.posX);
-        int var4 = MathHelper.floor_double(entity.posZ);
+        int var3 = MathHelper.floor(entity.posX);
+        int var4 = MathHelper.floor(entity.posZ);
         byte var5 = 32;
         if (!chunk || this.checkChunksExist(var3 - var5, 0, var4 - var5, var3 + var5, 128, var4 + var5)) {
             entity.lastTickPosX = entity.posX;
@@ -1315,9 +1315,9 @@ public class World implements IBlockAccess {
                 entity.rotationYaw = entity.prevRotationYaw;
             }
 
-            int var6 = MathHelper.floor_double(entity.posX / 16.0D);
-            int var7 = MathHelper.floor_double(entity.posY / 16.0D);
-            int var8 = MathHelper.floor_double(entity.posZ / 16.0D);
+            int var6 = MathHelper.floor(entity.posX / 16.0D);
+            int var7 = MathHelper.floor(entity.posY / 16.0D);
+            int var8 = MathHelper.floor(entity.posZ / 16.0D);
             if (!entity.addedToChunk || entity.chunkCoordX != var6 || entity.chunkCoordY != var7 || entity.chunkCoordZ != var8) {
                 if (entity.addedToChunk && this.chunkExists(entity.chunkCoordX, entity.chunkCoordZ)) {
                     this.getChunkFromChunkCoords(entity.chunkCoordX, entity.chunkCoordZ).removeEntityAtIndex(entity, entity.chunkCoordY);
@@ -1357,12 +1357,12 @@ public class World implements IBlockAccess {
     }
 
     public boolean isAnyLiquid(AxisAlignedBB var1) {
-        int var2 = MathHelper.floor_double(var1.minX);
-        int var3 = MathHelper.floor_double(var1.maxX + 1.0D);
-        int var4 = MathHelper.floor_double(var1.minY);
-        int var5 = MathHelper.floor_double(var1.maxY + 1.0D);
-        int var6 = MathHelper.floor_double(var1.minZ);
-        int var7 = MathHelper.floor_double(var1.maxZ + 1.0D);
+        int var2 = MathHelper.floor(var1.minX);
+        int var3 = MathHelper.floor(var1.maxX + 1.0D);
+        int var4 = MathHelper.floor(var1.minY);
+        int var5 = MathHelper.floor(var1.maxY + 1.0D);
+        int var6 = MathHelper.floor(var1.minZ);
+        int var7 = MathHelper.floor(var1.maxZ + 1.0D);
         if (var1.minX < 0.0D) {
             --var2;
         }
@@ -1390,12 +1390,12 @@ public class World implements IBlockAccess {
     }
 
     public boolean isBoundingBoxBurning(AxisAlignedBB var1) {
-        int var2 = MathHelper.floor_double(var1.minX);
-        int var3 = MathHelper.floor_double(var1.maxX + 1.0D);
-        int var4 = MathHelper.floor_double(var1.minY);
-        int var5 = MathHelper.floor_double(var1.maxY + 1.0D);
-        int var6 = MathHelper.floor_double(var1.minZ);
-        int var7 = MathHelper.floor_double(var1.maxZ + 1.0D);
+        int var2 = MathHelper.floor(var1.minX);
+        int var3 = MathHelper.floor(var1.maxX + 1.0D);
+        int var4 = MathHelper.floor(var1.minY);
+        int var5 = MathHelper.floor(var1.maxY + 1.0D);
+        int var6 = MathHelper.floor(var1.minZ);
+        int var7 = MathHelper.floor(var1.maxZ + 1.0D);
         if (this.checkChunksExist(var2, var4, var6, var3, var5, var7)) {
             for (int var8 = var2; var8 < var3; ++var8) {
                 for (int var9 = var4; var9 < var5; ++var9) {
@@ -1413,12 +1413,12 @@ public class World implements IBlockAccess {
     }
 
     public boolean handleMaterialAcceleration(AxisAlignedBB var1, Material var2, Entity var3) {
-        int var4 = MathHelper.floor_double(var1.minX);
-        int var5 = MathHelper.floor_double(var1.maxX + 1.0D);
-        int var6 = MathHelper.floor_double(var1.minY);
-        int var7 = MathHelper.floor_double(var1.maxY + 1.0D);
-        int var8 = MathHelper.floor_double(var1.minZ);
-        int var9 = MathHelper.floor_double(var1.maxZ + 1.0D);
+        int var4 = MathHelper.floor(var1.minX);
+        int var5 = MathHelper.floor(var1.maxX + 1.0D);
+        int var6 = MathHelper.floor(var1.minY);
+        int var7 = MathHelper.floor(var1.maxY + 1.0D);
+        int var8 = MathHelper.floor(var1.minZ);
+        int var9 = MathHelper.floor(var1.maxZ + 1.0D);
         if (!this.checkChunksExist(var4, var6, var8, var5, var7, var9)) {
             return false;
         }
@@ -1453,12 +1453,12 @@ public class World implements IBlockAccess {
     }
 
     public boolean isMaterialInBB(AxisAlignedBB var1, Material var2) {
-        int var3 = MathHelper.floor_double(var1.minX);
-        int var4 = MathHelper.floor_double(var1.maxX + 1.0D);
-        int var5 = MathHelper.floor_double(var1.minY);
-        int var6 = MathHelper.floor_double(var1.maxY + 1.0D);
-        int var7 = MathHelper.floor_double(var1.minZ);
-        int var8 = MathHelper.floor_double(var1.maxZ + 1.0D);
+        int var3 = MathHelper.floor(var1.minX);
+        int var4 = MathHelper.floor(var1.maxX + 1.0D);
+        int var5 = MathHelper.floor(var1.minY);
+        int var6 = MathHelper.floor(var1.maxY + 1.0D);
+        int var7 = MathHelper.floor(var1.minZ);
+        int var8 = MathHelper.floor(var1.maxZ + 1.0D);
 
         for (int var9 = var3; var9 < var4; ++var9) {
             for (int var10 = var5; var10 < var6; ++var10) {
@@ -1475,12 +1475,12 @@ public class World implements IBlockAccess {
     }
 
     public boolean isAABBInMaterial(AxisAlignedBB var1, Material var2) {
-        int var3 = MathHelper.floor_double(var1.minX);
-        int var4 = MathHelper.floor_double(var1.maxX + 1.0D);
-        int var5 = MathHelper.floor_double(var1.minY);
-        int var6 = MathHelper.floor_double(var1.maxY + 1.0D);
-        int var7 = MathHelper.floor_double(var1.minZ);
-        int var8 = MathHelper.floor_double(var1.maxZ + 1.0D);
+        int var3 = MathHelper.floor(var1.minX);
+        int var4 = MathHelper.floor(var1.maxX + 1.0D);
+        int var5 = MathHelper.floor(var1.minY);
+        int var6 = MathHelper.floor(var1.maxY + 1.0D);
+        int var7 = MathHelper.floor(var1.minZ);
+        int var8 = MathHelper.floor(var1.maxZ + 1.0D);
 
         for (int var9 = var3; var9 < var4; ++var9) {
             for (int var10 = var5; var10 < var6; ++var10) {
@@ -1861,8 +1861,8 @@ public class World implements IBlockAccess {
 
         for (int var1 = 0; var1 < this.playerEntities.size(); ++var1) {
             EntityPlayer var2 = this.playerEntities.get(var1);
-            int var3 = MathHelper.floor_double(var2.posX / 16.0D);
-            int var4 = MathHelper.floor_double(var2.posZ / 16.0D);
+            int var3 = MathHelper.floor(var2.posX / 16.0D);
+            int var4 = MathHelper.floor(var2.posZ / 16.0D);
             byte var5 = 9;
 
             for (int var6 = -var5; var6 <= var5; ++var6) {
@@ -1992,10 +1992,10 @@ public class World implements IBlockAccess {
 
     public List getEntitiesWithinAABBExcludingEntity(Entity var1, AxisAlignedBB var2) {
         this.entities.clear();
-        int var3 = MathHelper.floor_double((var2.minX - 2.0D) / 16.0D);
-        int var4 = MathHelper.floor_double((var2.maxX + 2.0D) / 16.0D);
-        int var5 = MathHelper.floor_double((var2.minZ - 2.0D) / 16.0D);
-        int var6 = MathHelper.floor_double((var2.maxZ + 2.0D) / 16.0D);
+        int var3 = MathHelper.floor((var2.minX - 2.0D) / 16.0D);
+        int var4 = MathHelper.floor((var2.maxX + 2.0D) / 16.0D);
+        int var5 = MathHelper.floor((var2.minZ - 2.0D) / 16.0D);
+        int var6 = MathHelper.floor((var2.maxZ + 2.0D) / 16.0D);
 
         for (int var7 = var3; var7 <= var4; ++var7) {
             for (int var8 = var5; var8 <= var6; ++var8) {
@@ -2009,10 +2009,10 @@ public class World implements IBlockAccess {
     }
 
     public List<Entity> getEntitiesWithinAABB(Class var1, AxisAlignedBB var2) {
-        int var3 = MathHelper.floor_double((var2.minX - 2.0D) / 16.0D);
-        int var4 = MathHelper.floor_double((var2.maxX + 2.0D) / 16.0D);
-        int var5 = MathHelper.floor_double((var2.minZ - 2.0D) / 16.0D);
-        int var6 = MathHelper.floor_double((var2.maxZ + 2.0D) / 16.0D);
+        int var3 = MathHelper.floor((var2.minX - 2.0D) / 16.0D);
+        int var4 = MathHelper.floor((var2.maxX + 2.0D) / 16.0D);
+        int var5 = MathHelper.floor((var2.minZ - 2.0D) / 16.0D);
+        int var6 = MathHelper.floor((var2.maxZ + 2.0D) / 16.0D);
         ArrayList var7 = new ArrayList();
 
         for (int var8 = var3; var8 <= var4; ++var8) {
@@ -2094,9 +2094,9 @@ public class World implements IBlockAccess {
     }
 
     public PathEntity getPathToEntity(Entity var1, Entity var2, float var3) {
-        int var4 = MathHelper.floor_double(var1.posX);
-        int var5 = MathHelper.floor_double(var1.posY);
-        int var6 = MathHelper.floor_double(var1.posZ);
+        int var4 = MathHelper.floor(var1.posX);
+        int var5 = MathHelper.floor(var1.posY);
+        int var6 = MathHelper.floor(var1.posZ);
         int var7 = (int) (var3 + 16.0F);
         int var8 = var4 - var7;
         int var9 = var5 - var7;
@@ -2109,9 +2109,9 @@ public class World implements IBlockAccess {
     }
 
     public PathEntity getEntityPathToXYZ(Entity var1, int var2, int var3, int var4, float var5) {
-        int var6 = MathHelper.floor_double(var1.posX);
-        int var7 = MathHelper.floor_double(var1.posY);
-        int var8 = MathHelper.floor_double(var1.posZ);
+        int var6 = MathHelper.floor(var1.posX);
+        int var7 = MathHelper.floor(var1.posY);
+        int var8 = MathHelper.floor(var1.posZ);
         int var9 = (int) (var5 + 8.0F);
         int var10 = var6 - var9;
         int var11 = var7 - var9;
@@ -2272,8 +2272,8 @@ public class World implements IBlockAccess {
     }
 
     public void joinEntityInSurroundings(Entity var1) {
-        int var2 = MathHelper.floor_double(var1.posX / 16.0D);
-        int var3 = MathHelper.floor_double(var1.posZ / 16.0D);
+        int var2 = MathHelper.floor(var1.posX / 16.0D);
+        int var3 = MathHelper.floor(var1.posZ / 16.0D);
         byte var4 = 2;
 
         for (int var5 = var2 - var4; var5 <= var2 + var4; ++var5) {

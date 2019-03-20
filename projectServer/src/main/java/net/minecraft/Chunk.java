@@ -329,14 +329,14 @@ public class Chunk {
 
     public void addEntity(Entity var1) {
         this.hasEntities = true;
-        int var2 = MathHelper.floor_double(var1.posX / 16.0D);
-        int var3 = MathHelper.floor_double(var1.posZ / 16.0D);
+        int var2 = MathHelper.floor(var1.posX / 16.0D);
+        int var3 = MathHelper.floor(var1.posZ / 16.0D);
         if (var2 != this.xPosition || var3 != this.zPosition) {
             System.out.println("Wrong location! " + var1);
             Thread.dumpStack();
         }
 
-        int var4 = MathHelper.floor_double(var1.posY / 16.0D);
+        int var4 = MathHelper.floor(var1.posY / 16.0D);
         if (var4 < 0) {
             var4 = 0;
         }
@@ -458,8 +458,8 @@ public class Chunk {
     }
 
     public void getEntitiesWithinAABBForEntity(Entity var1, AxisAlignedBB var2, List<Entity> var3) {
-        int var4 = MathHelper.floor_double((var2.minY - 2.0D) / 16.0D);
-        int var5 = MathHelper.floor_double((var2.maxY + 2.0D) / 16.0D);
+        int var4 = MathHelper.floor((var2.minY - 2.0D) / 16.0D);
+        int var5 = MathHelper.floor((var2.maxY + 2.0D) / 16.0D);
         if (var4 < 0) {
             var4 = 0;
         }
@@ -482,8 +482,8 @@ public class Chunk {
     }
 
     public void getEntitiesOfTypeWithinAAAB(Class var1, AxisAlignedBB var2, List<Entity> var3) {
-        int var4 = MathHelper.floor_double((var2.minY - 2.0D) / 16.0D);
-        int var5 = MathHelper.floor_double((var2.maxY + 2.0D) / 16.0D);
+        int var4 = MathHelper.floor((var2.minY - 2.0D) / 16.0D);
+        int var5 = MathHelper.floor((var2.maxY + 2.0D) / 16.0D);
         if (var4 < 0) {
             var4 = 0;
         }

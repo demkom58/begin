@@ -30,7 +30,7 @@ public class EntityFireball extends Entity {
         this.setSize(1.0F, 1.0F);
         this.setLocationAndAngles(var2, var4, var6, this.rotationYaw, this.rotationPitch);
         this.setPosition(var2, var4, var6);
-        double var14 = (double) MathHelper.sqrt_double(var8 * var8 + var10 * var10 + var12 * var12);
+        double var14 = (double) MathHelper.sqrt(var8 * var8 + var10 * var10 + var12 * var12);
         this.field_9405_b = var8 / var14 * 0.1D;
         this.field_9404_c = var10 / var14 * 0.1D;
         this.field_9403_d = var12 / var14 * 0.1D;
@@ -47,7 +47,7 @@ public class EntityFireball extends Entity {
         var3 = var3 + this.rand.nextGaussian() * 0.4D;
         var5 = var5 + this.rand.nextGaussian() * 0.4D;
         var7 = var7 + this.rand.nextGaussian() * 0.4D;
-        double var9 = (double) MathHelper.sqrt_double(var3 * var3 + var5 * var5 + var7 * var7);
+        double var9 = (double) MathHelper.sqrt(var3 * var3 + var5 * var5 + var7 * var7);
         this.field_9405_b = var3 / var9 * 0.1D;
         this.field_9404_c = var5 / var9 * 0.1D;
         this.field_9403_d = var7 / var9 * 0.1D;
@@ -138,7 +138,7 @@ public class EntityFireball extends Entity {
         this.posX += this.motionX;
         this.posY += this.motionY;
         this.posZ += this.motionZ;
-        float var18 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+        float var18 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
         for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var18) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {

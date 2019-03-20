@@ -32,8 +32,8 @@ public class ItemMap extends ItemMapBase {
             int var6 = 1 << var3.scale;
             int var7 = var3.xCenter;
             int var8 = var3.zCenter;
-            int var9 = MathHelper.floor_double(var2.posX - (double) var7) / var6 + var4 / 2;
-            int var10 = MathHelper.floor_double(var2.posZ - (double) var8) / var6 + var5 / 2;
+            int var9 = MathHelper.floor(var2.posX - (double) var7) / var6 + var4 / 2;
+            int var10 = MathHelper.floor(var2.posZ - (double) var8) / var6 + var5 / 2;
             int var11 = 128 / var6;
             if (var1.worldProvider.hasNoSky) {
                 var11 /= 2;
@@ -100,14 +100,14 @@ public class ItemMap extends ItemMapBase {
                                                 }
                                             }
 
-                                            if (var36 != 0 && Block.BLOCKS_LIST[var36].blockMaterial.getIsLiquid()) {
+                                            if (var36 != 0 && Block.BLOCKS_LIST[var36].blockMaterial.isLiquid()) {
                                                 int var38 = var35 - 1;
                                                 int var39 = 0;
 
                                                 while (true) {
                                                     var39 = var27.getBlockID(var43 + var28, var38--, var34 + var29);
                                                     ++var30;
-                                                    if (var38 <= 0 || var39 == 0 || !Block.BLOCKS_LIST[var39].blockMaterial.getIsLiquid()) {
+                                                    if (var38 <= 0 || var39 == 0 || !Block.BLOCKS_LIST[var39].blockMaterial.isLiquid()) {
                                                         break;
                                                     }
                                                 }
@@ -210,8 +210,8 @@ public class ItemMap extends ItemMapBase {
         String var4 = "map_" + var1.getItemDamage();
         MapData var5 = new MapData(var4);
         var2.setItemData(var4, var5);
-        var5.xCenter = MathHelper.floor_double(var3.posX);
-        var5.zCenter = MathHelper.floor_double(var3.posZ);
+        var5.xCenter = MathHelper.floor(var3.posX);
+        var5.zCenter = MathHelper.floor(var3.posZ);
         var5.scale = 3;
         var5.dimension = (byte) var2.worldProvider.worldType;
         var5.func_28146_a();

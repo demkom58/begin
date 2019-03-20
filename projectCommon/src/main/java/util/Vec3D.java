@@ -61,7 +61,7 @@ public class Vec3D {
     }
 
     public Vec3D normalize() {
-        double var1 = (double) MathHelper.sqrt_double(this.xCoord * this.xCoord + this.yCoord * this.yCoord + this.zCoord * this.zCoord);
+        double var1 = (double) MathHelper.sqrt(this.xCoord * this.xCoord + this.yCoord * this.yCoord + this.zCoord * this.zCoord);
         return var1 < 1.0E-4D ? createVector(0.0D, 0.0D, 0.0D) : createVector(this.xCoord / var1, this.yCoord / var1, this.zCoord / var1);
     }
 
@@ -77,7 +77,7 @@ public class Vec3D {
         double var2 = var1.xCoord - this.xCoord;
         double var4 = var1.yCoord - this.yCoord;
         double var6 = var1.zCoord - this.zCoord;
-        return (double) MathHelper.sqrt_double(var2 * var2 + var4 * var4 + var6 * var6);
+        return (double) MathHelper.sqrt(var2 * var2 + var4 * var4 + var6 * var6);
     }
 
     public double squareDistanceTo(Vec3D var1) {
@@ -95,7 +95,7 @@ public class Vec3D {
     }
 
     public double lengthVector() {
-        return (double) MathHelper.sqrt_double(this.xCoord * this.xCoord + this.yCoord * this.yCoord + this.zCoord * this.zCoord);
+        return (double) MathHelper.sqrt(this.xCoord * this.xCoord + this.yCoord * this.yCoord + this.zCoord * this.zCoord);
     }
 
     public Vec3D getIntermediateWithXValue(Vec3D var1, double var2) {

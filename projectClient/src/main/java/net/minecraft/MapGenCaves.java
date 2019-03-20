@@ -64,12 +64,12 @@ public class MapGenCaves extends MapGenBase {
                 }
 
                 if (var4 >= var17 - 16.0D - var27 * 2.0D && var8 >= var19 - 16.0D - var27 * 2.0D && var4 <= var17 + 16.0D + var27 * 2.0D && var8 <= var19 + 16.0D + var27 * 2.0D) {
-                    int var56 = MathHelper.floor_double(var4 - var27) - var1 * 16 - 1;
-                    int var34 = MathHelper.floor_double(var4 + var27) - var1 * 16 + 1;
-                    int var57 = MathHelper.floor_double(var6 - var29) - 1;
-                    int var36 = MathHelper.floor_double(var6 + var29) + 1;
-                    int var58 = MathHelper.floor_double(var8 - var27) - var2 * 16 - 1;
-                    int var38 = MathHelper.floor_double(var8 + var27) - var2 * 16 + 1;
+                    int var56 = MathHelper.floor(var4 - var27) - var1 * 16 - 1;
+                    int var34 = MathHelper.floor(var4 + var27) - var1 * 16 + 1;
+                    int var57 = MathHelper.floor(var6 - var29) - 1;
+                    int var36 = MathHelper.floor(var6 + var29) + 1;
+                    int var58 = MathHelper.floor(var8 - var27) - var2 * 16 - 1;
+                    int var38 = MathHelper.floor(var8 + var27) - var2 * 16 + 1;
                     if (var56 < 0) {
                         var56 = 0;
                     }

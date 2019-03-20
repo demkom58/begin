@@ -50,7 +50,7 @@ public class EntitySpider extends EntityMob {
                 if (this.onGround) {
                     double var4 = var1.posX - this.posX;
                     double var6 = var1.posZ - this.posZ;
-                    float var8 = MathHelper.sqrt_double(var4 * var4 + var6 * var6);
+                    float var8 = MathHelper.sqrt(var4 * var4 + var6 * var6);
                     this.motionX = var4 / (double) var8 * 0.5D * 0.800000011920929D + this.motionX * 0.20000000298023224D;
                     this.motionZ = var6 / (double) var8 * 0.5D * 0.800000011920929D + this.motionZ * 0.20000000298023224D;
                     this.motionY = 0.4000000059604645D;

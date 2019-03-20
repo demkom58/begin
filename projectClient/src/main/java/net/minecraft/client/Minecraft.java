@@ -932,8 +932,8 @@ public abstract class Minecraft implements Runnable {
             IChunkProvider var1 = this.theWorld.getIChunkProvider();
             if (var1 instanceof ChunkProviderLoadOrGenerate) {
                 ChunkProviderLoadOrGenerate var2 = (ChunkProviderLoadOrGenerate) var1;
-                int var3 = MathHelper.floor_float((float) ((int) this.thePlayer.posX)) >> 4;
-                int var4 = MathHelper.floor_float((float) ((int) this.thePlayer.posZ)) >> 4;
+                int var3 = MathHelper.floor((float) ((int) this.thePlayer.posX)) >> 4;
+                int var4 = MathHelper.floor((float) ((int) this.thePlayer.posZ)) >> 4;
                 var2.setCurrentChunkOver(var3, var4);
             }
         }
@@ -1128,7 +1128,7 @@ public abstract class Minecraft implements Runnable {
             }
 
             if (!this.isGamePaused && this.theWorld != null) {
-                this.theWorld.randomDisplayUpdates(MathHelper.floor_double(this.thePlayer.posX), MathHelper.floor_double(this.thePlayer.posY), MathHelper.floor_double(this.thePlayer.posZ));
+                this.theWorld.randomDisplayUpdates(MathHelper.floor(this.thePlayer.posX), MathHelper.floor(this.thePlayer.posY), MathHelper.floor(this.thePlayer.posZ));
             }
 
             if (!this.isGamePaused) {
@@ -1278,8 +1278,8 @@ public abstract class Minecraft implements Runnable {
             IChunkProvider var4 = var1.getIChunkProvider();
             if (var4 instanceof ChunkProviderLoadOrGenerate) {
                 ChunkProviderLoadOrGenerate var5 = (ChunkProviderLoadOrGenerate) var4;
-                int var6 = MathHelper.floor_float((float) ((int) this.thePlayer.posX)) >> 4;
-                int var7 = MathHelper.floor_float((float) ((int) this.thePlayer.posZ)) >> 4;
+                int var6 = MathHelper.floor((float) ((int) this.thePlayer.posX)) >> 4;
+                int var7 = MathHelper.floor((float) ((int) this.thePlayer.posZ)) >> 4;
                 var5.setCurrentChunkOver(var6, var7);
             }
 

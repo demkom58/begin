@@ -1,7 +1,7 @@
 package net.minecraft;
 
 public interface IProgressUpdate {
-    void func_438_a(String var1);
+    void display(String var1);
 
     void displayLoadingString(String var1);
 

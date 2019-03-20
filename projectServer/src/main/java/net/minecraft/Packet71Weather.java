@@ -18,9 +18,9 @@ public class Packet71Weather extends Packet {
 
     public Packet71Weather(Entity var1) {
         this.field_27043_a = var1.entityId;
-        this.field_27042_b = MathHelper.floor_double(var1.posX * 32.0D);
-        this.field_27046_c = MathHelper.floor_double(var1.posY * 32.0D);
-        this.field_27045_d = MathHelper.floor_double(var1.posZ * 32.0D);
+        this.field_27042_b = MathHelper.floor(var1.posX * 32.0D);
+        this.field_27046_c = MathHelper.floor(var1.posY * 32.0D);
+        this.field_27045_d = MathHelper.floor(var1.posZ * 32.0D);
         if (var1 instanceof EntityLightningBolt) {
             this.field_27044_e = 1;
         }

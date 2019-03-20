@@ -46,9 +46,9 @@ public class Explosion {
                         double var19 = this.explosionZ;
 
                         for (float var21 = 0.3F; var14 > 0.0F; var14 -= var21 * 0.75F) {
-                            int var22 = MathHelper.floor_double(var15);
-                            int var23 = MathHelper.floor_double(var17);
-                            int var24 = MathHelper.floor_double(var19);
+                            int var22 = MathHelper.floor(var15);
+                            int var23 = MathHelper.floor(var17);
+                            int var24 = MathHelper.floor(var19);
                             int var25 = this.worldObj.getBlockId(var22, var23, var24);
                             if (var25 > 0) {
                                 var14 -= (Block.BLOCKS_LIST[var25].getExplosionResistance(this.exploder) + 0.3F) * var21;
@@ -68,12 +68,12 @@ public class Explosion {
         }
 
         this.explosionSize *= 2.0F;
-        int var29 = MathHelper.floor_double(this.explosionX - (double) this.explosionSize - 1.0D);
-        int var30 = MathHelper.floor_double(this.explosionX + (double) this.explosionSize + 1.0D);
-        int var31 = MathHelper.floor_double(this.explosionY - (double) this.explosionSize - 1.0D);
-        int var33 = MathHelper.floor_double(this.explosionY + (double) this.explosionSize + 1.0D);
-        int var7 = MathHelper.floor_double(this.explosionZ - (double) this.explosionSize - 1.0D);
-        int var35 = MathHelper.floor_double(this.explosionZ + (double) this.explosionSize + 1.0D);
+        int var29 = MathHelper.floor(this.explosionX - (double) this.explosionSize - 1.0D);
+        int var30 = MathHelper.floor(this.explosionX + (double) this.explosionSize + 1.0D);
+        int var31 = MathHelper.floor(this.explosionY - (double) this.explosionSize - 1.0D);
+        int var33 = MathHelper.floor(this.explosionY + (double) this.explosionSize + 1.0D);
+        int var7 = MathHelper.floor(this.explosionZ - (double) this.explosionSize - 1.0D);
+        int var35 = MathHelper.floor(this.explosionZ + (double) this.explosionSize + 1.0D);
         List<Entity> var9 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, AxisAlignedBB.getBoundingBoxFromPool((double) var29, (double) var31, (double) var7, (double) var30, (double) var33, (double) var35));
         Vec3D var37 = Vec3D.createVector(this.explosionX, this.explosionY, this.explosionZ);
 
@@ -84,7 +84,7 @@ public class Explosion {
                 double var43 = var39.posX - this.explosionX;
                 double var46 = var39.posY - this.explosionY;
                 double var49 = var39.posZ - this.explosionZ;
-                double var51 = (double) MathHelper.sqrt_double(var43 * var43 + var46 * var46 + var49 * var49);
+                double var51 = (double) MathHelper.sqrt(var43 * var43 + var46 * var46 + var49 * var49);
                 var43 = var43 / var51;
                 var46 = var46 / var51;
                 var49 = var49 / var51;
@@ -134,7 +134,7 @@ public class Explosion {
                 double var15 = var9 - this.explosionX;
                 double var17 = var11 - this.explosionY;
                 double var19 = var13 - this.explosionZ;
-                double var21 = (double) MathHelper.sqrt_double(var15 * var15 + var17 * var17 + var19 * var19);
+                double var21 = (double) MathHelper.sqrt(var15 * var15 + var17 * var17 + var19 * var19);
                 var15 = var15 / var21;
                 var17 = var17 / var21;
                 var19 = var19 / var21;

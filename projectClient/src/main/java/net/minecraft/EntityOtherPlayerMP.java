@@ -48,7 +48,7 @@ public class EntityOtherPlayerMP extends EntityPlayer {
         this.field_705_Q = this.field_704_R;
         double var1 = this.posX - this.prevPosX;
         double var3 = this.posZ - this.prevPosZ;
-        float var5 = MathHelper.sqrt_double(var1 * var1 + var3 * var3) * 4.0F;
+        float var5 = MathHelper.sqrt(var1 * var1 + var3 * var3) * 4.0F;
         if (var5 > 1.0F) {
             var5 = 1.0F;
         }
@@ -85,7 +85,7 @@ public class EntityOtherPlayerMP extends EntityPlayer {
         }
 
         this.field_775_e = this.field_774_f;
-        float var9 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+        float var9 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         float var2 = (float) Math.atan(-this.motionY * 0.20000000298023224D) * 15.0F;
         if (var9 > 0.1F) {
             var9 = 0.1F;

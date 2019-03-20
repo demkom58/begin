@@ -1,6 +1,6 @@
 package net.minecraft;
 
-import co.aikar.timings.MinecraftTimings;
+import com.demkom58.timings.MinecraftTimings;
 import net.minecraft.server.MinecraftServer;
 
 import java.io.*;

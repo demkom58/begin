@@ -1,8 +1,7 @@
 package net.minecraft;
 
-import co.aikar.timings.TimingsCommand;
+import com.demkom58.timings.TimingsCommand;
 import net.minecraft.server.MinecraftServer;
-import util.MathHelper;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;

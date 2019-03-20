@@ -122,7 +122,7 @@ public class RenderLiving extends Render {
         GL11.glRotatef(180.0F - var3, 0.0F, 1.0F, 0.0F);
         if (var1.deathTime > 0) {
             float var5 = ((float) var1.deathTime + var4 - 1.0F) / 20.0F * 1.6F;
-            var5 = MathHelper.sqrt_float(var5);
+            var5 = MathHelper.sqrt(var5);
             if (var5 > 1.0F) {
                 var5 = 1.0F;
             }

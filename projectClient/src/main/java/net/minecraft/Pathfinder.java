@@ -23,9 +23,9 @@ public class Pathfinder {
     private PathEntity createEntityPathTo(Entity var1, double var2, double var4, double var6, float var8) {
         this.path.clearPath();
         this.pointMap.clearMap();
-        PathPoint var9 = this.openPoint(MathHelper.floor_double(var1.boundingBox.minX), MathHelper.floor_double(var1.boundingBox.minY), MathHelper.floor_double(var1.boundingBox.minZ));
-        PathPoint var10 = this.openPoint(MathHelper.floor_double(var2 - (double) (var1.width / 2.0F)), MathHelper.floor_double(var4), MathHelper.floor_double(var6 - (double) (var1.width / 2.0F)));
-        PathPoint var11 = new PathPoint(MathHelper.floor_float(var1.width + 1.0F), MathHelper.floor_float(var1.height + 1.0F), MathHelper.floor_float(var1.width + 1.0F));
+        PathPoint var9 = this.openPoint(MathHelper.floor(var1.boundingBox.minX), MathHelper.floor(var1.boundingBox.minY), MathHelper.floor(var1.boundingBox.minZ));
+        PathPoint var10 = this.openPoint(MathHelper.floor(var2 - (double) (var1.width / 2.0F)), MathHelper.floor(var4), MathHelper.floor(var6 - (double) (var1.width / 2.0F)));
+        PathPoint var11 = new PathPoint(MathHelper.floor(var1.width + 1.0F), MathHelper.floor(var1.height + 1.0F), MathHelper.floor(var1.width + 1.0F));
         PathEntity var12 = this.addToPath(var1, var9, var10, var11, var8);
         return var12;
     }

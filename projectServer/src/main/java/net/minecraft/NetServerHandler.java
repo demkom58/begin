@@ -106,7 +106,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 return;
             }
 
-            if (this.playerEntity.func_22057_E()) {
+            if (this.playerEntity.isSleeping()) {
                 this.playerEntity.onUpdateEntity(true);
                 this.playerEntity.setPositionAndRotation(this.lastPosX, this.lastPosY, this.lastPosZ, this.playerEntity.rotationYaw, this.playerEntity.rotationPitch);
                 worldServer.updateEntity(this.playerEntity);
@@ -131,7 +131,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 var7 = packet.yPosition;
                 var9 = packet.zPosition;
                 double var13 = packet.stance - packet.yPosition;
-                if (!this.playerEntity.func_22057_E() && (var13 > 1.65D || var13 < 0.1D)) {
+                if (!this.playerEntity.isSleeping() && (var13 > 1.65D || var13 < 0.1D)) {
                     this.kickPlayer("Illegal stance");
                     logger.warning(this.playerEntity.username + " had an illegal stance: " + var13);
                     return;
@@ -177,7 +177,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             var17 = var9 - this.playerEntity.posZ;
             var19 = var32 * var32 + var15 * var15 + var17 * var17;
             boolean var23 = false;
-            if (var19 > 0.0625D && !this.playerEntity.func_22057_E()) {
+            if (var19 > 0.0625D && !this.playerEntity.isSleeping()) {
                 var23 = true;
                 logger.warning(this.playerEntity.username + " moved wrongly!");
                 System.out.println("Got position " + var5 + ", " + var7 + ", " + var9);
@@ -186,7 +186,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
             this.playerEntity.setPositionAndRotation(var5, var7, var9, var11, var12);
             boolean var24 = worldServer.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.boundingBox.copy().getInsetBoundingBox((double) var21, (double) var21, (double) var21)).size() == 0;
-            if (var22 && (var23 || !var24) && !this.playerEntity.func_22057_E()) {
+            if (var22 && (var23 || !var24) && !this.playerEntity.isSleeping()) {
                 this.teleportTo(this.lastPosX, this.lastPosY, this.lastPosZ, var11, var12);
                 return;
             }

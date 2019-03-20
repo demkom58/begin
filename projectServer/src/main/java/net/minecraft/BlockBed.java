@@ -97,7 +97,7 @@ public class BlockBed extends Block {
                     EntityPlayer var16 = null;
 
                     for (EntityPlayer var9 : world.playerEntities) {
-                        if (var9.func_22057_E()) {
+                        if (var9.isSleeping()) {
                             ChunkCoordinates var10 = var9.playerLocation;
                             if (var10.posX == var2 && var10.posY == var3 && var10.posZ == var4) {
                                 var16 = var9;

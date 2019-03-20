@@ -46,7 +46,7 @@ public class EntityItem extends Entity {
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
         this.motionY -= 0.03999999910593033D;
-        if (this.worldObj.getBlockMaterial(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) == Material.LAVA) {
+        if (this.worldObj.getBlockMaterial(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) == Material.LAVA) {
             this.motionY = 0.20000000298023224D;
             this.motionX = (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
             this.motionZ = (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
@@ -58,7 +58,7 @@ public class EntityItem extends Entity {
         float var1 = 0.98F;
         if (this.onGround) {
             var1 = 0.58800006F;
-            int var2 = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
+            int var2 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
             if (var2 > 0) {
                 var1 = Block.BLOCKS_LIST[var2].slipperiness * 0.98F;
             }

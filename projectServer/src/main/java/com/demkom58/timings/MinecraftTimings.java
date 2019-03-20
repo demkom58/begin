@@ -1,7 +1,6 @@
-package co.aikar.timings;
+package com.demkom58.timings;
 
 import com.google.common.collect.MapMaker;
-import net.minecraft.Block;
 import net.minecraft.Entity;
 import net.minecraft.Packet;
 import net.minecraft.TileEntity;

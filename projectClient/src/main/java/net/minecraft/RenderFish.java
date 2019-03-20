@@ -37,7 +37,7 @@ public class RenderFish extends Render {
             double var21 = (double) MathHelper.sin(var20);
             double var23 = (double) MathHelper.cos(var20);
             float var25 = var1.angler.getSwingProgress(var9);
-            float var26 = MathHelper.sin(MathHelper.sqrt_float(var25) * 3.1415927F);
+            float var26 = MathHelper.sin(MathHelper.sqrt(var25) * 3.1415927F);
             Vec3D var27 = Vec3D.createVector(-0.5D, 0.03D, 0.8D);
             var27.rotateAroundX(-(var1.angler.prevRotationPitch + (var1.angler.rotationPitch - var1.angler.prevRotationPitch) * var9) * 3.1415927F / 180.0F);
             var27.rotateAroundY(-(var1.angler.prevRotationYaw + (var1.angler.rotationYaw - var1.angler.prevRotationYaw) * var9) * 3.1415927F / 180.0F);

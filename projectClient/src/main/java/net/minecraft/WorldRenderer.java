@@ -45,7 +45,7 @@ public class WorldRenderer {
         this.worldObj = var1;
         this.tileEntities = var2;
         this.sizeWidth = this.sizeHeight = this.sizeDepth = var6;
-        this.rendererRadius = MathHelper.sqrt_float((float) (this.sizeWidth * this.sizeWidth + this.sizeHeight * this.sizeHeight + this.sizeDepth * this.sizeDepth)) / 2.0F;
+        this.rendererRadius = MathHelper.sqrt((float) (this.sizeWidth * this.sizeWidth + this.sizeHeight * this.sizeHeight + this.sizeDepth * this.sizeDepth)) / 2.0F;
         this.glRenderList = var7;
         this.posX = -999;
         this.setPosition(var3, var4, var5);

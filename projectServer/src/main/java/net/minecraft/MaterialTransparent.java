@@ -3,7 +3,7 @@ package net.minecraft;
 public class MaterialTransparent extends Material {
     public MaterialTransparent(MapColor var1) {
         super(var1);
-        this.func_27089_f();
+        this.setGroundCover();
     }
 
     public boolean isSolid() {

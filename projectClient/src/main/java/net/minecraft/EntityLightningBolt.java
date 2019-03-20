@@ -17,18 +17,18 @@ public class EntityLightningBolt extends EntityWeatherEffect {
         this.field_27028_b = 2;
         this.field_27029_a = this.rand.nextLong();
         this.field_27030_c = this.rand.nextInt(3) + 1;
-        if (var1.difficultySetting >= 2 && var1.doChunksNearChunkExist(MathHelper.floor_double(var2), MathHelper.floor_double(var4), MathHelper.floor_double(var6), 10)) {
-            int var8 = MathHelper.floor_double(var2);
-            int var9 = MathHelper.floor_double(var4);
-            int var10 = MathHelper.floor_double(var6);
+        if (var1.difficultySetting >= 2 && var1.doChunksNearChunkExist(MathHelper.floor(var2), MathHelper.floor(var4), MathHelper.floor(var6), 10)) {
+            int var8 = MathHelper.floor(var2);
+            int var9 = MathHelper.floor(var4);
+            int var10 = MathHelper.floor(var6);
             if (var1.getBlockId(var8, var9, var10) == 0 && Block.FIRE.canPlaceBlockAt(var1, var8, var9, var10)) {
                 var1.setBlockWithNotify(var8, var9, var10, Block.FIRE.blockID);
             }
 
             for (int var12 = 0; var12 < 4; ++var12) {
-                var9 = MathHelper.floor_double(var2) + this.rand.nextInt(3) - 1;
-                var10 = MathHelper.floor_double(var4) + this.rand.nextInt(3) - 1;
-                int var11 = MathHelper.floor_double(var6) + this.rand.nextInt(3) - 1;
+                var9 = MathHelper.floor(var2) + this.rand.nextInt(3) - 1;
+                var10 = MathHelper.floor(var4) + this.rand.nextInt(3) - 1;
+                int var11 = MathHelper.floor(var6) + this.rand.nextInt(3) - 1;
                 if (var1.getBlockId(var9, var10, var11) == 0 && Block.FIRE.canPlaceBlockAt(var1, var9, var10, var11)) {
                     var1.setBlockWithNotify(var9, var10, var11, Block.FIRE.blockID);
                 }
@@ -52,10 +52,10 @@ public class EntityLightningBolt extends EntityWeatherEffect {
                 --this.field_27030_c;
                 this.field_27028_b = 1;
                 this.field_27029_a = this.rand.nextLong();
-                if (this.worldObj.doChunksNearChunkExist(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ), 10)) {
-                    int var1 = MathHelper.floor_double(this.posX);
-                    int var2 = MathHelper.floor_double(this.posY);
-                    int var3 = MathHelper.floor_double(this.posZ);
+                if (this.worldObj.doChunksNearChunkExist(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ), 10)) {
+                    int var1 = MathHelper.floor(this.posX);
+                    int var2 = MathHelper.floor(this.posY);
+                    int var3 = MathHelper.floor(this.posZ);
                     if (this.worldObj.getBlockId(var1, var2, var3) == 0 && Block.FIRE.canPlaceBlockAt(this.worldObj, var1, var2, var3)) {
                         this.worldObj.setBlockWithNotify(var1, var2, var3, Block.FIRE.blockID);
                     }

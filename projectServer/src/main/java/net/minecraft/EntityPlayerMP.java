@@ -247,7 +247,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     }
 
     public void wakeUpPlayer(boolean var1, boolean var2, boolean var3) {
-        if (this.func_22057_E()) {
+        if (this.isSleeping()) {
             EntityTracker var4 = this.mcServer.getEntityTracker(this.dimension);
             var4.sendPacketToTrackedPlayersAndTrackedEntity(this, new Packet18Animation(this, 3));
         }

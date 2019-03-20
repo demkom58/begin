@@ -198,9 +198,9 @@ public class EntityPlayerSP extends EntityPlayer {
     }
 
     protected boolean pushOutOfBlocks(double var1, double var3, double var5) {
-        int var7 = MathHelper.floor_double(var1);
-        int var8 = MathHelper.floor_double(var3);
-        int var9 = MathHelper.floor_double(var5);
+        int var7 = MathHelper.floor(var1);
+        int var8 = MathHelper.floor(var3);
+        int var9 = MathHelper.floor(var5);
         double var10 = var1 - (double) var7;
         double var12 = var5 - (double) var9;
         if (this.isBlockTranslucent(var7, var8, var9) || this.isBlockTranslucent(var7, var8 + 1, var9)) {

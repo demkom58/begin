@@ -13,7 +13,7 @@ public class ItemBed extends Item {
         } else {
             ++var5;
             BlockBed var8 = (BlockBed) Block.BED;
-            int var9 = MathHelper.floor_double((double) (var2.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+            int var9 = MathHelper.floor((double) (var2.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
             byte var10 = 0;
             byte var11 = 0;
             if (var9 == 0) {

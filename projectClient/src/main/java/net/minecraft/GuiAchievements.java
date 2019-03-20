@@ -126,8 +126,8 @@ public class GuiAchievements extends GuiScreen {
     }
 
     protected void func_27109_b(int var1, int var2, float var3) {
-        int var4 = MathHelper.floor_double(this.field_27116_m + (this.field_27114_o - this.field_27116_m) * (double) var3);
-        int var5 = MathHelper.floor_double(this.field_27115_n + (this.field_27113_p - this.field_27115_n) * (double) var3);
+        int var4 = MathHelper.floor(this.field_27116_m + (this.field_27114_o - this.field_27116_m) * (double) var3);
+        int var5 = MathHelper.floor(this.field_27115_n + (this.field_27113_p - this.field_27115_n) * (double) var3);
         if (var4 < field_27126_s) {
             var4 = field_27126_s;
         }

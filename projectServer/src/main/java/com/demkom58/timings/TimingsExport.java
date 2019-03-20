@@ -1,30 +1,9 @@
-/*
- * This file is licensed under the MIT License (MIT).
- *
- * Copyright (c) 2014 Daniel Ennis <http://aikar.co>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-package co.aikar.timings;
+package com.demkom58.timings;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import net.minecraft.Entity;
+import net.minecraft.Material;
+import net.minecraft.TileEntity;
 import net.minecraft.server.MinecraftServer;
 import org.json.simple.JSONValue;
 
@@ -38,14 +17,13 @@ import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPOutputStream;
 
-import static co.aikar.timings.TimingsManager.HISTORY;
+import static com.demkom58.timings.TimingsManager.HISTORY;
 import static co.aikar.util.JSONUtil.appendObjectData;
 import static co.aikar.util.JSONUtil.createObject;
 import static co.aikar.util.JSONUtil.pair;
@@ -55,6 +33,7 @@ import static co.aikar.util.JSONUtil.toObjectMapper;
 
 @SuppressWarnings({"rawtypes", "SuppressionAnnotation"})
 class TimingsExport extends Thread {
+    private static final long REPORT_DIFF = 60000; // 180000
     private static final long WAIT_TO_REPORT = 1; // 180000
 
     private final Map out;
@@ -78,8 +57,8 @@ class TimingsExport extends Thread {
         final Logger logger = MinecraftServer.LOGGER;
         long now = System.currentTimeMillis();
         final long lastReportDiff = now - lastReport;
-        if (lastReportDiff < 60000) {
-            logger.warning("Please wait at least 1 minute in between Timings reports. (" + (int)((60000 - lastReportDiff) / 1000) + " seconds)");
+        if (lastReportDiff < REPORT_DIFF) {
+            logger.warning("Please wait at least 1 minute in between Timings reports. (" + (int)((REPORT_DIFF - lastReportDiff) / 1000) + " seconds)");
             return;
         }
         final long lastStartDiff = now - TimingsManager.timingStart;
@@ -123,8 +102,8 @@ class TimingsExport extends Thread {
             )
         );
 
-        Set<Object> tileEntityTypeSet = Sets.newHashSet();
-        Set<Object> entityTypeSet = Sets.newHashSet();
+        Set<Material> tileEntityTypeSet = Sets.newHashSet();
+        Set<Entity> entityTypeSet = Sets.newHashSet();
 
         int size = HISTORY.size();
         TimingHistory[] history = new TimingHistory[size + 1];
@@ -155,17 +134,12 @@ class TimingsExport extends Thread {
                 TimingIdentifier.GROUP_MAP.values(), group -> pair(group.id, group.name))),
             pair("handlers", handlers),
             pair("worlds", toObjectMapper(TimingHistory.worldMap.entrySet(), input -> pair(input.getValue(), input.getKey()))),
-            pair("tileentity", toObjectMapper(tileEntityTypeSet, input -> pair("id", "name"))),
-            pair("entity", toObjectMapper(entityTypeSet, input -> pair("typeId", "name")))
+            pair("tileentity", toObjectMapper(tileEntityTypeSet, input -> pair(input.toString(), input.toString()))),
+            pair("entity", toObjectMapper(entityTypeSet, input -> pair(input.getClass().getName(), input.getClass().getSimpleName())))
         ));
 
         parent.put("plugins", "{}");
-
-        parent.put("config", createObject(
-                pair("spigot", "{}"),
-                pair("bukkit", "{}"),
-                pair("paper", "{}")
-        ));
+        parent.put("config", createObject(pair("spigot", "{}"), pair("bukkit", "{}"), pair("paper", "{}")));
 
         new TimingsExport(parent, history).start();
     }

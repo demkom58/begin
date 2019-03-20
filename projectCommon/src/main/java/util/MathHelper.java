@@ -17,20 +17,20 @@ public class MathHelper {
         return SIN_TABLE[(int) (var0 * 10430.378F + 16384.0F) & '\uffff'];
     }
 
-    public static final float sqrt_float(float var0) {
+    public static final float sqrt(float var0) {
         return (float) Math.sqrt((double) var0);
     }
 
-    public static final float sqrt_double(double var0) {
+    public static final float sqrt(double var0) {
         return (float) Math.sqrt(var0);
     }
 
-    public static int floor_float(float var0) {
+    public static int floor(float var0) {
         int var1 = (int) var0;
         return var0 < (float) var1 ? var1 - 1 : var1;
     }
 
-    public static int floor_double(double var0) {
+    public static int floor(double var0) {
         int var2 = (int) var0;
         return var0 < (double) var2 ? var2 - 1 : var2;
     }
@@ -39,7 +39,7 @@ public class MathHelper {
         return var0 >= 0.0F ? var0 : -var0;
     }
 
-    public static double abs_max(double var0, double var2) {
+    public static double absMax(double var0, double var2) {
         if (var0 < 0.0D) {
             var0 = -var0;
         }

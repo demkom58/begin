@@ -20,8 +20,8 @@ public class Teleporter {
         int var6 = 0;
         int var7 = 0;
         int var8 = 0;
-        int var9 = MathHelper.floor_double(var2.posX);
-        int var10 = MathHelper.floor_double(var2.posZ);
+        int var9 = MathHelper.floor(var2.posX);
+        int var10 = MathHelper.floor(var2.posZ);
 
         for (int var11 = var9 - var3; var11 <= var9 + var3; ++var11) {
             double var12 = (double) var11 + 0.5D - var2.posX;
@@ -79,9 +79,9 @@ public class Teleporter {
     public boolean func_4108_c(World var1, Entity var2) {
         byte var3 = 16;
         double var4 = -1.0D;
-        int var6 = MathHelper.floor_double(var2.posX);
-        int var7 = MathHelper.floor_double(var2.posY);
-        int var8 = MathHelper.floor_double(var2.posZ);
+        int var6 = MathHelper.floor(var2.posX);
+        int var7 = MathHelper.floor(var2.posY);
+        int var8 = MathHelper.floor(var2.posZ);
         int var9 = var6;
         int var10 = var7;
         int var11 = var8;

@@ -149,22 +149,22 @@ public class EntityPainting extends Entity {
             int var4 = this.yPosition;
             int var5 = this.zPosition;
             if (this.direction == 0) {
-                var3 = MathHelper.floor_double(this.posX - (double) ((float) this.art.sizeX / 32.0F));
+                var3 = MathHelper.floor(this.posX - (double) ((float) this.art.sizeX / 32.0F));
             }
 
             if (this.direction == 1) {
-                var5 = MathHelper.floor_double(this.posZ - (double) ((float) this.art.sizeX / 32.0F));
+                var5 = MathHelper.floor(this.posZ - (double) ((float) this.art.sizeX / 32.0F));
             }
 
             if (this.direction == 2) {
-                var3 = MathHelper.floor_double(this.posX - (double) ((float) this.art.sizeX / 32.0F));
+                var3 = MathHelper.floor(this.posX - (double) ((float) this.art.sizeX / 32.0F));
             }
 
             if (this.direction == 3) {
-                var5 = MathHelper.floor_double(this.posZ - (double) ((float) this.art.sizeX / 32.0F));
+                var5 = MathHelper.floor(this.posZ - (double) ((float) this.art.sizeX / 32.0F));
             }
 
-            var4 = MathHelper.floor_double(this.posY - (double) ((float) this.art.sizeY / 32.0F));
+            var4 = MathHelper.floor(this.posY - (double) ((float) this.art.sizeY / 32.0F));
 
             for (int var6 = 0; var6 < var1; ++var6) {
                 for (int var7 = 0; var7 < var2; ++var7) {

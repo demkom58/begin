@@ -43,7 +43,7 @@ public class EntityCreature extends EntityLiving {
             this.pathToEntity = this.worldObj.getPathToEntity(this, this.playerToAttack, var1);
         }
 
-        int var21 = MathHelper.floor_double(this.boundingBox.minY + 0.5D);
+        int var21 = MathHelper.floor(this.boundingBox.minY + 0.5D);
         boolean var3 = this.isInWater();
         boolean var4 = this.handleLavaMovement();
         this.rotationPitch = 0.0F;
@@ -126,9 +126,9 @@ public class EntityCreature extends EntityLiving {
         float var5 = -99999.0F;
 
         for (int var6 = 0; var6 < 10; ++var6) {
-            int var7 = MathHelper.floor_double(this.posX + (double) this.rand.nextInt(13) - 6.0D);
-            int var8 = MathHelper.floor_double(this.posY + (double) this.rand.nextInt(7) - 3.0D);
-            int var9 = MathHelper.floor_double(this.posZ + (double) this.rand.nextInt(13) - 6.0D);
+            int var7 = MathHelper.floor(this.posX + (double) this.rand.nextInt(13) - 6.0D);
+            int var8 = MathHelper.floor(this.posY + (double) this.rand.nextInt(7) - 3.0D);
+            int var9 = MathHelper.floor(this.posZ + (double) this.rand.nextInt(13) - 6.0D);
             float var10 = this.getBlockPathWeight(var7, var8, var9);
             if (var10 > var5) {
                 var5 = var10;
@@ -160,9 +160,9 @@ public class EntityCreature extends EntityLiving {
     }
 
     public boolean getCanSpawnHere() {
-        int var1 = MathHelper.floor_double(this.posX);
-        int var2 = MathHelper.floor_double(this.boundingBox.minY);
-        int var3 = MathHelper.floor_double(this.posZ);
+        int var1 = MathHelper.floor(this.posX);
+        int var2 = MathHelper.floor(this.boundingBox.minY);
+        int var3 = MathHelper.floor(this.posZ);
         return super.getCanSpawnHere() && this.getBlockPathWeight(var1, var2, var3) >= 0.0F;
     }
 

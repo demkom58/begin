@@ -499,7 +499,7 @@ public class NetClientHandler extends NetHandler {
             this.mc.thePlayer.craftingInventory.windowId = var1.windowId;
         } else if (var1.inventoryType == 1) {
             EntityPlayerSP var5 = this.mc.thePlayer;
-            this.mc.thePlayer.displayWorkbenchGUI(MathHelper.floor_double(var5.posX), MathHelper.floor_double(var5.posY), MathHelper.floor_double(var5.posZ));
+            this.mc.thePlayer.displayWorkbenchGUI(MathHelper.floor(var5.posX), MathHelper.floor(var5.posY), MathHelper.floor(var5.posZ));
             this.mc.thePlayer.craftingInventory.windowId = var1.windowId;
         }
 

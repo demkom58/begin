@@ -51,11 +51,11 @@ public class BlockPumpkin extends Block {
 
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         int var5 = world.getBlockId(var2, var3, var4);
-        return (var5 == 0 || Block.BLOCKS_LIST[var5].blockMaterial.func_27090_g()) && world.isBlockNormalCube(var2, var3 - 1, var4);
+        return (var5 == 0 || Block.BLOCKS_LIST[var5].blockMaterial.isGroundCover()) && world.isBlockNormalCube(var2, var3 - 1, var4);
     }
 
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving) {
-        int var6 = MathHelper.floor_double((double) (entityLiving.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
+        int var6 = MathHelper.floor((double) (entityLiving.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, var6);
     }
 }

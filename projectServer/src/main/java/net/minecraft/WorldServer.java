@@ -62,14 +62,14 @@ public class WorldServer extends World {
         return var6 > 16 || this.mcServer.configManager.isOp(var1.username);
     }
 
-    protected void obtainEntitySkin(Entity var1) {
-        super.obtainEntitySkin(var1);
-        this.hash.addKey(var1.entityId, var1);
+    protected void obtainEntitySkin(Entity entity) {
+        super.obtainEntitySkin(entity);
+        this.hash.addKey(entity.entityId, entity);
     }
 
-    protected void releaseEntitySkin(Entity var1) {
-        super.releaseEntitySkin(var1);
-        this.hash.removeObject(var1.entityId);
+    protected void releaseEntitySkin(Entity entity) {
+        super.releaseEntitySkin(entity);
+        this.hash.removeObject(entity.entityId);
     }
 
     public Entity func_6158_a(int var1) {

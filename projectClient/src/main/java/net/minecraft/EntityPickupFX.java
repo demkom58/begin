@@ -30,9 +30,9 @@ public class EntityPickupFX extends EntityFX {
         double var21 = var9 + (var15 - var9) * (double) var8;
         double var23 = var11 + (var17 - var11) * (double) var8;
         double var25 = var13 + (var19 - var13) * (double) var8;
-        int var27 = MathHelper.floor_double(var21);
-        int var28 = MathHelper.floor_double(var23 + (double) (this.yOffset / 2.0F));
-        int var29 = MathHelper.floor_double(var25);
+        int var27 = MathHelper.floor(var21);
+        int var28 = MathHelper.floor(var23 + (double) (this.yOffset / 2.0F));
+        int var29 = MathHelper.floor(var25);
         float var30 = this.worldObj.getLightBrightness(var27, var28, var29);
         var21 = var21 - interpPosX;
         var23 = var23 - interpPosY;

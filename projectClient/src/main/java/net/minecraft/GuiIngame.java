@@ -182,7 +182,7 @@ public class GuiIngame extends Gui {
             this.drawString(var8, "x: " + this.mc.thePlayer.posX, 2, 64, 14737632);
             this.drawString(var8, "y: " + this.mc.thePlayer.posY, 2, 72, 14737632);
             this.drawString(var8, "z: " + this.mc.thePlayer.posZ, 2, 80, 14737632);
-            this.drawString(var8, "f: " + (MathHelper.floor_double((double) (this.mc.thePlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3), 2, 88, 14737632);
+            this.drawString(var8, "f: " + (MathHelper.floor((double) (this.mc.thePlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3), 2, 88, 14737632);
             GL11.glPopMatrix();
         }
 

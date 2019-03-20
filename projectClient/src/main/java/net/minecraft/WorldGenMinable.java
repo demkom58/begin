@@ -29,12 +29,12 @@ public class WorldGenMinable extends WorldGenerator {
             double var26 = var2.nextDouble() * (double) this.numberOfBlocks / 16.0D;
             double var28 = (double) (MathHelper.sin((float) var19 * 3.1415927F / (float) this.numberOfBlocks) + 1.0F) * var26 + 1.0D;
             double var30 = (double) (MathHelper.sin((float) var19 * 3.1415927F / (float) this.numberOfBlocks) + 1.0F) * var26 + 1.0D;
-            int var32 = MathHelper.floor_double(var20 - var28 / 2.0D);
-            int var33 = MathHelper.floor_double(var22 - var30 / 2.0D);
-            int var34 = MathHelper.floor_double(var24 - var28 / 2.0D);
-            int var35 = MathHelper.floor_double(var20 + var28 / 2.0D);
-            int var36 = MathHelper.floor_double(var22 + var30 / 2.0D);
-            int var37 = MathHelper.floor_double(var24 + var28 / 2.0D);
+            int var32 = MathHelper.floor(var20 - var28 / 2.0D);
+            int var33 = MathHelper.floor(var22 - var30 / 2.0D);
+            int var34 = MathHelper.floor(var24 - var28 / 2.0D);
+            int var35 = MathHelper.floor(var20 + var28 / 2.0D);
+            int var36 = MathHelper.floor(var22 + var30 / 2.0D);
+            int var37 = MathHelper.floor(var24 + var28 / 2.0D);
 
             for (int var38 = var32; var38 <= var35; ++var38) {
                 double var39 = ((double) var38 + 0.5D - var20) / (var28 / 2.0D);

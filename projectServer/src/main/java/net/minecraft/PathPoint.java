@@ -29,7 +29,7 @@ public class PathPoint {
         float var2 = (float) (var1.xCoord - this.xCoord);
         float var3 = (float) (var1.yCoord - this.yCoord);
         float var4 = (float) (var1.zCoord - this.zCoord);
-        return MathHelper.sqrt_float(var2 * var2 + var3 * var3 + var4 * var4);
+        return MathHelper.sqrt(var2 * var2 + var3 * var3 + var4 * var4);
     }
 
     public boolean equals(Object var1) {

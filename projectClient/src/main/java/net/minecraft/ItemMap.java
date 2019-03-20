@@ -44,8 +44,8 @@ public class ItemMap extends ItemMapBase {
             int var6 = 1 << var3.field_28177_e;
             int var7 = var3.field_28180_b;
             int var8 = var3.field_28179_c;
-            int var9 = MathHelper.floor_double(var2.posX - (double) var7) / var6 + var4 / 2;
-            int var10 = MathHelper.floor_double(var2.posZ - (double) var8) / var6 + var5 / 2;
+            int var9 = MathHelper.floor(var2.posX - (double) var7) / var6 + var4 / 2;
+            int var10 = MathHelper.floor(var2.posZ - (double) var8) / var6 + var5 / 2;
             int var11 = 128 / var6;
             if (var1.worldProvider.hasNoSky) {
                 var11 /= 2;
@@ -222,8 +222,8 @@ public class ItemMap extends ItemMapBase {
         String var4 = "map_" + var1.getItemDamage();
         MapData var5 = new MapData(var4);
         var2.setItemData(var4, var5);
-        var5.field_28180_b = MathHelper.floor_double(var3.posX);
-        var5.field_28179_c = MathHelper.floor_double(var3.posZ);
+        var5.field_28180_b = MathHelper.floor(var3.posX);
+        var5.field_28179_c = MathHelper.floor(var3.posZ);
         var5.field_28177_e = 3;
         var5.field_28178_d = (byte) var2.worldProvider.worldType;
         var5.markDirty();

@@ -33,11 +33,11 @@ public class EntityTrackerEntry {
         this.trackingDistanceThreshold = var2;
         this.field_9234_e = var3;
         this.shouldSendMotionUpdates = var4;
-        this.encodedPosX = MathHelper.floor_double(var1.posX * 32.0D);
-        this.encodedPosY = MathHelper.floor_double(var1.posY * 32.0D);
-        this.encodedPosZ = MathHelper.floor_double(var1.posZ * 32.0D);
-        this.encodedRotationYaw = MathHelper.floor_float(var1.rotationYaw * 256.0F / 360.0F);
-        this.encodedRotationPitch = MathHelper.floor_float(var1.rotationPitch * 256.0F / 360.0F);
+        this.encodedPosX = MathHelper.floor(var1.posX * 32.0D);
+        this.encodedPosY = MathHelper.floor(var1.posY * 32.0D);
+        this.encodedPosZ = MathHelper.floor(var1.posZ * 32.0D);
+        this.encodedRotationYaw = MathHelper.floor(var1.rotationYaw * 256.0F / 360.0F);
+        this.encodedRotationPitch = MathHelper.floor(var1.rotationPitch * 256.0F / 360.0F);
     }
 
     public boolean equals(Object var1) {
@@ -65,11 +65,11 @@ public class EntityTrackerEntry {
 
         ++this.field_28165_t;
         if (++this.updateCounter % this.field_9234_e == 0) {
-            int var2 = MathHelper.floor_double(this.trackedEntity.posX * 32.0D);
-            int var3 = MathHelper.floor_double(this.trackedEntity.posY * 32.0D);
-            int var4 = MathHelper.floor_double(this.trackedEntity.posZ * 32.0D);
-            int var5 = MathHelper.floor_float(this.trackedEntity.rotationYaw * 256.0F / 360.0F);
-            int var6 = MathHelper.floor_float(this.trackedEntity.rotationPitch * 256.0F / 360.0F);
+            int var2 = MathHelper.floor(this.trackedEntity.posX * 32.0D);
+            int var3 = MathHelper.floor(this.trackedEntity.posY * 32.0D);
+            int var4 = MathHelper.floor(this.trackedEntity.posZ * 32.0D);
+            int var5 = MathHelper.floor(this.trackedEntity.rotationYaw * 256.0F / 360.0F);
+            int var6 = MathHelper.floor(this.trackedEntity.rotationPitch * 256.0F / 360.0F);
             int var7 = var2 - this.encodedPosX;
             int var8 = var3 - this.encodedPosY;
             int var9 = var4 - this.encodedPosZ;
@@ -179,8 +179,8 @@ public class EntityTrackerEntry {
 
                     if (this.trackedEntity instanceof EntityPlayer) {
                         EntityPlayer var8 = (EntityPlayer) this.trackedEntity;
-                        if (var8.func_22057_E()) {
-                            var1.playerNetServerHandler.sendPacket(new Packet17Sleep(this.trackedEntity, 0, MathHelper.floor_double(this.trackedEntity.posX), MathHelper.floor_double(this.trackedEntity.posY), MathHelper.floor_double(this.trackedEntity.posZ)));
+                        if (var8.isSleeping()) {
+                            var1.playerNetServerHandler.sendPacket(new Packet17Sleep(this.trackedEntity, 0, MathHelper.floor(this.trackedEntity.posX), MathHelper.floor(this.trackedEntity.posY), MathHelper.floor(this.trackedEntity.posZ)));
                         }
                     }
                 }

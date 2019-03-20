@@ -26,7 +26,7 @@ public class ItemDoor extends Item {
             if (!var8.canPlaceBlockAt(var3, var4, var5, var6)) {
                 return false;
             } else {
-                int var9 = MathHelper.floor_double((double) ((var2.rotationYaw + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
+                int var9 = MathHelper.floor((double) ((var2.rotationYaw + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
                 byte var10 = 0;
                 byte var11 = 0;
                 if (var9 == 0) {

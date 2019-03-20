@@ -167,7 +167,7 @@ public class BlockStairs extends Block {
     }
 
     public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
-        int var6 = MathHelper.floor_double((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+        int var6 = MathHelper.floor((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         if (var6 == 0) {
             var1.setBlockMetadataWithNotify(var2, var3, var4, 2);
         }

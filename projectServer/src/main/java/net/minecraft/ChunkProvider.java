@@ -158,7 +158,7 @@ public class ChunkProvider implements IChunkProvider {
         return true;
     }
 
-    public boolean func_361_a() {
+    public boolean cleanChunks() {
         for (int i = 0; i < 100; ++i) {
             if (!this.chunksCords.isEmpty()) {
                 int cord = this.chunksCords.iterator().nextInt();
@@ -178,7 +178,7 @@ public class ChunkProvider implements IChunkProvider {
             this.loader.func_661_a();
         }
 
-        return this.chunkGenerator.func_361_a();
+        return this.chunkGenerator.cleanChunks();
     }
 
     public boolean canSave() {

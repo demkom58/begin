@@ -41,7 +41,7 @@ public class EntityGhast extends EntityFlying implements IMob {
         double var1 = this.waypointX - this.posX;
         double var3 = this.waypointY - this.posY;
         double var5 = this.waypointZ - this.posZ;
-        double var7 = (double) MathHelper.sqrt_double(var1 * var1 + var3 * var3 + var5 * var5);
+        double var7 = (double) MathHelper.sqrt(var1 * var1 + var3 * var3 + var5 * var5);
         if (var7 < 1.0D || var7 > 60.0D) {
             this.waypointX = this.posX + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
             this.waypointY = this.posY + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);

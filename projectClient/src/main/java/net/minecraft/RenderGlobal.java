@@ -238,7 +238,7 @@ public class RenderGlobal implements IWorldAccess {
         if (this.worldObj != null) {
             EntityLiving var9 = this.mc.renderViewEntity;
             if (var9 != null) {
-                this.markRenderersForNewPosition(MathHelper.floor_double(var9.posX), MathHelper.floor_double(var9.posY), MathHelper.floor_double(var9.posZ));
+                this.markRenderersForNewPosition(MathHelper.floor(var9.posX), MathHelper.floor(var9.posY), MathHelper.floor(var9.posZ));
                 Arrays.sort(this.sortedWorldRenderers, new EntitySorter(var9));
             }
         }
@@ -276,7 +276,7 @@ public class RenderGlobal implements IWorldAccess {
             for (int var9 = 0; var9 < var5.size(); ++var9) {
                 Entity var11 = (Entity) var5.get(var9);
                 if (var11.isInRangeToRenderVec3D(var1) && (var11.ignoreFrustumCheck || var2.isBoundingBoxInFrustum(var11.boundingBox)) && (var11 != this.mc.renderViewEntity || this.mc.gameSettings.thirdPersonView || this.mc.renderViewEntity.isPlayerSleeping())) {
-                    int var8 = MathHelper.floor_double(var11.posY);
+                    int var8 = MathHelper.floor(var11.posY);
                     if (var8 < 0) {
                         var8 = 0;
                     }
@@ -285,7 +285,7 @@ public class RenderGlobal implements IWorldAccess {
                         var8 = 127;
                     }
 
-                    if (this.worldObj.blockExists(MathHelper.floor_double(var11.posX), var8, MathHelper.floor_double(var11.posZ))) {
+                    if (this.worldObj.blockExists(MathHelper.floor(var11.posX), var8, MathHelper.floor(var11.posZ))) {
                         ++this.countEntitiesRendered;
                         RenderManager.instance.renderEntity(var11, var3);
                     }
@@ -407,7 +407,7 @@ public class RenderGlobal implements IWorldAccess {
             this.prevSortX = var1.posX;
             this.prevSortY = var1.posY;
             this.prevSortZ = var1.posZ;
-            this.markRenderersForNewPosition(MathHelper.floor_double(var1.posX), MathHelper.floor_double(var1.posY), MathHelper.floor_double(var1.posZ));
+            this.markRenderersForNewPosition(MathHelper.floor(var1.posX), MathHelper.floor(var1.posY), MathHelper.floor(var1.posZ));
             Arrays.sort(this.sortedWorldRenderers, new EntitySorter(var1));
         }
 
@@ -452,7 +452,7 @@ public class RenderGlobal implements IWorldAccess {
                         }
 
                         if (this.sortedWorldRenderers[var23].isInFrustum && !this.sortedWorldRenderers[var23].isWaitingOnOcclusionQuery) {
-                            float var24 = MathHelper.sqrt_float(this.sortedWorldRenderers[var23].distanceToEntitySquared(var1));
+                            float var24 = MathHelper.sqrt(this.sortedWorldRenderers[var23].distanceToEntitySquared(var1));
                             int var25 = (int) (1.0F + var24 / 128.0F);
                             if (this.cloudOffsetX % var25 == var23 % var25) {
                                 WorldRenderer var26 = this.sortedWorldRenderers[var23];
@@ -737,8 +737,8 @@ public class RenderGlobal implements IWorldAccess {
                 float var22 = 4.8828125E-4F;
                 double var23 = this.mc.renderViewEntity.prevPosX + (this.mc.renderViewEntity.posX - this.mc.renderViewEntity.prevPosX) * (double) var1 + (double) (((float) this.cloudOffsetX + var1) * 0.03F);
                 double var13 = this.mc.renderViewEntity.prevPosZ + (this.mc.renderViewEntity.posZ - this.mc.renderViewEntity.prevPosZ) * (double) var1;
-                int var15 = MathHelper.floor_double(var23 / 2048.0D);
-                int var16 = MathHelper.floor_double(var13 / 2048.0D);
+                int var15 = MathHelper.floor(var23 / 2048.0D);
+                int var16 = MathHelper.floor(var13 / 2048.0D);
                 var23 = var23 - (double) (var15 * 2048 /*GL_EXP*/);
                 var13 = var13 - (double) (var16 * 2048 /*GL_EXP*/);
                 float var17 = this.worldObj.worldProvider.getCloudHeight() - var2 + 0.33F;
@@ -777,8 +777,8 @@ public class RenderGlobal implements IWorldAccess {
         double var6 = (this.mc.renderViewEntity.prevPosX + (this.mc.renderViewEntity.posX - this.mc.renderViewEntity.prevPosX) * (double) var1 + (double) (((float) this.cloudOffsetX + var1) * 0.03F)) / (double) var4;
         double var8 = (this.mc.renderViewEntity.prevPosZ + (this.mc.renderViewEntity.posZ - this.mc.renderViewEntity.prevPosZ) * (double) var1) / (double) var4 + 0.33000001311302185D;
         float var10 = this.worldObj.worldProvider.getCloudHeight() - var2 + 0.33F;
-        int var11 = MathHelper.floor_double(var6 / 2048.0D);
-        int var12 = MathHelper.floor_double(var8 / 2048.0D);
+        int var11 = MathHelper.floor(var6 / 2048.0D);
+        int var12 = MathHelper.floor(var8 / 2048.0D);
         var6 = var6 - (double) (var11 * 2048 /*GL_EXP*/);
         var8 = var8 - (double) (var12 * 2048 /*GL_EXP*/);
         GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.renderEngine.getTexture("/environment/clouds.png"));
@@ -800,10 +800,10 @@ public class RenderGlobal implements IWorldAccess {
         float var35 = (float) (var6 * 0.0D);
         float var37 = (float) (var8 * 0.0D);
         float var39 = 0.00390625F;
-        var35 = (float) MathHelper.floor_double(var6) * var39;
-        var37 = (float) MathHelper.floor_double(var8) * var39;
-        float var20 = (float) (var6 - (double) MathHelper.floor_double(var6));
-        float var21 = (float) (var8 - (double) MathHelper.floor_double(var8));
+        var35 = (float) MathHelper.floor(var6) * var39;
+        var37 = (float) MathHelper.floor(var8) * var39;
+        float var20 = (float) (var6 - (double) MathHelper.floor(var6));
+        float var21 = (float) (var8 - (double) MathHelper.floor(var8));
         byte var22 = 8;
         byte var23 = 3;
         float var24 = 9.765625E-4F;
