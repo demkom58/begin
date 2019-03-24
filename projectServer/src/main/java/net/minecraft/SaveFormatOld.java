@@ -66,7 +66,7 @@ public class SaveFormatOld implements ISaveFormat {
         return false;
     }
 
-    public boolean converMapToMCRegion(String var1, IProgressUpdate var2) {
+    public boolean convertMapToMCRegion(String var1, IProgressUpdate var2) {
         return false;
     }
 }

@@ -87,7 +87,7 @@ public class ChunkProvider implements IChunkProvider {
         }
     }
 
-    private void func_28063_a(Chunk var1) {
+    private void saveChunkExtra(Chunk var1) {
         if (this.chunkLoader != null) {
             try {
                 this.chunkLoader.saveExtraChunkData(this.field_28066_g, var1);
@@ -98,7 +98,7 @@ public class ChunkProvider implements IChunkProvider {
         }
     }
 
-    private void func_28062_b(Chunk var1) {
+    private void saveChunk(Chunk var1) {
         if (this.chunkLoader != null) {
             try {
                 var1.lastSaveTime = this.field_28066_g.getWorldTime();
@@ -128,11 +128,11 @@ public class ChunkProvider implements IChunkProvider {
         for (int var4 = 0; var4 < this.chunkList.size(); ++var4) {
             Chunk var5 = (Chunk) this.chunkList.get(var4);
             if (var1 && !var5.neverSave) {
-                this.func_28063_a(var5);
+                this.saveChunkExtra(var5);
             }
 
             if (var5.needsSaving(var1)) {
-                this.func_28062_b(var5);
+                this.saveChunk(var5);
                 var5.isModified = false;
                 ++var3;
                 if (var3 == 24 && !var1) {
@@ -158,8 +158,8 @@ public class ChunkProvider implements IChunkProvider {
                 Integer var2 = (Integer) this.droppedChunksSet.iterator().next();
                 Chunk var3 = (Chunk) this.chunkMap.get(var2);
                 var3.onChunkUnload();
-                this.func_28062_b(var3);
-                this.func_28063_a(var3);
+                this.saveChunk(var3);
+                this.saveChunkExtra(var3);
                 this.droppedChunksSet.remove(var2);
                 this.chunkMap.remove(var2);
                 this.chunkList.remove(var3);

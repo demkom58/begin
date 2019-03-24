@@ -62,69 +62,68 @@ public class BlockBed extends Block {
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         if (world.singleplayerWorld) {
             return true;
-        } else {
-            int var6 = world.getBlockMetadata(var2, var3, var4);
-            if (!func_22020_d(var6)) {
-                int var7 = func_22019_c(var6);
-                var2 += field_22023_a[var7][0];
-                var4 += field_22023_a[var7][1];
-                if (world.getBlockId(var2, var3, var4) != this.blockID) {
-                    return true;
-                }
-
-                var6 = world.getBlockMetadata(var2, var3, var4);
+        }
+        int var6 = world.getBlockMetadata(var2, var3, var4);
+        if (!func_22020_d(var6)) {
+            int var7 = func_22019_c(var6);
+            var2 += field_22023_a[var7][0];
+            var4 += field_22023_a[var7][1];
+            if (world.getBlockId(var2, var3, var4) != this.blockID) {
+                return true;
             }
 
-            if (!world.worldProvider.func_28108_d()) {
-                double var18 = (double) var2 + 0.5D;
-                double var20 = (double) var3 + 0.5D;
-                double var11 = (double) var4 + 0.5D;
+            var6 = world.getBlockMetadata(var2, var3, var4);
+        }
+
+        if (!world.worldProvider.func_28108_d()) {
+            double var18 = (double) var2 + 0.5D;
+            double var20 = (double) var3 + 0.5D;
+            double var11 = (double) var4 + 0.5D;
+            world.setBlockWithNotify(var2, var3, var4, 0);
+            int var13 = func_22019_c(var6);
+            var2 = var2 + field_22023_a[var13][0];
+            var4 = var4 + field_22023_a[var13][1];
+            if (world.getBlockId(var2, var3, var4) == this.blockID) {
                 world.setBlockWithNotify(var2, var3, var4, 0);
-                int var13 = func_22019_c(var6);
-                var2 = var2 + field_22023_a[var13][0];
-                var4 = var4 + field_22023_a[var13][1];
-                if (world.getBlockId(var2, var3, var4) == this.blockID) {
-                    world.setBlockWithNotify(var2, var3, var4, 0);
-                    var18 = (var18 + (double) var2 + 0.5D) / 2.0D;
-                    var20 = (var20 + (double) var3 + 0.5D) / 2.0D;
-                    var11 = (var11 + (double) var4 + 0.5D) / 2.0D;
-                }
+                var18 = (var18 + (double) var2 + 0.5D) / 2.0D;
+                var20 = (var20 + (double) var3 + 0.5D) / 2.0D;
+                var11 = (var11 + (double) var4 + 0.5D) / 2.0D;
+            }
 
-                world.newExplosion(null, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), 5.0F, true);
-                return true;
-            } else {
-                if (func_22018_f(var6)) {
-                    EntityPlayer var16 = null;
+            world.newExplosion(null, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), 5.0F, true);
+            return true;
+        } else {
+            if (func_22018_f(var6)) {
+                EntityPlayer var16 = null;
 
-                    for (EntityPlayer var9 : world.playerEntities) {
-                        if (var9.isSleeping()) {
-                            ChunkCoordinates var10 = var9.playerLocation;
-                            if (var10.posX == var2 && var10.posY == var3 && var10.posZ == var4) {
-                                var16 = var9;
-                            }
+                for (EntityPlayer var9 : world.playerEntities) {
+                    if (var9.isSleeping()) {
+                        ChunkCoordinates var10 = var9.playerLocation;
+                        if (var10.posX == var2 && var10.posY == var3 && var10.posZ == var4) {
+                            var16 = var9;
                         }
                     }
-
-                    if (var16 != null) {
-                        entityPlayer.func_22061_a("tile.bed.occupied");
-                        return true;
-                    }
-
-                    func_22022_a(world, var2, var3, var4, false);
                 }
 
-                EnumStatus var17 = entityPlayer.goToSleep(var2, var3, var4);
-                if (var17 == EnumStatus.OK) {
-                    func_22022_a(world, var2, var3, var4, true);
-                    return true;
-                } else {
-                    if (var17 == EnumStatus.NOT_POSSIBLE_NOW) {
-                        entityPlayer.func_22061_a("tile.bed.noSleep");
-                    }
-
+                if (var16 != null) {
+                    entityPlayer.func_22061_a("tile.bed.occupied");
                     return true;
                 }
+
+                func_22022_a(world, var2, var3, var4, false);
             }
+
+            EnumStatus var17 = entityPlayer.goToSleep(var2, var3, var4);
+            if (var17 == EnumStatus.OK) {
+                func_22022_a(world, var2, var3, var4, true);
+                return true;
+            }
+
+            if (var17 == EnumStatus.NOT_POSSIBLE_NOW) {
+                entityPlayer.func_22061_a("tile.bed.noSleep");
+            }
+
+            return true;
         }
     }
 

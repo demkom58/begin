@@ -21,24 +21,24 @@ public class Packet51MapChunk extends Packet {
         this.isChunkDataPacket = true;
     }
 
-    public Packet51MapChunk(int var1, int var2, int var3, int var4, int var5, int var6, World var7) {
+    public Packet51MapChunk(int x, int y, int z, int xSize, int ySize, int zSize, World world) {
         this.isChunkDataPacket = true;
-        this.xPosition = var1;
-        this.yPosition = var2;
-        this.zPosition = var3;
-        this.xSize = var4;
-        this.ySize = var5;
-        this.zSize = var6;
-        byte[] var8 = var7.getChunkData(var1, var2, var3, var4, var5, var6);
-        Deflater var9 = new Deflater(-1);
+        this.xPosition = x;
+        this.yPosition = y;
+        this.zPosition = z;
+        this.xSize = xSize;
+        this.ySize = ySize;
+        this.zSize = zSize;
+        byte[] data = world.getChunkData(x, y, z, xSize, ySize, zSize);
+        Deflater deflater = new Deflater(-1);
 
         try {
-            var9.setInput(var8);
-            var9.finish();
-            this.chunk = new byte[var4 * var5 * var6 * 5 / 2];
-            this.chunkSize = var9.deflate(this.chunk);
+            deflater.setInput(data);
+            deflater.finish();
+            this.chunk = new byte[xSize * ySize * zSize * 5 / 2];
+            this.chunkSize = deflater.deflate(this.chunk);
         } finally {
-            var9.end();
+            deflater.end();
         }
 
     }
@@ -51,18 +51,18 @@ public class Packet51MapChunk extends Packet {
         this.ySize = inputStream.read() + 1;
         this.zSize = inputStream.read() + 1;
         this.chunkSize = inputStream.readInt();
-        byte[] var2 = new byte[this.chunkSize];
-        inputStream.readFully(var2);
+        byte[] data = new byte[this.chunkSize];
+        inputStream.readFully(data);
         this.chunk = new byte[this.xSize * this.ySize * this.zSize * 5 / 2];
-        Inflater var3 = new Inflater();
-        var3.setInput(var2);
+        Inflater inflater = new Inflater();
+        inflater.setInput(data);
 
         try {
-            var3.inflate(this.chunk);
+            inflater.inflate(this.chunk);
         } catch (DataFormatException e) {
             throw new IOException("Bad compressed data format");
         } finally {
-            var3.end();
+            inflater.end();
         }
 
     }

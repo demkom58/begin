@@ -1,17 +1,17 @@
 package net.minecraft;
 
 public class ChunkBlockMap {
-    private static byte[] field_26002_a = new byte[256];
+    private static byte[] map = new byte[256];
 
     static {
         try {
-            for (int var0 = 0; var0 < 256; ++var0) {
-                byte var1 = (byte) var0;
-                if (var1 != 0 && Block.BLOCKS_LIST[var1 & 255] == null) {
-                    var1 = 0;
+            for (int i = 0; i < 256; ++i) {
+                byte id = (byte) i;
+                if (id != 0 && Block.BLOCKS_LIST[id & 255] == null) {
+                    id = 0;
                 }
 
-                field_26002_a[var0] = var1;
+                map[i] = id;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -19,9 +19,9 @@ public class ChunkBlockMap {
 
     }
 
-    public static void func_26001_a(byte[] var0) {
-        for (int var1 = 0; var1 < var0.length; ++var1) {
-            var0[var1] = field_26002_a[var0[var1] & 255];
+    public static void fix(byte[] data) {
+        for (int i = 0; i < data.length; ++i) {
+            data[i] = map[data[i] & 255];
         }
 
     }

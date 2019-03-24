@@ -286,7 +286,7 @@ public class NetClientHandler extends NetHandler {
             int var9 = var6 >> 12 & 15;
             int var10 = var6 >> 8 & 15;
             int var11 = var6 & 255;
-            var2.setBlockMetadata(var9, var11, var10, var7, var8);
+            var2.setBlockIDWithMetadata(var9, var11, var10, var7, var8);
             this.worldClient.func_711_c(var9 + var3, var11, var10 + var4, var9 + var3, var11, var10 + var4);
             this.worldClient.markBlocksDirty(var9 + var3, var11, var10 + var4, var9 + var3, var11, var10 + var4);
         }

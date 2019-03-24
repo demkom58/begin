@@ -5,13 +5,13 @@ public interface IChunkProvider {
 
     Chunk provideChunk(int var1, int var2);
 
-    Chunk loadChunk(int var1, int var2);
+    Chunk prepareChunk(int var1, int var2);
 
     void populate(IChunkProvider var1, int var2, int var3);
 
     boolean saveChunks(boolean var1, IProgressUpdate var2);
 
-    boolean cleanChunks();
+    boolean unload100OldestChunks();
 
     boolean canSave();
 }

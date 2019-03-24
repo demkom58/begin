@@ -3,7 +3,7 @@ package net.minecraft;
 public class WorldProviderHell extends WorldProvider {
     public void registerWorldChunkManager() {
         this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.HELL, 1.0D, 0.0D);
-        this.field_6167_c = true;
+        this.isNether = true;
         this.isHellWorld = true;
         this.hasNoSky = true;
         this.worldType = -1;

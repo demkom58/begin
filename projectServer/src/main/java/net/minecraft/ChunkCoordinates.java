@@ -8,49 +8,48 @@ public class ChunkCoordinates implements Comparable {
     public ChunkCoordinates() {
     }
 
-    public ChunkCoordinates(int var1, int var2, int var3) {
-        this.posX = var1;
-        this.posY = var2;
-        this.posZ = var3;
+    public ChunkCoordinates(int posX, int posY, int posZ) {
+        this.posX = posX;
+        this.posY = posY;
+        this.posZ = posZ;
     }
 
-    public ChunkCoordinates(ChunkCoordinates var1) {
-        this.posX = var1.posX;
-        this.posY = var1.posY;
-        this.posZ = var1.posZ;
+    public ChunkCoordinates(ChunkCoordinates coord) {
+        this.posX = coord.posX;
+        this.posY = coord.posY;
+        this.posZ = coord.posZ;
     }
 
-    public boolean equals(Object var1) {
-        if (!(var1 instanceof ChunkCoordinates)) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ChunkCoordinates)) {
             return false;
-        } else {
-            ChunkCoordinates var2 = (ChunkCoordinates) var1;
-            return this.posX == var2.posX && this.posY == var2.posY && this.posZ == var2.posZ;
         }
+
+        ChunkCoordinates coordinates = (ChunkCoordinates) obj;
+        return this.posX == coordinates.posX && this.posY == coordinates.posY && this.posZ == coordinates.posZ;
     }
 
     public int hashCode() {
         return this.posX + this.posZ << 8 + this.posY << 16;
     }
 
-    public int compareChunkCoordinate(ChunkCoordinates var1) {
-        if (this.posY == var1.posY) {
-            return this.posZ == var1.posZ ? this.posX - var1.posX : this.posZ - var1.posZ;
-        } else {
-            return this.posY - var1.posY;
+    public int compareChunkCoordinate(ChunkCoordinates coord) {
+        if (this.posY == coord.posY) {
+            return this.posZ == coord.posZ ? this.posX - coord.posX : this.posZ - coord.posZ;
         }
+
+        return this.posY - coord.posY;
     }
 
-    public double getSqDistanceTo(int var1, int var2, int var3) {
-        int var4 = this.posX - var1;
-        int var5 = this.posY - var2;
-        int var6 = this.posZ - var3;
+    public double getSqDistanceTo(int posX, int posY, int posZ) {
+        int var4 = this.posX - posX;
+        int var5 = this.posY - posY;
+        int var6 = this.posZ - posZ;
         return Math.sqrt((double) (var4 * var4 + var5 * var5 + var6 * var6));
     }
 
-    // $FF: synthetic method
-    // $FF: bridge method
-    public int compareTo(Object var1) {
-        return this.compareChunkCoordinate((ChunkCoordinates) var1);
+    public int compareTo(Object o) {
+        return this.compareChunkCoordinate((ChunkCoordinates) o);
     }
+
 }

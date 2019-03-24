@@ -10,59 +10,57 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegionFileCache {
-    private static final Map<File, Reference> field_22125_a = new HashMap<>();
+    private static final Map<File, Reference<RegionFile>> REFERENCE_MAP = new HashMap<>();
 
-    public static synchronized RegionFile func_22123_a(File var0, int var1, int var2) {
-        File var3 = new File(var0, "region");
-        File var4 = new File(var3, "r." + (var1 >> 5) + "." + (var2 >> 5) + ".mcr");
-        Reference var5 = field_22125_a.get(var4);
-        if (var5 != null) {
-            RegionFile var6 = (RegionFile) var5.get();
-            if (var6 != null) {
-                return var6;
+    public static synchronized RegionFile getRegionFile(File file, int x, int z) {
+        File regFile = new File(file, "region");
+        File mcrFile = new File(regFile, "r." + (x >> 5) + "." + (z >> 5) + ".mcr");
+
+        Reference<RegionFile> regionFileReference = REFERENCE_MAP.get(mcrFile);
+        if (regionFileReference != null) {
+            RegionFile regionFile = regionFileReference.get();
+            if (regionFile != null) {
+                return regionFile;
             }
         }
 
-        if (!var3.exists()) {
-            var3.mkdirs();
+        if (!regFile.exists()) {
+            regFile.mkdirs();
         }
 
-        if (field_22125_a.size() >= 256) {
-            func_22122_a();
+        if (REFERENCE_MAP.size() >= 256) {
+            clear();
         }
 
-        RegionFile var7 = new RegionFile(var4);
-        field_22125_a.put(var4, new SoftReference(var7));
-        return var7;
+        RegionFile regionFileObj = new RegionFile(mcrFile);
+        REFERENCE_MAP.put(mcrFile, new SoftReference<>(regionFileObj));
+        return regionFileObj;
     }
 
-    public static synchronized void func_22122_a() {
-        for (Reference var1 : field_22125_a.values()) {
+    public static synchronized void clear() {
+        for (Reference<RegionFile> reference : REFERENCE_MAP.values()) {
             try {
-                RegionFile var2 = (RegionFile) var1.get();
-                if (var2 != null) {
-                    var2.close();
+                RegionFile regionFile = reference.get();
+                if (regionFile != null) {
+                    regionFile.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        field_22125_a.clear();
+        REFERENCE_MAP.clear();
     }
 
-    public static int func_22121_b(File var0, int var1, int var2) {
-        RegionFile var3 = func_22123_a(var0, var1, var2);
-        return var3.getSizeDelta();
+    public static int getSizeDelta(File file, int x, int z) {
+        return getRegionFile(file, x, z).getSizeDelta();
     }
 
-    public static DataInputStream func_22124_c(File var0, int var1, int var2) {
-        RegionFile var3 = func_22123_a(var0, var1, var2);
-        return var3.getChunkDataInputStream(var1 & 31, var2 & 31);
+    public static DataInputStream getChunkInputStream(File file, int x, int z) {
+        return getRegionFile(file, x, z).getChunkDataInputStream(x & 31, z & 31);
     }
 
-    public static DataOutputStream func_22120_d(File var0, int var1, int var2) {
-        RegionFile var3 = func_22123_a(var0, var1, var2);
-        return var3.getChunkDataOutputStream(var1 & 31, var2 & 31);
+    public static DataOutputStream getChunkOutputStream(File file, int x, int z) {
+        return getRegionFile(file, x, z).getChunkDataOutputStream(x & 31, z & 31);
     }
 }

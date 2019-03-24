@@ -43,7 +43,7 @@ public final class SpawnerAnimals {
                 if ((!var40.isPeacefulCreature() || var2) && (var40.isPeacefulCreature() || var1) && var0.countEntities(var40.getCreatureClass()) <= var40.getMaxNumberOfCreature() * eligibleChunksForSpawning.size() / 256) {
                     label130:
                     for (ChunkCoordIntPair var10 : eligibleChunksForSpawning) {
-                        BiomeGenBase var11 = var0.getWorldChunkManager().func_4066_a(var10);
+                        BiomeGenBase var11 = var0.getWorldChunkManager().getBiomeGenAtChunkCoord(var10);
                         List<SpawnListEntry> var12 = var11.getSpawnableList(var40);
                         if (var12 != null && !var12.isEmpty()) {
                             int var13 = 0;

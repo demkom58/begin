@@ -25,6 +25,6 @@ public class SaveOldDir extends PlayerNBTManager {
     }
 
     public void func_22093_e() {
-        RegionFileCache.func_22122_a();
+        RegionFileCache.clear();
     }
 }

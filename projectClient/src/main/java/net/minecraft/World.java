@@ -372,7 +372,7 @@ public class World implements IBlockAccess {
                 return false;
             } else {
                 Chunk var6 = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
-                return var6.setBlockMetadata(var1 & 15, var2, var3 & 15, var4, var5);
+                return var6.setBlockIDWithMetadata(var1 & 15, var2, var3 & 15, var4, var5);
             }
         }
 
@@ -1229,11 +1229,11 @@ public class World implements IBlockAccess {
 
         while (var8.hasNext()) {
             TileEntity var11 = (TileEntity) var8.next();
-            if (!var11.func_31006_g()) {
+            if (!var11.isInvalid()) {
                 var11.updateEntity();
             }
 
-            if (var11.func_31006_g()) {
+            if (var11.isInvalid()) {
                 var8.remove();
                 Chunk var14 = this.getChunkFromChunkCoords(var11.xCoord >> 4, var11.zCoord >> 4);
                 if (var14 != null) {
@@ -1245,7 +1245,7 @@ public class World implements IBlockAccess {
         this.field_31055_L = false;
         if (!this.field_30900_E.isEmpty()) {
             for (TileEntity tileEntity : this.field_30900_E) {
-                if (!tileEntity.func_31006_g()) {
+                if (!tileEntity.isInvalid()) {
                     if (!this.loadedTileEntityList.contains(tileEntity)) {
                         this.loadedTileEntityList.add(tileEntity);
                     }
@@ -1591,7 +1591,7 @@ public class World implements IBlockAccess {
     }
 
     public void setBlockTileEntity(int var1, int var2, int var3, TileEntity var4) {
-        if (!var4.func_31006_g()) {
+        if (!var4.isInvalid()) {
             if (this.field_31055_L) {
                 var4.xCoord = var1;
                 var4.yCoord = var2;
@@ -2054,7 +2054,7 @@ public class World implements IBlockAccess {
         return count;
     }
 
-    public void func_636_a(List var1) {
+    public void addLoadedEntities(List var1) {
         this.loadedEntityList.addAll(var1);
 
         for (int var2 = 0; var2 < var1.size(); ++var2) {
@@ -2063,7 +2063,7 @@ public class World implements IBlockAccess {
 
     }
 
-    public void func_632_b(List var1) {
+    public void addUnloadedEntities(List var1) {
         this.unloadedEntityList.addAll(var1);
     }
 

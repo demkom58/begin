@@ -61,9 +61,9 @@ public class World implements IBlockAccess {
         if (worldProvider != null) {
             this.worldProvider = worldProvider;
         } else if (this.worldInfo != null && this.worldInfo.getDimension() == -1) {
-            this.worldProvider = WorldProvider.func_4091_a(-1);
+            this.worldProvider = WorldProvider.getProviderForDimension(-1);
         } else {
-            this.worldProvider = WorldProvider.func_4091_a(0);
+            this.worldProvider = WorldProvider.getProviderForDimension(0);
         }
 
         boolean isNew = false;
@@ -1516,7 +1516,7 @@ public class World implements IBlockAccess {
         }
 
 
-        this.chunkProvider.cleanChunks();
+        this.chunkProvider.unload100OldestChunks();
         int light = this.calculateSkylightSubtracted(1.0F);
         if (light != this.skylightSubtracted) {
             this.skylightSubtracted = light;

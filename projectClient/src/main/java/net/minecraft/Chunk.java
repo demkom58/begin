@@ -228,7 +228,7 @@ public class Chunk {
         return this.blocks[var1 << 11 | var3 << 7 | var2] & 255;
     }
 
-    public boolean setBlockMetadata(int var1, int var2, int var3, int var4, int var5) {
+    public boolean setBlockIDWithMetadata(int var1, int var2, int var3, int var4, int var5) {
         byte var6 = (byte) var4;
         int var7 = this.heightMap[var3 << 4 | var1] & 255;
         int var8 = this.blocks[var1 << 11 | var3 << 7 | var2] & 255;
@@ -407,12 +407,12 @@ public class Chunk {
             var5 = this.chunkTileEntityMap.get(var4);
         }
 
-        if (var5 != null && var5.func_31006_g()) {
+        if (var5 != null && var5.isInvalid()) {
             this.chunkTileEntityMap.remove(var4);
             return null;
-        } else {
-            return var5;
         }
+
+        return var5;
     }
 
     public void addTileEntity(TileEntity var1) {
@@ -456,7 +456,7 @@ public class Chunk {
         this.worldObj.func_31054_a(this.chunkTileEntityMap.values());
 
         for (int var1 = 0; var1 < this.entities.length; ++var1) {
-            this.worldObj.func_636_a(this.entities[var1]);
+            this.worldObj.addLoadedEntities(this.entities[var1]);
         }
 
     }
@@ -469,7 +469,7 @@ public class Chunk {
         }
 
         for (int var3 = 0; var3 < this.entities.length; ++var3) {
-            this.worldObj.func_632_b(this.entities[var3]);
+            this.worldObj.addUnloadedEntities(this.entities[var3]);
         }
 
     }

@@ -3,14 +3,14 @@ package net.minecraft;
 public abstract class WorldProvider {
     public World worldObj;
     public WorldChunkManager worldChunkMgr;
-    public boolean field_6167_c = false;
+    public boolean isNether = false;
     public boolean isHellWorld = false;
     public boolean hasNoSky = false;
     public float[] lightBrightnessTable = new float[16];
     public int worldType = 0;
-    private float[] field_6164_h = new float[4];
+    private float[] colorsSunriseSunset = new float[4];
 
-    public static WorldProvider func_4091_a(int var0) {
+    public static WorldProvider getProviderForDimension(int var0) {
         if (var0 == -1) {
             return new WorldProviderHell();
         } else if (var0 == 0) {

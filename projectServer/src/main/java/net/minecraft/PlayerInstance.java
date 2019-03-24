@@ -27,7 +27,7 @@ class PlayerInstance {
         this.chunkX = var2;
         this.chunkZ = var3;
         this.currentChunk = new ChunkCoordIntPair(var2, var3);
-        var1.getMinecraftServer().chunkProviderServer.loadChunk(var2, var3);
+        var1.getMinecraftServer().chunkProviderServer.prepareChunk(var2, var3);
     }
 
     public void addPlayer(EntityPlayerMP var1) {

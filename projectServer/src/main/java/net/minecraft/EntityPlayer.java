@@ -53,10 +53,10 @@ public abstract class EntityPlayer extends EntityLiving {
 
     public static ChunkCoordinates func_25051_a(World var0, ChunkCoordinates var1) {
         IChunkProvider var2 = var0.getChunkProvider();
-        var2.loadChunk(var1.posX - 3 >> 4, var1.posZ - 3 >> 4);
-        var2.loadChunk(var1.posX + 3 >> 4, var1.posZ - 3 >> 4);
-        var2.loadChunk(var1.posX - 3 >> 4, var1.posZ + 3 >> 4);
-        var2.loadChunk(var1.posX + 3 >> 4, var1.posZ + 3 >> 4);
+        var2.prepareChunk(var1.posX - 3 >> 4, var1.posZ - 3 >> 4);
+        var2.prepareChunk(var1.posX + 3 >> 4, var1.posZ - 3 >> 4);
+        var2.prepareChunk(var1.posX - 3 >> 4, var1.posZ + 3 >> 4);
+        var2.prepareChunk(var1.posX + 3 >> 4, var1.posZ + 3 >> 4);
         if (var0.getBlockId(var1.posX, var1.posY, var1.posZ) != Block.BED.blockID) {
             return null;
         } else {
@@ -516,7 +516,7 @@ public abstract class EntityPlayer extends EntityLiving {
                 return EnumStatus.OTHER_PROBLEM;
             }
 
-            if (this.worldObj.worldProvider.field_6167_c) {
+            if (this.worldObj.worldProvider.isNether) {
                 return EnumStatus.NOT_POSSIBLE_HERE;
             }
 

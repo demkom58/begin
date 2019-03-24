@@ -14,7 +14,7 @@ public class WorldServer extends World {
     private MCHash hash = new MCHash();
 
     public WorldServer(MinecraftServer mcServer, ISaveHandler saveHandler, String var3, int var4, long var5) {
-        super(saveHandler, var3, var5, WorldProvider.func_4091_a(var4));
+        super(saveHandler, var3, var5, WorldProvider.getProviderForDimension(var4));
         this.mcServer = mcServer;
     }
 

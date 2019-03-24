@@ -57,7 +57,7 @@ public class ServerConfigurationManager {
         this.playerManagerObj[1].removePlayer(var1);
         this.getPlayerManager(var1.dimension).addPlayer(var1);
         WorldServer var2 = this.mcServer.getWorldServer(var1.dimension);
-        var2.chunkProviderServer.loadChunk((int) var1.posX >> 4, (int) var1.posZ >> 4);
+        var2.chunkProviderServer.prepareChunk((int) var1.posX >> 4, (int) var1.posZ >> 4);
     }
 
     public int getMaxTrackingDistance() {
@@ -75,7 +75,7 @@ public class ServerConfigurationManager {
     public void playerLoggedIn(EntityPlayerMP var1) {
         this.playerEntities.add(var1);
         WorldServer var2 = this.mcServer.getWorldServer(var1.dimension);
-        var2.chunkProviderServer.loadChunk((int) var1.posX >> 4, (int) var1.posZ >> 4);
+        var2.chunkProviderServer.prepareChunk((int) var1.posX >> 4, (int) var1.posZ >> 4);
 
         while (var2.getCollidingBoundingBoxes(var1, var1.boundingBox).size() != 0) {
             var1.setPosition(var1.posX, var1.posY + 1.0D, var1.posZ);
@@ -148,7 +148,7 @@ public class ServerConfigurationManager {
             }
         }
 
-        var5.chunkProviderServer.loadChunk((int) var4.posX >> 4, (int) var4.posZ >> 4);
+        var5.chunkProviderServer.prepareChunk((int) var4.posX >> 4, (int) var4.posZ >> 4);
 
         while (var5.getCollidingBoundingBoxes(var4, var4.boundingBox).size() != 0) {
             var4.setPosition(var4.posX, var4.posY + 1.0D, var4.posZ);

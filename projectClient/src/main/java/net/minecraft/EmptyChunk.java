@@ -38,7 +38,7 @@ public class EmptyChunk extends Chunk {
         return 0;
     }
 
-    public boolean setBlockMetadata(int var1, int var2, int var3, int var4, int var5) {
+    public boolean setBlockIDWithMetadata(int var1, int var2, int var3, int var4, int var5) {
         return true;
     }
 

@@ -13,11 +13,11 @@ public class Packet50PreChunk extends Packet {
         this.isChunkDataPacket = false;
     }
 
-    public Packet50PreChunk(int var1, int var2, boolean var3) {
+    public Packet50PreChunk(int x, int y, boolean mode) {
         this.isChunkDataPacket = false;
-        this.xPosition = var1;
-        this.yPosition = var2;
-        this.mode = var3;
+        this.xPosition = x;
+        this.yPosition = y;
+        this.mode = mode;
     }
 
     public void readPacketData(DataInputStream inputStream) throws IOException {

@@ -6,31 +6,31 @@ public class WorldChunkManager {
     public double[] temperature;
     public double[] humidity;
     public double[] field_4257_c;
-    public BiomeGenBase[] field_4256_d;
-    private NoiseGeneratorOctaves2 field_4255_e;
-    private NoiseGeneratorOctaves2 field_4254_f;
-    private NoiseGeneratorOctaves2 field_4253_g;
+    public BiomeGenBase[] biomeGenBases;
+    private NoiseGeneratorOctaves2 genOc1;
+    private NoiseGeneratorOctaves2 genOc2;
+    private NoiseGeneratorOctaves2 genOc3;
 
     protected WorldChunkManager() {
     }
 
-    public WorldChunkManager(World var1) {
-        this.field_4255_e = new NoiseGeneratorOctaves2(new Random(var1.getRandomSeed() * 9871L), 4);
-        this.field_4254_f = new NoiseGeneratorOctaves2(new Random(var1.getRandomSeed() * 39811L), 4);
-        this.field_4253_g = new NoiseGeneratorOctaves2(new Random(var1.getRandomSeed() * 543321L), 2);
+    public WorldChunkManager(World world) {
+        this.genOc1 = new NoiseGeneratorOctaves2(new Random(world.getRandomSeed() * 9871L), 4);
+        this.genOc2 = new NoiseGeneratorOctaves2(new Random(world.getRandomSeed() * 39811L), 4);
+        this.genOc3 = new NoiseGeneratorOctaves2(new Random(world.getRandomSeed() * 543321L), 2);
     }
 
-    public BiomeGenBase func_4066_a(ChunkCoordIntPair var1) {
-        return this.getBiomeGenAt(var1.chunkXPos << 4, var1.chunkZPos << 4);
+    public BiomeGenBase getBiomeGenAtChunkCoord(ChunkCoordIntPair pair) {
+        return this.getBiomeGenAt(pair.chunkXPos << 4, pair.chunkZPos << 4);
     }
 
-    public BiomeGenBase getBiomeGenAt(int var1, int var2) {
-        return this.func_4065_a(var1, var2, 1, 1)[0];
+    public BiomeGenBase getBiomeGenAt(int x, int z) {
+        return this.getBiomeGensAt(x, z, 1, 1)[0];
     }
 
-    public BiomeGenBase[] func_4065_a(int var1, int var2, int var3, int var4) {
-        this.field_4256_d = this.loadBlockGeneratorData(this.field_4256_d, var1, var2, var3, var4);
-        return this.field_4256_d;
+    public BiomeGenBase[] getBiomeGensAt(int x, int z, int var3, int var4) {
+        this.biomeGenBases = this.loadBlockGeneratorData(this.biomeGenBases, x, z, var3, var4);
+        return this.biomeGenBases;
     }
 
     public double[] getTemperatures(double[] var1, int var2, int var3, int var4, int var5) {
@@ -38,8 +38,8 @@ public class WorldChunkManager {
             var1 = new double[var4 * var5];
         }
 
-        var1 = this.field_4255_e.func_4101_a(var1, (double) var2, (double) var3, var4, var5, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
-        this.field_4257_c = this.field_4253_g.func_4101_a(this.field_4257_c, (double) var2, (double) var3, var4, var5, 0.25D, 0.25D, 0.5882352941176471D);
+        var1 = this.genOc1.func_4101_a(var1, (double) var2, (double) var3, var4, var5, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
+        this.field_4257_c = this.genOc3.func_4101_a(this.field_4257_c, (double) var2, (double) var3, var4, var5, 0.25D, 0.25D, 0.5882352941176471D);
         int var6 = 0;
 
         for (int var7 = 0; var7 < var4; ++var7) {
@@ -65,14 +65,13 @@ public class WorldChunkManager {
         return var1;
     }
 
-    public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] var1, int var2, int var3, int var4, int var5) {
-        if (var1 == null || var1.length < var4 * var5) {
-            var1 = new BiomeGenBase[var4 * var5];
-        }
+    public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] bases, int x, int z, int var4, int var5) {
+        if (bases == null || bases.length < var4 * var5)
+            bases = new BiomeGenBase[var4 * var5];
 
-        this.temperature = this.field_4255_e.func_4101_a(this.temperature, (double) var2, (double) var3, var4, var4, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
-        this.humidity = this.field_4254_f.func_4101_a(this.humidity, (double) var2, (double) var3, var4, var4, 0.05000000074505806D, 0.05000000074505806D, 0.3333333333333333D);
-        this.field_4257_c = this.field_4253_g.func_4101_a(this.field_4257_c, (double) var2, (double) var3, var4, var4, 0.25D, 0.25D, 0.5882352941176471D);
+        this.temperature = this.genOc1.func_4101_a(this.temperature, (double) x, (double) z, var4, var4, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
+        this.humidity = this.genOc2.func_4101_a(this.humidity, (double) x, (double) z, var4, var4, 0.05000000074505806D, 0.05000000074505806D, 0.3333333333333333D);
+        this.field_4257_c = this.genOc3.func_4101_a(this.field_4257_c, (double) x, (double) z, var4, var4, 0.25D, 0.25D, 0.5882352941176471D);
         int var6 = 0;
 
         for (int var7 = 0; var7 < var4; ++var7) {
@@ -103,10 +102,10 @@ public class WorldChunkManager {
 
                 this.temperature[var6] = var15;
                 this.humidity[var6] = var17;
-                var1[var6++] = BiomeGenBase.getBiomeFromLookup(var15, var17);
+                bases[var6++] = BiomeGenBase.getBiomeFromLookup(var15, var17);
             }
         }
 
-        return var1;
+        return bases;
     }
 }

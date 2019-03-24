@@ -155,7 +155,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
     private void initWorld(ISaveFormat saveFormat, String type, long seed) {
         if (saveFormat.isOldSaveType(type)) {
             LOGGER.info("Converting map!");
-            saveFormat.converMapToMCRegion(type, new ConvertProgressUpdater(this));
+            saveFormat.convertMapToMCRegion(type, new ConvertProgressUpdater(this));
         }
 
         this.worldServers = new WorldServer[2];
@@ -196,7 +196,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
                             preparingStart = var14;
                         }
 
-                        worldServer.chunkProviderServer.loadChunk(chunkCoordinates.posX + j >> 4, chunkCoordinates.posZ + k >> 4);
+                        worldServer.chunkProviderServer.prepareChunk(chunkCoordinates.posX + j >> 4, chunkCoordinates.posZ + k >> 4);
 
                         while (worldServer.updatingLighting() && this.serverRunning) {
                         }

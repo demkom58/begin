@@ -10,57 +10,59 @@ import java.io.IOException;
 public class McRegionChunkLoader implements IChunkLoader {
     private final File worldFolder;
 
-    public McRegionChunkLoader(File var1) {
-        this.worldFolder = var1;
+    public McRegionChunkLoader(File worldFolder) {
+        this.worldFolder = worldFolder;
     }
 
-    public Chunk loadChunk(World var1, int var2, int var3) throws IOException {
-        DataInputStream var4 = RegionFileCache.func_22124_c(this.worldFolder, var2, var3);
-        if (var4 != null) {
-            NBTTagCompound var5 = CompressedStreamTools.func_774_a(var4);
+    public Chunk loadChunk(World world, int x, int z) throws IOException {
+        DataInputStream inputStream = RegionFileCache.getChunkInputStream(this.worldFolder, x, z);
+        if (inputStream != null) {
+            NBTTagCompound var5 = CompressedStreamTools.func_774_a(inputStream);
             if (!var5.hasKey("Level")) {
-                System.out.println("Chunk file at " + var2 + "," + var3 + " is missing level data, skipping");
+                System.out.println("Chunk file at " + x + "," + z + " is missing level data, skipping");
                 return null;
-            } else if (!var5.getCompoundTag("Level").hasKey("Blocks")) {
-                System.out.println("Chunk file at " + var2 + "," + var3 + " is missing block data, skipping");
-                return null;
-            } else {
-                Chunk var6 = ChunkLoader.loadChunkIntoWorldFromCompound(var1, var5.getCompoundTag("Level"));
-                if (!var6.isAtLocation(var2, var3)) {
-                    System.out.println("Chunk file at " + var2 + "," + var3 + " is in the wrong location; relocating. (Expected " + var2 + ", " + var3 + ", got " + var6.xPosition + ", " + var6.zPosition + ")");
-                    var5.setInteger("xPos", var2);
-                    var5.setInteger("zPos", var3);
-                    var6 = ChunkLoader.loadChunkIntoWorldFromCompound(var1, var5.getCompoundTag("Level"));
-                }
-
-                var6.func_25083_h();
-                return var6;
             }
-        } else {
-            return null;
+
+            if (!var5.getCompoundTag("Level").hasKey("Blocks")) {
+                System.out.println("Chunk file at " + x + "," + z + " is missing block data, skipping");
+                return null;
+            }
+
+            Chunk var6 = ChunkLoader.loadChunkIntoWorldFromCompound(world, var5.getCompoundTag("Level"));
+            if (!var6.isAtLocation(x, z)) {
+                System.out.println("Chunk file at " + x + "," + z + " is in the wrong location; relocating. (Expected " + x + ", " + z + ", got " + var6.xPosition + ", " + var6.zPosition + ")");
+                var5.setInteger("xPos", x);
+                var5.setInteger("zPos", z);
+                var6 = ChunkLoader.loadChunkIntoWorldFromCompound(world, var5.getCompoundTag("Level"));
+            }
+
+            var6.checkBlocks();
+            return var6;
         }
+
+        return null;
     }
 
-    public void saveChunk(World var1, Chunk var2) throws IOException {
-        var1.checkSessionLock();
+    public void saveChunk(World world, Chunk chunk) throws IOException {
+        world.checkSessionLock();
 
         try {
-            DataOutputStream var3 = RegionFileCache.func_22120_d(this.worldFolder, var2.xPosition, var2.zPosition);
+            DataOutputStream var3 = RegionFileCache.getChunkOutputStream(this.worldFolder, chunk.xPosition, chunk.zPosition);
             NBTTagCompound var4 = new NBTTagCompound();
             NBTTagCompound var5 = new NBTTagCompound();
             var4.setTag("Level", var5);
-            ChunkLoader.storeChunkInCompound(var2, var1, var5);
+            ChunkLoader.storeChunkInCompound(chunk, world, var5);
             CompressedStreamTools.func_771_a(var4, var3);
             var3.close();
-            WorldInfo var6 = var1.getWorldInfo();
-            var6.setSizeOnDisk(var6.getSizeOnDisk() + (long) RegionFileCache.func_22121_b(this.worldFolder, var2.xPosition, var2.zPosition));
+            WorldInfo var6 = world.getWorldInfo();
+            var6.setSizeOnDisk(var6.getSizeOnDisk() + (long) RegionFileCache.getSizeDelta(this.worldFolder, chunk.xPosition, chunk.zPosition));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public void saveExtraChunkData(World var1, Chunk var2) throws IOException {
+    public void saveExtraChunkData(World world, Chunk chunk) throws IOException {
     }
 
     public void func_661_a() {

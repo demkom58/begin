@@ -99,7 +99,7 @@ public class TileEntity {
         return Block.BLOCKS_LIST[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)];
     }
 
-    public boolean func_31006_g() {
+    public boolean isInvalid() {
         return this.field_31007_h;
     }
 

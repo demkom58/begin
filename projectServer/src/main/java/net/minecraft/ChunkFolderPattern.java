@@ -6,17 +6,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class ChunkFolderPattern implements FileFilter {
-    public static final Pattern field_22214_a = Pattern.compile("[0-9a-z]|([0-9a-z][0-9a-z])");
+    public static final Pattern PATTERN = Pattern.compile("[0-9a-z]|([0-9a-z][0-9a-z])");
 
-    public ChunkFolderPattern() {
-    }
+    public ChunkFolderPattern() { }
 
-    public boolean accept(File var1) {
-        if (var1.isDirectory()) {
-            Matcher var2 = field_22214_a.matcher(var1.getName());
-            return var2.matches();
-        } else {
-            return false;
+    public boolean accept(File file) {
+        if (file.isDirectory()) {
+            Matcher matcher = PATTERN.matcher(file.getName());
+            return matcher.matches();
         }
+
+        return false;
     }
 }

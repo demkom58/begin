@@ -3,19 +3,18 @@ package net.minecraft;
 import java.io.ByteArrayOutputStream;
 
 class RegionFileChunkBuffer extends ByteArrayOutputStream {
-    // $FF: synthetic field
-    final RegionFile field_22157_a;
-    private int field_22156_b;
-    private int field_22158_c;
+    final RegionFile regionFile;
+    private int x;
+    private int z;
 
-    public RegionFileChunkBuffer(RegionFile var1, int var2, int var3) {
+    public RegionFileChunkBuffer(RegionFile regionFile, int x, int z) {
         super(8096);
-        this.field_22157_a = var1;
-        this.field_22156_b = var2;
-        this.field_22158_c = var3;
+        this.regionFile = regionFile;
+        this.x = x;
+        this.z = z;
     }
 
     public void close() {
-        this.field_22157_a.write(this.field_22156_b, this.field_22158_c, this.buf, this.count);
+        this.regionFile.write(this.x, this.z, this.buf, this.count);
     }
 }

@@ -15,9 +15,9 @@ public class McRegionChunkLoader implements IChunkLoader {
     }
 
     public Chunk loadChunk(World var1, int var2, int var3) throws IOException {
-        DataInputStream var4 = RegionFileCache.getChunkInputStream(this.worldDir, var2, var3);
-        if (var4 != null) {
-            NBTTagCompound var5 = CompressedStreamTools.func_1141_a(var4);
+        DataInputStream inputStream = RegionFileCache.getChunkInputStream(this.worldDir, var2, var3);
+        if (inputStream != null) {
+            NBTTagCompound var5 = CompressedStreamTools.func_1141_a(inputStream);
             if (!var5.hasKey("Level")) {
                 System.out.println("Chunk file at " + var2 + "," + var3 + " is missing level data, skipping");
                 return null;
@@ -41,19 +41,19 @@ public class McRegionChunkLoader implements IChunkLoader {
         }
     }
 
-    public void saveChunk(World var1, Chunk var2) throws IOException {
-        var1.checkSessionLock();
+    public void saveChunk(World world, Chunk chunk) throws IOException {
+        world.checkSessionLock();
 
         try {
-            DataOutputStream var3 = RegionFileCache.getChunkOutputStream(this.worldDir, var2.xPosition, var2.zPosition);
+            DataOutputStream var3 = RegionFileCache.getChunkOutputStream(this.worldDir, chunk.xPosition, chunk.zPosition);
             NBTTagCompound var4 = new NBTTagCompound();
             NBTTagCompound var5 = new NBTTagCompound();
             var4.setTag("Level", var5);
-            ChunkLoader.storeChunkInCompound(var2, var1, var5);
+            ChunkLoader.storeChunkInCompound(chunk, world, var5);
             CompressedStreamTools.func_1139_a(var4, var3);
             var3.close();
-            WorldInfo var6 = var1.getWorldInfo();
-            var6.setSizeOnDisk(var6.getSizeOnDisk() + (long) RegionFileCache.getSizeDelta(this.worldDir, var2.xPosition, var2.zPosition));
+            WorldInfo var6 = world.getWorldInfo();
+            var6.setSizeOnDisk(var6.getSizeOnDisk() + (long) RegionFileCache.getSizeDelta(this.worldDir, chunk.xPosition, chunk.zPosition));
         } catch (Exception e) {
             e.printStackTrace();
         }

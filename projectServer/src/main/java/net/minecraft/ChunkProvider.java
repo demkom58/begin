@@ -13,23 +13,23 @@ public class ChunkProvider implements IChunkProvider {
     private IntSet chunksCords = new IntRBTreeSet();
     private Chunk chunk;
     private IChunkProvider chunkGenerator;
-    private IChunkLoader loader;
+    private IChunkLoader chunkLoader;
     private Int2ObjectMap<Chunk> cord2ChunkMap = new Int2ObjectRBTreeMap<>();
     private List<Chunk> chunks = new ArrayList<>();
     private World worldObj;
 
-    public ChunkProvider(World var1, IChunkLoader var2, IChunkProvider var3) {
-        this.chunk = new EmptyChunk(var1, new byte['\u8000'], 0, 0);
-        this.worldObj = var1;
-        this.loader = var2;
-        this.chunkGenerator = var3;
+    public ChunkProvider(World world, IChunkLoader chunkLoader, IChunkProvider chunkProvider) {
+        this.chunk = new EmptyChunk(world, new byte['\u8000'], 0, 0);
+        this.worldObj = world;
+        this.chunkLoader = chunkLoader;
+        this.chunkGenerator = chunkProvider;
     }
 
     public boolean chunkExists(int var1, int var2) {
         return this.cord2ChunkMap.containsKey(ChunkCoordIntPair.chunkXZ2Int(var1, var2));
     }
 
-    public Chunk loadChunk(int x, int z) {
+    public Chunk prepareChunk(int x, int z) {
         int chunkXZ2Int = ChunkCoordIntPair.chunkXZ2Int(x, z);
         this.chunksCords.remove(chunkXZ2Int);
         Chunk chunk = this.cord2ChunkMap.get(chunkXZ2Int);
@@ -72,16 +72,16 @@ public class ChunkProvider implements IChunkProvider {
 
     public Chunk provideChunk(int x, int z) {
         Chunk chunk = this.cord2ChunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
-        return chunk == null ? this.loadChunk(x, z) : chunk;
+        return chunk == null ? this.prepareChunk(x, z) : chunk;
     }
 
     private Chunk rawChunkLoad(int x, int z) {
-        if (this.loader == null) {
+        if (this.chunkLoader == null) {
             return null;
         }
 
         try {
-            Chunk chunk = this.loader.loadChunk(this.worldObj, x, z);
+            Chunk chunk = this.chunkLoader.loadChunk(this.worldObj, x, z);
             if (chunk != null) {
                 chunk.lastSaveTime = this.worldObj.getWorldTime();
             }
@@ -94,9 +94,9 @@ public class ChunkProvider implements IChunkProvider {
     }
 
     private void saveChunkExtra(Chunk chunk) {
-        if (this.loader != null) {
+        if (this.chunkLoader != null) {
             try {
-                this.loader.saveExtraChunkData(this.worldObj, chunk);
+                this.chunkLoader.saveExtraChunkData(this.worldObj, chunk);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -105,10 +105,10 @@ public class ChunkProvider implements IChunkProvider {
     }
 
     private void saveChunk(Chunk chunk) {
-        if (this.loader != null) {
+        if (this.chunkLoader != null) {
             try {
                 chunk.lastSaveTime = this.worldObj.getWorldTime();
-                this.loader.saveChunk(this.worldObj, chunk);
+                this.chunkLoader.saveChunk(this.worldObj, chunk);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -148,17 +148,16 @@ public class ChunkProvider implements IChunkProvider {
         }
 
         if (var1) {
-            if (this.loader == null) {
+            if (this.chunkLoader == null)
                 return true;
-            }
 
-            this.loader.saveExtraData();
+            this.chunkLoader.saveExtraData();
         }
 
         return true;
     }
 
-    public boolean cleanChunks() {
+    public boolean unload100OldestChunks() {
         for (int i = 0; i < 100; ++i) {
             if (!this.chunksCords.isEmpty()) {
                 int cord = this.chunksCords.iterator().nextInt();
@@ -174,11 +173,11 @@ public class ChunkProvider implements IChunkProvider {
             }
         }
 
-        if (this.loader != null) {
-            this.loader.func_661_a();
+        if (this.chunkLoader != null) {
+            this.chunkLoader.func_661_a();
         }
 
-        return this.chunkGenerator.cleanChunks();
+        return this.chunkGenerator.unload100OldestChunks();
     }
 
     public boolean canSave() {

@@ -3,11 +3,11 @@ package net.minecraft;
 import java.io.IOException;
 
 public interface IChunkLoader {
-    Chunk loadChunk(World var1, int var2, int var3) throws IOException;
+    Chunk loadChunk(World world, int x, int z) throws IOException;
 
-    void saveChunk(World var1, Chunk var2) throws IOException;
+    void saveChunk(World world, Chunk chunk) throws IOException;
 
-    void saveExtraChunkData(World var1, Chunk var2) throws IOException;
+    void saveExtraChunkData(World world, Chunk chunk) throws IOException;
 
     void func_661_a();
 

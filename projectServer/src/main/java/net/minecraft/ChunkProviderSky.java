@@ -12,13 +12,13 @@ public class ChunkProviderSky implements IChunkProvider {
     double[] field_28088_g;
     double[] field_28087_h;
     int[][] field_28086_i = new int[32][32];
-    private Random field_28085_j;
+    private Random skyRNG;
     private NoiseGeneratorOctaves field_28084_k;
     private NoiseGeneratorOctaves field_28083_l;
     private NoiseGeneratorOctaves field_28082_m;
     private NoiseGeneratorOctaves field_28081_n;
     private NoiseGeneratorOctaves field_28080_o;
-    private World field_28079_p;
+    private World worldObj;
     private double[] field_28078_q;
     private double[] field_28077_r = new double[256];
     private double[] field_28076_s = new double[256];
@@ -27,17 +27,17 @@ public class ChunkProviderSky implements IChunkProvider {
     private BiomeGenBase[] field_28073_v;
     private double[] field_28072_w;
 
-    public ChunkProviderSky(World var1, long var2) {
-        this.field_28079_p = var1;
-        this.field_28085_j = new Random(var2);
-        this.field_28084_k = new NoiseGeneratorOctaves(this.field_28085_j, 16);
-        this.field_28083_l = new NoiseGeneratorOctaves(this.field_28085_j, 16);
-        this.field_28082_m = new NoiseGeneratorOctaves(this.field_28085_j, 8);
-        this.field_28081_n = new NoiseGeneratorOctaves(this.field_28085_j, 4);
-        this.field_28080_o = new NoiseGeneratorOctaves(this.field_28085_j, 4);
-        this.field_28094_a = new NoiseGeneratorOctaves(this.field_28085_j, 10);
-        this.field_28093_b = new NoiseGeneratorOctaves(this.field_28085_j, 16);
-        this.field_28092_c = new NoiseGeneratorOctaves(this.field_28085_j, 8);
+    public ChunkProviderSky(World world, long randSeed) {
+        this.worldObj = world;
+        this.skyRNG = new Random(randSeed);
+        this.field_28084_k = new NoiseGeneratorOctaves(this.skyRNG, 16);
+        this.field_28083_l = new NoiseGeneratorOctaves(this.skyRNG, 16);
+        this.field_28082_m = new NoiseGeneratorOctaves(this.skyRNG, 8);
+        this.field_28081_n = new NoiseGeneratorOctaves(this.skyRNG, 4);
+        this.field_28080_o = new NoiseGeneratorOctaves(this.skyRNG, 4);
+        this.field_28094_a = new NoiseGeneratorOctaves(this.skyRNG, 10);
+        this.field_28093_b = new NoiseGeneratorOctaves(this.skyRNG, 16);
+        this.field_28092_c = new NoiseGeneratorOctaves(this.skyRNG, 8);
     }
 
     public void func_28070_a(int var1, int var2, byte[] var3, BiomeGenBase[] var4, double[] var5) {
@@ -109,7 +109,7 @@ public class ChunkProviderSky implements IChunkProvider {
         for (int var7 = 0; var7 < 16; ++var7) {
             for (int var8 = 0; var8 < 16; ++var8) {
                 BiomeGenBase var9 = var4[var7 + var8 * 16];
-                int var10 = (int) (this.field_28075_t[var7 + var8 * 16] / 3.0D + 3.0D + this.field_28085_j.nextDouble() * 0.25D);
+                int var10 = (int) (this.field_28075_t[var7 + var8 * 16] / 3.0D + 3.0D + this.skyRNG.nextDouble() * 0.25D);
                 int var11 = -1;
                 byte var12 = var9.topBlock;
                 byte var13 = var9.fillerBlock;
@@ -136,7 +136,7 @@ public class ChunkProviderSky implements IChunkProvider {
                             --var11;
                             var3[var15] = var13;
                             if (var11 == 0 && var13 == Block.SAND.blockID) {
-                                var11 = this.field_28085_j.nextInt(4);
+                                var11 = this.skyRNG.nextInt(4);
                                 var13 = (byte) Block.SAND_STONE.blockID;
                             }
                         }
@@ -147,20 +147,20 @@ public class ChunkProviderSky implements IChunkProvider {
 
     }
 
-    public Chunk loadChunk(int var1, int var2) {
+    public Chunk prepareChunk(int var1, int var2) {
         return this.provideChunk(var1, var2);
     }
 
     public Chunk provideChunk(int var1, int var2) {
-        this.field_28085_j.setSeed((long) var1 * 341873128712L + (long) var2 * 132897987541L);
+        this.skyRNG.setSeed((long) var1 * 341873128712L + (long) var2 * 132897987541L);
         byte[] var3 = new byte['\u8000'];
-        Chunk var4 = new Chunk(this.field_28079_p, var3, var1, var2);
-        this.field_28073_v = this.field_28079_p.getWorldChunkManager().loadBlockGeneratorData(this.field_28073_v, var1 * 16, var2 * 16, 16, 16);
-        double[] var5 = this.field_28079_p.getWorldChunkManager().temperature;
+        Chunk var4 = new Chunk(this.worldObj, var3, var1, var2);
+        this.field_28073_v = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(this.field_28073_v, var1 * 16, var2 * 16, 16, 16);
+        double[] var5 = this.worldObj.getWorldChunkManager().temperature;
         this.func_28070_a(var1, var2, var3, this.field_28073_v, var5);
         this.func_28069_a(var1, var2, var3, this.field_28073_v);
-        this.field_28074_u.func_667_a(this, this.field_28079_p, var1, var2, var3);
-        var4.func_353_b();
+        this.field_28074_u.func_667_a(this, this.worldObj, var1, var2, var3);
+        var4.generateHeightMap();
         return var4;
     }
 
@@ -171,8 +171,8 @@ public class ChunkProviderSky implements IChunkProvider {
 
         double var8 = 684.412D;
         double var10 = 684.412D;
-        double[] var12 = this.field_28079_p.getWorldChunkManager().temperature;
-        double[] var13 = this.field_28079_p.getWorldChunkManager().humidity;
+        double[] var12 = this.worldObj.getWorldChunkManager().temperature;
+        double[] var13 = this.worldObj.getWorldChunkManager().humidity;
         this.field_28088_g = this.field_28094_a.func_4103_a(this.field_28088_g, var2, var4, var5, var7, 1.121D, 1.121D, 0.5D);
         this.field_28087_h = this.field_28093_b.func_4103_a(this.field_28087_h, var2, var4, var5, var7, 200.0D, 200.0D, 0.5D);
         var8 = var8 * 2.0D;
@@ -269,102 +269,102 @@ public class ChunkProviderSky implements IChunkProvider {
         BlockSand.fallInstantly = true;
         int var4 = var2 * 16;
         int var5 = var3 * 16;
-        BiomeGenBase var6 = this.field_28079_p.getWorldChunkManager().getBiomeGenAt(var4 + 16, var5 + 16);
-        this.field_28085_j.setSeed(this.field_28079_p.getRandomSeed());
-        long var7 = this.field_28085_j.nextLong() / 2L * 2L + 1L;
-        long var9 = this.field_28085_j.nextLong() / 2L * 2L + 1L;
-        this.field_28085_j.setSeed((long) var2 * var7 + (long) var3 * var9 ^ this.field_28079_p.getRandomSeed());
+        BiomeGenBase var6 = this.worldObj.getWorldChunkManager().getBiomeGenAt(var4 + 16, var5 + 16);
+        this.skyRNG.setSeed(this.worldObj.getRandomSeed());
+        long var7 = this.skyRNG.nextLong() / 2L * 2L + 1L;
+        long var9 = this.skyRNG.nextLong() / 2L * 2L + 1L;
+        this.skyRNG.setSeed((long) var2 * var7 + (long) var3 * var9 ^ this.worldObj.getRandomSeed());
         double var11 = 0.25D;
-        if (this.field_28085_j.nextInt(4) == 0) {
-            int var13 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var14 = this.field_28085_j.nextInt(128);
-            int var15 = var5 + this.field_28085_j.nextInt(16) + 8;
-            (new WorldGenLakes(Block.WATER_STILL.blockID)).generate(this.field_28079_p, this.field_28085_j, var13, var14, var15);
+        if (this.skyRNG.nextInt(4) == 0) {
+            int var13 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var14 = this.skyRNG.nextInt(128);
+            int var15 = var5 + this.skyRNG.nextInt(16) + 8;
+            (new WorldGenLakes(Block.WATER_STILL.blockID)).generate(this.worldObj, this.skyRNG, var13, var14, var15);
         }
 
-        if (this.field_28085_j.nextInt(8) == 0) {
-            int var24 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var36 = this.field_28085_j.nextInt(this.field_28085_j.nextInt(120) + 8);
-            int var48 = var5 + this.field_28085_j.nextInt(16) + 8;
-            if (var36 < 64 || this.field_28085_j.nextInt(10) == 0) {
-                (new WorldGenLakes(Block.LAVA_STILL.blockID)).generate(this.field_28079_p, this.field_28085_j, var24, var36, var48);
+        if (this.skyRNG.nextInt(8) == 0) {
+            int var24 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var36 = this.skyRNG.nextInt(this.skyRNG.nextInt(120) + 8);
+            int var48 = var5 + this.skyRNG.nextInt(16) + 8;
+            if (var36 < 64 || this.skyRNG.nextInt(10) == 0) {
+                (new WorldGenLakes(Block.LAVA_STILL.blockID)).generate(this.worldObj, this.skyRNG, var24, var36, var48);
             }
         }
 
         for (int var25 = 0; var25 < 8; ++var25) {
-            int var37 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var49 = this.field_28085_j.nextInt(128);
-            int var16 = var5 + this.field_28085_j.nextInt(16) + 8;
-            (new WorldGenDungeons()).generate(this.field_28079_p, this.field_28085_j, var37, var49, var16);
+            int var37 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var49 = this.skyRNG.nextInt(128);
+            int var16 = var5 + this.skyRNG.nextInt(16) + 8;
+            (new WorldGenDungeons()).generate(this.worldObj, this.skyRNG, var37, var49, var16);
         }
 
         for (int var26 = 0; var26 < 10; ++var26) {
-            int var38 = var4 + this.field_28085_j.nextInt(16);
-            int var50 = this.field_28085_j.nextInt(128);
-            int var67 = var5 + this.field_28085_j.nextInt(16);
-            (new WorldGenClay(32)).generate(this.field_28079_p, this.field_28085_j, var38, var50, var67);
+            int var38 = var4 + this.skyRNG.nextInt(16);
+            int var50 = this.skyRNG.nextInt(128);
+            int var67 = var5 + this.skyRNG.nextInt(16);
+            (new WorldGenClay(32)).generate(this.worldObj, this.skyRNG, var38, var50, var67);
         }
 
         for (int var27 = 0; var27 < 20; ++var27) {
-            int var39 = var4 + this.field_28085_j.nextInt(16);
-            int var51 = this.field_28085_j.nextInt(128);
-            int var68 = var5 + this.field_28085_j.nextInt(16);
-            (new WorldGenMinable(Block.DIRT.blockID, 32)).generate(this.field_28079_p, this.field_28085_j, var39, var51, var68);
+            int var39 = var4 + this.skyRNG.nextInt(16);
+            int var51 = this.skyRNG.nextInt(128);
+            int var68 = var5 + this.skyRNG.nextInt(16);
+            (new WorldGenMinable(Block.DIRT.blockID, 32)).generate(this.worldObj, this.skyRNG, var39, var51, var68);
         }
 
         for (int var28 = 0; var28 < 10; ++var28) {
-            int var40 = var4 + this.field_28085_j.nextInt(16);
-            int var52 = this.field_28085_j.nextInt(128);
-            int var69 = var5 + this.field_28085_j.nextInt(16);
-            (new WorldGenMinable(Block.GRAVEL.blockID, 32)).generate(this.field_28079_p, this.field_28085_j, var40, var52, var69);
+            int var40 = var4 + this.skyRNG.nextInt(16);
+            int var52 = this.skyRNG.nextInt(128);
+            int var69 = var5 + this.skyRNG.nextInt(16);
+            (new WorldGenMinable(Block.GRAVEL.blockID, 32)).generate(this.worldObj, this.skyRNG, var40, var52, var69);
         }
 
         for (int var29 = 0; var29 < 20; ++var29) {
-            int var41 = var4 + this.field_28085_j.nextInt(16);
-            int var53 = this.field_28085_j.nextInt(128);
-            int var70 = var5 + this.field_28085_j.nextInt(16);
-            (new WorldGenMinable(Block.ORE_COAL.blockID, 16)).generate(this.field_28079_p, this.field_28085_j, var41, var53, var70);
+            int var41 = var4 + this.skyRNG.nextInt(16);
+            int var53 = this.skyRNG.nextInt(128);
+            int var70 = var5 + this.skyRNG.nextInt(16);
+            (new WorldGenMinable(Block.ORE_COAL.blockID, 16)).generate(this.worldObj, this.skyRNG, var41, var53, var70);
         }
 
         for (int var30 = 0; var30 < 20; ++var30) {
-            int var42 = var4 + this.field_28085_j.nextInt(16);
-            int var54 = this.field_28085_j.nextInt(64);
-            int var71 = var5 + this.field_28085_j.nextInt(16);
-            (new WorldGenMinable(Block.ORE_IRON.blockID, 8)).generate(this.field_28079_p, this.field_28085_j, var42, var54, var71);
+            int var42 = var4 + this.skyRNG.nextInt(16);
+            int var54 = this.skyRNG.nextInt(64);
+            int var71 = var5 + this.skyRNG.nextInt(16);
+            (new WorldGenMinable(Block.ORE_IRON.blockID, 8)).generate(this.worldObj, this.skyRNG, var42, var54, var71);
         }
 
         for (int var31 = 0; var31 < 2; ++var31) {
-            int var43 = var4 + this.field_28085_j.nextInt(16);
-            int var55 = this.field_28085_j.nextInt(32);
-            int var72 = var5 + this.field_28085_j.nextInt(16);
-            (new WorldGenMinable(Block.ORE_GOLD.blockID, 8)).generate(this.field_28079_p, this.field_28085_j, var43, var55, var72);
+            int var43 = var4 + this.skyRNG.nextInt(16);
+            int var55 = this.skyRNG.nextInt(32);
+            int var72 = var5 + this.skyRNG.nextInt(16);
+            (new WorldGenMinable(Block.ORE_GOLD.blockID, 8)).generate(this.worldObj, this.skyRNG, var43, var55, var72);
         }
 
         for (int var32 = 0; var32 < 8; ++var32) {
-            int var44 = var4 + this.field_28085_j.nextInt(16);
-            int var56 = this.field_28085_j.nextInt(16);
-            int var73 = var5 + this.field_28085_j.nextInt(16);
-            (new WorldGenMinable(Block.ORE_REDSTONE.blockID, 7)).generate(this.field_28079_p, this.field_28085_j, var44, var56, var73);
+            int var44 = var4 + this.skyRNG.nextInt(16);
+            int var56 = this.skyRNG.nextInt(16);
+            int var73 = var5 + this.skyRNG.nextInt(16);
+            (new WorldGenMinable(Block.ORE_REDSTONE.blockID, 7)).generate(this.worldObj, this.skyRNG, var44, var56, var73);
         }
 
         for (int var33 = 0; var33 < 1; ++var33) {
-            int var45 = var4 + this.field_28085_j.nextInt(16);
-            int var57 = this.field_28085_j.nextInt(16);
-            int var74 = var5 + this.field_28085_j.nextInt(16);
-            (new WorldGenMinable(Block.ORE_DIAMOND.blockID, 7)).generate(this.field_28079_p, this.field_28085_j, var45, var57, var74);
+            int var45 = var4 + this.skyRNG.nextInt(16);
+            int var57 = this.skyRNG.nextInt(16);
+            int var74 = var5 + this.skyRNG.nextInt(16);
+            (new WorldGenMinable(Block.ORE_DIAMOND.blockID, 7)).generate(this.worldObj, this.skyRNG, var45, var57, var74);
         }
 
         for (int var34 = 0; var34 < 1; ++var34) {
-            int var46 = var4 + this.field_28085_j.nextInt(16);
-            int var58 = this.field_28085_j.nextInt(16) + this.field_28085_j.nextInt(16);
-            int var75 = var5 + this.field_28085_j.nextInt(16);
-            (new WorldGenMinable(Block.ORE_LAPIS.blockID, 6)).generate(this.field_28079_p, this.field_28085_j, var46, var58, var75);
+            int var46 = var4 + this.skyRNG.nextInt(16);
+            int var58 = this.skyRNG.nextInt(16) + this.skyRNG.nextInt(16);
+            int var75 = var5 + this.skyRNG.nextInt(16);
+            (new WorldGenMinable(Block.ORE_LAPIS.blockID, 6)).generate(this.worldObj, this.skyRNG, var46, var58, var75);
         }
 
         var11 = 0.5D;
-        int var35 = (int) ((this.field_28092_c.func_647_a((double) var4 * var11, (double) var5 * var11) / 8.0D + this.field_28085_j.nextDouble() * 4.0D + 4.0D) / 3.0D);
+        int var35 = (int) ((this.field_28092_c.func_647_a((double) var4 * var11, (double) var5 * var11) / 8.0D + this.skyRNG.nextDouble() * 4.0D + 4.0D) / 3.0D);
         int var47 = 0;
-        if (this.field_28085_j.nextInt(10) == 0) {
+        if (this.skyRNG.nextInt(10) == 0) {
             ++var47;
         }
 
@@ -397,53 +397,53 @@ public class ChunkProviderSky implements IChunkProvider {
         }
 
         for (int var59 = 0; var59 < var47; ++var59) {
-            int var76 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var17 = var5 + this.field_28085_j.nextInt(16) + 8;
-            WorldGenerator var18 = var6.getRandomWorldGenForTrees(this.field_28085_j);
+            int var76 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var17 = var5 + this.skyRNG.nextInt(16) + 8;
+            WorldGenerator var18 = var6.getRandomWorldGenForTrees(this.skyRNG);
             var18.func_420_a(1.0D, 1.0D, 1.0D);
-            var18.generate(this.field_28079_p, this.field_28085_j, var76, this.field_28079_p.getHeightValue(var76, var17), var17);
+            var18.generate(this.worldObj, this.skyRNG, var76, this.worldObj.getHeightValue(var76, var17), var17);
         }
 
         for (int var60 = 0; var60 < 2; ++var60) {
-            int var77 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var87 = this.field_28085_j.nextInt(128);
-            int var97 = var5 + this.field_28085_j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.PLANT_YELLOW.blockID)).generate(this.field_28079_p, this.field_28085_j, var77, var87, var97);
+            int var77 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var87 = this.skyRNG.nextInt(128);
+            int var97 = var5 + this.skyRNG.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.PLANT_YELLOW.blockID)).generate(this.worldObj, this.skyRNG, var77, var87, var97);
         }
 
-        if (this.field_28085_j.nextInt(2) == 0) {
-            int var61 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var78 = this.field_28085_j.nextInt(128);
-            int var88 = var5 + this.field_28085_j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.PLANT_RED.blockID)).generate(this.field_28079_p, this.field_28085_j, var61, var78, var88);
+        if (this.skyRNG.nextInt(2) == 0) {
+            int var61 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var78 = this.skyRNG.nextInt(128);
+            int var88 = var5 + this.skyRNG.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.PLANT_RED.blockID)).generate(this.worldObj, this.skyRNG, var61, var78, var88);
         }
 
-        if (this.field_28085_j.nextInt(4) == 0) {
-            int var62 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var79 = this.field_28085_j.nextInt(128);
-            int var89 = var5 + this.field_28085_j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.MUSHROOM_BROWN.blockID)).generate(this.field_28079_p, this.field_28085_j, var62, var79, var89);
+        if (this.skyRNG.nextInt(4) == 0) {
+            int var62 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var79 = this.skyRNG.nextInt(128);
+            int var89 = var5 + this.skyRNG.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.MUSHROOM_BROWN.blockID)).generate(this.worldObj, this.skyRNG, var62, var79, var89);
         }
 
-        if (this.field_28085_j.nextInt(8) == 0) {
-            int var63 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var80 = this.field_28085_j.nextInt(128);
-            int var90 = var5 + this.field_28085_j.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.MUSHROOM_RED.blockID)).generate(this.field_28079_p, this.field_28085_j, var63, var80, var90);
+        if (this.skyRNG.nextInt(8) == 0) {
+            int var63 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var80 = this.skyRNG.nextInt(128);
+            int var90 = var5 + this.skyRNG.nextInt(16) + 8;
+            (new WorldGenFlowers(Block.MUSHROOM_RED.blockID)).generate(this.worldObj, this.skyRNG, var63, var80, var90);
         }
 
         for (int var64 = 0; var64 < 10; ++var64) {
-            int var81 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var91 = this.field_28085_j.nextInt(128);
-            int var98 = var5 + this.field_28085_j.nextInt(16) + 8;
-            (new WorldGenReed()).generate(this.field_28079_p, this.field_28085_j, var81, var91, var98);
+            int var81 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var91 = this.skyRNG.nextInt(128);
+            int var98 = var5 + this.skyRNG.nextInt(16) + 8;
+            (new WorldGenReed()).generate(this.worldObj, this.skyRNG, var81, var91, var98);
         }
 
-        if (this.field_28085_j.nextInt(32) == 0) {
-            int var65 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var82 = this.field_28085_j.nextInt(128);
-            int var92 = var5 + this.field_28085_j.nextInt(16) + 8;
-            (new WorldGenPumpkin()).generate(this.field_28079_p, this.field_28085_j, var65, var82, var92);
+        if (this.skyRNG.nextInt(32) == 0) {
+            int var65 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var82 = this.skyRNG.nextInt(128);
+            int var92 = var5 + this.skyRNG.nextInt(16) + 8;
+            (new WorldGenPumpkin()).generate(this.worldObj, this.skyRNG, var65, var82, var92);
         }
 
         int var66 = 0;
@@ -452,36 +452,36 @@ public class ChunkProviderSky implements IChunkProvider {
         }
 
         for (int var83 = 0; var83 < var66; ++var83) {
-            int var93 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var99 = this.field_28085_j.nextInt(128);
-            int var19 = var5 + this.field_28085_j.nextInt(16) + 8;
-            (new WorldGenCactus()).generate(this.field_28079_p, this.field_28085_j, var93, var99, var19);
+            int var93 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var99 = this.skyRNG.nextInt(128);
+            int var19 = var5 + this.skyRNG.nextInt(16) + 8;
+            (new WorldGenCactus()).generate(this.worldObj, this.skyRNG, var93, var99, var19);
         }
 
         for (int var84 = 0; var84 < 50; ++var84) {
-            int var94 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var100 = this.field_28085_j.nextInt(this.field_28085_j.nextInt(120) + 8);
-            int var103 = var5 + this.field_28085_j.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.WATER_MOVING.blockID)).generate(this.field_28079_p, this.field_28085_j, var94, var100, var103);
+            int var94 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var100 = this.skyRNG.nextInt(this.skyRNG.nextInt(120) + 8);
+            int var103 = var5 + this.skyRNG.nextInt(16) + 8;
+            (new WorldGenLiquids(Block.WATER_MOVING.blockID)).generate(this.worldObj, this.skyRNG, var94, var100, var103);
         }
 
         for (int var85 = 0; var85 < 20; ++var85) {
-            int var95 = var4 + this.field_28085_j.nextInt(16) + 8;
-            int var101 = this.field_28085_j.nextInt(this.field_28085_j.nextInt(this.field_28085_j.nextInt(112) + 8) + 8);
-            int var104 = var5 + this.field_28085_j.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.LAVA_MOVING.blockID)).generate(this.field_28079_p, this.field_28085_j, var95, var101, var104);
+            int var95 = var4 + this.skyRNG.nextInt(16) + 8;
+            int var101 = this.skyRNG.nextInt(this.skyRNG.nextInt(this.skyRNG.nextInt(112) + 8) + 8);
+            int var104 = var5 + this.skyRNG.nextInt(16) + 8;
+            (new WorldGenLiquids(Block.LAVA_MOVING.blockID)).generate(this.worldObj, this.skyRNG, var95, var101, var104);
         }
 
-        this.field_28072_w = this.field_28079_p.getWorldChunkManager().getTemperatures(this.field_28072_w, var4 + 8, var5 + 8, 16, 16);
+        this.field_28072_w = this.worldObj.getWorldChunkManager().getTemperatures(this.field_28072_w, var4 + 8, var5 + 8, 16, 16);
 
         for (int var86 = var4 + 8; var86 < var4 + 8 + 16; ++var86) {
             for (int var96 = var5 + 8; var96 < var5 + 8 + 16; ++var96) {
                 int var102 = var86 - (var4 + 8);
                 int var105 = var96 - (var5 + 8);
-                int var20 = this.field_28079_p.getTopSolidOrLiquidBlock(var86, var96);
+                int var20 = this.worldObj.getTopSolidOrLiquidBlock(var86, var96);
                 double var21 = this.field_28072_w[var102 * 16 + var105] - (double) (var20 - 64) / 64.0D * 0.3D;
-                if (var21 < 0.5D && var20 > 0 && var20 < 128 && this.field_28079_p.isAirBlock(var86, var20, var96) && this.field_28079_p.getBlockMaterial(var86, var20 - 1, var96).getIsSolid() && this.field_28079_p.getBlockMaterial(var86, var20 - 1, var96) != Material.ICE) {
-                    this.field_28079_p.setBlockWithNotify(var86, var20, var96, Block.SNOW.blockID);
+                if (var21 < 0.5D && var20 > 0 && var20 < 128 && this.worldObj.isAirBlock(var86, var20, var96) && this.worldObj.getBlockMaterial(var86, var20 - 1, var96).getIsSolid() && this.worldObj.getBlockMaterial(var86, var20 - 1, var96) != Material.ICE) {
+                    this.worldObj.setBlockWithNotify(var86, var20, var96, Block.SNOW.blockID);
                 }
             }
         }
@@ -493,7 +493,7 @@ public class ChunkProviderSky implements IChunkProvider {
         return true;
     }
 
-    public boolean cleanChunks() {
+    public boolean unload100OldestChunks() {
         return false;
     }
 

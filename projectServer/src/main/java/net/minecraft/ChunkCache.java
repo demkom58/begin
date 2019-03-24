@@ -6,17 +6,17 @@ public class ChunkCache implements IBlockAccess {
     private Chunk[][] chunkArray;
     private World worldObj;
 
-    public ChunkCache(World var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-        this.worldObj = var1;
-        this.chunkX = var2 >> 4;
-        this.chunkZ = var4 >> 4;
+    public ChunkCache(World world, int chunkX, int var3, int chunkZ, int var5, int var6, int var7) {
+        this.worldObj = world;
+        this.chunkX = chunkX >> 4;
+        this.chunkZ = chunkZ >> 4;
         int var8 = var5 >> 4;
         int var9 = var7 >> 4;
         this.chunkArray = new Chunk[var8 - this.chunkX + 1][var9 - this.chunkZ + 1];
 
-        for (int var10 = this.chunkX; var10 <= var8; ++var10) {
-            for (int var11 = this.chunkZ; var11 <= var9; ++var11) {
-                this.chunkArray[var10 - this.chunkX][var11 - this.chunkZ] = var1.getChunkFromChunkCoords(var10, var11);
+        for (int iX = this.chunkX; iX <= var8; ++iX) {
+            for (int iZ = this.chunkZ; iZ <= var9; ++iZ) {
+                this.chunkArray[iX - this.chunkX][iZ - this.chunkZ] = world.getChunkFromChunkCoords(iX, iZ);
             }
         }
 

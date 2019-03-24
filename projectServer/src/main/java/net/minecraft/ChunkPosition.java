@@ -5,19 +5,19 @@ public class ChunkPosition {
     public final int y;
     public final int z;
 
-    public ChunkPosition(int var1, int var2, int var3) {
-        this.x = var1;
-        this.y = var2;
-        this.z = var3;
+    public ChunkPosition(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
-    public boolean equals(Object var1) {
-        if (!(var1 instanceof ChunkPosition)) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ChunkPosition)) {
             return false;
-        } else {
-            ChunkPosition var2 = (ChunkPosition) var1;
-            return var2.x == this.x && var2.y == this.y && var2.z == this.z;
         }
+
+        ChunkPosition position = (ChunkPosition) obj;
+        return position.x == this.x && position.y == this.y && position.z == this.z;
     }
 
     public int hashCode() {

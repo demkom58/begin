@@ -5,28 +5,28 @@ import java.util.List;
 import java.util.Random;
 
 public class EmptyChunk extends Chunk {
-    public EmptyChunk(World var1, int var2, int var3) {
-        super(var1, var2, var3);
+    public EmptyChunk(World world, int x, int z) {
+        super(world, x, z);
         this.neverSave = true;
     }
 
-    public EmptyChunk(World var1, byte[] var2, int var3, int var4) {
-        super(var1, var2, var3, var4);
+    public EmptyChunk(World world, byte[] blocks, int x, int z) {
+        super(world, blocks, x, z);
         this.neverSave = true;
     }
 
-    public boolean isAtLocation(int var1, int var2) {
-        return var1 == this.xPosition && var2 == this.zPosition;
+    public boolean isAtLocation(int x, int z) {
+        return x == this.xPosition && z == this.zPosition;
     }
 
-    public int getHeightValue(int var1, int var2) {
+    public int getHeightValue(int x, int z) {
         return 0;
     }
 
     public void func_348_a() {
     }
 
-    public void func_353_b() {
+    public void generateHeightMap() {
     }
 
     public void func_4053_c() {

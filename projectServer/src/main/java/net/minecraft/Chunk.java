@@ -15,7 +15,7 @@ public class Chunk {
     public NibbleArray skylightMap;
     public NibbleArray blocklightMap;
     public byte[] heightMap;
-    public int field_686_i;
+    public int lowestBlockHeight;
     public Map<ChunkPosition, TileEntity> chunkTileEntityMap;
     public List<Entity>[] entities;
     public boolean isTerrainPopulated;
@@ -24,44 +24,44 @@ public class Chunk {
     public boolean hasEntities;
     public long lastSaveTime;
 
-    public Chunk(World var1, int var2, int var3) {
+    public Chunk(World world, int x, int z) {
         this.chunkTileEntityMap = new HashMap<>();
         this.entities = new List[8];
         this.isTerrainPopulated = false;
         this.isModified = false;
         this.hasEntities = false;
         this.lastSaveTime = 0L;
-        this.worldObj = var1;
-        this.xPosition = var2;
-        this.zPosition = var3;
+        this.worldObj = world;
+        this.xPosition = x;
+        this.zPosition = z;
         this.heightMap = new byte[256];
 
-        for (int var4 = 0; var4 < this.entities.length; ++var4) {
-            this.entities[var4] = new ArrayList<>();
+        for (int i = 0; i < this.entities.length; ++i) {
+            this.entities[i] = new ArrayList<>();
         }
 
     }
 
-    public Chunk(World var1, byte[] var2, int var3, int var4) {
-        this(var1, var3, var4);
-        this.blocks = var2;
-        this.data = new NibbleArray(var2.length);
-        this.skylightMap = new NibbleArray(var2.length);
-        this.blocklightMap = new NibbleArray(var2.length);
+    public Chunk(World world, byte[] blocks, int x, int z) {
+        this(world, x, z);
+        this.blocks = blocks;
+        this.data = new NibbleArray(blocks.length);
+        this.skylightMap = new NibbleArray(blocks.length);
+        this.blocklightMap = new NibbleArray(blocks.length);
     }
 
-    public boolean isAtLocation(int var1, int var2) {
-        return var1 == this.xPosition && var2 == this.zPosition;
+    public boolean isAtLocation(int x, int z) {
+        return x == this.xPosition && z == this.zPosition;
     }
 
-    public int getHeightValue(int var1, int var2) {
-        return this.heightMap[var2 << 4 | var1] & 255;
+    public int getHeightValue(int x, int z) {
+        return this.heightMap[z << 4 | x] & 255;
     }
 
     public void func_348_a() {
     }
 
-    public void func_353_b() {
+    public void generateHeightMap() {
         int var1 = 127;
 
         for (int var2 = 0; var2 < 16; ++var2) {
@@ -96,7 +96,7 @@ public class Chunk {
             }
         }
 
-        this.field_686_i = var1;
+        this.lowestBlockHeight = var1;
 
         for (int var8 = 0; var8 < 16; ++var8) {
             for (int var9 = 0; var9 < 16; ++var9) {
@@ -139,14 +139,15 @@ public class Chunk {
             var5 = var2;
         }
 
-        for (int var6 = var1 << 11 | var3 << 7; var5 > 0 && Block.LIGHT_OPACITY[this.blocks[var6 + var5 - 1] & 255] == 0; --var5) {
+        for (int var6 = var1 << 11 | var3 << 7; var5 > 0
+                && Block.LIGHT_OPACITY[this.blocks[var6 + var5 - 1] & 255] == 0; --var5) {
         }
 
         if (var5 != var4) {
             this.worldObj.markBlocksDirtyVertical(var1, var3, var5, var4);
             this.heightMap[var3 << 4 | var1] = (byte) var5;
-            if (var5 < this.field_686_i) {
-                this.field_686_i = var5;
+            if (var5 < this.lowestBlockHeight) {
+                this.lowestBlockHeight = var5;
             } else {
                 int var7 = 127;
 
@@ -158,7 +159,7 @@ public class Chunk {
                     }
                 }
 
-                this.field_686_i = var7;
+                this.lowestBlockHeight = var7;
             }
 
             int var12 = this.xPosition * 16 + var1;
@@ -389,9 +390,9 @@ public class Chunk {
         if (var5 != null && var5.isInvalid()) {
             this.chunkTileEntityMap.remove(var4);
             return null;
-        } else {
-            return var5;
         }
+
+        return var5;
     }
 
     public void addTileEntity(TileEntity var1) {
@@ -434,8 +435,8 @@ public class Chunk {
         this.isChunkLoaded = true;
         this.worldObj.func_31047_a(this.chunkTileEntityMap.values());
 
-        for (int var1 = 0; var1 < this.entities.length; ++var1) {
-            this.worldObj.addLoadedEntities(this.entities[var1]);
+        for (int i = 0; i < this.entities.length; ++i) {
+            this.worldObj.addLoadedEntities(this.entities[i]);
         }
 
     }
@@ -443,12 +444,12 @@ public class Chunk {
     public void onChunkUnload() {
         this.isChunkLoaded = false;
 
-        for (TileEntity var2 : this.chunkTileEntityMap.values()) {
-            var2.invalidate();
+        for (TileEntity tileEntity : this.chunkTileEntityMap.values()) {
+            tileEntity.invalidate();
         }
 
-        for (int var3 = 0; var3 < this.entities.length; ++var3) {
-            this.worldObj.addUnloadedEntities(this.entities[var3]);
+        for (int i = 0; i < this.entities.length; ++i) {
+            this.worldObj.addUnloadedEntities(this.entities[i]);
         }
 
     }
@@ -492,8 +493,8 @@ public class Chunk {
             var5 = this.entities.length - 1;
         }
 
-        for (int var6 = var4; var6 <= var5; ++var6) {
-            List<Entity> var7 = this.entities[var6];
+        for (int i = var4; i <= var5; ++i) {
+            List<Entity> var7 = this.entities[i];
 
             for (int var8 = 0; var8 < var7.size(); ++var8) {
                 Entity var9 = var7.get(var8);
@@ -508,17 +509,17 @@ public class Chunk {
     public boolean needsSaving(boolean var1) {
         if (this.neverSave) {
             return false;
-        } else {
-            if (var1) {
-                if (this.hasEntities && this.worldObj.getWorldTime() != this.lastSaveTime) {
-                    return true;
-                }
-            } else if (this.hasEntities && this.worldObj.getWorldTime() >= this.lastSaveTime + 600L) {
+        }
+
+        if (var1) {
+            if (this.hasEntities && this.worldObj.getWorldTime() != this.lastSaveTime) {
                 return true;
             }
-
-            return this.isModified;
+        } else if (this.hasEntities && this.worldObj.getWorldTime() >= this.lastSaveTime + 600L) {
+            return true;
         }
+
+        return this.isModified;
     }
 
     public int getChunkData(byte[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
@@ -584,7 +585,7 @@ public class Chunk {
         return false;
     }
 
-    public void func_25083_h() {
-        ChunkBlockMap.func_26001_a(this.blocks);
+    public void checkBlocks() {
+        ChunkBlockMap.fix(this.blocks);
     }
 }
