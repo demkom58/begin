@@ -516,7 +516,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     public void func_20008_a(Packet106Transaction var1) {
         Short var2 = this.field_10_k.get(this.playerEntity.currentCraftingInventory.windowId);
-        if (var2 != null && var1.shortWindowId == var2.shortValue() && this.playerEntity.currentCraftingInventory.windowId == var1.windowId && !this.playerEntity.currentCraftingInventory.getCanCraft(this.playerEntity)) {
+        if (var2 != null && var1.shortWindowId == var2 && this.playerEntity.currentCraftingInventory.windowId == var1.windowId && !this.playerEntity.currentCraftingInventory.getCanCraft(this.playerEntity)) {
             this.playerEntity.currentCraftingInventory.setCanCraft(this.playerEntity, true);
         }
 
@@ -557,9 +557,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 int var12 = var1.zPosition;
                 TileEntitySign var7 = (TileEntitySign) var3;
 
-                for (int var8 = 0; var8 < 4; ++var8) {
-                    var7.signText[var8] = var1.signLines[var8];
-                }
+                System.arraycopy(var1.signLines, 0, var7.signText, 0, 4);
 
                 var7.func_32001_a(false);
                 var7.onInventoryChanged();

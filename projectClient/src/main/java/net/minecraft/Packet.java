@@ -81,19 +81,19 @@ public abstract class Packet {
     public boolean isChunkDataPacket = false;
 
     static void addIdClassMapping(int var0, boolean var1, boolean var2, Class var3) {
-        if (packetIdToClassMap.containsKey(Integer.valueOf(var0))) {
+        if (packetIdToClassMap.containsKey(var0)) {
             throw new IllegalArgumentException("Duplicate packet id:" + var0);
         } else if (packetClassToIdMap.containsKey(var3)) {
             throw new IllegalArgumentException("Duplicate packet class:" + var3);
         } else {
-            packetIdToClassMap.put(Integer.valueOf(var0), var3);
-            packetClassToIdMap.put(var3, Integer.valueOf(var0));
+            packetIdToClassMap.put(var0, var3);
+            packetClassToIdMap.put(var3, var0);
             if (var1) {
-                clientPacketIdList.add(Integer.valueOf(var0));
+                clientPacketIdList.add(var0);
             }
 
             if (var2) {
-                serverPacketIdList.add(Integer.valueOf(var0));
+                serverPacketIdList.add(var0);
             }
 
         }
@@ -101,7 +101,7 @@ public abstract class Packet {
 
     public static Packet getNewPacket(int var0) {
         try {
-            Class var1 = (Class) packetIdToClassMap.get(Integer.valueOf(var0));
+            Class var1 = (Class) packetIdToClassMap.get(var0);
             return var1 == null ? null : (Packet) var1.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,7 +120,7 @@ public abstract class Packet {
                 return null;
             }
 
-            if (var1 && !serverPacketIdList.contains(Integer.valueOf(var2)) || !var1 && !clientPacketIdList.contains(Integer.valueOf(var2))) {
+            if (var1 && !serverPacketIdList.contains(var2) || !var1 && !clientPacketIdList.contains(var2)) {
                 throw new IOException("Bad packet id " + var2);
             }
 
@@ -135,16 +135,15 @@ public abstract class Packet {
             return null;
         }
 
-        PacketCounter var4 = (PacketCounter) packetStats.get(Integer.valueOf(var2));
+        PacketCounter var4 = (PacketCounter) packetStats.get(var2);
         if (var4 == null) {
             var4 = new PacketCounter();
-            packetStats.put(Integer.valueOf(var2), var4);
+            packetStats.put(var2, var4);
         }
 
         var4.addPacket(var3.getPacketSize());
         ++totalPacketsCount;
         if (totalPacketsCount % 1000 == 0) {
-            ;
         }
 
         return var3;
@@ -182,7 +181,7 @@ public abstract class Packet {
     }
 
     public final int getPacketId() {
-        return ((Integer) packetClassToIdMap.get(this.getClass())).intValue();
+        return (Integer) packetClassToIdMap.get(this.getClass());
     }
 
     public abstract void readPacketData(DataInputStream var1) throws IOException;

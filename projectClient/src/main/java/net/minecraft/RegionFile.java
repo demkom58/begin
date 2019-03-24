@@ -167,20 +167,20 @@ public class RegionFile {
                 this.write(var6, var3, var4);
             } else {
                 for (int var9 = 0; var9 < var7; ++var9) {
-                    this.sectorFree.set(var6 + var9, Boolean.valueOf(true));
+                    this.sectorFree.set(var6 + var9, Boolean.TRUE);
                 }
 
-                int var15 = this.sectorFree.indexOf(Boolean.valueOf(true));
+                int var15 = this.sectorFree.indexOf(Boolean.TRUE);
                 int var10 = 0;
                 if (var15 != -1) {
                     for (int var11 = var15; var11 < this.sectorFree.size(); ++var11) {
                         if (var10 != 0) {
-                            if (((Boolean) this.sectorFree.get(var11)).booleanValue()) {
+                            if ((Boolean) this.sectorFree.get(var11)) {
                                 ++var10;
                             } else {
                                 var10 = 0;
                             }
-                        } else if (((Boolean) this.sectorFree.get(var11)).booleanValue()) {
+                        } else if ((Boolean) this.sectorFree.get(var11)) {
                             var15 = var11;
                             var10 = 1;
                         }
@@ -197,7 +197,7 @@ public class RegionFile {
                     this.setOffset(var1, var2, var15 << 8 | var8);
 
                     for (int var17 = 0; var17 < var8; ++var17) {
-                        this.sectorFree.set(var6 + var17, Boolean.valueOf(false));
+                        this.sectorFree.set(var6 + var17, Boolean.FALSE);
                     }
 
                     this.write(var6, var3, var4);
@@ -208,7 +208,7 @@ public class RegionFile {
 
                     for (int var16 = 0; var16 < var8; ++var16) {
                         this.dataFile.write(emptySector);
-                        this.sectorFree.add(Boolean.valueOf(false));
+                        this.sectorFree.add(Boolean.FALSE);
                     }
 
                     this.sizeDelta += 4096 * var8;

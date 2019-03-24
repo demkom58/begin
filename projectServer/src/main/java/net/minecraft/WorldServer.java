@@ -23,7 +23,7 @@ public class WorldServer extends World {
             entity.setEntityDead();
         }
 
-        if (entity.riddenByEntity == null || !(entity.riddenByEntity instanceof EntityPlayer)) {
+        if (!(entity.riddenByEntity instanceof EntityPlayer)) {
             super.updateEntityWithOptionalForce(entity, chunk);
         }
 

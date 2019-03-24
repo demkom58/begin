@@ -266,7 +266,7 @@ public class RenderGlobal implements IWorldAccess {
             this.countEntitiesTotal = var5.size();
 
             for (int var6 = 0; var6 < this.worldObj.weatherEffects.size(); ++var6) {
-                Entity var7 = (Entity) this.worldObj.weatherEffects.get(var6);
+                Entity var7 = this.worldObj.weatherEffects.get(var6);
                 ++this.countEntitiesRendered;
                 if (var7.isInRangeToRenderVec3D(var1)) {
                     RenderManager.instance.renderEntity(var7, var3);
@@ -293,7 +293,7 @@ public class RenderGlobal implements IWorldAccess {
             }
 
             for (int var10 = 0; var10 < this.tileEntities.size(); ++var10) {
-                TileEntityRenderer.instance.renderTileEntity((TileEntity) this.tileEntities.get(var10), var3);
+                TileEntityRenderer.instance.renderTileEntity(this.tileEntities.get(var10), var3);
             }
 
         }
@@ -947,7 +947,6 @@ public class RenderGlobal implements IWorldAccess {
                     if (var11.distanceToEntitySquared(var1) > 256.0F) {
                         int var12;
                         for (var12 = 0; var12 < var4 && (var6[var12] == null || var5.doCompare(var6[var12], var11) <= 0); ++var12) {
-                            ;
                         }
 
                         --var12;
@@ -977,7 +976,7 @@ public class RenderGlobal implements IWorldAccess {
 
                 ++var9;
                 var7.add(var11);
-                this.worldRenderersToUpdate.set(var10, (Object) null);
+                this.worldRenderersToUpdate.set(var10, null);
             }
 
             if (var7 != null) {
@@ -1359,7 +1358,7 @@ public class RenderGlobal implements IWorldAccess {
                 if (Item.ITEMS_LIST[var6] instanceof ItemRecord) {
                     this.worldObj.playRecord(((ItemRecord) Item.ITEMS_LIST[var6]).recordName, var3, var4, var5);
                 } else {
-                    this.worldObj.playRecord((String) null, var3, var4, var5);
+                    this.worldObj.playRecord(null, var3, var4, var5);
                 }
                 break;
             case 2000:

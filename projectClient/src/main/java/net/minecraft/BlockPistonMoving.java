@@ -21,7 +21,7 @@ public class BlockPistonMoving extends BlockContainer {
 
     public void onBlockRemoval(World var1, int var2, int var3, int var4) {
         TileEntity var5 = var1.getBlockTileEntity(var2, var3, var4);
-        if (var5 != null && var5 instanceof TileEntityPiston) {
+        if (var5 instanceof TileEntityPiston) {
             ((TileEntityPiston) var5).func_31011_l();
         } else {
             super.onBlockRemoval(var1, var2, var3, var4);
@@ -73,7 +73,6 @@ public class BlockPistonMoving extends BlockContainer {
 
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (!var1.multiplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
-            ;
         }
 
     }
@@ -138,6 +137,6 @@ public class BlockPistonMoving extends BlockContainer {
 
     private TileEntityPiston func_31034_c(IBlockAccess var1, int var2, int var3, int var4) {
         TileEntity var5 = var1.getBlockTileEntity(var2, var3, var4);
-        return var5 != null && var5 instanceof TileEntityPiston ? (TileEntityPiston) var5 : null;
+        return var5 instanceof TileEntityPiston ? (TileEntityPiston) var5 : null;
     }
 }

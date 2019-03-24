@@ -17,7 +17,7 @@ public final class SpawnerAnimals {
         return new ChunkPosition(var3, var4, var5);
     }
 
-    public static final int performSpawning(World var0, boolean var1, boolean var2) {
+    public static int performSpawning(World var0, boolean var1, boolean var2) {
         if (!var1 && !var2) {
             return 0;
         } else {

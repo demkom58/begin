@@ -33,7 +33,7 @@ public class TextureCompassFX extends TextureFX {
             int var2 = this.compassIconImageData[var1] >> 24 & 255;
             int var3 = this.compassIconImageData[var1] >> 16 & 255;
             int var4 = this.compassIconImageData[var1] >> 8 & 255;
-            int var5 = this.compassIconImageData[var1] >> 0 & 255;
+            int var5 = this.compassIconImageData[var1] & 255;
             if (this.anaglyphEnabled) {
                 int var6 = (var3 * 30 + var4 * 59 + var5 * 11) / 100;
                 int var7 = (var3 * 30 + var4 * 70) / 100;
@@ -62,7 +62,6 @@ public class TextureCompassFX extends TextureFX {
 
         double var22;
         for (var22 = var20 - this.field_4229_i; var22 < -3.141592653589793D; var22 += 6.283185307179586D) {
-            ;
         }
 
         while (var22 >= 3.141592653589793D) {

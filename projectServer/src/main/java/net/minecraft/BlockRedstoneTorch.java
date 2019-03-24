@@ -25,8 +25,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
         int var6 = 0;
 
-        for (int var7 = 0; var7 < torchUpdates.size(); ++var7) {
-            RedstoneUpdateInfo var8 = torchUpdates.get(var7);
+        for (RedstoneUpdateInfo var8 : torchUpdates) {
             if (var8.x == var2 && var8.y == var3 && var8.z == var4) {
                 ++var6;
                 if (var6 >= 8) {

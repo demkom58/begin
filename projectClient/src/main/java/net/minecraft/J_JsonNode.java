@@ -17,7 +17,7 @@ public abstract class J_JsonNode {
     }
 
     public final List<J_JsonNode> func_27217_b(Object... var1) {
-        return (List) this.func_27219_a(J_JsonNodeSelectors.func_27346_b(var1), this, var1);
+        return (List<J_JsonNode>) this.func_27219_a(J_JsonNodeSelectors.func_27346_b(var1), this, var1);
     }
 
     private Object func_27219_a(J_JsonNodeSelector var1, J_JsonNode var2, Object[] var3) {

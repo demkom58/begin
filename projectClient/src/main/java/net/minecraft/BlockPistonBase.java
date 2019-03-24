@@ -213,7 +213,7 @@ public class BlockPistonBase extends Block {
             }
         } else if (var5 == 1) {
             TileEntity var8 = var1.getBlockTileEntity(var2 + PistonBlockTextures.field_31056_b[var6], var3 + PistonBlockTextures.field_31059_c[var6], var4 + PistonBlockTextures.field_31058_d[var6]);
-            if (var8 != null && var8 instanceof TileEntityPiston) {
+            if (var8 instanceof TileEntityPiston) {
                 ((TileEntityPiston) var8).func_31011_l();
             }
 
@@ -228,7 +228,7 @@ public class BlockPistonBase extends Block {
                 boolean var14 = false;
                 if (var12 == Block.PISTON_MOVING.blockID) {
                     TileEntity var15 = var1.getBlockTileEntity(var9, var10, var11);
-                    if (var15 != null && var15 instanceof TileEntityPiston) {
+                    if (var15 instanceof TileEntityPiston) {
                         TileEntityPiston var16 = (TileEntityPiston) var15;
                         if (var16.func_31009_d() == var6 && var16.func_31015_b()) {
                             var16.func_31011_l();

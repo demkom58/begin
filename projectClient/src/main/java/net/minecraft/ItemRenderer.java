@@ -286,7 +286,7 @@ public class ItemRenderer {
                 this.renderInsideOfBlock(var1, Block.BLOCKS_LIST[var6].getBlockTextureFromSide(2));
             } else {
                 for (int var7 = 0; var7 < 8; ++var7) {
-                    float var8 = ((float) ((var7 >> 0) % 2) - 0.5F) * this.mc.thePlayer.width * 0.9F;
+                    float var8 = ((float) ((var7) % 2) - 0.5F) * this.mc.thePlayer.width * 0.9F;
                     float var9 = ((float) ((var7 >> 1) % 2) - 0.5F) * this.mc.thePlayer.height * 0.2F;
                     float var10 = ((float) ((var7 >> 2) % 2) - 0.5F) * this.mc.thePlayer.width * 0.9F;
                     int var11 = MathHelper.floor((float) var14 + var8);

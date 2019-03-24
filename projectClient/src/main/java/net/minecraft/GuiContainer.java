@@ -146,7 +146,6 @@ public abstract class GuiContainer extends GuiScreen {
 
     protected void mouseMovedOrUp(int var1, int var2, int var3) {
         if (var3 == 0) {
-            ;
         }
 
     }

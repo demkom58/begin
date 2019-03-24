@@ -979,7 +979,6 @@ public class World implements IBlockAccess {
                 tileEntity.tickTimer.startTiming();
                 tileEntity.updateEntity();
                 tileEntity.tickTimer.stopTiming();
-                ;
             }
 
             if (tileEntity.isInvalid()) {
@@ -1476,7 +1475,6 @@ public class World implements IBlockAccess {
                         this.lightingToUpdate.clear();
                     }
 
-                    return;
                 }
             } finally {
                 --lightingUpdatesScheduled;

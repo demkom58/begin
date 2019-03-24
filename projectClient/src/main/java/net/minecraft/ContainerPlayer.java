@@ -50,7 +50,7 @@ public class ContainerPlayer extends Container {
             ItemStack var3 = this.craftMatrix.getStackInSlot(var2);
             if (var3 != null) {
                 var1.dropPlayerItem(var3);
-                this.craftMatrix.setInventorySlotContents(var2, (ItemStack) null);
+                this.craftMatrix.setInventorySlotContents(var2, null);
             }
         }
 
@@ -77,7 +77,7 @@ public class ContainerPlayer extends Container {
             }
 
             if (var4.stackSize == 0) {
-                var3.putStack((ItemStack) null);
+                var3.putStack(null);
             } else {
                 var3.onSlotChanged();
             }

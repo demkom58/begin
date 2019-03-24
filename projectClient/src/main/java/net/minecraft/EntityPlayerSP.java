@@ -41,11 +41,11 @@ public class EntityPlayerSP extends EntityPlayer {
         this.prevTimeInPortal = this.timeInPortal;
         if (this.inPortal) {
             if (!this.worldObj.multiplayerWorld && this.ridingEntity != null) {
-                this.mountEntity((Entity) null);
+                this.mountEntity(null);
             }
 
             if (this.mc.currentScreen != null) {
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
             }
 
             if (this.timeInPortal == 0.0F) {
@@ -109,7 +109,7 @@ public class EntityPlayerSP extends EntityPlayer {
 
     public void closeScreen() {
         super.closeScreen();
-        this.mc.displayGuiScreen((GuiScreen) null);
+        this.mc.displayGuiScreen(null);
     }
 
     public void displayGUIEditSign(TileEntitySign var1) {

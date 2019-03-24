@@ -9,7 +9,7 @@ public class AchievementList {
     public static int maxDisplayColumn;
     public static int maxDisplayRow;
     public static List achievementList = new ArrayList();
-    public static Achievement openInventory = (new Achievement(0, "openInventory", 0, 0, Item.BOOK, (Achievement) null)).func_27089_a().registerAchievement();
+    public static Achievement openInventory = (new Achievement(0, "openInventory", 0, 0, Item.BOOK, null)).func_27089_a().registerAchievement();
     public static Achievement mineWood = (new Achievement(1, "mineWood", 2, 1, Block.WOOD, openInventory)).registerAchievement();
     public static Achievement buildWorkBench = (new Achievement(2, "buildWorkBench", 4, -1, Block.WORKBENCH, mineWood)).registerAchievement();
     public static Achievement buildPickaxe = (new Achievement(3, "buildPickaxe", 4, 2, Item.PICKAXE_WOOD, buildWorkBench)).registerAchievement();

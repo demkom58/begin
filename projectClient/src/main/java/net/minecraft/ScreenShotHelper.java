@@ -39,7 +39,6 @@ public class ScreenShotHelper {
 
             File var5;
             for (int var6 = 1; (var5 = new File(var3, var4 + (var6 == 1 ? "" : "_" + var6) + ".png")).exists(); ++var6) {
-                ;
             }
 
             buffer.get(pixelData);

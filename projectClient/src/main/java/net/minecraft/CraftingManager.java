@@ -78,7 +78,7 @@ public class CraftingManager {
         System.out.println(this.recipes.size() + " recipes");
     }
 
-    public static final CraftingManager getInstance() {
+    public static CraftingManager getInstance() {
         return instance;
     }
 
@@ -124,8 +124,8 @@ public class CraftingManager {
 
         for (int var16 = 0; var16 < var5 * var6; ++var16) {
             char var10 = var3.charAt(var16);
-            if (var12.containsKey(Character.valueOf(var10))) {
-                var14[var16] = ((ItemStack) var12.get(Character.valueOf(var10))).copy();
+            if (var12.containsKey(var10)) {
+                var14[var16] = ((ItemStack) var12.get(var10)).copy();
             } else {
                 var14[var16] = null;
             }
@@ -156,7 +156,7 @@ public class CraftingManager {
 
     public ItemStack findMatchingRecipe(InventoryCrafting var1) {
         for (int var2 = 0; var2 < this.recipes.size(); ++var2) {
-            IRecipe var3 = (IRecipe) this.recipes.get(var2);
+            IRecipe var3 = this.recipes.get(var2);
             if (var3.matches(var1)) {
                 return var3.getCraftingResult(var1);
             }

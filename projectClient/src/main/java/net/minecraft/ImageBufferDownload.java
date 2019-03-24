@@ -18,7 +18,7 @@ public class ImageBufferDownload implements ImageBuffer {
             this.imageHeight = 32;
             BufferedImage var2 = new BufferedImage(this.imageWidth, this.imageHeight, 2);
             Graphics var3 = var2.getGraphics();
-            var3.drawImage(var1, 0, 0, (ImageObserver) null);
+            var3.drawImage(var1, 0, 0, null);
             var3.dispose();
             this.imageData = ((DataBufferInt) var2.getRaster().getDataBuffer()).getData();
             this.func_884_b(0, 0, 32, 16);

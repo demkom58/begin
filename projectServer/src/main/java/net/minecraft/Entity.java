@@ -113,7 +113,7 @@ public abstract class Entity {
         this.addedToChunk = false;
         this.worldObj = var1;
         this.setPosition(0.0D, 0.0D, 0.0D);
-        this.dataWatcher.addObject(0, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(0, (byte) 0);
         this.entityInit();
     }
 
@@ -825,7 +825,7 @@ public abstract class Entity {
 
     public boolean isEntityInsideOpaqueBlock() {
         for (int var1 = 0; var1 < 8; ++var1) {
-            float var2 = ((float) ((var1 >> 0) % 2) - 0.5F) * this.width * 0.9F;
+            float var2 = ((float) ((var1) % 2) - 0.5F) * this.width * 0.9F;
             float var3 = ((float) ((var1 >> 1) % 2) - 0.5F) * 0.1F;
             float var4 = ((float) ((var1 >> 2) % 2) - 0.5F) * this.width * 0.9F;
             int var5 = MathHelper.floor(this.posX + (double) var2);
@@ -967,9 +967,9 @@ public abstract class Entity {
     protected void setFlag(int var1, boolean var2) {
         byte var3 = this.dataWatcher.getWatchableObjectByte(0);
         if (var2) {
-            this.dataWatcher.updateObject(0, Byte.valueOf((byte) (var3 | 1 << var1)));
+            this.dataWatcher.updateObject(0, (byte) (var3 | 1 << var1));
         } else {
-            this.dataWatcher.updateObject(0, Byte.valueOf((byte) (var3 & ~(1 << var1))));
+            this.dataWatcher.updateObject(0, (byte) (var3 & ~(1 << var1)));
         }
 
     }

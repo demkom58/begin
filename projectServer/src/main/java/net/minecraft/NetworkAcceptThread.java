@@ -1,7 +1,5 @@
 package net.minecraft;
 
-import it.unimi.dsi.fastutil.objects.Object2LongMap;
-import it.unimi.dsi.fastutil.objects.Object2LongRBTreeMap;
 import net.minecraft.server.MinecraftServer;
 
 import java.io.IOException;

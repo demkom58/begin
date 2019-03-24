@@ -205,7 +205,7 @@ public class BlockPistonBase extends Block {
             }
         } else if (var5 == 1) {
             TileEntity var8 = world.getBlockTileEntity(var2 + PistonBlockTextures.field_31051_b[var6], var3 + PistonBlockTextures.field_31054_c[var6], var4 + PistonBlockTextures.field_31053_d[var6]);
-            if (var8 != null && var8 instanceof TileEntityPiston) {
+            if (var8 instanceof TileEntityPiston) {
                 ((TileEntityPiston) var8).clearPistonTileEntity();
             }
 
@@ -220,7 +220,7 @@ public class BlockPistonBase extends Block {
                 boolean var14 = false;
                 if (var12 == Block.PISTON_MOVING.blockID) {
                     TileEntity var15 = world.getBlockTileEntity(var9, var10, var11);
-                    if (var15 != null && var15 instanceof TileEntityPiston) {
+                    if (var15 instanceof TileEntityPiston) {
                         TileEntityPiston var16 = (TileEntityPiston) var15;
                         if (var16.func_31008_d() == var6 && var16.func_31010_c()) {
                             var16.clearPistonTileEntity();

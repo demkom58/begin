@@ -21,7 +21,7 @@ public class BlockPistonMoving extends BlockContainer {
 
     public void onBlockRemoval(World world, int x, int y, int z) {
         TileEntity var5 = world.getBlockTileEntity(x, y, z);
-        if (var5 != null && var5 instanceof TileEntityPiston) {
+        if (var5 instanceof TileEntityPiston) {
             ((TileEntityPiston) var5).clearPistonTileEntity();
         } else {
             super.onBlockRemoval(world, x, y, z);
@@ -133,6 +133,6 @@ public class BlockPistonMoving extends BlockContainer {
 
     private TileEntityPiston getTileEntityAtLocation(IBlockAccess var1, int var2, int var3, int var4) {
         TileEntity var5 = var1.getBlockTileEntity(var2, var3, var4);
-        return var5 != null && var5 instanceof TileEntityPiston ? (TileEntityPiston) var5 : null;
+        return var5 instanceof TileEntityPiston ? (TileEntityPiston) var5 : null;
     }
 }

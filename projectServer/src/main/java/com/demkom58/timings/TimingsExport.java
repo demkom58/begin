@@ -3,7 +3,6 @@ package com.demkom58.timings;
 import com.google.common.collect.Sets;
 import net.minecraft.Entity;
 import net.minecraft.Material;
-import net.minecraft.TileEntity;
 import net.minecraft.server.MinecraftServer;
 import org.json.simple.JSONValue;
 

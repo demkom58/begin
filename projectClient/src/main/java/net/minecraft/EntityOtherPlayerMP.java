@@ -70,7 +70,6 @@ public class EntityOtherPlayerMP extends EntityPlayer {
 
             double var7;
             for (var7 = this.field_780_bk - (double) this.rotationYaw; var7 < -180.0D; var7 += 360.0D) {
-                ;
             }
 
             while (var7 >= 180.0D) {

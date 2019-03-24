@@ -1712,7 +1712,6 @@ public class World implements IBlockAccess {
                         this.lightingToUpdate.clear();
                     }
 
-                    return;
                 }
             } finally {
                 --lightingUpdatesScheduled;
@@ -2008,12 +2007,12 @@ public class World implements IBlockAccess {
         return this.entities;
     }
 
-    public List<Entity> getEntitiesWithinAABB(Class var1, AxisAlignedBB var2) {
+    public ArrayList<Entity> getEntitiesWithinAABB(Class var1, AxisAlignedBB var2) {
         int var3 = MathHelper.floor((var2.minX - 2.0D) / 16.0D);
         int var4 = MathHelper.floor((var2.maxX + 2.0D) / 16.0D);
         int var5 = MathHelper.floor((var2.minZ - 2.0D) / 16.0D);
         int var6 = MathHelper.floor((var2.maxZ + 2.0D) / 16.0D);
-        ArrayList var7 = new ArrayList();
+        ArrayList<Entity> var7 = new ArrayList<>();
 
         for (int var8 = var3; var8 <= var4; ++var8) {
             for (int var9 = var5; var9 <= var6; ++var9) {

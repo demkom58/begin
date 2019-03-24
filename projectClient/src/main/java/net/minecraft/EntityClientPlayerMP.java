@@ -132,7 +132,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
 
     public void closeScreen() {
         this.sendQueue.addToSendQueue(new Packet101CloseWindow(this.craftingInventory.windowId));
-        this.inventory.setItemStack((ItemStack) null);
+        this.inventory.setItemStack(null);
         super.closeScreen();
     }
 

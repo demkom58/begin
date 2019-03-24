@@ -23,7 +23,7 @@ public class GuiScreen extends Gui {
 
     public static String getClipboardString() {
         try {
-            Transferable var0 = Toolkit.getDefaultToolkit().getSystemClipboard().getContents((Object) null);
+            Transferable var0 = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
             if (var0 != null && var0.isDataFlavorSupported(DataFlavor.stringFlavor)) {
                 String var1 = (String) var0.getTransferData(DataFlavor.stringFlavor);
                 return var1;
@@ -45,7 +45,7 @@ public class GuiScreen extends Gui {
 
     protected void keyTyped(char var1, int var2) {
         if (var2 == 1) {
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }
 

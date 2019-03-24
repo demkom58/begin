@@ -119,7 +119,7 @@ public class EntityWolf extends EntityAnimal {
         }
 
         if (!this.worldObj.multiplayerWorld) {
-            this.dataWatcher.updateObject(18, Integer.valueOf(this.health));
+            this.dataWatcher.updateObject(18, this.health);
         }
 
     }
@@ -259,13 +259,13 @@ public class EntityWolf extends EntityAnimal {
             var2 = (var2 + 1) / 2;
         }
 
-        if (!super.attackEntityFrom((Entity) var1, var2)) {
+        if (!super.attackEntityFrom(var1, var2)) {
             return false;
         } else {
             if (!this.isWolfTamed() && !this.isWolfAngry()) {
                 if (var1 instanceof EntityPlayer) {
                     this.setWolfAngry(true);
-                    this.playerToAttack = (Entity) var1;
+                    this.playerToAttack = var1;
                 }
 
                 if (var1 instanceof EntityArrow && ((EntityArrow) var1).owner != null) {
@@ -276,7 +276,7 @@ public class EntityWolf extends EntityAnimal {
                     for (Entity var5 : this.worldObj.getEntitiesWithinAABB(EntityWolf.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D))) {
                         EntityWolf var6 = (EntityWolf) var5;
                         if (!var6.isWolfTamed() && var6.playerToAttack == null) {
-                            var6.playerToAttack = (Entity) var1;
+                            var6.playerToAttack = var1;
                             if (var1 instanceof EntityPlayer) {
                                 var6.setWolfAngry(true);
                             }
@@ -288,7 +288,7 @@ public class EntityWolf extends EntityAnimal {
                     return true;
                 }
 
-                this.playerToAttack = (Entity) var1;
+                this.playerToAttack = var1;
             }
 
             return true;
@@ -327,13 +327,13 @@ public class EntityWolf extends EntityAnimal {
             if (var2 != null && var2.itemID == Item.BONE.shiftedIndex && !this.isWolfAngry()) {
                 --var2.stackSize;
                 if (var2.stackSize <= 0) {
-                    var1.inventory.setInventorySlotContents(var1.inventory.currentItem, (ItemStack) null);
+                    var1.inventory.setInventorySlotContents(var1.inventory.currentItem, null);
                 }
 
                 if (!this.worldObj.multiplayerWorld) {
                     if (this.rand.nextInt(3) == 0) {
                         this.setWolfTamed(true);
-                        this.setPathToEntity((PathEntity) null);
+                        this.setPathToEntity(null);
                         this.setWolfSitting(true);
                         this.health = 20;
                         this.setWolfOwner(var1.username);
@@ -353,7 +353,7 @@ public class EntityWolf extends EntityAnimal {
                 if (var3.getIsWolfsFavoriteMeat() && this.dataWatcher.getWatchableObjectInt(18) < 20) {
                     --var2.stackSize;
                     if (var2.stackSize <= 0) {
-                        var1.inventory.setInventorySlotContents(var1.inventory.currentItem, (ItemStack) null);
+                        var1.inventory.setInventorySlotContents(var1.inventory.currentItem, null);
                     }
 
                     this.heal(((ItemFood) Item.PORKCHOP_RAW).getHealAmount());
@@ -365,7 +365,7 @@ public class EntityWolf extends EntityAnimal {
                 if (!this.worldObj.multiplayerWorld) {
                     this.setWolfSitting(!this.isWolfSitting());
                     this.isJumping = false;
-                    this.setPathToEntity((PathEntity) null);
+                    this.setPathToEntity(null);
                 }
 
                 return true;
@@ -432,9 +432,9 @@ public class EntityWolf extends EntityAnimal {
     public void setWolfSitting(boolean var1) {
         byte var2 = this.dataWatcher.getWatchableObjectByte(16);
         if (var1) {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 | 1)));
+            this.dataWatcher.updateObject(16, (byte) (var2 | 1));
         } else {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 & -2)));
+            this.dataWatcher.updateObject(16, (byte) (var2 & -2));
         }
 
     }
@@ -446,9 +446,9 @@ public class EntityWolf extends EntityAnimal {
     public void setWolfAngry(boolean var1) {
         byte var2 = this.dataWatcher.getWatchableObjectByte(16);
         if (var1) {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 | 2)));
+            this.dataWatcher.updateObject(16, (byte) (var2 | 2));
         } else {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 & -3)));
+            this.dataWatcher.updateObject(16, (byte) (var2 & -3));
         }
 
     }
@@ -460,9 +460,9 @@ public class EntityWolf extends EntityAnimal {
     public void setWolfTamed(boolean var1) {
         byte var2 = this.dataWatcher.getWatchableObjectByte(16);
         if (var1) {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 | 4)));
+            this.dataWatcher.updateObject(16, (byte) (var2 | 4));
         } else {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 & -5)));
+            this.dataWatcher.updateObject(16, (byte) (var2 & -5));
         }
 
     }

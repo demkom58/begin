@@ -67,7 +67,7 @@ public abstract class EntityPlayer extends EntityLiving {
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     public void onUpdate() {

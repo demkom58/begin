@@ -72,7 +72,7 @@ public class BlockPressurePlate extends Block {
         float var7 = 0.125F;
         List var8 = null;
         if (this.triggerMobType == EnumMobType.EVERYTHING) {
-            var8 = var1.getEntitiesWithinAABBExcludingEntity((Entity) null, AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var7), (double) var3, (double) ((float) var4 + var7), (double) ((float) (var2 + 1) - var7), (double) var3 + 0.25D, (double) ((float) (var4 + 1) - var7)));
+            var8 = var1.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var7), (double) var3, (double) ((float) var4 + var7), (double) ((float) (var2 + 1) - var7), (double) var3 + 0.25D, (double) ((float) (var4 + 1) - var7)));
         }
 
         if (this.triggerMobType == EnumMobType.MOBS) {

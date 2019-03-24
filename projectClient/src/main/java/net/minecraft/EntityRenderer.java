@@ -554,7 +554,6 @@ public class EntityRenderer {
             this.renderRainSnow(var1);
             GL11.glDisable(2912 /*GL_FOG*/);
             if (this.pointedEntity != null) {
-                ;
             }
 
             this.setupFog(0, var1);

@@ -64,19 +64,19 @@ public class StatList {
             Set<Integer> var0 = new HashSet<>();
 
             for (IRecipe var2 : CraftingManager.getInstance().getRecipeList()) {
-                var0.add(Integer.valueOf(var2.getCraftingResult().itemID));
+                var0.add(var2.getCraftingResult().itemID);
             }
 
             for (ItemStack var6 : FurnaceRecipes.smelting().getSmeltingList().values()) {
-                var0.add(Integer.valueOf(var6.itemID));
+                var0.add(var6.itemID);
             }
 
             field_25158_z = new StatBase[32000];
 
             for (Integer var7 : var0) {
-                if (Item.ITEMS_LIST[var7.intValue()] != null) {
-                    String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", Item.ITEMS_LIST[var7.intValue()].getStatName());
-                    field_25158_z[var7.intValue()] = (new StatCrafting(16842752 + var7.intValue(), var3, var7.intValue())).registerStat();
+                if (Item.ITEMS_LIST[var7] != null) {
+                    String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", Item.ITEMS_LIST[var7].getStatName());
+                    field_25158_z[var7] = (new StatCrafting(16842752 + var7, var3, var7)).registerStat();
                 }
             }
 
@@ -160,6 +160,6 @@ public class StatList {
     }
 
     public static StatBase func_27361_a(int var0) {
-        return (StatBase) field_25169_C.get(Integer.valueOf(var0));
+        return (StatBase) field_25169_C.get(var0);
     }
 }

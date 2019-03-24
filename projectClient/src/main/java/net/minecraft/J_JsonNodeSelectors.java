@@ -40,7 +40,7 @@ public final class J_JsonNodeSelectors {
 
         for (int var3 = var0.length - 1; var3 >= 0; --var3) {
             if (var0[var3] instanceof Integer) {
-                var2 = func_27345_a(func_27354_b(((Integer) var0[var3]).intValue()), var2);
+                var2 = func_27345_a(func_27354_b((Integer) var0[var3]), var2);
             } else {
                 if (!(var0[var3] instanceof String)) {
                     throw new IllegalArgumentException("Element [" + var0[var3] + "] of path elements" + " [" + Arrays.toString(var0) + "] was of illegal type [" + var0[var3].getClass().getCanonicalName() + "]; only Integer and String are valid.");

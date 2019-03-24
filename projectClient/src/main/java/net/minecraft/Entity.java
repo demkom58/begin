@@ -115,7 +115,7 @@ public abstract class Entity {
         this.addedToChunk = false;
         this.worldObj = var1;
         this.setPosition(0.0D, 0.0D, 0.0D);
-        this.dataWatcher.addObject(0, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(0, (byte) 0);
         this.entityInit();
     }
 
@@ -249,7 +249,7 @@ public abstract class Entity {
                 }
             } else {
                 if (this.fire % 20 == 0) {
-                    this.attackEntityFrom((Entity) null, 1);
+                    this.attackEntityFrom(null, 1);
                 }
 
                 --this.fire;
@@ -274,7 +274,7 @@ public abstract class Entity {
 
     protected void setOnFireFromLava() {
         if (!this.isImmuneToFire) {
-            this.attackEntityFrom((Entity) null, 4);
+            this.attackEntityFrom(null, 4);
             this.fire = 600;
         }
 
@@ -558,7 +558,7 @@ public abstract class Entity {
 
     protected void dealFireDamage(int var1) {
         if (!this.isImmuneToFire) {
-            this.attackEntityFrom((Entity) null, var1);
+            this.attackEntityFrom(null, var1);
         }
 
     }
@@ -882,7 +882,7 @@ public abstract class Entity {
 
     public boolean isEntityInsideOpaqueBlock() {
         for (int var1 = 0; var1 < 8; ++var1) {
-            float var2 = ((float) ((var1 >> 0) % 2) - 0.5F) * this.width * 0.9F;
+            float var2 = ((float) ((var1) % 2) - 0.5F) * this.width * 0.9F;
             float var3 = ((float) ((var1 >> 1) % 2) - 0.5F) * 0.1F;
             float var4 = ((float) ((var1 >> 2) % 2) - 0.5F) * this.width * 0.9F;
             int var5 = MathHelper.floor(this.posX + (double) var2);
@@ -917,7 +917,6 @@ public abstract class Entity {
                 this.entityRiderYawDelta += (double) (this.ridingEntity.rotationYaw - this.ridingEntity.prevRotationYaw);
 
                 for (this.entityRiderPitchDelta += (double) (this.ridingEntity.rotationPitch - this.ridingEntity.prevRotationPitch); this.entityRiderYawDelta >= 180.0D; this.entityRiderYawDelta -= 360.0D) {
-                    ;
                 }
 
                 while (this.entityRiderYawDelta < -180.0D) {
@@ -1067,9 +1066,9 @@ public abstract class Entity {
     protected void setEntityFlag(int var1, boolean var2) {
         byte var3 = this.dataWatcher.getWatchableObjectByte(0);
         if (var2) {
-            this.dataWatcher.updateObject(0, Byte.valueOf((byte) (var3 | 1 << var1)));
+            this.dataWatcher.updateObject(0, (byte) (var3 | 1 << var1));
         } else {
-            this.dataWatcher.updateObject(0, Byte.valueOf((byte) (var3 & ~(1 << var1))));
+            this.dataWatcher.updateObject(0, (byte) (var3 & ~(1 << var1)));
         }
 
     }

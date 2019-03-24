@@ -10,35 +10,35 @@ import java.util.logging.LogRecord;
 final class ConsoleLogFormatter extends Formatter {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public String format(LogRecord var1) {
-        StringBuilder var2 = new StringBuilder();
-        var2.append(this.dateFormat.format(Long.valueOf(var1.getMillis())));
-        Level var3 = var1.getLevel();
-        if (var3 == Level.FINEST) {
-            var2.append(" [FINEST] ");
-        } else if (var3 == Level.FINER) {
-            var2.append(" [FINER] ");
-        } else if (var3 == Level.FINE) {
-            var2.append(" [FINE] ");
-        } else if (var3 == Level.INFO) {
-            var2.append(" [INFO] ");
-        } else if (var3 == Level.WARNING) {
-            var2.append(" [WARNING] ");
-        } else if (var3 == Level.SEVERE) {
-            var2.append(" [SEVERE] ");
-        } else if (var3 == Level.SEVERE) {
-            var2.append(" [" + var3.getLocalizedName() + "] ");
+    public String format(LogRecord record) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.dateFormat.format(record.getMillis()));
+        Level level = record.getLevel();
+        if (level == Level.FINEST) {
+            builder.append(" [FINEST] ");
+        } else if (level == Level.FINER) {
+            builder.append(" [FINER] ");
+        } else if (level == Level.FINE) {
+            builder.append(" [FINE] ");
+        } else if (level == Level.INFO) {
+            builder.append(" [INFO] ");
+        } else if (level == Level.WARNING) {
+            builder.append(" [WARNING] ");
+        } else if (level == Level.SEVERE) {
+            builder.append(" [SEVERE] ");
+        } else if (level == Level.SEVERE) {
+            builder.append(" [" + level.getLocalizedName() + "] ");
         }
 
-        var2.append(var1.getMessage());
-        var2.append('\n');
-        Throwable thrown = var1.getThrown();
+        builder.append(record.getMessage());
+        builder.append('\n');
+        Throwable thrown = record.getThrown();
         if (thrown != null) {
             StringWriter var5 = new StringWriter();
             thrown.printStackTrace(new PrintWriter(var5));
-            var2.append(var5.toString());
+            builder.append(var5.toString());
         }
 
-        return var2.toString();
+        return builder.toString();
     }
 }

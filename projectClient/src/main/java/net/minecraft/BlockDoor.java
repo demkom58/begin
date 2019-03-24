@@ -132,7 +132,7 @@ public class BlockDoor extends Block {
 
                 var1.setBlockMetadataWithNotify(var2, var3, var4, var6 ^ 4);
                 var1.markBlocksDirty(var2, var3 - 1, var4, var2, var3, var4);
-                var1.func_28107_a((EntityPlayer) null, 1003, var2, var3, var4, 0);
+                var1.func_28107_a(null, 1003, var2, var3, var4, 0);
             }
         }
     }

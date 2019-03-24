@@ -21,6 +21,7 @@ public final class TimingsManager {
     static final Collection<TimingHandler> HANDLERS = new ArrayDeque<>();
     static final ArrayDeque<TimingHistory.MinuteReport> MINUTE_REPORTS = new ArrayDeque<>();
 
+    @SuppressWarnings("UnstableApiUsage")
     static EvictingQueue<TimingHistory> HISTORY = EvictingQueue.create(12);
     static TimingHandler CURRENT;
     static long timingStart = 0;

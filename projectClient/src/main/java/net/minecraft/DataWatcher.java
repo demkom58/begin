@@ -12,13 +12,13 @@ public class DataWatcher {
     private static final HashMap dataTypes = new HashMap();
 
     static {
-        dataTypes.put(Byte.class, Integer.valueOf(0));
-        dataTypes.put(Short.class, Integer.valueOf(1));
-        dataTypes.put(Integer.class, Integer.valueOf(2));
-        dataTypes.put(Float.class, Integer.valueOf(3));
-        dataTypes.put(String.class, Integer.valueOf(4));
-        dataTypes.put(ItemStack.class, Integer.valueOf(5));
-        dataTypes.put(ChunkCoordinates.class, Integer.valueOf(6));
+        dataTypes.put(Byte.class, 0);
+        dataTypes.put(Short.class, 1);
+        dataTypes.put(Integer.class, 2);
+        dataTypes.put(Float.class, 3);
+        dataTypes.put(String.class, 4);
+        dataTypes.put(ItemStack.class, 5);
+        dataTypes.put(ChunkCoordinates.class, 6);
     }
 
     private final Map<Integer, WatchableObject> watchedObjects = new HashMap<>();
@@ -39,16 +39,16 @@ public class DataWatcher {
         var0.writeByte(var2);
         switch (var1.getObjectType()) {
             case 0:
-                var0.writeByte(((Byte) var1.getObject()).byteValue());
+                var0.writeByte((Byte) var1.getObject());
                 break;
             case 1:
-                var0.writeShort(((Short) var1.getObject()).shortValue());
+                var0.writeShort((Short) var1.getObject());
                 break;
             case 2:
-                var0.writeInt(((Integer) var1.getObject()).intValue());
+                var0.writeInt((Integer) var1.getObject());
                 break;
             case 3:
-                var0.writeFloat(((Float) var1.getObject()).floatValue());
+                var0.writeFloat((Float) var1.getObject());
                 break;
             case 4:
                 Packet.writeString((String) var1.getObject(), var0);
@@ -123,7 +123,7 @@ public class DataWatcher {
         } else if (this.watchedObjects.containsKey(var1)) {
             throw new IllegalArgumentException("Duplicate id value for " + var1 + "!");
         } else {
-            WatchableObject var4 = new WatchableObject(var3.intValue(), var1, var2);
+            WatchableObject var4 = new WatchableObject(var3, var1, var2);
             this.watchedObjects.put(var1, var4);
         }
     }

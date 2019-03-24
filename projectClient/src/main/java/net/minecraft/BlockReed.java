@@ -15,7 +15,6 @@ public class BlockReed extends Block {
         if (var1.isAirBlock(var2, var3 + 1, var4)) {
             int var6;
             for (var6 = 1; var1.getBlockId(var2, var3 - var6, var4) == this.blockID; ++var6) {
-                ;
             }
 
             if (var6 < 3) {

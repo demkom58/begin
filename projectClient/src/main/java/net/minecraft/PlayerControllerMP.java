@@ -177,7 +177,6 @@ public class PlayerControllerMP extends PlayerController {
 
     public void func_20086_a(int var1, EntityPlayer var2) {
         if (var1 != -9999) {
-            ;
         }
     }
 }

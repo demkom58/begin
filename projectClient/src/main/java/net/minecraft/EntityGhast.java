@@ -22,7 +22,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     public void onUpdate() {
@@ -109,7 +109,7 @@ public class EntityGhast extends EntityFlying implements IMob {
             byte var21 = this.dataWatcher.getWatchableObjectByte(16);
             byte var12 = (byte) (this.attackCounter > 10 ? 1 : 0);
             if (var21 != var12) {
-                this.dataWatcher.updateObject(16, Byte.valueOf(var12));
+                this.dataWatcher.updateObject(16, var12);
             }
         }
 

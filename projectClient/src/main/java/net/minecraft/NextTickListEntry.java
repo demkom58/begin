@@ -10,7 +10,7 @@ public class NextTickListEntry implements Comparable {
     private long tickEntryID;
 
     public NextTickListEntry(int var1, int var2, int var3, int var4) {
-        this.tickEntryID = (long) (nextTickEntryID++);
+        this.tickEntryID = nextTickEntryID++;
         this.xCoord = var1;
         this.yCoord = var2;
         this.zCoord = var3;

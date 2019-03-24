@@ -18,7 +18,7 @@ import static com.demkom58.timings.TimingsManager.FULL_SERVER_TICK;
 import static com.demkom58.timings.TimingsManager.MINUTE_REPORTS;
 import static co.aikar.util.JSONUtil.*;
 
-@SuppressWarnings({"deprecation", "SuppressionAnnotation", "Convert2Lambda", "Anonymous2MethodRef"})
+@SuppressWarnings({"SuppressionAnnotation", "Convert2Lambda", "Anonymous2MethodRef"})
 public class TimingHistory {
     public static long lastMinuteTime;
     public static long timedTicks;
@@ -50,7 +50,7 @@ public class TimingHistory {
             this.minuteReports = MINUTE_REPORTS.toArray(new MinuteReport[MINUTE_REPORTS.size() + 1]);
             this.minuteReports[this.minuteReports.length - 1] = new MinuteReport();
         } else {
-            this.minuteReports = MINUTE_REPORTS.toArray(new MinuteReport[MINUTE_REPORTS.size()]);
+            this.minuteReports = MINUTE_REPORTS.toArray(new MinuteReport[0]);
         }
         long ticks = 0;
         for (MinuteReport mp : this.minuteReports) {
@@ -190,7 +190,7 @@ public class TimingHistory {
         final double freeMemory = TimingsManager.FULL_SERVER_TICK.avgFreeMemory;
         final double loadAvg = ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage();
 
-        List<Object> export() {
+        List export() {
             return toArray(
                     time,
                     Math.round(tps * 100D) / 100D,

@@ -140,7 +140,7 @@ public class Pathfinder {
         return var7;
     }
 
-    private final PathPoint openPoint(int var1, int var2, int var3) {
+    private PathPoint openPoint(int var1, int var2, int var3) {
         int var4 = PathPoint.func_22329_a(var1, var2, var3);
         PathPoint var5 = (PathPoint) this.pointMap.lookup(var4);
         if (var5 == null) {

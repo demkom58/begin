@@ -10,7 +10,7 @@ public class EntityPig extends EntityAnimal {
     }
 
     protected void entityInit() {
-        this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     public void writeEntityToNBT(NBTTagCompound var1) {
@@ -54,9 +54,9 @@ public class EntityPig extends EntityAnimal {
 
     public void setSaddled(boolean var1) {
         if (var1) {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) 1));
+            this.dataWatcher.updateObject(16, (byte) 1);
         } else {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) 0));
+            this.dataWatcher.updateObject(16, (byte) 0);
         }
 
     }

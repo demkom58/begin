@@ -145,7 +145,7 @@ public class GuiSelectWorld extends GuiScreen {
     }
 
     public void selectWorld(int var1) {
-        this.mc.displayGuiScreen((GuiScreen) null);
+        this.mc.displayGuiScreen(null);
         if (!this.selected) {
             this.selected = true;
             this.mc.playerController = new PlayerControllerSP(this.mc);
@@ -155,7 +155,7 @@ public class GuiSelectWorld extends GuiScreen {
             }
 
             this.mc.startWorld(var2, this.getSaveName(var1), 0L);
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
         }
     }
 

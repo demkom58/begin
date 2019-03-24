@@ -17,14 +17,14 @@ public final class SpawnerAnimals {
         return new ChunkPosition(var3, var4, var5);
     }
 
-    public static final int performSpawning(World var0, boolean var1, boolean var2) {
+    public static int performSpawning(World var0, boolean var1, boolean var2) {
         if (!var1 && !var2) {
             return 0;
         } else {
             eligibleChunksForSpawning.clear();
 
             for (int var3 = 0; var3 < var0.playerEntities.size(); ++var3) {
-                EntityPlayer var4 = (EntityPlayer) var0.playerEntities.get(var3);
+                EntityPlayer var4 = var0.playerEntities.get(var3);
                 int var5 = MathHelper.floor(var4.posX / 16.0D);
                 int var6 = MathHelper.floor(var4.posZ / 16.0D);
                 byte var7 = 8;
@@ -53,7 +53,7 @@ public final class SpawnerAnimals {
                             }
 
                             int var42 = var0.rand.nextInt(var13);
-                            SpawnListEntry var43 = (SpawnListEntry) var12.get(0);
+                            SpawnListEntry var43 = var12.get(0);
 
                             for (SpawnListEntry var17 : var12) {
                                 var42 -= var17.spawnRarityRate;
@@ -167,7 +167,6 @@ public final class SpawnerAnimals {
 
                     int var13;
                     for (var13 = var11; var13 > 2 && !var0.isBlockNormalCube(var9, var13 - 1, var10); --var13) {
-                        ;
                     }
 
                     while (!canCreatureTypeSpawnAtLocation(EnumCreatureType.MONSTER, var0, var9, var13, var10) && var13 < var11 + 16 && var13 < 128) {

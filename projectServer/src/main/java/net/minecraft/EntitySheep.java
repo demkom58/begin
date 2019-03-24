@@ -99,7 +99,7 @@ public class EntitySheep extends EntityAnimal {
 
     public void setFleeceColor(int var1) {
         byte var2 = this.dataWatcher.getWatchableObjectByte(16);
-        this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 & 240 | var1 & 15)));
+        this.dataWatcher.updateObject(16, (byte) (var2 & 240 | var1 & 15));
     }
 
     public boolean func_21069_f_() {
@@ -109,9 +109,9 @@ public class EntitySheep extends EntityAnimal {
     public void setSheared(boolean var1) {
         byte var2 = this.dataWatcher.getWatchableObjectByte(16);
         if (var1) {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 | 16)));
+            this.dataWatcher.updateObject(16, (byte) (var2 | 16));
         } else {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 & -17)));
+            this.dataWatcher.updateObject(16, (byte) (var2 & -17));
         }
 
     }

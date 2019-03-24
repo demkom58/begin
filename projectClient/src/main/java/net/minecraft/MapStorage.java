@@ -137,7 +137,7 @@ public class MapStorage {
 
         this.idCounts.put(var1, var2);
         if (this.field_28191_a == null) {
-            return var2.shortValue();
+            return var2;
         } else {
             try {
                 File var3 = this.field_28191_a.func_28113_a("idcounts");
@@ -145,7 +145,7 @@ public class MapStorage {
                     NBTTagCompound var4 = new NBTTagCompound();
 
                     for (String var6 : this.idCounts.keySet()) {
-                        short var7 = this.idCounts.get(var6).shortValue();
+                        short var7 = this.idCounts.get(var6);
                         var4.setShort(var6, var7);
                     }
 
@@ -157,7 +157,7 @@ public class MapStorage {
                 e.printStackTrace();
             }
 
-            return var2.shortValue();
+            return var2;
         }
     }
 }

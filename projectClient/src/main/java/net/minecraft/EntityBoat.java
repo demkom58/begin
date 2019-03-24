@@ -152,7 +152,6 @@ public class EntityBoat extends Entity {
 
                 double var33;
                 for (var33 = this.field_9390_h - (double) this.rotationYaw; var33 < -180.0D; var33 += 360.0D) {
-                    ;
                 }
 
                 while (var33 >= 180.0D) {
@@ -269,7 +268,6 @@ public class EntityBoat extends Entity {
 
             double var14;
             for (var14 = var29 - (double) this.rotationYaw; var14 >= 180.0D; var14 -= 360.0D) {
-                ;
             }
 
             while (var14 < -180.0D) {

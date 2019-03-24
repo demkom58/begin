@@ -378,7 +378,6 @@ public class GuiIngame extends Gui {
         while (this.mc.fontRenderer.getStringWidth(var1) > 320) {
             int var2;
             for (var2 = 1; var2 < var1.length() && this.mc.fontRenderer.getStringWidth(var1.substring(0, var2 + 1)) <= 320; ++var2) {
-                ;
             }
 
             this.addChatMessage(var1.substring(0, var2));

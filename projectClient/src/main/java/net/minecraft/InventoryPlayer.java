@@ -66,7 +66,6 @@ public class InventoryPlayer implements IInventory {
         }
 
         for (this.currentItem -= var1; this.currentItem < 0; this.currentItem += 9) {
-            ;
         }
 
         while (this.currentItem >= 9) {

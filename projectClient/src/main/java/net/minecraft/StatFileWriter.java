@@ -49,7 +49,7 @@ public class StatFileWriter {
                 } else {
                     var3.append(StatList.func_27361_a(var10).statGuid).append(",");
                     var3.append(var11).append(",");
-                    var1.put(var12, Integer.valueOf(var11));
+                    var1.put(var12, var11);
                 }
             }
 
@@ -111,8 +111,8 @@ public class StatFileWriter {
 
     private void writeStatToMap(Map var1, StatBase var2, int var3) {
         Integer var4 = (Integer) var1.get(var2);
-        int var5 = var4 == null ? 0 : var4.intValue();
-        var1.put(var2, Integer.valueOf(var5 + var3));
+        int var5 = var4 == null ? 0 : var4;
+        var1.put(var2, var5 + var3);
     }
 
     public Map func_27176_a() {
@@ -124,8 +124,8 @@ public class StatFileWriter {
             this.field_27189_c = true;
 
             for (StatBase var3 : var1.keySet()) {
-                this.writeStatToMap(this.field_25101_b, var3, ((Integer) var1.get(var3)).intValue());
-                this.writeStatToMap(this.field_25102_a, var3, ((Integer) var1.get(var3)).intValue());
+                this.writeStatToMap(this.field_25101_b, var3, (Integer) var1.get(var3));
+                this.writeStatToMap(this.field_25102_a, var3, (Integer) var1.get(var3));
             }
 
         }
@@ -135,8 +135,8 @@ public class StatFileWriter {
         if (var1 != null) {
             for (StatBase var3 : var1.keySet()) {
                 Integer var4 = (Integer) this.field_25101_b.get(var3);
-                int var5 = var4 == null ? 0 : var4.intValue();
-                this.field_25102_a.put(var3, Integer.valueOf(((Integer) var1.get(var3)).intValue() + var5));
+                int var5 = var4 == null ? 0 : var4;
+                this.field_25102_a.put(var3, ((Integer) var1.get(var3)).intValue() + var5);
             }
 
         }
@@ -147,7 +147,7 @@ public class StatFileWriter {
             this.field_27189_c = true;
 
             for (StatBase var3 : var1.keySet()) {
-                this.writeStatToMap(this.field_25101_b, var3, ((Integer) var1.get(var3)).intValue());
+                this.writeStatToMap(this.field_25101_b, var3, (Integer) var1.get(var3));
             }
 
         }
@@ -163,7 +163,7 @@ public class StatFileWriter {
 
     public int writeStat(StatBase var1) {
         Integer var2 = (Integer) this.field_25102_a.get(var1);
-        return var2 == null ? 0 : var2.intValue();
+        return var2 == null ? 0 : var2;
     }
 
     public void func_27175_b() {

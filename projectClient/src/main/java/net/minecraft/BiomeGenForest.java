@@ -11,7 +11,7 @@ public class BiomeGenForest extends BiomeGenBase {
         if (var1.nextInt(5) == 0) {
             return new WorldGenForest();
         } else {
-            return (WorldGenerator) (var1.nextInt(3) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
+            return (var1.nextInt(3) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
         }
     }
 }

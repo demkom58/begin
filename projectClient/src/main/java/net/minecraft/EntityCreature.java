@@ -70,7 +70,6 @@ public class EntityCreature extends EntityLiving {
                 float var15 = var14 - this.rotationYaw;
 
                 for (this.moveForward = this.moveSpeed; var15 < -180.0F; var15 += 360.0F) {
-                    ;
                 }
 
                 while (var15 >= 180.0F) {

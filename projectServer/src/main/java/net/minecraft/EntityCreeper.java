@@ -13,8 +13,8 @@ public class EntityCreeper extends EntityMob {
 
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(16, Byte.valueOf((byte) -1));
-        this.dataWatcher.addObject(17, Byte.valueOf((byte) 0));
+        this.dataWatcher.addObject(16, (byte) -1);
+        this.dataWatcher.addObject(17, (byte) 0);
     }
 
     public void writeEntityToNBT(NBTTagCompound var1) {
@@ -27,7 +27,7 @@ public class EntityCreeper extends EntityMob {
 
     public void readEntityFromNBT(NBTTagCompound var1) {
         super.readEntityFromNBT(var1);
-        this.dataWatcher.updateObject(17, Byte.valueOf((byte) (var1.getBoolean("powered") ? 1 : 0)));
+        this.dataWatcher.updateObject(17, (byte) (var1.getBoolean("powered") ? 1 : 0));
     }
 
     protected void func_28013_b(Entity var1, float var2) {
@@ -133,11 +133,11 @@ public class EntityCreeper extends EntityMob {
     }
 
     private void setCreeperState(int var1) {
-        this.dataWatcher.updateObject(16, Byte.valueOf((byte) var1));
+        this.dataWatcher.updateObject(16, (byte) var1);
     }
 
     public void onStruckByLightning(EntityLightningBolt var1) {
         super.onStruckByLightning(var1);
-        this.dataWatcher.updateObject(17, Byte.valueOf((byte) 1));
+        this.dataWatcher.updateObject(17, (byte) 1);
     }
 }

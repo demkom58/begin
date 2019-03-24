@@ -15,8 +15,8 @@ public class GLAllocation {
 
     public static synchronized int generateDisplayLists(int var0) {
         int var1 = GL11.glGenLists(var0);
-        displayLists.add(Integer.valueOf(var1));
-        displayLists.add(Integer.valueOf(var0));
+        displayLists.add(var1);
+        displayLists.add(var0);
         return var1;
     }
 
@@ -24,21 +24,21 @@ public class GLAllocation {
         GL11.glGenTextures(var0);
 
         for (int var1 = var0.position(); var1 < var0.limit(); ++var1) {
-            textureNames.add(Integer.valueOf(var0.get(var1)));
+            textureNames.add(var0.get(var1));
         }
 
     }
 
     public static synchronized void func_28194_b(int var0) {
-        int var1 = displayLists.indexOf(Integer.valueOf(var0));
-        GL11.glDeleteLists(((Integer) displayLists.get(var1)).intValue(), ((Integer) displayLists.get(var1 + 1)).intValue());
+        int var1 = displayLists.indexOf(var0);
+        GL11.glDeleteLists((Integer) displayLists.get(var1), (Integer) displayLists.get(var1 + 1));
         displayLists.remove(var1);
         displayLists.remove(var1);
     }
 
     public static synchronized void deleteTexturesAndDisplayLists() {
         for (int var0 = 0; var0 < displayLists.size(); var0 += 2) {
-            GL11.glDeleteLists(((Integer) displayLists.get(var0)).intValue(), ((Integer) displayLists.get(var0 + 1)).intValue());
+            GL11.glDeleteLists((Integer) displayLists.get(var0), (Integer) displayLists.get(var0 + 1));
         }
 
         IntBuffer var2 = createDirectIntBuffer(textureNames.size());
@@ -46,7 +46,7 @@ public class GLAllocation {
         GL11.glDeleteTextures(var2);
 
         for (int var1 = 0; var1 < textureNames.size(); ++var1) {
-            var2.put(((Integer) textureNames.get(var1)).intValue());
+            var2.put((Integer) textureNames.get(var1));
         }
 
         var2.flip();

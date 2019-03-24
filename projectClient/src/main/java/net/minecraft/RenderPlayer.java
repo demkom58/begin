@@ -120,7 +120,7 @@ public class RenderPlayer extends RenderLiving {
             GL11.glPopMatrix();
         }
 
-        if (var1.username.equals("deadmau5") && this.loadDownloadableImageTexture(var1.skinUrl, (String) null)) {
+        if (var1.username.equals("deadmau5") && this.loadDownloadableImageTexture(var1.skinUrl, null)) {
             for (int var19 = 0; var19 < 2; ++var19) {
                 float var5 = var1.prevRotationYaw + (var1.rotationYaw - var1.prevRotationYaw) * var2 - (var1.prevRenderYawOffset + (var1.renderYawOffset - var1.prevRenderYawOffset) * var2);
                 float var6 = var1.prevRotationPitch + (var1.rotationPitch - var1.prevRotationPitch) * var2;
@@ -138,7 +138,7 @@ public class RenderPlayer extends RenderLiving {
             }
         }
 
-        if (this.loadDownloadableImageTexture(var1.playerCloakUrl, (String) null)) {
+        if (this.loadDownloadableImageTexture(var1.playerCloakUrl, null)) {
             GL11.glPushMatrix();
             GL11.glTranslatef(0.0F, 0.0F, 0.125F);
             double var20 = var1.field_20066_r + (var1.field_20063_u - var1.field_20066_r) * (double) var2 - (var1.prevPosX + (var1.posX - var1.prevPosX) * (double) var2);

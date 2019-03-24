@@ -183,7 +183,6 @@ public class EntityMinecart extends Entity implements IInventory {
 
                 double var48;
                 for (var48 = this.field_9411_o - (double) this.rotationYaw; var48 < -180.0D; var48 += 360.0D) {
-                    ;
                 }
 
                 while (var48 >= 180.0D) {
@@ -457,7 +456,6 @@ public class EntityMinecart extends Entity implements IInventory {
 
             double var51;
             for (var51 = (double) (this.rotationYaw - this.prevRotationYaw); var51 >= 180.0D; var51 -= 360.0D) {
-                ;
             }
 
             while (var51 < -180.0D) {
@@ -778,7 +776,7 @@ public class EntityMinecart extends Entity implements IInventory {
             ItemStack var2 = var1.inventory.getCurrentItem();
             if (var2 != null && var2.itemID == Item.COAL.shiftedIndex) {
                 if (--var2.stackSize == 0) {
-                    var1.inventory.setInventorySlotContents(var1.inventory.currentItem, (ItemStack) null);
+                    var1.inventory.setInventorySlotContents(var1.inventory.currentItem, null);
                 }
 
                 this.fuel += 1200;

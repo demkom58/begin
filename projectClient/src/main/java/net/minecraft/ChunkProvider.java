@@ -20,13 +20,13 @@ public class ChunkProvider implements IChunkProvider {
     }
 
     public boolean chunkExists(int var1, int var2) {
-        return this.chunkMap.containsKey(Integer.valueOf(ChunkCoordIntPair.chunkXZ2Int(var1, var2)));
+        return this.chunkMap.containsKey(ChunkCoordIntPair.chunkXZ2Int(var1, var2));
     }
 
     public Chunk prepareChunk(int var1, int var2) {
         int var3 = ChunkCoordIntPair.chunkXZ2Int(var1, var2);
-        this.droppedChunksSet.remove(Integer.valueOf(var3));
-        Chunk var4 = (Chunk) this.chunkMap.get(Integer.valueOf(var3));
+        this.droppedChunksSet.remove(var3);
+        Chunk var4 = (Chunk) this.chunkMap.get(var3);
         if (var4 == null) {
             var4 = this.loadChunkFromFile(var1, var2);
             if (var4 == null) {
@@ -37,7 +37,7 @@ public class ChunkProvider implements IChunkProvider {
                 }
             }
 
-            this.chunkMap.put(Integer.valueOf(var3), var4);
+            this.chunkMap.put(var3, var4);
             this.chunkList.add(var4);
             if (var4 != null) {
                 var4.func_4143_d();
@@ -65,7 +65,7 @@ public class ChunkProvider implements IChunkProvider {
     }
 
     public Chunk provideChunk(int var1, int var2) {
-        Chunk var3 = (Chunk) this.chunkMap.get(Integer.valueOf(ChunkCoordIntPair.chunkXZ2Int(var1, var2)));
+        Chunk var3 = (Chunk) this.chunkMap.get(ChunkCoordIntPair.chunkXZ2Int(var1, var2));
         return var3 == null ? this.prepareChunk(var1, var2) : var3;
     }
 

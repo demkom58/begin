@@ -11,10 +11,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public abstract class Packet {
     private static Int2ObjectMap<Class<? extends Packet>> packetIdToClassMap = new Int2ObjectRBTreeMap<>();

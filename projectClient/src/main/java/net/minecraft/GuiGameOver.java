@@ -18,16 +18,15 @@ public class GuiGameOver extends GuiScreen {
 
     protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
-            ;
         }
 
         if (button.id == 1) {
             this.mc.thePlayer.respawnPlayer();
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
         }
 
         if (button.id == 2) {
-            this.mc.changeWorld1((World) null);
+            this.mc.changeWorld1(null);
             this.mc.displayGuiScreen(new GuiMainMenu());
         }
 

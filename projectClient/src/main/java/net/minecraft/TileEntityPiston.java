@@ -75,7 +75,7 @@ public class TileEntityPiston extends TileEntity {
 
         AxisAlignedBB var3 = Block.PISTON_MOVING.func_31035_a(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, var1, this.field_31025_c);
         if (var3 != null) {
-            List var4 = this.worldObj.getEntitiesWithinAABBExcludingEntity((Entity) null, var3);
+            List var4 = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, var3);
             if (!var4.isEmpty()) {
                 field_31018_m.addAll(var4);
 

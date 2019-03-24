@@ -19,7 +19,6 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
         this.zCoord = var1.nextDouble() * 256.0D;
 
         for (int var2 = 0; var2 < 256; this.permutations[var2] = var2++) {
-            ;
         }
 
         for (int var5 = 0; var5 < 256; ++var5) {

@@ -9,19 +9,19 @@ public class MathHelper {
         }
     }
 
-    public static final float sin(float var0) {
+    public static float sin(float var0) {
         return SIN_TABLE[(int) (var0 * 10430.378F) & '\uffff'];
     }
 
-    public static final float cos(float var0) {
+    public static float cos(float var0) {
         return SIN_TABLE[(int) (var0 * 10430.378F + 16384.0F) & '\uffff'];
     }
 
-    public static final float sqrt(float var0) {
+    public static float sqrt(float var0) {
         return (float) Math.sqrt((double) var0);
     }
 
-    public static final float sqrt(double var0) {
+    public static float sqrt(double var0) {
         return (float) Math.sqrt(var0);
     }
 

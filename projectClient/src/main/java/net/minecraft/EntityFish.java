@@ -133,7 +133,6 @@ public class EntityFish extends Entity {
 
             double var7;
             for (var7 = this.field_6384_p - (double) this.rotationYaw; var7 < -180.0D; var7 += 360.0D) {
-                ;
             }
 
             while (var7 >= 180.0D) {
@@ -240,7 +239,6 @@ public class EntityFish extends Entity {
                 this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
                 for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var26) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-                    ;
                 }
 
                 while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {

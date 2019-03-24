@@ -39,7 +39,7 @@ public class GuiAchievements extends GuiScreen {
 
     protected void actionPerformed(GuiButton button) {
         if (button.id == 1) {
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }
 
@@ -48,7 +48,7 @@ public class GuiAchievements extends GuiScreen {
 
     protected void keyTyped(char var1, int var2) {
         if (var2 == this.mc.gameSettings.keyBindInventory.keyCode) {
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         } else {
             super.keyTyped(var1, var2);

@@ -43,7 +43,6 @@ public class TextureWatchFX extends TextureFX {
 
         double var22;
         for (var22 = var1 - this.field_4222_j; var22 < -3.141592653589793D; var22 += 6.283185307179586D) {
-            ;
         }
 
         while (var22 >= 3.141592653589793D) {
@@ -68,7 +67,7 @@ public class TextureWatchFX extends TextureFX {
             int var10 = this.watchIconImageData[var9] >> 24 & 255;
             int var11 = this.watchIconImageData[var9] >> 16 & 255;
             int var12 = this.watchIconImageData[var9] >> 8 & 255;
-            int var13 = this.watchIconImageData[var9] >> 0 & 255;
+            int var13 = this.watchIconImageData[var9] & 255;
             if (var11 == var13 && var12 == 0 && var13 > 0) {
                 double var14 = -((double) (var9 % 16) / 15.0D - 0.5D);
                 double var16 = (double) (var9 / 16) / 15.0D - 0.5D;
@@ -79,7 +78,7 @@ public class TextureWatchFX extends TextureFX {
                 var10 = this.dialImageData[var21] >> 24 & 255;
                 var11 = (this.dialImageData[var21] >> 16 & 255) * var11 / 255;
                 var12 = (this.dialImageData[var21] >> 8 & 255) * var18 / 255;
-                var13 = (this.dialImageData[var21] >> 0 & 255) * var18 / 255;
+                var13 = (this.dialImageData[var21] & 255) * var18 / 255;
             }
 
             if (this.anaglyphEnabled) {

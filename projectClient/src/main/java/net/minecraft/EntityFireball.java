@@ -126,10 +126,9 @@ public class EntityFireball extends Entity {
         if (var3 != null) {
             if (!this.worldObj.multiplayerWorld) {
                 if (var3.entityHit != null && var3.entityHit.attackEntityFrom(this.field_9397_j, 0)) {
-                    ;
                 }
 
-                this.worldObj.newExplosion((Entity) null, this.posX, this.posY, this.posZ, 1.0F, true);
+                this.worldObj.newExplosion(null, this.posX, this.posY, this.posZ, 1.0F, true);
             }
 
             this.setEntityDead();
@@ -142,7 +141,6 @@ public class EntityFireball extends Entity {
         this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
         for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var18) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-            ;
         }
 
         while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {

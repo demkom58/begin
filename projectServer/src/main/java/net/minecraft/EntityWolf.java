@@ -111,7 +111,7 @@ public class EntityWolf extends EntityAnimal {
         }
 
         if (!this.worldObj.singleplayerWorld) {
-            this.dataWatcher.updateObject(18, Integer.valueOf(this.health));
+            this.dataWatcher.updateObject(18, this.health);
         }
 
     }
@@ -378,9 +378,9 @@ public class EntityWolf extends EntityAnimal {
     public void setIsSitting(boolean var1) {
         byte var2 = this.dataWatcher.getWatchableObjectByte(16);
         if (var1) {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 | 1)));
+            this.dataWatcher.updateObject(16, (byte) (var2 | 1));
         } else {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 & -2)));
+            this.dataWatcher.updateObject(16, (byte) (var2 & -2));
         }
 
     }
@@ -392,9 +392,9 @@ public class EntityWolf extends EntityAnimal {
     public void setIsAngry(boolean var1) {
         byte var2 = this.dataWatcher.getWatchableObjectByte(16);
         if (var1) {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 | 2)));
+            this.dataWatcher.updateObject(16, (byte) (var2 | 2));
         } else {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 & -3)));
+            this.dataWatcher.updateObject(16, (byte) (var2 & -3));
         }
 
     }
@@ -406,9 +406,9 @@ public class EntityWolf extends EntityAnimal {
     public void setIsTamed(boolean var1) {
         byte var2 = this.dataWatcher.getWatchableObjectByte(16);
         if (var1) {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 | 4)));
+            this.dataWatcher.updateObject(16, (byte) (var2 | 4));
         } else {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (var2 & -5)));
+            this.dataWatcher.updateObject(16, (byte) (var2 & -5));
         }
 
     }

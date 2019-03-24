@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class NetClientHandler extends NetHandler {
     public String field_1209_a;
-    public MapStorage field_28118_b = new MapStorage((ISaveHandler) null);
+    public MapStorage field_28118_b = new MapStorage(null);
     Random rand = new Random();
     private boolean disconnected = false;
     private NetworkManager netManager;
@@ -23,7 +23,7 @@ public class NetClientHandler extends NetHandler {
     private WorldClient worldClient;
     private boolean field_1210_g = false;
 
-    public NetClientHandler(Minecraft var1, String var2, int var3) throws UnknownHostException, IOException {
+    public NetClientHandler(Minecraft var1, String var2, int var3) throws IOException {
         this.mc = var1;
         Socket var4 = new Socket(InetAddress.getByName(var2), var3);
         this.netManager = new NetworkManager(var4, "Client", this);
@@ -265,7 +265,7 @@ public class NetClientHandler extends NetHandler {
             this.mc.thePlayer.prevPosY = this.mc.thePlayer.posY;
             this.mc.thePlayer.prevPosZ = this.mc.thePlayer.posZ;
             this.field_1210_g = true;
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
         }
 
     }
@@ -305,14 +305,14 @@ public class NetClientHandler extends NetHandler {
     public void handleKickDisconnect(Packet255KickDisconnect var1) {
         this.netManager.networkShutdown("disconnect.kicked");
         this.disconnected = true;
-        this.mc.changeWorld1((World) null);
-        this.mc.displayGuiScreen(new GuiConnectFailed("disconnect.disconnected", "disconnect.genericReason", new Object[]{var1.reason}));
+        this.mc.changeWorld1(null);
+        this.mc.displayGuiScreen(new GuiConnectFailed("disconnect.disconnected", "disconnect.genericReason", var1.reason));
     }
 
     public void handleErrorMessage(String var1, Object[] var2) {
         if (!this.disconnected) {
             this.disconnected = true;
-            this.mc.changeWorld1((World) null);
+            this.mc.changeWorld1(null);
             this.mc.displayGuiScreen(new GuiConnectFailed("disconnect.lost", var1, var2));
         }
     }
@@ -332,7 +332,7 @@ public class NetClientHandler extends NetHandler {
 
     public void handleCollect(Packet22Collect var1) {
         Entity var2 = this.getEntityByID(var1.collectedEntityId);
-        Object var3 = (EntityLiving) this.getEntityByID(var1.collectorEntityId);
+        Object var3 = this.getEntityByID(var1.collectorEntityId);
         if (var3 == null) {
             var3 = this.mc.thePlayer;
         }
@@ -458,7 +458,7 @@ public class NetClientHandler extends NetHandler {
     }
 
     private Entity getEntityByID(int var1) {
-        return (Entity) (var1 == this.mc.thePlayer.entityId ? this.mc.thePlayer : this.worldClient.func_709_b(var1));
+        return (var1 == this.mc.thePlayer.entityId ? this.mc.thePlayer : this.worldClient.func_709_b(var1));
     }
 
     public void handleHealth(Packet8UpdateHealth var1) {
@@ -479,7 +479,7 @@ public class NetClientHandler extends NetHandler {
     }
 
     public void func_12245_a(Packet60Explosion var1) {
-        Explosion var2 = new Explosion(this.mc.theWorld, (Entity) null, var1.explosionX, var1.explosionY, var1.explosionZ, var1.explosionSize);
+        Explosion var2 = new Explosion(this.mc.theWorld, null, var1.explosionX, var1.explosionY, var1.explosionZ, var1.explosionSize);
         var2.destroyedBlockPositions = var1.destroyedBlockPositions;
         var2.doExplosionB(true);
     }
@@ -555,9 +555,7 @@ public class NetClientHandler extends NetHandler {
             if (var2 instanceof TileEntitySign) {
                 TileEntitySign var3 = (TileEntitySign) var2;
 
-                for (int var4 = 0; var4 < 4; ++var4) {
-                    var3.signText[var4] = var1.signLines[var4];
-                }
+                System.arraycopy(var1.signLines, 0, var3.signText, 0, 4);
 
                 var3.onInventoryChanged();
             }

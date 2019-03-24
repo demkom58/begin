@@ -115,7 +115,7 @@ public abstract class EntityLiving extends Entity {
         }
 
         if (this.isEntityAlive() && this.isEntityInsideOpaqueBlock()) {
-            this.attackEntityFrom((Entity) null, 1);
+            this.attackEntityFrom(null, 1);
         }
 
         if (this.isImmuneToFire || this.worldObj.multiplayerWorld) {
@@ -134,7 +134,7 @@ public abstract class EntityLiving extends Entity {
                     this.worldObj.spawnParticle("bubble", this.posX + (double) var2, this.posY + (double) var3, this.posZ + (double) var4, this.motionX, this.motionY, this.motionZ);
                 }
 
-                this.attackEntityFrom((Entity) null, 2);
+                this.attackEntityFrom(null, 2);
             }
 
             this.fire = 0;
@@ -231,7 +231,6 @@ public abstract class EntityLiving extends Entity {
 
         float var9;
         for (var9 = var6 - this.renderYawOffset; var9 < -180.0F; var9 += 360.0F) {
-            ;
         }
 
         while (var9 >= 180.0F) {
@@ -242,7 +241,6 @@ public abstract class EntityLiving extends Entity {
 
         float var10;
         for (var10 = this.rotationYaw - this.renderYawOffset; var10 < -180.0F; var10 += 360.0F) {
-            ;
         }
 
         while (var10 >= 180.0F) {
@@ -446,7 +444,7 @@ public abstract class EntityLiving extends Entity {
         super.fall(var1);
         int var2 = (int) Math.ceil((double) (var1 - 3.0F));
         if (var2 > 0) {
-            this.attackEntityFrom((Entity) null, var2);
+            this.attackEntityFrom(null, var2);
             int var3 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.posY - 0.20000000298023224D - (double) this.yOffset), MathHelper.floor(this.posZ));
             if (var3 > 0) {
                 StepSound var4 = Block.BLOCKS_LIST[var3].stepSound;
@@ -592,7 +590,6 @@ public abstract class EntityLiving extends Entity {
 
             double var7;
             for (var7 = this.newRotationYaw - (double) this.rotationYaw; var7 < -180.0D; var7 += 360.0D) {
-                ;
             }
 
             while (var7 >= 180.0D) {
@@ -763,7 +760,6 @@ public abstract class EntityLiving extends Entity {
     private float updateRotation(float var1, float var2, float var3) {
         float var4;
         for (var4 = var2 - var1; var4 < -180.0F; var4 += 360.0F) {
-            ;
         }
 
         while (var4 >= 180.0F) {
@@ -789,7 +785,7 @@ public abstract class EntityLiving extends Entity {
     }
 
     protected void kill() {
-        this.attackEntityFrom((Entity) null, 4);
+        this.attackEntityFrom(null, 4);
     }
 
     public float getSwingProgress(float var1) {
@@ -856,11 +852,11 @@ public abstract class EntityLiving extends Entity {
             this.hurtTime = this.maxHurtTime = 10;
             this.attackedAtYaw = 0.0F;
             this.worldObj.playSoundAtEntity(this, this.getHurtSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-            this.attackEntityFrom((Entity) null, 0);
+            this.attackEntityFrom(null, 0);
         } else if (var1 == 3) {
             this.worldObj.playSoundAtEntity(this, this.getDeathSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             this.health = 0;
-            this.onDeath((Entity) null);
+            this.onDeath(null);
         } else {
             super.handleHealthUpdate(var1);
         }

@@ -102,7 +102,7 @@ public class BiomeGenBase {
     }
 
     public WorldGenerator getRandomWorldGenForTrees(Random var1) {
-        return (WorldGenerator) (var1.nextInt(10) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
+        return (var1.nextInt(10) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
     }
 
     protected BiomeGenBase setEnableSnow() {

@@ -80,7 +80,7 @@ public class FontRenderer {
             int var23 = (var21 >> 3 & 1) * 85;
             int var25 = (var21 >> 2 & 1) * 170 + var23;
             int var27 = (var21 >> 1 & 1) * 170 + var23;
-            int var29 = (var21 >> 0 & 1) * 170 + var23;
+            int var29 = (var21 & 1) * 170 + var23;
             if (var21 == 6) {
                 var25 += 85;
             }
@@ -210,13 +210,11 @@ public class FontRenderer {
             while (var8 < var7.length) {
                 String var9;
                 for (var9 = var7[var8++] + " "; var8 < var7.length && this.getStringWidth(var9 + var7[var8]) < var4; var9 = var9 + var7[var8++] + " ") {
-                    ;
                 }
 
                 int var10;
                 for (; this.getStringWidth(var9) > var4; var9 = var9.substring(var10)) {
                     for (var10 = 0; this.getStringWidth(var9.substring(0, var10 + 1)) <= var4; ++var10) {
-                        ;
                     }
 
                     if (var9.substring(0, var10).trim().length() > 0) {
@@ -252,13 +250,11 @@ public class FontRenderer {
             while (var5 < var4.length) {
                 String var7;
                 for (var7 = var4[var5++] + " "; var5 < var4.length && this.getStringWidth(var7 + var4[var5]) < var2; var7 = var7 + var4[var5++] + " ") {
-                    ;
                 }
 
                 int var8;
                 for (; this.getStringWidth(var7) > var2; var7 = var7.substring(var8)) {
                     for (var8 = 0; this.getStringWidth(var7.substring(0, var8 + 1)) <= var2; ++var8) {
-                        ;
                     }
 
                     if (var7.substring(0, var8).trim().length() > 0) {

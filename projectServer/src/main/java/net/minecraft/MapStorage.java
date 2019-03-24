@@ -117,7 +117,7 @@ public class MapStorage {
                         NBTTagShort var6 = (NBTTagShort) var5;
                         String var7 = var6.getKey();
                         short var8 = var6.shortValue;
-                        this.field_28181_d.put(var7, Short.valueOf(var8));
+                        this.field_28181_d.put(var7, var8);
                     }
                 }
             }
@@ -132,12 +132,12 @@ public class MapStorage {
         if (var2 == null) {
             var2 = 0;
         } else {
-            var2 = (short) (var2.shortValue() + 1);
+            var2 = (short) (var2 + 1);
         }
 
         this.field_28181_d.put(var1, var2);
         if (this.saveHandler == null) {
-            return var2.shortValue();
+            return var2;
         } else {
             try {
                 File var3 = this.saveHandler.func_28111_b("idcounts");
@@ -145,7 +145,7 @@ public class MapStorage {
                     NBTTagCompound var4 = new NBTTagCompound();
 
                     for (String var6 : this.field_28181_d.keySet()) {
-                        short var7 = this.field_28181_d.get(var6).shortValue();
+                        short var7 = this.field_28181_d.get(var6);
                         var4.setShort(var6, var7);
                     }
 
@@ -157,7 +157,7 @@ public class MapStorage {
                 e.printStackTrace();
             }
 
-            return var2.shortValue();
+            return var2;
         }
     }
 }

@@ -28,7 +28,7 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
     public CanvasIsomPreview() {
         for (int var1 = 0; var1 < 64; ++var1) {
             for (int var2 = 0; var2 < 64; ++var2) {
-                this.imageBuffers[var1][var2] = new IsoImageBuffer((World) null, var1, var2);
+                this.imageBuffers[var1][var2] = new IsoImageBuffer(null, var1, var2);
             }
         }
 
@@ -239,7 +239,7 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
                     if (!var14.field_1351_f) {
                         int var15 = var11 * var4 * 2 + (var10 & 1) * var4;
                         int var16 = var10 * var4 - 128 - 16;
-                        var1.drawImage(var14.field_1348_a, var15, var16, (ImageObserver) null);
+                        var1.drawImage(var14.field_1348_a, var15, var16, null);
                     }
                 }
             }

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 final class J_JsonNumberNode extends J_JsonNode {
-    private static final Pattern field_27226_a = Pattern.compile("(-?)(0|([1-9]([0-9]*)))(\\.[0-9]+)?((e|E)(\\+|-)?[0-9]+)?");
+    private static final Pattern field_27226_a = Pattern.compile("(-?)(0|([1-9]([0-9]*)))(\\.[0-9]+)?(([eE])([+\\-])?[0-9]+)?");
     private final String field_27225_b;
 
     J_JsonNumberNode(String var1) {

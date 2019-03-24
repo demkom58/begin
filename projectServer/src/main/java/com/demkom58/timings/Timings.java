@@ -115,6 +115,7 @@ public final class Timings {
      *
      * @param length Duration in ticks
      */
+    @SuppressWarnings("UnstableApiUsage")
     public static void setHistoryLength(int length) {
         // Cap at 12 History Frames, 1 hour at 5 minute frames.
         int maxLength = historyInterval * MAX_HISTORY_FRAMES;

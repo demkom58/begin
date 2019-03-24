@@ -41,8 +41,8 @@ public class EntityList {
     private static void addMapping(Class var0, String var1, int var2) {
         stringToClassMapping.put(var1, var0);
         classToStringMapping.put(var0, var1);
-        IDtoClassMapping.put(Integer.valueOf(var2), var0);
-        classToIDMapping.put(var0, Integer.valueOf(var2));
+        IDtoClassMapping.put(var2, var0);
+        classToIDMapping.put(var0, var2);
     }
 
     public static Entity createEntityInWorld(String var0, World var1) {
@@ -101,7 +101,7 @@ public class EntityList {
     }
 
     public static int getEntityID(Entity var0) {
-        return ((Integer) classToIDMapping.get(var0.getClass())).intValue();
+        return (Integer) classToIDMapping.get(var0.getClass());
     }
 
     public static String getEntityString(Entity var0) {

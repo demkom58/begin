@@ -5,7 +5,6 @@ import org.lwjgl.opengl.GL11;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -97,7 +96,7 @@ public class RenderEngine {
         TexturePackBase var2 = this.texturePack.selectedTexturePack;
         Integer var3 = (Integer) this.textureMap.get(var1);
         if (var3 != null) {
-            return var3.intValue();
+            return var3;
         } else {
             try {
                 this.singleIntBuffer.clear();
@@ -153,7 +152,7 @@ public class RenderEngine {
         GLAllocation.generateTextureNames(this.singleIntBuffer);
         int var2 = this.singleIntBuffer.get(0);
         this.setupTexture(var1, var2);
-        this.textureNameToImageMap.put(Integer.valueOf(var2), var1);
+        this.textureNameToImageMap.put(var2, var1);
         return var2;
     }
 
@@ -285,7 +284,7 @@ public class RenderEngine {
     }
 
     public void deleteTexture(int var1) {
-        this.textureNameToImageMap.remove(Integer.valueOf(var1));
+        this.textureNameToImageMap.remove(var1);
         this.singleIntBuffer.clear();
         this.singleIntBuffer.put(var1);
         this.singleIntBuffer.flip();
@@ -440,11 +439,10 @@ public class RenderEngine {
 
     public void refreshTextures() {
         TexturePackBase var1 = this.texturePack.selectedTexturePack;
-        Iterator var2 = this.textureNameToImageMap.keySet().iterator();
 
-        while (var2.hasNext()) {
-            int var3 = ((Integer) var2.next()).intValue();
-            BufferedImage var4 = (BufferedImage) this.textureNameToImageMap.get(Integer.valueOf(var3));
+        for (Object o : this.textureNameToImageMap.keySet()) {
+            int var3 = (Integer) o;
+            BufferedImage var4 = (BufferedImage) this.textureNameToImageMap.get(var3);
             this.setupTexture(var4, var3);
         }
 
@@ -467,7 +465,7 @@ public class RenderEngine {
                     var14 = this.readTextureImage(var1.getResourceAsStream(var12));
                 }
 
-                int var5 = ((Integer) this.textureMap.get(var12)).intValue();
+                int var5 = (Integer) this.textureMap.get(var12);
                 this.setupTexture(var14, var5);
                 this.blurTexture = false;
                 this.clampTexture = false;

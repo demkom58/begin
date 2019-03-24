@@ -36,7 +36,7 @@ public class GuiEditSign extends GuiScreen {
         if (button.enabled) {
             if (button.id == 0) {
                 this.entitySign.onInventoryChanged();
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen(null);
             }
 
         }

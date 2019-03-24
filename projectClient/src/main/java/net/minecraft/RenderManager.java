@@ -61,7 +61,7 @@ public class RenderManager {
     }
 
     public Render getEntityClassRenderObject(Class var1) {
-        Render var2 = (Render) this.entityRenderMap.get(var1);
+        Render var2 = this.entityRenderMap.get(var1);
         if (var2 == null && var1 != Entity.class) {
             var2 = this.getEntityClassRenderObject(var1.getSuperclass());
             this.entityRenderMap.put(var1, var2);

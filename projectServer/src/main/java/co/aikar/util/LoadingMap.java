@@ -278,7 +278,7 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
     }
 
     public LoadingMap<K, V> clone() {
-        return new LoadingMap<K, V>(backingMap, loader);
+        return new LoadingMap<>(backingMap, loader);
     }
 
     private static class AutoInstantiatingLoader<K, V> implements Function<K, V> {
