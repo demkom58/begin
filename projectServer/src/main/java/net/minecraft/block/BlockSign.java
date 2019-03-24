@@ -1,0 +1,109 @@
+package net.minecraft.block;
+
+import net.minecraft.item.Item;
+import net.minecraft.material.Material;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+
+import java.util.Random;
+
+public class BlockSign extends BlockContainer {
+    private Class signEntityClass;
+    private boolean isFreestanding;
+
+    protected BlockSign(int var1, Class var2, boolean var3) {
+        super(var1, Material.WOOD);
+        this.isFreestanding = var3;
+        this.blockIndexInTexture = 4;
+        this.signEntityClass = var2;
+        float var4 = 0.25F;
+        float var5 = 1.0F;
+        this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var5, 0.5F + var4);
+    }
+
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+        return null;
+    }
+
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
+        if (!this.isFreestanding) {
+            int var5 = blockAccess.getBlockMetadata(var2, var3, var4);
+            float var6 = 0.28125F;
+            float var7 = 0.78125F;
+            float var8 = 0.0F;
+            float var9 = 1.0F;
+            float var10 = 0.125F;
+            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+            if (var5 == 2) {
+                this.setBlockBounds(var8, var6, 1.0F - var10, var9, var7, 1.0F);
+            }
+
+            if (var5 == 3) {
+                this.setBlockBounds(var8, var6, 0.0F, var9, var7, var10);
+            }
+
+            if (var5 == 4) {
+                this.setBlockBounds(1.0F - var10, var6, var8, 1.0F, var7, var9);
+            }
+
+            if (var5 == 5) {
+                this.setBlockBounds(0.0F, var6, var8, var10, var7, var9);
+            }
+
+        }
+    }
+
+    public boolean isACube() {
+        return false;
+    }
+
+    public boolean isOpaqueCube() {
+        return false;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected TileEntity getBlockEntity() {
+        try {
+            return (TileEntity) this.signEntityClass.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int idDropped(int var1, Random random) {
+        return Item.SIGN.shiftedIndex;
+    }
+
+    public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
+        boolean var6 = false;
+        if (this.isFreestanding) {
+            if (!world.getBlockMaterial(var2, var3 - 1, var4).isSolid()) {
+                var6 = true;
+            }
+        } else {
+            int var7 = world.getBlockMetadata(var2, var3, var4);
+            var6 = var7 != 2 || !world.getBlockMaterial(var2, var3, var4 + 1).isSolid();
+
+            if (var7 == 3 && world.getBlockMaterial(var2, var3, var4 - 1).isSolid()) {
+                var6 = false;
+            }
+
+            if (var7 == 4 && world.getBlockMaterial(var2 + 1, var3, var4).isSolid()) {
+                var6 = false;
+            }
+
+            if (var7 == 5 && world.getBlockMaterial(var2 - 1, var3, var4).isSolid()) {
+                var6 = false;
+            }
+        }
+
+        if (var6) {
+            this.dropBlockAsItem(world, var2, var3, var4, world.getBlockMetadata(var2, var3, var4));
+            world.setBlockWithNotify(var2, var3, var4, 0);
+        }
+
+        super.onNeighborBlockChange(world, var2, var3, var4, var5);
+    }
+}

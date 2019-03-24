@@ -35,13 +35,14 @@ public class TileEntity {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static TileEntity createAndLoadEntity(NBTTagCompound var0) {
         TileEntity var1 = null;
 
         try {
             Class var2 = (Class) nameToClassMap.get(var0.getString("id"));
             if (var2 != null) {
-                var1 = (TileEntity) var2.newInstance();
+                var1 = (TileEntity) var2.getDeclaredConstructor().newInstance();
             }
         } catch (Exception e) {
             e.printStackTrace();

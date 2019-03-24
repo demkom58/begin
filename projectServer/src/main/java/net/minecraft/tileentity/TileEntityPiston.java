@@ -1,0 +1,132 @@
+package net.minecraft.tileentity;
+
+import net.minecraft.block.PistonBlockTextures;
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TileEntityPiston extends TileEntity {
+    private static List<Entity> field_31013_m = new ArrayList<>();
+    private int storedBlockID;
+    private int storedMetadata;
+    private int storedOrientation;
+    private boolean isExtending;
+    private boolean field_31018_j;
+    private float progress;
+    private float lastProgress;
+
+    public TileEntityPiston() {
+    }
+
+    public TileEntityPiston(int var1, int var2, int var3, boolean var4, boolean var5) {
+        this.storedBlockID = var1;
+        this.storedMetadata = var2;
+        this.storedOrientation = var3;
+        this.isExtending = var4;
+        this.field_31018_j = var5;
+    }
+
+    public int getStoredBlockID() {
+        return this.storedBlockID;
+    }
+
+    public int func_31005_e() {
+        return this.storedMetadata;
+    }
+
+    public boolean func_31010_c() {
+        return this.isExtending;
+    }
+
+    public int func_31008_d() {
+        return this.storedOrientation;
+    }
+
+    public float func_31007_a(float var1) {
+        if (var1 > 1.0F) {
+            var1 = 1.0F;
+        }
+
+        return this.lastProgress + (this.progress - this.lastProgress) * var1;
+    }
+
+    private void func_31009_a(float var1, float var2) {
+        if (!this.isExtending) {
+            --var1;
+        } else {
+            var1 = 1.0F - var1;
+        }
+
+        AxisAlignedBB var3 = Block.PISTON_MOVING.func_31032_a(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, var1, this.storedOrientation);
+        if (var3 != null) {
+            List<Entity> var4 = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, var3);
+            if (!var4.isEmpty()) {
+                field_31013_m.addAll(var4);
+
+                for (Entity var6 : field_31013_m) {
+                    var6.moveEntity((double) (var2 * (float) PistonBlockTextures.field_31051_b[this.storedOrientation]), (double) (var2 * (float) PistonBlockTextures.field_31054_c[this.storedOrientation]), (double) (var2 * (float) PistonBlockTextures.field_31053_d[this.storedOrientation]));
+                }
+
+                field_31013_m.clear();
+            }
+        }
+
+    }
+
+    public void clearPistonTileEntity() {
+        if (this.lastProgress < 1.0F) {
+            this.lastProgress = this.progress = 1.0F;
+            this.worldObj.removeBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
+            this.invalidate();
+            if (this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.PISTON_MOVING.blockID) {
+                this.worldObj.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, this.storedMetadata);
+            }
+        }
+
+    }
+
+    public void updateEntity() {
+        this.lastProgress = this.progress;
+        if (this.lastProgress >= 1.0F) {
+            this.func_31009_a(1.0F, 0.25F);
+            this.worldObj.removeBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
+            this.invalidate();
+            if (this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.PISTON_MOVING.blockID) {
+                this.worldObj.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, this.storedMetadata);
+            }
+
+        } else {
+            this.progress += 0.5F;
+            if (this.progress >= 1.0F) {
+                this.progress = 1.0F;
+            }
+
+            if (this.isExtending) {
+                this.func_31009_a(this.progress, this.progress - this.lastProgress + 0.0625F);
+            }
+
+        }
+    }
+
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        this.storedBlockID = compound.getInteger("blockId");
+        this.storedMetadata = compound.getInteger("blockData");
+        this.storedOrientation = compound.getInteger("facing");
+        this.lastProgress = this.progress = compound.getFloat("progress");
+        this.isExtending = compound.getBoolean("extending");
+    }
+
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        compound.setInteger("blockId", this.storedBlockID);
+        compound.setInteger("blockData", this.storedMetadata);
+        compound.setInteger("facing", this.storedOrientation);
+        compound.setFloat("progress", this.lastProgress);
+        compound.setBoolean("extending", this.isExtending);
+    }
+}

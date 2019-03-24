@@ -1,8 +1,8 @@
 package com.demkom58.timings;
 
 import com.google.common.collect.Sets;
-import net.minecraft.Entity;
-import net.minecraft.Material;
+import net.minecraft.entity.Entity;
+import net.minecraft.material.Material;
 import net.minecraft.server.MinecraftServer;
 import org.json.simple.JSONValue;
 

@@ -1,9 +1,9 @@
 package com.demkom58.timings;
 
 import com.google.common.collect.MapMaker;
-import net.minecraft.Entity;
-import net.minecraft.Packet;
-import net.minecraft.TileEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.tileentity.TileEntity;
 
 import java.util.Map;
 
