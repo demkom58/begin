@@ -67,7 +67,7 @@ public class NetworkListenThread {
                 this.pendingConnections.remove(i--);
             }
 
-            loginHandler.netManager.func_28138_a();
+            loginHandler.netManager.interrupt();
         }
 
         for (int i = 0; i < this.playerList.size(); ++i) {
@@ -84,7 +84,7 @@ public class NetworkListenThread {
                 this.playerList.remove(i--);
             }
 
-            serverHandler.netManager.func_28138_a();
+            serverHandler.netManager.interrupt();
         }
 
     }

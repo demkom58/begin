@@ -23,12 +23,12 @@ class NetworkWriterThread extends Thread {
             } catch (InterruptedException e) { }
 
             try {
-                if (NetworkManager.func_28136_f(this.networkManager) != null) {
-                    NetworkManager.func_28136_f(this.networkManager).flush();
+                if (NetworkManager.getOutputStream(this.networkManager) != null) {
+                    NetworkManager.getOutputStream(this.networkManager).flush();
                 }
             } catch (IOException e) {
-                if (!NetworkManager.func_28135_e(this.networkManager)) {
-                    NetworkManager.func_30007_a(this.networkManager, e);
+                if (!NetworkManager.isTerminating(this.networkManager)) {
+                    NetworkManager.networkError(this.networkManager, e);
                 }
 
                 e.printStackTrace();

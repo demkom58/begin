@@ -22,7 +22,7 @@ public class NetworkManager {
     public static int[] field_28140_e = new int[256];
     private final SocketAddress remoteSocketAddress;
     public int chunkDataSendCounter = 0;
-    private Object sendQueueLock = new Object();
+    private final Object sendQueueLock = new Object();
     private Socket networkSocket;
     private DataInputStream socketInputStream;
     private DataOutputStream socketOutputStream;
@@ -41,83 +41,83 @@ public class NetworkManager {
     private int sendQueueByteLength = 0;
     private int field_20175_w = 50;
 
-    public NetworkManager(Socket var1, String var2, NetHandler var3) throws IOException {
-        this.networkSocket = var1;
-        this.remoteSocketAddress = var1.getRemoteSocketAddress();
-        this.netHandler = var3;
+    public NetworkManager(Socket networkSocket, String name, NetHandler netHandler) throws IOException {
+        this.networkSocket = networkSocket;
+        this.remoteSocketAddress = networkSocket.getRemoteSocketAddress();
+        this.netHandler = netHandler;
 
         try {
-            var1.setSoTimeout(30000);
-            var1.setTrafficClass(24);
+            networkSocket.setSoTimeout(30000);
+            networkSocket.setTrafficClass(24);
         } catch (SocketException e) {
             System.err.println(e.getMessage());
         }
 
-        this.socketInputStream = new DataInputStream(var1.getInputStream());
-        this.socketOutputStream = new DataOutputStream(new BufferedOutputStream(var1.getOutputStream(), 5120));
-        this.readThread = new NetworkReaderThread(this, var2 + " read thread");
-        this.writeThread = new NetworkWriterThread(this, var2 + " write thread");
+        this.socketInputStream = new DataInputStream(networkSocket.getInputStream());
+        this.socketOutputStream = new DataOutputStream(new BufferedOutputStream(networkSocket.getOutputStream(), 5120));
+        this.readThread = new NetworkReaderThread(this, name + " read thread");
+        this.writeThread = new NetworkWriterThread(this, name + " write thread");
         this.readThread.start();
         this.writeThread.start();
     }
 
     // $FF: synthetic method
-    static boolean isRunning(NetworkManager var0) {
-        return var0.isRunning;
+    static boolean isRunning(NetworkManager networkManager) {
+        return networkManager.isRunning;
     }
 
     // $FF: synthetic method
-    static boolean isServerTerminating(NetworkManager var0) {
-        return var0.isServerTerminating;
+    static boolean isServerTerminating(NetworkManager networkManager) {
+        return networkManager.isServerTerminating;
     }
 
     // $FF: synthetic method
-    static boolean readNetworkPacket(NetworkManager var0) {
-        return var0.readPacket();
+    static boolean readNetworkPacket(NetworkManager networkManager) {
+        return networkManager.readPacket();
     }
 
     // $FF: synthetic method
-    static boolean sendNetworkPacket(NetworkManager var0) {
-        return var0.sendPacket();
+    static boolean sendNetworkPacket(NetworkManager networkManager) {
+        return networkManager.sendPacket();
     }
 
     // $FF: synthetic method
-    static DataOutputStream func_28136_f(NetworkManager var0) {
-        return var0.socketOutputStream;
+    static DataOutputStream getOutputStream(NetworkManager networkManager) {
+        return networkManager.socketOutputStream;
     }
 
     // $FF: synthetic method
-    static boolean func_28135_e(NetworkManager var0) {
-        return var0.isTerminating;
+    static boolean isTerminating(NetworkManager networkManager) {
+        return networkManager.isTerminating;
     }
 
     // $FF: synthetic method
-    static void func_30007_a(NetworkManager var0, Exception e) {
-        var0.onNetworkError(e);
+    static void networkError(NetworkManager networkManager, Exception e) {
+        networkManager.onNetworkError(e);
     }
 
     // $FF: synthetic method
-    static Thread getReadThread(NetworkManager var0) {
-        return var0.readThread;
+    static Thread getReadThread(NetworkManager networkManager) {
+        return networkManager.readThread;
     }
 
     // $FF: synthetic method
-    static Thread getWriteThread(NetworkManager var0) {
-        return var0.writeThread;
+    static Thread getWriteThread(NetworkManager networkManager) {
+        return networkManager.writeThread;
     }
 
-    public void setNetHandler(NetHandler var1) {
-        this.netHandler = var1;
+    public void setNetHandler(NetHandler netHandler) {
+        this.netHandler = netHandler;
     }
 
-    public void addToSendQueue(Packet var1) {
+    public void addToSendQueue(Packet packet) {
         if (!this.isServerTerminating) {
             synchronized (this.sendQueueLock) {
-                this.sendQueueByteLength += var1.getPacketSize() + 1;
-                if (var1.isChunkDataPacket) {
-                    this.chunkDataPackets.add(var1);
+                this.sendQueueByteLength += packet.getPacketSize() + 1;
+                if (packet.isChunkDataPacket) {
+                    this.chunkDataPackets.add(packet);
                 } else {
-                    this.dataPackets.add(var1);
+                    this.dataPackets.add(packet);
                 }
 
             }
@@ -125,39 +125,42 @@ public class NetworkManager {
     }
 
     private boolean sendPacket() {
-        boolean var1 = false;
+        boolean done = false;
 
         try {
-            if (!this.dataPackets.isEmpty() && (this.chunkDataSendCounter == 0 || System.currentTimeMillis() - this.dataPackets.get(0).creationTimeMillis >= (long) this.chunkDataSendCounter)) {
-                Packet var2;
+            if (!this.dataPackets.isEmpty() && (this.chunkDataSendCounter == 0
+                    || System.currentTimeMillis() - this.dataPackets.get(0).creationTimeMillis >= (long) this.chunkDataSendCounter)) {
+                Packet packet;
                 synchronized (this.sendQueueLock) {
-                    var2 = this.dataPackets.remove(0);
-                    this.sendQueueByteLength -= var2.getPacketSize() + 1;
+                    packet = this.dataPackets.remove(0);
+                    this.sendQueueByteLength -= packet.getPacketSize() + 1;
                 }
 
-                Packet.writePacket(var2, this.socketOutputStream);
-                int[] var10000 = field_28140_e;
-                int var10001 = var2.getPacketId();
-                var10000[var10001] += var2.getPacketSize() + 1;
-                var1 = true;
+                Packet.writePacket(packet, this.socketOutputStream);
+                int[] space = field_28140_e;
+                int packetId = packet.getPacketId();
+                space[packetId] += packet.getPacketSize() + 1;
+                done = true;
             }
 
-            if (this.field_20175_w-- <= 0 && !this.chunkDataPackets.isEmpty() && (this.chunkDataSendCounter == 0 || System.currentTimeMillis() - this.chunkDataPackets.get(0).creationTimeMillis >= (long) this.chunkDataSendCounter)) {
-                Packet var9;
+            if (this.field_20175_w-- <= 0 && !this.chunkDataPackets.isEmpty()
+                    && (this.chunkDataSendCounter == 0 || System.currentTimeMillis() - this.chunkDataPackets.get(0).creationTimeMillis >= (long) this.chunkDataSendCounter)) {
+
+                Packet packet;
                 synchronized (this.sendQueueLock) {
-                    var9 = this.chunkDataPackets.remove(0);
-                    this.sendQueueByteLength -= var9.getPacketSize() + 1;
+                    packet = this.chunkDataPackets.remove(0);
+                    this.sendQueueByteLength -= packet.getPacketSize() + 1;
                 }
 
-                Packet.writePacket(var9, this.socketOutputStream);
-                int[] var12 = field_28140_e;
-                int var13 = var9.getPacketId();
-                var12[var13] += var9.getPacketSize() + 1;
+                Packet.writePacket(packet, this.socketOutputStream);
+                int[] space = field_28140_e;
+                int packetId = packet.getPacketId();
+                space[packetId] += packet.getPacketSize() + 1;
                 this.field_20175_w = 0;
-                var1 = true;
+                done = true;
             }
 
-            return var1;
+            return done;
         } catch (Exception e) {
             if (!this.isTerminating) {
                 this.onNetworkError(e);
@@ -167,27 +170,27 @@ public class NetworkManager {
         }
     }
 
-    public void func_28138_a() {
+    public void interrupt() {
         this.readThread.interrupt();
         this.writeThread.interrupt();
     }
 
     private boolean readPacket() {
-        boolean var1 = false;
+        boolean done = false;
 
         try {
-            Packet var2 = Packet.readPacket(this.socketInputStream, this.netHandler.isServerHandler());
-            if (var2 != null) {
-                int[] var10000 = field_28141_d;
-                int var10001 = var2.getPacketId();
-                var10000[var10001] += var2.getPacketSize() + 1;
-                this.readPackets.add(var2);
-                var1 = true;
+            Packet packet = Packet.readPacket(this.socketInputStream, this.netHandler.isServerHandler());
+            if (packet != null) {
+                int[] space = field_28141_d;
+                int packetId = packet.getPacketId();
+                space[packetId] += packet.getPacketSize() + 1;
+                this.readPackets.add(packet);
+                done = true;
             } else {
                 this.networkShutdown("disconnect.endOfStream");
             }
 
-            return var1;
+            return done;
         } catch (Exception e) {
             if (!this.isTerminating) {
                 this.onNetworkError(e);
@@ -202,11 +205,11 @@ public class NetworkManager {
         this.networkShutdown("disconnect.genericReason", "Internal exception: " + e.toString());
     }
 
-    public void networkShutdown(String var1, Object... var2) {
+    public void networkShutdown(String reason, Object... additional) {
         if (this.isRunning) {
             this.isTerminating = true;
-            this.terminationReason = var1;
-            this.field_20176_t = var2;
+            this.terminationReason = reason;
+            this.field_20176_t = additional;
             (new NetworkMasterThread(this)).start();
             this.isRunning = false;
 
@@ -254,7 +257,7 @@ public class NetworkManager {
 
         }
 
-        this.func_28138_a();
+        this.interrupt();
         if (this.isTerminating && this.readPackets.isEmpty()) {
             this.netHandler.handleErrorMessage(this.terminationReason, this.field_20176_t);
         }
@@ -266,7 +269,7 @@ public class NetworkManager {
     }
 
     public void serverShutdown() {
-        this.func_28138_a();
+        this.interrupt();
         this.isServerTerminating = true;
         this.readThread.interrupt();
         (new ThreadMonitorConnection(this)).start();
@@ -275,4 +278,5 @@ public class NetworkManager {
     public int getNumChunkDataPackets() {
         return this.chunkDataPackets.size();
     }
+
 }
