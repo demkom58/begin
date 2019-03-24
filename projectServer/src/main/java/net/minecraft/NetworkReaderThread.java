@@ -1,12 +1,11 @@
 package net.minecraft;
 
 class NetworkReaderThread extends Thread {
-    // $FF: synthetic field
-    final NetworkManager netManager;
+    private final NetworkManager networkManager;
 
-    NetworkReaderThread(NetworkManager var1, String var2) {
-        super(var2);
-        this.netManager = var1;
+    NetworkReaderThread(NetworkManager networkManager, String name) {
+        super(name);
+        this.networkManager = networkManager;
     }
 
     public void run() {
@@ -15,33 +14,18 @@ class NetworkReaderThread extends Thread {
         }
 
         while (true) {
-            boolean var12 = false;
+            if (!NetworkManager.isRunning(this.networkManager))
+                break;
+
+            if (NetworkManager.isServerTerminating(this.networkManager))
+                break;
+
+            while (NetworkManager.readNetworkPacket(this.networkManager)) { }
 
             try {
-                var12 = true;
-                if (!NetworkManager.isRunning(this.netManager)) {
-                    var12 = false;
-                    break;
-                }
+                sleep(100L);
+            } catch (InterruptedException ignored) { }
 
-                if (NetworkManager.isServerTerminating(this.netManager)) {
-                    var12 = false;
-                    break;
-                }
-
-                while (NetworkManager.readNetworkPacket(this.netManager)) {
-                }
-
-                try {
-                    sleep(100L);
-                } catch (InterruptedException e) { }
-            } finally {
-                if (var12) {
-                    synchronized (NetworkManager.threadSyncObject) {
-                        --NetworkManager.numReadThreads;
-                    }
-                }
-            }
         }
 
         synchronized (NetworkManager.threadSyncObject) {

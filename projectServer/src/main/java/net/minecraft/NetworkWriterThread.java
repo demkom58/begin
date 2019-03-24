@@ -3,11 +3,11 @@ package net.minecraft;
 import java.io.IOException;
 
 class NetworkWriterThread extends Thread {
-    private final NetworkManager netManager;
+    private final NetworkManager networkManager;
 
-    NetworkWriterThread(NetworkManager networkManager, String var2) {
-        super(var2);
-        this.netManager = networkManager;
+    NetworkWriterThread(NetworkManager networkManager, String name) {
+        super(name);
+        this.networkManager = networkManager;
     }
 
     public void run() {
@@ -15,46 +15,29 @@ class NetworkWriterThread extends Thread {
             ++NetworkManager.numWriteThreads;
         }
 
-        while (true) {
-            boolean var13 = false;
+        while (NetworkManager.isRunning(this.networkManager)) {
+            while (NetworkManager.sendNetworkPacket(this.networkManager)) { }
 
             try {
-                var13 = true;
-                if (!NetworkManager.isRunning(this.netManager)) {
-                    var13 = false;
-                    break;
+                sleep(100L);
+            } catch (InterruptedException e) { }
+
+            try {
+                if (NetworkManager.func_28136_f(this.networkManager) != null) {
+                    NetworkManager.func_28136_f(this.networkManager).flush();
+                }
+            } catch (IOException e) {
+                if (!NetworkManager.func_28135_e(this.networkManager)) {
+                    NetworkManager.func_30007_a(this.networkManager, e);
                 }
 
-                while (NetworkManager.sendNetworkPacket(this.netManager)) {
-                }
-
-                try {
-                    sleep(100L);
-                } catch (InterruptedException e) {
-                }
-
-                try {
-                    if (NetworkManager.func_28136_f(this.netManager) != null) {
-                        NetworkManager.func_28136_f(this.netManager).flush();
-                    }
-                } catch (IOException e) {
-                    if (!NetworkManager.func_28135_e(this.netManager)) {
-                        NetworkManager.func_30007_a(this.netManager, e);
-                    }
-
-                    e.printStackTrace();
-                }
-            } finally {
-                if (var13) {
-                    synchronized (NetworkManager.threadSyncObject) {
-                        --NetworkManager.numWriteThreads;
-                    }
-                }
+                e.printStackTrace();
             }
         }
 
         synchronized (NetworkManager.threadSyncObject) {
             --NetworkManager.numWriteThreads;
         }
+
     }
 }

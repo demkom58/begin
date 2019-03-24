@@ -37,7 +37,7 @@ public class GuiStatsComponent extends JComponent {
         long var1 = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
         System.gc();
         this.displayStrings[0] = "Memory use: " + var1 / 1024L / 1024L + " mb (" + Runtime.getRuntime().freeMemory() * 100L / Runtime.getRuntime().maxMemory() + "% free)";
-        this.displayStrings[1] = "Threads: " + NetworkManager.numReadThreads + " + " + NetworkManager.numWriteThreads;
+        this.displayStrings[1] = "Threads: " + NetworkManager.numReadThreads + " readers and " + NetworkManager.numWriteThreads + " writers";
 
         String tps1 = format.format(server.tps1.getAverage());
         String tps5 = format.format(server.tps5.getAverage());
