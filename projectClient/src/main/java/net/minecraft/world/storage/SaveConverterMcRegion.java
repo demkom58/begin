@@ -1,10 +1,10 @@
 package net.minecraft.world.storage;
 
-import net.minecraft.ChunkFile;
-import net.minecraft.ChunkFilePattern;
-import net.minecraft.ChunkFolderPattern;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.world.WorldInfo;
+import net.minecraft.world.chunk.ChunkFile;
+import net.minecraft.world.chunk.ChunkFilePattern;
+import net.minecraft.world.chunk.ChunkFolderPattern;
 import util.MathHelper;
 
 import java.io.*;

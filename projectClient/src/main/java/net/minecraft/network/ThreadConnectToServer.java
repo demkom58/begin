@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 
-class ThreadConnectToServer extends Thread {
+public class ThreadConnectToServer extends Thread {
     // $FF: synthetic field
     final Minecraft mc;
     // $FF: synthetic field
@@ -18,7 +18,7 @@ class ThreadConnectToServer extends Thread {
     // $FF: synthetic field
     final GuiConnecting connectingGui;
 
-    ThreadConnectToServer(GuiConnecting var1, Minecraft var2, String var3, int var4) {
+    public ThreadConnectToServer(GuiConnecting var1, Minecraft var2, String var3, int var4) {
         this.connectingGui = var1;
         this.mc = var2;
         this.hostName = var3;

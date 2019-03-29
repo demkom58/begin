@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import net.minecraft.SorterStatsItem;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.stats.StatCrafting;
 import net.minecraft.stats.StatList;

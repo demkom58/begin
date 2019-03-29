@@ -16,17 +16,17 @@ public class GuiConnecting extends GuiScreen {
     }
 
     // $FF: synthetic method
-    static NetClientHandler setNetClientHandler(GuiConnecting var0, NetClientHandler var1) {
+    public static NetClientHandler setNetClientHandler(GuiConnecting var0, NetClientHandler var1) {
         return var0.clientHandler = var1;
     }
 
     // $FF: synthetic method
-    static boolean isCancelled(GuiConnecting var0) {
+    public static boolean isCancelled(GuiConnecting var0) {
         return var0.cancelled;
     }
 
     // $FF: synthetic method
-    static NetClientHandler getNetClientHandler(GuiConnecting var0) {
+    public static NetClientHandler getNetClientHandler(GuiConnecting var0) {
         return var0.clientHandler;
     }
 

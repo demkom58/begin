@@ -1,5 +1,7 @@
 package net.minecraft.entity.monster;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityMob;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;

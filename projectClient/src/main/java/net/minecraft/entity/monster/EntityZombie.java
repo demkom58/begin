@@ -1,5 +1,6 @@
 package net.minecraft.entity.monster;
 
+import net.minecraft.entity.EntityMob;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import util.MathHelper;

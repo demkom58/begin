@@ -2,6 +2,7 @@ package net.minecraft.entity.monster;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.render.Tessellator;
+import net.minecraft.entity.EntityFX;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
