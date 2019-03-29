@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.ChatLine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.*;
+import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.inventory.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.material.Material;

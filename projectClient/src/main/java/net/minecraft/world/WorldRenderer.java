@@ -2,8 +2,8 @@ package net.minecraft.world;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.render.ICamera;
-import net.minecraft.client.render.RenderBlocks;
-import net.minecraft.client.render.RenderItem;
+import net.minecraft.client.render.entity.RenderBlocks;
+import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;

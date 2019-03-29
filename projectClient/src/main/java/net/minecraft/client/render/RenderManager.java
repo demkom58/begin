@@ -3,6 +3,7 @@ package net.minecraft.client.render;
 import net.minecraft.block.Block;
 import net.minecraft.client.GameSettings;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityItem;

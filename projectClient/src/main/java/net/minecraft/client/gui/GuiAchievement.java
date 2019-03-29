@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.render.RenderHelper;
-import net.minecraft.client.render.RenderItem;
+import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.client.render.ScaledResolution;
 import net.minecraft.achievement.Achievement;
 import net.minecraft.client.Minecraft;

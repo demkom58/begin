@@ -2,6 +2,8 @@ package net.minecraft.client.render;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.render.entity.RenderBlocks;
+import net.minecraft.client.render.entity.RenderSorter;
 import net.minecraft.entity.*;
 import net.minecraft.entity.monster.EntitySlimeFX;
 import net.minecraft.entity.player.EntityPlayer;

@@ -6,6 +6,8 @@ import net.minecraft.client.input.MouseHelper;
 import net.minecraft.client.input.MovementInputFromOptions;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.render.*;
+import net.minecraft.client.render.entity.RenderBlocks;
+import net.minecraft.client.render.texture.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.client.gui.*;

@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.TexturePackBase;
+import net.minecraft.client.render.texture.TexturePackBase;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.render.RenderHelper;
-import net.minecraft.client.render.RenderItem;
+import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryPlayer;
 import net.minecraft.inventory.Slot;

@@ -3,6 +3,7 @@ package net.minecraft.client.render;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.block.Block;
+import net.minecraft.client.render.entity.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -16,45 +17,45 @@ public abstract class Render {
     private ModelBase modelBase = new ModelBiped();
     private RenderBlocks renderBlocks = new RenderBlocks();
 
-    public static void renderOffsetAABB(AxisAlignedBB var0, double var1, double var3, double var5) {
-        GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
-        Tessellator var7 = Tessellator.INSTANCE;
+    public static void renderOffsetAABB(AxisAlignedBB axis, double x, double y, double z) {
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        Tessellator tess = Tessellator.INSTANCE;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        var7.startDrawingQuads();
-        var7.setTranslationD(var1, var3, var5);
-        var7.setNormal(0.0F, 0.0F, -1.0F);
-        var7.addVertex(var0.minX, var0.maxY, var0.minZ);
-        var7.addVertex(var0.maxX, var0.maxY, var0.minZ);
-        var7.addVertex(var0.maxX, var0.minY, var0.minZ);
-        var7.addVertex(var0.minX, var0.minY, var0.minZ);
-        var7.setNormal(0.0F, 0.0F, 1.0F);
-        var7.addVertex(var0.minX, var0.minY, var0.maxZ);
-        var7.addVertex(var0.maxX, var0.minY, var0.maxZ);
-        var7.addVertex(var0.maxX, var0.maxY, var0.maxZ);
-        var7.addVertex(var0.minX, var0.maxY, var0.maxZ);
-        var7.setNormal(0.0F, -1.0F, 0.0F);
-        var7.addVertex(var0.minX, var0.minY, var0.minZ);
-        var7.addVertex(var0.maxX, var0.minY, var0.minZ);
-        var7.addVertex(var0.maxX, var0.minY, var0.maxZ);
-        var7.addVertex(var0.minX, var0.minY, var0.maxZ);
-        var7.setNormal(0.0F, 1.0F, 0.0F);
-        var7.addVertex(var0.minX, var0.maxY, var0.maxZ);
-        var7.addVertex(var0.maxX, var0.maxY, var0.maxZ);
-        var7.addVertex(var0.maxX, var0.maxY, var0.minZ);
-        var7.addVertex(var0.minX, var0.maxY, var0.minZ);
-        var7.setNormal(-1.0F, 0.0F, 0.0F);
-        var7.addVertex(var0.minX, var0.minY, var0.maxZ);
-        var7.addVertex(var0.minX, var0.maxY, var0.maxZ);
-        var7.addVertex(var0.minX, var0.maxY, var0.minZ);
-        var7.addVertex(var0.minX, var0.minY, var0.minZ);
-        var7.setNormal(1.0F, 0.0F, 0.0F);
-        var7.addVertex(var0.maxX, var0.minY, var0.minZ);
-        var7.addVertex(var0.maxX, var0.maxY, var0.minZ);
-        var7.addVertex(var0.maxX, var0.maxY, var0.maxZ);
-        var7.addVertex(var0.maxX, var0.minY, var0.maxZ);
-        var7.setTranslationD(0.0D, 0.0D, 0.0D);
-        var7.draw();
-        GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
+        tess.startDrawingQuads();
+        tess.setTranslationD(x, y, z);
+        tess.setNormal(0.0F, 0.0F, -1.0F);
+        tess.addVertex(axis.minX, axis.maxY, axis.minZ);
+        tess.addVertex(axis.maxX, axis.maxY, axis.minZ);
+        tess.addVertex(axis.maxX, axis.minY, axis.minZ);
+        tess.addVertex(axis.minX, axis.minY, axis.minZ);
+        tess.setNormal(0.0F, 0.0F, 1.0F);
+        tess.addVertex(axis.minX, axis.minY, axis.maxZ);
+        tess.addVertex(axis.maxX, axis.minY, axis.maxZ);
+        tess.addVertex(axis.maxX, axis.maxY, axis.maxZ);
+        tess.addVertex(axis.minX, axis.maxY, axis.maxZ);
+        tess.setNormal(0.0F, -1.0F, 0.0F);
+        tess.addVertex(axis.minX, axis.minY, axis.minZ);
+        tess.addVertex(axis.maxX, axis.minY, axis.minZ);
+        tess.addVertex(axis.maxX, axis.minY, axis.maxZ);
+        tess.addVertex(axis.minX, axis.minY, axis.maxZ);
+        tess.setNormal(0.0F, 1.0F, 0.0F);
+        tess.addVertex(axis.minX, axis.maxY, axis.maxZ);
+        tess.addVertex(axis.maxX, axis.maxY, axis.maxZ);
+        tess.addVertex(axis.maxX, axis.maxY, axis.minZ);
+        tess.addVertex(axis.minX, axis.maxY, axis.minZ);
+        tess.setNormal(-1.0F, 0.0F, 0.0F);
+        tess.addVertex(axis.minX, axis.minY, axis.maxZ);
+        tess.addVertex(axis.minX, axis.maxY, axis.maxZ);
+        tess.addVertex(axis.minX, axis.maxY, axis.minZ);
+        tess.addVertex(axis.minX, axis.minY, axis.minZ);
+        tess.setNormal(1.0F, 0.0F, 0.0F);
+        tess.addVertex(axis.maxX, axis.minY, axis.minZ);
+        tess.addVertex(axis.maxX, axis.maxY, axis.minZ);
+        tess.addVertex(axis.maxX, axis.maxY, axis.maxZ);
+        tess.addVertex(axis.maxX, axis.minY, axis.maxZ);
+        tess.setTranslationD(0.0D, 0.0D, 0.0D);
+        tess.draw();
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
 
     public static void renderAABB(AxisAlignedBB var0) {
@@ -106,7 +107,7 @@ public abstract class Render {
     }
 
     private void renderEntityOnFire(Entity var1, double var2, double var4, double var6, float var8) {
-        GL11.glDisable(2896 /*GL_LIGHTING*/);
+        GL11.glDisable(GL11.GL_LIGHTING);
         int var9 = Block.FIRE.blockIndexInTexture;
         int var10 = (var9 & 15) << 4;
         int var11 = var9 & 240;
@@ -163,11 +164,11 @@ public abstract class Render {
 
         var17.draw();
         GL11.glPopMatrix();
-        GL11.glEnable(2896 /*GL_LIGHTING*/);
+        GL11.glEnable(GL11.GL_LIGHTING);
     }
 
     private void renderShadow(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-        GL11.glEnable(3042 /*GL_BLEND*/);
+        GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(770, 771);
         RenderEngine var10 = this.renderManager.renderEngine;
         var10.bindTexture(var10.getTexture("%clamp%/misc/shadow.png"));
@@ -202,7 +203,7 @@ public abstract class Render {
 
         var31.draw();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glDisable(3042 /*GL_BLEND*/);
+        GL11.glDisable(GL11.GL_BLEND);
         GL11.glDepthMask(true);
     }
 

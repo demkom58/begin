@@ -3,7 +3,7 @@ package net.minecraft.tileentity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.RenderBlocks;
+import net.minecraft.client.render.entity.RenderBlocks;
 import net.minecraft.client.render.RenderHelper;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.world.World;

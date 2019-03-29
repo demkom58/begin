@@ -1,6 +1,9 @@
 package net.minecraft.client.render;
 
 import net.minecraft.client.GameSettings;
+import net.minecraft.client.render.texture.TextureFX;
+import net.minecraft.client.render.texture.TexturePackBase;
+import net.minecraft.client.render.texture.TexturePackList;
 import org.lwjgl.opengl.GL11;
 
 import javax.imageio.ImageIO;
