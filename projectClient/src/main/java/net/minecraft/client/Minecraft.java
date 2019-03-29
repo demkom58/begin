@@ -1,6 +1,31 @@
 package net.minecraft.client;
 
-import net.minecraft.*;
+import net.minecraft.achievement.AchievementList;
+import net.minecraft.block.Block;
+import net.minecraft.client.input.MouseHelper;
+import net.minecraft.client.input.MovementInputFromOptions;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.render.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.item.ItemRenderer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.NetClientHandler;
+import net.minecraft.sound.SoundManager;
+import net.minecraft.stats.StatFileWriter;
+import net.minecraft.stats.StatList;
+import net.minecraft.stats.StatStringFormatKeyInv;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldProvider;
+import net.minecraft.world.WorldRenderer;
+import net.minecraft.world.chunk.ChunkCoordinates;
+import net.minecraft.world.chunk.ChunkProviderLoadOrGenerate;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.storage.ISaveFormat;
+import net.minecraft.world.storage.ISaveHandler;
+import net.minecraft.world.storage.SaveConverterMcRegion;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controllers;
 import org.lwjgl.input.Keyboard;
@@ -347,7 +372,7 @@ public abstract class Minecraft implements Runnable {
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
         GL11.glViewport(0, 0, this.displayWidth, this.displayHeight);
         GL11.glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
-        Tessellator var2 = Tessellator.instance;
+        Tessellator var2 = Tessellator.INSTANCE;
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_FOG);
@@ -374,7 +399,7 @@ public abstract class Minecraft implements Runnable {
     public void func_6274_a(int var1, int var2, int var3, int var4, int var5, int var6) {
         float var7 = 0.00390625F;
         float var8 = 0.00390625F;
-        Tessellator var9 = Tessellator.instance;
+        Tessellator var9 = Tessellator.INSTANCE;
         var9.startDrawingQuads();
         var9.addVertexWithUV((double) (var1 + 0), (double) (var2 + var6), 0.0D, (double) ((float) (var3 + 0) * var7), (double) ((float) (var4 + var6) * var8));
         var9.addVertexWithUV((double) (var1 + var5), (double) (var2 + var6), 0.0D, (double) ((float) (var3 + var5) * var7), (double) ((float) (var4 + var6) * var8));
@@ -667,7 +692,7 @@ public abstract class Minecraft implements Runnable {
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
         GL11.glLineWidth(1.0F);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
-        Tessellator var7 = Tessellator.instance;
+        Tessellator var7 = Tessellator.INSTANCE;
         var7.startDrawing(7);
         int var8 = (int) (var3 / 200000L);
         var7.setColorOpaque_I(536870912);

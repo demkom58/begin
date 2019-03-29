@@ -162,29 +162,29 @@ public class DataWatcher {
     }
 
     public ArrayList<WatchableObject> getChangedObjects() {
-        ArrayList<WatchableObject> var1 = null;
+        ArrayList<WatchableObject> list = null;
         if (this.objectChanged) {
-            for (WatchableObject var3 : this.watchedObjects.values()) {
-                if (var3.getWatching()) {
-                    var3.setWatching(false);
-                    if (var1 == null) {
-                        var1 = new ArrayList<>();
+            for (WatchableObject wObject : this.watchedObjects.values()) {
+                if (wObject.getWatching()) {
+                    wObject.setWatching(false);
+                    if (list == null) {
+                        list = new ArrayList<>();
                     }
 
-                    var1.add(var3);
+                    list.add(wObject);
                 }
             }
         }
 
         this.objectChanged = false;
-        return var1;
+        return list;
     }
 
-    public void writeWatchableObjects(DataOutputStream var1) throws IOException {
-        for (WatchableObject var3 : this.watchedObjects.values()) {
-            writeWatchableObject(var1, var3);
+    public void writeWatchableObjects(DataOutputStream os) throws IOException {
+        for (WatchableObject wo : this.watchedObjects.values()) {
+            writeWatchableObject(os, wo);
         }
 
-        var1.writeByte(127);
+        os.writeByte(127);
     }
 }

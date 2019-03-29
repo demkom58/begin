@@ -1,6 +1,5 @@
 package net.minecraft.block;
 
-import net.minecraft.*;
 import net.minecraft.material.Material;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;

@@ -1,0 +1,9 @@
+package net.minecraft.world.gen;
+
+import java.util.Random;
+
+public class BiomeGenRainforest extends BiomeGenBase {
+    public WorldGenerator getRandomWorldGenForTrees(Random var1) {
+        return (var1.nextInt(3) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
+    }
+}

@@ -1,6 +1,6 @@
 package net.minecraft.isom;
 
-import net.minecraft.CanvasIsomPreview;
+import net.minecraft.util.CanvasIsomPreview;
 
 import java.applet.Applet;
 import java.awt.*;

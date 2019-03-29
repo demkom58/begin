@@ -398,7 +398,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             var2 = var2.trim();
 
             for (int var3 = 0; var3 < var2.length(); ++var3) {
-                if (ChatAllowedCharacters.allowedCharacters.indexOf(var2.charAt(var3)) < 0) {
+                if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(var2.charAt(var3)) < 0) {
                     this.kickPlayer("Illegal characters in chat");
                     return;
                 }
@@ -553,7 +553,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     var5 = false;
                 } else {
                     for (int var6 = 0; var6 < var1.signLines[var9].length(); ++var6) {
-                        if (ChatAllowedCharacters.allowedCharacters.indexOf(var1.signLines[var9].charAt(var6)) < 0) {
+                        if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(var1.signLines[var9].charAt(var6)) < 0) {
                             var5 = false;
                         }
                     }

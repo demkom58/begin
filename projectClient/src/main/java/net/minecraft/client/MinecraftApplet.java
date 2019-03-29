@@ -1,8 +1,6 @@
 package net.minecraft.client;
 
-import net.minecraft.CanvasMinecraftApplet;
-import net.minecraft.MinecraftAppletImpl;
-import net.minecraft.Session;
+import net.minecraft.client.gui.CanvasMinecraftApplet;
 
 import java.applet.Applet;
 import java.awt.*;
