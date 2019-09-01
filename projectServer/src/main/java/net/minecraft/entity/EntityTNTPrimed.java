@@ -2,7 +2,7 @@ package net.minecraft.entity;
 
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityTNTPrimed extends Entity {
     public int fuse;

@@ -4,7 +4,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkLoader;
 import net.minecraft.world.chunk.IChunkLoader;
 import net.minecraft.nbt.TagCompound;
-import net.minecraft.util.CompressedStreamTools;
+import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldInfo;
 

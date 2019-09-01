@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntitySkeleton extends EntityMob {
     private static final ItemStack defaultHeldItem = new ItemStack(Item.BOW, 1);

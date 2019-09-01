@@ -1,4 +1,4 @@
-package util;
+package net.minecraft.util;
 
 public class MathHelper {
     private static final float[] SIN_TABLE = new float[65536];

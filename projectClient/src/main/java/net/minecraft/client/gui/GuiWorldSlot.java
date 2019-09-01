@@ -3,7 +3,7 @@ package net.minecraft.client.gui;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.world.storage.SaveFormatData;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.util.Date;
 

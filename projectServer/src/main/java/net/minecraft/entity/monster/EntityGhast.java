@@ -7,8 +7,8 @@ import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 public class EntityGhast extends EntityFlying implements IMob {
     public int courseChangeCooldown = 0;

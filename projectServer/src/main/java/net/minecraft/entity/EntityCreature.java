@@ -2,8 +2,8 @@ package net.minecraft.entity;
 
 import net.minecraft.entity.ai.PathEntity;
 import net.minecraft.world.World;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 public class EntityCreature extends EntityLiving {
     protected Entity playerToAttack;

@@ -1,7 +1,7 @@
 package net.minecraft.entity.player;
 
 import net.minecraft.nbt.TagCompound;
-import net.minecraft.util.CompressedStreamTools;
+import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.util.MinecraftException;
 import net.minecraft.world.WorldInfo;
 import net.minecraft.world.WorldProvider;

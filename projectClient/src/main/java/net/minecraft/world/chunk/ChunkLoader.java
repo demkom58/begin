@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.nbt.TagList;
-import net.minecraft.util.CompressedStreamTools;
+import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.util.NibbleArray;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldInfo;

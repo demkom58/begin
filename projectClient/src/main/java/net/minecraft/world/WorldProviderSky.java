@@ -4,8 +4,8 @@ import net.minecraft.world.gen.BiomeGenBase;
 import net.minecraft.block.Block;
 import net.minecraft.world.chunk.ChunkProviderSky;
 import net.minecraft.world.chunk.IChunkProvider;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 public class WorldProviderSky extends WorldProvider {
     public void registerWorldChunkManager() {

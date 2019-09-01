@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.network.NetHandler;
 import net.minecraft.util.DataWatcher;
 import net.minecraft.util.WatchableObject;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

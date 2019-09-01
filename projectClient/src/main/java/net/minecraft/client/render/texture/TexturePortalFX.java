@@ -1,7 +1,7 @@
 package net.minecraft.client.render.texture;
 
 import net.minecraft.block.Block;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.util.Random;
 

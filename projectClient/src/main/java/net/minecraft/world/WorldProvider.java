@@ -3,8 +3,8 @@ package net.minecraft.world;
 import net.minecraft.block.Block;
 import net.minecraft.world.chunk.ChunkProviderGenerate;
 import net.minecraft.world.chunk.IChunkProvider;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 public abstract class WorldProvider {
     public World worldObj;

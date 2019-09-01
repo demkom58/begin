@@ -8,7 +8,7 @@ import net.minecraft.entity.EntityDiggingFX;
 import net.minecraft.entity.EntityFX;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;

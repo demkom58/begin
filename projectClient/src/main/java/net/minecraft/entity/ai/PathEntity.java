@@ -1,7 +1,7 @@
 package net.minecraft.entity.ai;
 
 import net.minecraft.entity.Entity;
-import util.Vec3D;
+import net.minecraft.util.Vec3D;
 
 public class PathEntity {
     public final int pathLength;

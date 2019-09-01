@@ -3,7 +3,7 @@ package net.minecraft.client.gui;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.util.StringTranslate;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

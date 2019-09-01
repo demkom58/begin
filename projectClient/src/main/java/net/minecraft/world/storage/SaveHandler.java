@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.chunk.ChunkLoader;
 import net.minecraft.world.chunk.IChunkLoader;
 import net.minecraft.nbt.TagCompound;
-import net.minecraft.util.CompressedStreamTools;
+import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.util.MinecraftException;
 import net.minecraft.world.WorldInfo;
 import net.minecraft.world.WorldProvider;

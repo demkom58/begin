@@ -5,7 +5,7 @@ import net.minecraft.world.WorldInfo;
 import net.minecraft.world.chunk.ChunkFile;
 import net.minecraft.world.chunk.ChunkFilePattern;
 import net.minecraft.world.chunk.ChunkFolderPattern;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.io.*;
 import java.util.ArrayList;

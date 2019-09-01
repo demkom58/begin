@@ -5,7 +5,7 @@ import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.EntityLiving;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class RenderCreeper extends RenderLiving {
     private ModelBase field_27008_a = new ModelCreeper(2.0F);

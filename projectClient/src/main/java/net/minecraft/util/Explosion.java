@@ -4,8 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.world.chunk.ChunkPosition;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 import java.util.*;
 

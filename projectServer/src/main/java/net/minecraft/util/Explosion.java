@@ -2,11 +2,8 @@ package net.minecraft.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPosition;
-import util.MathHelper;
-import util.Vec3D;
 
 import java.util.*;
 

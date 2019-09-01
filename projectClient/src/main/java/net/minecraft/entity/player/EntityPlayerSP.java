@@ -16,7 +16,7 @@ import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityPlayerSP extends EntityPlayer {
     public MovementInput movementInput;

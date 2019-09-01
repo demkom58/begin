@@ -7,7 +7,7 @@ import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.codecs.CodecJOrbis;
 import paulscode.sound.codecs.CodecWav;
 import paulscode.sound.libraries.LibraryLWJGLOpenAL;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.io.File;
 import java.util.Random;

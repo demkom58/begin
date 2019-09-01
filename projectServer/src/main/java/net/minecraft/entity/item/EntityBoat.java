@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.util.List;
 

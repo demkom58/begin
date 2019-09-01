@@ -3,7 +3,7 @@ package net.minecraft.entity;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityFX extends Entity {
     public static double interpPosX;

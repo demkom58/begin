@@ -4,12 +4,11 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelMinecart;
 import net.minecraft.block.Block;
 import net.minecraft.client.render.Render;
-import net.minecraft.client.render.entity.RenderBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityMinecart;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 public class RenderMinecart extends Render {
     protected ModelBase modelMinecart;

@@ -1,7 +1,4 @@
-package net.minecraft.util;
-
-import net.minecraft.nbt.Tag;
-import net.minecraft.nbt.TagCompound;
+package net.minecraft.nbt;
 
 import java.io.*;
 import java.util.zip.GZIPInputStream;

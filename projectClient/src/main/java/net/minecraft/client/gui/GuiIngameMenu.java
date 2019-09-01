@@ -2,7 +2,7 @@ package net.minecraft.client.gui;
 
 import net.minecraft.stats.StatCollector;
 import net.minecraft.stats.StatList;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class GuiIngameMenu extends GuiScreen {
     private int updateCounter2 = 0;

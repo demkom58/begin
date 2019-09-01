@@ -6,7 +6,7 @@ import net.minecraft.client.render.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class RenderBoat extends Render {
     protected ModelBase modelBoat;

@@ -1,7 +1,7 @@
 package net.minecraft.client.render.texture;
 
 import net.minecraft.block.Block;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class TextureLavaFlowFX extends TextureFX {
     protected float[] field_1143_g = new float[256];

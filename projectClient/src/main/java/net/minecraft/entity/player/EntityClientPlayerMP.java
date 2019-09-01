@@ -8,7 +8,7 @@ import net.minecraft.network.NetClientHandler;
 import net.minecraft.network.packet.*;
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityClientPlayerMP extends EntityPlayerSP {
     public NetClientHandler sendQueue;

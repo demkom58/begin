@@ -1,7 +1,7 @@
 package net.minecraft.client.render.texture;
 
 import net.minecraft.client.render.Tessellator;
-import util.Vec3D;
+import net.minecraft.util.Vec3D;
 
 public class TexturedQuad {
     public PositionTextureVertex[] vertexPositions;

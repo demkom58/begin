@@ -5,8 +5,8 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityFish;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 public class RenderFish extends Render {
     public void func_4011_a(EntityFish var1, double var2, double var4, double var6, float var8, float var9) {

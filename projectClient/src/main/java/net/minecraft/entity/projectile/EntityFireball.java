@@ -6,8 +6,8 @@ import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 import java.util.List;
 
@@ -113,7 +113,7 @@ public class EntityFireball extends Entity {
             if (var9.canBeCollidedWith() && (var9 != this.field_9397_j || this.field_9395_l >= 25)) {
                 float var10 = 0.3F;
                 AxisAlignedBB var11 = var9.boundingBox.expand((double) var10, (double) var10, (double) var10);
-                MovingObjectPosition var12 = var11.func_1169_a(var15, var2);
+                MovingObjectPosition var12 = var11.func_706_a(var15, var2);
                 if (var12 != null) {
                     double var13 = var15.distanceTo(var12.hitVec);
                     if (var13 < var6 || var6 == 0.0D) {

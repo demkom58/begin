@@ -5,7 +5,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.util.AxisAlignedBB;
-import util.Vec3D;
+import net.minecraft.util.Vec3D;
 
 import java.util.Random;
 

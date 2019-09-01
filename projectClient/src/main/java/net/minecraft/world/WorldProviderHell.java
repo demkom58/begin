@@ -4,7 +4,7 @@ import net.minecraft.world.gen.BiomeGenBase;
 import net.minecraft.block.Block;
 import net.minecraft.world.chunk.ChunkProviderHell;
 import net.minecraft.world.chunk.IChunkProvider;
-import util.Vec3D;
+import net.minecraft.util.Vec3D;
 
 public class WorldProviderHell extends WorldProvider {
     public void registerWorldChunkManager() {

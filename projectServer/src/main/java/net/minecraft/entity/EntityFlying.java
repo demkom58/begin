@@ -2,7 +2,7 @@ package net.minecraft.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityFlying extends EntityLiving {
     public EntityFlying(World var1) {

@@ -4,7 +4,7 @@ import net.minecraft.item.MapDataBase;
 import net.minecraft.nbt.Tag;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.nbt.TagShort;
-import net.minecraft.util.CompressedStreamTools;
+import net.minecraft.nbt.CompressedStreamTools;
 
 import java.io.*;
 import java.util.ArrayList;

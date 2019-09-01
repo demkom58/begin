@@ -6,7 +6,7 @@ import net.minecraft.material.Material;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.entity.Entity;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class Pathfinder {
     private IBlockAccess worldMap;

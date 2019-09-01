@@ -31,7 +31,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkCoordinates;
 import net.minecraft.world.chunk.IChunkProvider;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.util.List;
 

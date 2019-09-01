@@ -1,6 +1,6 @@
 package net.minecraft.client.render.texture;
 
-import util.Vec3D;
+import net.minecraft.util.Vec3D;
 
 public class PositionTextureVertex {
     public Vec3D vector3D;

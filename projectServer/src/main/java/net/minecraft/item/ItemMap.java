@@ -8,7 +8,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet131MapData;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class ItemMap extends ItemMapBase {
     protected ItemMap(int var1) {

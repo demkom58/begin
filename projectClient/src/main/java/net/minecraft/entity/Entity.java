@@ -14,8 +14,8 @@ import net.minecraft.nbt.TagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DataWatcher;
 import net.minecraft.world.World;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 import java.util.List;
 import java.util.Random;
@@ -526,7 +526,7 @@ public abstract class Entity {
             }
 
             boolean var56 = this.isWet();
-            if (this.worldObj.isBoundingBoxBurning(this.boundingBox.func_28195_e(0.001D, 0.001D, 0.001D))) {
+            if (this.worldObj.isBoundingBoxBurning(this.boundingBox.getInsetBoundingBox(0.001D, 0.001D, 0.001D))) {
                 this.dealFireDamage(1);
                 if (!var56) {
                     ++this.fire;
@@ -589,7 +589,7 @@ public abstract class Entity {
     }
 
     public boolean handleWaterMovement() {
-        return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, -0.4000000059604645D, 0.0D).func_28195_e(0.001D, 0.001D, 0.001D), Material.WATER, this);
+        return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, -0.4000000059604645D, 0.0D).getInsetBoundingBox(0.001D, 0.001D, 0.001D), Material.WATER, this);
     }
 
     public boolean isInsideOfMaterial(Material var1) {
@@ -1011,7 +1011,7 @@ public abstract class Entity {
     public void setPositionAndRotation2(double var1, double var3, double var5, float var7, float var8, int var9) {
         this.setPosition(var1, var3, var5);
         this.setRotation(var7, var8);
-        List var10 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.func_28195_e(0.03125D, 0.0D, 0.03125D));
+        List var10 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.getInsetBoundingBox(0.03125D, 0.0D, 0.03125D));
         if (var10.size() > 0) {
             double var11 = 0.0D;
 

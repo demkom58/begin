@@ -1,6 +1,6 @@
 package net.minecraft.world.storage;
 
-import net.minecraft.util.CompressedStreamTools;
+import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.entity.player.PlayerNBTManager;
 import net.minecraft.nbt.TagCompound;

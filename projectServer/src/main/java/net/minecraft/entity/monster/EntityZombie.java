@@ -3,7 +3,7 @@ package net.minecraft.entity.monster;
 import net.minecraft.entity.EntityMob;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityZombie extends EntityMob {
     public EntityZombie(World var1) {

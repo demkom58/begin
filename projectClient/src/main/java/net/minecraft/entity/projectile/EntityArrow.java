@@ -10,8 +10,8 @@ import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 import java.util.List;
 
@@ -108,7 +108,7 @@ public class EntityArrow extends Entity {
         if (var15 > 0) {
             Block.BLOCKS_LIST[var15].setBlockBoundsBasedOnState(this.worldObj, this.xTile, this.yTile, this.zTile);
             AxisAlignedBB var2 = Block.BLOCKS_LIST[var15].getCollisionBoundingBoxFromPool(this.worldObj, this.xTile, this.yTile, this.zTile);
-            if (var2 != null && var2.isVecInside(Vec3D.createVector(this.posX, this.posY, this.posZ))) {
+            if (var2 != null && var2.isVecInXYZ(Vec3D.createVector(this.posX, this.posY, this.posZ))) {
                 this.inGround = true;
             }
         }
@@ -154,7 +154,7 @@ public class EntityArrow extends Entity {
                 if (var9.canBeCollidedWith() && (var9 != this.owner || this.ticksInAir >= 5)) {
                     float var10 = 0.3F;
                     AxisAlignedBB var11 = var9.boundingBox.expand((double) var10, (double) var10, (double) var10);
-                    MovingObjectPosition var12 = var11.func_1169_a(var16, var19);
+                    MovingObjectPosition var12 = var11.func_706_a(var16, var19);
                     if (var12 != null) {
                         double var13 = var16.distanceTo(var12.hitVec);
                         if (var13 < var6 || var6 == 0.0D) {

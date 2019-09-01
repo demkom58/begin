@@ -3,7 +3,7 @@ package net.minecraft.block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.material.Material;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class BlockPumpkin extends Block {
     private boolean blockType;

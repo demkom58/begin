@@ -19,7 +19,7 @@ import net.minecraft.world.chunk.ChunkCoordinates;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.SaveConverterMcRegion;
 import net.minecraft.world.storage.SaveOldDir;
-import util.Vec3D;
+import net.minecraft.util.Vec3D;
 
 import java.awt.*;
 import java.io.File;

@@ -11,7 +11,7 @@ import net.minecraft.material.Material;
 import net.minecraft.util.StringTranslate;
 import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.awt.*;
 import java.util.ArrayList;

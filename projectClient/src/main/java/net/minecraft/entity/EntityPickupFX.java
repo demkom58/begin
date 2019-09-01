@@ -4,7 +4,7 @@ import net.minecraft.client.render.RenderManager;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityPickupFX extends EntityFX {
     private Entity field_675_a;

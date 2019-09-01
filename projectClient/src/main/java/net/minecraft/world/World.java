@@ -18,8 +18,8 @@ import net.minecraft.world.chunk.*;
 import net.minecraft.world.gen.BiomeGenBase;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.MapStorage;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 import java.util.*;
 

@@ -4,7 +4,7 @@ import net.minecraft.entity.player.PlayerControllerSP;
 import net.minecraft.util.StringTranslate;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.SaveFormatData;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

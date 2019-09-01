@@ -3,7 +3,7 @@ package net.minecraft.entity.player;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityOtherPlayerMP extends EntityPlayer {
     float field_20924_a = 0.0F;

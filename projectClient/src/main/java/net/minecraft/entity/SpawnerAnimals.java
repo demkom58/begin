@@ -16,7 +16,7 @@ import net.minecraft.world.chunk.ChunkCoordIntPair;
 import net.minecraft.world.chunk.ChunkCoordinates;
 import net.minecraft.world.chunk.ChunkPosition;
 import net.minecraft.world.gen.BiomeGenBase;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.util.HashSet;
 import java.util.List;

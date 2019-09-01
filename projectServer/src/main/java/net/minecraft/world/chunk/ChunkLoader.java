@@ -1,6 +1,6 @@
 package net.minecraft.world.chunk;
 
-import net.minecraft.util.CompressedStreamTools;
+import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.util.NibbleArray;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;

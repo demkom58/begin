@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-public class NextTickListEntry implements Comparable {
+public class NextTickListEntry implements Comparable<NextTickListEntry> {
     private static long nextTickEntryID = 0L;
     public int xCoord;
     public int yCoord;
@@ -18,12 +18,11 @@ public class NextTickListEntry implements Comparable {
     }
 
     public boolean equals(Object var1) {
-        if (!(var1 instanceof NextTickListEntry)) {
+        if (!(var1 instanceof NextTickListEntry))
             return false;
-        } else {
-            NextTickListEntry var2 = (NextTickListEntry) var1;
-            return this.xCoord == var2.xCoord && this.yCoord == var2.yCoord && this.zCoord == var2.zCoord && this.blockID == var2.blockID;
-        }
+
+        NextTickListEntry var2 = (NextTickListEntry) var1;
+        return this.xCoord == var2.xCoord && this.yCoord == var2.yCoord && this.zCoord == var2.zCoord && this.blockID == var2.blockID;
     }
 
     public int hashCode() {
@@ -35,7 +34,8 @@ public class NextTickListEntry implements Comparable {
         return this;
     }
 
-    public int comparer(NextTickListEntry var1) {
+    @Override
+    public int compareTo(NextTickListEntry var1) {
         if (this.scheduledTime < var1.scheduledTime) {
             return -1;
         } else if (this.scheduledTime > var1.scheduledTime) {
@@ -45,11 +45,5 @@ public class NextTickListEntry implements Comparable {
         } else {
             return this.tickEntryID > var1.tickEntryID ? 1 : 0;
         }
-    }
-
-    // $FF: synthetic method
-    // $FF: bridge method
-    public int compareTo(Object var1) {
-        return this.comparer((NextTickListEntry) var1);
     }
 }

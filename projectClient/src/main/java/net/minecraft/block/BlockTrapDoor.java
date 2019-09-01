@@ -6,7 +6,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import util.Vec3D;
+import net.minecraft.util.Vec3D;
 
 public class BlockTrapDoor extends Block {
     protected BlockTrapDoor(int var1, Material var2) {

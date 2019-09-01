@@ -4,7 +4,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectRBTreeMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.util.WatchableObject;
 import net.minecraft.world.chunk.ChunkCoordinates;
 
 import java.io.DataInputStream;
@@ -165,7 +164,7 @@ public class DataWatcher {
         ArrayList<WatchableObject> list = null;
         if (this.objectChanged) {
             for (WatchableObject wObject : this.watchedObjects.values()) {
-                if (wObject.getWatching()) {
+                if (wObject.isWatching()) {
                     wObject.setWatching(false);
                     if (list == null) {
                         list = new ArrayList<>();

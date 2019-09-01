@@ -9,7 +9,7 @@ import net.minecraft.stats.StatCollector;
 import net.minecraft.stats.StatFileWriter;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.util.Random;
 

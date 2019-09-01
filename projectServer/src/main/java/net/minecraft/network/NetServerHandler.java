@@ -16,7 +16,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.ChunkCoordinates;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;

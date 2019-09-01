@@ -4,7 +4,7 @@ import net.minecraft.block.BlockFluid;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.material.Material;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityRainFX extends EntityFX {
     public EntityRainFX(World var1, double var2, double var4, double var6) {

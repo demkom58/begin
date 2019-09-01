@@ -8,8 +8,8 @@ import net.minecraft.material.Material;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 public class RenderBlocks {
     public static boolean fancyGrass = true;

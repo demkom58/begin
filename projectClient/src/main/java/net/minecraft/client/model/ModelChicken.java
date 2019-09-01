@@ -1,6 +1,6 @@
 package net.minecraft.client.model;
 
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class ModelChicken extends ModelBase {
     public ModelRenderer head;

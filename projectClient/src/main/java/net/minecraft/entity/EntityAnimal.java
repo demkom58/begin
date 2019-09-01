@@ -3,7 +3,7 @@ package net.minecraft.entity;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public abstract class EntityAnimal extends EntityCreature {
     public EntityAnimal(World var1) {

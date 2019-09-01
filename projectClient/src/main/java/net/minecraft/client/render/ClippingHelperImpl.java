@@ -1,7 +1,7 @@
 package net.minecraft.client.render;
 
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.nio.FloatBuffer;
 

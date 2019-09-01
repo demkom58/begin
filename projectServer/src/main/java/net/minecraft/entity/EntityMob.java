@@ -4,7 +4,7 @@ import net.minecraft.block.EnumSkyBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityMob extends EntityCreature implements IMob {
     protected int attackStrength = 2;

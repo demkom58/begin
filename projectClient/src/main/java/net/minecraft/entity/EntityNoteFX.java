@@ -2,7 +2,7 @@ package net.minecraft.entity;
 
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityNoteFX extends EntityFX {
     float field_21065_a;

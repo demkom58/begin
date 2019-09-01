@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ChunkProviderServer;
 import net.minecraft.world.chunk.IChunkLoader;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.storage.ISaveHandler;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;

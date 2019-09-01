@@ -9,8 +9,8 @@ import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 import java.util.List;
 
@@ -609,7 +609,7 @@ public abstract class EntityLiving extends Entity {
             --this.newPosRotationIncrements;
             this.setPosition(var1, var3, var5);
             this.setRotation(this.rotationYaw, this.rotationPitch);
-            List var9 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.func_28195_e(0.03125D, 0.0D, 0.03125D));
+            List var9 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.getInsetBoundingBox(0.03125D, 0.0D, 0.03125D));
             if (var9.size() > 0) {
                 double var10 = 0.0D;
 

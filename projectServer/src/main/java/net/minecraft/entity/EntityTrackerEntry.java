@@ -13,7 +13,7 @@ import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.*;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.util.HashSet;
 import java.util.List;

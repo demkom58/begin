@@ -29,7 +29,7 @@ import net.minecraft.world.WorldClient;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkCoordinates;
 import net.minecraft.world.storage.MapStorage;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;

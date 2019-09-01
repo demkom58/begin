@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntitySlime extends EntityLiving implements IMob {
     public float field_768_a;

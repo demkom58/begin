@@ -4,7 +4,7 @@ import net.minecraft.client.render.RenderEngine;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityFootStepFX extends EntityFX {
     private int field_27018_a = 0;

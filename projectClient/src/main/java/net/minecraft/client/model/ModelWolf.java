@@ -3,7 +3,7 @@ package net.minecraft.client.model;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityWolf;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class ModelWolf extends ModelBase {
     public ModelRenderer wolfHeadMain;

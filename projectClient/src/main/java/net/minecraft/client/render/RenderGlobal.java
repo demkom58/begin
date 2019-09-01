@@ -20,8 +20,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldRenderer;
 import org.lwjgl.opengl.ARBOcclusionQuery;
 import org.lwjgl.opengl.GL11;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 import java.nio.IntBuffer;
 import java.util.*;

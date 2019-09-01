@@ -19,8 +19,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.GLU;
-import util.MathHelper;
-import util.Vec3D;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3D;
 
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -126,8 +126,8 @@ public class EntityRenderer {
                     if (var14.canBeCollidedWith()) {
                         float var15 = var14.getCollisionBorderSize();
                         AxisAlignedBB var16 = var14.boundingBox.expand((double) var15, (double) var15, (double) var15);
-                        MovingObjectPosition var17 = var16.func_1169_a(var6, var8);
-                        if (var16.isVecInside(var6)) {
+                        MovingObjectPosition var17 = var16.func_706_a(var6, var8);
+                        if (var16.isVecInXYZ(var6)) {
                             if (0.0D < var11 || var11 == 0.0D) {
                                 this.pointedEntity = var14;
                                 var11 = 0.0D;

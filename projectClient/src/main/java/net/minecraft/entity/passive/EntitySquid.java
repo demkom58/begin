@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.material.Material;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntitySquid extends EntityWaterMob {
     public float field_21089_a = 0.0F;

@@ -3,7 +3,7 @@ package net.minecraft.entity;
 import net.minecraft.block.BlockSand;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
-import util.MathHelper;
+import net.minecraft.util.MathHelper;
 
 public class EntityFallingSand extends Entity {
     public int blockID;
