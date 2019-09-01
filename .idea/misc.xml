@@ -25,7 +25,7 @@
     <option name="priority" value="Medium" />
     <option name="excludeFilter" value="" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="12 (Liberica)" project-jdk-type="JavaSDK" />
   <component name="SuppressionsComponent">
     <option name="suppComments" value="[]" />
   </component>

@@ -3,26 +3,22 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Begin.iml" filepath="$PROJECT_DIR$/.idea/modules/Begin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Begin.iml" filepath="$PROJECT_DIR$/../Begin.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Begin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Begin.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectClient/Begin.projectClient.iml" filepath="$PROJECT_DIR$/.idea/modules/projectClient/Begin.projectClient.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../.idea/modules/client/Begin.projectClient.iml" filepath="$PROJECT_DIR$/../.idea/modules/client/Begin.projectClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectClient/Begin.projectClient.main.iml" filepath="$PROJECT_DIR$/.idea/modules/projectClient/Begin.projectClient.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../.idea/modules/projectClient/Begin.projectClient.main.iml" filepath="$PROJECT_DIR$/../.idea/modules/projectClient/Begin.projectClient.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectClient/Begin.projectClient.test.iml" filepath="$PROJECT_DIR$/.idea/modules/projectClient/Begin.projectClient.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../.idea/modules/projectClient/Begin.projectClient.test.iml" filepath="$PROJECT_DIR$/../.idea/modules/projectClient/Begin.projectClient.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectCommon/Begin.projectCommon.iml" filepath="$PROJECT_DIR$/.idea/modules/projectCommon/Begin.projectCommon.iml" />
       <module fileurl="file://$PROJECT_DIR$/../.idea/modules/projectCommon/Begin.projectCommon.iml" filepath="$PROJECT_DIR$/../.idea/modules/projectCommon/Begin.projectCommon.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectCommon/Begin.projectCommon.main.iml" filepath="$PROJECT_DIR$/.idea/modules/projectCommon/Begin.projectCommon.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectCommon/Begin.projectCommon.test.iml" filepath="$PROJECT_DIR$/.idea/modules/projectCommon/Begin.projectCommon.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectServer/Begin.projectServer.iml" filepath="$PROJECT_DIR$/.idea/modules/projectServer/Begin.projectServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/../.idea/modules/projectServer/Begin.projectServer.iml" filepath="$PROJECT_DIR$/../.idea/modules/projectServer/Begin.projectServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectServer/Begin.projectServer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/projectServer/Begin.projectServer.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectServer/Begin.projectServer.test.iml" filepath="$PROJECT_DIR$/.idea/modules/projectServer/Begin.projectServer.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Begin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Begin.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/IdeaProjects.Begin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/IdeaProjects.Begin.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectCommon/IdeaProjects.Begin.projectCommon.iml" filepath="$PROJECT_DIR$/.idea/modules/projectCommon/IdeaProjects.Begin.projectCommon.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectCommon/IdeaProjects.Begin.projectCommon.main.iml" filepath="$PROJECT_DIR$/.idea/modules/projectCommon/IdeaProjects.Begin.projectCommon.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectCommon/IdeaProjects.Begin.projectCommon.test.iml" filepath="$PROJECT_DIR$/.idea/modules/projectCommon/IdeaProjects.Begin.projectCommon.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectServer/IdeaProjects.Begin.projectServer.iml" filepath="$PROJECT_DIR$/.idea/modules/projectServer/IdeaProjects.Begin.projectServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectServer/IdeaProjects.Begin.projectServer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/projectServer/IdeaProjects.Begin.projectServer.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/projectServer/IdeaProjects.Begin.projectServer.test.iml" filepath="$PROJECT_DIR$/.idea/modules/projectServer/IdeaProjects.Begin.projectServer.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/IdeaProjects.Begin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/IdeaProjects.Begin.test.iml" />
