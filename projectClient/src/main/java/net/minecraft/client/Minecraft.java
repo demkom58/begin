@@ -43,9 +43,14 @@ import java.awt.*;
 import java.io.File;
 
 public abstract class Minecraft implements Runnable {
-    public static byte[] field_28006_b = new byte[10485760];
+    /**
+     * Bytes reversed memory, that than will removed.
+     * In this case it is 10 mebibytes.
+     */
+    public static byte[] reserved = new byte[(int) (10 * Math.pow(2, 20))];
     public static long[] frameTimes = new long[512];
     public static long[] tickTimes = new long[512];
+
     public static int numRecordedFrameTimes = 0;
     public static long hasPaidCheckTime = 0L;
     private static Minecraft theMinecraft;
@@ -104,17 +109,17 @@ public abstract class Minecraft implements Runnable {
     private int mouseTicksRan = 0;
     private int joinPlayerCounter = 0;
 
-    public Minecraft(Component var1, Canvas var2, MinecraftApplet var3, int var4, int var5, boolean var6) {
+    public Minecraft(Component var1, Canvas mcCanvas, MinecraftApplet mcApplet, int displayWidth, int displayHeight, boolean fullscreen) {
         StatList.func_27360_a();
-        this.tempDisplayHeight = var5;
-        this.fullscreen = var6;
-        this.mcApplet = var3;
+        this.tempDisplayHeight = displayHeight;
+        this.fullscreen = fullscreen;
+        this.mcApplet = mcApplet;
         new ThreadSleepForever(this, "Timer hack thread");
-        this.mcCanvas = var2;
-        this.displayWidth = var4;
-        this.displayHeight = var5;
-        this.fullscreen = var6;
-        if (var3 == null || "true".equals(var3.getParameter("stand-alone"))) {
+        this.mcCanvas = mcCanvas;
+        this.displayWidth = displayWidth;
+        this.displayHeight = displayHeight;
+        this.fullscreen = fullscreen;
+        if (mcApplet == null || "true".equals(mcApplet.getParameter("stand-alone"))) {
             this.hideQuitButton = false;
         }
 
@@ -642,7 +647,7 @@ public abstract class Minecraft implements Runnable {
 
     public void func_28002_e() {
         try {
-            field_28006_b = new byte[0];
+            reserved = new byte[0];
             this.renderGlobal.func_28137_f();
         } catch (Throwable ignored) {
         }
