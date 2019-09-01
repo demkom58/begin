@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-public enum EnumOS2 {
+public enum EnumOS {
     LINUX,
     SOLARIS,
     WINDOWS,

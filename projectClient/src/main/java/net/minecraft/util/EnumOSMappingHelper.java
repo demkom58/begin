@@ -1,29 +1,27 @@
 package net.minecraft.util;
 
-import net.minecraft.util.EnumOS2;
-
 public class EnumOSMappingHelper {
-    public static final int[] enumOSMappingArray = new int[EnumOS2.values().length];
+    public static final int[] OS_MAPPING_ARRAY = new int[EnumOS.values().length];
 
     static {
         try {
-            enumOSMappingArray[EnumOS2.LINUX.ordinal()] = 1;
-        } catch (NoSuchFieldError var4) {
+            OS_MAPPING_ARRAY[EnumOS.LINUX.ordinal()] = 1;
+        } catch (NoSuchFieldError ignored) {
         }
 
         try {
-            enumOSMappingArray[EnumOS2.SOLARIS.ordinal()] = 2;
-        } catch (NoSuchFieldError var3) {
+            OS_MAPPING_ARRAY[EnumOS.SOLARIS.ordinal()] = 2;
+        } catch (NoSuchFieldError ignored) {
         }
 
         try {
-            enumOSMappingArray[EnumOS2.WINDOWS.ordinal()] = 3;
-        } catch (NoSuchFieldError var2) {
+            OS_MAPPING_ARRAY[EnumOS.WINDOWS.ordinal()] = 3;
+        } catch (NoSuchFieldError ignored) {
         }
 
         try {
-            enumOSMappingArray[EnumOS2.MACOS.ordinal()] = 4;
-        } catch (NoSuchFieldError var1) {
+            OS_MAPPING_ARRAY[EnumOS.MACOS.ordinal()] = 4;
+        } catch (NoSuchFieldError ignored) {
         }
 
     }

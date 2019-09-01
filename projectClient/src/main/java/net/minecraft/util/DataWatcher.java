@@ -1,8 +1,8 @@
 package net.minecraft.util;
 
-import net.minecraft.world.chunk.ChunkCoordinates;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.world.chunk.ChunkCoordinates;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DataWatcher {
-    private static final HashMap dataTypes = new HashMap();
+    private static final HashMap<Class, Integer> dataTypes = new HashMap<>();
 
     static {
         dataTypes.put(Byte.class, 0);
@@ -38,98 +38,101 @@ public class DataWatcher {
         var1.writeByte(127);
     }
 
-    private static void writeWatchableObject(DataOutputStream var0, WatchableObject var1) throws IOException {
-        int var2 = (var1.getObjectType() << 5 | var1.getDataValueId() & 31) & 255;
-        var0.writeByte(var2);
-        switch (var1.getObjectType()) {
+    private static void writeWatchableObject(DataOutputStream outputStream,
+                                             WatchableObject watchableObject) throws IOException {
+        int var2 = (watchableObject.getObjectType() << 5 | watchableObject.getDataValueId() & 31) & 255;
+        outputStream.writeByte(var2);
+        switch (watchableObject.getObjectType()) {
             case 0:
-                var0.writeByte((Byte) var1.getObject());
+                outputStream.writeByte((Byte) watchableObject.getObject());
                 break;
             case 1:
-                var0.writeShort((Short) var1.getObject());
+                outputStream.writeShort((Short) watchableObject.getObject());
                 break;
             case 2:
-                var0.writeInt((Integer) var1.getObject());
+                outputStream.writeInt((Integer) watchableObject.getObject());
                 break;
             case 3:
-                var0.writeFloat((Float) var1.getObject());
+                outputStream.writeFloat((Float) watchableObject.getObject());
                 break;
             case 4:
-                Packet.writeString((String) var1.getObject(), var0);
+                Packet.writeString((String) watchableObject.getObject(), outputStream);
                 break;
             case 5:
-                ItemStack var4 = (ItemStack) var1.getObject();
-                var0.writeShort(var4.getItem().shiftedIndex);
-                var0.writeByte(var4.stackSize);
-                var0.writeShort(var4.getItemDamage());
+                ItemStack var4 = (ItemStack) watchableObject.getObject();
+                outputStream.writeShort(var4.getItem().shiftedIndex);
+                outputStream.writeByte(var4.stackSize);
+                outputStream.writeShort(var4.getItemDamage());
                 break;
             case 6:
-                ChunkCoordinates var3 = (ChunkCoordinates) var1.getObject();
-                var0.writeInt(var3.x);
-                var0.writeInt(var3.y);
-                var0.writeInt(var3.z);
+                ChunkCoordinates var3 = (ChunkCoordinates) watchableObject.getObject();
+                outputStream.writeInt(var3.x);
+                outputStream.writeInt(var3.y);
+                outputStream.writeInt(var3.z);
         }
 
     }
 
-    public static List readWatchableObjects(DataInputStream var0) throws IOException {
-        ArrayList var1 = null;
+    public static List readWatchableObjects(DataInputStream inputStream) throws IOException {
+        List<WatchableObject> objects = null;
 
-        for (byte var2 = var0.readByte(); var2 != 127; var2 = var0.readByte()) {
-            if (var1 == null) {
-                var1 = new ArrayList();
-            }
+        for (byte var2 = inputStream.readByte(); var2 != 127; var2 = inputStream.readByte()) {
+            if (objects == null)
+                objects = new ArrayList<>();
 
             int var3 = (var2 & 224) >> 5;
             int var4 = var2 & 31;
             WatchableObject var5 = null;
+
             switch (var3) {
                 case 0:
-                    var5 = new WatchableObject(var3, var4, var0.readByte());
+                    var5 = new WatchableObject(var3, var4, inputStream.readByte());
                     break;
                 case 1:
-                    var5 = new WatchableObject(var3, var4, var0.readShort());
+                    var5 = new WatchableObject(var3, var4, inputStream.readShort());
                     break;
                 case 2:
-                    var5 = new WatchableObject(var3, var4, var0.readInt());
+                    var5 = new WatchableObject(var3, var4, inputStream.readInt());
                     break;
                 case 3:
-                    var5 = new WatchableObject(var3, var4, var0.readFloat());
+                    var5 = new WatchableObject(var3, var4, inputStream.readFloat());
                     break;
                 case 4:
-                    var5 = new WatchableObject(var3, var4, Packet.readString(var0, 64));
+                    var5 = new WatchableObject(var3, var4, Packet.readString(inputStream, 64));
                     break;
                 case 5:
-                    short var9 = var0.readShort();
-                    byte var10 = var0.readByte();
-                    short var11 = var0.readShort();
+                    short var9 = inputStream.readShort();
+                    byte var10 = inputStream.readByte();
+                    short var11 = inputStream.readShort();
                     var5 = new WatchableObject(var3, var4, new ItemStack(var9, var10, var11));
                     break;
                 case 6:
-                    int var6 = var0.readInt();
-                    int var7 = var0.readInt();
-                    int var8 = var0.readInt();
+                    int var6 = inputStream.readInt();
+                    int var7 = inputStream.readInt();
+                    int var8 = inputStream.readInt();
                     var5 = new WatchableObject(var3, var4, new ChunkCoordinates(var6, var7, var8));
             }
 
-            var1.add(var5);
+            objects.add(var5);
         }
 
-        return var1;
+        return objects;
     }
 
     public void addObject(int var1, Object var2) {
-        Integer var3 = (Integer) dataTypes.get(var2.getClass());
-        if (var3 == null) {
+        Integer var3 = dataTypes.get(var2.getClass());
+
+        if (var3 == null)
             throw new IllegalArgumentException("Unknown data type: " + var2.getClass());
-        } else if (var1 > 31) {
+
+        if (var1 > 31)
             throw new IllegalArgumentException("Data value id is too big with " + var1 + "! (Max is " + 31 + ")");
-        } else if (this.watchedObjects.containsKey(var1)) {
+
+        if (this.watchedObjects.containsKey(var1))
             throw new IllegalArgumentException("Duplicate id value for " + var1 + "!");
-        } else {
-            WatchableObject var4 = new WatchableObject(var3, var1, var2);
-            this.watchedObjects.put(var1, var4);
-        }
+
+        WatchableObject var4 = new WatchableObject(var3, var1, var2);
+        this.watchedObjects.put(var1, var4);
     }
 
     public byte getWatchableObjectByte(int var1) {
@@ -144,29 +147,29 @@ public class DataWatcher {
         return (String) this.watchedObjects.get(var1).getObject();
     }
 
-    public void updateObject(int var1, Object var2) {
-        WatchableObject var3 = this.watchedObjects.get(var1);
-        if (!var2.equals(var3.getObject())) {
-            var3.setObject(var2);
-            var3.setWatching(true);
+    public void updateObject(int var1, Object o) {
+        WatchableObject watchableObject = this.watchedObjects.get(var1);
+        if (!o.equals(watchableObject.getObject())) {
+            watchableObject.setObject(o);
+            watchableObject.setWatching(true);
             this.objectChanged = true;
         }
 
     }
 
-    public void writeWatchableObjects(DataOutputStream var1) throws IOException {
+    public void writeWatchableObjects(DataOutputStream outputStream) throws IOException {
         for (WatchableObject var3 : this.watchedObjects.values()) {
-            writeWatchableObject(var1, var3);
+            writeWatchableObject(outputStream, var3);
         }
 
-        var1.writeByte(127);
+        outputStream.writeByte(127);
     }
 
-    public void updateWatchedObjectsFromList(List<WatchableObject> var1) {
-        for (WatchableObject var3 : var1) {
-            WatchableObject var4 = this.watchedObjects.get(var3.getDataValueId());
-            if (var4 != null) {
-                var4.setObject(var3.getObject());
+    public void updateWatchedObjectsFromList(List<WatchableObject> watchableObjects) {
+        for (WatchableObject watchableObject : watchableObjects) {
+            WatchableObject object = this.watchedObjects.get(watchableObject.getDataValueId());
+            if (object != null) {
+                object.setObject(watchableObject.getObject());
             }
         }
 

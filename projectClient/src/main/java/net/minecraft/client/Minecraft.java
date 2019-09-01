@@ -132,7 +132,7 @@ public abstract class Minecraft implements Runnable {
     public static File getAppDir(String paramString) {
         String userHome = System.getProperty("user.home", ".");
         File localFile;
-        switch (EnumOSMappingHelper.enumOSMappingArray[getOs().ordinal()]) {
+        switch (EnumOSMappingHelper.OS_MAPPING_ARRAY[getOs().ordinal()]) {
             case 1:
             case 2:
                 localFile = new File(userHome, '.' + paramString + '/');
@@ -161,20 +161,20 @@ public abstract class Minecraft implements Runnable {
 
     }
 
-    private static EnumOS2 getOs() {
+    private static EnumOS getOs() {
         String var0 = System.getProperty("os.name").toLowerCase();
         if (var0.contains("win")) {
-            return EnumOS2.WINDOWS;
+            return EnumOS.WINDOWS;
         } else if (var0.contains("mac")) {
-            return EnumOS2.MACOS;
+            return EnumOS.MACOS;
         } else if (var0.contains("solaris")) {
-            return EnumOS2.SOLARIS;
+            return EnumOS.SOLARIS;
         } else if (var0.contains("sunos")) {
-            return EnumOS2.SOLARIS;
+            return EnumOS.SOLARIS;
         } else if (var0.contains("linux")) {
-            return EnumOS2.LINUX;
+            return EnumOS.LINUX;
         } else {
-            return var0.contains("unix") ? EnumOS2.LINUX : EnumOS2.UNKNOWN;
+            return var0.contains("unix") ? EnumOS.LINUX : EnumOS.UNKNOWN;
         }
     }
 

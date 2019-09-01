@@ -45,20 +45,20 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
         this.setBackground(Color.red);
     }
 
-    private static EnumOS1 getOs() {
+    private static EnumOS getOs() {
         String var0 = System.getProperty("os.name").toLowerCase();
         if (var0.contains("win")) {
-            return EnumOS1.WINDOWS;
+            return EnumOS.WINDOWS;
         } else if (var0.contains("mac")) {
-            return EnumOS1.MACOS;
+            return EnumOS.MACOS;
         } else if (var0.contains("solaris")) {
-            return EnumOS1.SOLARIS;
+            return EnumOS.SOLARIS;
         } else if (var0.contains("sunos")) {
-            return EnumOS1.SOLARIS;
+            return EnumOS.SOLARIS;
         } else if (var0.contains("linux")) {
-            return EnumOS1.LINUX;
+            return EnumOS.LINUX;
         } else {
-            return var0.contains("unix") ? EnumOS1.LINUX : EnumOS1.UNKNOWN;
+            return var0.contains("unix") ? EnumOS.LINUX : EnumOS.UNKNOWN;
         }
     }
 
@@ -76,27 +76,31 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
     }
 
     public File getAppDir(String paramString) {
-        String str1 = System.getProperty("user.home", ".");
+        String home = System.getProperty("user.home", ".");
         File localFile;
-        switch (OsMap.field_1193_a[getOs().ordinal()]) {
+
+        switch (EnumOSMappingHelper.OS_MAPPING_ARRAY[getOs().ordinal()]) {
             case 1:
             case 2:
-                localFile = new File(str1, '.' + paramString + '/');
+                localFile = new File(home, '.' + paramString + '/');
                 break;
             case 3:
-                String str2 = System.getenv("APPDATA");
-                if (str2 != null) localFile = new File(str2, "." + paramString + '/');
+                String appdata = System.getenv("APPDATA");
+                if (appdata != null)
+                    localFile = new File(appdata, "." + paramString + '/');
                 else
-                    localFile = new File(str1, '.' + paramString + '/');
+                    localFile = new File(home, '.' + paramString + '/');
                 break;
             case 4:
-                localFile = new File(str1, "Library/Application Support/" + paramString);
+                localFile = new File(home, "Library/Application Support/" + paramString);
                 break;
             default:
-                localFile = new File(str1, paramString + '/');
+                localFile = new File(home, paramString + '/');
         }
+
         if ((!localFile.exists()) && (!localFile.mkdirs()))
             throw new RuntimeException("The working directory could not be created: " + localFile);
+
         return localFile;
 
     }
