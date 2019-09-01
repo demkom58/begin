@@ -59,10 +59,10 @@ public class SaveFormatOld implements ISaveFormat {
         if (!var2.exists()) {
             return null;
         } else {
-            File var3 = new File(var2, "level.dat");
-            if (var3.exists()) {
+            File levelDatFile = new File(var2, "level.dat");
+            if (levelDatFile.exists()) {
                 try {
-                    NBTTagCompound var9 = CompressedStreamTools.func_1138_a(new FileInputStream(var3));
+                    NBTTagCompound var9 = CompressedStreamTools.readGzipCompound(new FileInputStream(levelDatFile));
                     NBTTagCompound var10 = var9.getCompoundTag("Data");
                     return new WorldInfo(var10);
                 } catch (Exception e) {
@@ -70,12 +70,12 @@ public class SaveFormatOld implements ISaveFormat {
                 }
             }
 
-            var3 = new File(var2, "level.dat_old");
-            if (var3.exists()) {
+            levelDatFile = new File(var2, "level.dat_old");
+            if (levelDatFile.exists()) {
                 try {
-                    NBTTagCompound var4 = CompressedStreamTools.func_1138_a(new FileInputStream(var3));
-                    NBTTagCompound var5 = var4.getCompoundTag("Data");
-                    return new WorldInfo(var5);
+                    NBTTagCompound worldCompound = CompressedStreamTools.readGzipCompound(new FileInputStream(levelDatFile));
+                    NBTTagCompound dataCompound = worldCompound.getCompoundTag("Data");
+                    return new WorldInfo(dataCompound);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -91,10 +91,10 @@ public class SaveFormatOld implements ISaveFormat {
             File var4 = new File(var3, "level.dat");
             if (var4.exists()) {
                 try {
-                    NBTTagCompound var5 = CompressedStreamTools.func_1138_a(new FileInputStream(var4));
+                    NBTTagCompound var5 = CompressedStreamTools.readGzipCompound(new FileInputStream(var4));
                     NBTTagCompound var6 = var5.getCompoundTag("Data");
                     var6.setString("LevelName", var2);
-                    CompressedStreamTools.writeGzippedCompoundToOutputStream(var5, new FileOutputStream(var4));
+                    CompressedStreamTools.writeGzipCompound(var5, new FileOutputStream(var4));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

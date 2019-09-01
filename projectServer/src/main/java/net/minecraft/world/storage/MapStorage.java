@@ -40,7 +40,7 @@ public class MapStorage {
                     }
 
                     FileInputStream var5 = new FileInputStream(var4);
-                    NBTTagCompound var6 = CompressedStreamTools.func_770_a(var5);
+                    NBTTagCompound var6 = CompressedStreamTools.readGzipCompound(var5);
                     var5.close();
                     dataBase.func_28148_a(var6.getCompoundTag("data"));
                 }
@@ -91,7 +91,7 @@ public class MapStorage {
                     NBTTagCompound var4 = new NBTTagCompound();
                     var4.setCompoundTag("data", var3);
                     FileOutputStream var5 = new FileOutputStream(var2);
-                    CompressedStreamTools.writeGzippedCompoundToOutputStream(var4, var5);
+                    CompressedStreamTools.writeGzipCompound(var4, var5);
                     var5.close();
                 }
             } catch (Exception e) {
@@ -111,7 +111,7 @@ public class MapStorage {
             File var1 = this.saveHandler.func_28111_b("idcounts");
             if (var1 != null && var1.exists()) {
                 DataInputStream var2 = new DataInputStream(new FileInputStream(var1));
-                NBTTagCompound var3 = CompressedStreamTools.func_774_a(var2);
+                NBTTagCompound var3 = CompressedStreamTools.readCompound(var2);
                 var2.close();
 
                 for (NBTBase var5 : var3.tags()) {
@@ -152,7 +152,7 @@ public class MapStorage {
                     }
 
                     DataOutputStream var10 = new DataOutputStream(new FileOutputStream(var3));
-                    CompressedStreamTools.func_771_a(var4, var10);
+                    CompressedStreamTools.writeCompound(var4, var10);
                     var10.close();
                 }
             } catch (Exception e) {

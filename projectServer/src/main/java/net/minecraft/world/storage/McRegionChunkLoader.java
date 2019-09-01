@@ -7,7 +7,6 @@ import net.minecraft.world.WorldInfo;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkLoader;
 import net.minecraft.world.chunk.IChunkLoader;
-import net.minecraft.world.storage.RegionFileCache;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -24,7 +23,7 @@ public class McRegionChunkLoader implements IChunkLoader {
     public Chunk loadChunk(World world, int x, int z) throws IOException {
         DataInputStream inputStream = RegionFileCache.getChunkInputStream(this.worldFolder, x, z);
         if (inputStream != null) {
-            NBTTagCompound var5 = CompressedStreamTools.func_774_a(inputStream);
+            NBTTagCompound var5 = CompressedStreamTools.readCompound(inputStream);
             if (!var5.hasKey("Level")) {
                 System.out.println("Chunk file at " + x + "," + z + " is missing level data, skipping");
                 return null;
@@ -59,7 +58,7 @@ public class McRegionChunkLoader implements IChunkLoader {
             NBTTagCompound var5 = new NBTTagCompound();
             var4.setTag("Level", var5);
             ChunkLoader.storeChunkInCompound(chunk, world, var5);
-            CompressedStreamTools.func_771_a(var4, var3);
+            CompressedStreamTools.writeCompound(var4, var3);
             var3.close();
             WorldInfo var6 = world.getWorldInfo();
             var6.setSizeOnDisk(var6.getSizeOnDisk() + (long) RegionFileCache.getSizeDelta(this.worldFolder, chunk.xPosition, chunk.zPosition));

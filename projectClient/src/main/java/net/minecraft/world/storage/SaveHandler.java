@@ -86,7 +86,7 @@ public class SaveHandler implements ISaveHandler {
         File var1 = new File(this.saveDirectory, "level.dat");
         if (var1.exists()) {
             try {
-                NBTTagCompound var7 = CompressedStreamTools.func_1138_a(new FileInputStream(var1));
+                NBTTagCompound var7 = CompressedStreamTools.readGzipCompound(new FileInputStream(var1));
                 NBTTagCompound var8 = var7.getCompoundTag("Data");
                 return new WorldInfo(var8);
             } catch (Exception e) {
@@ -97,7 +97,7 @@ public class SaveHandler implements ISaveHandler {
         var1 = new File(this.saveDirectory, "level.dat_old");
         if (var1.exists()) {
             try {
-                NBTTagCompound var2 = CompressedStreamTools.func_1138_a(new FileInputStream(var1));
+                NBTTagCompound var2 = CompressedStreamTools.readGzipCompound(new FileInputStream(var1));
                 NBTTagCompound var3 = var2.getCompoundTag("Data");
                 return new WorldInfo(var3);
             } catch (Exception e) {
@@ -117,7 +117,7 @@ public class SaveHandler implements ISaveHandler {
             File var5 = new File(this.saveDirectory, "level.dat_new");
             File var6 = new File(this.saveDirectory, "level.dat_old");
             File var7 = new File(this.saveDirectory, "level.dat");
-            CompressedStreamTools.writeGzippedCompoundToOutputStream(var4, new FileOutputStream(var5));
+            CompressedStreamTools.writeGzipCompound(var4, new FileOutputStream(var5));
             if (var6.exists()) {
                 var6.delete();
             }
@@ -146,7 +146,7 @@ public class SaveHandler implements ISaveHandler {
             File var4 = new File(this.saveDirectory, "level.dat_new");
             File var5 = new File(this.saveDirectory, "level.dat_old");
             File var6 = new File(this.saveDirectory, "level.dat");
-            CompressedStreamTools.writeGzippedCompoundToOutputStream(var3, new FileOutputStream(var4));
+            CompressedStreamTools.writeGzipCompound(var3, new FileOutputStream(var4));
             if (var5.exists()) {
                 var5.delete();
             }

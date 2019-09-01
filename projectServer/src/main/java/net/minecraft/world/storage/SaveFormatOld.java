@@ -39,7 +39,7 @@ public class SaveFormatOld implements ISaveFormat {
             File var3 = new File(var2, "level.dat");
             if (var3.exists()) {
                 try {
-                    NBTTagCompound var9 = CompressedStreamTools.func_770_a(new FileInputStream(var3));
+                    NBTTagCompound var9 = CompressedStreamTools.readGzipCompound(new FileInputStream(var3));
                     NBTTagCompound var10 = var9.getCompoundTag("Data");
                     return new WorldInfo(var10);
                 } catch (Exception e) {
@@ -50,7 +50,7 @@ public class SaveFormatOld implements ISaveFormat {
             var3 = new File(var2, "level.dat_old");
             if (var3.exists()) {
                 try {
-                    NBTTagCompound var4 = CompressedStreamTools.func_770_a(new FileInputStream(var3));
+                    NBTTagCompound var4 = CompressedStreamTools.readGzipCompound(new FileInputStream(var3));
                     NBTTagCompound var5 = var4.getCompoundTag("Data");
                     return new WorldInfo(var5);
                 } catch (Exception e) {

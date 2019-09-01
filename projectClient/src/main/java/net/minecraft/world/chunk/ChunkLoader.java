@@ -142,7 +142,7 @@ public class ChunkLoader implements IChunkLoader {
         if (var4 != null && var4.exists()) {
             try {
                 FileInputStream var5 = new FileInputStream(var4);
-                NBTTagCompound var6 = CompressedStreamTools.func_1138_a(var5);
+                NBTTagCompound var6 = CompressedStreamTools.readGzipCompound(var5);
                 if (!var6.hasKey("Level")) {
                     System.out.println("Chunk file at " + var2 + "," + var3 + " is missing level data, skipping");
                     return null;
@@ -186,7 +186,7 @@ public class ChunkLoader implements IChunkLoader {
             NBTTagCompound var7 = new NBTTagCompound();
             var6.setTag("Level", var7);
             storeChunkInCompound(var2, var1, var7);
-            CompressedStreamTools.writeGzippedCompoundToOutputStream(var6, var5);
+            CompressedStreamTools.writeGzipCompound(var6, var5);
             var5.close();
             if (var3.exists()) {
                 var3.delete();

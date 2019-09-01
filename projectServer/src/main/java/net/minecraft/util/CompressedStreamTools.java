@@ -8,40 +8,36 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class CompressedStreamTools {
-    public static NBTTagCompound func_770_a(InputStream var0) throws IOException {
-        DataInputStream var1 = new DataInputStream(new GZIPInputStream(var0));
+    public static NBTTagCompound readGzipCompound(InputStream stream) throws IOException {
+        DataInputStream inputStream = new DataInputStream(new GZIPInputStream(stream));
 
-        NBTTagCompound var2;
+        NBTTagCompound compound;
         try {
-            var2 = func_774_a(var1);
+            compound = readCompound(inputStream);
         } finally {
-            var1.close();
+            inputStream.close();
         }
 
-        return var2;
+        return compound;
     }
 
-    public static void writeGzippedCompoundToOutputStream(NBTTagCompound var0, OutputStream var1) throws IOException {
-        DataOutputStream var2 = new DataOutputStream(new GZIPOutputStream(var1));
-
-        try {
-            func_771_a(var0, var2);
-        } finally {
-            var2.close();
-        }
-
-    }
-
-    public static NBTTagCompound func_774_a(DataInput var0) throws IOException {
-        NBTBase var1 = NBTBase.readTag(var0);
-        if (var1 instanceof NBTTagCompound) {
-            return (NBTTagCompound) var1;
-        } else {
-            throw new IOException("Root tag must be a named compound tag");
+    public static void writeGzipCompound(NBTTagCompound compound, OutputStream stream)
+            throws IOException {
+        try (DataOutputStream outputStream = new DataOutputStream(new GZIPOutputStream(stream))) {
+            writeCompound(compound, outputStream);
         }
     }
 
-    public static void func_771_a(NBTTagCompound var0, DataOutput var1) throws IOException {
-        NBTBase.writeTag(var0, var1);
+    public static NBTTagCompound readCompound(DataInput input) throws IOException {
+        NBTBase base = NBTBase.readTag(input);
+
+        if (base instanceof NBTTagCompound)
+            return (NBTTagCompound) base;
+
+        throw new IOException("Root tag must be a named compound tag");
+    }
+
+    public static void writeCompound(NBTTagCompound compound, DataOutput output) throws IOException {
+        NBTBase.writeTag(compound, output);
     }
 }
