@@ -1,9 +1,9 @@
 package net.minecraft.world.storage;
 
 import net.minecraft.util.CompressedStreamTools;
-import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.entity.player.PlayerNBTManager;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.WorldInfo;
 
 import java.io.File;
@@ -39,8 +39,8 @@ public class SaveFormatOld implements ISaveFormat {
             File var3 = new File(var2, "level.dat");
             if (var3.exists()) {
                 try {
-                    NBTTagCompound var9 = CompressedStreamTools.readGzipCompound(new FileInputStream(var3));
-                    NBTTagCompound var10 = var9.getCompoundTag("Data");
+                    TagCompound var9 = CompressedStreamTools.readGzipCompound(new FileInputStream(var3));
+                    TagCompound var10 = var9.getCompoundTag("Data");
                     return new WorldInfo(var10);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -50,8 +50,8 @@ public class SaveFormatOld implements ISaveFormat {
             var3 = new File(var2, "level.dat_old");
             if (var3.exists()) {
                 try {
-                    NBTTagCompound var4 = CompressedStreamTools.readGzipCompound(new FileInputStream(var3));
-                    NBTTagCompound var5 = var4.getCompoundTag("Data");
+                    TagCompound var4 = CompressedStreamTools.readGzipCompound(new FileInputStream(var3));
+                    TagCompound var5 = var4.getCompoundTag("Data");
                     return new WorldInfo(var5);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -70,7 +70,7 @@ public class SaveFormatOld implements ISaveFormat {
         return false;
     }
 
-    public boolean convertMapToMCRegion(String var1, IProgressUpdate var2) {
+    public boolean convertMapToMCRegion(String var1, IProgressUpdatable var2) {
         return false;
     }
 }

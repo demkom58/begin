@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NBTTagList extends NBTBase {
-    private List<NBTBase> tagList = new ArrayList<>();
+public class TagList extends Tag {
+    private List<Tag> tagList = new ArrayList<>();
     private byte tagType;
 
-    void writeTagContents(DataOutput output) throws IOException {
+    void write(DataOutput output) throws IOException {
         if (this.tagList.size() > 0) {
             this.tagType = this.tagList.get(0).getType();
         } else {
@@ -21,20 +21,20 @@ public class NBTTagList extends NBTBase {
         output.writeInt(this.tagList.size());
 
         for (int i = 0; i < this.tagList.size(); ++i) {
-            this.tagList.get(i).writeTagContents(output);
+            this.tagList.get(i).write(output);
         }
 
     }
 
-    void readTagContents(DataInput input) throws IOException {
+    void read(DataInput input) throws IOException {
         this.tagType = input.readByte();
         int size = input.readInt();
         this.tagList = new ArrayList<>();
 
         for (int i = 0; i < size; ++i) {
-            NBTBase nbtBase = NBTBase.createTagOfType(this.tagType);
-            nbtBase.readTagContents(input);
-            this.tagList.add(nbtBase);
+            Tag tag = Tag.createTag(this.tagType);
+            tag.read(input);
+            this.tagList.add(tag);
         }
 
     }
@@ -44,15 +44,15 @@ public class NBTTagList extends NBTBase {
     }
 
     public String toString() {
-        return "" + this.tagList.size() + " entries of type " + NBTBase.getTagName(this.tagType);
+        return "" + this.tagList.size() + " entries of type " + Tag.idToString(this.tagType);
     }
 
-    public void setTag(NBTBase var1) {
+    public void setTag(Tag var1) {
         this.tagType = var1.getType();
         this.tagList.add(var1);
     }
 
-    public NBTBase tagAt(int var1) {
+    public Tag tagAt(int var1) {
         return this.tagList.get(var1);
     }
 

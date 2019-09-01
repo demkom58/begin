@@ -20,8 +20,8 @@ import net.minecraft.inventory.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.material.Material;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.TagCompound;
+import net.minecraft.nbt.TagList;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntityDispenser;
@@ -350,9 +350,9 @@ public abstract class EntityPlayer extends EntityLiving {
         return this.inventory.canHarvestBlock(var1);
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
-        NBTTagList var2 = var1.getTagList("Inventory");
+        TagList var2 = var1.getTagList("Inventory");
         this.inventory.readFromNBT(var2);
         this.dimension = var1.getInteger("Dimension");
         this.sleeping = var1.getBoolean("Sleeping");
@@ -368,9 +368,9 @@ public abstract class EntityPlayer extends EntityLiving {
 
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
-        var1.setTag("Inventory", this.inventory.writeToNBT(new NBTTagList()));
+        var1.setTag("Inventory", this.inventory.writeToNBT(new TagList()));
         var1.setInteger("Dimension", this.dimension);
         var1.setBoolean("Sleeping", this.sleeping);
         var1.setShort("SleepTimer", (short) this.sleepTimer);

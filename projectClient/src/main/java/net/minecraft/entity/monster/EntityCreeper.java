@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLightningBolt;
 import net.minecraft.entity.EntityMob;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 
 public class EntityCreeper extends EntityMob {
@@ -22,7 +22,7 @@ public class EntityCreeper extends EntityMob {
         this.dataWatcher.addObject(17, (byte) 0);
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
         if (this.dataWatcher.getWatchableObjectByte(17) == 1) {
             var1.setBoolean("powered", true);
@@ -30,7 +30,7 @@ public class EntityCreeper extends EntityMob {
 
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         this.dataWatcher.updateObject(17, (byte) (var1.getBoolean("powered") ? 1 : 0));
     }

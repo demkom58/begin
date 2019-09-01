@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import net.minecraft.client.render.Tessellator;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 import util.MathHelper;
 
@@ -102,9 +102,9 @@ public class EntityFX extends Entity {
         return 0;
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
     }
 }

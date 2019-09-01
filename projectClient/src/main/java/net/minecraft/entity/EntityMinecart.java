@@ -7,8 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.TagCompound;
+import net.minecraft.nbt.TagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import util.MathHelper;
@@ -604,18 +604,18 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
-    protected void writeEntityToNBT(NBTTagCompound var1) {
+    protected void writeEntityToNBT(TagCompound var1) {
         var1.setInteger("Type", this.minecartType);
         if (this.minecartType == 2) {
             var1.setDouble("PushX", this.pushX);
             var1.setDouble("PushZ", this.pushZ);
             var1.setShort("Fuel", (short) this.fuel);
         } else if (this.minecartType == 1) {
-            NBTTagList var2 = new NBTTagList();
+            TagList var2 = new TagList();
 
             for (int var3 = 0; var3 < this.cargoItems.length; ++var3) {
                 if (this.cargoItems[var3] != null) {
-                    NBTTagCompound var4 = new NBTTagCompound();
+                    TagCompound var4 = new TagCompound();
                     var4.setByte("Slot", (byte) var3);
                     this.cargoItems[var3].writeToNBT(var4);
                     var2.setTag(var4);
@@ -627,18 +627,18 @@ public class EntityMinecart extends Entity implements IInventory {
 
     }
 
-    protected void readEntityFromNBT(NBTTagCompound var1) {
+    protected void readEntityFromNBT(TagCompound var1) {
         this.minecartType = var1.getInteger("Type");
         if (this.minecartType == 2) {
             this.pushX = var1.getDouble("PushX");
             this.pushZ = var1.getDouble("PushZ");
             this.fuel = var1.getShort("Fuel");
         } else if (this.minecartType == 1) {
-            NBTTagList var2 = var1.getTagList("Items");
+            TagList var2 = var1.getTagList("Items");
             this.cargoItems = new ItemStack[this.getSizeInventory()];
 
             for (int var3 = 0; var3 < var2.tagCount(); ++var3) {
-                NBTTagCompound var4 = (NBTTagCompound) var2.tagAt(var3);
+                TagCompound var4 = (TagCompound) var2.tagAt(var3);
                 int var5 = var4.getByte("Slot") & 255;
                 if (var5 >= 0 && var5 < this.cargoItems.length) {
                     this.cargoItems[var5] = new ItemStack(var4);

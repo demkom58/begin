@@ -2,7 +2,7 @@ package net.minecraft.tileentity;
 
 import com.demkom58.timings.MinecraftTimings;
 import com.demkom58.timings.Timing;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.world.World;
 
@@ -41,7 +41,7 @@ public class TileEntity {
     }
 
     @SuppressWarnings("unchecked")
-    public static TileEntity createAndLoadEntity(NBTTagCompound compound) {
+    public static TileEntity createAndLoadEntity(TagCompound compound) {
         TileEntity tileEntity = null;
 
         try {
@@ -62,13 +62,13 @@ public class TileEntity {
         return tileEntity;
     }
 
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(TagCompound compound) {
         this.xCoord = compound.getInteger("x");
         this.yCoord = compound.getInteger("y");
         this.zCoord = compound.getInteger("z");
     }
 
-    public void writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(TagCompound compound) {
         String name = classToNameMap.get(this.getClass());
         if (name == null) {
             throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");

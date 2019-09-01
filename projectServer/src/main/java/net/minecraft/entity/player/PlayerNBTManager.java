@@ -1,6 +1,6 @@
 package net.minecraft.entity.player;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.CompressedStreamTools;
 import net.minecraft.util.MinecraftException;
 import net.minecraft.world.WorldInfo;
@@ -87,8 +87,8 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
         File var1 = new File(this.worldDir, "level.dat");
         if (var1.exists()) {
             try {
-                NBTTagCompound var7 = CompressedStreamTools.readGzipCompound(new FileInputStream(var1));
-                NBTTagCompound var8 = var7.getCompoundTag("Data");
+                TagCompound var7 = CompressedStreamTools.readGzipCompound(new FileInputStream(var1));
+                TagCompound var8 = var7.getCompoundTag("Data");
                 return new WorldInfo(var8);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -98,8 +98,8 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
         var1 = new File(this.worldDir, "level.dat_old");
         if (var1.exists()) {
             try {
-                NBTTagCompound var2 = CompressedStreamTools.readGzipCompound(new FileInputStream(var1));
-                NBTTagCompound var3 = var2.getCompoundTag("Data");
+                TagCompound var2 = CompressedStreamTools.readGzipCompound(new FileInputStream(var1));
+                TagCompound var3 = var2.getCompoundTag("Data");
                 return new WorldInfo(var3);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -110,8 +110,8 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
     }
 
     public void saveWorldInfoAndPlayer(WorldInfo var1, List<EntityPlayer> var2) {
-        NBTTagCompound var3 = var1.getNBTTagCompoundWithPlayer(var2);
-        NBTTagCompound var4 = new NBTTagCompound();
+        TagCompound var3 = var1.getNBTTagCompoundWithPlayer(var2);
+        TagCompound var4 = new TagCompound();
         var4.setTag("Data", var3);
 
         try {
@@ -139,8 +139,8 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
     }
 
     public void func_22094_a(WorldInfo var1) {
-        NBTTagCompound var2 = var1.getNBTTagCompound();
-        NBTTagCompound var3 = new NBTTagCompound();
+        TagCompound var2 = var1.getNBTTagCompound();
+        TagCompound var3 = new TagCompound();
         var3.setTag("Data", var2);
 
         try {
@@ -169,7 +169,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
 
     public void writePlayerData(EntityPlayer var1) {
         try {
-            NBTTagCompound var2 = new NBTTagCompound();
+            TagCompound var2 = new TagCompound();
             var1.writeToNBT(var2);
             File var3 = new File(this.worldFile, "_tmp_.dat");
             File var4 = new File(this.worldFile, var1.username + ".dat");
@@ -186,14 +186,14 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
     }
 
     public void readPlayerData(EntityPlayer var1) {
-        NBTTagCompound var2 = this.getPlayerData(var1.username);
+        TagCompound var2 = this.getPlayerData(var1.username);
         if (var2 != null) {
             var1.readFromNBT(var2);
         }
 
     }
 
-    public NBTTagCompound getPlayerData(String var1) {
+    public TagCompound getPlayerData(String var1) {
         try {
             File var2 = new File(this.worldFile, var1 + ".dat");
             if (var2.exists()) {

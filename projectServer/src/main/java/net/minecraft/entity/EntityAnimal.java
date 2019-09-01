@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 import util.MathHelper;
 
@@ -14,11 +14,11 @@ public abstract class EntityAnimal extends EntityCreature implements IAnimals {
         return this.worldObj.getBlockId(var1, var2 - 1, var3) == Block.GRASS.blockID ? 10.0F : this.worldObj.getLightBrightness(var1, var2, var3) - 0.5F;
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
     }
 

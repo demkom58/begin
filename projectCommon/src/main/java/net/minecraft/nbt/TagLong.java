@@ -4,21 +4,21 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class NBTTagLong extends NBTBase {
+public class TagLong extends Tag {
     public long longValue;
 
-    public NBTTagLong() {
+    public TagLong() {
     }
 
-    public NBTTagLong(long value) {
+    public TagLong(long value) {
         this.longValue = value;
     }
 
-    void writeTagContents(DataOutput output) throws IOException {
+    void write(DataOutput output) throws IOException {
         output.writeLong(this.longValue);
     }
 
-    void readTagContents(DataInput input) throws IOException {
+    void read(DataInput input) throws IOException {
         this.longValue = input.readLong();
     }
 

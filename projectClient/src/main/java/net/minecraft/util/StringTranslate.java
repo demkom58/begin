@@ -14,23 +14,22 @@ public class StringTranslate {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static StringTranslate getInstance() {
         return instance;
     }
 
-    public String translateKey(String var1) {
-        return this.translateTable.getProperty(var1, var1);
+    public String translateKey(String key) {
+        return this.translateTable.getProperty(key, key);
     }
 
-    public String translateKeyFormat(String var1, Object... var2) {
-        String var3 = this.translateTable.getProperty(var1, var1);
-        return String.format(var3, var2);
+    public String translateKeyFormat(String key, Object... args) {
+        String translated = this.translateTable.getProperty(key, key);
+        return String.format(translated, args);
     }
 
-    public String translateNamedKey(String var1) {
-        return this.translateTable.getProperty(var1 + ".name", "");
+    public String translateNamedKey(String key) {
+        return this.translateTable.getProperty(key + ".name", "");
     }
 }

@@ -4,7 +4,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectRBTreeMap;
 import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
-import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.world.World;
 
 import java.io.IOException;
@@ -130,7 +130,7 @@ public class ChunkProvider implements IChunkProvider {
 
     }
 
-    public boolean saveChunks(boolean var1, IProgressUpdate progressUpdate) {
+    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdate) {
         int var3 = 0;
 
         for (int var4 = 0; var4 < this.chunks.size(); ++var4) {

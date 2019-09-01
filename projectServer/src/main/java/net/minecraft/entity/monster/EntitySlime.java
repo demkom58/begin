@@ -5,7 +5,7 @@ import net.minecraft.entity.IMob;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 import util.MathHelper;
 
@@ -39,12 +39,12 @@ public class EntitySlime extends EntityLiving implements IMob {
         return this.dataWatcher.getWatchableObjectByte(16);
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
         var1.setInteger("Size", this.func_25027_m() - 1);
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         this.setSlimeSize(var1.getInteger("Size") + 1);
     }

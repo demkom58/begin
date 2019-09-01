@@ -7,10 +7,10 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.material.Material;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagDouble;
-import net.minecraft.nbt.NBTTagFloat;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.TagCompound;
+import net.minecraft.nbt.TagDouble;
+import net.minecraft.nbt.TagFloat;
+import net.minecraft.nbt.TagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DataWatcher;
 import net.minecraft.world.World;
@@ -784,7 +784,7 @@ public abstract class Entity {
         return null;
     }
 
-    public boolean addEntityID(NBTTagCompound var1) {
+    public boolean addEntityID(TagCompound var1) {
         String var2 = this.getEntityString();
         if (!this.isDead && var2 != null) {
             var1.setString("id", var2);
@@ -795,7 +795,7 @@ public abstract class Entity {
         }
     }
 
-    public void writeToNBT(NBTTagCompound var1) {
+    public void writeToNBT(TagCompound var1) {
         var1.setTag("Pos", this.newDoubleNBTList(this.posX, this.posY + (double) this.ySize, this.posZ));
         var1.setTag("Motion", this.newDoubleNBTList(this.motionX, this.motionY, this.motionZ));
         var1.setTag("Rotation", this.newFloatNBTList(this.rotationYaw, this.rotationPitch));
@@ -806,13 +806,13 @@ public abstract class Entity {
         this.writeEntityToNBT(var1);
     }
 
-    public void readFromNBT(NBTTagCompound var1) {
-        NBTTagList var2 = var1.getTagList("Pos");
-        NBTTagList var3 = var1.getTagList("Motion");
-        NBTTagList var4 = var1.getTagList("Rotation");
-        this.motionX = ((NBTTagDouble) var3.tagAt(0)).doubleValue;
-        this.motionY = ((NBTTagDouble) var3.tagAt(1)).doubleValue;
-        this.motionZ = ((NBTTagDouble) var3.tagAt(2)).doubleValue;
+    public void readFromNBT(TagCompound var1) {
+        TagList var2 = var1.getTagList("Pos");
+        TagList var3 = var1.getTagList("Motion");
+        TagList var4 = var1.getTagList("Rotation");
+        this.motionX = ((TagDouble) var3.tagAt(0)).doubleValue;
+        this.motionY = ((TagDouble) var3.tagAt(1)).doubleValue;
+        this.motionZ = ((TagDouble) var3.tagAt(2)).doubleValue;
         if (Math.abs(this.motionX) > 10.0D) {
             this.motionX = 0.0D;
         }
@@ -825,11 +825,11 @@ public abstract class Entity {
             this.motionZ = 0.0D;
         }
 
-        this.prevPosX = this.lastTickPosX = this.posX = ((NBTTagDouble) var2.tagAt(0)).doubleValue;
-        this.prevPosY = this.lastTickPosY = this.posY = ((NBTTagDouble) var2.tagAt(1)).doubleValue;
-        this.prevPosZ = this.lastTickPosZ = this.posZ = ((NBTTagDouble) var2.tagAt(2)).doubleValue;
-        this.prevRotationYaw = this.rotationYaw = ((NBTTagFloat) var4.tagAt(0)).floatValue;
-        this.prevRotationPitch = this.rotationPitch = ((NBTTagFloat) var4.tagAt(1)).floatValue;
+        this.prevPosX = this.lastTickPosX = this.posX = ((TagDouble) var2.tagAt(0)).doubleValue;
+        this.prevPosY = this.lastTickPosY = this.posY = ((TagDouble) var2.tagAt(1)).doubleValue;
+        this.prevPosZ = this.lastTickPosZ = this.posZ = ((TagDouble) var2.tagAt(2)).doubleValue;
+        this.prevRotationYaw = this.rotationYaw = ((TagFloat) var4.tagAt(0)).floatValue;
+        this.prevRotationPitch = this.rotationPitch = ((TagFloat) var4.tagAt(1)).floatValue;
         this.fallDistance = var1.getFloat("FallDistance");
         this.fire = var1.getShort("Fire");
         this.air = var1.getShort("Air");
@@ -843,25 +843,25 @@ public abstract class Entity {
         return EntityList.getEntityString(this);
     }
 
-    protected abstract void readEntityFromNBT(NBTTagCompound var1);
+    protected abstract void readEntityFromNBT(TagCompound var1);
 
-    protected abstract void writeEntityToNBT(NBTTagCompound var1);
+    protected abstract void writeEntityToNBT(TagCompound var1);
 
-    protected NBTTagList newDoubleNBTList(double... var1) {
-        NBTTagList var2 = new NBTTagList();
+    protected TagList newDoubleNBTList(double... var1) {
+        TagList var2 = new TagList();
 
         for (double var6 : var1) {
-            var2.setTag(new NBTTagDouble(var6));
+            var2.setTag(new TagDouble(var6));
         }
 
         return var2;
     }
 
-    protected NBTTagList newFloatNBTList(float... var1) {
-        NBTTagList var2 = new NBTTagList();
+    protected TagList newFloatNBTList(float... var1) {
+        TagList var2 = new TagList();
 
         for (float var6 : var1) {
-            var2.setTag(new NBTTagFloat(var6));
+            var2.setTag(new TagFloat(var6));
         }
 
         return var2;

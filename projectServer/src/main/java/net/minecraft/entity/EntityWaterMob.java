@@ -1,6 +1,6 @@
 package net.minecraft.entity;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 
 public class EntityWaterMob extends EntityCreature implements IAnimals {
@@ -12,11 +12,11 @@ public class EntityWaterMob extends EntityCreature implements IAnimals {
         return true;
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
     }
 

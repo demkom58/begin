@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 import util.MathHelper;
 
@@ -105,16 +105,16 @@ public class EntityItem extends Entity {
         return false;
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("Health", (short) ((byte) this.health));
         var1.setShort("Age", (short) this.age);
-        var1.setCompoundTag("Item", this.item.writeToNBT(new NBTTagCompound()));
+        var1.setCompoundTag("Item", this.item.writeToNBT(new TagCompound()));
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         this.health = var1.getShort("Health") & 255;
         this.age = var1.getShort("Age");
-        NBTTagCompound var2 = var1.getCompoundTag("Item");
+        TagCompound var2 = var1.getCompoundTag("Item");
         this.item = new ItemStack(var2);
     }
 

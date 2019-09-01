@@ -4,24 +4,24 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class NBTTagString extends NBTBase {
+public class TagString extends Tag {
     public String stringValue;
 
-    public NBTTagString() {
+    public TagString() {
     }
 
-    public NBTTagString(String value) {
+    public TagString(String value) {
         this.stringValue = value;
         if (value == null) {
             throw new IllegalArgumentException("Empty string not allowed");
         }
     }
 
-    void writeTagContents(DataOutput output) throws IOException {
+    void write(DataOutput output) throws IOException {
         output.writeUTF(this.stringValue);
     }
 
-    void readTagContents(DataInput input) throws IOException {
+    void read(DataInput input) throws IOException {
         this.stringValue = input.readUTF();
     }
 

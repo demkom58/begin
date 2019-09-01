@@ -50,7 +50,7 @@ public class GuiChat extends GuiScreen {
         super.drawScreen(var1, var2, var3);
     }
 
-    protected void mouseClicked(int var1, int var2, int var3) {
+    protected void mouseClicked(int x, int y, int var3) {
         if (var3 == 0) {
             if (this.mc.ingameGUI.field_933_a != null) {
                 if (this.message.length() > 0 && !this.message.endsWith(" ")) {
@@ -63,7 +63,7 @@ public class GuiChat extends GuiScreen {
                     this.message = this.message.substring(0, var4);
                 }
             } else {
-                super.mouseClicked(var1, var2, var3);
+                super.mouseClicked(x, y, var3);
             }
         }
 

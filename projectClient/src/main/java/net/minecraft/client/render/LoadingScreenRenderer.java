@@ -1,14 +1,12 @@
 package net.minecraft.client.render;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.ScaledResolution;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.util.MinecraftError;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
-public class LoadingScreenRenderer implements IProgressUpdate {
+public class LoadingScreenRenderer implements IProgressUpdatable {
     private String field_1004_a = "";
     private Minecraft mc;
     private String field_1007_c = "";
@@ -24,7 +22,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
         this.func_597_c(var1);
     }
 
-    public void func_594_b(String var1) {
+    public void display(String var1) {
         this.field_1005_e = true;
         this.func_597_c(this.field_1007_c);
     }

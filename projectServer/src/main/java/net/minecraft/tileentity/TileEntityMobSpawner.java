@@ -2,7 +2,7 @@ package net.minecraft.tileentity;
 
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 
 public class TileEntityMobSpawner extends TileEntity {
@@ -91,13 +91,13 @@ public class TileEntityMobSpawner extends TileEntity {
         this.delay = 200 + this.worldObj.rand.nextInt(600);
     }
 
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(TagCompound compound) {
         super.readFromNBT(compound);
         this.mobID = compound.getString("EntityId");
         this.delay = compound.getShort("Delay");
     }
 
-    public void writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(TagCompound compound) {
         super.writeToNBT(compound);
         compound.setString("EntityId", this.mobID);
         compound.setShort("Delay", (short) this.delay);

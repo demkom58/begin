@@ -5,8 +5,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.TagCompound;
+import net.minecraft.nbt.TagList;
 
 public class InventoryPlayer implements IInventory {
     public ItemStack[] mainInventory = new ItemStack[36];
@@ -184,10 +184,10 @@ public class InventoryPlayer implements IInventory {
         return var2;
     }
 
-    public NBTTagList writeToNBT(NBTTagList var1) {
+    public TagList writeToNBT(TagList var1) {
         for (int var2 = 0; var2 < this.mainInventory.length; ++var2) {
             if (this.mainInventory[var2] != null) {
-                NBTTagCompound var3 = new NBTTagCompound();
+                TagCompound var3 = new TagCompound();
                 var3.setByte("Slot", (byte) var2);
                 this.mainInventory[var2].writeToNBT(var3);
                 var1.setTag(var3);
@@ -196,7 +196,7 @@ public class InventoryPlayer implements IInventory {
 
         for (int var4 = 0; var4 < this.armorInventory.length; ++var4) {
             if (this.armorInventory[var4] != null) {
-                NBTTagCompound var5 = new NBTTagCompound();
+                TagCompound var5 = new TagCompound();
                 var5.setByte("Slot", (byte) (var4 + 100));
                 this.armorInventory[var4].writeToNBT(var5);
                 var1.setTag(var5);
@@ -206,12 +206,12 @@ public class InventoryPlayer implements IInventory {
         return var1;
     }
 
-    public void readFromNBT(NBTTagList var1) {
+    public void readFromNBT(TagList var1) {
         this.mainInventory = new ItemStack[36];
         this.armorInventory = new ItemStack[4];
 
         for (int var2 = 0; var2 < var1.tagCount(); ++var2) {
-            NBTTagCompound var3 = (NBTTagCompound) var1.tagAt(var2);
+            TagCompound var3 = (TagCompound) var1.tagAt(var2);
             int var4 = var3.getByte("Slot") & 255;
             ItemStack var5 = new ItemStack(var3);
             if (var5.getItem() != null) {

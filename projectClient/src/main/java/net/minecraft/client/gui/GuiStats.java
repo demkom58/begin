@@ -124,23 +124,23 @@ public class GuiStats extends GuiScreen {
     public void initGui() {
         this.field_27154_i = StatCollector.translateToLocal("gui.stats");
         this.field_27151_l = new GuiSlotStatsGeneral(this);
-        this.field_27151_l.registerScrollButtons(this.controlList, 1, 1);
+        this.field_27151_l.registerScrollButtons(this.buttons, 1, 1);
         this.field_27150_m = new GuiSlotStatsItem(this);
-        this.field_27150_m.registerScrollButtons(this.controlList, 1, 1);
+        this.field_27150_m.registerScrollButtons(this.buttons, 1, 1);
         this.field_27157_n = new GuiSlotStatsBlock(this);
-        this.field_27157_n.registerScrollButtons(this.controlList, 1, 1);
+        this.field_27157_n.registerScrollButtons(this.buttons, 1, 1);
         this.field_27155_p = this.field_27151_l;
         this.func_27130_k();
     }
 
     public void func_27130_k() {
         StringTranslate var1 = StringTranslate.getInstance();
-        this.controlList.add(new GuiButton(0, this.width / 2 + 4, this.height - 28, 150, 20, var1.translateKey("gui.done")));
-        this.controlList.add(new GuiButton(1, this.width / 2 - 154, this.height - 52, 100, 20, var1.translateKey("stat.generalButton")));
+        this.buttons.add(new GuiButton(0, this.width / 2 + 4, this.height - 28, 150, 20, var1.translateKey("gui.done")));
+        this.buttons.add(new GuiButton(1, this.width / 2 - 154, this.height - 52, 100, 20, var1.translateKey("stat.generalButton")));
         GuiButton var2;
-        this.controlList.add(var2 = new GuiButton(2, this.width / 2 - 46, this.height - 52, 100, 20, var1.translateKey("stat.blocksButton")));
+        this.buttons.add(var2 = new GuiButton(2, this.width / 2 - 46, this.height - 52, 100, 20, var1.translateKey("stat.blocksButton")));
         GuiButton var3;
-        this.controlList.add(var3 = new GuiButton(3, this.width / 2 + 62, this.height - 52, 100, 20, var1.translateKey("stat.itemsButton")));
+        this.buttons.add(var3 = new GuiButton(3, this.width / 2 + 62, this.height - 52, 100, 20, var1.translateKey("stat.itemsButton")));
         if (this.field_27157_n.getSize() == 0) {
             var2.enabled = false;
         }

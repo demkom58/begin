@@ -2,7 +2,7 @@ package net.minecraft.entity.projectile;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -182,7 +182,7 @@ public class EntityFireball extends Entity {
         this.setPosition(this.posX, this.posY, this.posZ);
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("xTile", (short) this.field_9402_e);
         var1.setShort("yTile", (short) this.field_9401_f);
         var1.setShort("zTile", (short) this.field_9400_g);
@@ -191,7 +191,7 @@ public class EntityFireball extends Entity {
         var1.setByte("inGround", (byte) (this.field_9398_i ? 1 : 0));
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         this.field_9402_e = var1.getShort("xTile");
         this.field_9401_f = var1.getShort("yTile");
         this.field_9400_g = var1.getShort("zTile");

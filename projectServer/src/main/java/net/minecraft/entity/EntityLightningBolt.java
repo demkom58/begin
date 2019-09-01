@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import util.MathHelper;
@@ -82,9 +82,9 @@ public class EntityLightningBolt extends EntityWeatherEffect {
     protected void entityInit() {
     }
 
-    protected void readEntityFromNBT(NBTTagCompound var1) {
+    protected void readEntityFromNBT(TagCompound var1) {
     }
 
-    protected void writeEntityToNBT(NBTTagCompound var1) {
+    protected void writeEntityToNBT(TagCompound var1) {
     }
 }

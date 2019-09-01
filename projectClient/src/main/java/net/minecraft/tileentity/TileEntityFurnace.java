@@ -8,8 +8,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.material.Material;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.TagCompound;
+import net.minecraft.nbt.TagList;
 
 public class TileEntityFurnace extends TileEntity implements IInventory {
     public int furnaceBurnTime = 0;
@@ -56,13 +56,13 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         return "Furnace";
     }
 
-    public void readFromNBT(NBTTagCompound var1) {
+    public void readFromNBT(TagCompound var1) {
         super.readFromNBT(var1);
-        NBTTagList var2 = var1.getTagList("Items");
+        TagList var2 = var1.getTagList("Items");
         this.furnaceItemStacks = new ItemStack[this.getSizeInventory()];
 
         for (int var3 = 0; var3 < var2.tagCount(); ++var3) {
-            NBTTagCompound var4 = (NBTTagCompound) var2.tagAt(var3);
+            TagCompound var4 = (TagCompound) var2.tagAt(var3);
             byte var5 = var4.getByte("Slot");
             if (var5 >= 0 && var5 < this.furnaceItemStacks.length) {
                 this.furnaceItemStacks[var5] = new ItemStack(var4);
@@ -74,15 +74,15 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         this.currentItemBurnTime = this.getItemBurnTime(this.furnaceItemStacks[1]);
     }
 
-    public void writeToNBT(NBTTagCompound var1) {
+    public void writeToNBT(TagCompound var1) {
         super.writeToNBT(var1);
         var1.setShort("BurnTime", (short) this.furnaceBurnTime);
         var1.setShort("CookTime", (short) this.furnaceCookTime);
-        NBTTagList var2 = new NBTTagList();
+        TagList var2 = new TagList();
 
         for (int var3 = 0; var3 < this.furnaceItemStacks.length; ++var3) {
             if (this.furnaceItemStacks[var3] != null) {
-                NBTTagCompound var4 = new NBTTagCompound();
+                TagCompound var4 = new TagCompound();
                 var4.setByte("Slot", (byte) var3);
                 this.furnaceItemStacks[var3].writeToNBT(var4);
                 var2.setTag(var4);

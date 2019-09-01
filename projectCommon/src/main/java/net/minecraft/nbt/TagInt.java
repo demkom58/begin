@@ -4,21 +4,21 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class NBTTagInt extends NBTBase {
+public class TagInt extends Tag {
     public int intValue;
 
-    public NBTTagInt() {
+    public TagInt() {
     }
 
-    public NBTTagInt(int value) {
+    public TagInt(int value) {
         this.intValue = value;
     }
 
-    void writeTagContents(DataOutput output) throws IOException {
+    void write(DataOutput output) throws IOException {
         output.writeInt(this.intValue);
     }
 
-    void readTagContents(DataInput input) throws IOException {
+    void read(DataInput input) throws IOException {
         this.intValue = input.readInt();
     }
 

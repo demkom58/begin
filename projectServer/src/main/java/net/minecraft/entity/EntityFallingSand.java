@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.BlockSand;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 import util.MathHelper;
 
@@ -75,11 +75,11 @@ public class EntityFallingSand extends Entity {
         }
     }
 
-    protected void writeEntityToNBT(NBTTagCompound var1) {
+    protected void writeEntityToNBT(TagCompound var1) {
         var1.setByte("Tile", (byte) this.blockID);
     }
 
-    protected void readEntityFromNBT(NBTTagCompound var1) {
+    protected void readEntityFromNBT(TagCompound var1) {
         this.blockID = var1.getByte("Tile") & 255;
     }
 }

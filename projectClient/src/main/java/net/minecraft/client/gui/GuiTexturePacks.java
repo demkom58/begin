@@ -79,12 +79,12 @@ public class GuiTexturePacks extends GuiScreen {
 
     public void initGui() {
         StringTranslate var1 = StringTranslate.getInstance();
-        this.controlList.add(new GuiSmallButton(5, this.width / 2 - 154, this.height - 48, var1.translateKey("texturePack.openFolder")));
-        this.controlList.add(new GuiSmallButton(6, this.width / 2 + 4, this.height - 48, var1.translateKey("gui.done")));
+        this.buttons.add(new GuiSmallButton(5, this.width / 2 - 154, this.height - 48, var1.translateKey("texturePack.openFolder")));
+        this.buttons.add(new GuiSmallButton(6, this.width / 2 + 4, this.height - 48, var1.translateKey("gui.done")));
         this.mc.texturePackList.updateAvaliableTexturePacks();
         this.fileLocation = (new File(Minecraft.getMinecraftDir(), "texturepacks")).getAbsolutePath();
         this.guiTexturePackSlot = new GuiTexturePackSlot(this);
-        this.guiTexturePackSlot.registerScrollButtons(this.controlList, 7, 8);
+        this.guiTexturePackSlot.registerScrollButtons(this.buttons, 7, 8);
     }
 
     protected void actionPerformed(GuiButton button) {
@@ -101,8 +101,8 @@ public class GuiTexturePacks extends GuiScreen {
         }
     }
 
-    protected void mouseClicked(int var1, int var2, int var3) {
-        super.mouseClicked(var1, var2, var3);
+    protected void mouseClicked(int x, int y, int var3) {
+        super.mouseClicked(x, y, var3);
     }
 
     protected void mouseMovedOrUp(int var1, int var2, int var3) {

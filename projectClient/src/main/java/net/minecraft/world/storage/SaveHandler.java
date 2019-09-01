@@ -1,8 +1,9 @@
 package net.minecraft.world.storage;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.chunk.ChunkLoader;
 import net.minecraft.world.chunk.IChunkLoader;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.CompressedStreamTools;
 import net.minecraft.util.MinecraftException;
 import net.minecraft.world.WorldInfo;
@@ -11,37 +12,36 @@ import net.minecraft.world.WorldProviderHell;
 
 import java.io.*;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class SaveHandler implements ISaveHandler {
-    private static final Logger logger = Logger.getLogger("Minecraft");
     private final File saveDirectory;
     private final File playersDirectory;
-    private final File field_28114_d;
-    private final long now = System.currentTimeMillis();
+    private final File dataDirectory;
+    private final long lockTime = System.currentTimeMillis();
 
-    public SaveHandler(File var1, String var2, boolean var3) {
-        this.saveDirectory = new File(var1, var2);
+    public SaveHandler(File saveDirectory, String worldName, boolean createPlayerDirectory) {
+        this.saveDirectory = new File(saveDirectory, worldName);
         this.saveDirectory.mkdirs();
-        this.playersDirectory = new File(this.saveDirectory, "players");
-        this.field_28114_d = new File(this.saveDirectory, "data");
-        this.field_28114_d.mkdirs();
-        if (var3) {
-            this.playersDirectory.mkdirs();
-        }
 
-        this.func_22154_d();
+        this.playersDirectory = new File(this.saveDirectory, "players");
+        if (createPlayerDirectory)
+            this.playersDirectory.mkdirs();
+
+        this.dataDirectory = new File(this.saveDirectory, "data");
+        this.dataDirectory.mkdirs();
+
+        this.writeSession();
     }
 
-    private void func_22154_d() {
+    private void writeSession() {
         try {
-            File var1 = new File(this.saveDirectory, "session.lock");
-            DataOutputStream var2 = new DataOutputStream(new FileOutputStream(var1));
+            File sessionFile = new File(this.saveDirectory, "session.lock");
+            DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(sessionFile));
 
             try {
-                var2.writeLong(this.now);
+                outputStream.writeLong(this.lockTime);
             } finally {
-                var2.close();
+                outputStream.close();
             }
 
         } catch (IOException e) {
@@ -54,17 +54,16 @@ public class SaveHandler implements ISaveHandler {
         return this.saveDirectory;
     }
 
-    public void func_22150_b() {
+    public void validateSession() throws MinecraftException {
         try {
-            File var1 = new File(this.saveDirectory, "session.lock");
-            DataInputStream var2 = new DataInputStream(new FileInputStream(var1));
+            File sessionFile = new File(this.saveDirectory, "session.lock");
+            DataInputStream sessionInput = new DataInputStream(new FileInputStream(sessionFile));
 
             try {
-                if (var2.readLong() != this.now) {
+                if (sessionInput.readLong() != this.lockTime)
                     throw new MinecraftException("The save is being accessed from another location, aborting");
-                }
             } finally {
-                var2.close();
+                sessionInput.close();
             }
 
         } catch (IOException e) {
@@ -72,33 +71,33 @@ public class SaveHandler implements ISaveHandler {
         }
     }
 
-    public IChunkLoader getChunkLoader(WorldProvider var1) {
-        if (var1 instanceof WorldProviderHell) {
-            File var2 = new File(this.saveDirectory, "DIM-1");
-            var2.mkdirs();
-            return new ChunkLoader(var2, true);
-        } else {
-            return new ChunkLoader(this.saveDirectory, true);
+    public IChunkLoader getChunkLoader(WorldProvider provider) {
+        if (provider instanceof WorldProviderHell) {
+            File file = new File(this.saveDirectory, "DIM-1");
+            file.mkdirs();
+            return new ChunkLoader(file, true);
         }
+
+        return new ChunkLoader(this.saveDirectory, true);
     }
 
     public WorldInfo loadWorldInfo() {
-        File var1 = new File(this.saveDirectory, "level.dat");
-        if (var1.exists()) {
+        File levelFile = new File(this.saveDirectory, "level.dat");
+        if (levelFile.exists()) {
             try {
-                NBTTagCompound var7 = CompressedStreamTools.readGzipCompound(new FileInputStream(var1));
-                NBTTagCompound var8 = var7.getCompoundTag("Data");
+                TagCompound var7 = CompressedStreamTools.readGzipCompound(new FileInputStream(levelFile));
+                TagCompound var8 = var7.getCompoundTag("Data");
                 return new WorldInfo(var8);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        var1 = new File(this.saveDirectory, "level.dat_old");
-        if (var1.exists()) {
+        File oldLevelFile = new File(this.saveDirectory, "level.dat_old");
+        if (oldLevelFile.exists()) {
             try {
-                NBTTagCompound var2 = CompressedStreamTools.readGzipCompound(new FileInputStream(var1));
-                NBTTagCompound var3 = var2.getCompoundTag("Data");
+                TagCompound var2 = CompressedStreamTools.readGzipCompound(new FileInputStream(oldLevelFile));
+                TagCompound var3 = var2.getCompoundTag("Data");
                 return new WorldInfo(var3);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -108,28 +107,28 @@ public class SaveHandler implements ISaveHandler {
         return null;
     }
 
-    public void saveWorldInfoAndPlayer(WorldInfo var1, List var2) {
-        NBTTagCompound var3 = var1.getNBTTagCompoundWithPlayer(var2);
-        NBTTagCompound var4 = new NBTTagCompound();
+    public void saveWorldInfoAndPlayer(WorldInfo worldInfo, List<EntityPlayer> players) {
+        TagCompound var3 = worldInfo.getNBTTagCompoundWithPlayer(players);
+        TagCompound var4 = new TagCompound();
         var4.setTag("Data", var3);
 
         try {
-            File var5 = new File(this.saveDirectory, "level.dat_new");
-            File var6 = new File(this.saveDirectory, "level.dat_old");
-            File var7 = new File(this.saveDirectory, "level.dat");
-            CompressedStreamTools.writeGzipCompound(var4, new FileOutputStream(var5));
-            if (var6.exists()) {
-                var6.delete();
+            File newLevelFile = new File(this.saveDirectory, "level.dat_new");
+            File oldLevelFile = new File(this.saveDirectory, "level.dat_old");
+            File levelFile = new File(this.saveDirectory, "level.dat");
+            CompressedStreamTools.writeGzipCompound(var4, new FileOutputStream(newLevelFile));
+            if (oldLevelFile.exists()) {
+                oldLevelFile.delete();
             }
 
-            var7.renameTo(var6);
-            if (var7.exists()) {
-                var7.delete();
+            levelFile.renameTo(oldLevelFile);
+            if (levelFile.exists()) {
+                levelFile.delete();
             }
 
-            var5.renameTo(var7);
-            if (var5.exists()) {
-                var5.delete();
+            newLevelFile.renameTo(levelFile);
+            if (newLevelFile.exists()) {
+                newLevelFile.delete();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,28 +136,29 @@ public class SaveHandler implements ISaveHandler {
 
     }
 
-    public void saveWorldInfo(WorldInfo var1) {
-        NBTTagCompound var2 = var1.getNBTTagCompound();
-        NBTTagCompound var3 = new NBTTagCompound();
+    public void saveWorldInfo(WorldInfo worldInfo) {
+        TagCompound var2 = worldInfo.getNBTTagCompound();
+        TagCompound var3 = new TagCompound();
         var3.setTag("Data", var2);
 
         try {
-            File var4 = new File(this.saveDirectory, "level.dat_new");
-            File var5 = new File(this.saveDirectory, "level.dat_old");
-            File var6 = new File(this.saveDirectory, "level.dat");
-            CompressedStreamTools.writeGzipCompound(var3, new FileOutputStream(var4));
-            if (var5.exists()) {
-                var5.delete();
+            File newLevelFile = new File(this.saveDirectory, "level.dat_new");
+            File oldLevelFile = new File(this.saveDirectory, "level.dat_old");
+            File levelFile = new File(this.saveDirectory, "level.dat");
+
+            CompressedStreamTools.writeGzipCompound(var3, new FileOutputStream(newLevelFile));
+            if (oldLevelFile.exists()) {
+                oldLevelFile.delete();
             }
 
-            var6.renameTo(var5);
-            if (var6.exists()) {
-                var6.delete();
+            levelFile.renameTo(oldLevelFile);
+            if (levelFile.exists()) {
+                levelFile.delete();
             }
 
-            var4.renameTo(var6);
-            if (var4.exists()) {
-                var4.delete();
+            newLevelFile.renameTo(levelFile);
+            if (newLevelFile.exists()) {
+                newLevelFile.delete();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,6 +167,6 @@ public class SaveHandler implements ISaveHandler {
     }
 
     public File func_28113_a(String var1) {
-        return new File(this.field_28114_d, var1 + ".dat");
+        return new File(this.dataDirectory, var1 + ".dat");
     }
 }

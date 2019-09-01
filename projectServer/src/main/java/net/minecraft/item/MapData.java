@@ -1,7 +1,7 @@
 package net.minecraft.item;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class MapData extends MapDataBase {
         super(var1);
     }
 
-    public void func_28148_a(NBTTagCompound compound) {
+    public void func_28148_a(TagCompound compound) {
         this.dimension = compound.getByte("dimension");
         this.xCenter = compound.getInteger("xCenter");
         this.zCenter = compound.getInteger("zCenter");
@@ -62,7 +62,7 @@ public class MapData extends MapDataBase {
 
     }
 
-    public void func_28147_b(NBTTagCompound compound) {
+    public void func_28147_b(TagCompound compound) {
         compound.setByte("dimension", this.dimension);
         compound.setInteger("xCenter", this.xCenter);
         compound.setInteger("zCenter", this.zCenter);

@@ -6,7 +6,7 @@ import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntitySnowball;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
@@ -67,7 +67,7 @@ public class EntityList {
         return var2;
     }
 
-    public static Entity createEntityFromNBT(NBTTagCompound var0, World var1) {
+    public static Entity createEntityFromNBT(TagCompound var0, World var1) {
         Entity var2 = null;
 
         try {

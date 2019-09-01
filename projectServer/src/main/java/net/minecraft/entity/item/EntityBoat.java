@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import util.MathHelper;
@@ -298,10 +298,10 @@ public class EntityBoat extends Entity {
         }
     }
 
-    protected void writeEntityToNBT(NBTTagCompound var1) {
+    protected void writeEntityToNBT(TagCompound var1) {
     }
 
-    protected void readEntityFromNBT(NBTTagCompound var1) {
+    protected void readEntityFromNBT(TagCompound var1) {
     }
 
     public boolean interact(EntityPlayer var1) {

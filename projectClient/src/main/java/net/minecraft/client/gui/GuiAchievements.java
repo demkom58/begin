@@ -40,8 +40,8 @@ public class GuiAchievements extends GuiScreen {
     }
 
     public void initGui() {
-        this.controlList.clear();
-        this.controlList.add(new GuiSmallButton(1, this.width / 2 + 24, this.height / 2 + 74, 80, 20, StatCollector.translateToLocal("gui.done")));
+        this.buttons.clear();
+        this.buttons.add(new GuiSmallButton(1, this.width / 2 + 24, this.height / 2 + 74, 80, 20, StatCollector.translateToLocal("gui.done")));
     }
 
     protected void actionPerformed(GuiButton button) {

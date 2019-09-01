@@ -17,7 +17,7 @@ public class GuiInventory extends GuiContainer {
     }
 
     public void initGui() {
-        this.controlList.clear();
+        this.buttons.clear();
     }
 
     protected void drawGuiContainerForegroundLayer() {

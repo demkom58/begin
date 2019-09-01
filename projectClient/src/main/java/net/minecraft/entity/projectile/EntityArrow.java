@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -243,7 +243,7 @@ public class EntityArrow extends Entity {
         }
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("xTile", (short) this.xTile);
         var1.setShort("yTile", (short) this.yTile);
         var1.setShort("zTile", (short) this.zTile);
@@ -254,7 +254,7 @@ public class EntityArrow extends Entity {
         var1.setBoolean("player", this.doesArrowBelongToPlayer);
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         this.xTile = var1.getShort("xTile");
         this.yTile = var1.getShort("yTile");
         this.zTile = var1.getShort("zTile");

@@ -3,7 +3,7 @@ package net.minecraft.entity.monster;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityMob;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 import util.MathHelper;
 
@@ -66,11 +66,11 @@ public class EntitySpider extends EntityMob {
         }
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
     }
 

@@ -1,6 +1,6 @@
 package net.minecraft.item;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 
 public abstract class MapDataBase {
     public final String field_28152_a;
@@ -10,9 +10,9 @@ public abstract class MapDataBase {
         this.field_28152_a = var1;
     }
 
-    public abstract void func_28148_a(NBTTagCompound compound);
+    public abstract void func_28148_a(TagCompound compound);
 
-    public abstract void func_28147_b(NBTTagCompound compound);
+    public abstract void func_28147_b(TagCompound compound);
 
     public void func_28146_a() {
         this.func_28149_a(true);

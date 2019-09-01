@@ -4,21 +4,21 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class NBTTagFloat extends NBTBase {
+public class TagFloat extends Tag {
     public float floatValue;
 
-    public NBTTagFloat() {
+    public TagFloat() {
     }
 
-    public NBTTagFloat(float value) {
+    public TagFloat(float value) {
         this.floatValue = value;
     }
 
-    void writeTagContents(DataOutput output) throws IOException {
+    void write(DataOutput output) throws IOException {
         output.writeFloat(this.floatValue);
     }
 
-    void readTagContents(DataInput input) throws IOException {
+    void read(DataInput input) throws IOException {
         this.floatValue = input.readFloat();
     }
 

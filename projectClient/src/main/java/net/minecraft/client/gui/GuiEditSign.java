@@ -20,9 +20,9 @@ public class GuiEditSign extends GuiScreen {
     }
 
     public void initGui() {
-        this.controlList.clear();
+        this.buttons.clear();
         Keyboard.enableRepeatEvents(true);
-        this.controlList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120, "Done"));
+        this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120, "Done"));
     }
 
     public void onGuiClosed() {

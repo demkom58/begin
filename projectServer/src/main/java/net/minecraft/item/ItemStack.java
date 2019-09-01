@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.stats.StatList;
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 
 public final class ItemStack {
@@ -45,7 +45,7 @@ public final class ItemStack {
         this.itemDamage = var3;
     }
 
-    public ItemStack(NBTTagCompound var1) {
+    public ItemStack(TagCompound var1) {
         this.stackSize = 0;
         this.readFromNBT(var1);
     }
@@ -88,14 +88,14 @@ public final class ItemStack {
         return this.getItem().onItemRightClick(this, var1, var2);
     }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound var1) {
+    public TagCompound writeToNBT(TagCompound var1) {
         var1.setShort("id", (short) this.itemID);
         var1.setByte("Count", (byte) this.stackSize);
         var1.setShort("Damage", (short) this.itemDamage);
         return var1;
     }
 
-    public void readFromNBT(NBTTagCompound var1) {
+    public void readFromNBT(TagCompound var1) {
         this.itemID = var1.getShort("id");
         this.stackSize = var1.getByte("Count");
         this.itemDamage = var1.getShort("Damage");

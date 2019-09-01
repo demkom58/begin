@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityWaterMob;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.material.Material;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 import util.MathHelper;
 
@@ -32,11 +32,11 @@ public class EntitySquid extends EntityWaterMob {
         this.field_21080_l = 1.0F / (this.rand.nextFloat() + 1.0F) * 0.2F;
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
     }
 

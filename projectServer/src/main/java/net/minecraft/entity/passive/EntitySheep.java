@@ -7,7 +7,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -77,13 +77,13 @@ public class EntitySheep extends EntityAnimal {
         return false;
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
         var1.setBoolean("Sheared", this.func_21069_f_());
         var1.setByte("Color", (byte) this.getFleeceColor());
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         this.setSheared(var1.getBoolean("Sheared"));
         this.setFleeceColor(var1.getByte("Color"));

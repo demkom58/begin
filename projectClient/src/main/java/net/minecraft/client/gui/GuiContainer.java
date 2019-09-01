@@ -127,13 +127,13 @@ public abstract class GuiContainer extends GuiScreen {
         return var2 >= var1.xDisplayPosition - 1 && var2 < var1.xDisplayPosition + 16 + 1 && var3 >= var1.yDisplayPosition - 1 && var3 < var1.yDisplayPosition + 16 + 1;
     }
 
-    protected void mouseClicked(int var1, int var2, int var3) {
-        super.mouseClicked(var1, var2, var3);
+    protected void mouseClicked(int x, int y, int var3) {
+        super.mouseClicked(x, y, var3);
         if (var3 == 0 || var3 == 1) {
-            Slot var4 = this.getSlotAtPosition(var1, var2);
+            Slot var4 = this.getSlotAtPosition(x, y);
             int var5 = (this.width - this.xSize) / 2;
             int var6 = (this.height - this.ySize) / 2;
-            boolean var7 = var1 < var5 || var2 < var6 || var1 >= var5 + this.xSize || var2 >= var6 + this.ySize;
+            boolean var7 = x < var5 || y < var6 || x >= var5 + this.xSize || y >= var6 + this.ySize;
             int var8 = -1;
             if (var4 != null) {
                 var8 = var4.slotNumber;

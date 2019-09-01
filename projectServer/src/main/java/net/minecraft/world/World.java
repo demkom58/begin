@@ -133,7 +133,7 @@ public class World implements IBlockAccess {
         return this.getBlockId(var1, var3, var2);
     }
 
-    public void saveWorld(boolean var1, IProgressUpdate progressUpdate) {
+    public void saveWorld(boolean var1, IProgressUpdatable progressUpdate) {
         if (this.chunkProvider.canSave()) {
             timings.worldSave.startTiming();
             if (progressUpdate != null) {

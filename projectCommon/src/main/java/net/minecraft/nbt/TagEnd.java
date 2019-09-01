@@ -4,11 +4,11 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class NBTTagEnd extends NBTBase {
-    void readTagContents(DataInput input) throws IOException {
+public class TagEnd extends Tag {
+    void read(DataInput input) throws IOException {
     }
 
-    void writeTagContents(DataOutput output) throws IOException {
+    void write(DataOutput output) throws IOException {
     }
 
     public byte getType() {

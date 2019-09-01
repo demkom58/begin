@@ -1,6 +1,6 @@
 package net.minecraft.world.chunk;
 
-import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.material.Material;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
@@ -600,7 +600,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         BlockSand.fallInstantly = false;
     }
 
-    public boolean saveChunks(boolean var1, IProgressUpdate progressUpdate) {
+    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdate) {
         return true;
     }
 

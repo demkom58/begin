@@ -2,7 +2,7 @@ package net.minecraft.util;
 
 import net.minecraft.server.MinecraftServer;
 
-public class ConvertProgressUpdater implements IProgressUpdate {
+public class ConvertProgressUpdater implements IProgressUpdatable {
     // $FF: synthetic field
     final MinecraftServer mcServer;
     private long lastTimeMillis;

@@ -4,8 +4,8 @@ import net.minecraft.util.CompressedStreamTools;
 import net.minecraft.util.NibbleArray;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.TagCompound;
+import net.minecraft.nbt.TagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldInfo;
@@ -24,7 +24,7 @@ public class ChunkLoader implements IChunkLoader {
         this.createIfNecessary = createIfNecessary;
     }
 
-    public static void storeChunkInCompound(Chunk chunk, World world, NBTTagCompound chunkCompound) {
+    public static void storeChunkInCompound(Chunk chunk, World world, TagCompound chunkCompound) {
         world.checkSessionLock();
         chunkCompound.setInteger("xPos", chunk.xPosition);
         chunkCompound.setInteger("zPos", chunk.zPosition);
@@ -36,12 +36,12 @@ public class ChunkLoader implements IChunkLoader {
         chunkCompound.setByteArray("HeightMap", chunk.heightMap);
         chunkCompound.setBoolean("TerrainPopulated", chunk.isTerrainPopulated);
         chunk.hasEntities = false;
-        NBTTagList entitiesList = new NBTTagList();
+        TagList entitiesList = new TagList();
 
         for (int i = 0; i < chunk.entities.length; ++i) {
             for (Entity entity : chunk.entities[i]) {
                 chunk.hasEntities = true;
-                NBTTagCompound tagCompound = new NBTTagCompound();
+                TagCompound tagCompound = new TagCompound();
                 if (entity.addEntityID(tagCompound)) {
                     entitiesList.setTag(tagCompound);
                 }
@@ -49,10 +49,10 @@ public class ChunkLoader implements IChunkLoader {
         }
 
         chunkCompound.setTag("Entities", entitiesList);
-        NBTTagList tileEntitiesList = new NBTTagList();
+        TagList tileEntitiesList = new TagList();
 
         for (TileEntity tileEntity : chunk.chunkTileEntityMap.values()) {
-            NBTTagCompound var11 = new NBTTagCompound();
+            TagCompound var11 = new TagCompound();
             tileEntity.writeToNBT(var11);
             tileEntitiesList.setTag(var11);
         }
@@ -60,7 +60,7 @@ public class ChunkLoader implements IChunkLoader {
         chunkCompound.setTag("TileEntities", tileEntitiesList);
     }
 
-    public static Chunk loadChunkIntoWorldFromCompound(World world, NBTTagCompound chunkCompound) {
+    public static Chunk loadChunkIntoWorldFromCompound(World world, TagCompound chunkCompound) {
         int x = chunkCompound.getInteger("xPos");
         int z = chunkCompound.getInteger("zPos");
         Chunk chunk = new Chunk(world, x, z);
@@ -85,10 +85,10 @@ public class ChunkLoader implements IChunkLoader {
             chunk.func_348_a();
         }
 
-        NBTTagList entitiesList = chunkCompound.getTagList("Entities");
+        TagList entitiesList = chunkCompound.getTagList("Entities");
         if (entitiesList != null) {
             for (int i = 0; i < entitiesList.tagCount(); ++i) {
-                NBTTagCompound compound = (NBTTagCompound) entitiesList.tagAt(i);
+                TagCompound compound = (TagCompound) entitiesList.tagAt(i);
                 Entity entity = EntityList.createEntityFromNBT(compound, world);
                 chunk.hasEntities = true;
                 if (entity != null) {
@@ -97,10 +97,10 @@ public class ChunkLoader implements IChunkLoader {
             }
         }
 
-        NBTTagList tileEntitiesList = chunkCompound.getTagList("TileEntities");
+        TagList tileEntitiesList = chunkCompound.getTagList("TileEntities");
         if (tileEntitiesList != null) {
             for (int i = 0; i < tileEntitiesList.tagCount(); ++i) {
-                NBTTagCompound compound = (NBTTagCompound) tileEntitiesList.tagAt(i);
+                TagCompound compound = (TagCompound) tileEntitiesList.tagAt(i);
                 TileEntity tileEntity = TileEntity.createAndLoadEntity(compound);
                 if (tileEntity != null) {
                     chunk.addTileEntity(tileEntity);
@@ -142,7 +142,7 @@ public class ChunkLoader implements IChunkLoader {
         if (file != null && file.exists()) {
             try {
                 FileInputStream var5 = new FileInputStream(file);
-                NBTTagCompound var6 = CompressedStreamTools.readGzipCompound(var5);
+                TagCompound var6 = CompressedStreamTools.readGzipCompound(var5);
                 if (!var6.hasKey("Level")) {
                     System.out.println("Chunk file at " + x + "," + z + " is missing level data, skipping");
                     return null;
@@ -182,8 +182,8 @@ public class ChunkLoader implements IChunkLoader {
         try {
             File tempChunkFile = new File(this.saveDir, "tmp_chunk.dat");
             FileOutputStream outputStream = new FileOutputStream(tempChunkFile);
-            NBTTagCompound var6 = new NBTTagCompound();
-            NBTTagCompound var7 = new NBTTagCompound();
+            TagCompound var6 = new TagCompound();
+            TagCompound var7 = new TagCompound();
             var6.setTag("Level", var7);
             storeChunkInCompound(chunk, world, var7);
             CompressedStreamTools.writeGzipCompound(var6, outputStream);

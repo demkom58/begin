@@ -1,6 +1,6 @@
 package net.minecraft.world.chunk;
 
-import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.world.World;
 
 import java.util.*;
@@ -51,7 +51,7 @@ public class ChunkProviderClient implements IChunkProvider {
         return var4 == null ? this.blankChunk : var4;
     }
 
-    public boolean saveChunks(boolean var1, IProgressUpdate var2) {
+    public boolean saveChunks(boolean var1, IProgressUpdatable var2) {
         return true;
     }
 

@@ -6,7 +6,7 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -227,7 +227,7 @@ public class EntityEgg extends Entity {
         this.setPosition(this.posX, this.posY, this.posZ);
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("xTile", (short) this.field_20056_b);
         var1.setShort("yTile", (short) this.field_20055_c);
         var1.setShort("zTile", (short) this.field_20054_d);
@@ -236,7 +236,7 @@ public class EntityEgg extends Entity {
         var1.setByte("inGround", (byte) (this.field_20052_f ? 1 : 0));
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         this.field_20056_b = var1.getShort("xTile");
         this.field_20055_c = var1.getShort("yTile");
         this.field_20054_d = var1.getShort("zTile");

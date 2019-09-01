@@ -20,12 +20,12 @@ public class GuiCreateWorld extends GuiScreen {
         this.field_22131_a = var1;
     }
 
-    public static String generateUnusedFolderName(ISaveFormat var0, String var1) {
-        while (var0.func_22173_b(var1) != null) {
-            var1 = var1 + "-";
+    public static String generateUnusedFolderName(ISaveFormat saveFormat, String name) {
+        while (saveFormat.readWorldInfo(name) != null) {
+            name = name + "-";
         }
 
-        return var1;
+        return name;
     }
 
     public void updateScreen() {
@@ -36,9 +36,9 @@ public class GuiCreateWorld extends GuiScreen {
     public void initGui() {
         StringTranslate var1 = StringTranslate.getInstance();
         Keyboard.enableRepeatEvents(true);
-        this.controlList.clear();
-        this.controlList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12, var1.translateKey("selectWorld.create")));
-        this.controlList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, var1.translateKey("gui.cancel")));
+        this.buttons.clear();
+        this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12, var1.translateKey("selectWorld.create")));
+        this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, var1.translateKey("gui.cancel")));
         this.textboxWorldName = new GuiTextField(this, this.fontRenderer, this.width / 2 - 100, 60, 200, 20, var1.translateKey("selectWorld.newWorld"));
         this.textboxWorldName.isFocused = true;
         this.textboxWorldName.setMaxStringLength(32);
@@ -65,66 +65,65 @@ public class GuiCreateWorld extends GuiScreen {
     }
 
     protected void actionPerformed(GuiButton button) {
-        if (button.enabled) {
-            if (button.id == 1) {
-                this.mc.displayGuiScreen(this.field_22131_a);
-            } else if (button.id == 0) {
-                this.mc.displayGuiScreen(null);
-                if (this.createClicked) {
-                    return;
-                }
+        if (!button.enabled)
+            return;
 
-                this.createClicked = true;
-                long var2 = (new Random()).nextLong();
-                String var4 = this.textboxSeed.getText();
-                if (!MathHelper.stringNullOrLengthZero(var4)) {
-                    try {
-                        long var5 = Long.parseLong(var4);
-                        if (var5 != 0L) {
-                            var2 = var5;
-                        }
-                    } catch (NumberFormatException e) {
-                        var2 = (long) var4.hashCode();
+        if (button.id == 1) {
+            this.mc.displayGuiScreen(this.field_22131_a);
+        } else if (button.id == 0) {
+            this.mc.displayGuiScreen(null);
+            if (this.createClicked)
+                return;
+
+            this.createClicked = true;
+            long correctSeed = new Random().nextLong();
+            String seedText = this.textboxSeed.getText();
+            if (!MathHelper.stringNullOrLengthZero(seedText)) {
+                try {
+                    long seed = Long.parseLong(seedText);
+                    if (seed != 0L) {
+                        correctSeed = seed;
                     }
+                } catch (NumberFormatException e) {
+                    correctSeed = seedText.hashCode();
                 }
-
-                this.mc.playerController = new PlayerControllerSP(this.mc);
-                this.mc.startWorld(this.folderName, this.textboxWorldName.getText(), var2);
-                this.mc.displayGuiScreen(null);
             }
 
+            this.mc.playerController = new PlayerControllerSP(this.mc);
+            this.mc.startWorld(this.folderName, this.textboxWorldName.getText(), correctSeed);
+            this.mc.displayGuiScreen(null);
         }
     }
 
-    protected void keyTyped(char var1, int var2) {
+    protected void keyTyped(char typedChar, int key) {
         if (this.textboxWorldName.isFocused) {
-            this.textboxWorldName.textboxKeyTyped(var1, var2);
+            this.textboxWorldName.textboxKeyTyped(typedChar, key);
         } else {
-            this.textboxSeed.textboxKeyTyped(var1, var2);
+            this.textboxSeed.textboxKeyTyped(typedChar, key);
         }
 
-        if (var1 == '\r') {
-            this.actionPerformed((GuiButton) this.controlList.get(0));
+        if (typedChar == '\r') {
+            this.actionPerformed(this.buttons.get(0));
         }
 
-        ((GuiButton) this.controlList.get(0)).enabled = this.textboxWorldName.getText().length() > 0;
+        this.buttons.get(0).enabled = this.textboxWorldName.getText().length() > 0;
         this.func_22129_j();
     }
 
-    protected void mouseClicked(int var1, int var2, int var3) {
-        super.mouseClicked(var1, var2, var3);
-        this.textboxWorldName.mouseClicked(var1, var2, var3);
-        this.textboxSeed.mouseClicked(var1, var2, var3);
+    protected void mouseClicked(int x, int y, int var3) {
+        super.mouseClicked(x, y, var3);
+        this.textboxWorldName.mouseClicked(x, y, var3);
+        this.textboxSeed.mouseClicked(x, y, var3);
     }
 
     public void drawScreen(int var1, int var2, float var3) {
-        StringTranslate var4 = StringTranslate.getInstance();
+        StringTranslate translate = StringTranslate.getInstance();
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRenderer, var4.translateKey("selectWorld.create"), this.width / 2, this.height / 4 - 60 + 20, 16777215);
-        this.drawString(this.fontRenderer, var4.translateKey("selectWorld.enterName"), this.width / 2 - 100, 47, 10526880);
-        this.drawString(this.fontRenderer, var4.translateKey("selectWorld.resultFolder") + " " + this.folderName, this.width / 2 - 100, 85, 10526880);
-        this.drawString(this.fontRenderer, var4.translateKey("selectWorld.enterSeed"), this.width / 2 - 100, 104, 10526880);
-        this.drawString(this.fontRenderer, var4.translateKey("selectWorld.seedInfo"), this.width / 2 - 100, 140, 10526880);
+        this.drawCenteredString(this.fontRenderer, translate.translateKey("selectWorld.create"), this.width / 2, this.height / 4 - 60 + 20, 16777215);
+        this.drawString(this.fontRenderer, translate.translateKey("selectWorld.enterName"), this.width / 2 - 100, 47, 10526880);
+        this.drawString(this.fontRenderer, translate.translateKey("selectWorld.resultFolder") + " " + this.folderName, this.width / 2 - 100, 85, 10526880);
+        this.drawString(this.fontRenderer, translate.translateKey("selectWorld.enterSeed"), this.width / 2 - 100, 104, 10526880);
+        this.drawString(this.fontRenderer, translate.translateKey("selectWorld.seedInfo"), this.width / 2 - 100, 140, 10526880);
         this.textboxWorldName.drawTextBox();
         this.textboxSeed.drawTextBox();
         super.drawScreen(var1, var2, var3);
@@ -138,6 +137,6 @@ public class GuiCreateWorld extends GuiScreen {
             this.textboxWorldName.setFocused(true);
             this.textboxSeed.setFocused(false);
         }
-
     }
+
 }

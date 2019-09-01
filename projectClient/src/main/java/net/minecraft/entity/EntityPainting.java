@@ -4,7 +4,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.material.Material;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 import util.MathHelper;
 
@@ -212,7 +212,7 @@ public class EntityPainting extends Entity {
         return true;
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         var1.setByte("Dir", (byte) this.direction);
         var1.setString("Motive", this.art.title);
         var1.setInteger("TileX", this.xPosition);
@@ -220,7 +220,7 @@ public class EntityPainting extends Entity {
         var1.setInteger("TileZ", this.zPosition);
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         this.direction = var1.getByte("Dir");
         this.xPosition = var1.getInteger("TileX");
         this.yPosition = var1.getInteger("TileY");

@@ -1,19 +1,19 @@
 package net.minecraft.tileentity;
 
 import net.minecraft.material.Material;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 
 public class TileEntityNote extends TileEntity {
     public byte note = 0;
     public boolean previousRedstoneState = false;
 
-    public void writeToNBT(NBTTagCompound var1) {
+    public void writeToNBT(TagCompound var1) {
         super.writeToNBT(var1);
         var1.setByte("note", this.note);
     }
 
-    public void readFromNBT(NBTTagCompound var1) {
+    public void readFromNBT(TagCompound var1) {
         super.readFromNBT(var1);
         this.note = var1.getByte("note");
         if (this.note < 0) {

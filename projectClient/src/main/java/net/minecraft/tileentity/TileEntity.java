@@ -1,7 +1,7 @@
 package net.minecraft.tileentity;
 
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class TileEntity {
     }
 
     @SuppressWarnings("unchecked")
-    public static TileEntity createAndLoadEntity(NBTTagCompound var0) {
+    public static TileEntity createAndLoadEntity(TagCompound var0) {
         TileEntity var1 = null;
 
         try {
@@ -59,13 +59,13 @@ public class TileEntity {
         return var1;
     }
 
-    public void readFromNBT(NBTTagCompound var1) {
+    public void readFromNBT(TagCompound var1) {
         this.xCoord = var1.getInteger("x");
         this.yCoord = var1.getInteger("y");
         this.zCoord = var1.getInteger("z");
     }
 
-    public void writeToNBT(NBTTagCompound var1) {
+    public void writeToNBT(TagCompound var1) {
         String var2 = (String) classToNameMap.get(this.getClass());
         if (var2 == null) {
             throw new RuntimeException(this.getClass() + " is missing a mapping! This is a bug!");

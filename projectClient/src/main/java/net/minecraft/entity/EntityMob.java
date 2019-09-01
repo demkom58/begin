@@ -2,7 +2,7 @@ package net.minecraft.entity;
 
 import net.minecraft.block.EnumSkyBlock;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 import util.MathHelper;
 
@@ -64,11 +64,11 @@ public class EntityMob extends EntityCreature implements IMob {
         return 0.5F - this.worldObj.getLightBrightness(var1, var2, var3);
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
     }
 

@@ -9,7 +9,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import util.MathHelper;
@@ -44,7 +44,7 @@ public class EntityWolf extends EntityAnimal {
         return false;
     }
 
-    public void writeEntityToNBT(NBTTagCompound compound) {
+    public void writeEntityToNBT(TagCompound compound) {
         super.writeEntityToNBT(compound);
         compound.setBoolean("Angry", this.getIsAngry());
         compound.setBoolean("Sitting", this.getIsSitting());
@@ -56,7 +56,7 @@ public class EntityWolf extends EntityAnimal {
 
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         this.setIsAngry(var1.getBoolean("Angry"));
         this.setIsSitting(var1.getBoolean("Sitting"));

@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 
 public class EntityPig extends EntityAnimal {
@@ -20,12 +20,12 @@ public class EntityPig extends EntityAnimal {
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
         var1.setBoolean("Saddle", this.getSaddled());
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         this.setSaddled(var1.getBoolean("Saddle"));
     }

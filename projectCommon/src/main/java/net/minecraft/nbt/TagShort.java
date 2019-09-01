@@ -4,21 +4,21 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class NBTTagShort extends NBTBase {
+public class TagShort extends Tag {
     public short shortValue;
 
-    public NBTTagShort() {
+    public TagShort() {
     }
 
-    public NBTTagShort(short value) {
+    public TagShort(short value) {
         this.shortValue = value;
     }
 
-    void writeTagContents(DataOutput output) throws IOException {
+    void write(DataOutput output) throws IOException {
         output.writeShort(this.shortValue);
     }
 
-    void readTagContents(DataInput input) throws IOException {
+    void read(DataInput input) throws IOException {
         this.shortValue = input.readShort();
     }
 

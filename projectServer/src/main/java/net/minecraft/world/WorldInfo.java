@@ -1,7 +1,7 @@
 package net.minecraft.world;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class WorldInfo {
     private long worldTime;
     private long lastTimePlayed;
     private long sizeOnDisk;
-    private NBTTagCompound playerTag;
+    private TagCompound playerTag;
     private int dimension;
     private String levelName;
     private int saveVersion;
@@ -22,7 +22,7 @@ public class WorldInfo {
     private boolean thundering;
     private int thunderTime;
 
-    public WorldInfo(NBTTagCompound compound) {
+    public WorldInfo(TagCompound compound) {
         this.randomSeed = compound.getLong("RandomSeed");
         this.spawnX = compound.getInteger("SpawnX");
         this.spawnY = compound.getInteger("SpawnY");
@@ -66,23 +66,23 @@ public class WorldInfo {
         this.thundering = info.thundering;
     }
 
-    public NBTTagCompound getNBTTagCompound() {
-        NBTTagCompound compound = new NBTTagCompound();
+    public TagCompound getNBTTagCompound() {
+        TagCompound compound = new TagCompound();
         this.saveNBTTag(compound, this.playerTag);
         return compound;
     }
 
-    public NBTTagCompound getNBTTagCompoundWithPlayer(List<EntityPlayer> entityPlayers) {
-        NBTTagCompound var2 = new NBTTagCompound();
+    public TagCompound getNBTTagCompoundWithPlayer(List<EntityPlayer> entityPlayers) {
+        TagCompound var2 = new TagCompound();
         EntityPlayer entityPlayer = null;
-        NBTTagCompound var4 = null;
+        TagCompound var4 = null;
 
         if (entityPlayers.size() > 0) {
             entityPlayer = entityPlayers.get(0);
         }
 
         if (entityPlayer != null) {
-            var4 = new NBTTagCompound();
+            var4 = new TagCompound();
             entityPlayer.writeToNBT(var4);
         }
 
@@ -90,7 +90,7 @@ public class WorldInfo {
         return var2;
     }
 
-    private void saveNBTTag(NBTTagCompound compound, NBTTagCompound playerCompound) {
+    private void saveNBTTag(TagCompound compound, TagCompound playerCompound) {
         compound.setLong("RandomSeed", this.randomSeed);
         compound.setInteger("SpawnX", this.spawnX);
         compound.setInteger("SpawnY", this.spawnY);
@@ -208,7 +208,7 @@ public class WorldInfo {
         return lastTimePlayed;
     }
 
-    public NBTTagCompound getPlayerTag() {
+    public TagCompound getPlayerTag() {
         return playerTag;
     }
 

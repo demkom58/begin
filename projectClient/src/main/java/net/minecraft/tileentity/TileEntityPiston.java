@@ -3,7 +3,7 @@ package net.minecraft.tileentity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.block.PistonBlockTextures;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 
 import java.util.ArrayList;
@@ -128,7 +128,7 @@ public class TileEntityPiston extends TileEntity {
         }
     }
 
-    public void readFromNBT(NBTTagCompound var1) {
+    public void readFromNBT(TagCompound var1) {
         super.readFromNBT(var1);
         this.storedBlockID = var1.getInteger("blockId");
         this.storedMetadata = var1.getInteger("blockData");
@@ -137,7 +137,7 @@ public class TileEntityPiston extends TileEntity {
         this.field_31024_i = var1.getBoolean("extending");
     }
 
-    public void writeToNBT(NBTTagCompound var1) {
+    public void writeToNBT(TagCompound var1) {
         super.writeToNBT(var1);
         var1.setInteger("blockId", this.storedBlockID);
         var1.setInteger("blockData", this.storedMetadata);

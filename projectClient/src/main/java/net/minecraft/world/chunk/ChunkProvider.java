@@ -1,6 +1,6 @@
 package net.minecraft.world.chunk;
 
-import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.world.World;
 
 import java.io.IOException;
@@ -125,7 +125,7 @@ public class ChunkProvider implements IChunkProvider {
 
     }
 
-    public boolean saveChunks(boolean var1, IProgressUpdate var2) {
+    public boolean saveChunks(boolean var1, IProgressUpdatable var2) {
         int var3 = 0;
 
         for (int var4 = 0; var4 < this.chunkList.size(); ++var4) {

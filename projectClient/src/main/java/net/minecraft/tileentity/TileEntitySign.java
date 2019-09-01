@@ -1,13 +1,13 @@
 package net.minecraft.tileentity;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 
 public class TileEntitySign extends TileEntity {
     public String[] signText = new String[]{"", "", "", ""};
     public int lineBeingEdited = -1;
     private boolean field_25062_c = true;
 
-    public void writeToNBT(NBTTagCompound var1) {
+    public void writeToNBT(TagCompound var1) {
         super.writeToNBT(var1);
         var1.setString("Text1", this.signText[0]);
         var1.setString("Text2", this.signText[1]);
@@ -15,7 +15,7 @@ public class TileEntitySign extends TileEntity {
         var1.setString("Text4", this.signText[3]);
     }
 
-    public void readFromNBT(NBTTagCompound var1) {
+    public void readFromNBT(TagCompound var1) {
         this.field_25062_c = false;
         super.readFromNBT(var1);
 

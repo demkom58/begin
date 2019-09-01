@@ -4,60 +4,65 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public abstract class NBTBase {
+public abstract class Tag {
     private String key = null;
 
-    public static NBTBase readTag(DataInput input) throws IOException {
-        byte aByte = input.readByte();
-        if (aByte == 0) {
-            return new NBTTagEnd();
-        }
+    abstract void write(DataOutput output) throws IOException;
 
-        NBTBase type = createTagOfType(aByte);
+    abstract void read(DataInput input) throws IOException;
+
+    public abstract byte getType();
+
+    public static Tag readTag(DataInput input) throws IOException {
+        byte tagType = input.readByte();
+        if (tagType == 0)
+            return new TagEnd();
+
+        Tag type = createTag(tagType);
         type.key = input.readUTF();
-        type.readTagContents(input);
+        type.read(input);
         return type;
     }
 
-    public static void writeTag(NBTBase nbtBase, DataOutput output) throws IOException {
-        output.writeByte(nbtBase.getType());
+    public static void writeTag(Tag tag, DataOutput output) throws IOException {
+        output.writeByte(tag.getType());
 
-        if (nbtBase.getType() != 0) {
-            output.writeUTF(nbtBase.getKey());
-            nbtBase.writeTagContents(output);
+        if (tag.getType() != 0) {
+            output.writeUTF(tag.getKey());
+            tag.write(output);
         }
     }
 
-    public static NBTBase createTagOfType(byte id) {
+    public static Tag createTag(byte id) {
         switch (id) {
             case 0:
-                return new NBTTagEnd();
+                return new TagEnd();
             case 1:
-                return new NBTTagByte();
+                return new TagByte();
             case 2:
-                return new NBTTagShort();
+                return new TagShort();
             case 3:
-                return new NBTTagInt();
+                return new TagInt();
             case 4:
-                return new NBTTagLong();
+                return new TagLong();
             case 5:
-                return new NBTTagFloat();
+                return new TagFloat();
             case 6:
-                return new NBTTagDouble();
+                return new TagDouble();
             case 7:
-                return new NBTTagByteArray();
+                return new TagByteArray();
             case 8:
-                return new NBTTagString();
+                return new TagString();
             case 9:
-                return new NBTTagList();
+                return new TagList();
             case 10:
-                return new NBTTagCompound();
+                return new TagCompound();
             default:
                 return null;
         }
     }
 
-    public static String getTagName(byte id) {
+    public static String idToString(byte id) {
         switch (id) {
             case 0:
                 return "TAG_End";
@@ -86,17 +91,11 @@ public abstract class NBTBase {
         }
     }
 
-    abstract void writeTagContents(DataOutput output) throws IOException;
-
-    abstract void readTagContents(DataInput input) throws IOException;
-
-    public abstract byte getType();
-
     public String getKey() {
         return this.key == null ? "" : this.key;
     }
 
-    public NBTBase setKey(String key) {
+    public Tag setKey(String key) {
         this.key = key;
         return this;
     }

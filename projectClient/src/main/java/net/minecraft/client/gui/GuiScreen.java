@@ -17,32 +17,27 @@ public class GuiScreen extends Gui {
     public int width;
     public int height;
     public boolean field_948_f = false;
-    public GuiParticle field_25091_h;
+    public GuiParticle guiParticle;
     protected Minecraft mc;
-    protected List controlList = new ArrayList();
+    protected List<GuiButton> buttons = new ArrayList<>();
     protected FontRenderer fontRenderer;
     private GuiButton selectedButton = null;
 
     public static String getClipboardString() {
         try {
-            Transferable var0 = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
-            if (var0 != null && var0.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-                String var1 = (String) var0.getTransferData(DataFlavor.stringFlavor);
-                return var1;
+            Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
+            if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                return (String) transferable.getTransferData(DataFlavor.stringFlavor);
             }
-        } catch (Exception e) {
-
-        }
+        } catch (Exception ignored) { }
 
         return null;
     }
 
     public void drawScreen(int var1, int var2, float var3) {
-        for (int var4 = 0; var4 < this.controlList.size(); ++var4) {
-            GuiButton var5 = (GuiButton) this.controlList.get(var4);
-            var5.drawButton(this.mc, var1, var2);
+        for (GuiButton guiButton : this.buttons) {
+            guiButton.drawButton(this.mc, var1, var2);
         }
-
     }
 
     protected void keyTyped(char var1, int var2) {
@@ -50,23 +45,19 @@ public class GuiScreen extends Gui {
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }
-
     }
 
-    protected void mouseClicked(int var1, int var2, int var3) {
-        if (var3 != 0) {
+    protected void mouseClicked(int x, int y, int var3) {
+        if (var3 != 0)
             return;
-        }
 
-        for (int i = 0; i < this.controlList.size(); ++i) {
-            GuiButton guiButton = (GuiButton) this.controlList.get(i);
-            if (guiButton.mousePressed(this.mc, var1, var2)) {
+        for (GuiButton guiButton : this.buttons) {
+            if (guiButton.mousePressed(this.mc, x, y)) {
                 this.selectedButton = guiButton;
                 this.mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
                 this.actionPerformed(guiButton);
             }
         }
-
     }
 
     protected void mouseMovedOrUp(int var1, int var2, int var3) {
@@ -81,12 +72,12 @@ public class GuiScreen extends Gui {
     }
 
     public void setWorldAndResolution(Minecraft mc, int width, int height) {
-        this.field_25091_h = new GuiParticle(mc);
+        this.guiParticle = new GuiParticle(mc);
         this.mc = mc;
         this.fontRenderer = mc.fontRenderer;
         this.width = width;
         this.height = height;
-        this.controlList.clear();
+        this.buttons.clear();
         this.initGui();
     }
 
@@ -149,19 +140,19 @@ public class GuiScreen extends Gui {
     }
 
     public void drawBackground(int var1) {
-        GL11.glDisable(2896 /*GL_LIGHTING*/);
-        GL11.glDisable(2912 /*GL_FOG*/);
-        Tessellator var2 = Tessellator.INSTANCE;
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTexture("/gui/background.png"));
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_FOG);
+        Tessellator tessellator = Tessellator.INSTANCE;
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/gui/background.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         float var3 = 32.0F;
-        var2.startDrawingQuads();
-        var2.setColorOpaque_I(4210752);
-        var2.addVertexWithUV(0.0D, (double) this.height, 0.0D, 0.0D, (double) ((float) this.height / var3 + (float) var1));
-        var2.addVertexWithUV((double) this.width, (double) this.height, 0.0D, (double) ((float) this.width / var3), (double) ((float) this.height / var3 + (float) var1));
-        var2.addVertexWithUV((double) this.width, 0.0D, 0.0D, (double) ((float) this.width / var3), (double) (0 + var1));
-        var2.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, (double) (0 + var1));
-        var2.draw();
+        tessellator.startDrawingQuads();
+        tessellator.setColorOpaque_I(4210752);
+        tessellator.addVertexWithUV(0.0D, this.height, 0.0D, 0.0D, (float) this.height / var3 + (float) var1);
+        tessellator.addVertexWithUV(this.width, this.height, 0.0D, (float) this.width / var3, (float) this.height / var3 + (float) var1);
+        tessellator.addVertexWithUV(this.width, 0.0D, 0.0D, (float) this.width / var3, 0 + var1);
+        tessellator.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0 + var1);
+        tessellator.draw();
     }
 
     public boolean doesGuiPauseGame() {

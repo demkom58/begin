@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -213,7 +213,7 @@ public class EntitySnowball extends Entity {
         this.setPosition(this.posX, this.posY, this.posZ);
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("xTile", (short) this.xTileSnowball);
         var1.setShort("yTile", (short) this.yTileSnowball);
         var1.setShort("zTile", (short) this.zTileSnowball);
@@ -222,7 +222,7 @@ public class EntitySnowball extends Entity {
         var1.setByte("inGround", (byte) (this.inGroundSnowball ? 1 : 0));
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         this.xTileSnowball = var1.getShort("xTile");
         this.yTileSnowball = var1.getShort("yTile");
         this.zTileSnowball = var1.getShort("zTile");

@@ -1,6 +1,6 @@
 package net.minecraft.world.storage;
 
-import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.world.WorldInfo;
 import net.minecraft.world.chunk.ChunkFile;
 import net.minecraft.world.chunk.ChunkFilePattern;
@@ -14,17 +14,17 @@ import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 public class SaveConverterMcRegion extends SaveFormatOld {
-    public SaveConverterMcRegion(File var1) {
-        super(var1);
+    public SaveConverterMcRegion(File worldsFolder) {
+        super(worldsFolder);
     }
 
-    public String func_22178_a() {
+    public String getFormatName() {
         return "Scaevolus' McRegion";
     }
 
-    public List<SaveFormatComparator> func_22176_b() {
-        List<SaveFormatComparator> loaded = new ArrayList<>();
-        File[] files = this.field_22180_a.listFiles();
+    public List<SaveFormatData> readSaveFormatData() {
+        List<SaveFormatData> loaded = new ArrayList<>();
+        File[] files = this.worldsDirectory.listFiles();
 
         if (files == null) {
             return loaded;
@@ -33,15 +33,15 @@ public class SaveConverterMcRegion extends SaveFormatOld {
         for (File file : files) {
             if (file.isDirectory()) {
                 String name = file.getName();
-                WorldInfo worldInfo = this.func_22173_b(name);
+                WorldInfo worldInfo = this.readWorldInfo(name);
                 if (worldInfo != null) {
-                    boolean badVersion = worldInfo.getSaveVersion() != 19132;
+                    boolean invalidVersion = worldInfo.getSaveVersion() != 19132;
                     String worldName = worldInfo.getWorldName();
                     if (worldName == null || MathHelper.stringNullOrLengthZero(worldName)) {
                         worldName = name;
                     }
 
-                    loaded.add(new SaveFormatComparator(name, worldName, worldInfo.getLastTimePlayed(), worldInfo.getSizeOnDisk(), badVersion));
+                    loaded.add(new SaveFormatData(name, worldName, worldInfo.getLastTimePlayed(), worldInfo.getSizeOnDisk(), invalidVersion));
                 }
             }
         }
@@ -54,21 +54,23 @@ public class SaveConverterMcRegion extends SaveFormatOld {
     }
 
     public ISaveHandler getSaveLoader(String var1, boolean var2) {
-        return new SaveOldDir(this.field_22180_a, var1, var2);
+        return new SaveOldDir(this.worldsDirectory, var1, var2);
     }
 
     public boolean isOldMapFormat(String var1) {
-        WorldInfo var2 = this.func_22173_b(var1);
+        WorldInfo var2 = this.readWorldInfo(var1);
         return var2 != null && var2.getSaveVersion() == 0;
     }
 
-    public boolean convertMapFormat(String var1, IProgressUpdate var2) {
-        var2.setLoadingProgress(0);
-        ArrayList var3 = new ArrayList();
-        ArrayList var4 = new ArrayList();
-        ArrayList var5 = new ArrayList();
-        ArrayList var6 = new ArrayList();
-        File var7 = new File(this.field_22180_a, var1);
+    public boolean convertMapFormat(String var1, IProgressUpdatable updatable) {
+        updatable.setLoadingProgress(0);
+
+        List<ChunkFile> var3 = new ArrayList<>();
+        List<File> var4 = new ArrayList<>();
+        List<ChunkFile> var5 = new ArrayList<>();
+        List<File> var6 = new ArrayList<>();
+
+        File var7 = new File(this.worldsDirectory, var1);
         File var8 = new File(var7, "DIM-1");
         System.out.println("Scanning folders...");
         this.func_22183_a(var7, var3, var4);
@@ -78,41 +80,41 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 
         int var9 = var3.size() + var5.size() + var4.size() + var6.size();
         System.out.println("Total conversion count is " + var9);
-        this.func_22181_a(var7, var3, 0, var9, var2);
-        this.func_22181_a(var8, var5, var3.size(), var9, var2);
-        WorldInfo var10 = this.func_22173_b(var1);
+        this.func_22181_a(var7, var3, 0, var9, updatable);
+        this.func_22181_a(var8, var5, var3.size(), var9, updatable);
+        WorldInfo var10 = this.readWorldInfo(var1);
         var10.setSaveVersion(19132);
         ISaveHandler var11 = this.getSaveLoader(var1, false);
         var11.saveWorldInfo(var10);
-        this.func_22182_a(var4, var3.size() + var5.size(), var9, var2);
+        this.func_22182_a(var4, var3.size() + var5.size(), var9, updatable);
         if (var8.exists()) {
-            this.func_22182_a(var6, var3.size() + var5.size() + var4.size(), var9, var2);
+            this.func_22182_a(var6, var3.size() + var5.size() + var4.size(), var9, updatable);
         }
 
         return true;
     }
 
-    private void func_22183_a(File var1, ArrayList var2, ArrayList var3) {
-        ChunkFolderPattern var4 = new ChunkFolderPattern();
-        ChunkFilePattern var5 = new ChunkFilePattern();
-        File[] var6 = var1.listFiles(var4);
+    private void func_22183_a(File root, List<ChunkFile> chunkFileList, List<File> fileList) {
+        ChunkFolderPattern folderPattern = new ChunkFolderPattern();
+        ChunkFilePattern filePattern = new ChunkFilePattern();
+        File[] listFiles = root.listFiles(folderPattern);
 
-        for (File var10 : var6) {
-            var3.add(var10);
-            File[] var11 = var10.listFiles(var4);
+        for (File var10 : listFiles) {
+            fileList.add(var10);
+            File[] files = var10.listFiles(folderPattern);
 
-            for (File var15 : var11) {
-                File[] var16 = var15.listFiles(var5);
+            for (File var15 : files) {
+                File[] chunkFiles = var15.listFiles(filePattern);
 
-                for (File var20 : var16) {
-                    var2.add(new ChunkFile(var20));
+                for (File chunkFile : chunkFiles) {
+                    chunkFileList.add(new ChunkFile(chunkFile));
                 }
             }
         }
 
     }
 
-    private void func_22181_a(File var1, List<ChunkFile> var2, int var3, int var4, IProgressUpdate var5) {
+    private void func_22181_a(File var1, List<ChunkFile> var2, int var3, int var4, IProgressUpdatable var5) {
         Collections.sort(var2);
         byte[] var6 = new byte[4096];
 
@@ -145,14 +147,14 @@ public class SaveConverterMcRegion extends SaveFormatOld {
         RegionFileCache.func_22192_a();
     }
 
-    private void func_22182_a(List<File> var1, int var2, int var3, IProgressUpdate var4) {
+    private void func_22182_a(List<File> var1, int var2, int var3, IProgressUpdatable progressUpdate) {
         for (File var6 : var1) {
             File[] var7 = var6.listFiles();
-            func_22179_a(var7);
+            removeAll(var7);
             var6.delete();
             ++var2;
             int var8 = (int) Math.round(100.0D * (double) var2 / (double) var3);
-            var4.setLoadingProgress(var8);
+            progressUpdate.setLoadingProgress(var8);
         }
 
     }

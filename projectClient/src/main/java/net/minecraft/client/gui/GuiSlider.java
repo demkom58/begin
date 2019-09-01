@@ -40,9 +40,9 @@ public class GuiSlider extends GuiButton {
         }
     }
 
-    public boolean mousePressed(Minecraft var1, int var2, int var3) {
-        if (super.mousePressed(var1, var2, var3)) {
-            this.sliderValue = (float) (var2 - (this.xPosition + 4)) / (float) (this.width - 8);
+    public boolean mousePressed(Minecraft mc, int x, int y) {
+        if (super.mousePressed(mc, x, y)) {
+            this.sliderValue = (float) (x - (this.xPosition + 4)) / (float) (this.width - 8);
             if (this.sliderValue < 0.0F) {
                 this.sliderValue = 0.0F;
             }
@@ -51,8 +51,8 @@ public class GuiSlider extends GuiButton {
                 this.sliderValue = 1.0F;
             }
 
-            var1.gameSettings.setOptionFloatValue(this.idFloat, this.sliderValue);
-            this.displayString = var1.gameSettings.getKeyBinding(this.idFloat);
+            mc.gameSettings.setOptionFloatValue(this.idFloat, this.sliderValue);
+            this.displayString = mc.gameSettings.getKeyBinding(this.idFloat);
             this.dragging = true;
             return true;
         } else {

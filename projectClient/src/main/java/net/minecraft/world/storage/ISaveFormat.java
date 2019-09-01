@@ -1,26 +1,26 @@
 package net.minecraft.world.storage;
 
-import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.world.WorldInfo;
 
 import java.util.List;
 
 public interface ISaveFormat {
-    String func_22178_a();
+    String getFormatName();
 
     ISaveHandler getSaveLoader(String var1, boolean var2);
 
-    List func_22176_b();
+    List<SaveFormatData> readSaveFormatData();
 
     void flushCache();
 
-    WorldInfo func_22173_b(String var1);
+    WorldInfo readWorldInfo(String var1);
 
-    void func_22172_c(String var1);
+    void removeWorld(String var1);
 
-    void func_22170_a(String var1, String var2);
+    void setLevelName(String var1, String var2);
 
     boolean isOldMapFormat(String var1);
 
-    boolean convertMapFormat(String var1, IProgressUpdate var2);
+    boolean convertMapFormat(String var1, IProgressUpdatable var2);
 }

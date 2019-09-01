@@ -1,5 +1,6 @@
 package net.minecraft.world.storage;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.chunk.IChunkLoader;
 import net.minecraft.world.WorldInfo;
 import net.minecraft.world.WorldProvider;
@@ -9,23 +10,23 @@ import java.io.File;
 import java.util.List;
 
 public class SaveOldDir extends SaveHandler {
-    public SaveOldDir(File var1, String var2, boolean var3) {
-        super(var1, var2, var3);
+    public SaveOldDir(File saveDirectory, String worldName, boolean createPlayerDirectory) {
+        super(saveDirectory, worldName, createPlayerDirectory);
     }
 
-    public IChunkLoader getChunkLoader(WorldProvider var1) {
-        File var2 = this.getSaveDirectory();
-        if (var1 instanceof WorldProviderHell) {
-            File var3 = new File(var2, "DIM-1");
-            var3.mkdirs();
-            return new McRegionChunkLoader(var3);
-        } else {
-            return new McRegionChunkLoader(var2);
+    public IChunkLoader getChunkLoader(WorldProvider provider) {
+        File saveDirectory = this.getSaveDirectory();
+        if (provider instanceof WorldProviderHell) {
+            File dimFile = new File(saveDirectory, "DIM-1");
+            dimFile.mkdirs();
+            return new McRegionChunkLoader(dimFile);
         }
+
+        return new McRegionChunkLoader(saveDirectory);
     }
 
-    public void saveWorldInfoAndPlayer(WorldInfo var1, List var2) {
-        var1.setSaveVersion(19132);
-        super.saveWorldInfoAndPlayer(var1, var2);
+    public void saveWorldInfoAndPlayer(WorldInfo worldInfo, List<EntityPlayer> players) {
+        worldInfo.setSaveVersion(19132);
+        super.saveWorldInfoAndPlayer(worldInfo, players);
     }
 }

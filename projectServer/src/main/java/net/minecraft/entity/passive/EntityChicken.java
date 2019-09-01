@@ -2,7 +2,7 @@ package net.minecraft.entity.passive;
 
 import net.minecraft.entity.EntityAnimal;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.world.World;
 
 public class EntityChicken extends EntityAnimal {
@@ -56,11 +56,11 @@ public class EntityChicken extends EntityAnimal {
     protected void fall(float var1) {
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
     }
 

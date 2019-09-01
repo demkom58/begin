@@ -16,7 +16,7 @@ public class GuiDownloadTerrain extends GuiScreen {
     }
 
     public void initGui() {
-        this.controlList.clear();
+        this.buttons.clear();
     }
 
     public void updateScreen() {

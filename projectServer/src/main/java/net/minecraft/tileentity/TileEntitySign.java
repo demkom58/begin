@@ -1,6 +1,6 @@
 package net.minecraft.tileentity;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet130UpdateSign;
 
@@ -9,7 +9,7 @@ public class TileEntitySign extends TileEntity {
     public int lineBeingEdited = -1;
     private boolean isEditAble = true;
 
-    public void writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(TagCompound compound) {
         super.writeToNBT(compound);
         compound.setString("Text1", this.signText[0]);
         compound.setString("Text2", this.signText[1]);
@@ -17,7 +17,7 @@ public class TileEntitySign extends TileEntity {
         compound.setString("Text4", this.signText[3]);
     }
 
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(TagCompound compound) {
         this.isEditAble = false;
         super.readFromNBT(compound);
 

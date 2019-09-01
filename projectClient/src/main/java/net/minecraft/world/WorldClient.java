@@ -111,23 +111,23 @@ public class WorldClient extends World {
         return var2;
     }
 
-    public void setEntityDead(Entity var1) {
-        super.setEntityDead(var1);
-        this.field_20914_E.remove(var1);
+    public void setEntityDead(Entity entity) {
+        super.setEntityDead(entity);
+        this.field_20914_E.remove(entity);
     }
 
-    protected void obtainEntitySkin(Entity var1) {
-        super.obtainEntitySkin(var1);
-        if (this.field_1053_F.contains(var1)) {
-            this.field_1053_F.remove(var1);
+    protected void obtainEntitySkin(Entity entity) {
+        super.obtainEntitySkin(entity);
+        if (this.field_1053_F.contains(entity)) {
+            this.field_1053_F.remove(entity);
         }
 
     }
 
-    protected void releaseEntitySkin(Entity var1) {
-        super.releaseEntitySkin(var1);
-        if (this.field_20914_E.contains(var1)) {
-            this.field_1053_F.add(var1);
+    protected void releaseEntitySkin(Entity entity) {
+        super.releaseEntitySkin(entity);
+        if (this.field_20914_E.contains(entity)) {
+            this.field_1053_F.add(entity);
         }
 
     }

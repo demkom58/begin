@@ -3,7 +3,7 @@ package net.minecraft.client.gui;
 import net.minecraft.entity.player.PlayerControllerSP;
 import net.minecraft.util.StringTranslate;
 import net.minecraft.world.storage.ISaveFormat;
-import net.minecraft.world.storage.SaveFormatComparator;
+import net.minecraft.world.storage.SaveFormatData;
 import util.MathHelper;
 
 import java.text.DateFormat;
@@ -17,22 +17,22 @@ public class GuiSelectWorld extends GuiScreen {
     protected String screenTitle = "Select world";
     private boolean selected = false;
     private int selectedWorld;
-    private List saveList;
+    private List<SaveFormatData> saveList;
     private GuiWorldSlot worldSlotContainer;
-    private String field_22098_o;
-    private String field_22097_p;
+    private String screenWorld;
+    private String screenConversion;
     private boolean deleting;
     private GuiButton buttonRename;
     private GuiButton buttonSelect;
     private GuiButton buttonDelete;
 
-    public GuiSelectWorld(GuiScreen var1) {
-        this.parentScreen = var1;
+    public GuiSelectWorld(GuiScreen parentScreen) {
+        this.parentScreen = parentScreen;
     }
 
     // $FF: synthetic method
-    static List getSize(GuiSelectWorld var0) {
-        return var0.saveList;
+    static List<SaveFormatData> getSize(GuiSelectWorld world) {
+        return world.saveList;
     }
 
     // $FF: synthetic method
@@ -62,7 +62,7 @@ public class GuiSelectWorld extends GuiScreen {
 
     // $FF: synthetic method
     static String func_22087_f(GuiSelectWorld var0) {
-        return var0.field_22098_o;
+        return var0.screenWorld;
     }
 
     // $FF: synthetic method
@@ -72,33 +72,35 @@ public class GuiSelectWorld extends GuiScreen {
 
     // $FF: synthetic method
     static String func_22088_h(GuiSelectWorld var0) {
-        return var0.field_22097_p;
+        return var0.screenConversion;
     }
 
     public void initGui() {
-        StringTranslate var1 = StringTranslate.getInstance();
-        this.screenTitle = var1.translateKey("selectWorld.title");
-        this.field_22098_o = var1.translateKey("selectWorld.world");
-        this.field_22097_p = var1.translateKey("selectWorld.conversion");
+        StringTranslate translate = StringTranslate.getInstance();
+
+        this.screenTitle = translate.translateKey("selectWorld.title");
+        this.screenWorld = translate.translateKey("selectWorld.world");
+        this.screenConversion = translate.translateKey("selectWorld.conversion");
+
         this.loadSaves();
         this.worldSlotContainer = new GuiWorldSlot(this);
-        this.worldSlotContainer.registerScrollButtons(this.controlList, 4, 5);
+        this.worldSlotContainer.registerScrollButtons(this.buttons, 4, 5);
         this.initButtons();
     }
 
     private void loadSaves() {
-        ISaveFormat var1 = this.mc.getSaveLoader();
-        this.saveList = var1.func_22176_b();
+        ISaveFormat format = this.mc.getSaveLoader();
+        this.saveList = format.readSaveFormatData();
         Collections.sort(this.saveList);
         this.selectedWorld = -1;
     }
 
     protected String getSaveFileName(int var1) {
-        return ((SaveFormatComparator) this.saveList.get(var1)).getFileName();
+        return this.saveList.get(var1).getFileName();
     }
 
     protected String getSaveName(int var1) {
-        String var2 = ((SaveFormatComparator) this.saveList.get(var1)).getDisplayName();
+        String var2 = this.saveList.get(var1).getDisplayName();
         if (var2 == null || MathHelper.stringNullOrLengthZero(var2)) {
             StringTranslate var3 = StringTranslate.getInstance();
             var2 = var3.translateKey("selectWorld.world") + " " + (var1 + 1);
@@ -109,11 +111,11 @@ public class GuiSelectWorld extends GuiScreen {
 
     public void initButtons() {
         StringTranslate var1 = StringTranslate.getInstance();
-        this.controlList.add(this.buttonSelect = new GuiButton(1, this.width / 2 - 154, this.height - 52, 150, 20, var1.translateKey("selectWorld.select")));
-        this.controlList.add(this.buttonRename = new GuiButton(6, this.width / 2 - 154, this.height - 28, 70, 20, var1.translateKey("selectWorld.rename")));
-        this.controlList.add(this.buttonDelete = new GuiButton(2, this.width / 2 - 74, this.height - 28, 70, 20, var1.translateKey("selectWorld.delete")));
-        this.controlList.add(new GuiButton(3, this.width / 2 + 4, this.height - 52, 150, 20, var1.translateKey("selectWorld.create")));
-        this.controlList.add(new GuiButton(0, this.width / 2 + 4, this.height - 28, 150, 20, var1.translateKey("gui.cancel")));
+        this.buttons.add(this.buttonSelect = new GuiButton(1, this.width / 2 - 154, this.height - 52, 150, 20, var1.translateKey("selectWorld.select")));
+        this.buttons.add(this.buttonRename = new GuiButton(6, this.width / 2 - 154, this.height - 28, 70, 20, var1.translateKey("selectWorld.rename")));
+        this.buttons.add(this.buttonDelete = new GuiButton(2, this.width / 2 - 74, this.height - 28, 70, 20, var1.translateKey("selectWorld.delete")));
+        this.buttons.add(new GuiButton(3, this.width / 2 + 4, this.height - 52, 150, 20, var1.translateKey("selectWorld.create")));
+        this.buttons.add(new GuiButton(0, this.width / 2 + 4, this.height - 28, 150, 20, var1.translateKey("gui.cancel")));
         this.buttonSelect.enabled = false;
         this.buttonRename.enabled = false;
         this.buttonDelete.enabled = false;
@@ -169,7 +171,7 @@ public class GuiSelectWorld extends GuiScreen {
             if (var1) {
                 ISaveFormat var3 = this.mc.getSaveLoader();
                 var3.flushCache();
-                var3.func_22172_c(this.getSaveFileName(var2));
+                var3.removeWorld(this.getSaveFileName(var2));
                 this.loadSaves();
             }
 

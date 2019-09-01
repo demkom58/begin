@@ -42,8 +42,8 @@ public class GuiConnecting extends GuiScreen {
 
     public void initGui() {
         StringTranslate var1 = StringTranslate.getInstance();
-        this.controlList.clear();
-        this.controlList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, var1.translateKey("gui.cancel")));
+        this.buttons.clear();
+        this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, var1.translateKey("gui.cancel")));
     }
 
     protected void actionPerformed(GuiButton button) {

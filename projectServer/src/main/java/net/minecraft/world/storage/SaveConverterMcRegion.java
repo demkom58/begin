@@ -1,6 +1,6 @@
 package net.minecraft.world.storage;
 
-import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.world.WorldInfo;
 import net.minecraft.world.chunk.ChunkFile;
 import net.minecraft.world.chunk.ChunkFilePattern;
@@ -26,7 +26,7 @@ public class SaveConverterMcRegion extends SaveFormatOld {
         return var2 != null && var2.getVersion() == 0;
     }
 
-    public boolean convertMapToMCRegion(String var1, IProgressUpdate progressUpdate) {
+    public boolean convertMapToMCRegion(String var1, IProgressUpdatable progressUpdate) {
         progressUpdate.setLoadingProgress(0);
 
         ArrayList<ChunkFile> var3 = new ArrayList<>();
@@ -78,7 +78,7 @@ public class SaveConverterMcRegion extends SaveFormatOld {
 
     }
 
-    private void func_22107_a(File var1, List<ChunkFile> var2, int var3, int var4, IProgressUpdate progressUpdate) {
+    private void func_22107_a(File var1, List<ChunkFile> var2, int var3, int var4, IProgressUpdatable progressUpdate) {
         Collections.sort(var2);
         byte[] var6 = new byte[4096];
 
@@ -111,7 +111,7 @@ public class SaveConverterMcRegion extends SaveFormatOld {
         RegionFileCache.clear();
     }
 
-    private void func_22109_a(ArrayList<File> files, int var2, int var3, IProgressUpdate progressUpdate) {
+    private void func_22109_a(ArrayList<File> files, int var2, int var3, IProgressUpdatable progressUpdate) {
         for (File var6 : files) {
             File[] var7 = var6.listFiles();
             func_22104_a(var7);

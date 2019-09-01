@@ -5,7 +5,7 @@ import net.minecraft.block.StepSound;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.material.Material;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -564,14 +564,14 @@ public abstract class EntityLiving extends Entity {
         return this.worldObj.getBlockId(var1, var2, var3) == Block.LADDER.blockID;
     }
 
-    public void writeEntityToNBT(NBTTagCompound var1) {
+    public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("Health", (short) this.health);
         var1.setShort("HurtTime", (short) this.hurtTime);
         var1.setShort("DeathTime", (short) this.deathTime);
         var1.setShort("AttackTime", (short) this.attackTime);
     }
 
-    public void readEntityFromNBT(NBTTagCompound var1) {
+    public void readEntityFromNBT(TagCompound var1) {
         this.health = var1.getShort("Health");
         if (!var1.hasKey("Health")) {
             this.health = 10;

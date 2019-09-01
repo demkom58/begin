@@ -3,8 +3,8 @@ package net.minecraft.tileentity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.TagCompound;
+import net.minecraft.nbt.TagList;
 
 public class TileEntityChest extends TileEntity implements IInventory {
     private ItemStack[] chestContents = new ItemStack[36];
@@ -51,13 +51,13 @@ public class TileEntityChest extends TileEntity implements IInventory {
         return "Chest";
     }
 
-    public void readFromNBT(NBTTagCompound var1) {
+    public void readFromNBT(TagCompound var1) {
         super.readFromNBT(var1);
-        NBTTagList var2 = var1.getTagList("Items");
+        TagList var2 = var1.getTagList("Items");
         this.chestContents = new ItemStack[this.getSizeInventory()];
 
         for (int var3 = 0; var3 < var2.tagCount(); ++var3) {
-            NBTTagCompound var4 = (NBTTagCompound) var2.tagAt(var3);
+            TagCompound var4 = (TagCompound) var2.tagAt(var3);
             int var5 = var4.getByte("Slot") & 255;
             if (var5 >= 0 && var5 < this.chestContents.length) {
                 this.chestContents[var5] = new ItemStack(var4);
@@ -66,13 +66,13 @@ public class TileEntityChest extends TileEntity implements IInventory {
 
     }
 
-    public void writeToNBT(NBTTagCompound var1) {
+    public void writeToNBT(TagCompound var1) {
         super.writeToNBT(var1);
-        NBTTagList var2 = new NBTTagList();
+        TagList var2 = new TagList();
 
         for (int var3 = 0; var3 < this.chestContents.length; ++var3) {
             if (this.chestContents[var3] != null) {
-                NBTTagCompound var4 = new NBTTagCompound();
+                TagCompound var4 = new TagCompound();
                 var4.setByte("Slot", (byte) var3);
                 this.chestContents[var3].writeToNBT(var4);
                 var2.setTag(var4);

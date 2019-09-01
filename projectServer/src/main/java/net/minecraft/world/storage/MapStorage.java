@@ -1,9 +1,9 @@
 package net.minecraft.world.storage;
 
 import net.minecraft.item.MapDataBase;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagShort;
+import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.TagCompound;
+import net.minecraft.nbt.TagShort;
 import net.minecraft.util.CompressedStreamTools;
 
 import java.io.*;
@@ -40,7 +40,7 @@ public class MapStorage {
                     }
 
                     FileInputStream var5 = new FileInputStream(var4);
-                    NBTTagCompound var6 = CompressedStreamTools.readGzipCompound(var5);
+                    TagCompound var6 = CompressedStreamTools.readGzipCompound(var5);
                     var5.close();
                     dataBase.func_28148_a(var6.getCompoundTag("data"));
                 }
@@ -86,9 +86,9 @@ public class MapStorage {
             try {
                 File var2 = this.saveHandler.func_28111_b(var1.field_28152_a);
                 if (var2 != null) {
-                    NBTTagCompound var3 = new NBTTagCompound();
+                    TagCompound var3 = new TagCompound();
                     var1.func_28147_b(var3);
-                    NBTTagCompound var4 = new NBTTagCompound();
+                    TagCompound var4 = new TagCompound();
                     var4.setCompoundTag("data", var3);
                     FileOutputStream var5 = new FileOutputStream(var2);
                     CompressedStreamTools.writeGzipCompound(var4, var5);
@@ -111,12 +111,12 @@ public class MapStorage {
             File var1 = this.saveHandler.func_28111_b("idcounts");
             if (var1 != null && var1.exists()) {
                 DataInputStream var2 = new DataInputStream(new FileInputStream(var1));
-                NBTTagCompound var3 = CompressedStreamTools.readCompound(var2);
+                TagCompound var3 = CompressedStreamTools.readCompound(var2);
                 var2.close();
 
-                for (NBTBase var5 : var3.tags()) {
-                    if (var5 instanceof NBTTagShort) {
-                        NBTTagShort var6 = (NBTTagShort) var5;
+                for (Tag var5 : var3.tags()) {
+                    if (var5 instanceof TagShort) {
+                        TagShort var6 = (TagShort) var5;
                         String var7 = var6.getKey();
                         short var8 = var6.shortValue;
                         this.field_28181_d.put(var7, var8);
@@ -144,7 +144,7 @@ public class MapStorage {
             try {
                 File var3 = this.saveHandler.func_28111_b("idcounts");
                 if (var3 != null) {
-                    NBTTagCompound var4 = new NBTTagCompound();
+                    TagCompound var4 = new TagCompound();
 
                     for (String var6 : this.field_28181_d.keySet()) {
                         short var7 = this.field_28181_d.get(var6);

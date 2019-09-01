@@ -433,8 +433,8 @@ public class EntityRenderer {
             if (this.mc.currentScreen != null) {
                 GL11.glClear(256);
                 this.mc.currentScreen.drawScreen(var16, var17, var1);
-                if (this.mc.currentScreen != null && this.mc.currentScreen.field_25091_h != null) {
-                    this.mc.currentScreen.field_25091_h.func_25087_a(var1);
+                if (this.mc.currentScreen != null && this.mc.currentScreen.guiParticle != null) {
+                    this.mc.currentScreen.guiParticle.func_25087_a(var1);
                 }
             }
 

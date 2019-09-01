@@ -320,17 +320,17 @@ public abstract class Minecraft implements Runnable {
         }
 
         this.checkGLError("Pre startup");
-        GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
-        GL11.glShadeModel(7425 /*GL_SMOOTH*/);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glShadeModel(GL11.GL_SMOOTH);
         GL11.glClearDepth(1.0D);
-        GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glDepthFunc(515);
-        GL11.glEnable(3008 /*GL_ALPHA_TEST*/);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glAlphaFunc(516, 0.1F);
-        GL11.glCullFace(1029 /*GL_BACK*/);
-        GL11.glMatrixMode(5889 /*GL_PROJECTION*/);
+        GL11.glCullFace(GL11.GL_BACK);
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GL11.glMatrixMode(5888 /*GL_MODELVIEW0_ARB*/);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
         this.checkGLError("Startup");
         this.glCapabilities = new OpenGlCapsChecker();
         this.sndManager.loadSoundSettings(this.gameSettings);
@@ -381,9 +381,9 @@ public abstract class Minecraft implements Runnable {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/title/mojang.png"));
         var2.startDrawingQuads();
         var2.setColorOpaque_I(16777215);
-        var2.addVertexWithUV(0.0D, (double) this.displayHeight, 0.0D, 0.0D, 0.0D);
-        var2.addVertexWithUV((double) this.displayWidth, (double) this.displayHeight, 0.0D, 0.0D, 0.0D);
-        var2.addVertexWithUV((double) this.displayWidth, 0.0D, 0.0D, 0.0D, 0.0D);
+        var2.addVertexWithUV(0.0D, this.displayHeight, 0.0D, 0.0D, 0.0D);
+        var2.addVertexWithUV(this.displayWidth, this.displayHeight, 0.0D, 0.0D, 0.0D);
+        var2.addVertexWithUV(this.displayWidth, 0.0D, 0.0D, 0.0D, 0.0D);
         var2.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
         var2.draw();
         short var3 = 256;
@@ -403,10 +403,10 @@ public abstract class Minecraft implements Runnable {
         float var8 = 0.00390625F;
         Tessellator var9 = Tessellator.INSTANCE;
         var9.startDrawingQuads();
-        var9.addVertexWithUV((double) (var1 + 0), (double) (var2 + var6), 0.0D, (double) ((float) (var3 + 0) * var7), (double) ((float) (var4 + var6) * var8));
-        var9.addVertexWithUV((double) (var1 + var5), (double) (var2 + var6), 0.0D, (double) ((float) (var3 + var5) * var7), (double) ((float) (var4 + var6) * var8));
-        var9.addVertexWithUV((double) (var1 + var5), (double) (var2 + 0), 0.0D, (double) ((float) (var3 + var5) * var7), (double) ((float) (var4 + 0) * var8));
-        var9.addVertexWithUV((double) (var1 + 0), (double) (var2 + 0), 0.0D, (double) ((float) (var3 + 0) * var7), (double) ((float) (var4 + 0) * var8));
+        var9.addVertexWithUV(var1 + 0, var2 + var6, 0.0D, (float) (var3 + 0) * var7, (float) (var4 + var6) * var8);
+        var9.addVertexWithUV(var1 + var5, var2 + var6, 0.0D, (float) (var3 + var5) * var7, (float) (var4 + var6) * var8);
+        var9.addVertexWithUV(var1 + var5, var2 + 0, 0.0D, (float) (var3 + var5) * var7, (float) (var4 + 0) * var8);
+        var9.addVertexWithUV(var1 + 0, var2 + 0, 0.0D, (float) (var3 + 0) * var7, (float) (var4 + 0) * var8);
         var9.draw();
     }
 
@@ -451,12 +451,12 @@ public abstract class Minecraft implements Runnable {
     }
 
     private void checkGLError(String message) {
-        int var2 = GL11.glGetError();
-        if (var2 != 0) {
-            String var3 = GLU.gluErrorString(var2);
+        int errorCode = GL11.glGetError();
+        if (errorCode != 0) {
+            String errorText = GLU.gluErrorString(errorCode);
             System.out.println("########## GL ERROR ##########");
             System.out.println("@ " + message);
-            System.out.println(var2 + ": " + var3);
+            System.out.println(errorCode + ": " + errorText);
         }
 
     }
@@ -539,7 +539,7 @@ public abstract class Minecraft implements Runnable {
 
                     long tickStart = System.nanoTime();
 
-                    for (int var6 = 0; var6 < this.timer.elapsedTicks; ++var6) {
+                    for (int i = 0; i < this.timer.elapsedTicks; ++i) {
                         ++this.ticksRan;
 
                         try {
@@ -688,7 +688,7 @@ public abstract class Minecraft implements Runnable {
         GL11.glClear(256);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GL11.glOrtho(0.0D, (double) this.displayWidth, (double) this.displayHeight, 0.0D, 1000.0D, 3000.0D);
+        GL11.glOrtho(0.0D, this.displayWidth, this.displayHeight, 0.0D, 1000.0D, 3000.0D);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glLoadIdentity();
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
@@ -698,29 +698,29 @@ public abstract class Minecraft implements Runnable {
         var7.startDrawing(7);
         int var8 = (int) (var3 / 200000L);
         var7.setColorOpaque_I(536870912);
-        var7.addVertex(0.0D, (double) (this.displayHeight - var8), 0.0D);
-        var7.addVertex(0.0D, (double) this.displayHeight, 0.0D);
-        var7.addVertex((double) frameTimes.length, (double) this.displayHeight, 0.0D);
-        var7.addVertex((double) frameTimes.length, (double) (this.displayHeight - var8), 0.0D);
+        var7.addVertex(0.0D, this.displayHeight - var8, 0.0D);
+        var7.addVertex(0.0D, this.displayHeight, 0.0D);
+        var7.addVertex(frameTimes.length, this.displayHeight, 0.0D);
+        var7.addVertex(frameTimes.length, this.displayHeight - var8, 0.0D);
         var7.setColorOpaque_I(538968064);
-        var7.addVertex(0.0D, (double) (this.displayHeight - var8 * 2), 0.0D);
-        var7.addVertex(0.0D, (double) (this.displayHeight - var8), 0.0D);
-        var7.addVertex((double) frameTimes.length, (double) (this.displayHeight - var8), 0.0D);
-        var7.addVertex((double) frameTimes.length, (double) (this.displayHeight - var8 * 2), 0.0D);
+        var7.addVertex(0.0D, this.displayHeight - var8 * 2, 0.0D);
+        var7.addVertex(0.0D, this.displayHeight - var8, 0.0D);
+        var7.addVertex(frameTimes.length, this.displayHeight - var8, 0.0D);
+        var7.addVertex(frameTimes.length, this.displayHeight - var8 * 2, 0.0D);
         var7.draw();
         long var9 = 0L;
 
-        for (int var11 = 0; var11 < frameTimes.length; ++var11) {
-            var9 += frameTimes[var11];
+        for (long frameTime : frameTimes) {
+            var9 += frameTime;
         }
 
         int var20 = (int) (var9 / 200000L / (long) frameTimes.length);
         var7.startDrawing(7);
         var7.setColorOpaque_I(541065216);
-        var7.addVertex(0.0D, (double) (this.displayHeight - var20), 0.0D);
-        var7.addVertex(0.0D, (double) this.displayHeight, 0.0D);
-        var7.addVertex((double) frameTimes.length, (double) this.displayHeight, 0.0D);
-        var7.addVertex((double) frameTimes.length, (double) (this.displayHeight - var20), 0.0D);
+        var7.addVertex(0.0D, this.displayHeight - var20, 0.0D);
+        var7.addVertex(0.0D, this.displayHeight, 0.0D);
+        var7.addVertex(frameTimes.length, this.displayHeight, 0.0D);
+        var7.addVertex(frameTimes.length, this.displayHeight - var20, 0.0D);
         var7.draw();
         var7.startDrawing(1);
 
@@ -738,11 +738,11 @@ public abstract class Minecraft implements Runnable {
 
             long var16 = frameTimes[var12] / 200000L;
             long var18 = tickTimes[var12] / 200000L;
-            var7.addVertex((double) ((float) var12 + 0.5F), (double) ((float) ((long) this.displayHeight - var16) + 0.5F), 0.0D);
-            var7.addVertex((double) ((float) var12 + 0.5F), (double) ((float) this.displayHeight + 0.5F), 0.0D);
+            var7.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
+            var7.addVertex((float) var12 + 0.5F, (float) this.displayHeight + 0.5F, 0.0D);
             var7.setColorOpaque_I(-16777216 + var14 * 65536 + var14 * 256 + var14 * 1);
-            var7.addVertex((double) ((float) var12 + 0.5F), (double) ((float) ((long) this.displayHeight - var16) + 0.5F), 0.0D);
-            var7.addVertex((double) ((float) var12 + 0.5F), (double) ((float) ((long) this.displayHeight - (var16 - var18)) + 0.5F), 0.0D);
+            var7.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
+            var7.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - (var16 - var18)) + 0.5F, 0.0D);
         }
 
         var7.draw();
@@ -903,48 +903,48 @@ public abstract class Minecraft implements Runnable {
 
     }
 
-    private void resize(int var1, int var2) {
-        if (var1 <= 0) {
-            var1 = 1;
+    private void resize(int width, int height) {
+        if (width <= 0) {
+            width = 1;
         }
 
-        if (var2 <= 0) {
-            var2 = 1;
+        if (height <= 0) {
+            height = 1;
         }
 
-        this.displayWidth = var1;
-        this.displayHeight = var2;
+        this.displayWidth = width;
+        this.displayHeight = height;
         if (this.currentScreen != null) {
-            ScaledResolution var3 = new ScaledResolution(this.gameSettings, var1, var2);
-            int var4 = var3.getScaledWidth();
-            int var5 = var3.getScaledHeight();
-            this.currentScreen.setWorldAndResolution(this, var4, var5);
+            ScaledResolution scaledResolution = new ScaledResolution(this.gameSettings, width, height);
+            int scaledWidth = scaledResolution.getScaledWidth();
+            int scaledHeight = scaledResolution.getScaledHeight();
+            this.currentScreen.setWorldAndResolution(this, scaledWidth, scaledHeight);
         }
 
     }
 
     private void clickMiddleMouseButton() {
         if (this.objectMouseOver != null) {
-            int var1 = this.theWorld.getBlockId(this.objectMouseOver.blockX, this.objectMouseOver.blockY, this.objectMouseOver.blockZ);
-            if (var1 == Block.GRASS.blockID) {
-                var1 = Block.DIRT.blockID;
+            int blockId = this.theWorld.getBlockId(this.objectMouseOver.blockX, this.objectMouseOver.blockY, this.objectMouseOver.blockZ);
+            if (blockId == Block.GRASS.blockID) {
+                blockId = Block.DIRT.blockID;
             }
 
-            if (var1 == Block.STAIR_DOUBLE.blockID) {
-                var1 = Block.STAIR_SINGLE.blockID;
+            if (blockId == Block.STAIR_DOUBLE.blockID) {
+                blockId = Block.STAIR_SINGLE.blockID;
             }
 
-            if (var1 == Block.BEDROCK.blockID) {
-                var1 = Block.STONE.blockID;
+            if (blockId == Block.BEDROCK.blockID) {
+                blockId = Block.STONE.blockID;
             }
 
-            this.thePlayer.inventory.setCurrentItem(var1, this.playerController instanceof PlayerControllerTest);
+            this.thePlayer.inventory.setCurrentItem(blockId, this.playerController instanceof PlayerControllerTest);
         }
 
     }
 
     private void func_28001_B() {
-        (new ThreadCheckHasPaid(this)).start();
+        new ThreadCheckHasPaid(this).start();
     }
 
     public void runTick() {
@@ -956,9 +956,9 @@ public abstract class Minecraft implements Runnable {
         this.ingameGUI.updateTick();
         this.entityRenderer.getMouseOver(1.0F);
         if (this.thePlayer != null) {
-            IChunkProvider var1 = this.theWorld.getIChunkProvider();
-            if (var1 instanceof ChunkProviderLoadOrGenerate) {
-                ChunkProviderLoadOrGenerate var2 = (ChunkProviderLoadOrGenerate) var1;
+            IChunkProvider provider = this.theWorld.getIChunkProvider();
+            if (provider instanceof ChunkProviderLoadOrGenerate) {
+                ChunkProviderLoadOrGenerate var2 = (ChunkProviderLoadOrGenerate) provider;
                 int var3 = MathHelper.floor((float) ((int) this.thePlayer.posX)) >> 4;
                 int var4 = MathHelper.floor((float) ((int) this.thePlayer.posZ)) >> 4;
                 var2.setCurrentChunkOver(var3, var4);
@@ -992,7 +992,7 @@ public abstract class Minecraft implements Runnable {
         if (this.currentScreen != null) {
             this.currentScreen.handleInput();
             if (this.currentScreen != null) {
-                this.currentScreen.field_25091_h.func_25088_a();
+                this.currentScreen.guiParticle.func_25088_a();
                 this.currentScreen.updateScreen();
             }
         }
@@ -1091,9 +1091,9 @@ public abstract class Minecraft implements Runnable {
                             }
                         }
 
-                        for (int var6 = 0; var6 < 9; ++var6) {
-                            if (Keyboard.getEventKey() == 2 + var6) {
-                                this.thePlayer.inventory.currentItem = var6;
+                        for (int i = 0; i < 9; ++i) {
+                            if (Keyboard.getEventKey() == 2 + i) {
+                                this.thePlayer.inventory.currentItem = i;
                             }
                         }
 
@@ -1325,7 +1325,7 @@ public abstract class Minecraft implements Runnable {
     }
 
     private void convertMapFormat(String var1, String var2) {
-        this.loadingScreen.printText("Converting World to " + this.saveLoader.func_22178_a());
+        this.loadingScreen.printText("Converting World to " + this.saveLoader.getFormatName());
         this.loadingScreen.displayLoadingString("This may take a while :)");
         this.saveLoader.convertMapFormat(var1, this.loadingScreen);
         this.startWorld(var1, var2, 0L);
@@ -1426,17 +1426,17 @@ public abstract class Minecraft implements Runnable {
             var5 = false;
         }
 
-        IChunkProvider var6 = this.theWorld.getIChunkProvider();
-        if (var6 instanceof ChunkProviderLoadOrGenerate) {
-            ChunkProviderLoadOrGenerate var7 = (ChunkProviderLoadOrGenerate) var6;
-            var7.setCurrentChunkOver(var4.x >> 4, var4.z >> 4);
+        IChunkProvider chunkProvider = this.theWorld.getIChunkProvider();
+        if (chunkProvider instanceof ChunkProviderLoadOrGenerate) {
+            ChunkProviderLoadOrGenerate loadOrGenerate = (ChunkProviderLoadOrGenerate) chunkProvider;
+            loadOrGenerate.setCurrentChunkOver(var4.x >> 4, var4.z >> 4);
         }
 
         this.theWorld.setSpawnLocation();
         this.theWorld.updateEntityList();
-        int var8 = 0;
+        int playerId = 0;
         if (this.thePlayer != null) {
-            var8 = this.thePlayer.entityId;
+            playerId = this.thePlayer.entityId;
             this.theWorld.setEntityDead(this.thePlayer);
         }
 
@@ -1447,13 +1447,13 @@ public abstract class Minecraft implements Runnable {
         this.thePlayer.preparePlayerToSpawn();
         if (var5) {
             this.thePlayer.setPlayerSpawnCoordinate(var3);
-            this.thePlayer.setLocationAndAngles((double) ((float) var4.x + 0.5F), (double) ((float) var4.y + 0.1F), (double) ((float) var4.z + 0.5F), 0.0F, 0.0F);
+            this.thePlayer.setLocationAndAngles((float) var4.x + 0.5F, (float) var4.y + 0.1F, (float) var4.z + 0.5F, 0.0F, 0.0F);
         }
 
         this.playerController.flipPlayer(this.thePlayer);
         this.theWorld.spawnPlayerWithLoadedChunks(this.thePlayer);
         this.thePlayer.movementInput = new MovementInputFromOptions(this.gameSettings);
-        this.thePlayer.entityId = var8;
+        this.thePlayer.entityId = playerId;
         this.thePlayer.func_6420_o();
         this.playerController.func_6473_b(this.thePlayer);
         this.func_6255_d("Respawning");
@@ -1464,13 +1464,12 @@ public abstract class Minecraft implements Runnable {
     }
 
     public NetClientHandler getSendQueue() {
-        return this.thePlayer instanceof EntityClientPlayerMP ? ((EntityClientPlayerMP) this.thePlayer).sendQueue : null;
+        return this.thePlayer instanceof EntityClientPlayerMP
+                ? ((EntityClientPlayerMP) this.thePlayer).sendQueue
+                : null;
     }
 
-    public boolean lineIsCommand(String var1) {
-        if (var1.startsWith("/")) {
-        }
-
-        return false;
+    public boolean lineIsCommand(String line) {
+        return line.startsWith("/");
     }
 }

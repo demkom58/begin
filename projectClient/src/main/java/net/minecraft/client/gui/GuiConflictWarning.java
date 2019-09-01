@@ -8,8 +8,8 @@ public class GuiConflictWarning extends GuiScreen {
     }
 
     public void initGui() {
-        this.controlList.clear();
-        this.controlList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, "Back to title screen"));
+        this.buttons.clear();
+        this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, "Back to title screen"));
     }
 
     protected void actionPerformed(GuiButton button) {
