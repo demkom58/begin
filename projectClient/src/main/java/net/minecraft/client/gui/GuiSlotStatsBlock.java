@@ -13,7 +13,7 @@ class GuiSlotStatsBlock extends GuiSlotStats {
     public GuiSlotStatsBlock(GuiStats var1) {
         super(var1);
         this.field_27274_a = var1;
-        this.field_27273_c = new ArrayList();
+        this.statCraftings = new ArrayList();
 
         for (StatCrafting var3 : StatList.field_25185_d) {
             boolean var4 = false;
@@ -27,15 +27,15 @@ class GuiSlotStatsBlock extends GuiSlotStats {
             }
 
             if (var4) {
-                this.field_27273_c.add(var3);
+                this.statCraftings.add(var3);
             }
         }
 
-        this.field_27272_d = new SorterStatsBlock(this, var1);
+        this.comparator = new SorterStatsBlock(this, var1);
     }
 
-    protected void func_27260_a(int var1, int var2, Tessellator var3) {
-        super.func_27260_a(var1, var2, var3);
+    protected void func_27260_a(int var1, int var2, Tessellator tess) {
+        super.func_27260_a(var1, var2, tess);
         if (this.field_27268_b == 0) {
             GuiStats.func_27128_a(this.field_27274_a, var1 + 115 - 18 + 1, var2 + 1 + 1, 18, 18);
         } else {

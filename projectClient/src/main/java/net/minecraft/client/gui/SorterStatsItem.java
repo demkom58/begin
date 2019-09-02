@@ -1,14 +1,12 @@
 package net.minecraft.client.gui;
 
-import net.minecraft.client.gui.GuiSlotStatsItem;
-import net.minecraft.client.gui.GuiStats;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatCrafting;
 import net.minecraft.stats.StatList;
 
 import java.util.Comparator;
 
-class SorterStatsItem implements Comparator {
+class SorterStatsItem implements Comparator<StatCrafting> {
     // $FF: synthetic field
     final GuiStats field_27373_a;
     // $FF: synthetic field
@@ -44,8 +42,8 @@ class SorterStatsItem implements Comparator {
                 return -1;
             }
 
-            int var7 = GuiStats.func_27142_c(this.field_27372_b.field_27275_a).writeStat(var5);
-            int var8 = GuiStats.func_27142_c(this.field_27372_b.field_27275_a).writeStat(var6);
+            int var7 = GuiStats.func_27142_c(this.field_27372_b.guiStats).writeStat(var5);
+            int var8 = GuiStats.func_27142_c(this.field_27372_b.guiStats).writeStat(var6);
             if (var7 != var8) {
                 return (var7 - var8) * this.field_27372_b.field_27270_f;
             }
@@ -56,7 +54,7 @@ class SorterStatsItem implements Comparator {
 
     // $FF: synthetic method
     // $FF: bridge method
-    public int compare(Object var1, Object var2) {
-        return this.func_27371_a((StatCrafting) var1, (StatCrafting) var2);
+    public int compare(StatCrafting var1, StatCrafting var2) {
+        return this.func_27371_a(var1, var2);
     }
 }

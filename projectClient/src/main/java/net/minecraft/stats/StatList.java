@@ -13,8 +13,8 @@ import java.util.*;
 public class StatList {
     public static List<StatBase> field_25188_a = new ArrayList<>();
     public static List<StatBase> field_25187_b = new ArrayList<>();
-    public static List<StatBase> field_25186_c = new ArrayList<>();
-    public static List<StatBase> field_25185_d = new ArrayList<>();
+    public static List<StatCrafting> field_25186_c = new ArrayList<>();
+    public static List<StatCrafting> field_25185_d = new ArrayList<>();
 
     public static StatBase[] field_25158_z;
     public static StatBase[] field_25172_A;
@@ -94,37 +94,36 @@ public class StatList {
     }
 
     private static StatBase[] func_25153_a(String var0, int var1) {
-        StatBase[] var2 = new StatBase[256];
+        StatCrafting[] stats = new StatCrafting[256];
 
-        for (int var3 = 0; var3 < 256; ++var3) {
-            if (Block.BLOCKS_LIST[var3] != null && Block.BLOCKS_LIST[var3].getEnableStats()) {
-                String var4 = StatCollector.translateToLocalFormatted(var0, Block.BLOCKS_LIST[var3].translateBlockName());
-                var2[var3] = (new StatCrafting(var1 + var3, var4, var3)).registerStat();
-                field_25185_d.add(var2[var3]);
+        for (int i = 0; i < 256; ++i) {
+            if (Block.BLOCKS_LIST[i] != null && Block.BLOCKS_LIST[i].getEnableStats()) {
+                String formatted = StatCollector.translateToLocalFormatted(var0, Block.BLOCKS_LIST[i].translateBlockName());
+                stats[i] = (StatCrafting) (new StatCrafting(var1 + i, formatted, i)).registerStat();
+                field_25185_d.add(stats[i]);
             }
         }
 
-        replaceAllSimilarBlocks(var2);
-        return var2;
+        replaceAllSimilarBlocks(stats);
+        return stats;
     }
 
-    private static StatBase[] func_25155_a(StatBase[] var0, String var1, int var2, int var3, int var4) {
-        if (var0 == null) {
-            var0 = new StatBase[32000];
-        }
+    private static StatBase[] func_25155_a(StatBase[] stats, String key, int var2, int from, int to) {
+        if (stats == null)
+            stats = new StatBase[32000];
 
-        for (int var5 = var3; var5 < var4; ++var5) {
-            if (Item.ITEMS_LIST[var5] != null) {
-                String var6 = StatCollector.translateToLocalFormatted(var1, Item.ITEMS_LIST[var5].getStatName());
-                var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).registerStat();
-                if (var5 >= Block.BLOCKS_LIST.length) {
-                    field_25186_c.add(var0[var5]);
+        for (int i = from; i < to; ++i) {
+            if (Item.ITEMS_LIST[i] != null) {
+                String var6 = StatCollector.translateToLocalFormatted(key, Item.ITEMS_LIST[i].getStatName());
+                stats[i] = new StatCrafting(var2 + i, var6, i).registerStat();
+                if (i >= Block.BLOCKS_LIST.length) {
+                    field_25186_c.add((StatCrafting) stats[i]);
                 }
             }
         }
 
-        replaceAllSimilarBlocks(var0);
-        return var0;
+        replaceAllSimilarBlocks(stats);
+        return stats;
     }
 
     private static StatBase[] func_25149_b(StatBase[] var0, String var1, int var2, int var3, int var4) {

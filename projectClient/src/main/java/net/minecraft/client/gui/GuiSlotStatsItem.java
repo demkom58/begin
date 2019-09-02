@@ -8,50 +8,51 @@ import java.util.ArrayList;
 
 class GuiSlotStatsItem extends GuiSlotStats {
     // $FF: synthetic field
-    final GuiStats field_27275_a;
+    final GuiStats guiStats;
 
-    public GuiSlotStatsItem(GuiStats var1) {
-        super(var1);
-        this.field_27275_a = var1;
-        this.field_27273_c = new ArrayList();
+    public GuiSlotStatsItem(GuiStats guiStats) {
+        super(guiStats);
+        this.guiStats = guiStats;
+        this.statCraftings = new ArrayList<>();
 
-        for (StatCrafting var3 : StatList.field_25186_c) {
+        for (StatCrafting statCraft : StatList.field_25186_c) {
             boolean var4 = false;
-            int var5 = var3.func_25072_b();
-            if (GuiStats.func_27142_c(var1).writeStat(var3) > 0) {
+            int var5 = statCraft.func_25072_b();
+
+            if (GuiStats.func_27142_c(guiStats).writeStat(statCraft) > 0) {
                 var4 = true;
-            } else if (StatList.field_25170_B[var5] != null && GuiStats.func_27142_c(var1).writeStat(StatList.field_25170_B[var5]) > 0) {
+            } else if (StatList.field_25170_B[var5] != null && GuiStats.func_27142_c(guiStats).writeStat(StatList.field_25170_B[var5]) > 0) {
                 var4 = true;
-            } else if (StatList.field_25158_z[var5] != null && GuiStats.func_27142_c(var1).writeStat(StatList.field_25158_z[var5]) > 0) {
+            } else if (StatList.field_25158_z[var5] != null && GuiStats.func_27142_c(guiStats).writeStat(StatList.field_25158_z[var5]) > 0) {
                 var4 = true;
             }
 
             if (var4) {
-                this.field_27273_c.add(var3);
+                this.statCraftings.add(statCraft);
             }
         }
 
-        this.field_27272_d = new SorterStatsItem(this, var1);
+        this.comparator = new SorterStatsItem(this, guiStats);
     }
 
-    protected void func_27260_a(int var1, int var2, Tessellator var3) {
-        super.func_27260_a(var1, var2, var3);
+    protected void func_27260_a(int var1, int var2, Tessellator tess) {
+        super.func_27260_a(var1, var2, tess);
         if (this.field_27268_b == 0) {
-            GuiStats.func_27128_a(this.field_27275_a, var1 + 115 - 18 + 1, var2 + 1 + 1, 72, 18);
+            GuiStats.func_27128_a(this.guiStats, var1 + 115 - 18 + 1, var2 + 1 + 1, 72, 18);
         } else {
-            GuiStats.func_27128_a(this.field_27275_a, var1 + 115 - 18, var2 + 1, 72, 18);
+            GuiStats.func_27128_a(this.guiStats, var1 + 115 - 18, var2 + 1, 72, 18);
         }
 
         if (this.field_27268_b == 1) {
-            GuiStats.func_27128_a(this.field_27275_a, var1 + 165 - 18 + 1, var2 + 1 + 1, 18, 18);
+            GuiStats.func_27128_a(this.guiStats, var1 + 165 - 18 + 1, var2 + 1 + 1, 18, 18);
         } else {
-            GuiStats.func_27128_a(this.field_27275_a, var1 + 165 - 18, var2 + 1, 18, 18);
+            GuiStats.func_27128_a(this.guiStats, var1 + 165 - 18, var2 + 1, 18, 18);
         }
 
         if (this.field_27268_b == 2) {
-            GuiStats.func_27128_a(this.field_27275_a, var1 + 215 - 18 + 1, var2 + 1 + 1, 36, 18);
+            GuiStats.func_27128_a(this.guiStats, var1 + 215 - 18 + 1, var2 + 1 + 1, 36, 18);
         } else {
-            GuiStats.func_27128_a(this.field_27275_a, var1 + 215 - 18, var2 + 1, 36, 18);
+            GuiStats.func_27128_a(this.guiStats, var1 + 215 - 18, var2 + 1, 36, 18);
         }
 
     }
@@ -59,7 +60,7 @@ class GuiSlotStatsItem extends GuiSlotStats {
     protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator var5) {
         StatCrafting var6 = this.func_27264_b(var1);
         int var7 = var6.func_25072_b();
-        GuiStats.func_27148_a(this.field_27275_a, var2 + 40, var3, var7);
+        GuiStats.func_27148_a(this.guiStats, var2 + 40, var3, var7);
         this.func_27265_a((StatCrafting) StatList.field_25170_B[var7], var2 + 115, var3, var1 % 2 == 0);
         this.func_27265_a((StatCrafting) StatList.field_25158_z[var7], var2 + 165, var3, var1 % 2 == 0);
         this.func_27265_a(var6, var2 + 215, var3, var1 % 2 == 0);
