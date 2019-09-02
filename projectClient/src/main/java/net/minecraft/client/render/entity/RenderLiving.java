@@ -7,6 +7,7 @@ import net.minecraft.client.render.Render;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
 
@@ -25,7 +26,7 @@ public class RenderLiving extends Render {
 
     public void doRenderLiving(EntityLiving var1, double var2, double var4, double var6, float var8, float var9) {
         GL11.glPushMatrix();
-        GL11.glDisable(2884 /*GL_CULL_FACE*/);
+        GL11.glDisable(GL11.GL_CULL_FACE);
         this.mainModel.onGround = this.func_167_c(var1, var9);
         if (this.renderPassModel != null) {
             this.renderPassModel.onGround = this.mainModel.onGround;
@@ -44,7 +45,7 @@ public class RenderLiving extends Render {
             float var13 = this.func_170_d(var1, var9);
             this.rotateCorpse(var1, var13, var10, var9);
             float var14 = 0.0625F;
-            GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+            GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
             GL11.glScalef(-1.0F, -1.0F, 1.0F);
             this.preRenderCallback(var1, var9);
             GL11.glTranslatef(0.0F, -24.0F * var14 - 0.0078125F, 0.0F);
@@ -55,15 +56,15 @@ public class RenderLiving extends Render {
             }
 
             this.loadDownloadableImageTexture(var1.skinUrl, var1.getEntityTexture());
-            GL11.glEnable(3008 /*GL_ALPHA_TEST*/);
+            GL11.glEnable(GL11.GL_ALPHA_TEST);
             this.mainModel.setLivingAnimations(var1, var16, var15, var9);
             this.mainModel.render(var16, var15, var13, var11 - var10, var12, var14);
 
             for (int var17 = 0; var17 < 4; ++var17) {
                 if (this.shouldRenderPass(var1, var17, var9)) {
                     this.renderPassModel.render(var16, var15, var13, var11 - var10, var12, var14);
-                    GL11.glDisable(3042 /*GL_BLEND*/);
-                    GL11.glEnable(3008 /*GL_ALPHA_TEST*/);
+                    GL11.glDisable(GL11.GL_BLEND);
+                    GL11.glEnable(GL11.GL_ALPHA_TEST);
                 }
             }
 
@@ -71,9 +72,9 @@ public class RenderLiving extends Render {
             float var25 = var1.getEntityBrightness(var9);
             int var18 = this.getColorMultiplier(var1, var25, var9);
             if ((var18 >> 24 & 255) > 0 || var1.hurtTime > 0 || var1.deathTime > 0) {
-                GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
-                GL11.glDisable(3008 /*GL_ALPHA_TEST*/);
-                GL11.glEnable(3042 /*GL_BLEND*/);
+                GL11.glDisable(GL11.GL_TEXTURE_2D);
+                GL11.glDisable(GL11.GL_ALPHA_TEST);
+                GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(770, 771);
                 GL11.glDepthFunc(514);
                 if (var1.hurtTime > 0 || var1.deathTime > 0) {
@@ -105,17 +106,17 @@ public class RenderLiving extends Render {
                 }
 
                 GL11.glDepthFunc(515);
-                GL11.glDisable(3042 /*GL_BLEND*/);
-                GL11.glEnable(3008 /*GL_ALPHA_TEST*/);
-                GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
+                GL11.glDisable(GL11.GL_BLEND);
+                GL11.glEnable(GL11.GL_ALPHA_TEST);
+                GL11.glEnable(GL11.GL_TEXTURE_2D);
             }
 
-            GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+            GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        GL11.glEnable(2884 /*GL_CULL_FACE*/);
+        GL11.glEnable(GL11.GL_CULL_FACE);
         GL11.glPopMatrix();
         this.passSpecialRender(var1, var2, var4, var6);
     }
@@ -187,10 +188,10 @@ public class RenderLiving extends Render {
             GL11.glRotatef(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
             GL11.glScalef(-var13, -var13, var13);
-            GL11.glDisable(2896 /*GL_LIGHTING*/);
+            GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glDepthMask(false);
-            GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
-            GL11.glEnable(3042 /*GL_BLEND*/);
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
+            GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(770, 771);
             Tessellator var14 = Tessellator.INSTANCE;
             byte var15 = 0;
@@ -198,22 +199,22 @@ public class RenderLiving extends Render {
                 var15 = -10;
             }
 
-            GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
             var14.startDrawingQuads();
             int var16 = var11.getStringWidth(var2) / 2;
             var14.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-            var14.addVertex((double) (-var16 - 1), (double) (-1 + var15), 0.0D);
-            var14.addVertex((double) (-var16 - 1), (double) (8 + var15), 0.0D);
-            var14.addVertex((double) (var16 + 1), (double) (8 + var15), 0.0D);
-            var14.addVertex((double) (var16 + 1), (double) (-1 + var15), 0.0D);
+            var14.addVertex(-var16 - 1, -1 + var15, 0.0D);
+            var14.addVertex(-var16 - 1, 8 + var15, 0.0D);
+            var14.addVertex(var16 + 1, 8 + var15, 0.0D);
+            var14.addVertex(var16 + 1, -1 + var15, 0.0D);
             var14.draw();
-            GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
             var11.drawString(var2, -var11.getStringWidth(var2) / 2, var15, 553648127);
-            GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
             GL11.glDepthMask(true);
             var11.drawString(var2, -var11.getStringWidth(var2) / 2, var15, -1);
-            GL11.glEnable(2896 /*GL_LIGHTING*/);
-            GL11.glDisable(3042 /*GL_BLEND*/);
+            GL11.glEnable(GL11.GL_LIGHTING);
+            GL11.glDisable(GL11.GL_BLEND);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glPopMatrix();
         }

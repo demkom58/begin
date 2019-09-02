@@ -29,21 +29,21 @@ public class ChunkCache implements IBlockAccess {
 
     }
 
-    public int getBlockId(int var1, int var2, int var3) {
-        if (var2 < 0) {
+    public int getBlockId(int x, int y, int z) {
+        if (y < 0)
             return 0;
-        } else if (var2 >= 128) {
+
+        if (y >= 128)
             return 0;
-        } else {
-            int var4 = (var1 >> 4) - this.chunkX;
-            int var5 = (var3 >> 4) - this.chunkZ;
-            if (var4 >= 0 && var4 < this.chunkArray.length && var5 >= 0 && var5 < this.chunkArray[var4].length) {
-                Chunk var6 = this.chunkArray[var4][var5];
-                return var6 == null ? 0 : var6.getBlockID(var1 & 15, var2, var3 & 15);
-            } else {
-                return 0;
-            }
+
+        int var4 = (x >> 4) - this.chunkX;
+        int var5 = (z >> 4) - this.chunkZ;
+        if (var4 >= 0 && var4 < this.chunkArray.length && var5 >= 0 && var5 < this.chunkArray[var4].length) {
+            Chunk chunk = this.chunkArray[var4][var5];
+            return chunk == null ? 0 : chunk.getBlockID(x & 15, y, z & 15);
         }
+
+        return 0;
     }
 
     public TileEntity getBlockTileEntity(int var1, int var2, int var3) {

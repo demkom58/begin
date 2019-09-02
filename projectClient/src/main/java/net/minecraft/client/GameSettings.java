@@ -172,30 +172,29 @@ public class GameSettings {
         }
     }
 
-    public boolean getOptionOrdinalValue(EnumOptions var1) {
-        // $FF: Couldn't be decompiled
-        switch (EnumOptionsMappingHelper.VALUES[var1.ordinal()]) {
-            case 1:
+    public boolean getOptionOrdinalValue(EnumOptions options) {
+        switch (options) {
+            case INVERT_MOUSE:
                 return this.invertMouse;
-            case 2:
+            case VIEW_BOBBING:
                 return this.viewBobbing;
-            case 3:
+            case ANAGLYPH:
                 return this.anaglyph;
-            case 4:
+            case ADVANCED_OPENGL:
                 return this.advancedOpengl;
-            case 5:
+            case AMBIENT_OCCLUSION:
                 return this.ambientOcclusion;
         }
         return false;
 
     }
 
-    public String getKeyBinding(EnumOptions var1) {
+    public String getKeyBinding(EnumOptions options) {
         StringTranslate var2 = StringTranslate.getInstance();
-        String var3 = var2.translateKey(var1.getEnumString()) + ": ";
-        if (var1.getEnumFloat()) {
-            float var5 = this.getOptionFloatValue(var1);
-            if (var1 == EnumOptions.SENSITIVITY) {
+        String var3 = var2.translateKey(options.getEnumString()) + ": ";
+        if (options.getEnumFloat()) {
+            float var5 = this.getOptionFloatValue(options);
+            if (options == EnumOptions.SENSITIVITY) {
                 if (var5 == 0.0F) {
                     return var3 + var2.translateKey("options.sensitivity.min");
                 } else {
@@ -204,18 +203,18 @@ public class GameSettings {
             } else {
                 return var5 == 0.0F ? var3 + var2.translateKey("options.off") : var3 + (int) (var5 * 100.0F) + "%";
             }
-        } else if (var1.getEnumBoolean()) {
-            boolean var4 = this.getOptionOrdinalValue(var1);
+        } else if (options.getEnumBoolean()) {
+            boolean var4 = this.getOptionOrdinalValue(options);
             return var4 ? var3 + var2.translateKey("options.on") : var3 + var2.translateKey("options.off");
-        } else if (var1 == EnumOptions.RENDER_DISTANCE) {
+        } else if (options == EnumOptions.RENDER_DISTANCE) {
             return var3 + var2.translateKey(RENDER_DISTANCES[this.renderDistance]);
-        } else if (var1 == EnumOptions.DIFFICULTY) {
+        } else if (options == EnumOptions.DIFFICULTY) {
             return var3 + var2.translateKey(DIFFICULTIES[this.difficulty]);
-        } else if (var1 == EnumOptions.GUI_SCALE) {
+        } else if (options == EnumOptions.GUI_SCALE) {
             return var3 + var2.translateKey(GUISCALES[this.guiScale]);
-        } else if (var1 == EnumOptions.FRAMERATE_LIMIT) {
+        } else if (options == EnumOptions.FRAMERATE_LIMIT) {
             return var3 + StatCollector.translateToLocal(LIMIT_FRAMERATES[this.limitFramerate]);
-        } else if (var1 == EnumOptions.GRAPHICS) {
+        } else if (options == EnumOptions.GRAPHICS) {
             return this.fancyGraphics ? var3 + var2.translateKey("options.graphics.fancy") : var3 + var2.translateKey("options.graphics.fast");
         } else {
             return var3;

@@ -34,6 +34,7 @@ public class SaveConverterMcRegion extends SaveFormatOld {
             if (file.isDirectory()) {
                 String name = file.getName();
                 WorldInfo worldInfo = this.readWorldInfo(name);
+
                 if (worldInfo != null) {
                     boolean invalidVersion = worldInfo.getSaveVersion() != 19132;
                     String worldName = worldInfo.getWorldName();

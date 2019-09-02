@@ -18,10 +18,10 @@ public class StatBase {
     public boolean field_27088_g;
     public String statGuid;
 
-    public StatBase(int var1, String var2, IStatType var3) {
+    public StatBase(int statId, String statName, IStatType var3) {
         this.field_27088_g = false;
-        this.statId = var1;
-        this.statName = var2;
+        this.statId = statId;
+        this.statName = statName;
         this.field_26902_a = var3;
     }
 
@@ -45,14 +45,15 @@ public class StatBase {
     }
 
     public StatBase registerStat() {
-        if (StatList.field_25169_C.containsKey(this.statId)) {
-            throw new RuntimeException("Duplicate stat id: \"" + ((StatBase) StatList.field_25169_C.get(this.statId)).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
-        } else {
-            StatList.field_25188_a.add(this);
-            StatList.field_25169_C.put(this.statId, this);
-            this.statGuid = AchievementMap.getGuid(this.statId);
-            return this;
-        }
+        if (StatList.field_25169_C.containsKey(this.statId))
+            throw new RuntimeException("Duplicate stat id: \""
+                    + StatList.field_25169_C.get(this.statId).statName
+                    + "\" and \"" + this.statName + "\" at id " + this.statId);
+
+        StatList.field_25188_a.add(this);
+        StatList.field_25169_C.put(this.statId, this);
+        this.statGuid = AchievementMap.getGuid(this.statId);
+        return this;
     }
 
     public boolean func_25067_a() {

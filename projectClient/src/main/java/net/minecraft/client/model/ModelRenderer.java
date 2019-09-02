@@ -183,7 +183,7 @@ public class ModelRenderer {
 
     private void compileDisplayList(float var1) {
         this.displayList = GLAllocation.generateDisplayLists(1);
-        GL11.glNewList(this.displayList, 4864 /*GL_COMPILE*/);
+        GL11.glNewList(this.displayList, GL11.GL_COMPILE);
         Tessellator var2 = Tessellator.INSTANCE;
 
         for (int var3 = 0; var3 < this.faces.length; ++var3) {

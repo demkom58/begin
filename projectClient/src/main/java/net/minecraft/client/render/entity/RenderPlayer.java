@@ -87,26 +87,26 @@ public class RenderPlayer extends RenderLiving {
                     GL11.glRotatef(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
                     GL11.glRotatef(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
                     GL11.glScalef(-var9, -var9, var9);
-                    GL11.glDisable(2896 /*GL_LIGHTING*/);
+                    GL11.glDisable(GL11.GL_LIGHTING);
                     GL11.glTranslatef(0.0F, 0.25F / var9, 0.0F);
                     GL11.glDepthMask(false);
-                    GL11.glEnable(3042 /*GL_BLEND*/);
+                    GL11.glEnable(GL11.GL_BLEND);
                     GL11.glBlendFunc(770, 771);
                     Tessellator var14 = Tessellator.INSTANCE;
-                    GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
+                    GL11.glDisable(GL11.GL_TEXTURE_2D);
                     var14.startDrawingQuads();
                     int var15 = var13.getStringWidth(var12) / 2;
                     var14.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-                    var14.addVertex((double) (-var15 - 1), -1.0D, 0.0D);
-                    var14.addVertex((double) (-var15 - 1), 8.0D, 0.0D);
-                    var14.addVertex((double) (var15 + 1), 8.0D, 0.0D);
-                    var14.addVertex((double) (var15 + 1), -1.0D, 0.0D);
+                    var14.addVertex(-var15 - 1, -1.0D, 0.0D);
+                    var14.addVertex(-var15 - 1, 8.0D, 0.0D);
+                    var14.addVertex(var15 + 1, 8.0D, 0.0D);
+                    var14.addVertex(var15 + 1, -1.0D, 0.0D);
                     var14.draw();
-                    GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
+                    GL11.glEnable(GL11.GL_TEXTURE_2D);
                     GL11.glDepthMask(true);
                     var13.drawString(var12, -var13.getStringWidth(var12) / 2, 0, 553648127);
-                    GL11.glEnable(2896 /*GL_LIGHTING*/);
-                    GL11.glDisable(3042 /*GL_BLEND*/);
+                    GL11.glEnable(GL11.GL_LIGHTING);
+                    GL11.glDisable(GL11.GL_BLEND);
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                     GL11.glPopMatrix();
                 }
@@ -156,8 +156,8 @@ public class RenderPlayer extends RenderLiving {
             double var26 = var1.field_20065_s + (var1.field_20062_v - var1.field_20065_s) * (double) var2 - (var1.prevPosY + (var1.posY - var1.prevPosY) * (double) var2);
             double var8 = var1.field_20064_t + (var1.field_20061_w - var1.field_20064_t) * (double) var2 - (var1.prevPosZ + (var1.posZ - var1.prevPosZ) * (double) var2);
             float var10 = var1.prevRenderYawOffset + (var1.renderYawOffset - var1.prevRenderYawOffset) * var2;
-            double var11 = (double) MathHelper.sin(var10 * 3.1415927F / 180.0F);
-            double var13 = (double) (-MathHelper.cos(var10 * 3.1415927F / 180.0F));
+            double var11 = MathHelper.sin(var10 * 3.1415927F / 180.0F);
+            double var13 = -MathHelper.cos(var10 * 3.1415927F / 180.0F);
             float var15 = (float) var26 * 10.0F;
             if (var15 < -6.0F) {
                 var15 = -6.0F;

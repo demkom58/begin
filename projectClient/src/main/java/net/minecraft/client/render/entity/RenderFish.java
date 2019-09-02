@@ -4,6 +4,7 @@ import net.minecraft.client.render.Render;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityFish;
+import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3D;
@@ -12,7 +13,7 @@ public class RenderFish extends Render {
     public void func_4011_a(EntityFish var1, double var2, double var4, double var6, float var8, float var9) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) var2, (float) var4, (float) var6);
-        GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         byte var10 = 1;
         byte var11 = 2;
@@ -29,17 +30,17 @@ public class RenderFish extends Render {
         GL11.glRotatef(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         var12.startDrawingQuads();
         var12.setNormal(0.0F, 1.0F, 0.0F);
-        var12.addVertexWithUV((double) (0.0F - var18), (double) (0.0F - var19), 0.0D, (double) var13, (double) var16);
-        var12.addVertexWithUV((double) (var17 - var18), (double) (0.0F - var19), 0.0D, (double) var14, (double) var16);
-        var12.addVertexWithUV((double) (var17 - var18), (double) (1.0F - var19), 0.0D, (double) var14, (double) var15);
-        var12.addVertexWithUV((double) (0.0F - var18), (double) (1.0F - var19), 0.0D, (double) var13, (double) var15);
+        var12.addVertexWithUV(0.0F - var18, 0.0F - var19, 0.0D, var13, var16);
+        var12.addVertexWithUV(var17 - var18, 0.0F - var19, 0.0D, var14, var16);
+        var12.addVertexWithUV(var17 - var18, 1.0F - var19, 0.0D, var14, var15);
+        var12.addVertexWithUV(0.0F - var18, 1.0F - var19, 0.0D, var13, var15);
         var12.draw();
-        GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
         GL11.glPopMatrix();
         if (var1.angler != null) {
             float var20 = (var1.angler.prevRotationYaw + (var1.angler.rotationYaw - var1.angler.prevRotationYaw) * var9) * 3.1415927F / 180.0F;
-            double var21 = (double) MathHelper.sin(var20);
-            double var23 = (double) MathHelper.cos(var20);
+            double var21 = MathHelper.sin(var20);
+            double var23 = MathHelper.cos(var20);
             float var25 = var1.angler.getSwingProgress(var9);
             float var26 = MathHelper.sin(MathHelper.sqrt(var25) * 3.1415927F);
             Vec3D var27 = Vec3D.createVector(-0.5D, 0.03D, 0.8D);
@@ -52,8 +53,8 @@ public class RenderFish extends Render {
             double var32 = var1.angler.prevPosZ + (var1.angler.posZ - var1.angler.prevPosZ) * (double) var9 + var27.zCoord;
             if (this.renderManager.options.thirdPersonView) {
                 var20 = (var1.angler.prevRenderYawOffset + (var1.angler.renderYawOffset - var1.angler.prevRenderYawOffset) * var9) * 3.1415927F / 180.0F;
-                var21 = (double) MathHelper.sin(var20);
-                var23 = (double) MathHelper.cos(var20);
+                var21 = MathHelper.sin(var20);
+                var23 = MathHelper.cos(var20);
                 var28 = var1.angler.prevPosX + (var1.angler.posX - var1.angler.prevPosX) * (double) var9 - var23 * 0.35D - var21 * 0.85D;
                 var30 = var1.angler.prevPosY + (var1.angler.posY - var1.angler.prevPosY) * (double) var9 - 0.45D;
                 var32 = var1.angler.prevPosZ + (var1.angler.posZ - var1.angler.prevPosZ) * (double) var9 - var21 * 0.35D + var23 * 0.85D;
@@ -62,23 +63,23 @@ public class RenderFish extends Render {
             double var34 = var1.prevPosX + (var1.posX - var1.prevPosX) * (double) var9;
             double var36 = var1.prevPosY + (var1.posY - var1.prevPosY) * (double) var9 + 0.25D;
             double var38 = var1.prevPosZ + (var1.posZ - var1.prevPosZ) * (double) var9;
-            double var40 = (double) ((float) (var28 - var34));
-            double var42 = (double) ((float) (var30 - var36));
-            double var44 = (double) ((float) (var32 - var38));
-            GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
-            GL11.glDisable(2896 /*GL_LIGHTING*/);
+            double var40 = (float) (var28 - var34);
+            double var42 = (float) (var30 - var36);
+            double var44 = (float) (var32 - var38);
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
+            GL11.glDisable(GL11.GL_LIGHTING);
             var12.startDrawing(3);
             var12.setColorOpaque_I(0);
             byte var46 = 16;
 
-            for (int var47 = 0; var47 <= var46; ++var47) {
-                float var48 = (float) var47 / (float) var46;
+            for (int i = 0; i <= var46; ++i) {
+                float var48 = (float) i / (float) var46;
                 var12.addVertex(var2 + var40 * (double) var48, var4 + var42 * (double) (var48 * var48 + var48) * 0.5D + 0.25D, var6 + var44 * (double) var48);
             }
 
             var12.draw();
-            GL11.glEnable(2896 /*GL_LIGHTING*/);
-            GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
+            GL11.glEnable(GL11.GL_LIGHTING);
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
         }
 
     }

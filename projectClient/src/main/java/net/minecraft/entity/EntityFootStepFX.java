@@ -27,24 +27,24 @@ public class EntityFootStepFX extends EntityFX {
         }
 
         var9 = var9 * 0.2F;
-        GL11.glDisable(2896 /*GL_LIGHTING*/);
+        GL11.glDisable(GL11.GL_LIGHTING);
         float var10 = 0.125F;
         float var11 = (float) (this.posX - interpPosX);
         float var12 = (float) (this.posY - interpPosY);
         float var13 = (float) (this.posZ - interpPosZ);
         float var14 = this.worldObj.getLightBrightness(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ));
         this.field_27019_p.bindTexture(this.field_27019_p.getTexture("/misc/footprint.png"));
-        GL11.glEnable(3042 /*GL_BLEND*/);
+        GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(770, 771);
         var1.startDrawingQuads();
         var1.setColorRGBA_F(var14, var14, var14, var9);
-        var1.addVertexWithUV((double) (var11 - var10), (double) var12, (double) (var13 + var10), 0.0D, 1.0D);
-        var1.addVertexWithUV((double) (var11 + var10), (double) var12, (double) (var13 + var10), 1.0D, 1.0D);
-        var1.addVertexWithUV((double) (var11 + var10), (double) var12, (double) (var13 - var10), 1.0D, 0.0D);
-        var1.addVertexWithUV((double) (var11 - var10), (double) var12, (double) (var13 - var10), 0.0D, 0.0D);
+        var1.addVertexWithUV(var11 - var10, var12, var13 + var10, 0.0D, 1.0D);
+        var1.addVertexWithUV(var11 + var10, var12, var13 + var10, 1.0D, 1.0D);
+        var1.addVertexWithUV(var11 + var10, var12, var13 - var10, 1.0D, 0.0D);
+        var1.addVertexWithUV(var11 - var10, var12, var13 - var10, 0.0D, 0.0D);
         var1.draw();
-        GL11.glDisable(3042 /*GL_BLEND*/);
-        GL11.glEnable(2896 /*GL_LIGHTING*/);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_LIGHTING);
     }
 
     public void onUpdate() {

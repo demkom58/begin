@@ -179,18 +179,18 @@ public abstract class GuiSlot {
         }
 
         this.bindAmountScrolled();
-        GL11.glDisable(2896 /*GL_LIGHTING*/);
-        GL11.glDisable(2912 /*GL_FOG*/);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_FOG);
         Tessellator var16 = Tessellator.INSTANCE;
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTexture("/gui/background.png"));
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/gui/background.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         float var17 = 32.0F;
         var16.startDrawingQuads();
         var16.setColorOpaque_I(2105376);
-        var16.addVertexWithUV((double) this.left, (double) this.bottom, 0.0D, (double) ((float) this.left / var17), (double) ((float) (this.bottom + (int) this.amountScrolled) / var17));
-        var16.addVertexWithUV((double) this.right, (double) this.bottom, 0.0D, (double) ((float) this.right / var17), (double) ((float) (this.bottom + (int) this.amountScrolled) / var17));
-        var16.addVertexWithUV((double) this.right, (double) this.top, 0.0D, (double) ((float) this.right / var17), (double) ((float) (this.top + (int) this.amountScrolled) / var17));
-        var16.addVertexWithUV((double) this.left, (double) this.top, 0.0D, (double) ((float) this.left / var17), (double) ((float) (this.top + (int) this.amountScrolled) / var17));
+        var16.addVertexWithUV(this.left, this.bottom, 0.0D, (float) this.left / var17, (float) (this.bottom + (int) this.amountScrolled) / var17);
+        var16.addVertexWithUV(this.right, this.bottom, 0.0D, (float) this.right / var17, (float) (this.bottom + (int) this.amountScrolled) / var17);
+        var16.addVertexWithUV(this.right, this.top, 0.0D, (float) this.right / var17, (float) (this.top + (int) this.amountScrolled) / var17);
+        var16.addVertexWithUV(this.left, this.top, 0.0D, (float) this.left / var17, (float) (this.top + (int) this.amountScrolled) / var17);
         var16.draw();
         int var18 = this.width / 2 - 92 - 16;
         int var19 = this.top + 4 - (int) this.amountScrolled;
@@ -206,50 +206,50 @@ public abstract class GuiSlot {
                     int var14 = this.width / 2 - 110;
                     int var15 = this.width / 2 + 110;
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                    GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
+                    GL11.glDisable(GL11.GL_TEXTURE_2D);
                     var16.startDrawingQuads();
                     var16.setColorOpaque_I(8421504);
-                    var16.addVertexWithUV((double) var14, (double) (var23 + var25 + 2), 0.0D, 0.0D, 1.0D);
-                    var16.addVertexWithUV((double) var15, (double) (var23 + var25 + 2), 0.0D, 1.0D, 1.0D);
-                    var16.addVertexWithUV((double) var15, (double) (var23 - 2), 0.0D, 1.0D, 0.0D);
-                    var16.addVertexWithUV((double) var14, (double) (var23 - 2), 0.0D, 0.0D, 0.0D);
+                    var16.addVertexWithUV(var14, var23 + var25 + 2, 0.0D, 0.0D, 1.0D);
+                    var16.addVertexWithUV(var15, var23 + var25 + 2, 0.0D, 1.0D, 1.0D);
+                    var16.addVertexWithUV(var15, var23 - 2, 0.0D, 1.0D, 0.0D);
+                    var16.addVertexWithUV(var14, var23 - 2, 0.0D, 0.0D, 0.0D);
                     var16.setColorOpaque_I(0);
-                    var16.addVertexWithUV((double) (var14 + 1), (double) (var23 + var25 + 1), 0.0D, 0.0D, 1.0D);
-                    var16.addVertexWithUV((double) (var15 - 1), (double) (var23 + var25 + 1), 0.0D, 1.0D, 1.0D);
-                    var16.addVertexWithUV((double) (var15 - 1), (double) (var23 - 1), 0.0D, 1.0D, 0.0D);
-                    var16.addVertexWithUV((double) (var14 + 1), (double) (var23 - 1), 0.0D, 0.0D, 0.0D);
+                    var16.addVertexWithUV(var14 + 1, var23 + var25 + 1, 0.0D, 0.0D, 1.0D);
+                    var16.addVertexWithUV(var15 - 1, var23 + var25 + 1, 0.0D, 1.0D, 1.0D);
+                    var16.addVertexWithUV(var15 - 1, var23 - 1, 0.0D, 1.0D, 0.0D);
+                    var16.addVertexWithUV(var14 + 1, var23 - 1, 0.0D, 0.0D, 0.0D);
                     var16.draw();
-                    GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
+                    GL11.glEnable(GL11.GL_TEXTURE_2D);
                 }
 
                 this.drawSlot(var20, var18, var23, var25, var16);
             }
         }
 
-        GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
         byte var21 = 4;
         this.overlayBackground(0, this.top, 255, 255);
         this.overlayBackground(this.bottom, this.height, 255, 255);
-        GL11.glEnable(3042 /*GL_BLEND*/);
+        GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(770, 771);
-        GL11.glDisable(3008 /*GL_ALPHA_TEST*/);
-        GL11.glShadeModel(7425 /*GL_SMOOTH*/);
-        GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+        GL11.glShadeModel(GL11.GL_SMOOTH);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
         var16.startDrawingQuads();
         var16.setColorRGBA_I(0, 0);
-        var16.addVertexWithUV((double) this.left, (double) (this.top + var21), 0.0D, 0.0D, 1.0D);
-        var16.addVertexWithUV((double) this.right, (double) (this.top + var21), 0.0D, 1.0D, 1.0D);
+        var16.addVertexWithUV(this.left, this.top + var21, 0.0D, 0.0D, 1.0D);
+        var16.addVertexWithUV(this.right, this.top + var21, 0.0D, 1.0D, 1.0D);
         var16.setColorRGBA_I(0, 255);
-        var16.addVertexWithUV((double) this.right, (double) this.top, 0.0D, 1.0D, 0.0D);
-        var16.addVertexWithUV((double) this.left, (double) this.top, 0.0D, 0.0D, 0.0D);
+        var16.addVertexWithUV(this.right, this.top, 0.0D, 1.0D, 0.0D);
+        var16.addVertexWithUV(this.left, this.top, 0.0D, 0.0D, 0.0D);
         var16.draw();
         var16.startDrawingQuads();
         var16.setColorRGBA_I(0, 255);
-        var16.addVertexWithUV((double) this.left, (double) this.bottom, 0.0D, 0.0D, 1.0D);
-        var16.addVertexWithUV((double) this.right, (double) this.bottom, 0.0D, 1.0D, 1.0D);
+        var16.addVertexWithUV(this.left, this.bottom, 0.0D, 0.0D, 1.0D);
+        var16.addVertexWithUV(this.right, this.bottom, 0.0D, 1.0D, 1.0D);
         var16.setColorRGBA_I(0, 0);
-        var16.addVertexWithUV((double) this.right, (double) (this.bottom - var21), 0.0D, 1.0D, 0.0D);
-        var16.addVertexWithUV((double) this.left, (double) (this.bottom - var21), 0.0D, 0.0D, 0.0D);
+        var16.addVertexWithUV(this.right, this.bottom - var21, 0.0D, 1.0D, 0.0D);
+        var16.addVertexWithUV(this.left, this.bottom - var21, 0.0D, 0.0D, 0.0D);
         var16.draw();
         int var24 = this.getContentHeight() - (this.bottom - this.top - 4);
         if (var24 > 0) {
@@ -269,46 +269,46 @@ public abstract class GuiSlot {
 
             var16.startDrawingQuads();
             var16.setColorRGBA_I(0, 255);
-            var16.addVertexWithUV((double) var5, (double) this.bottom, 0.0D, 0.0D, 1.0D);
-            var16.addVertexWithUV((double) var6, (double) this.bottom, 0.0D, 1.0D, 1.0D);
-            var16.addVertexWithUV((double) var6, (double) this.top, 0.0D, 1.0D, 0.0D);
-            var16.addVertexWithUV((double) var5, (double) this.top, 0.0D, 0.0D, 0.0D);
+            var16.addVertexWithUV(var5, this.bottom, 0.0D, 0.0D, 1.0D);
+            var16.addVertexWithUV(var6, this.bottom, 0.0D, 1.0D, 1.0D);
+            var16.addVertexWithUV(var6, this.top, 0.0D, 1.0D, 0.0D);
+            var16.addVertexWithUV(var5, this.top, 0.0D, 0.0D, 0.0D);
             var16.draw();
             var16.startDrawingQuads();
             var16.setColorRGBA_I(8421504, 255);
-            var16.addVertexWithUV((double) var5, (double) (var27 + var26), 0.0D, 0.0D, 1.0D);
-            var16.addVertexWithUV((double) var6, (double) (var27 + var26), 0.0D, 1.0D, 1.0D);
-            var16.addVertexWithUV((double) var6, (double) var27, 0.0D, 1.0D, 0.0D);
-            var16.addVertexWithUV((double) var5, (double) var27, 0.0D, 0.0D, 0.0D);
+            var16.addVertexWithUV(var5, var27 + var26, 0.0D, 0.0D, 1.0D);
+            var16.addVertexWithUV(var6, var27 + var26, 0.0D, 1.0D, 1.0D);
+            var16.addVertexWithUV(var6, var27, 0.0D, 1.0D, 0.0D);
+            var16.addVertexWithUV(var5, var27, 0.0D, 0.0D, 0.0D);
             var16.draw();
             var16.startDrawingQuads();
             var16.setColorRGBA_I(12632256, 255);
-            var16.addVertexWithUV((double) var5, (double) (var27 + var26 - 1), 0.0D, 0.0D, 1.0D);
-            var16.addVertexWithUV((double) (var6 - 1), (double) (var27 + var26 - 1), 0.0D, 1.0D, 1.0D);
-            var16.addVertexWithUV((double) (var6 - 1), (double) var27, 0.0D, 1.0D, 0.0D);
-            var16.addVertexWithUV((double) var5, (double) var27, 0.0D, 0.0D, 0.0D);
+            var16.addVertexWithUV(var5, var27 + var26 - 1, 0.0D, 0.0D, 1.0D);
+            var16.addVertexWithUV(var6 - 1, var27 + var26 - 1, 0.0D, 1.0D, 1.0D);
+            var16.addVertexWithUV(var6 - 1, var27, 0.0D, 1.0D, 0.0D);
+            var16.addVertexWithUV(var5, var27, 0.0D, 0.0D, 0.0D);
             var16.draw();
         }
 
         this.func_27257_b(var1, var2);
-        GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
-        GL11.glShadeModel(7424 /*GL_FLAT*/);
-        GL11.glEnable(3008 /*GL_ALPHA_TEST*/);
-        GL11.glDisable(3042 /*GL_BLEND*/);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glShadeModel(GL11.GL_FLAT);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glDisable(GL11.GL_BLEND);
     }
 
     private void overlayBackground(int var1, int var2, int var3, int var4) {
         Tessellator var5 = Tessellator.INSTANCE;
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTexture("/gui/background.png"));
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/gui/background.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         float var6 = 32.0F;
         var5.startDrawingQuads();
         var5.setColorRGBA_I(4210752, var4);
-        var5.addVertexWithUV(0.0D, (double) var2, 0.0D, 0.0D, (double) ((float) var2 / var6));
-        var5.addVertexWithUV((double) this.width, (double) var2, 0.0D, (double) ((float) this.width / var6), (double) ((float) var2 / var6));
+        var5.addVertexWithUV(0.0D, var2, 0.0D, 0.0D, (float) var2 / var6);
+        var5.addVertexWithUV(this.width, var2, 0.0D, (float) this.width / var6, (float) var2 / var6);
         var5.setColorRGBA_I(4210752, var3);
-        var5.addVertexWithUV((double) this.width, (double) var1, 0.0D, (double) ((float) this.width / var6), (double) ((float) var1 / var6));
-        var5.addVertexWithUV(0.0D, (double) var1, 0.0D, 0.0D, (double) ((float) var1 / var6));
+        var5.addVertexWithUV(this.width, var1, 0.0D, (float) this.width / var6, (float) var1 / var6);
+        var5.addVertexWithUV(0.0D, var1, 0.0D, 0.0D, (float) var1 / var6);
         var5.draw();
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.stats.StatCollector;
 import net.minecraft.stats.StatFileWriter;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
 
@@ -35,8 +36,8 @@ public class GuiAchievements extends GuiScreen {
         this.field_27120_x = var1;
         short var2 = 141;
         short var3 = 141;
-        this.field_27116_m = this.field_27114_o = this.field_27112_q = (double) (AchievementList.openInventory.displayColumn * 24 - var2 / 2 - 12);
-        this.field_27115_n = this.field_27113_p = this.field_27111_r = (double) (AchievementList.openInventory.displayRow * 24 - var3 / 2);
+        this.field_27116_m = this.field_27114_o = this.field_27112_q = AchievementList.openInventory.displayColumn * 24 - var2 / 2 - 12;
+        this.field_27115_n = this.field_27113_p = this.field_27111_r = AchievementList.openInventory.displayRow * 24 - var3 / 2;
     }
 
     public void initGui() {
@@ -73,8 +74,8 @@ public class GuiAchievements extends GuiScreen {
                 if (this.field_27122_w == 0) {
                     this.field_27122_w = 1;
                 } else {
-                    this.field_27114_o -= (double) (var1 - this.field_27118_j);
-                    this.field_27113_p -= (double) (var2 - this.field_27117_l);
+                    this.field_27114_o -= var1 - this.field_27118_j;
+                    this.field_27113_p -= var2 - this.field_27117_l;
                     this.field_27112_q = this.field_27116_m = this.field_27114_o;
                     this.field_27111_r = this.field_27115_n = this.field_27113_p;
                 }
@@ -84,19 +85,19 @@ public class GuiAchievements extends GuiScreen {
             }
 
             if (this.field_27112_q < (double) field_27126_s) {
-                this.field_27112_q = (double) field_27126_s;
+                this.field_27112_q = field_27126_s;
             }
 
             if (this.field_27111_r < (double) field_27125_t) {
-                this.field_27111_r = (double) field_27125_t;
+                this.field_27111_r = field_27125_t;
             }
 
             if (this.field_27112_q >= (double) field_27124_u) {
-                this.field_27112_q = (double) (field_27124_u - 1);
+                this.field_27112_q = field_27124_u - 1;
             }
 
             if (this.field_27111_r >= (double) field_27123_v) {
-                this.field_27111_r = (double) (field_27123_v - 1);
+                this.field_27111_r = field_27123_v - 1;
             }
         } else {
             this.field_27122_w = 0;
@@ -104,11 +105,11 @@ public class GuiAchievements extends GuiScreen {
 
         this.drawDefaultBackground();
         this.func_27109_b(var1, var2, var3);
-        GL11.glDisable(2896 /*GL_LIGHTING*/);
-        GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
         this.func_27110_k();
-        GL11.glEnable(2896 /*GL_LIGHTING*/);
-        GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
 
     public void updateScreen() {
@@ -161,10 +162,10 @@ public class GuiAchievements extends GuiScreen {
         GL11.glDepthFunc(518);
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0F, 0.0F, -200.0F);
-        GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
-        GL11.glDisable(2896 /*GL_LIGHTING*/);
-        GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
-        GL11.glEnable(2903 /*GL_COLOR_MATERIAL*/);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         this.mc.renderEngine.bindTexture(var6);
         int var12 = var4 + 288 >> 4;
         int var13 = var5 + 288 >> 4;
@@ -177,7 +178,7 @@ public class GuiAchievements extends GuiScreen {
             GL11.glColor4f(var23, var23, var23, 1.0F);
 
             for (int var24 = 0; var24 * 16 - var14 < 224; ++var24) {
-                var21.setSeed((long) (1234 + var12 + var24));
+                var21.setSeed(1234 + var12 + var24);
                 var21.nextInt();
                 int var25 = var21.nextInt(1 + var13 + var22) + (var13 + var22) / 2;
                 int var26 = Block.SAND.blockIndexInTexture;
@@ -205,9 +206,9 @@ public class GuiAchievements extends GuiScreen {
             }
         }
 
-        GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glDepthFunc(515);
-        GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
 
         for (int var27 = 0; var27 < AchievementList.achievementList.size(); ++var27) {
             Achievement var29 = (Achievement) AchievementList.achievementList.get(var27);
@@ -239,9 +240,9 @@ public class GuiAchievements extends GuiScreen {
         GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
         RenderHelper.enableStandardItemLighting();
         GL11.glPopMatrix();
-        GL11.glDisable(2896 /*GL_LIGHTING*/);
-        GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
-        GL11.glEnable(2903 /*GL_COLOR_MATERIAL*/);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL11.GL_COLOR_MATERIAL);
 
         for (int var32 = 0; var32 < AchievementList.achievementList.size(); ++var32) {
             Achievement var34 = (Achievement) AchievementList.achievementList.get(var32);
@@ -274,10 +275,10 @@ public class GuiAchievements extends GuiScreen {
                     var30.field_27004_a = false;
                 }
 
-                GL11.glEnable(2896 /*GL_LIGHTING*/);
-                GL11.glEnable(2884 /*GL_CULL_FACE*/);
+                GL11.glEnable(GL11.GL_LIGHTING);
+                GL11.glEnable(GL11.GL_CULL_FACE);
                 var30.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, var34.theItemStack, var44 + 3, var46 + 3);
-                GL11.glDisable(2896 /*GL_LIGHTING*/);
+                GL11.glDisable(GL11.GL_LIGHTING);
                 if (!this.field_27120_x.func_27181_b(var34)) {
                     var30.field_27004_a = true;
                 }
@@ -289,16 +290,16 @@ public class GuiAchievements extends GuiScreen {
             }
         }
 
-        GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
-        GL11.glEnable(3042 /*GL_BLEND*/);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_BLEND);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(var7);
         this.drawTexturedModalRect(var8, var9, 0, 0, this.field_27121_a, this.field_27119_i);
         GL11.glPopMatrix();
         this.zLevel = 0.0F;
         GL11.glDepthFunc(515);
-        GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
-        GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
         super.drawScreen(var1, var2, var3);
         if (var28 != null) {
             String var35 = var28.statName;
@@ -328,8 +329,8 @@ public class GuiAchievements extends GuiScreen {
             this.fontRenderer.drawStringWithShadow(var35, var39, var45, this.field_27120_x.func_27181_b(var28) ? (var28.getSpecial() ? -128 : -1) : (var28.getSpecial() ? -8355776 : -8355712));
         }
 
-        GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
-        GL11.glEnable(2896 /*GL_LIGHTING*/);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_LIGHTING);
         RenderHelper.disableStandardItemLighting();
     }
 

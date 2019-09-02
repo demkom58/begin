@@ -16,19 +16,16 @@ public class RenderSpider extends RenderLiving {
     }
 
     protected boolean setSpiderEyeBrightness(EntitySpider var1, int var2, float var3) {
-        if (var2 != 0) {
+        if (var2 != 0)
             return false;
-        } else if (var2 != 0) {
-            return false;
-        } else {
-            this.loadTexture("/mob/spider_eyes.png");
-            float var4 = (1.0F - var1.getEntityBrightness(1.0F)) * 0.5F;
-            GL11.glEnable(3042 /*GL_BLEND*/);
-            GL11.glDisable(3008 /*GL_ALPHA_TEST*/);
-            GL11.glBlendFunc(770, 771);
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, var4);
-            return true;
-        }
+
+        this.loadTexture("/mob/spider_eyes.png");
+        float var4 = (1.0F - var1.getEntityBrightness(1.0F)) * 0.5F;
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+        GL11.glBlendFunc(770, 771);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, var4);
+        return true;
     }
 
     // $FF: synthetic method

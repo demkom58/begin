@@ -4,30 +4,30 @@ import net.minecraft.world.WorldRenderer;
 
 import java.util.Comparator;
 
-public class EntitySorter implements Comparator {
-    private double field_30008_a;
-    private double field_30007_b;
-    private double field_30009_c;
+public class EntitySorter implements Comparator<WorldRenderer> {
+    private double x;
+    private double y;
+    private double z;
 
-    public EntitySorter(Entity var1) {
-        this.field_30008_a = -var1.posX;
-        this.field_30007_b = -var1.posY;
-        this.field_30009_c = -var1.posZ;
+    public EntitySorter(Entity entity) {
+        this.x = -entity.posX;
+        this.y = -entity.posY;
+        this.z = -entity.posZ;
     }
 
-    public int sortByDistanceToEntity(WorldRenderer var1, WorldRenderer var2) {
-        double var3 = (double) var1.posXPlus + this.field_30008_a;
-        double var5 = (double) var1.posYPlus + this.field_30007_b;
-        double var7 = (double) var1.posZPlus + this.field_30009_c;
-        double var9 = (double) var2.posXPlus + this.field_30008_a;
-        double var11 = (double) var2.posYPlus + this.field_30007_b;
-        double var13 = (double) var2.posZPlus + this.field_30009_c;
+    public int sortByDistanceToEntity(WorldRenderer ren1, WorldRenderer ren2) {
+        double var3 = (double) ren1.posXPlus + this.x;
+        double var5 = (double) ren1.posYPlus + this.y;
+        double var7 = (double) ren1.posZPlus + this.z;
+
+        double var9 = (double) ren2.posXPlus + this.x;
+        double var11 = (double) ren2.posYPlus + this.y;
+        double var13 = (double) ren2.posZPlus + this.z;
+
         return (int) ((var3 * var3 + var5 * var5 + var7 * var7 - (var9 * var9 + var11 * var11 + var13 * var13)) * 1024.0D);
     }
 
-    // $FF: synthetic method
-    // $FF: bridge method
-    public int compare(Object var1, Object var2) {
-        return this.sortByDistanceToEntity((WorldRenderer) var1, (WorldRenderer) var2);
+    public int compare(WorldRenderer ren1, WorldRenderer ren2) {
+        return this.sortByDistanceToEntity(ren1, ren2);
     }
 }

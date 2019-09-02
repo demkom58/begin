@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.EntityLiving;
+import org.lwjgl.opengl.ARBVertexBlend;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
 
@@ -58,27 +59,27 @@ public class RenderCreeper extends RenderLiving {
             if (var2 == 1) {
                 float var4 = (float) var1.ticksExisted + var3;
                 this.loadTexture("/armor/power.png");
-                GL11.glMatrixMode(5890 /*GL_TEXTURE*/);
+                GL11.glMatrixMode(GL11.GL_TEXTURE);
                 GL11.glLoadIdentity();
                 float var5 = var4 * 0.01F;
                 float var6 = var4 * 0.01F;
                 GL11.glTranslatef(var5, var6, 0.0F);
                 this.setRenderPassModel(this.field_27008_a);
-                GL11.glMatrixMode(5888 /*GL_MODELVIEW0_ARB*/);
-                GL11.glEnable(3042 /*GL_BLEND*/);
+                GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
+                GL11.glEnable(GL11.GL_BLEND);
                 float var7 = 0.5F;
                 GL11.glColor4f(var7, var7, var7, 1.0F);
-                GL11.glDisable(2896 /*GL_LIGHTING*/);
+                GL11.glDisable(GL11.GL_LIGHTING);
                 GL11.glBlendFunc(1, 1);
                 return true;
             }
 
             if (var2 == 2) {
-                GL11.glMatrixMode(5890 /*GL_TEXTURE*/);
+                GL11.glMatrixMode(GL11.GL_TEXTURE);
                 GL11.glLoadIdentity();
-                GL11.glMatrixMode(5888 /*GL_MODELVIEW0_ARB*/);
-                GL11.glEnable(2896 /*GL_LIGHTING*/);
-                GL11.glDisable(3042 /*GL_BLEND*/);
+                GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
+                GL11.glEnable(GL11.GL_LIGHTING);
+                GL11.glDisable(GL11.GL_BLEND);
             }
         }
 

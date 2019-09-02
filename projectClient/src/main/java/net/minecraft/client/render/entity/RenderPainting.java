@@ -5,6 +5,7 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPainting;
 import net.minecraft.entity.EnumArt;
+import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
 
@@ -18,13 +19,13 @@ public class RenderPainting extends Render {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) var2, (float) var4, (float) var6);
         GL11.glRotatef(var8, 0.0F, 1.0F, 0.0F);
-        GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
         this.loadTexture("/art/kz.png");
         EnumArt var10 = var1.art;
         float var11 = 0.0625F;
         GL11.glScalef(var11, var11, var11);
         this.func_159_a(var1, var10.sizeX, var10.sizeY, var10.offsetX, var10.offsetY);
-        GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
         GL11.glPopMatrix();
     }
 

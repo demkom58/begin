@@ -23,7 +23,7 @@ public class GuiIngame extends Gui {
     public String field_933_a = null;
     public float damageGuiPartialTime;
     float prevVignetteBrightness = 1.0F;
-    private List chatMessageList = new ArrayList();
+    private List<ChatLine> chatMessageList = new ArrayList<>();
     private Random rand = new Random();
     private Minecraft mc;
     private int updateCounter = 0;
@@ -41,7 +41,7 @@ public class GuiIngame extends Gui {
         int var7 = var5.getScaledHeight();
         FontRenderer var8 = this.mc.fontRenderer;
         this.mc.entityRenderer.func_905_b();
-        GL11.glEnable(3042 /*GL_BLEND*/);
+        GL11.glEnable(GL11.GL_BLEND);
         if (Minecraft.isFancyGraphicsEnabled()) {
             this.renderVignette(this.mc.thePlayer.getEntityBrightness(var1), var6, var7);
         }
@@ -57,16 +57,16 @@ public class GuiIngame extends Gui {
         }
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTexture("/gui/gui.png"));
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/gui/gui.png"));
         InventoryPlayer var11 = this.mc.thePlayer.inventory;
         this.zLevel = -90.0F;
         this.drawTexturedModalRect(var6 / 2 - 91, var7 - 22, 0, 0, 182, 22);
         this.drawTexturedModalRect(var6 / 2 - 91 - 1 + var11.currentItem * 20, var7 - 22 - 1, 0, 22, 24, 22);
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTexture("/gui/icons.png"));
-        GL11.glEnable(3042 /*GL_BLEND*/);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/gui/icons.png"));
+        GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(775, 769);
         this.drawTexturedModalRect(var6 / 2 - 7, var7 / 2 - 7, 0, 0, 16, 16);
-        GL11.glDisable(3042 /*GL_BLEND*/);
+        GL11.glDisable(GL11.GL_BLEND);
         boolean var12 = this.mc.thePlayer.heartsLife / 3 % 2 == 1;
         if (this.mc.thePlayer.heartsLife < 10) {
             var12 = false;
@@ -74,7 +74,7 @@ public class GuiIngame extends Gui {
 
         int var13 = this.mc.thePlayer.health;
         int var14 = this.mc.thePlayer.prevHealth;
-        this.rand.setSeed((long) (this.updateCounter * 312871));
+        this.rand.setSeed(this.updateCounter * 312871);
         if (this.mc.playerController.shouldDrawHUD()) {
             int var15 = this.mc.thePlayer.getPlayerArmorValue();
 
@@ -139,8 +139,8 @@ public class GuiIngame extends Gui {
             }
         }
 
-        GL11.glDisable(3042 /*GL_BLEND*/);
-        GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
         GL11.glPushMatrix();
         GL11.glRotatef(120.0F, 1.0F, 0.0F, 0.0F);
         RenderHelper.enableStandardItemLighting();
@@ -232,8 +232,8 @@ public class GuiIngame extends Gui {
         GL11.glTranslatef(0.0F, (float) (var7 - 48), 0.0F);
 
         for (int i = 0; i < this.chatMessageList.size() && i < var28; ++i) {
-            if (((ChatLine) this.chatMessageList.get(i)).updateCounter < 200 || var33) {
-                double var42 = (double) ((ChatLine) this.chatMessageList.get(i)).updateCounter / 200.0D;
+            if (this.chatMessageList.get(i).updateCounter < 200 || var33) {
+                double var42 = (double) this.chatMessageList.get(i).updateCounter / 200.0D;
                 var42 = 1.0D - var42;
                 var42 = var42 * 10.0D;
                 if (var42 < 0.0D) {
@@ -253,7 +253,7 @@ public class GuiIngame extends Gui {
                 if (var20 > 0) {
                     byte var47 = 2;
                     int var22 = -i * 9;
-                    String message = ((ChatLine) this.chatMessageList.get(i)).message;
+                    String message = this.chatMessageList.get(i).message;
                     this.drawRect(var47, var22 - 1, var47 + 320, var22 + 8, var20 / 2 << 24);
                     GL11.glEnable(GL11.GL_BLEND);
                     var8.drawStringWithShadow(message, var47, var22, 16777215 + (var20 << 24));
@@ -275,9 +275,9 @@ public class GuiIngame extends Gui {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("%blur%/misc/pumpkinblur.png"));
         Tessellator var3 = Tessellator.INSTANCE;
         var3.startDrawingQuads();
-        var3.addVertexWithUV(0.0D, (double) var2, -90.0D, 0.0D, 1.0D);
-        var3.addVertexWithUV((double) var1, (double) var2, -90.0D, 1.0D, 1.0D);
-        var3.addVertexWithUV((double) var1, 0.0D, -90.0D, 1.0D, 0.0D);
+        var3.addVertexWithUV(0.0D, var2, -90.0D, 0.0D, 1.0D);
+        var3.addVertexWithUV(var1, var2, -90.0D, 1.0D, 1.0D);
+        var3.addVertexWithUV(var1, 0.0D, -90.0D, 1.0D, 0.0D);
         var3.addVertexWithUV(0.0D, 0.0D, -90.0D, 0.0D, 0.0D);
         var3.draw();
         GL11.glDepthMask(true);
@@ -297,20 +297,20 @@ public class GuiIngame extends Gui {
         }
 
         this.prevVignetteBrightness = (float) ((double) this.prevVignetteBrightness + (double) (var1 - this.prevVignetteBrightness) * 0.01D);
-        GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
         GL11.glBlendFunc(0, 769);
         GL11.glColor4f(this.prevVignetteBrightness, this.prevVignetteBrightness, this.prevVignetteBrightness, 1.0F);
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTexture("%blur%/misc/vignette.png"));
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("%blur%/misc/vignette.png"));
         Tessellator var4 = Tessellator.INSTANCE;
         var4.startDrawingQuads();
-        var4.addVertexWithUV(0.0D, (double) var3, -90.0D, 0.0D, 1.0D);
-        var4.addVertexWithUV((double) var2, (double) var3, -90.0D, 1.0D, 1.0D);
-        var4.addVertexWithUV((double) var2, 0.0D, -90.0D, 1.0D, 0.0D);
+        var4.addVertexWithUV(0.0D, var3, -90.0D, 0.0D, 1.0D);
+        var4.addVertexWithUV(var2, var3, -90.0D, 1.0D, 1.0D);
+        var4.addVertexWithUV(var2, 0.0D, -90.0D, 1.0D, 0.0D);
         var4.addVertexWithUV(0.0D, 0.0D, -90.0D, 0.0D, 0.0D);
         var4.draw();
         GL11.glDepthMask(true);
-        GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glBlendFunc(770, 771);
     }
@@ -322,26 +322,26 @@ public class GuiIngame extends Gui {
             var1 = var1 * 0.8F + 0.2F;
         }
 
-        GL11.glDisable(3008 /*GL_ALPHA_TEST*/);
-        GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
         GL11.glBlendFunc(770, 771);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, var1);
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTexture("/terrain.png"));
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/terrain.png"));
         float var4 = (float) (Block.PORTAL.blockIndexInTexture % 16) / 16.0F;
         float var5 = (float) (Block.PORTAL.blockIndexInTexture / 16) / 16.0F;
         float var6 = (float) (Block.PORTAL.blockIndexInTexture % 16 + 1) / 16.0F;
         float var7 = (float) (Block.PORTAL.blockIndexInTexture / 16 + 1) / 16.0F;
         Tessellator var8 = Tessellator.INSTANCE;
         var8.startDrawingQuads();
-        var8.addVertexWithUV(0.0D, (double) var3, -90.0D, (double) var4, (double) var7);
-        var8.addVertexWithUV((double) var2, (double) var3, -90.0D, (double) var6, (double) var7);
-        var8.addVertexWithUV((double) var2, 0.0D, -90.0D, (double) var6, (double) var5);
-        var8.addVertexWithUV(0.0D, 0.0D, -90.0D, (double) var4, (double) var5);
+        var8.addVertexWithUV(0.0D, var3, -90.0D, var4, var7);
+        var8.addVertexWithUV(var2, var3, -90.0D, var6, var7);
+        var8.addVertexWithUV(var2, 0.0D, -90.0D, var6, var5);
+        var8.addVertexWithUV(0.0D, 0.0D, -90.0D, var4, var5);
         var8.draw();
         GL11.glDepthMask(true);
-        GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
-        GL11.glEnable(3008 /*GL_ALPHA_TEST*/);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
@@ -374,7 +374,7 @@ public class GuiIngame extends Gui {
         ++this.updateCounter;
 
         for (int i = 0; i < this.chatMessageList.size(); ++i) {
-            ++((ChatLine) this.chatMessageList.get(i)).updateCounter;
+            ++this.chatMessageList.get(i).updateCounter;
         }
 
     }

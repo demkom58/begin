@@ -19,16 +19,16 @@ public class TileEntityRendererPiston extends TileEntitySpecialRenderer {
             this.bindTextureByName("/terrain.png");
             RenderHelper.disableStandardItemLighting();
             GL11.glBlendFunc(770, 771);
-            GL11.glEnable(3042 /*GL_BLEND*/);
-            GL11.glDisable(2884 /*GL_CULL_FACE*/);
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glDisable(GL11.GL_CULL_FACE);
             if (Minecraft.isAmbientOcclusionEnabled()) {
-                GL11.glShadeModel(7425 /*GL_SMOOTH*/);
+                GL11.glShadeModel(GL11.GL_SMOOTH);
             } else {
-                GL11.glShadeModel(7424 /*GL_FLAT*/);
+                GL11.glShadeModel(GL11.GL_FLAT);
             }
 
             var10.startDrawingQuads();
-            var10.setTranslationD((double) ((float) var2 - (float) var1.xCoord + var1.func_31017_b(var8)), (double) ((float) var4 - (float) var1.yCoord + var1.func_31014_c(var8)), (double) ((float) var6 - (float) var1.zCoord + var1.func_31013_d(var8)));
+            var10.setTranslationD((float) var2 - (float) var1.xCoord + var1.func_31017_b(var8), (float) var4 - (float) var1.yCoord + var1.func_31014_c(var8), (float) var6 - (float) var1.zCoord + var1.func_31013_d(var8));
             var10.setColorOpaque(1, 1, 1);
             if (var9 == Block.PISTON_EXTENSION && var1.func_31008_a(var8) < 0.5F) {
                 this.field_31071_b.func_31079_a(var9, var1.xCoord, var1.yCoord, var1.zCoord, false);
@@ -36,7 +36,7 @@ public class TileEntityRendererPiston extends TileEntitySpecialRenderer {
                 Block.PISTON_EXTENSION.func_31052_a_(((BlockPistonBase) var9).func_31040_i());
                 this.field_31071_b.func_31079_a(Block.PISTON_EXTENSION, var1.xCoord, var1.yCoord, var1.zCoord, var1.func_31008_a(var8) < 0.5F);
                 Block.PISTON_EXTENSION.func_31051_a();
-                var10.setTranslationD((double) ((float) var2 - (float) var1.xCoord), (double) ((float) var4 - (float) var1.yCoord), (double) ((float) var6 - (float) var1.zCoord));
+                var10.setTranslationD((float) var2 - (float) var1.xCoord, (float) var4 - (float) var1.yCoord, (float) var6 - (float) var1.zCoord);
                 this.field_31071_b.func_31078_d(var9, var1.xCoord, var1.yCoord, var1.zCoord);
             } else {
                 this.field_31071_b.func_31075_a(var9, var1.xCoord, var1.yCoord, var1.zCoord);

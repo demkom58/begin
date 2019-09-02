@@ -6,6 +6,8 @@ import net.minecraft.client.render.ScaledResolution;
 import net.minecraft.achievement.Achievement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.stats.StatCollector;
+import org.lwjgl.opengl.ARBVertexBlend;
+import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 
 public class GuiAchievement extends Gui {
@@ -42,9 +44,9 @@ public class GuiAchievement extends Gui {
 
     private void updateAchievementWindowScale() {
         GL11.glViewport(0, 0, this.theGame.displayWidth, this.theGame.displayHeight);
-        GL11.glMatrixMode(5889 /*GL_PROJECTION*/);
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GL11.glMatrixMode(5888 /*GL_MODELVIEW0_ARB*/);
+        GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
         GL11.glLoadIdentity();
         this.achievementWindowWidth = this.theGame.displayWidth;
         this.achievementWindowHeight = this.theGame.displayHeight;
@@ -52,17 +54,17 @@ public class GuiAchievement extends Gui {
         this.achievementWindowWidth = var1.getScaledWidth();
         this.achievementWindowHeight = var1.getScaledHeight();
         GL11.glClear(256);
-        GL11.glMatrixMode(5889 /*GL_PROJECTION*/);
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GL11.glOrtho(0.0D, (double) this.achievementWindowWidth, (double) this.achievementWindowHeight, 0.0D, 1000.0D, 3000.0D);
-        GL11.glMatrixMode(5888 /*GL_MODELVIEW0_ARB*/);
+        GL11.glOrtho(0.0D, this.achievementWindowWidth, this.achievementWindowHeight, 0.0D, 1000.0D, 3000.0D);
+        GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
         GL11.glLoadIdentity();
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
     }
 
     public void updateAchievementWindow() {
         if (Minecraft.hasPaidCheckTime > 0L) {
-            GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
             GL11.glDepthMask(false);
             RenderHelper.disableStandardItemLighting();
             this.updateAchievementWindowScale();
@@ -73,14 +75,14 @@ public class GuiAchievement extends Gui {
             this.theGame.fontRenderer.drawStringWithShadow(var2, 2, 11, 16777215);
             this.theGame.fontRenderer.drawStringWithShadow(var3, 2, 20, 16777215);
             GL11.glDepthMask(true);
-            GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
         }
 
         if (this.theAchievement != null && this.field_25083_f != 0L) {
             double var8 = (double) (System.currentTimeMillis() - this.field_25083_f) / 3000.0D;
             if (this.field_27103_i || this.field_27103_i || var8 >= 0.0D && var8 <= 1.0D) {
                 this.updateAchievementWindowScale();
-                GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+                GL11.glDisable(GL11.GL_DEPTH_TEST);
                 GL11.glDepthMask(false);
                 double var9 = var8 * 2.0D;
                 if (var9 > 1.0D) {
@@ -99,9 +101,9 @@ public class GuiAchievement extends Gui {
                 int var6 = 0 - (int) (var9 * 36.0D);
                 int var7 = this.theGame.renderEngine.getTexture("/achievement/bg.png");
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
-                GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, var7);
-                GL11.glDisable(2896 /*GL_LIGHTING*/);
+                GL11.glEnable(GL11.GL_TEXTURE_2D);
+                GL11.glBindTexture(GL11.GL_TEXTURE_2D, var7);
+                GL11.glDisable(GL11.GL_LIGHTING);
                 this.drawTexturedModalRect(var5, var6, 96, 202, 160, 32);
                 if (this.field_27103_i) {
                     this.theGame.fontRenderer.func_27278_a(this.field_25084_e, var5 + 30, var6 + 7, 120, -1);
@@ -114,14 +116,14 @@ public class GuiAchievement extends Gui {
                 GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
                 RenderHelper.enableStandardItemLighting();
                 GL11.glPopMatrix();
-                GL11.glDisable(2896 /*GL_LIGHTING*/);
-                GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
-                GL11.glEnable(2903 /*GL_COLOR_MATERIAL*/);
-                GL11.glEnable(2896 /*GL_LIGHTING*/);
+                GL11.glDisable(GL11.GL_LIGHTING);
+                GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+                GL11.glEnable(GL11.GL_COLOR_MATERIAL);
+                GL11.glEnable(GL11.GL_LIGHTING);
                 this.itemRender.renderItemIntoGUI(this.theGame.fontRenderer, this.theGame.renderEngine, this.theAchievement.theItemStack, var5 + 8, var6 + 8);
-                GL11.glDisable(2896 /*GL_LIGHTING*/);
+                GL11.glDisable(GL11.GL_LIGHTING);
                 GL11.glDepthMask(true);
-                GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+                GL11.glEnable(GL11.GL_DEPTH_TEST);
             } else {
                 this.field_25083_f = 0L;
             }

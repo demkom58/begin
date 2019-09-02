@@ -69,10 +69,10 @@ public class FontRenderer {
             float var26 = 7.99F;
             float var28 = 0.0F;
             float var30 = 0.0F;
-            tess.addVertexWithUV(0.0D, (double) (0.0F + var26), 0.0D, (double) ((float) var22 / 128.0F + var28), (double) (((float) var24 + var26) / 128.0F + var30));
-            tess.addVertexWithUV((double) (0.0F + var26), (double) (0.0F + var26), 0.0D, (double) (((float) var22 + var26) / 128.0F + var28), (double) (((float) var24 + var26) / 128.0F + var30));
-            tess.addVertexWithUV((double) (0.0F + var26), 0.0D, 0.0D, (double) (((float) var22 + var26) / 128.0F + var28), (double) ((float) var24 / 128.0F + var30));
-            tess.addVertexWithUV(0.0D, 0.0D, 0.0D, (double) ((float) var22 / 128.0F + var28), (double) ((float) var24 / 128.0F + var30));
+            tess.addVertexWithUV(0.0D, 0.0F + var26, 0.0D, (float) var22 / 128.0F + var28, ((float) var24 + var26) / 128.0F + var30);
+            tess.addVertexWithUV(0.0F + var26, 0.0F + var26, 0.0D, ((float) var22 + var26) / 128.0F + var28, ((float) var24 + var26) / 128.0F + var30);
+            tess.addVertexWithUV(0.0F + var26, 0.0D, 0.0D, ((float) var22 + var26) / 128.0F + var28, (float) var24 / 128.0F + var30);
+            tess.addVertexWithUV(0.0D, 0.0D, 0.0D, (float) var22 / 128.0F + var28, (float) var24 / 128.0F + var30);
             tess.draw();
             GL11.glTranslatef((float) this.charWidth[var20], 0.0F, 0.0F);
             GL11.glEndList();

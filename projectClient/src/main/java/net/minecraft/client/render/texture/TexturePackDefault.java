@@ -38,7 +38,7 @@ public class TexturePackDefault extends TexturePackBase {
         if (this.texturePackThumbnail != null) {
             var1.renderEngine.bindTexture(this.texturePackName);
         } else {
-            GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, var1.renderEngine.getTexture("/gui/unknown_pack.png"));
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, var1.renderEngine.getTexture("/gui/unknown_pack.png"));
         }
 
     }

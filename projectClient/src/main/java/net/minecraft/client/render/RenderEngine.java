@@ -160,34 +160,34 @@ public class RenderEngine {
         return var2;
     }
 
-    public void setupTexture(BufferedImage var1, int var2) {
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, var2);
+    public void setupTexture(BufferedImage bufferedImage, int var2) {
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, var2);
         if (useMipmaps) {
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10241 /*GL_TEXTURE_MIN_FILTER*/, 9986 /*GL_NEAREST_MIPMAP_LINEAR*/);
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10240 /*GL_TEXTURE_MAG_FILTER*/, 9728 /*GL_NEAREST*/);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST_MIPMAP_LINEAR);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
         } else {
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10241 /*GL_TEXTURE_MIN_FILTER*/, 9728 /*GL_NEAREST*/);
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10240 /*GL_TEXTURE_MAG_FILTER*/, 9728 /*GL_NEAREST*/);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
         }
 
         if (this.blurTexture) {
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10241 /*GL_TEXTURE_MIN_FILTER*/, 9729 /*GL_LINEAR*/);
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10240 /*GL_TEXTURE_MAG_FILTER*/, 9729 /*GL_LINEAR*/);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
         }
 
         if (this.clampTexture) {
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10242 /*GL_TEXTURE_WRAP_S*/, 10496 /*GL_CLAMP*/);
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10243 /*GL_TEXTURE_WRAP_T*/, 10496 /*GL_CLAMP*/);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_CLAMP);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_CLAMP);
         } else {
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10242 /*GL_TEXTURE_WRAP_S*/, 10497 /*GL_REPEAT*/);
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10243 /*GL_TEXTURE_WRAP_T*/, 10497 /*GL_REPEAT*/);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
         }
 
-        int var3 = var1.getWidth();
-        int var4 = var1.getHeight();
-        int[] var5 = new int[var3 * var4];
-        byte[] var6 = new byte[var3 * var4 * 4];
-        var1.getRGB(0, 0, var3, var4, var5, 0, var3);
+        int width = bufferedImage.getWidth();
+        int height = bufferedImage.getHeight();
+        int[] var5 = new int[width * height];
+        byte[] var6 = new byte[width * height * 4];
+        bufferedImage.getRGB(0, 0, width, height, var5, 0, width);
 
         for (int var7 = 0; var7 < var5.length; ++var7) {
             int var8 = var5[var7] >> 24 & 255;
@@ -212,12 +212,12 @@ public class RenderEngine {
         this.imageData.clear();
         this.imageData.put(var6);
         this.imageData.position(0).limit(var6.length);
-        GL11.glTexImage2D(3553 /*GL_TEXTURE_2D*/, 0, 6408 /*GL_RGBA*/, var3, var4, 0, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, this.imageData);
+        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
         if (useMipmaps) {
             for (int var18 = 1; var18 <= 4; ++var18) {
-                int var19 = var3 >> var18 - 1;
-                int var20 = var3 >> var18;
-                int var21 = var4 >> var18;
+                int var19 = width >> var18 - 1;
+                int var20 = width >> var18;
+                int var21 = height >> var18;
 
                 for (int var22 = 0; var22 < var20; ++var22) {
                     for (int var23 = 0; var23 < var21; ++var23) {
@@ -230,33 +230,33 @@ public class RenderEngine {
                     }
                 }
 
-                GL11.glTexImage2D(3553 /*GL_TEXTURE_2D*/, var18, 6408 /*GL_RGBA*/, var20, var21, 0, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, this.imageData);
+                GL11.glTexImage2D(GL11.GL_TEXTURE_2D, var18, GL11.GL_RGBA, var20, var21, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
             }
         }
 
     }
 
     public void func_28150_a(int[] var1, int var2, int var3, int var4) {
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, var4);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, var4);
         if (useMipmaps) {
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10241 /*GL_TEXTURE_MIN_FILTER*/, 9986 /*GL_NEAREST_MIPMAP_LINEAR*/);
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10240 /*GL_TEXTURE_MAG_FILTER*/, 9728 /*GL_NEAREST*/);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST_MIPMAP_LINEAR);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
         } else {
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10241 /*GL_TEXTURE_MIN_FILTER*/, 9728 /*GL_NEAREST*/);
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10240 /*GL_TEXTURE_MAG_FILTER*/, 9728 /*GL_NEAREST*/);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
         }
 
         if (this.blurTexture) {
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10241 /*GL_TEXTURE_MIN_FILTER*/, 9729 /*GL_LINEAR*/);
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10240 /*GL_TEXTURE_MAG_FILTER*/, 9729 /*GL_LINEAR*/);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
         }
 
         if (this.clampTexture) {
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10242 /*GL_TEXTURE_WRAP_S*/, 10496 /*GL_CLAMP*/);
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10243 /*GL_TEXTURE_WRAP_T*/, 10496 /*GL_CLAMP*/);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_CLAMP);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_CLAMP);
         } else {
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10242 /*GL_TEXTURE_WRAP_S*/, 10497 /*GL_REPEAT*/);
-            GL11.glTexParameteri(3553 /*GL_TEXTURE_2D*/, 10243 /*GL_TEXTURE_WRAP_T*/, 10497 /*GL_REPEAT*/);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
         }
 
         byte[] var5 = new byte[var2 * var3 * 4];
@@ -284,7 +284,7 @@ public class RenderEngine {
         this.imageData.clear();
         this.imageData.put(var5);
         this.imageData.position(0).limit(var5.length);
-        GL11.glTexSubImage2D(3553 /*GL_TEXTURE_2D*/, 0, 0, 0, var2, var3, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, this.imageData);
+        GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, 0, 0, var2, var3, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
     }
 
     public void deleteTexture(int var1) {
@@ -357,7 +357,7 @@ public class RenderEngine {
 
             for (int var3 = 0; var3 < var2.tileSize; ++var3) {
                 for (int var4 = 0; var4 < var2.tileSize; ++var4) {
-                    GL11.glTexSubImage2D(3553 /*GL_TEXTURE_2D*/, 0, var2.iconIndex % 16 * 16 + var3 * 16, var2.iconIndex / 16 * 16 + var4 * 16, 16, 16, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, this.imageData);
+                    GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, var2.iconIndex % 16 * 16 + var3 * 16, var2.iconIndex / 16 * 16 + var4 * 16, 16, 16, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
                     if (useMipmaps) {
                         for (int var5 = 1; var5 <= 4; ++var5) {
                             int var6 = 16 >> var5 - 1;
@@ -374,7 +374,7 @@ public class RenderEngine {
                                 }
                             }
 
-                            GL11.glTexSubImage2D(3553 /*GL_TEXTURE_2D*/, var5, var2.iconIndex % 16 * var7, var2.iconIndex / 16 * var7, var7, var7, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, this.imageData);
+                            GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, var5, var2.iconIndex % 16 * var7, var2.iconIndex / 16 * var7, var7, var7, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
                         }
                     }
                 }
@@ -387,8 +387,8 @@ public class RenderEngine {
                 this.imageData.clear();
                 this.imageData.put(var16.imageData);
                 this.imageData.position(0).limit(var16.imageData.length);
-                GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, var16.textureId);
-                GL11.glTexSubImage2D(3553 /*GL_TEXTURE_2D*/, 0, 0, 0, 16, 16, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, this.imageData);
+                GL11.glBindTexture(GL11.GL_TEXTURE_2D, var16.textureId);
+                GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, 0, 0, 16, 16, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
                 if (useMipmaps) {
                     for (int var17 = 1; var17 <= 4; ++var17) {
                         int var18 = 16 >> var17 - 1;
@@ -405,7 +405,7 @@ public class RenderEngine {
                             }
                         }
 
-                        GL11.glTexSubImage2D(3553 /*GL_TEXTURE_2D*/, var17, 0, 0, var19, var19, 6408 /*GL_RGBA*/, 5121 /*GL_UNSIGNED_BYTE*/, this.imageData);
+                        GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, var17, 0, 0, var19, var19, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
                     }
                 }
             }
@@ -511,7 +511,7 @@ public class RenderEngine {
 
     public void bindTexture(int var1) {
         if (var1 >= 0) {
-            GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, var1);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, var1);
         }
     }
 }

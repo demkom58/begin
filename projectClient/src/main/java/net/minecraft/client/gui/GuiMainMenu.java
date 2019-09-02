@@ -8,6 +8,7 @@ import net.minecraft.util.MathHelper;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class GuiMainMenu extends GuiScreen {
     public GuiMainMenu() {
         try {
             ArrayList var1 = new ArrayList();
-            BufferedReader var2 = new BufferedReader(new InputStreamReader(GuiMainMenu.class.getResourceAsStream("/title/splashes.txt"), Charset.forName("UTF-8")));
+            BufferedReader var2 = new BufferedReader(new InputStreamReader(GuiMainMenu.class.getResourceAsStream("/title/splashes.txt"), StandardCharsets.UTF_8));
             String var3 = "";
 
             while ((var3 = var2.readLine()) != null) {
@@ -47,15 +48,15 @@ public class GuiMainMenu extends GuiScreen {
     }
 
     public void initGui() {
-        Calendar var1 = Calendar.getInstance();
-        var1.setTime(new Date());
-        if (var1.get(2) + 1 == 11 && var1.get(5) == 9) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        if (calendar.get(Calendar.MONTH) + 1 == 11 && calendar.get(Calendar.DATE) == 9) {
             this.splashText = "Happy birthday, ez!";
-        } else if (var1.get(2) + 1 == 6 && var1.get(5) == 1) {
+        } else if (calendar.get(Calendar.MONTH) + 1 == 6 && calendar.get(Calendar.DATE) == 1) {
             this.splashText = "Happy birthday, Notch!";
-        } else if (var1.get(2) + 1 == 12 && var1.get(5) == 24) {
+        } else if (calendar.get(Calendar.MONTH) + 1 == 12 && calendar.get(Calendar.DATE) == 24) {
             this.splashText = "Merry X-mas!";
-        } else if (var1.get(2) + 1 == 1 && var1.get(5) == 1) {
+        } else if (calendar.get(Calendar.MONTH) + 1 == 1 && calendar.get(Calendar.DATE) == 1) {
             this.splashText = "Happy new year!";
         }
 
@@ -106,7 +107,7 @@ public class GuiMainMenu extends GuiScreen {
         short var5 = 274;
         int var6 = this.width / 2 - var5 / 2;
         byte var7 = 30;
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.mc.renderEngine.getTexture("/title/mclogo.png"));
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/title/mclogo.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.drawTexturedModalRect(var6 + 0, var7 + 0, 0, 0, 155, 44);
         this.drawTexturedModalRect(var6 + 155, var7 + 0, 0, 45, 155, 44);

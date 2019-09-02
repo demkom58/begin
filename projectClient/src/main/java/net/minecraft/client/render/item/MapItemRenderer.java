@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 import java.awt.image.BufferedImage;
 
 public class MapItemRenderer {
-    private int[] field_28159_a = new int[16384 /*GL_LIGHT0*/];
+    private int[] field_28159_a = new int[GL11.GL_LIGHT0];
     private int field_28158_b;
     private GameSettings field_28161_c;
     private FontRenderer field_28160_d;
@@ -23,14 +23,14 @@ public class MapItemRenderer {
         this.field_28160_d = var1;
         this.field_28158_b = var3.allocateAndSetupTexture(new BufferedImage(128, 128, 2));
 
-        for (int var4 = 0; var4 < 16384 /*GL_LIGHT0*/; ++var4) {
+        for (int var4 = 0; var4 < GL11.GL_LIGHT0; ++var4) {
             this.field_28159_a[var4] = 0;
         }
 
     }
 
     public void func_28157_a(EntityPlayer var1, RenderEngine var2, MapData var3) {
-        for (int var4 = 0; var4 < 16384 /*GL_LIGHT0*/; ++var4) {
+        for (int var4 = 0; var4 < GL11.GL_LIGHT0; ++var4) {
             byte var5 = var3.field_28176_f[var4];
             if (var5 / 4 == 0) {
                 this.field_28159_a[var4] = (var4 + var4 / 128 & 1) * 8 + 16 << 24;
@@ -67,17 +67,17 @@ public class MapItemRenderer {
         byte var16 = 0;
         Tessellator var17 = Tessellator.INSTANCE;
         float var18 = 0.0F;
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.field_28158_b);
-        GL11.glEnable(3042 /*GL_BLEND*/);
-        GL11.glDisable(3008 /*GL_ALPHA_TEST*/);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.field_28158_b);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
         var17.startDrawingQuads();
-        var17.addVertexWithUV((double) ((float) (var15 + 0) + var18), (double) ((float) (var16 + 128) - var18), -0.009999999776482582D, 0.0D, 1.0D);
-        var17.addVertexWithUV((double) ((float) (var15 + 128) - var18), (double) ((float) (var16 + 128) - var18), -0.009999999776482582D, 1.0D, 1.0D);
-        var17.addVertexWithUV((double) ((float) (var15 + 128) - var18), (double) ((float) (var16 + 0) + var18), -0.009999999776482582D, 1.0D, 0.0D);
-        var17.addVertexWithUV((double) ((float) (var15 + 0) + var18), (double) ((float) (var16 + 0) + var18), -0.009999999776482582D, 0.0D, 0.0D);
+        var17.addVertexWithUV((float) (var15 + 0) + var18, (float) (var16 + 128) - var18, -0.009999999776482582D, 0.0D, 1.0D);
+        var17.addVertexWithUV((float) (var15 + 128) - var18, (float) (var16 + 128) - var18, -0.009999999776482582D, 1.0D, 1.0D);
+        var17.addVertexWithUV((float) (var15 + 128) - var18, (float) (var16 + 0) + var18, -0.009999999776482582D, 1.0D, 0.0D);
+        var17.addVertexWithUV((float) (var15 + 0) + var18, (float) (var16 + 0) + var18, -0.009999999776482582D, 0.0D, 0.0D);
         var17.draw();
-        GL11.glEnable(3008 /*GL_ALPHA_TEST*/);
-        GL11.glDisable(3042 /*GL_BLEND*/);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glDisable(GL11.GL_BLEND);
         var2.bindTexture(var2.getTexture("/misc/mapicons.png"));
 
         for (MapCoord var20 : var3.field_28173_i) {
@@ -91,10 +91,10 @@ public class MapItemRenderer {
             float var23 = (float) (var20.field_28217_a % 4 + 1) / 4.0F;
             float var24 = (float) (var20.field_28217_a / 4 + 1) / 4.0F;
             var17.startDrawingQuads();
-            var17.addVertexWithUV(-1.0D, 1.0D, 0.0D, (double) var21, (double) var22);
-            var17.addVertexWithUV(1.0D, 1.0D, 0.0D, (double) var23, (double) var22);
-            var17.addVertexWithUV(1.0D, -1.0D, 0.0D, (double) var23, (double) var24);
-            var17.addVertexWithUV(-1.0D, -1.0D, 0.0D, (double) var21, (double) var24);
+            var17.addVertexWithUV(-1.0D, 1.0D, 0.0D, var21, var22);
+            var17.addVertexWithUV(1.0D, 1.0D, 0.0D, var23, var22);
+            var17.addVertexWithUV(1.0D, -1.0D, 0.0D, var23, var24);
+            var17.addVertexWithUV(-1.0D, -1.0D, 0.0D, var21, var24);
             var17.draw();
             GL11.glPopMatrix();
         }

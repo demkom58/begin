@@ -43,8 +43,8 @@ public class Session {
     public String sessionId;
     public String mpPassParameter;
 
-    public Session(String var1, String var2) {
-        this.username = var1;
-        this.sessionId = var2;
+    public Session(String username, String sessionId) {
+        this.username = username;
+        this.sessionId = sessionId;
     }
 }

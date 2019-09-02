@@ -11,14 +11,15 @@ import net.minecraft.item.crafting.IRecipe;
 import java.util.*;
 
 public class StatList {
-    public static List field_25188_a = new ArrayList();
-    public static List field_25187_b = new ArrayList();
-    public static List<StatCrafting> field_25186_c = new ArrayList<>();
-    public static List<StatCrafting> field_25185_d = new ArrayList<>();
+    public static List<StatBase> field_25188_a = new ArrayList<>();
+    public static List<StatBase> field_25187_b = new ArrayList<>();
+    public static List<StatBase> field_25186_c = new ArrayList<>();
+    public static List<StatBase> field_25185_d = new ArrayList<>();
+
     public static StatBase[] field_25158_z;
     public static StatBase[] field_25172_A;
     public static StatBase[] field_25170_B;
-    protected static Map field_25169_C = new HashMap();
+    protected static Map<Integer, StatBase> field_25169_C = new HashMap<>();
     public static StatBase startGameStat = (new StatBasic(1000, StatCollector.translateToLocal("stat.startGame"))).func_27082_h().registerStat();
     public static StatBase createWorldStat = (new StatBasic(1001, StatCollector.translateToLocal("stat.createWorld"))).func_27082_h().registerStat();
     public static StatBase loadWorldStat = (new StatBasic(1002, StatCollector.translateToLocal("stat.loadWorld"))).func_27082_h().registerStat();
@@ -99,7 +100,7 @@ public class StatList {
             if (Block.BLOCKS_LIST[var3] != null && Block.BLOCKS_LIST[var3].getEnableStats()) {
                 String var4 = StatCollector.translateToLocalFormatted(var0, Block.BLOCKS_LIST[var3].translateBlockName());
                 var2[var3] = (new StatCrafting(var1 + var3, var4, var3)).registerStat();
-                field_25185_d.add((StatCrafting) var2[var3]);
+                field_25185_d.add(var2[var3]);
             }
         }
 
@@ -117,7 +118,7 @@ public class StatList {
                 String var6 = StatCollector.translateToLocalFormatted(var1, Item.ITEMS_LIST[var5].getStatName());
                 var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).registerStat();
                 if (var5 >= Block.BLOCKS_LIST.length) {
-                    field_25186_c.add((StatCrafting) var0[var5]);
+                    field_25186_c.add(var0[var5]);
                 }
             }
         }
@@ -142,18 +143,18 @@ public class StatList {
         return var0;
     }
 
-    private static void replaceAllSimilarBlocks(StatBase[] var0) {
-        replaceSimilarBlocks(var0, Block.WATER_STILL.blockID, Block.WATER_MOVING.blockID);
-        replaceSimilarBlocks(var0, Block.LAVA_STILL.blockID, Block.LAVA_STILL.blockID);
-        replaceSimilarBlocks(var0, Block.PUMPKIN_LANTERN.blockID, Block.PUMPKIN.blockID);
-        replaceSimilarBlocks(var0, Block.FURNACE_ACTIVE.blockID, Block.FURNACE.blockID);
-        replaceSimilarBlocks(var0, Block.ORE_REDSTONE_GLOWING.blockID, Block.ORE_REDSTONE.blockID);
-        replaceSimilarBlocks(var0, Block.REDSTONE_REPEATER_ACTIVE.blockID, Block.REDSTONE_REPEATER_IDLE.blockID);
-        replaceSimilarBlocks(var0, Block.TORCH_REDSTONE_ACTIVE.blockID, Block.TORCH_REDSTONE_IDLE.blockID);
-        replaceSimilarBlocks(var0, Block.MUSHROOM_RED.blockID, Block.MUSHROOM_BROWN.blockID);
-        replaceSimilarBlocks(var0, Block.STAIR_DOUBLE.blockID, Block.STAIR_SINGLE.blockID);
-        replaceSimilarBlocks(var0, Block.GRASS.blockID, Block.DIRT.blockID);
-        replaceSimilarBlocks(var0, Block.FARMLAND.blockID, Block.DIRT.blockID);
+    private static void replaceAllSimilarBlocks(StatBase[] bases) {
+        replaceSimilarBlocks(bases, Block.WATER_STILL.blockID, Block.WATER_MOVING.blockID);
+        replaceSimilarBlocks(bases, Block.LAVA_STILL.blockID, Block.LAVA_STILL.blockID);
+        replaceSimilarBlocks(bases, Block.PUMPKIN_LANTERN.blockID, Block.PUMPKIN.blockID);
+        replaceSimilarBlocks(bases, Block.FURNACE_ACTIVE.blockID, Block.FURNACE.blockID);
+        replaceSimilarBlocks(bases, Block.ORE_REDSTONE_GLOWING.blockID, Block.ORE_REDSTONE.blockID);
+        replaceSimilarBlocks(bases, Block.REDSTONE_REPEATER_ACTIVE.blockID, Block.REDSTONE_REPEATER_IDLE.blockID);
+        replaceSimilarBlocks(bases, Block.TORCH_REDSTONE_ACTIVE.blockID, Block.TORCH_REDSTONE_IDLE.blockID);
+        replaceSimilarBlocks(bases, Block.MUSHROOM_RED.blockID, Block.MUSHROOM_BROWN.blockID);
+        replaceSimilarBlocks(bases, Block.STAIR_DOUBLE.blockID, Block.STAIR_SINGLE.blockID);
+        replaceSimilarBlocks(bases, Block.GRASS.blockID, Block.DIRT.blockID);
+        replaceSimilarBlocks(bases, Block.FARMLAND.blockID, Block.DIRT.blockID);
     }
 
     private static void replaceSimilarBlocks(StatBase[] var0, int var1, int var2) {
@@ -168,6 +169,6 @@ public class StatList {
     }
 
     public static StatBase func_27361_a(int var0) {
-        return (StatBase) field_25169_C.get(var0);
+        return field_25169_C.get(var0);
     }
 }

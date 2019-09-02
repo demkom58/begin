@@ -78,7 +78,7 @@ public class Tessellator {
                     GL11.glTexCoordPointer(2, 32, this.floatBuffer);
                 }
 
-                GL11.glEnableClientState(32888 /*GL_TEXTURE_COORD_ARRAY_EXT*/);
+                GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
             }
 
             if (this.hasColor) {
@@ -89,7 +89,7 @@ public class Tessellator {
                     GL11.glColorPointer(4, true, 32, this.byteBuffer);
                 }
 
-                GL11.glEnableClientState(32886 /*GL_COLOR_ARRAY_EXT*/);
+                GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
             }
 
             if (this.hasNormals) {
@@ -100,7 +100,7 @@ public class Tessellator {
                     GL11.glNormalPointer(32, this.byteBuffer);
                 }
 
-                GL11.glEnableClientState(32885 /*GL_NORMAL_ARRAY_EXT*/);
+                GL11.glEnableClientState(GL11.GL_NORMAL_ARRAY);
             }
 
             if (this.useVBO) {
@@ -110,24 +110,24 @@ public class Tessellator {
                 GL11.glVertexPointer(3, 32, this.floatBuffer);
             }
 
-            GL11.glEnableClientState(32884 /*GL_VERTEX_ARRAY_EXT*/);
+            GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
             if (this.drawMode == 7 && convertQuadsToTriangles) {
                 GL11.glDrawArrays(4, 0, this.vertexCount);
             } else {
                 GL11.glDrawArrays(this.drawMode, 0, this.vertexCount);
             }
 
-            GL11.glDisableClientState(32884 /*GL_VERTEX_ARRAY_EXT*/);
+            GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
             if (this.hasTexture) {
-                GL11.glDisableClientState(32888 /*GL_TEXTURE_COORD_ARRAY_EXT*/);
+                GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
             }
 
             if (this.hasColor) {
-                GL11.glDisableClientState(32886 /*GL_COLOR_ARRAY_EXT*/);
+                GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
             }
 
             if (this.hasNormals) {
-                GL11.glDisableClientState(32885 /*GL_NORMAL_ARRAY_EXT*/);
+                GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
             }
         }
 
@@ -309,8 +309,8 @@ public class Tessellator {
     }
 
     public void setTranslationF(float var1, float var2, float var3) {
-        this.xOffset += (double) var1;
-        this.yOffset += (double) var2;
-        this.zOffset += (double) var3;
+        this.xOffset += var1;
+        this.yOffset += var2;
+        this.zOffset += var3;
     }
 }

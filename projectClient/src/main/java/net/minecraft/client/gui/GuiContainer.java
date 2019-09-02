@@ -8,6 +8,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 
 public abstract class GuiContainer extends GuiScreen {
@@ -37,7 +38,7 @@ public abstract class GuiContainer extends GuiScreen {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) var4, (float) var5, 0.0F);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
         Slot var6 = null;
 
         for (int var7 = 0; var7 < this.inventorySlots.slots.size(); ++var7) {
@@ -45,13 +46,13 @@ public abstract class GuiContainer extends GuiScreen {
             this.drawSlotInventory(var8);
             if (this.getIsMouseOverSlot(var8, var1, var2)) {
                 var6 = var8;
-                GL11.glDisable(2896 /*GL_LIGHTING*/);
-                GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+                GL11.glDisable(GL11.GL_LIGHTING);
+                GL11.glDisable(GL11.GL_DEPTH_TEST);
                 int var9 = var8.xDisplayPosition;
                 int var10 = var8.yDisplayPosition;
                 this.drawGradientRect(var9, var10, var9 + 16, var10 + 16, -2130706433, -2130706433);
-                GL11.glEnable(2896 /*GL_LIGHTING*/);
-                GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+                GL11.glEnable(GL11.GL_LIGHTING);
+                GL11.glEnable(GL11.GL_DEPTH_TEST);
             }
         }
 
@@ -62,10 +63,10 @@ public abstract class GuiContainer extends GuiScreen {
             itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.renderEngine, var12.getItemStack(), var1 - var4 - 8, var2 - var5 - 8);
         }
 
-        GL11.glDisable(32826 /*GL_RESCALE_NORMAL_EXT*/);
+        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
         RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(2896 /*GL_LIGHTING*/);
-        GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
         this.drawGuiContainerForegroundLayer();
         if (var12.getItemStack() == null && var6 != null && var6.getHasStack()) {
             String var13 = ("" + StringTranslate.getInstance().translateNamedKey(var6.getStack().getItemName())).trim();
@@ -80,8 +81,8 @@ public abstract class GuiContainer extends GuiScreen {
 
         GL11.glPopMatrix();
         super.drawScreen(var1, var2, var3);
-        GL11.glEnable(2896 /*GL_LIGHTING*/);
-        GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
 
     protected void drawGuiContainerForegroundLayer() {
@@ -96,10 +97,10 @@ public abstract class GuiContainer extends GuiScreen {
         if (var4 == null) {
             int var5 = var1.getBackgroundIconIndex();
             if (var5 >= 0) {
-                GL11.glDisable(2896 /*GL_LIGHTING*/);
+                GL11.glDisable(GL11.GL_LIGHTING);
                 this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/gui/items.png"));
                 this.drawTexturedModalRect(var2, var3, var5 % 16 * 16, var5 / 16 * 16, 16, 16);
-                GL11.glEnable(2896 /*GL_LIGHTING*/);
+                GL11.glEnable(GL11.GL_LIGHTING);
                 return;
             }
         }

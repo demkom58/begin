@@ -1,8 +1,8 @@
 package net.minecraft.client.gui;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -29,7 +29,8 @@ public class GuiScreen extends Gui {
             if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
                 return (String) transferable.getTransferData(DataFlavor.stringFlavor);
             }
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
 
         return null;
     }
@@ -51,7 +52,9 @@ public class GuiScreen extends Gui {
         if (var3 != 0)
             return;
 
-        for (GuiButton guiButton : this.buttons) {
+        // foreach CME, on graphic quality change
+        for (int i = 0; i < this.buttons.size(); i++) {
+            GuiButton guiButton = buttons.get(i);
             if (guiButton.mousePressed(this.mc, x, y)) {
                 this.selectedButton = guiButton;
                 this.mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
@@ -110,7 +113,7 @@ public class GuiScreen extends Gui {
 
     public void handleKeyboardInput() {
         if (Keyboard.getEventKeyState()) {
-            if (Keyboard.getEventKey() == 87) {
+            if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
                 this.mc.toggleFullscreen();
                 return;
             }

@@ -28,8 +28,8 @@ public class PanelCrashReport extends Panel {
             var5 = var5 + "Java: " + System.getProperty("java.version") + ", " + System.getProperty("java.vendor") + "\n";
             var5 = var5 + "VM: " + System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor") + "\n";
             var5 = var5 + "LWJGL: " + Sys.getVersion() + "\n";
-            var4 = GL11.glGetString(7936 /*GL_VENDOR*/);
-            var5 = var5 + "OpenGL: " + GL11.glGetString(7937 /*GL_RENDERER*/) + " version " + GL11.glGetString(7938 /*GL_VERSION*/) + ", " + GL11.glGetString(7936 /*GL_VENDOR*/) + "\n";
+            var4 = GL11.glGetString(GL11.GL_VENDOR);
+            var5 = var5 + "OpenGL: " + GL11.glGetString(GL11.GL_RENDER) + " version " + GL11.glGetString(GL11.GL_VERSION) + ", " + GL11.glGetString(GL11.GL_VENDOR) + "\n";
         } catch (Throwable throwable) {
             var5 = var5 + "[failed to get system properties (" + throwable + ")]\n";
         }

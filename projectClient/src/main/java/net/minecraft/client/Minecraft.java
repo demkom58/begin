@@ -41,6 +41,7 @@ import net.minecraft.util.Vec3D;
 
 import java.awt.*;
 import java.io.File;
+import java.security.Key;
 
 public abstract class Minecraft implements Runnable {
     /**
@@ -109,7 +110,7 @@ public abstract class Minecraft implements Runnable {
     private int mouseTicksRan = 0;
     private int joinPlayerCounter = 0;
 
-    public Minecraft(Component var1, Canvas mcCanvas, MinecraftApplet mcApplet, int displayWidth, int displayHeight, boolean fullscreen) {
+    public Minecraft(Component component, Canvas mcCanvas, MinecraftApplet mcApplet, int displayWidth, int displayHeight, boolean fullscreen) {
         StatList.func_27360_a();
         this.tempDisplayHeight = displayHeight;
         this.fullscreen = fullscreen;
@@ -119,117 +120,60 @@ public abstract class Minecraft implements Runnable {
         this.displayWidth = displayWidth;
         this.displayHeight = displayHeight;
         this.fullscreen = fullscreen;
-        if (mcApplet == null || "true".equals(mcApplet.getParameter("stand-alone"))) {
+
+        if (mcApplet == null || "true".equals(mcApplet.getParameter("stand-alone")))
             this.hideQuitButton = false;
-        }
 
         theMinecraft = this;
     }
 
+    public static void main(String[] args) {
+        String username = args.length > 0 ? args[0] :"Player" + System.currentTimeMillis() % 1000L;
+        String sessionId = args.length > 1 ? args[1] : "-";
+        startMainThread(username, sessionId);
+    }
+
     public static File getMinecraftDir() {
-        if (minecraftDir == null) {
-            minecraftDir = getAppDir("minecraft");
-        }
+        if (minecraftDir == null)
+            minecraftDir = EnumOS.getAppDir("minecraft");
 
         return minecraftDir;
     }
 
-    public static File getAppDir(String paramString) {
-        String userHome = System.getProperty("user.home", ".");
-        File localFile;
-        switch (EnumOSMappingHelper.OS_MAPPING_ARRAY[getOs().ordinal()]) {
-            case 1:
-            case 2:
-                localFile = new File(userHome, '.' + paramString + '/');
-                break;
-            case 3:
-                String str2 = System.getenv("APPDATA");
-                if (str2 != null) {
-                    localFile = new File(str2, "." + paramString + '/');
-                } else {
-                    localFile = new File(userHome, '.' + paramString + '/');
-                }
-                break;
-            case 4:
-                localFile = new File(userHome, "Library/Application Support/" + paramString);
-
-                break;
-            default:
-                localFile = new File(userHome, paramString + '/');
-        }
-        if ((!localFile.exists()) &&
-                (!localFile.mkdirs())) {
-            throw new RuntimeException("The working directory could not be created: " + localFile);
-        }
-
-        return localFile;
-
+    public static void startMainThread(String username, String sessionId) {
+        startMainThread(username, sessionId, null);
     }
 
-    private static EnumOS getOs() {
-        String var0 = System.getProperty("os.name").toLowerCase();
-        if (var0.contains("win")) {
-            return EnumOS.WINDOWS;
-        } else if (var0.contains("mac")) {
-            return EnumOS.MACOS;
-        } else if (var0.contains("solaris")) {
-            return EnumOS.SOLARIS;
-        } else if (var0.contains("sunos")) {
-            return EnumOS.SOLARIS;
-        } else if (var0.contains("linux")) {
-            return EnumOS.LINUX;
+    public static void startMainThread(String username, String sessionId, String connectionIp) {
+        boolean fullscreen = false;
+
+        Frame frame = new Frame("Minecraft");
+        Canvas canvas = new Canvas();
+        frame.setLayout(new BorderLayout());
+        frame.add(canvas, "Center");
+        canvas.setPreferredSize(new Dimension(854, 480));
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+
+        MinecraftImpl minecraft = new MinecraftImpl(frame, canvas, null, 854, 480, fullscreen, frame);
+        Thread thread = new Thread(minecraft, "Minecraft main thread");
+        thread.setPriority(10);
+        minecraft.minecraftUri = "www.minecraft.net";
+
+        if (username != null && sessionId != null) {
+            minecraft.session = new Session(username, sessionId);
         } else {
-            return var0.contains("unix") ? EnumOS.LINUX : EnumOS.UNKNOWN;
-        }
-    }
-
-    public static void func_6269_a(String var0, String var1) {
-        startMainThread(var0, var1, null);
-    }
-
-    public static void startMainThread(String var0, String var1, String var2) {
-        boolean var3 = false;
-        Frame var5 = new Frame("Minecraft");
-        Canvas var6 = new Canvas();
-        var5.setLayout(new BorderLayout());
-        var5.add(var6, "Center");
-        var6.setPreferredSize(new Dimension(854, 480));
-        var5.pack();
-        var5.setLocationRelativeTo(null);
-        MinecraftImpl var7 = new MinecraftImpl(var5, var6, null, 854, 480, var3, var5);
-        Thread var8 = new Thread(var7, "Minecraft main thread");
-        var8.setPriority(10);
-        var7.minecraftUri = "www.minecraft.net";
-        if (var0 != null && var1 != null) {
-            var7.session = new Session(var0, var1);
-        } else {
-            var7.session = new Session("Player" + System.currentTimeMillis() % 1000L, "");
+            minecraft.session = new Session("Player" + System.currentTimeMillis() % 1000L, "");
         }
 
-        if (var2 != null) {
-            String[] var9 = var2.split(":");
-            var7.setServer(var9[0], Integer.parseInt(var9[1]));
+        if (connectionIp != null) {
+            String[] var9 = connectionIp.split(":");
+            minecraft.setServer(var9[0], Integer.parseInt(var9[1]));
         }
 
-        var5.setVisible(true);
-        var5.addWindowListener(new GameWindowListener(var7, var8));
-        var8.start();
-    }
-
-    public static void main(String[] var0) {
-        String var1 = null;
-        String var2 = null;
-        var1 = "Player" + System.currentTimeMillis() % 1000L;
-        if (var0.length > 0) {
-            var1 = var0[0];
-        }
-
-        var2 = "-";
-        if (var0.length > 1) {
-            var2 = var0[1];
-        }
-
-        func_6269_a(var1, var2);
+        frame.setVisible(true);
+        frame.addWindowListener(new GameWindowListener(minecraft, thread));
+        thread.start();
     }
 
     public static boolean isGuiEnabled() {
@@ -974,7 +918,7 @@ public abstract class Minecraft implements Runnable {
             this.playerController.updateController();
         }
 
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, this.renderEngine.getTexture("/terrain.png"));
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/terrain.png"));
         if (!this.isGamePaused) {
             this.renderEngine.updateDynamicTextures();
         }
@@ -1053,33 +997,33 @@ public abstract class Minecraft implements Runnable {
             while (Keyboard.next()) {
                 this.thePlayer.handleKeyPress(Keyboard.getEventKey(), Keyboard.getEventKeyState());
                 if (Keyboard.getEventKeyState()) {
-                    if (Keyboard.getEventKey() == 87) {
+                    if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
                         this.toggleFullscreen();
                     } else {
                         if (this.currentScreen != null) {
                             this.currentScreen.handleKeyboardInput();
                         } else {
-                            if (Keyboard.getEventKey() == 1) {
+                            if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
                                 this.displayInGameMenu();
                             }
 
-                            if (Keyboard.getEventKey() == 31 && Keyboard.isKeyDown(61)) {
+                            if (Keyboard.getEventKey() == Keyboard.KEY_S && Keyboard.isKeyDown(Keyboard.KEY_F3)) {
                                 this.forceReload();
                             }
 
-                            if (Keyboard.getEventKey() == 59) {
+                            if (Keyboard.getEventKey() == Keyboard.KEY_F1) {
                                 this.gameSettings.hideGUI = !this.gameSettings.hideGUI;
                             }
 
-                            if (Keyboard.getEventKey() == 61) {
+                            if (Keyboard.getEventKey() == Keyboard.KEY_F3) {
                                 this.gameSettings.showDebugInfo = !this.gameSettings.showDebugInfo;
                             }
 
-                            if (Keyboard.getEventKey() == 63) {
+                            if (Keyboard.getEventKey() == Keyboard.KEY_F5) {
                                 this.gameSettings.thirdPersonView = !this.gameSettings.thirdPersonView;
                             }
 
-                            if (Keyboard.getEventKey() == 66) {
+                            if (Keyboard.getEventKey() == Keyboard.KEY_F8) {
                                 this.gameSettings.smoothCamera = !this.gameSettings.smoothCamera;
                             }
 

@@ -80,7 +80,7 @@ public class EffectRenderer {
                     var9 = this.renderer.getTexture("/gui/items.png");
                 }
 
-                GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, var9);
+                GL11.glBindTexture(GL11.GL_TEXTURE_2D, var9);
                 Tessellator var10 = Tessellator.INSTANCE;
                 var10.startDrawingQuads();
 

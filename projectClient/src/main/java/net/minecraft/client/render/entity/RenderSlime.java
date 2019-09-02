@@ -16,18 +16,18 @@ public class RenderSlime extends RenderLiving {
     protected boolean renderSlimePassModel(EntitySlime var1, int var2, float var3) {
         if (var2 == 0) {
             this.setRenderPassModel(this.scaleAmount);
-            GL11.glEnable(2977 /*GL_NORMALIZE*/);
-            GL11.glEnable(3042 /*GL_BLEND*/);
+            GL11.glEnable(GL11.GL_NORMALIZE);
+            GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(770, 771);
             return true;
-        } else {
-            if (var2 == 1) {
-                GL11.glDisable(3042 /*GL_BLEND*/);
-                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            }
-
-            return false;
         }
+
+        if (var2 == 1) {
+            GL11.glDisable(GL11.GL_BLEND);
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        }
+
+        return false;
     }
 
     protected void scaleSlime(EntitySlime var1, float var2) {

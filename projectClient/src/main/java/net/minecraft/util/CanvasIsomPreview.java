@@ -23,7 +23,7 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
     private World worldObj;
     private File dataFolder = this.getMinecraftDir();
     private boolean running = true;
-    private List imageBufferList = Collections.synchronizedList(new LinkedList());
+    private List<IsoImageBuffer> imageBufferList = Collections.synchronizedList(new LinkedList<>());
     private IsoImageBuffer[][] imageBuffers = new IsoImageBuffer[64][64];
     private int field_1785_i;
     private int field_1784_j;
@@ -45,23 +45,6 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
         this.setBackground(Color.red);
     }
 
-    private static EnumOS getOs() {
-        String var0 = System.getProperty("os.name").toLowerCase();
-        if (var0.contains("win")) {
-            return EnumOS.WINDOWS;
-        } else if (var0.contains("mac")) {
-            return EnumOS.MACOS;
-        } else if (var0.contains("solaris")) {
-            return EnumOS.SOLARIS;
-        } else if (var0.contains("sunos")) {
-            return EnumOS.SOLARIS;
-        } else if (var0.contains("linux")) {
-            return EnumOS.LINUX;
-        } else {
-            return var0.contains("unix") ? EnumOS.LINUX : EnumOS.UNKNOWN;
-        }
-    }
-
     // $FF: synthetic method
     static boolean isRunning(CanvasIsomPreview var0) {
         return var0.running;
@@ -69,40 +52,10 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
 
     public File getMinecraftDir() {
         if (this.dataFolder == null) {
-            this.dataFolder = this.getAppDir("minecraft");
+            this.dataFolder = EnumOS.getAppDir("minecraft");
         }
 
         return this.dataFolder;
-    }
-
-    public File getAppDir(String paramString) {
-        String home = System.getProperty("user.home", ".");
-        File localFile;
-
-        switch (EnumOSMappingHelper.OS_MAPPING_ARRAY[getOs().ordinal()]) {
-            case 1:
-            case 2:
-                localFile = new File(home, '.' + paramString + '/');
-                break;
-            case 3:
-                String appdata = System.getenv("APPDATA");
-                if (appdata != null)
-                    localFile = new File(appdata, "." + paramString + '/');
-                else
-                    localFile = new File(home, '.' + paramString + '/');
-                break;
-            case 4:
-                localFile = new File(home, "Library/Application Support/" + paramString);
-                break;
-            default:
-                localFile = new File(home, paramString + '/');
-        }
-
-        if ((!localFile.exists()) && (!localFile.mkdirs()))
-            throw new RuntimeException("The working directory could not be created: " + localFile);
-
-        return localFile;
-
     }
 
     public void loadWorld(String var1) {
