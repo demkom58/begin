@@ -193,9 +193,9 @@ public abstract class Minecraft implements Runnable {
 
     public abstract void displayUnexpectedThrowable(UnexpectedThrowable throwable);
 
-    public void setServer(String var1, int var2) {
-        this.serverName = var1;
-        this.serverPort = var2;
+    public void setServer(String serverName, int serverPort) {
+        this.serverName = serverName;
+        this.serverPort = serverPort;
     }
 
     public void startGame() throws LWJGLException {
@@ -317,22 +317,22 @@ public abstract class Minecraft implements Runnable {
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
         GL11.glViewport(0, 0, this.displayWidth, this.displayHeight);
         GL11.glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
-        Tessellator var2 = Tessellator.INSTANCE;
+        Tessellator tess = Tessellator.INSTANCE;
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_FOG);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/title/mojang.png"));
-        var2.startDrawingQuads();
-        var2.setColorOpaque_I(16777215);
-        var2.addVertexWithUV(0.0D, this.displayHeight, 0.0D, 0.0D, 0.0D);
-        var2.addVertexWithUV(this.displayWidth, this.displayHeight, 0.0D, 0.0D, 0.0D);
-        var2.addVertexWithUV(this.displayWidth, 0.0D, 0.0D, 0.0D, 0.0D);
-        var2.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
-        var2.draw();
+        tess.startDrawingQuads();
+        tess.setColorOpaque_I(16777215);
+        tess.addVertexWithUV(0.0D, this.displayHeight, 0.0D, 0.0D, 0.0D);
+        tess.addVertexWithUV(this.displayWidth, this.displayHeight, 0.0D, 0.0D, 0.0D);
+        tess.addVertexWithUV(this.displayWidth, 0.0D, 0.0D, 0.0D, 0.0D);
+        tess.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+        tess.draw();
         short var3 = 256;
         short var4 = 256;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        var2.setColorOpaque_I(16777215);
+        tess.setColorOpaque_I(16777215);
         this.func_6274_a((var1.getScaledWidth() - var3) / 2, (var1.getScaledHeight() - var4) / 2, 0, 0, var3, var4);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_FOG);
@@ -344,13 +344,13 @@ public abstract class Minecraft implements Runnable {
     public void func_6274_a(int var1, int var2, int var3, int var4, int var5, int var6) {
         float var7 = 0.00390625F;
         float var8 = 0.00390625F;
-        Tessellator var9 = Tessellator.INSTANCE;
-        var9.startDrawingQuads();
-        var9.addVertexWithUV(var1 + 0, var2 + var6, 0.0D, (float) (var3 + 0) * var7, (float) (var4 + var6) * var8);
-        var9.addVertexWithUV(var1 + var5, var2 + var6, 0.0D, (float) (var3 + var5) * var7, (float) (var4 + var6) * var8);
-        var9.addVertexWithUV(var1 + var5, var2 + 0, 0.0D, (float) (var3 + var5) * var7, (float) (var4 + 0) * var8);
-        var9.addVertexWithUV(var1 + 0, var2 + 0, 0.0D, (float) (var3 + 0) * var7, (float) (var4 + 0) * var8);
-        var9.draw();
+        Tessellator tess = Tessellator.INSTANCE;
+        tess.startDrawingQuads();
+        tess.addVertexWithUV(var1 + 0, var2 + var6, 0.0D, (float) (var3 + 0) * var7, (float) (var4 + var6) * var8);
+        tess.addVertexWithUV(var1 + var5, var2 + var6, 0.0D, (float) (var3 + var5) * var7, (float) (var4 + var6) * var8);
+        tess.addVertexWithUV(var1 + var5, var2 + 0, 0.0D, (float) (var3 + var5) * var7, (float) (var4 + 0) * var8);
+        tess.addVertexWithUV(var1 + 0, var2 + 0, 0.0D, (float) (var3 + 0) * var7, (float) (var4 + 0) * var8);
+        tess.draw();
     }
 
     public ISaveFormat getSaveLoader() {
@@ -381,10 +381,10 @@ public abstract class Minecraft implements Runnable {
             this.currentScreen = guiScreen;
             if (guiScreen != null) {
                 this.setIngameNotInFocus();
-                ScaledResolution var2 = new ScaledResolution(this.gameSettings, this.displayWidth, this.displayHeight);
-                int var3 = var2.getScaledWidth();
-                int var4 = var2.getScaledHeight();
-                guiScreen.setWorldAndResolution(this, var3, var4);
+                ScaledResolution scaledResolution = new ScaledResolution(this.gameSettings, this.displayWidth, this.displayHeight);
+                int width = scaledResolution.getScaledWidth();
+                int height = scaledResolution.getScaledHeight();
+                guiScreen.setWorldAndResolution(this, width, height);
                 this.skipRenderWorld = false;
             } else {
                 this.setIngameFocus();
@@ -496,7 +496,7 @@ public abstract class Minecraft implements Runnable {
                         this.theWorld.updatingLighting();
                     }
 
-                    if (!Keyboard.isKeyDown(65)) {
+                    if (!Keyboard.isKeyDown(Keyboard.KEY_F2)) {
                         Display.update();
                     }
 
@@ -528,7 +528,7 @@ public abstract class Minecraft implements Runnable {
 
                     this.guiAchievement.updateAchievementWindow();
                     Thread.yield();
-                    if (Keyboard.isKeyDown(65)) {
+                    if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
                         Display.update();
                     }
 
@@ -600,7 +600,7 @@ public abstract class Minecraft implements Runnable {
     }
 
     private void screenshotListener() {
-        if (Keyboard.isKeyDown(60)) {
+        if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
             if (!this.isTakingScreenshot) {
                 this.isTakingScreenshot = true;
                 this.ingameGUI.addChatMessage(ScreenShotHelper.saveScreenshot(minecraftDir, this.displayWidth, this.displayHeight));
@@ -630,20 +630,20 @@ public abstract class Minecraft implements Runnable {
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
         GL11.glLineWidth(1.0F);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
-        Tessellator var7 = Tessellator.INSTANCE;
-        var7.startDrawing(7);
+        Tessellator tess = Tessellator.INSTANCE;
+        tess.startDrawing(7);
         int var8 = (int) (var3 / 200000L);
-        var7.setColorOpaque_I(536870912);
-        var7.addVertex(0.0D, this.displayHeight - var8, 0.0D);
-        var7.addVertex(0.0D, this.displayHeight, 0.0D);
-        var7.addVertex(frameTimes.length, this.displayHeight, 0.0D);
-        var7.addVertex(frameTimes.length, this.displayHeight - var8, 0.0D);
-        var7.setColorOpaque_I(538968064);
-        var7.addVertex(0.0D, this.displayHeight - var8 * 2, 0.0D);
-        var7.addVertex(0.0D, this.displayHeight - var8, 0.0D);
-        var7.addVertex(frameTimes.length, this.displayHeight - var8, 0.0D);
-        var7.addVertex(frameTimes.length, this.displayHeight - var8 * 2, 0.0D);
-        var7.draw();
+        tess.setColorOpaque_I(536870912);
+        tess.addVertex(0.0D, this.displayHeight - var8, 0.0D);
+        tess.addVertex(0.0D, this.displayHeight, 0.0D);
+        tess.addVertex(frameTimes.length, this.displayHeight, 0.0D);
+        tess.addVertex(frameTimes.length, this.displayHeight - var8, 0.0D);
+        tess.setColorOpaque_I(538968064);
+        tess.addVertex(0.0D, this.displayHeight - var8 * 2, 0.0D);
+        tess.addVertex(0.0D, this.displayHeight - var8, 0.0D);
+        tess.addVertex(frameTimes.length, this.displayHeight - var8, 0.0D);
+        tess.addVertex(frameTimes.length, this.displayHeight - var8 * 2, 0.0D);
+        tess.draw();
         long var9 = 0L;
 
         for (long frameTime : frameTimes) {
@@ -651,14 +651,14 @@ public abstract class Minecraft implements Runnable {
         }
 
         int var20 = (int) (var9 / 200000L / (long) frameTimes.length);
-        var7.startDrawing(7);
-        var7.setColorOpaque_I(541065216);
-        var7.addVertex(0.0D, this.displayHeight - var20, 0.0D);
-        var7.addVertex(0.0D, this.displayHeight, 0.0D);
-        var7.addVertex(frameTimes.length, this.displayHeight, 0.0D);
-        var7.addVertex(frameTimes.length, this.displayHeight - var20, 0.0D);
-        var7.draw();
-        var7.startDrawing(1);
+        tess.startDrawing(7);
+        tess.setColorOpaque_I(541065216);
+        tess.addVertex(0.0D, this.displayHeight - var20, 0.0D);
+        tess.addVertex(0.0D, this.displayHeight, 0.0D);
+        tess.addVertex(frameTimes.length, this.displayHeight, 0.0D);
+        tess.addVertex(frameTimes.length, this.displayHeight - var20, 0.0D);
+        tess.draw();
+        tess.startDrawing(1);
 
         for (int var12 = 0; var12 < frameTimes.length; ++var12) {
             int var13 = (var12 - numRecordedFrameTimes & frameTimes.length - 1) * 255 / frameTimes.length;
@@ -667,21 +667,21 @@ public abstract class Minecraft implements Runnable {
             int var15 = var14 * var14 / 255;
             var15 = var15 * var15 / 255;
             if (frameTimes[var12] > var3) {
-                var7.setColorOpaque_I(-16777216 + var14 * 65536);
+                tess.setColorOpaque_I(-16777216 + var14 * 65536);
             } else {
-                var7.setColorOpaque_I(-16777216 + var14 * 256);
+                tess.setColorOpaque_I(-16777216 + var14 * 256);
             }
 
             long var16 = frameTimes[var12] / 200000L;
             long var18 = tickTimes[var12] / 200000L;
-            var7.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
-            var7.addVertex((float) var12 + 0.5F, (float) this.displayHeight + 0.5F, 0.0D);
-            var7.setColorOpaque_I(-16777216 + var14 * 65536 + var14 * 256 + var14 * 1);
-            var7.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
-            var7.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - (var16 - var18)) + 0.5F, 0.0D);
+            tess.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
+            tess.addVertex((float) var12 + 0.5F, (float) this.displayHeight + 0.5F, 0.0D);
+            tess.setColorOpaque_I(-16777216 + var14 * 65536 + var14 * 256 + var14 * 1);
+            tess.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
+            tess.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - (var16 - var18)) + 0.5F, 0.0D);
         }
 
-        var7.draw();
+        tess.draw();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
 
@@ -1034,7 +1034,7 @@ public abstract class Minecraft implements Runnable {
                         }
 
                         if (Keyboard.getEventKey() == this.gameSettings.keyBindToggleFog.keyCode) {
-                            this.gameSettings.setOptionValue(EnumOptions.RENDER_DISTANCE, !Keyboard.isKeyDown(42) && !Keyboard.isKeyDown(54) ? 1 : -1);
+                            this.gameSettings.setOptionValue(EnumOptions.RENDER_DISTANCE, !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) ? 1 : -1);
                         }
                     }
                 }
