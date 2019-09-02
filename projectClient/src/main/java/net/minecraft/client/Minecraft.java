@@ -67,7 +67,6 @@ public abstract class Minecraft implements Runnable {
     public Session session = null;
     public String minecraftUri;
     public Canvas mcCanvas;
-    public boolean hideQuitButton = true;
     public volatile boolean isGamePaused = false;
     public RenderEngine renderEngine;
     public FontRenderer fontRenderer;
@@ -88,7 +87,6 @@ public abstract class Minecraft implements Runnable {
     public String debug = "";
     public boolean inGameHasFocus = false;
     public boolean isRaining = false;
-    protected MinecraftApplet mcApplet;
     boolean isTakingScreenshot = false;
     long prevFrameTime = -1L;
     long systemTime = System.currentTimeMillis();
@@ -110,25 +108,21 @@ public abstract class Minecraft implements Runnable {
     private int mouseTicksRan = 0;
     private int joinPlayerCounter = 0;
 
-    public Minecraft(Component component, Canvas mcCanvas, MinecraftApplet mcApplet, int displayWidth, int displayHeight, boolean fullscreen) {
+    public Minecraft(Component component, Canvas mcCanvas, int displayWidth, int displayHeight, boolean fullscreen) {
         StatList.func_27360_a();
         this.tempDisplayHeight = displayHeight;
         this.fullscreen = fullscreen;
-        this.mcApplet = mcApplet;
         new ThreadSleepForever(this, "Timer hack thread");
         this.mcCanvas = mcCanvas;
         this.displayWidth = displayWidth;
         this.displayHeight = displayHeight;
         this.fullscreen = fullscreen;
 
-        if (mcApplet == null || "true".equals(mcApplet.getParameter("stand-alone")))
-            this.hideQuitButton = false;
-
         theMinecraft = this;
     }
 
     public static void main(String[] args) {
-        String username = args.length > 0 ? args[0] :"Player" + System.currentTimeMillis() % 1000L;
+        String username = args.length > 0 ? args[0] : "Player" + System.currentTimeMillis() % 1000L;
         String sessionId = args.length > 1 ? args[1] : "-";
         startMainThread(username, sessionId);
     }
@@ -155,7 +149,7 @@ public abstract class Minecraft implements Runnable {
         frame.pack();
         frame.setLocationRelativeTo(null);
 
-        MinecraftImpl minecraft = new MinecraftImpl(frame, canvas, null, 854, 480, fullscreen, frame);
+        MinecraftImpl minecraft = new MinecraftImpl(frame, canvas, 854, 480, fullscreen, frame);
         Thread thread = new Thread(minecraft, "Minecraft main thread");
         thread.setPriority(10);
         minecraft.minecraftUri = "www.minecraft.net";
@@ -167,8 +161,8 @@ public abstract class Minecraft implements Runnable {
         }
 
         if (connectionIp != null) {
-            String[] var9 = connectionIp.split(":");
-            minecraft.setServer(var9[0], Integer.parseInt(var9[1]));
+            String[] addressArr = connectionIp.split(":");
+            minecraft.setServer(addressArr[0], Integer.parseInt(addressArr[1]));
         }
 
         frame.setVisible(true);
@@ -414,9 +408,6 @@ public abstract class Minecraft implements Runnable {
         try {
             this.statFileWriter.func_27175_b();
             this.statFileWriter.syncStats();
-            if (this.mcApplet != null) {
-                this.mcApplet.clearApplet();
-            }
 
             try {
                 if (this.downloadResourcesThread != null) {
@@ -468,10 +459,6 @@ public abstract class Minecraft implements Runnable {
 
             while (this.running) {
                 try {
-                    if (this.mcApplet != null && !this.mcApplet.isActive()) {
-                        break;
-                    }
-
                     AxisAlignedBB.clearBoundingBoxPool();
                     Vec3D.initialize();
                     if (this.mcCanvas == null && Display.isCloseRequested()) {

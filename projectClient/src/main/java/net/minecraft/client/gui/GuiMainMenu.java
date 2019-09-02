@@ -65,17 +65,13 @@ public class GuiMainMenu extends GuiScreen {
         this.buttons.add(new GuiButton(1, this.width / 2 - 100, var4, var2.translateKey("menu.singleplayer")));
         this.buttons.add(this.multiplayerButton = new GuiButton(2, this.width / 2 - 100, var4 + 24, var2.translateKey("menu.multiplayer")));
         this.buttons.add(new GuiButton(3, this.width / 2 - 100, var4 + 48, var2.translateKey("menu.mods")));
-        if (this.mc.hideQuitButton) {
-            this.buttons.add(new GuiButton(0, this.width / 2 - 100, var4 + 72, var2.translateKey("menu.options")));
-        } else {
-            this.buttons.add(new GuiButton(0, this.width / 2 - 100, var4 + 72 + 12, 98, 20, var2.translateKey("menu.options")));
-            this.buttons.add(new GuiButton(4, this.width / 2 + 2, var4 + 72 + 12, 98, 20, var2.translateKey("menu.quit")));
-        }
+
+        this.buttons.add(new GuiButton(0, this.width / 2 - 100, var4 + 72 + 12, 98, 20, var2.translateKey("menu.options")));
+        this.buttons.add(new GuiButton(4, this.width / 2 + 2, var4 + 72 + 12, 98, 20, var2.translateKey("menu.quit")));
 
         if (this.mc.session == null) {
             this.multiplayerButton.enabled = false;
         }
-
     }
 
     protected void actionPerformed(GuiButton button) {

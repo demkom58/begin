@@ -8,8 +8,8 @@ import java.awt.*;
 public final class MinecraftImpl extends Minecraft {
     private final Frame mcFrame;
 
-    public MinecraftImpl(Component component, Canvas mcCanvas, MinecraftApplet mcApplet, int displayWidth, int displayHeight, boolean fullscreen, Frame frame) {
-        super(component, mcCanvas, mcApplet, displayWidth, displayHeight, fullscreen);
+    public MinecraftImpl(Component component, Canvas mcCanvas, int displayWidth, int displayHeight, boolean fullscreen, Frame frame) {
+        super(component, mcCanvas, displayWidth, displayHeight, fullscreen);
         this.mcFrame = frame;
     }
 
