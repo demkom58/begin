@@ -41,9 +41,8 @@ import net.minecraft.util.Vec3D;
 
 import java.awt.*;
 import java.io.File;
-import java.security.Key;
 
-public abstract class Minecraft implements Runnable {
+public final class Minecraft implements Runnable {
     /**
      * Bytes reversed memory, that than will removed.
      * In this case it is 10 mebibytes.
@@ -67,6 +66,7 @@ public abstract class Minecraft implements Runnable {
     public Session session = null;
     public String minecraftUri;
     public Canvas mcCanvas;
+    public Frame mcFrame;
     public volatile boolean isGamePaused = false;
     public RenderEngine renderEngine;
     public FontRenderer fontRenderer;
@@ -108,12 +108,13 @@ public abstract class Minecraft implements Runnable {
     private int mouseTicksRan = 0;
     private int joinPlayerCounter = 0;
 
-    public Minecraft(Component component, Canvas mcCanvas, int displayWidth, int displayHeight, boolean fullscreen) {
+    public Minecraft(Component component, Canvas mcCanvas, int displayWidth, int displayHeight, boolean fullscreen, Frame mcFrame) {
         StatList.func_27360_a();
         this.tempDisplayHeight = displayHeight;
         this.fullscreen = fullscreen;
         new ThreadSleepForever(this, "Timer hack thread");
         this.mcCanvas = mcCanvas;
+        this.mcFrame = mcFrame;
         this.displayWidth = displayWidth;
         this.displayHeight = displayHeight;
         this.fullscreen = fullscreen;
@@ -149,7 +150,7 @@ public abstract class Minecraft implements Runnable {
         frame.pack();
         frame.setLocationRelativeTo(null);
 
-        MinecraftImpl minecraft = new MinecraftImpl(frame, canvas, 854, 480, fullscreen, frame);
+        Minecraft minecraft = new Minecraft(frame, canvas, 854, 480, fullscreen, frame);
         Thread thread = new Thread(minecraft, "Minecraft main thread");
         thread.setPriority(10);
         minecraft.minecraftUri = "www.minecraft.net";
@@ -191,7 +192,11 @@ public abstract class Minecraft implements Runnable {
         this.displayUnexpectedThrowable(throwable);
     }
 
-    public abstract void displayUnexpectedThrowable(UnexpectedThrowable throwable);
+    public void displayUnexpectedThrowable(UnexpectedThrowable throwable) {
+        this.mcFrame.removeAll();
+        this.mcFrame.add(new PanelCrashReport(throwable), "Center");
+        this.mcFrame.validate();
+    }
 
     public void setServer(String serverName, int serverPort) {
         this.serverName = serverName;
