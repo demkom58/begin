@@ -205,11 +205,11 @@ public final class Minecraft implements Runnable {
 
     public void startGame() throws LWJGLException {
         if (this.mcCanvas != null) {
-            Graphics var1 = this.mcCanvas.getGraphics();
-            if (var1 != null) {
-                var1.setColor(Color.BLACK);
-                var1.fillRect(0, 0, this.displayWidth, this.displayHeight);
-                var1.dispose();
+            Graphics graphics = this.mcCanvas.getGraphics();
+            if (graphics != null) {
+                graphics.setColor(Color.BLACK);
+                graphics.fillRect(0, 0, this.displayWidth, this.displayHeight);
+                graphics.dispose();
             }
 
             Display.setParent(this.mcCanvas);
@@ -237,7 +237,7 @@ public final class Minecraft implements Runnable {
 
             try {
                 Thread.sleep(1000L);
-            } catch (InterruptedException e1) {
+            } catch (InterruptedException ignored) {
             }
 
             Display.create();
@@ -312,11 +312,11 @@ public final class Minecraft implements Runnable {
     }
 
     private void loadScreen() throws LWJGLException {
-        ScaledResolution var1 = new ScaledResolution(this.gameSettings, this.displayWidth, this.displayHeight);
+        ScaledResolution res = new ScaledResolution(this.gameSettings, this.displayWidth, this.displayHeight);
         GL11.glClear(16640);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GL11.glOrtho(0.0D, var1.field_25121_a, var1.field_25120_b, 0.0D, 1000.0D, 3000.0D);
+        GL11.glOrtho(0.0D, res.width, res.height, 0.0D, 1000.0D, 3000.0D);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glLoadIdentity();
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
@@ -338,7 +338,7 @@ public final class Minecraft implements Runnable {
         short var4 = 256;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         tess.setColorOpaque_I(16777215);
-        this.func_6274_a((var1.getScaledWidth() - var3) / 2, (var1.getScaledHeight() - var4) / 2, 0, 0, var3, var4);
+        this.func_6274_a((res.getScaledWidth() - var3) / 2, (res.getScaledHeight() - var4) / 2, 0, 0, var3, var4);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_FOG);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -1039,7 +1039,7 @@ public final class Minecraft implements Runnable {
                         }
 
                         if (Keyboard.getEventKey() == this.gameSettings.keyBindToggleFog.keyCode) {
-                            this.gameSettings.setOptionValue(EnumOptions.RENDER_DISTANCE, !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) ? 1 : -1);
+                            this.gameSettings.setOptionValue(EnumOption.RENDER_DISTANCE, !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) ? 1 : -1);
                         }
                     }
                 }

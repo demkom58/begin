@@ -109,23 +109,22 @@ public abstract class GuiContainer extends GuiScreen {
         itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.renderEngine, var4, var2, var3);
     }
 
-    private Slot getSlotAtPosition(int var1, int var2) {
-        for (int var3 = 0; var3 < this.inventorySlots.slots.size(); ++var3) {
-            Slot var4 = (Slot) this.inventorySlots.slots.get(var3);
-            if (this.getIsMouseOverSlot(var4, var1, var2)) {
-                return var4;
-            }
+    private Slot getSlotAtPosition(int x, int y) {
+        for (int i = 0; i < this.inventorySlots.slots.size(); ++i) {
+            Slot slot = (Slot) this.inventorySlots.slots.get(i);
+            if (this.getIsMouseOverSlot(slot, x, y))
+                return slot;
         }
 
         return null;
     }
 
-    private boolean getIsMouseOverSlot(Slot var1, int var2, int var3) {
+    private boolean getIsMouseOverSlot(Slot slot, int x, int y) {
         int var4 = (this.width - this.xSize) / 2;
         int var5 = (this.height - this.ySize) / 2;
-        var2 = var2 - var4;
-        var3 = var3 - var5;
-        return var2 >= var1.xDisplayPosition - 1 && var2 < var1.xDisplayPosition + 16 + 1 && var3 >= var1.yDisplayPosition - 1 && var3 < var1.yDisplayPosition + 16 + 1;
+        x = x - var4;
+        y = y - var5;
+        return x >= slot.xDisplayPosition - 1 && x < slot.xDisplayPosition + 16 + 1 && y >= slot.yDisplayPosition - 1 && y < slot.yDisplayPosition + 16 + 1;
     }
 
     protected void mouseClicked(int x, int y, int var3) {
@@ -158,8 +157,8 @@ public abstract class GuiContainer extends GuiScreen {
 
     }
 
-    protected void keyTyped(char var1, int var2) {
-        if (var2 == 1 || var2 == this.mc.gameSettings.keyBindInventory.keyCode) {
+    protected void keyTyped(char ch, int key) {
+        if (key == 1 || key == this.mc.gameSettings.keyBindInventory.keyCode) {
             this.mc.thePlayer.closeScreen();
         }
 

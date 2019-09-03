@@ -4,58 +4,61 @@ import net.minecraft.client.GameSettings;
 import net.minecraft.util.StringTranslate;
 
 public class GuiOptions extends GuiScreen {
-    private static EnumOptions[] field_22135_k = new EnumOptions[]{EnumOptions.MUSIC, EnumOptions.SOUND, EnumOptions.INVERT_MOUSE, EnumOptions.SENSITIVITY, EnumOptions.DIFFICULTY};
+    private static EnumOption[] options = new EnumOption[]{
+            EnumOption.MUSIC, EnumOption.SOUND, EnumOption.INVERT_MOUSE, EnumOption.SENSITIVITY, EnumOption.DIFFICULTY
+    };
+
     protected String screenTitle = "Options";
     private GuiScreen parentScreen;
-    private GameSettings options;
+    private GameSettings gameSettings;
 
     public GuiOptions(GuiScreen var1, GameSettings var2) {
         this.parentScreen = var1;
-        this.options = var2;
+        this.gameSettings = var2;
     }
 
     public void initGui() {
-        StringTranslate var1 = StringTranslate.getInstance();
-        this.screenTitle = var1.translateKey("options.title");
+        StringTranslate vartranslate = StringTranslate.getInstance();
+        this.screenTitle = vartranslate.translateKey("options.title");
         int var2 = 0;
 
-        for (EnumOptions var6 : field_22135_k) {
-            if (!var6.getEnumFloat()) {
-                this.buttons.add(new GuiSmallButton(var6.returnEnumOrdinal(), this.width / 2 - 155 + var2 % 2 * 160, this.height / 6 + 24 * (var2 >> 1), var6, this.options.getKeyBinding(var6)));
+        for (EnumOption option : options) {
+            if (!option.getFloatType()) {
+                this.buttons.add(new GuiSmallButton(option.ordinal(), this.width / 2 - 155 + var2 % 2 * 160, this.height / 6 + 24 * (var2 >> 1), option, this.gameSettings.getKeyBinding(option)));
             } else {
-                this.buttons.add(new GuiSlider(var6.returnEnumOrdinal(), this.width / 2 - 155 + var2 % 2 * 160, this.height / 6 + 24 * (var2 >> 1), var6, this.options.getKeyBinding(var6), this.options.getOptionFloatValue(var6)));
+                this.buttons.add(new GuiSlider(option.ordinal(), this.width / 2 - 155 + var2 % 2 * 160, this.height / 6 + 24 * (var2 >> 1), option, this.gameSettings.getKeyBinding(option), this.gameSettings.getOptionFloatValue(option)));
             }
 
             ++var2;
         }
 
-        this.buttons.add(new GuiButton(101, this.width / 2 - 100, this.height / 6 + 96 + 12, var1.translateKey("options.video")));
-        this.buttons.add(new GuiButton(100, this.width / 2 - 100, this.height / 6 + 120 + 12, var1.translateKey("options.controls")));
-        this.buttons.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, var1.translateKey("gui.done")));
+        this.buttons.add(new GuiButton(101, this.width / 2 - 100, this.height / 6 + 96 + 12, vartranslate.translateKey("options.video")));
+        this.buttons.add(new GuiButton(100, this.width / 2 - 100, this.height / 6 + 120 + 12, vartranslate.translateKey("options.controls")));
+        this.buttons.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, vartranslate.translateKey("gui.done")));
     }
 
     protected void actionPerformed(GuiButton button) {
-        if (button.enabled) {
-            if (button.id < 100 && button instanceof GuiSmallButton) {
-                this.options.setOptionValue(((GuiSmallButton) button).returnEnumOptions(), 1);
-                button.displayString = this.options.getKeyBinding(EnumOptions.getEnumOptions(button.id));
-            }
+        if (!button.enabled)
+            return;
 
-            if (button.id == 101) {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(new GuiVideoSettings(this, this.options));
-            }
+        if (button.id < 100 && button instanceof GuiSmallButton) {
+            this.gameSettings.setOptionValue(((GuiSmallButton) button).returnEnumOptions(), 1);
+            button.displayString = this.gameSettings.getKeyBinding(EnumOption.getEnumOptions(button.id));
+        }
 
-            if (button.id == 100) {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(new GuiControls(this, this.options));
-            }
+        if (button.id == 101) {
+            this.mc.gameSettings.saveOptions();
+            this.mc.displayGuiScreen(new GuiVideoSettings(this, this.gameSettings));
+        }
 
-            if (button.id == 200) {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(this.parentScreen);
-            }
+        if (button.id == 100) {
+            this.mc.gameSettings.saveOptions();
+            this.mc.displayGuiScreen(new GuiControls(this, this.gameSettings));
+        }
 
+        if (button.id == 200) {
+            this.mc.gameSettings.saveOptions();
+            this.mc.displayGuiScreen(this.parentScreen);
         }
     }
 

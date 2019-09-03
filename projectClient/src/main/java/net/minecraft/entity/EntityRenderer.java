@@ -783,7 +783,7 @@ public class EntityRenderer {
         GL11.glClear(256);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GL11.glOrtho(0.0D, var1.field_25121_a, var1.field_25120_b, 0.0D, 1000.0D, 3000.0D);
+        GL11.glOrtho(0.0D, var1.width, var1.height, 0.0D, 1000.0D, 3000.0D);
         GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
         GL11.glLoadIdentity();
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);

@@ -14,6 +14,6 @@ public class GuiUnused extends GuiScreen {
         super.drawScreen(var1, var2, var3);
     }
 
-    protected void keyTyped(char var1, int var2) {
+    protected void keyTyped(char ch, int key) {
     }
 }

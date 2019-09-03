@@ -13,7 +13,7 @@ class GuiSlotStatsBlock extends GuiSlotStats {
     public GuiSlotStatsBlock(GuiStats var1) {
         super(var1);
         this.field_27274_a = var1;
-        this.statCraftings = new ArrayList();
+        this.statCraftings = new ArrayList<>();
 
         for (StatCrafting var3 : StatList.field_25185_d) {
             boolean var4 = false;
@@ -56,20 +56,19 @@ class GuiSlotStatsBlock extends GuiSlotStats {
 
     }
 
-    protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator var5) {
-        StatCrafting var6 = this.func_27264_b(var1);
-        int var7 = var6.func_25072_b();
+    protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator tess) {
+        StatCrafting statCrafting = this.func_27264_b(var1);
+        int var7 = statCrafting.func_25072_b();
         GuiStats.func_27148_a(this.field_27274_a, var2 + 40, var3, var7);
         this.func_27265_a((StatCrafting) StatList.field_25158_z[var7], var2 + 115, var3, var1 % 2 == 0);
         this.func_27265_a((StatCrafting) StatList.field_25172_A[var7], var2 + 165, var3, var1 % 2 == 0);
-        this.func_27265_a(var6, var2 + 215, var3, var1 % 2 == 0);
+        this.func_27265_a(statCrafting, var2 + 215, var3, var1 % 2 == 0);
     }
 
     protected String func_27263_a(int var1) {
-        if (var1 == 0) {
+        if (var1 == 0)
             return "stat.crafted";
-        } else {
-            return var1 == 1 ? "stat.used" : "stat.mined";
-        }
+
+        return var1 == 1 ? "stat.used" : "stat.mined";
     }
 }

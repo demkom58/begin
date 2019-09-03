@@ -38,30 +38,30 @@ public class GuiEditSign extends GuiScreen {
     }
 
     protected void actionPerformed(GuiButton button) {
-        if (button.enabled) {
-            if (button.id == 0) {
-                this.entitySign.onInventoryChanged();
-                this.mc.displayGuiScreen(null);
-            }
+        if (!button.enabled)
+            return;
 
+        if (button.id == 0) {
+            this.entitySign.onInventoryChanged();
+            this.mc.displayGuiScreen(null);
         }
     }
 
-    protected void keyTyped(char var1, int var2) {
-        if (var2 == 200) {
+    protected void keyTyped(char ch, int key) {
+        if (key == 200) {
             this.editLine = this.editLine - 1 & 3;
         }
 
-        if (var2 == 208 || var2 == 28) {
+        if (key == 208 || key == 28) {
             this.editLine = this.editLine + 1 & 3;
         }
 
-        if (var2 == 14 && this.entitySign.signText[this.editLine].length() > 0) {
+        if (key == 14 && this.entitySign.signText[this.editLine].length() > 0) {
             this.entitySign.signText[this.editLine] = this.entitySign.signText[this.editLine].substring(0, this.entitySign.signText[this.editLine].length() - 1);
         }
 
-        if (allowedCharacters.indexOf(var1) >= 0 && this.entitySign.signText[this.editLine].length() < 15) {
-            this.entitySign.signText[this.editLine] = this.entitySign.signText[this.editLine] + var1;
+        if (allowedCharacters.indexOf(ch) >= 0 && this.entitySign.signText[this.editLine].length() < 15) {
+            this.entitySign.signText[this.editLine] = this.entitySign.signText[this.editLine] + ch;
         }
 
     }
@@ -74,8 +74,8 @@ public class GuiEditSign extends GuiScreen {
         float var4 = 93.75F;
         GL11.glScalef(-var4, -var4, -var4);
         GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
-        Block var5 = this.entitySign.getBlockType();
-        if (var5 == Block.SIGN) {
+        Block blockType = this.entitySign.getBlockType();
+        if (blockType == Block.SIGN) {
             float var6 = (float) (this.entitySign.getBlockMetadata() * 360) / 16.0F;
             GL11.glRotatef(var6, 0.0F, 1.0F, 0.0F);
             GL11.glTranslatef(0.0F, -1.0625F, 0.0F);

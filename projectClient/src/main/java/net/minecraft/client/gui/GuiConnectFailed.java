@@ -20,7 +20,7 @@ public class GuiConnectFailed extends GuiScreen {
     public void updateScreen() {
     }
 
-    protected void keyTyped(char var1, int var2) {
+    protected void keyTyped(char ch, int key) {
     }
 
     public void initGui() {

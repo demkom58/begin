@@ -21,7 +21,7 @@ import java.util.Set;
 
 public class WorldRenderer {
     public static int chunksUpdated = 0;
-    private static Tessellator tessellator = Tessellator.INSTANCE;
+    private static Tessellator tess = Tessellator.INSTANCE;
     public World worldObj;
     public int posX;
     public int posY;
@@ -64,23 +64,23 @@ public class WorldRenderer {
         this.needsUpdate = false;
     }
 
-    public void setPosition(int var1, int var2, int var3) {
-        if (var1 != this.posX || var2 != this.posY || var3 != this.posZ) {
+    public void setPosition(int x, int y, int z) {
+        if (x != this.posX || y != this.posY || z != this.posZ) {
             this.setDontDraw();
-            this.posX = var1;
-            this.posY = var2;
-            this.posZ = var3;
-            this.posXPlus = var1 + this.sizeWidth / 2;
-            this.posYPlus = var2 + this.sizeHeight / 2;
-            this.posZPlus = var3 + this.sizeDepth / 2;
-            this.posXClip = var1 & 1023;
-            this.posYClip = var2;
-            this.posZClip = var3 & 1023;
-            this.posXMinus = var1 - this.posXClip;
-            this.posYMinus = var2 - this.posYClip;
-            this.posZMinus = var3 - this.posZClip;
+            this.posX = x;
+            this.posY = y;
+            this.posZ = z;
+            this.posXPlus = x + this.sizeWidth / 2;
+            this.posYPlus = y + this.sizeHeight / 2;
+            this.posZPlus = z + this.sizeDepth / 2;
+            this.posXClip = x & 1023;
+            this.posYClip = y;
+            this.posZClip = z & 1023;
+            this.posXMinus = x - this.posXClip;
+            this.posYMinus = y - this.posYClip;
+            this.posZMinus = z - this.posZClip;
             float var4 = 6.0F;
-            this.rendererBoundingBox = AxisAlignedBB.getBoundingBox((float) var1 - var4, (float) var2 - var4, (float) var3 - var4, (float) (var1 + this.sizeWidth) + var4, (float) (var2 + this.sizeHeight) + var4, (float) (var3 + this.sizeDepth) + var4);
+            this.rendererBoundingBox = AxisAlignedBB.getBoundingBox((float) x - var4, (float) y - var4, (float) z - var4, (float) (x + this.sizeWidth) + var4, (float) (y + this.sizeHeight) + var4, (float) (z + this.sizeDepth) + var4);
             GL11.glNewList(this.glRenderList + 2, GL11.GL_COMPILE);
             RenderItem.renderAABB(AxisAlignedBB.getBoundingBoxFromPool((float) this.posXClip - var4, (float) this.posYClip - var4, (float) this.posZClip - var4, (float) (this.posXClip + this.sizeWidth) + var4, (float) (this.posYClip + this.sizeHeight) + var4, (float) (this.posZClip + this.sizeDepth) + var4));
             GL11.glEndList();
@@ -137,8 +137,8 @@ public class WorldRenderer {
                             GL11.glTranslatef((float) (-this.sizeDepth) / 2.0F, (float) (-this.sizeHeight) / 2.0F, (float) (-this.sizeDepth) / 2.0F);
                             GL11.glScalef(var19, var19, var19);
                             GL11.glTranslatef((float) this.sizeDepth / 2.0F, (float) this.sizeHeight / 2.0F, (float) this.sizeDepth / 2.0F);
-                            tessellator.startDrawingQuads();
-                            tessellator.setTranslationD(-this.posX, -this.posY, -this.posZ);
+                            tess.startDrawingQuads();
+                            tess.setTranslationD(-this.posX, -this.posY, -this.posZ);
                         }
 
                         if (var11 == 0 && Block.IS_BLOCK_CONTAINER[id]) {
@@ -160,10 +160,10 @@ public class WorldRenderer {
             }
 
             if (var14) {
-                tessellator.draw();
+                tess.draw();
                 GL11.glPopMatrix();
                 GL11.glEndList();
-                tessellator.setTranslationD(0.0D, 0.0D, 0.0D);
+                tess.setTranslationD(0.0D, 0.0D, 0.0D);
             } else var13 = false;
 
             if (var13)

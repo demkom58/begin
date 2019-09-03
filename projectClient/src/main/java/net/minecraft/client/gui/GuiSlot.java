@@ -181,48 +181,48 @@ public abstract class GuiSlot {
         this.bindAmountScrolled();
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_FOG);
-        Tessellator var16 = Tessellator.INSTANCE;
+        Tessellator tess = Tessellator.INSTANCE;
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/gui/background.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         float var17 = 32.0F;
-        var16.startDrawingQuads();
-        var16.setColorOpaque_I(2105376);
-        var16.addVertexWithUV(this.left, this.bottom, 0.0D, (float) this.left / var17, (float) (this.bottom + (int) this.amountScrolled) / var17);
-        var16.addVertexWithUV(this.right, this.bottom, 0.0D, (float) this.right / var17, (float) (this.bottom + (int) this.amountScrolled) / var17);
-        var16.addVertexWithUV(this.right, this.top, 0.0D, (float) this.right / var17, (float) (this.top + (int) this.amountScrolled) / var17);
-        var16.addVertexWithUV(this.left, this.top, 0.0D, (float) this.left / var17, (float) (this.top + (int) this.amountScrolled) / var17);
-        var16.draw();
+        tess.startDrawingQuads();
+        tess.setColorOpaque_I(2105376);
+        tess.addVertexWithUV(this.left, this.bottom, 0.0D, (float) this.left / var17, (float) (this.bottom + (int) this.amountScrolled) / var17);
+        tess.addVertexWithUV(this.right, this.bottom, 0.0D, (float) this.right / var17, (float) (this.bottom + (int) this.amountScrolled) / var17);
+        tess.addVertexWithUV(this.right, this.top, 0.0D, (float) this.right / var17, (float) (this.top + (int) this.amountScrolled) / var17);
+        tess.addVertexWithUV(this.left, this.top, 0.0D, (float) this.left / var17, (float) (this.top + (int) this.amountScrolled) / var17);
+        tess.draw();
         int var18 = this.width / 2 - 92 - 16;
         int var19 = this.top + 4 - (int) this.amountScrolled;
         if (this.field_27262_q) {
-            this.func_27260_a(var18, var19, var16);
+            this.func_27260_a(var18, var19, tess);
         }
 
-        for (int var20 = 0; var20 < var4; ++var20) {
-            int var23 = var19 + var20 * this.posZ + this.field_27261_r;
+        for (int i = 0; i < var4; ++i) {
+            int var23 = var19 + i * this.posZ + this.field_27261_r;
             int var25 = this.posZ - 4;
             if (var23 <= this.bottom && var23 + var25 >= this.top) {
-                if (this.field_25123_p && this.isSelected(var20)) {
+                if (this.field_25123_p && this.isSelected(i)) {
                     int var14 = this.width / 2 - 110;
                     int var15 = this.width / 2 + 110;
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                     GL11.glDisable(GL11.GL_TEXTURE_2D);
-                    var16.startDrawingQuads();
-                    var16.setColorOpaque_I(8421504);
-                    var16.addVertexWithUV(var14, var23 + var25 + 2, 0.0D, 0.0D, 1.0D);
-                    var16.addVertexWithUV(var15, var23 + var25 + 2, 0.0D, 1.0D, 1.0D);
-                    var16.addVertexWithUV(var15, var23 - 2, 0.0D, 1.0D, 0.0D);
-                    var16.addVertexWithUV(var14, var23 - 2, 0.0D, 0.0D, 0.0D);
-                    var16.setColorOpaque_I(0);
-                    var16.addVertexWithUV(var14 + 1, var23 + var25 + 1, 0.0D, 0.0D, 1.0D);
-                    var16.addVertexWithUV(var15 - 1, var23 + var25 + 1, 0.0D, 1.0D, 1.0D);
-                    var16.addVertexWithUV(var15 - 1, var23 - 1, 0.0D, 1.0D, 0.0D);
-                    var16.addVertexWithUV(var14 + 1, var23 - 1, 0.0D, 0.0D, 0.0D);
-                    var16.draw();
+                    tess.startDrawingQuads();
+                    tess.setColorOpaque_I(8421504);
+                    tess.addVertexWithUV(var14, var23 + var25 + 2, 0.0D, 0.0D, 1.0D);
+                    tess.addVertexWithUV(var15, var23 + var25 + 2, 0.0D, 1.0D, 1.0D);
+                    tess.addVertexWithUV(var15, var23 - 2, 0.0D, 1.0D, 0.0D);
+                    tess.addVertexWithUV(var14, var23 - 2, 0.0D, 0.0D, 0.0D);
+                    tess.setColorOpaque_I(0);
+                    tess.addVertexWithUV(var14 + 1, var23 + var25 + 1, 0.0D, 0.0D, 1.0D);
+                    tess.addVertexWithUV(var15 - 1, var23 + var25 + 1, 0.0D, 1.0D, 1.0D);
+                    tess.addVertexWithUV(var15 - 1, var23 - 1, 0.0D, 1.0D, 0.0D);
+                    tess.addVertexWithUV(var14 + 1, var23 - 1, 0.0D, 0.0D, 0.0D);
+                    tess.draw();
                     GL11.glEnable(GL11.GL_TEXTURE_2D);
                 }
 
-                this.drawSlot(var20, var18, var23, var25, var16);
+                this.drawSlot(i, var18, var23, var25, tess);
             }
         }
 
@@ -235,22 +235,22 @@ public abstract class GuiSlot {
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glShadeModel(GL11.GL_SMOOTH);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
-        var16.startDrawingQuads();
-        var16.setColorRGBA_I(0, 0);
-        var16.addVertexWithUV(this.left, this.top + var21, 0.0D, 0.0D, 1.0D);
-        var16.addVertexWithUV(this.right, this.top + var21, 0.0D, 1.0D, 1.0D);
-        var16.setColorRGBA_I(0, 255);
-        var16.addVertexWithUV(this.right, this.top, 0.0D, 1.0D, 0.0D);
-        var16.addVertexWithUV(this.left, this.top, 0.0D, 0.0D, 0.0D);
-        var16.draw();
-        var16.startDrawingQuads();
-        var16.setColorRGBA_I(0, 255);
-        var16.addVertexWithUV(this.left, this.bottom, 0.0D, 0.0D, 1.0D);
-        var16.addVertexWithUV(this.right, this.bottom, 0.0D, 1.0D, 1.0D);
-        var16.setColorRGBA_I(0, 0);
-        var16.addVertexWithUV(this.right, this.bottom - var21, 0.0D, 1.0D, 0.0D);
-        var16.addVertexWithUV(this.left, this.bottom - var21, 0.0D, 0.0D, 0.0D);
-        var16.draw();
+        tess.startDrawingQuads();
+        tess.setColorRGBA_I(0, 0);
+        tess.addVertexWithUV(this.left, this.top + var21, 0.0D, 0.0D, 1.0D);
+        tess.addVertexWithUV(this.right, this.top + var21, 0.0D, 1.0D, 1.0D);
+        tess.setColorRGBA_I(0, 255);
+        tess.addVertexWithUV(this.right, this.top, 0.0D, 1.0D, 0.0D);
+        tess.addVertexWithUV(this.left, this.top, 0.0D, 0.0D, 0.0D);
+        tess.draw();
+        tess.startDrawingQuads();
+        tess.setColorRGBA_I(0, 255);
+        tess.addVertexWithUV(this.left, this.bottom, 0.0D, 0.0D, 1.0D);
+        tess.addVertexWithUV(this.right, this.bottom, 0.0D, 1.0D, 1.0D);
+        tess.setColorRGBA_I(0, 0);
+        tess.addVertexWithUV(this.right, this.bottom - var21, 0.0D, 1.0D, 0.0D);
+        tess.addVertexWithUV(this.left, this.bottom - var21, 0.0D, 0.0D, 0.0D);
+        tess.draw();
         int var24 = this.getContentHeight() - (this.bottom - this.top - 4);
         if (var24 > 0) {
             int var26 = (this.bottom - this.top) * (this.bottom - this.top) / this.getContentHeight();
@@ -267,27 +267,27 @@ public abstract class GuiSlot {
                 var27 = this.top;
             }
 
-            var16.startDrawingQuads();
-            var16.setColorRGBA_I(0, 255);
-            var16.addVertexWithUV(var5, this.bottom, 0.0D, 0.0D, 1.0D);
-            var16.addVertexWithUV(var6, this.bottom, 0.0D, 1.0D, 1.0D);
-            var16.addVertexWithUV(var6, this.top, 0.0D, 1.0D, 0.0D);
-            var16.addVertexWithUV(var5, this.top, 0.0D, 0.0D, 0.0D);
-            var16.draw();
-            var16.startDrawingQuads();
-            var16.setColorRGBA_I(8421504, 255);
-            var16.addVertexWithUV(var5, var27 + var26, 0.0D, 0.0D, 1.0D);
-            var16.addVertexWithUV(var6, var27 + var26, 0.0D, 1.0D, 1.0D);
-            var16.addVertexWithUV(var6, var27, 0.0D, 1.0D, 0.0D);
-            var16.addVertexWithUV(var5, var27, 0.0D, 0.0D, 0.0D);
-            var16.draw();
-            var16.startDrawingQuads();
-            var16.setColorRGBA_I(12632256, 255);
-            var16.addVertexWithUV(var5, var27 + var26 - 1, 0.0D, 0.0D, 1.0D);
-            var16.addVertexWithUV(var6 - 1, var27 + var26 - 1, 0.0D, 1.0D, 1.0D);
-            var16.addVertexWithUV(var6 - 1, var27, 0.0D, 1.0D, 0.0D);
-            var16.addVertexWithUV(var5, var27, 0.0D, 0.0D, 0.0D);
-            var16.draw();
+            tess.startDrawingQuads();
+            tess.setColorRGBA_I(0, 255);
+            tess.addVertexWithUV(var5, this.bottom, 0.0D, 0.0D, 1.0D);
+            tess.addVertexWithUV(var6, this.bottom, 0.0D, 1.0D, 1.0D);
+            tess.addVertexWithUV(var6, this.top, 0.0D, 1.0D, 0.0D);
+            tess.addVertexWithUV(var5, this.top, 0.0D, 0.0D, 0.0D);
+            tess.draw();
+            tess.startDrawingQuads();
+            tess.setColorRGBA_I(8421504, 255);
+            tess.addVertexWithUV(var5, var27 + var26, 0.0D, 0.0D, 1.0D);
+            tess.addVertexWithUV(var6, var27 + var26, 0.0D, 1.0D, 1.0D);
+            tess.addVertexWithUV(var6, var27, 0.0D, 1.0D, 0.0D);
+            tess.addVertexWithUV(var5, var27, 0.0D, 0.0D, 0.0D);
+            tess.draw();
+            tess.startDrawingQuads();
+            tess.setColorRGBA_I(12632256, 255);
+            tess.addVertexWithUV(var5, var27 + var26 - 1, 0.0D, 0.0D, 1.0D);
+            tess.addVertexWithUV(var6 - 1, var27 + var26 - 1, 0.0D, 1.0D, 1.0D);
+            tess.addVertexWithUV(var6 - 1, var27, 0.0D, 1.0D, 0.0D);
+            tess.addVertexWithUV(var5, var27, 0.0D, 0.0D, 0.0D);
+            tess.draw();
         }
 
         this.func_27257_b(var1, var2);
@@ -298,17 +298,17 @@ public abstract class GuiSlot {
     }
 
     private void overlayBackground(int var1, int var2, int var3, int var4) {
-        Tessellator var5 = Tessellator.INSTANCE;
+        Tessellator tess = Tessellator.INSTANCE;
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/gui/background.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         float var6 = 32.0F;
-        var5.startDrawingQuads();
-        var5.setColorRGBA_I(4210752, var4);
-        var5.addVertexWithUV(0.0D, var2, 0.0D, 0.0D, (float) var2 / var6);
-        var5.addVertexWithUV(this.width, var2, 0.0D, (float) this.width / var6, (float) var2 / var6);
-        var5.setColorRGBA_I(4210752, var3);
-        var5.addVertexWithUV(this.width, var1, 0.0D, (float) this.width / var6, (float) var1 / var6);
-        var5.addVertexWithUV(0.0D, var1, 0.0D, 0.0D, (float) var1 / var6);
-        var5.draw();
+        tess.startDrawingQuads();
+        tess.setColorRGBA_I(4210752, var4);
+        tess.addVertexWithUV(0.0D, var2, 0.0D, 0.0D, (float) var2 / var6);
+        tess.addVertexWithUV(this.width, var2, 0.0D, (float) this.width / var6, (float) var2 / var6);
+        tess.setColorRGBA_I(4210752, var3);
+        tess.addVertexWithUV(this.width, var1, 0.0D, (float) this.width / var6, (float) var1 / var6);
+        tess.addVertexWithUV(0.0D, var1, 0.0D, 0.0D, (float) var1 / var6);
+        tess.draw();
     }
 }

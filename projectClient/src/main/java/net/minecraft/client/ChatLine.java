@@ -4,8 +4,8 @@ public class ChatLine {
     public String message;
     public int updateCounter;
 
-    public ChatLine(String var1) {
-        this.message = var1;
+    public ChatLine(String message) {
+        this.message = message;
         this.updateCounter = 0;
     }
 }

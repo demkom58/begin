@@ -18,8 +18,6 @@ import net.minecraft.world.chunk.*;
 import net.minecraft.world.gen.BiomeGenBase;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.MapStorage;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3D;
 
 import java.util.*;
 
@@ -152,8 +150,8 @@ public class World implements IBlockAccess {
         this.func_27163_E();
     }
 
-    public World(ISaveHandler var1, String var2, long var3) {
-        this(var1, var2, var3, null);
+    public World(ISaveHandler saveHandler, String levelName, long randomSeed) {
+        this(saveHandler, levelName, randomSeed, null);
     }
 
     public World(ISaveHandler saveHandler, String levelName, long randomSeed, WorldProvider worldProvider) {
@@ -324,14 +322,13 @@ public class World implements IBlockAccess {
 
     public int getBlockId(int var1, int var2, int var3) {
         if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
-            if (var2 < 0) {
+            if (var2 < 0)
                 return 0;
-            } else {
-                return var2 >= 128 ? 0 : this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4).getBlockID(var1 & 15, var2, var3 & 15);
-            }
-        } else {
-            return 0;
+
+            return var2 >= 128 ? 0 : this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4).getBlockID(var1 & 15, var2, var3 & 15);
         }
+
+        return 0;
     }
 
     public boolean isAirBlock(int var1, int var2, int var3) {
@@ -364,9 +361,9 @@ public class World implements IBlockAccess {
             }
 
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     private boolean chunkExists(int var1, int var2) {
@@ -398,17 +395,17 @@ public class World implements IBlockAccess {
 
     public boolean setBlock(int var1, int var2, int var3, int var4) {
         if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
-            if (var2 < 0) {
+            if (var2 < 0)
                 return false;
-            } else if (var2 >= 128) {
+
+            if (var2 >= 128)
                 return false;
-            } else {
-                Chunk var5 = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
-                return var5.setBlockID(var1 & 15, var2, var3 & 15, var4);
-            }
-        } else {
-            return false;
+
+            Chunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
+            return chunk.setBlockID(var1 & 15, var2, var3 & 15, var4);
         }
+
+        return false;
     }
 
     public Material getBlockMaterial(int var1, int var2, int var3) {
@@ -418,19 +415,19 @@ public class World implements IBlockAccess {
 
     public int getBlockMetadata(int var1, int var2, int var3) {
         if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
-            if (var2 < 0) {
+            if (var2 < 0)
                 return 0;
-            } else if (var2 >= 128) {
+
+            if (var2 >= 128)
                 return 0;
-            } else {
-                Chunk var4 = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
-                var1 = var1 & 15;
-                var3 = var3 & 15;
-                return var4.getBlockMetadata(var1, var2, var3);
-            }
-        } else {
-            return 0;
+
+            Chunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
+            var1 = var1 & 15;
+            var3 = var3 & 15;
+            return chunk.getBlockMetadata(var1, var2, var3);
         }
+
+        return 0;
     }
 
     public void setBlockMetadataWithNotify(int var1, int var2, int var3, int var4) {
@@ -447,38 +444,39 @@ public class World implements IBlockAccess {
 
     public boolean setBlockMetadata(int var1, int var2, int var3, int var4) {
         if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
-            if (var2 < 0) {
+            if (var2 < 0)
                 return false;
-            } else if (var2 >= 128) {
+
+            if (var2 >= 128)
                 return false;
-            } else {
-                Chunk var5 = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
-                var1 = var1 & 15;
-                var3 = var3 & 15;
-                var5.setBlockMetadata(var1, var2, var3, var4);
-                return true;
-            }
-        } else {
-            return false;
+
+            Chunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
+            var1 = var1 & 15;
+            var3 = var3 & 15;
+            chunk.setBlockMetadata(var1, var2, var3, var4);
+            return true;
+
         }
+
+        return false;
     }
 
     public boolean setBlockWithNotify(int var1, int var2, int var3, int var4) {
         if (this.setBlock(var1, var2, var3, var4)) {
             this.notifyBlockChange(var1, var2, var3, var4);
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     public boolean setBlockAndMetadataWithNotify(int var1, int var2, int var3, int var4, int var5) {
         if (this.setBlockAndMetadata(var1, var2, var3, var4, var5)) {
             this.notifyBlockChange(var1, var2, var3, var4);
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     public void markBlockNeedsUpdate(int var1, int var2, int var3) {
@@ -582,18 +580,17 @@ public class World implements IBlockAccess {
                 }
             }
 
-            if (var2 < 0) {
+            if (var2 < 0)
                 return 0;
-            } else {
-                if (var2 >= 128) {
-                    var2 = 127;
-                }
 
-                Chunk var13 = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
-                var1 = var1 & 15;
-                var3 = var3 & 15;
-                return var13.getBlockLightValue(var1, var2, var3, this.skylightSubtracted);
+            if (var2 >= 128) {
+                var2 = 127;
             }
+
+            Chunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
+            var1 = var1 & 15;
+            var3 = var3 & 15;
+            return chunk.getBlockLightValue(var1, var2, var3, this.skylightSubtracted);
         }
 
         return 15;
@@ -601,18 +598,19 @@ public class World implements IBlockAccess {
 
     public boolean canExistingBlockSeeTheSky(int var1, int var2, int var3) {
         if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
-            if (var2 < 0) {
+            if (var2 < 0)
                 return false;
-            } else if (var2 >= 128) {
+
+            if (var2 >= 128)
                 return true;
-            } else if (!this.chunkExists(var1 >> 4, var3 >> 4)) {
+
+            if (!this.chunkExists(var1 >> 4, var3 >> 4))
                 return false;
-            } else {
-                Chunk var4 = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
-                var1 = var1 & 15;
-                var3 = var3 & 15;
-                return var4.canBlockSeeTheSky(var1, var2, var3);
-            }
+
+            Chunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
+            var1 = var1 & 15;
+            var3 = var3 & 15;
+            return chunk.canBlockSeeTheSky(var1, var2, var3);
         }
 
         return false;
@@ -620,12 +618,11 @@ public class World implements IBlockAccess {
 
     public int getHeightValue(int var1, int var2) {
         if (var1 >= -32000000 && var2 >= -32000000 && var1 < 32000000 && var2 <= 32000000) {
-            if (!this.chunkExists(var1 >> 4, var2 >> 4)) {
+            if (!this.chunkExists(var1 >> 4, var2 >> 4))
                 return 0;
-            } else {
-                Chunk var3 = this.getChunkFromChunkCoords(var1 >> 4, var2 >> 4);
-                return var3.getHeightValue(var1 & 15, var2 & 15);
-            }
+
+            Chunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var2 >> 4);
+            return chunk.getHeightValue(var1 & 15, var2 & 15);
         }
 
         return 0;
@@ -667,13 +664,12 @@ public class World implements IBlockAccess {
             int var6 = var4 >> 4;
             if (!this.chunkExists(var5, var6)) {
                 return 0;
-            } else {
-                Chunk var7 = this.getChunkFromChunkCoords(var5, var6);
-                return var7.getSavedLightValue(var1, var2 & 15, var3, var4 & 15);
             }
-        } else {
-            return var1.lightValue;
+            Chunk chunk = this.getChunkFromChunkCoords(var5, var6);
+            return chunk.getSavedLightValue(var1, var2 & 15, var3, var4 & 15);
         }
+
+        return var1.lightValue;
     }
 
     public void setLightValue(EnumSkyBlock var1, int var2, int var3, int var4, int var5) {

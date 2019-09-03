@@ -14,7 +14,7 @@ public class GuiIngameMenu extends GuiScreen {
         byte var1 = -16;
         this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + var1, "Save and quit to title"));
         if (this.mc.isMultiplayerWorld()) {
-            ((GuiButton) this.buttons.get(0)).displayString = "Disconnect";
+            this.buttons.get(0).displayString = "Disconnect";
         }
 
         this.buttons.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + var1, "Back to game"));

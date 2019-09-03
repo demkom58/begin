@@ -33,7 +33,7 @@ public class WorldChunkManager {
     }
 
     public double getTemperature(int var1, int var2) {
-        this.temperature = this.field_4194_e.func_4112_a(this.temperature, (double) var1, (double) var2, 1, 1, 0.02500000037252903D, 0.02500000037252903D, 0.5D);
+        this.temperature = this.field_4194_e.func_4112_a(this.temperature, var1, var2, 1, 1, 0.02500000037252903D, 0.02500000037252903D, 0.5D);
         return this.temperature[0];
     }
 
@@ -47,8 +47,8 @@ public class WorldChunkManager {
             var1 = new double[var4 * var5];
         }
 
-        var1 = this.field_4194_e.func_4112_a(var1, (double) var2, (double) var3, var4, var5, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
-        this.field_4196_c = this.field_4192_g.func_4112_a(this.field_4196_c, (double) var2, (double) var3, var4, var5, 0.25D, 0.25D, 0.5882352941176471D);
+        var1 = this.field_4194_e.func_4112_a(var1, var2, var3, var4, var5, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
+        this.field_4196_c = this.field_4192_g.func_4112_a(this.field_4196_c, var2, var3, var4, var5, 0.25D, 0.25D, 0.5882352941176471D);
         int var6 = 0;
 
         for (int var7 = 0; var7 < var4; ++var7) {
@@ -79,9 +79,9 @@ public class WorldChunkManager {
             var1 = new BiomeGenBase[var4 * var5];
         }
 
-        this.temperature = this.field_4194_e.func_4112_a(this.temperature, (double) var2, (double) var3, var4, var4, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
-        this.humidity = this.field_4193_f.func_4112_a(this.humidity, (double) var2, (double) var3, var4, var4, 0.05000000074505806D, 0.05000000074505806D, 0.3333333333333333D);
-        this.field_4196_c = this.field_4192_g.func_4112_a(this.field_4196_c, (double) var2, (double) var3, var4, var4, 0.25D, 0.25D, 0.5882352941176471D);
+        this.temperature = this.field_4194_e.func_4112_a(this.temperature, var2, var3, var4, var4, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
+        this.humidity = this.field_4193_f.func_4112_a(this.humidity, var2, var3, var4, var4, 0.05000000074505806D, 0.05000000074505806D, 0.3333333333333333D);
+        this.field_4196_c = this.field_4192_g.func_4112_a(this.field_4196_c, var2, var3, var4, var4, 0.25D, 0.25D, 0.5882352941176471D);
         int var6 = 0;
 
         for (int var7 = 0; var7 < var4; ++var7) {

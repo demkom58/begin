@@ -14,13 +14,13 @@ class CanvasMojangLogo extends Canvas {
         } catch (IOException ignored) {
         }
 
-        byte var1 = 100;
-        this.setPreferredSize(new Dimension(var1, var1));
-        this.setMinimumSize(new Dimension(var1, var1));
+        byte size = 100;
+        this.setPreferredSize(new Dimension(size, size));
+        this.setMinimumSize(new Dimension(size, size));
     }
 
-    public void paint(Graphics var1) {
-        super.paint(var1);
-        var1.drawImage(this.logo, this.getWidth() / 2 - this.logo.getWidth() / 2, 32, null);
+    public void paint(Graphics graphics) {
+        super.paint(graphics);
+        graphics.drawImage(this.logo, this.getWidth() / 2 - this.logo.getWidth() / 2, 32, null);
     }
 }

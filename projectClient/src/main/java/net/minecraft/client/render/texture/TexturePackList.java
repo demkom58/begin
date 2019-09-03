@@ -90,7 +90,7 @@ public class TexturePackList {
         this.availableTexturePacks = var1;
     }
 
-    public List availableTexturePacks() {
-        return new ArrayList(this.availableTexturePacks);
+    public List<TexturePackBase> availableTexturePacks() {
+        return new ArrayList<>(this.availableTexturePacks);
     }
 }

@@ -34,12 +34,12 @@ public class GuiCreateWorld extends GuiScreen {
     }
 
     public void initGui() {
-        StringTranslate var1 = StringTranslate.getInstance();
+        StringTranslate translate = StringTranslate.getInstance();
         Keyboard.enableRepeatEvents(true);
         this.buttons.clear();
-        this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12, var1.translateKey("selectWorld.create")));
-        this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, var1.translateKey("gui.cancel")));
-        this.textboxWorldName = new GuiTextField(this, this.fontRenderer, this.width / 2 - 100, 60, 200, 20, var1.translateKey("selectWorld.newWorld"));
+        this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12, translate.translateKey("selectWorld.create")));
+        this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, translate.translateKey("gui.cancel")));
+        this.textboxWorldName = new GuiTextField(this, this.fontRenderer, this.width / 2 - 100, 60, 200, 20, translate.translateKey("selectWorld.newWorld"));
         this.textboxWorldName.isFocused = true;
         this.textboxWorldName.setMaxStringLength(32);
         this.textboxSeed = new GuiTextField(this, this.fontRenderer, this.width / 2 - 100, 116, 200, 20, "");
@@ -49,8 +49,8 @@ public class GuiCreateWorld extends GuiScreen {
     private void func_22129_j() {
         this.folderName = this.textboxWorldName.getText().trim();
 
-        for (char var4 : ChatAllowedCharacters.ALLOWED_CHARACTERS_ARRAY) {
-            this.folderName = this.folderName.replace(var4, '_');
+        for (char ch : ChatAllowedCharacters.ALLOWED_CHARACTERS_ARRAY) {
+            this.folderName = this.folderName.replace(ch, '_');
         }
 
         if (MathHelper.stringNullOrLengthZero(this.folderName)) {
@@ -95,14 +95,14 @@ public class GuiCreateWorld extends GuiScreen {
         }
     }
 
-    protected void keyTyped(char typedChar, int key) {
+    protected void keyTyped(char ch, int key) {
         if (this.textboxWorldName.isFocused) {
-            this.textboxWorldName.textboxKeyTyped(typedChar, key);
+            this.textboxWorldName.textboxKeyTyped(ch, key);
         } else {
-            this.textboxSeed.textboxKeyTyped(typedChar, key);
+            this.textboxSeed.textboxKeyTyped(ch, key);
         }
 
-        if (typedChar == '\r') {
+        if (ch == '\r') {
             this.actionPerformed(this.buttons.get(0));
         }
 

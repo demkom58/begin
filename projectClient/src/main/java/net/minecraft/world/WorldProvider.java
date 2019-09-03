@@ -17,13 +17,13 @@ public abstract class WorldProvider {
     private float[] colorsSunriseSunset = new float[4];
 
     public static WorldProvider getProviderForDimension(int var0) {
-        if (var0 == -1) {
+        if (var0 == -1)
             return new WorldProviderHell();
-        } else if (var0 == 0) {
+
+        if (var0 == 0)
             return new WorldProviderSurface();
-        } else {
-            return var0 == 1 ? new WorldProviderSky() : null;
-        }
+
+        return var0 == 1 ? new WorldProviderSky() : null;
     }
 
     public final void registerWorld(World var1) {
@@ -35,9 +35,9 @@ public abstract class WorldProvider {
     protected void generateLightBrightnessTable() {
         float var1 = 0.05F;
 
-        for (int var2 = 0; var2 <= 15; ++var2) {
-            float var3 = 1.0F - (float) var2 / 15.0F;
-            this.lightBrightnessTable[var2] = (1.0F - var3) / (var3 * 3.0F + 1.0F) * (1.0F - var1) + var1;
+        for (int i = 0; i <= 15; ++i) {
+            float var3 = 1.0F - (float) i / 15.0F;
+            this.lightBrightnessTable[i] = (1.0F - var3) / (var3 * 3.0F + 1.0F) * (1.0F - var1) + var1;
         }
 
     }
@@ -84,9 +84,9 @@ public abstract class WorldProvider {
             this.colorsSunriseSunset[2] = var6 * var6 * 0.0F + 0.2F;
             this.colorsSunriseSunset[3] = var7;
             return this.colorsSunriseSunset;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     public Vec3D func_4096_a(float var1, float var2) {
@@ -105,7 +105,7 @@ public abstract class WorldProvider {
         var4 = var4 * (var3 * 0.94F + 0.06F);
         var5 = var5 * (var3 * 0.94F + 0.06F);
         var6 = var6 * (var3 * 0.91F + 0.09F);
-        return Vec3D.createVector((double) var4, (double) var5, (double) var6);
+        return Vec3D.createVector(var4, var5, var6);
     }
 
     public boolean canRespawnHere() {

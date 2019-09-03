@@ -9,8 +9,8 @@ import org.lwjgl.input.Keyboard;
 public class GuiSleepMP extends GuiChat {
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
-        StringTranslate var1 = StringTranslate.getInstance();
-        this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, var1.translateKey("multiplayer.stopSleeping")));
+        StringTranslate translate = StringTranslate.getInstance();
+        this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, translate.translateKey("multiplayer.stopSleeping")));
     }
 
     public void onGuiClosed() {
@@ -48,8 +48,8 @@ public class GuiSleepMP extends GuiChat {
 
     private void func_22115_j() {
         if (this.mc.thePlayer instanceof EntityClientPlayerMP) {
-            NetClientHandler var1 = ((EntityClientPlayerMP) this.mc.thePlayer).sendQueue;
-            var1.addToSendQueue(new Packet19EntityAction(this.mc.thePlayer, 3));
+            NetClientHandler clientHandler = ((EntityClientPlayerMP) this.mc.thePlayer).sendQueue;
+            clientHandler.addToSendQueue(new Packet19EntityAction(this.mc.thePlayer, 3));
         }
 
     }

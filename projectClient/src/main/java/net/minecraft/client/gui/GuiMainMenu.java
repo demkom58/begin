@@ -44,7 +44,7 @@ public class GuiMainMenu extends GuiScreen {
         ++this.updateCounter;
     }
 
-    protected void keyTyped(char var1, int var2) {
+    protected void keyTyped(char ch, int key) {
     }
 
     public void initGui() {
@@ -99,7 +99,7 @@ public class GuiMainMenu extends GuiScreen {
 
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
-        Tessellator var4 = Tessellator.INSTANCE;
+        Tessellator tess = Tessellator.INSTANCE;
         short var5 = 274;
         int var6 = this.width / 2 - var5 / 2;
         byte var7 = 30;
@@ -107,7 +107,7 @@ public class GuiMainMenu extends GuiScreen {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.drawTexturedModalRect(var6 + 0, var7 + 0, 0, 0, 155, 44);
         this.drawTexturedModalRect(var6 + 155, var7 + 0, 0, 45, 155, 44);
-        var4.setColorOpaque_I(16777215);
+        tess.setColorOpaque_I(16777215);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) (this.width / 2 + 90), 70.0F, 0.0F);
         GL11.glRotatef(-20.0F, 0.0F, 0.0F, 1.0F);

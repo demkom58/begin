@@ -5,7 +5,6 @@ import net.minecraft.client.gui.GuiParticle;
 import java.util.Random;
 
 public class Particle {
-    private static Random field_25128_s = new Random();
     public double field_25146_a;
     public double field_25145_b;
     public double field_25144_c;

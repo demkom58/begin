@@ -8,13 +8,13 @@ public class GuiYesNo extends GuiScreen {
     private String field_22105_l;
     private int worldNumber;
 
-    public GuiYesNo(GuiScreen var1, String var2, String var3, String var4, String var5, int var6) {
-        this.parentScreen = var1;
-        this.message1 = var2;
-        this.message2 = var3;
+    public GuiYesNo(GuiScreen parentScreen, String message1, String message2, String var4, String var5, int worldNumber) {
+        this.parentScreen = parentScreen;
+        this.message1 = message1;
+        this.message2 = message2;
         this.field_22106_k = var4;
         this.field_22105_l = var5;
-        this.worldNumber = var6;
+        this.worldNumber = worldNumber;
     }
 
     public void initGui() {

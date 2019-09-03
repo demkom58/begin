@@ -1,7 +1,7 @@
 package net.minecraft.client;
 
+import net.minecraft.client.gui.EnumOption;
 import net.minecraft.client.input.KeyBinding;
-import net.minecraft.client.gui.EnumOptions;
 import net.minecraft.stats.StatCollector;
 import net.minecraft.util.StringTranslate;
 import org.lwjgl.input.Keyboard;
@@ -50,8 +50,20 @@ public class GameSettings {
     protected Minecraft mc;
     private File optionsFile;
 
-    public GameSettings(Minecraft var1, File var2) {
-        this.keyBindings = new KeyBinding[]{this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindToggleFog};
+    public GameSettings(Minecraft mc, File settingsRoot) {
+        this.keyBindings = new KeyBinding[]{
+                this.keyBindForward,
+                this.keyBindLeft,
+                this.keyBindBack,
+                this.keyBindRight,
+                this.keyBindJump,
+                this.keyBindSneak,
+                this.keyBindDrop,
+                this.keyBindInventory,
+                this.keyBindChat,
+                this.keyBindToggleFog
+        };
+
         this.difficulty = 2;
         this.hideGUI = false;
         this.thirdPersonView = false;
@@ -63,13 +75,25 @@ public class GameSettings {
         this.field_22272_F = 1.0F;
         this.field_22271_G = 1.0F;
         this.guiScale = 0;
-        this.mc = var1;
-        this.optionsFile = new File(var2, "options.txt");
+        this.mc = mc;
+        this.optionsFile = new File(settingsRoot, "options.txt");
         this.loadOptions();
     }
 
     public GameSettings() {
-        this.keyBindings = new KeyBinding[]{this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindToggleFog};
+        this.keyBindings = new KeyBinding[]{
+                this.keyBindForward,
+                this.keyBindLeft,
+                this.keyBindBack,
+                this.keyBindRight,
+                this.keyBindJump,
+                this.keyBindSneak,
+                this.keyBindDrop,
+                this.keyBindInventory,
+                this.keyBindChat,
+                this.keyBindToggleFog
+        };
+
         this.difficulty = 2;
         this.hideGUI = false;
         this.thirdPersonView = false;
@@ -84,8 +108,8 @@ public class GameSettings {
     }
 
     public String getKeyBindingDescription(int var1) {
-        StringTranslate var2 = StringTranslate.getInstance();
-        return var2.translateKey(this.keyBindings[var1].keyDescription);
+        StringTranslate translate = StringTranslate.getInstance();
+        return translate.translateKey(this.keyBindings[var1].keyDescription);
     }
 
     public String getOptionDisplayString(int var1) {
@@ -97,64 +121,64 @@ public class GameSettings {
         this.saveOptions();
     }
 
-    public void setOptionFloatValue(EnumOptions var1, float var2) {
-        if (var1 == EnumOptions.MUSIC) {
+    public void setOptionFloatValue(EnumOption var1, float var2) {
+        if (var1 == EnumOption.MUSIC) {
             this.musicVolume = var2;
             this.mc.sndManager.onSoundOptionsChanged();
         }
 
-        if (var1 == EnumOptions.SOUND) {
+        if (var1 == EnumOption.SOUND) {
             this.soundVolume = var2;
             this.mc.sndManager.onSoundOptionsChanged();
         }
 
-        if (var1 == EnumOptions.SENSITIVITY) {
+        if (var1 == EnumOption.SENSITIVITY) {
             this.mouseSensitivity = var2;
         }
 
     }
 
-    public void setOptionValue(EnumOptions var1, int var2) {
-        if (var1 == EnumOptions.INVERT_MOUSE) {
+    public void setOptionValue(EnumOption option, int var2) {
+        if (option == EnumOption.INVERT_MOUSE) {
             this.invertMouse = !this.invertMouse;
         }
 
-        if (var1 == EnumOptions.RENDER_DISTANCE) {
+        if (option == EnumOption.RENDER_DISTANCE) {
             this.renderDistance = this.renderDistance + var2 & 3;
         }
 
-        if (var1 == EnumOptions.GUI_SCALE) {
+        if (option == EnumOption.GUI_SCALE) {
             this.guiScale = this.guiScale + var2 & 3;
         }
 
-        if (var1 == EnumOptions.VIEW_BOBBING) {
+        if (option == EnumOption.VIEW_BOBBING) {
             this.viewBobbing = !this.viewBobbing;
         }
 
-        if (var1 == EnumOptions.ADVANCED_OPENGL) {
+        if (option == EnumOption.ADVANCED_OPENGL) {
             this.advancedOpengl = !this.advancedOpengl;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (var1 == EnumOptions.ANAGLYPH) {
+        if (option == EnumOption.ANAGLYPH) {
             this.anaglyph = !this.anaglyph;
             this.mc.renderEngine.refreshTextures();
         }
 
-        if (var1 == EnumOptions.FRAMERATE_LIMIT) {
+        if (option == EnumOption.FRAMERATE_LIMIT) {
             this.limitFramerate = (this.limitFramerate + var2 + 3) % 3;
         }
 
-        if (var1 == EnumOptions.DIFFICULTY) {
+        if (option == EnumOption.DIFFICULTY) {
             this.difficulty = this.difficulty + var2 & 3;
         }
 
-        if (var1 == EnumOptions.GRAPHICS) {
+        if (option == EnumOption.GRAPHICS) {
             this.fancyGraphics = !this.fancyGraphics;
             this.mc.renderGlobal.loadRenderers();
         }
 
-        if (var1 == EnumOptions.AMBIENT_OCCLUSION) {
+        if (option == EnumOption.AMBIENT_OCCLUSION) {
             this.ambientOcclusion = !this.ambientOcclusion;
             this.mc.renderGlobal.loadRenderers();
         }
@@ -162,17 +186,17 @@ public class GameSettings {
         this.saveOptions();
     }
 
-    public float getOptionFloatValue(EnumOptions var1) {
-        if (var1 == EnumOptions.MUSIC) {
+    public float getOptionFloatValue(EnumOption option) {
+        if (option == EnumOption.MUSIC)
             return this.musicVolume;
-        } else if (var1 == EnumOptions.SOUND) {
+
+        if (option == EnumOption.SOUND)
             return this.soundVolume;
-        } else {
-            return var1 == EnumOptions.SENSITIVITY ? this.mouseSensitivity : 0.0F;
-        }
+
+        return option == EnumOption.SENSITIVITY ? this.mouseSensitivity : 0.0F;
     }
 
-    public boolean getOptionOrdinalValue(EnumOptions options) {
+    public boolean getOptionOrdinalValue(EnumOption options) {
         switch (options) {
             case INVERT_MOUSE:
                 return this.invertMouse;
@@ -186,124 +210,109 @@ public class GameSettings {
                 return this.ambientOcclusion;
         }
         return false;
-
     }
 
-    public String getKeyBinding(EnumOptions options) {
-        StringTranslate var2 = StringTranslate.getInstance();
-        String var3 = var2.translateKey(options.getEnumString()) + ": ";
-        if (options.getEnumFloat()) {
-            float var5 = this.getOptionFloatValue(options);
-            if (options == EnumOptions.SENSITIVITY) {
-                if (var5 == 0.0F) {
-                    return var3 + var2.translateKey("options.sensitivity.min");
-                } else {
-                    return var5 == 1.0F ? var3 + var2.translateKey("options.sensitivity.max") : var3 + (int) (var5 * 200.0F) + "%";
-                }
-            } else {
-                return var5 == 0.0F ? var3 + var2.translateKey("options.off") : var3 + (int) (var5 * 100.0F) + "%";
+    public String getKeyBinding(EnumOption option) {
+        StringTranslate translate = StringTranslate.getInstance();
+        String fp = translate.translateKey(option.getKey()) + ": ";
+        if (option.getFloatType()) {
+            float val = this.getOptionFloatValue(option);
+            if (option == EnumOption.SENSITIVITY) {
+                if (val == 0.0F)
+                    return fp + translate.translateKey("options.sensitivity.min");
+
+                return val == 1.0F ? fp + translate.translateKey("options.sensitivity.max") : fp + (int) (val * 200.0F) + "%";
             }
-        } else if (options.getEnumBoolean()) {
-            boolean var4 = this.getOptionOrdinalValue(options);
-            return var4 ? var3 + var2.translateKey("options.on") : var3 + var2.translateKey("options.off");
-        } else if (options == EnumOptions.RENDER_DISTANCE) {
-            return var3 + var2.translateKey(RENDER_DISTANCES[this.renderDistance]);
-        } else if (options == EnumOptions.DIFFICULTY) {
-            return var3 + var2.translateKey(DIFFICULTIES[this.difficulty]);
-        } else if (options == EnumOptions.GUI_SCALE) {
-            return var3 + var2.translateKey(GUISCALES[this.guiScale]);
-        } else if (options == EnumOptions.FRAMERATE_LIMIT) {
-            return var3 + StatCollector.translateToLocal(LIMIT_FRAMERATES[this.limitFramerate]);
-        } else if (options == EnumOptions.GRAPHICS) {
-            return this.fancyGraphics ? var3 + var2.translateKey("options.graphics.fancy") : var3 + var2.translateKey("options.graphics.fast");
-        } else {
-            return var3;
+            return val == 0.0F ? fp + translate.translateKey("options.off") : fp + (int) (val * 100.0F) + "%";
         }
+
+        if (option.getBoolType())
+            return this.getOptionOrdinalValue(option) ? fp + translate.translateKey("options.on") : fp + translate.translateKey("options.off");
+
+        if (option == EnumOption.RENDER_DISTANCE)
+            return fp + translate.translateKey(RENDER_DISTANCES[this.renderDistance]);
+
+        if (option == EnumOption.DIFFICULTY)
+            return fp + translate.translateKey(DIFFICULTIES[this.difficulty]);
+
+        if (option == EnumOption.GUI_SCALE)
+            return fp + translate.translateKey(GUISCALES[this.guiScale]);
+
+        if (option == EnumOption.FRAMERATE_LIMIT)
+            return fp + StatCollector.translateToLocal(LIMIT_FRAMERATES[this.limitFramerate]);
+
+        if (option == EnumOption.GRAPHICS)
+            return this.fancyGraphics ? fp + translate.translateKey("options.graphics.fancy") : fp + translate.translateKey("options.graphics.fast");
+
+        return fp;
     }
 
     public void loadOptions() {
         try {
-            if (!this.optionsFile.exists()) {
+            if (!this.optionsFile.exists())
                 return;
-            }
 
-            BufferedReader var1 = new BufferedReader(new FileReader(this.optionsFile));
-            String var2 = "";
+            BufferedReader reader = new BufferedReader(new FileReader(this.optionsFile));
+            String line;
 
-            while ((var2 = var1.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 try {
-                    String[] var3 = var2.split(":");
-                    if (var3[0].equals("music")) {
-                        this.musicVolume = this.parseFloat(var3[1]);
-                    }
+                    String[] keyValue = line.split(":");
+                    if (keyValue[0].equals("music"))
+                        this.musicVolume = this.parseFloat(keyValue[1]);
 
-                    if (var3[0].equals("sound")) {
-                        this.soundVolume = this.parseFloat(var3[1]);
-                    }
+                    if (keyValue[0].equals("sound"))
+                        this.soundVolume = this.parseFloat(keyValue[1]);
 
-                    if (var3[0].equals("mouseSensitivity")) {
-                        this.mouseSensitivity = this.parseFloat(var3[1]);
-                    }
+                    if (keyValue[0].equals("mouseSensitivity"))
+                        this.mouseSensitivity = this.parseFloat(keyValue[1]);
 
-                    if (var3[0].equals("invertYMouse")) {
-                        this.invertMouse = var3[1].equals("true");
-                    }
+                    if (keyValue[0].equals("invertYMouse"))
+                        this.invertMouse = keyValue[1].equals("true");
 
-                    if (var3[0].equals("viewDistance")) {
-                        this.renderDistance = Integer.parseInt(var3[1]);
-                    }
+                    if (keyValue[0].equals("viewDistance"))
+                        this.renderDistance = Integer.parseInt(keyValue[1]);
 
-                    if (var3[0].equals("guiScale")) {
-                        this.guiScale = Integer.parseInt(var3[1]);
-                    }
+                    if (keyValue[0].equals("guiScale"))
+                        this.guiScale = Integer.parseInt(keyValue[1]);
 
-                    if (var3[0].equals("bobView")) {
-                        this.viewBobbing = var3[1].equals("true");
-                    }
+                    if (keyValue[0].equals("bobView"))
+                        this.viewBobbing = keyValue[1].equals("true");
 
-                    if (var3[0].equals("anaglyph3d")) {
-                        this.anaglyph = var3[1].equals("true");
-                    }
+                    if (keyValue[0].equals("anaglyph3d"))
+                        this.anaglyph = keyValue[1].equals("true");
 
-                    if (var3[0].equals("advancedOpengl")) {
-                        this.advancedOpengl = var3[1].equals("true");
-                    }
+                    if (keyValue[0].equals("advancedOpengl"))
+                        this.advancedOpengl = keyValue[1].equals("true");
 
-                    if (var3[0].equals("fpsLimit")) {
-                        this.limitFramerate = Integer.parseInt(var3[1]);
-                    }
+                    if (keyValue[0].equals("fpsLimit"))
+                        this.limitFramerate = Integer.parseInt(keyValue[1]);
 
-                    if (var3[0].equals("difficulty")) {
-                        this.difficulty = Integer.parseInt(var3[1]);
-                    }
+                    if (keyValue[0].equals("difficulty"))
+                        this.difficulty = Integer.parseInt(keyValue[1]);
 
-                    if (var3[0].equals("fancyGraphics")) {
-                        this.fancyGraphics = var3[1].equals("true");
-                    }
+                    if (keyValue[0].equals("fancyGraphics"))
+                        this.fancyGraphics = keyValue[1].equals("true");
 
-                    if (var3[0].equals("ao")) {
-                        this.ambientOcclusion = var3[1].equals("true");
-                    }
+                    if (keyValue[0].equals("ao"))
+                        this.ambientOcclusion = keyValue[1].equals("true");
 
-                    if (var3[0].equals("skin")) {
-                        this.skin = var3[1];
-                    }
+                    if (keyValue[0].equals("skin"))
+                        this.skin = keyValue[1];
 
-                    if (var3[0].equals("lastServer") && var3.length >= 2) {
-                        this.lastServer = var3[1];
-                    }
+                    if (keyValue[0].equals("lastServer") && keyValue.length >= 2)
+                        this.lastServer = keyValue[1];
 
-                    for (int var4 = 0; var4 < this.keyBindings.length; ++var4) {
-                        if (var3[0].equals("key_" + this.keyBindings[var4].keyDescription)) {
-                            this.keyBindings[var4].keyCode = Integer.parseInt(var3[1]);
-                        }
-                    }
+                    for (KeyBinding keyBinding : this.keyBindings)
+                        if (keyValue[0].equals("key_" + keyBinding.keyDescription))
+                            keyBinding.keyCode = Integer.parseInt(keyValue[1]);
+
                 } catch (Exception e) {
-                    System.out.println("Skipping bad option: " + var2);
+                    System.out.println("Skipping bad option: " + line);
                 }
             }
 
-            var1.close();
+            reader.close();
         } catch (Exception e1) {
             System.out.println("Failed to load options");
             e1.printStackTrace();
@@ -311,38 +320,36 @@ public class GameSettings {
 
     }
 
-    private float parseFloat(String var1) {
-        if (var1.equals("true")) {
+    private float parseFloat(String str) {
+        if (str.equals("true"))
             return 1.0F;
-        } else {
-            return var1.equals("false") ? 0.0F : Float.parseFloat(var1);
-        }
+
+        return str.equals("false") ? 0.0F : Float.parseFloat(str);
     }
 
     public void saveOptions() {
         try {
-            PrintWriter var1 = new PrintWriter(new FileWriter(this.optionsFile));
-            var1.println("music:" + this.musicVolume);
-            var1.println("sound:" + this.soundVolume);
-            var1.println("invertYMouse:" + this.invertMouse);
-            var1.println("mouseSensitivity:" + this.mouseSensitivity);
-            var1.println("viewDistance:" + this.renderDistance);
-            var1.println("guiScale:" + this.guiScale);
-            var1.println("bobView:" + this.viewBobbing);
-            var1.println("anaglyph3d:" + this.anaglyph);
-            var1.println("advancedOpengl:" + this.advancedOpengl);
-            var1.println("fpsLimit:" + this.limitFramerate);
-            var1.println("difficulty:" + this.difficulty);
-            var1.println("fancyGraphics:" + this.fancyGraphics);
-            var1.println("ao:" + this.ambientOcclusion);
-            var1.println("skin:" + this.skin);
-            var1.println("lastServer:" + this.lastServer);
+            PrintWriter writer = new PrintWriter(new FileWriter(this.optionsFile));
+            writer.println("music:" + this.musicVolume);
+            writer.println("sound:" + this.soundVolume);
+            writer.println("invertYMouse:" + this.invertMouse);
+            writer.println("mouseSensitivity:" + this.mouseSensitivity);
+            writer.println("viewDistance:" + this.renderDistance);
+            writer.println("guiScale:" + this.guiScale);
+            writer.println("bobView:" + this.viewBobbing);
+            writer.println("anaglyph3d:" + this.anaglyph);
+            writer.println("advancedOpengl:" + this.advancedOpengl);
+            writer.println("fpsLimit:" + this.limitFramerate);
+            writer.println("difficulty:" + this.difficulty);
+            writer.println("fancyGraphics:" + this.fancyGraphics);
+            writer.println("ao:" + this.ambientOcclusion);
+            writer.println("skin:" + this.skin);
+            writer.println("lastServer:" + this.lastServer);
 
-            for (int var2 = 0; var2 < this.keyBindings.length; ++var2) {
-                var1.println("key_" + this.keyBindings[var2].keyDescription + ":" + this.keyBindings[var2].keyCode);
-            }
-
-            var1.close();
+            for (KeyBinding keyBinding : this.keyBindings)
+                writer.println("key_" + keyBinding.keyDescription + ":" + keyBinding.keyCode);
+            
+            writer.close();
         } catch (Exception e) {
             System.out.println("Failed to save options");
             e.printStackTrace();

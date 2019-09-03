@@ -42,7 +42,7 @@ public class WorldProviderSky extends WorldProvider {
         var5 = var5 * (var4 * 0.94F + 0.06F);
         var6 = var6 * (var4 * 0.94F + 0.06F);
         var7 = var7 * (var4 * 0.91F + 0.09F);
-        return Vec3D.createVector((double) var5, (double) var6, (double) var7);
+        return Vec3D.createVector(var5, var6, var7);
     }
 
     public boolean func_28112_c() {
@@ -55,6 +55,6 @@ public class WorldProviderSky extends WorldProvider {
 
     public boolean canCoordinateBeSpawn(int var1, int var2) {
         int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
-        return var3 == 0 ? false : Block.BLOCKS_LIST[var3].blockMaterial.getIsSolid();
+        return var3 != 0 && Block.BLOCKS_LIST[var3].blockMaterial.getIsSolid();
     }
 }

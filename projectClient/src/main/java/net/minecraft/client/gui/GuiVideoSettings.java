@@ -5,56 +5,67 @@ import net.minecraft.client.render.ScaledResolution;
 import net.minecraft.util.StringTranslate;
 
 public class GuiVideoSettings extends GuiScreen {
-    private static EnumOptions[] field_22108_k = new EnumOptions[]{EnumOptions.GRAPHICS, EnumOptions.RENDER_DISTANCE, EnumOptions.AMBIENT_OCCLUSION, EnumOptions.FRAMERATE_LIMIT, EnumOptions.ANAGLYPH, EnumOptions.VIEW_BOBBING, EnumOptions.GUI_SCALE, EnumOptions.ADVANCED_OPENGL};
-    protected String field_22107_a = "Video Settings";
-    private GuiScreen field_22110_h;
-    private GameSettings guiGameSettings;
+    private static EnumOption[] options = new EnumOption[]{
+            EnumOption.GRAPHICS,
+            EnumOption.RENDER_DISTANCE,
+            EnumOption.AMBIENT_OCCLUSION,
+            EnumOption.FRAMERATE_LIMIT,
+            EnumOption.ANAGLYPH,
+            EnumOption.VIEW_BOBBING,
+            EnumOption.GUI_SCALE,
+            EnumOption.ADVANCED_OPENGL
+    };
 
-    public GuiVideoSettings(GuiScreen var1, GameSettings var2) {
-        this.field_22110_h = var1;
-        this.guiGameSettings = var2;
+    protected String titleText = "Video Settings";
+    private GuiScreen guiScreen;
+    private GameSettings gameSettings;
+
+    public GuiVideoSettings(GuiScreen guiScreen, GameSettings gameSettings) {
+        this.guiScreen = guiScreen;
+        this.gameSettings = gameSettings;
     }
 
     public void initGui() {
-        StringTranslate var1 = StringTranslate.getInstance();
-        this.field_22107_a = var1.translateKey("options.videoTitle");
+        StringTranslate translate = StringTranslate.getInstance();
+        this.titleText = translate.translateKey("options.videoTitle");
         int var2 = 0;
 
-        for (EnumOptions var6 : field_22108_k) {
-            if (!var6.getEnumFloat()) {
-                this.buttons.add(new GuiSmallButton(var6.returnEnumOrdinal(), this.width / 2 - 155 + var2 % 2 * 160, this.height / 6 + 24 * (var2 >> 1), var6, this.guiGameSettings.getKeyBinding(var6)));
+        for (EnumOption option : options) {
+            if (!option.getFloatType()) {
+                this.buttons.add(new GuiSmallButton(option.ordinal(), this.width / 2 - 155 + var2 % 2 * 160, this.height / 6 + 24 * (var2 >> 1), option, this.gameSettings.getKeyBinding(option)));
             } else {
-                this.buttons.add(new GuiSlider(var6.returnEnumOrdinal(), this.width / 2 - 155 + var2 % 2 * 160, this.height / 6 + 24 * (var2 >> 1), var6, this.guiGameSettings.getKeyBinding(var6), this.guiGameSettings.getOptionFloatValue(var6)));
+                this.buttons.add(new GuiSlider(option.ordinal(), this.width / 2 - 155 + var2 % 2 * 160, this.height / 6 + 24 * (var2 >> 1), option, this.gameSettings.getKeyBinding(option), this.gameSettings.getOptionFloatValue(option)));
             }
 
             ++var2;
         }
 
-        this.buttons.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, var1.translateKey("gui.done")));
+        this.buttons.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, translate.translateKey("gui.done")));
     }
 
     protected void actionPerformed(GuiButton button) {
-        if (button.enabled) {
-            if (button.id < 100 && button instanceof GuiSmallButton) {
-                this.guiGameSettings.setOptionValue(((GuiSmallButton) button).returnEnumOptions(), 1);
-                button.displayString = this.guiGameSettings.getKeyBinding(EnumOptions.getEnumOptions(button.id));
-            }
+        if (!button.enabled)
+            return;
 
-            if (button.id == 200) {
-                this.mc.gameSettings.saveOptions();
-                this.mc.displayGuiScreen(this.field_22110_h);
-            }
-
-            ScaledResolution var2 = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
-            int var3 = var2.getScaledWidth();
-            int var4 = var2.getScaledHeight();
-            this.setWorldAndResolution(this.mc, var3, var4);
+        if (button.id < 100 && button instanceof GuiSmallButton) {
+            this.gameSettings.setOptionValue(((GuiSmallButton) button).returnEnumOptions(), 1);
+            button.displayString = this.gameSettings.getKeyBinding(EnumOption.getEnumOptions(button.id));
         }
+
+        if (button.id == 200) {
+            this.mc.gameSettings.saveOptions();
+            this.mc.displayGuiScreen(this.guiScreen);
+        }
+
+        ScaledResolution var2 = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+        int var3 = var2.getScaledWidth();
+        int var4 = var2.getScaledHeight();
+        this.setWorldAndResolution(this.mc, var3, var4);
     }
 
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRenderer, this.field_22107_a, this.width / 2, 20, 16777215);
+        this.drawCenteredString(this.fontRenderer, this.titleText, this.width / 2, 20, 16777215);
         super.drawScreen(var1, var2, var3);
     }
 }

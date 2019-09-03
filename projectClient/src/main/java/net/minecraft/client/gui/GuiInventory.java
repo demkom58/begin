@@ -11,10 +11,10 @@ public class GuiInventory extends GuiContainer {
     private float xSize_lo;
     private float ySize_lo;
 
-    public GuiInventory(EntityPlayer var1) {
-        super(var1.inventorySlots);
+    public GuiInventory(EntityPlayer player) {
+        super(player.inventorySlots);
         this.field_948_f = true;
-        var1.addStat(AchievementList.openInventory, 1);
+        player.addStat(AchievementList.openInventory, 1);
     }
 
     public void initGui() {

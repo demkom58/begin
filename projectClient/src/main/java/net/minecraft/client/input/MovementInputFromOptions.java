@@ -44,13 +44,13 @@ public class MovementInputFromOptions extends MovementInput {
     }
 
     public void resetKeyState() {
-        for (int var1 = 0; var1 < 10; ++var1) {
-            this.movementKeyStates[var1] = false;
+        for (int i = 0; i < 10; ++i) {
+            this.movementKeyStates[i] = false;
         }
 
     }
 
-    public void updatePlayerMoveState(EntityPlayer var1) {
+    public void updatePlayerMoveState(EntityPlayer player) {
         this.moveStrafe = 0.0F;
         this.moveForward = 0.0F;
         if (this.movementKeyStates[0]) {

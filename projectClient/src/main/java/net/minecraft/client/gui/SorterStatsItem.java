@@ -7,14 +7,12 @@ import net.minecraft.stats.StatList;
 import java.util.Comparator;
 
 class SorterStatsItem implements Comparator<StatCrafting> {
-    // $FF: synthetic field
-    final GuiStats field_27373_a;
-    // $FF: synthetic field
-    final GuiSlotStatsItem field_27372_b;
+    private final GuiStats guiStats;
+    private final GuiSlotStatsItem statsItem;
 
-    SorterStatsItem(GuiSlotStatsItem var1, GuiStats var2) {
-        this.field_27372_b = var1;
-        this.field_27373_a = var2;
+    SorterStatsItem(GuiSlotStatsItem statsItem, GuiStats guiStats) {
+        this.statsItem = statsItem;
+        this.guiStats = guiStats;
     }
 
     public int func_27371_a(StatCrafting var1, StatCrafting var2) {
@@ -22,13 +20,13 @@ class SorterStatsItem implements Comparator<StatCrafting> {
         int var4 = var2.func_25072_b();
         StatBase var5 = null;
         StatBase var6 = null;
-        if (this.field_27372_b.field_27271_e == 0) {
+        if (this.statsItem.field_27271_e == 0) {
             var5 = StatList.field_25170_B[var3];
             var6 = StatList.field_25170_B[var4];
-        } else if (this.field_27372_b.field_27271_e == 1) {
+        } else if (this.statsItem.field_27271_e == 1) {
             var5 = StatList.field_25158_z[var3];
             var6 = StatList.field_25158_z[var4];
-        } else if (this.field_27372_b.field_27271_e == 2) {
+        } else if (this.statsItem.field_27271_e == 2) {
             var5 = StatList.field_25172_A[var3];
             var6 = StatList.field_25172_A[var4];
         }
@@ -42,18 +40,17 @@ class SorterStatsItem implements Comparator<StatCrafting> {
                 return -1;
             }
 
-            int var7 = GuiStats.func_27142_c(this.field_27372_b.guiStats).writeStat(var5);
-            int var8 = GuiStats.func_27142_c(this.field_27372_b.guiStats).writeStat(var6);
+            int var7 = GuiStats.func_27142_c(this.statsItem.guiStats).writeStat(var5);
+            int var8 = GuiStats.func_27142_c(this.statsItem.guiStats).writeStat(var6);
             if (var7 != var8) {
-                return (var7 - var8) * this.field_27372_b.field_27270_f;
+                return (var7 - var8) * this.statsItem.field_27270_f;
             }
         }
 
         return var3 - var4;
     }
 
-    // $FF: synthetic method
-    // $FF: bridge method
+    @Override
     public int compare(StatCrafting var1, StatCrafting var2) {
         return this.func_27371_a(var1, var2);
     }

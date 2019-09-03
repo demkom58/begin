@@ -30,10 +30,10 @@ public class GuiAchievements extends GuiScreen {
     protected double field_27112_q;
     protected double field_27111_r;
     private int field_27122_w = 0;
-    private StatFileWriter field_27120_x;
+    private StatFileWriter statFileWriter;
 
     public GuiAchievements(StatFileWriter var1) {
-        this.field_27120_x = var1;
+        this.statFileWriter = var1;
         short var2 = 141;
         short var3 = 141;
         this.field_27116_m = this.field_27114_o = this.field_27112_q = AchievementList.openInventory.displayColumn * 24 - var2 / 2 - 12;
@@ -54,12 +54,12 @@ public class GuiAchievements extends GuiScreen {
         super.actionPerformed(button);
     }
 
-    protected void keyTyped(char var1, int var2) {
-        if (var2 == this.mc.gameSettings.keyBindInventory.keyCode) {
+    protected void keyTyped(char ch, int key) {
+        if (key == this.mc.gameSettings.keyBindInventory.keyCode) {
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         } else {
-            super.keyTyped(var1, var2);
+            super.keyTyped(ch, key);
         }
 
     }
@@ -171,20 +171,20 @@ public class GuiAchievements extends GuiScreen {
         int var13 = var5 + 288 >> 4;
         int var14 = (var4 + 288) % 16;
         int var15 = (var5 + 288) % 16;
-        Random var21 = new Random();
+        Random random = new Random();
 
-        for (int var22 = 0; var22 * 16 - var15 < 155; ++var22) {
-            float var23 = 0.6F - (float) (var13 + var22) / 25.0F * 0.3F;
+        for (int i = 0; i * 16 - var15 < 155; ++i) {
+            float var23 = 0.6F - (float) (var13 + i) / 25.0F * 0.3F;
             GL11.glColor4f(var23, var23, var23, 1.0F);
 
             for (int var24 = 0; var24 * 16 - var14 < 224; ++var24) {
-                var21.setSeed(1234 + var12 + var24);
-                var21.nextInt();
-                int var25 = var21.nextInt(1 + var13 + var22) + (var13 + var22) / 2;
+                random.setSeed(1234 + var12 + var24);
+                random.nextInt();
+                int var25 = random.nextInt(1 + var13 + i) + (var13 + i) / 2;
                 int var26 = Block.SAND.blockIndexInTexture;
-                if (var25 <= 37 && var13 + var22 != 35) {
+                if (var25 <= 37 && var13 + i != 35) {
                     if (var25 == 22) {
-                        if (var21.nextInt(2) == 0) {
+                        if (random.nextInt(2) == 0) {
                             var26 = Block.ORE_DIAMOND.blockIndexInTexture;
                         } else {
                             var26 = Block.ORE_REDSTONE.blockIndexInTexture;
@@ -202,7 +202,7 @@ public class GuiAchievements extends GuiScreen {
                     var26 = Block.BEDROCK.blockIndexInTexture;
                 }
 
-                this.drawTexturedModalRect(var10 + var24 * 16 - var14, var11 + var22 * 16 - var15, var26 % 16 << 4, var26 >> 4 << 4, 16, 16);
+                this.drawTexturedModalRect(var10 + var24 * 16 - var14, var11 + i * 16 - var15, var26 % 16 << 4, var26 >> 4 << 4, 16, 16);
             }
         }
 
@@ -210,16 +210,16 @@ public class GuiAchievements extends GuiScreen {
         GL11.glDepthFunc(515);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-        for (int var27 = 0; var27 < AchievementList.achievementList.size(); ++var27) {
-            Achievement var29 = (Achievement) AchievementList.achievementList.get(var27);
-            if (var29.parentAchievement != null) {
-                var14 = var29.displayColumn * 24 - var4 + 11 + var10;
-                var15 = var29.displayRow * 24 - var5 + 11 + var11;
-                int var16 = var29.parentAchievement.displayColumn * 24 - var4 + 11 + var10;
-                int var17 = var29.parentAchievement.displayRow * 24 - var5 + 11 + var11;
+        for (int i = 0; i < AchievementList.achievementList.size(); ++i) {
+            Achievement achievement = (Achievement) AchievementList.achievementList.get(i);
+            if (achievement.parentAchievement != null) {
+                var14 = achievement.displayColumn * 24 - var4 + 11 + var10;
+                var15 = achievement.displayRow * 24 - var5 + 11 + var11;
+                int var16 = achievement.parentAchievement.displayColumn * 24 - var4 + 11 + var10;
+                int var17 = achievement.parentAchievement.displayRow * 24 - var5 + 11 + var11;
                 int var18 = 0;
-                boolean var19 = this.field_27120_x.hasAchievementUnlocked(var29);
-                boolean var20 = this.field_27120_x.func_27181_b(var29);
+                boolean var19 = this.statFileWriter.hasAchievementUnlocked(achievement);
+                boolean var20 = this.statFileWriter.func_27181_b(achievement);
                 int var52 = Math.sin((double) (System.currentTimeMillis() % 600L) / 600.0D * 3.141592653589793D * 2.0D) > 0.6D ? 255 : 130;
                 if (var19) {
                     var18 = -9408400;
@@ -234,8 +234,8 @@ public class GuiAchievements extends GuiScreen {
             }
         }
 
-        Achievement var28 = null;
-        RenderItem var30 = new RenderItem();
+        Achievement achievement = null;
+        RenderItem renderItem = new RenderItem();
         GL11.glPushMatrix();
         GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
         RenderHelper.enableStandardItemLighting();
@@ -244,15 +244,15 @@ public class GuiAchievements extends GuiScreen {
         GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
 
-        for (int var32 = 0; var32 < AchievementList.achievementList.size(); ++var32) {
-            Achievement var34 = (Achievement) AchievementList.achievementList.get(var32);
+        for (int i = 0; i < AchievementList.achievementList.size(); ++i) {
+            Achievement var34 = (Achievement) AchievementList.achievementList.get(i);
             int var36 = var34.displayColumn * 24 - var4;
             int var38 = var34.displayRow * 24 - var5;
             if (var36 >= -24 && var38 >= -24 && var36 <= 224 && var38 <= 155) {
-                if (this.field_27120_x.hasAchievementUnlocked(var34)) {
+                if (this.statFileWriter.hasAchievementUnlocked(var34)) {
                     float var41 = 1.0F;
                     GL11.glColor4f(var41, var41, var41, 1.0F);
-                } else if (this.field_27120_x.func_27181_b(var34)) {
+                } else if (this.statFileWriter.func_27181_b(var34)) {
                     float var42 = Math.sin((double) (System.currentTimeMillis() % 600L) / 600.0D * 3.141592653589793D * 2.0D) < 0.6D ? 0.6F : 0.8F;
                     GL11.glColor4f(var42, var42, var42, 1.0F);
                 } else {
@@ -269,23 +269,23 @@ public class GuiAchievements extends GuiScreen {
                     this.drawTexturedModalRect(var44 - 2, var46 - 2, 0, 202, 26, 26);
                 }
 
-                if (!this.field_27120_x.func_27181_b(var34)) {
+                if (!this.statFileWriter.func_27181_b(var34)) {
                     float var49 = 0.1F;
                     GL11.glColor4f(var49, var49, var49, 1.0F);
-                    var30.field_27004_a = false;
+                    renderItem.field_27004_a = false;
                 }
 
                 GL11.glEnable(GL11.GL_LIGHTING);
                 GL11.glEnable(GL11.GL_CULL_FACE);
-                var30.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, var34.theItemStack, var44 + 3, var46 + 3);
+                renderItem.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, var34.theItemStack, var44 + 3, var46 + 3);
                 GL11.glDisable(GL11.GL_LIGHTING);
-                if (!this.field_27120_x.func_27181_b(var34)) {
-                    var30.field_27004_a = true;
+                if (!this.statFileWriter.func_27181_b(var34)) {
+                    renderItem.field_27004_a = true;
                 }
 
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 if (var1 >= var10 && var2 >= var11 && var1 < var10 + 224 && var2 < var11 + 155 && var1 >= var44 && var1 <= var44 + 22 && var2 >= var46 && var2 <= var46 + 22) {
-                    var28 = var34;
+                    achievement = var34;
                 }
             }
         }
@@ -301,32 +301,32 @@ public class GuiAchievements extends GuiScreen {
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         super.drawScreen(var1, var2, var3);
-        if (var28 != null) {
-            String var35 = var28.statName;
-            String var37 = var28.getDescription();
+        if (achievement != null) {
+            String var35 = achievement.statName;
+            String var37 = achievement.getDescription();
             int var39 = var1 + 12;
             int var45 = var2 - 4;
-            if (this.field_27120_x.func_27181_b(var28)) {
+            if (this.statFileWriter.func_27181_b(achievement)) {
                 int var47 = Math.max(this.fontRenderer.getStringWidth(var35), 120);
                 int var50 = this.fontRenderer.func_27277_a(var37, var47);
-                if (this.field_27120_x.hasAchievementUnlocked(var28)) {
+                if (this.statFileWriter.hasAchievementUnlocked(achievement)) {
                     var50 += 12;
                 }
 
                 this.drawGradientRect(var39 - 3, var45 - 3, var39 + var47 + 3, var45 + var50 + 3 + 12, -1073741824, -1073741824);
                 this.fontRenderer.func_27278_a(var37, var39, var45 + 12, var47, -6250336);
-                if (this.field_27120_x.hasAchievementUnlocked(var28)) {
+                if (this.statFileWriter.hasAchievementUnlocked(achievement)) {
                     this.fontRenderer.drawStringWithShadow(StatCollector.translateToLocal("achievement.taken"), var39, var45 + var50 + 4, -7302913);
                 }
             } else {
                 int var48 = Math.max(this.fontRenderer.getStringWidth(var35), 120);
-                String var51 = StatCollector.translateToLocalFormatted("achievement.requires", var28.parentAchievement.statName);
+                String var51 = StatCollector.translateToLocalFormatted("achievement.requires", achievement.parentAchievement.statName);
                 int var53 = this.fontRenderer.func_27277_a(var51, var48);
                 this.drawGradientRect(var39 - 3, var45 - 3, var39 + var48 + 3, var45 + var53 + 12 + 3, -1073741824, -1073741824);
                 this.fontRenderer.func_27278_a(var51, var39, var45 + 12, var48, -9416624);
             }
 
-            this.fontRenderer.drawStringWithShadow(var35, var39, var45, this.field_27120_x.func_27181_b(var28) ? (var28.getSpecial() ? -128 : -1) : (var28.getSpecial() ? -8355776 : -8355712));
+            this.fontRenderer.drawStringWithShadow(var35, var39, var45, this.statFileWriter.func_27181_b(achievement) ? (achievement.getSpecial() ? -128 : -1) : (achievement.getSpecial() ? -8355776 : -8355712));
         }
 
         GL11.glEnable(GL11.GL_DEPTH_TEST);

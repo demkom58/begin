@@ -67,10 +67,9 @@ class GuiSlotStatsItem extends GuiSlotStats {
     }
 
     protected String func_27263_a(int var1) {
-        if (var1 == 1) {
+        if (var1 == 1)
             return "stat.crafted";
-        } else {
-            return var1 == 2 ? "stat.used" : "stat.depleted";
-        }
+
+        return var1 == 2 ? "stat.used" : "stat.depleted";
     }
 }

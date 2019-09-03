@@ -6,17 +6,15 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public final class GameWindowListener extends WindowAdapter {
-    // $FF: synthetic field
-    final Minecraft mc;
-    // $FF: synthetic field
-    final Thread mcThread;
+    private final Minecraft mc;
+    private final Thread mcThread;
 
-    public GameWindowListener(Minecraft var1, Thread var2) {
-        this.mc = var1;
-        this.mcThread = var2;
+    public GameWindowListener(Minecraft mc, Thread mcThread) {
+        this.mc = mc;
+        this.mcThread = mcThread;
     }
 
-    public void windowClosing(WindowEvent var1) {
+    public void windowClosing(WindowEvent event) {
         this.mc.shutdown();
 
         try {

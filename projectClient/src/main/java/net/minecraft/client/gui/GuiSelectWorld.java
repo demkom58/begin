@@ -1,10 +1,10 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.entity.player.PlayerControllerSP;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.StringTranslate;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.SaveFormatData;
-import net.minecraft.util.MathHelper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -100,13 +100,13 @@ public class GuiSelectWorld extends GuiScreen {
     }
 
     protected String getSaveName(int var1) {
-        String var2 = this.saveList.get(var1).getDisplayName();
-        if (var2 == null || MathHelper.stringNullOrLengthZero(var2)) {
-            StringTranslate var3 = StringTranslate.getInstance();
-            var2 = var3.translateKey("selectWorld.world") + " " + (var1 + 1);
+        String displayName = this.saveList.get(var1).getDisplayName();
+        if (displayName == null || MathHelper.stringNullOrLengthZero(displayName)) {
+            StringTranslate translate = StringTranslate.getInstance();
+            displayName = translate.translateKey("selectWorld.world") + " " + (var1 + 1);
         }
 
-        return var2;
+        return displayName;
     }
 
     public void initButtons() {
@@ -122,31 +122,31 @@ public class GuiSelectWorld extends GuiScreen {
     }
 
     protected void actionPerformed(GuiButton button) {
-        if (button.enabled) {
-            if (button.id == 2) {
-                String var2 = this.getSaveName(this.selectedWorld);
-                if (var2 != null) {
-                    this.deleting = true;
-                    StringTranslate var3 = StringTranslate.getInstance();
-                    String var4 = var3.translateKey("selectWorld.deleteQuestion");
-                    String var5 = "'" + var2 + "' " + var3.translateKey("selectWorld.deleteWarning");
-                    String var6 = var3.translateKey("selectWorld.deleteButton");
-                    String var7 = var3.translateKey("gui.cancel");
-                    GuiYesNo var8 = new GuiYesNo(this, var4, var5, var6, var7, this.selectedWorld);
-                    this.mc.displayGuiScreen(var8);
-                }
-            } else if (button.id == 1) {
-                this.selectWorld(this.selectedWorld);
-            } else if (button.id == 3) {
-                this.mc.displayGuiScreen(new GuiCreateWorld(this));
-            } else if (button.id == 6) {
-                this.mc.displayGuiScreen(new GuiRenameWorld(this, this.getSaveFileName(this.selectedWorld)));
-            } else if (button.id == 0) {
-                this.mc.displayGuiScreen(this.parentScreen);
-            } else {
-                this.worldSlotContainer.actionPerformed(button);
-            }
+        if (!button.enabled)
+            return;
 
+        if (button.id == 2) {
+            String var2 = this.getSaveName(this.selectedWorld);
+            if (var2 != null) {
+                this.deleting = true;
+                StringTranslate translate = StringTranslate.getInstance();
+                String var4 = translate.translateKey("selectWorld.deleteQuestion");
+                String var5 = "'" + var2 + "' " + translate.translateKey("selectWorld.deleteWarning");
+                String var6 = translate.translateKey("selectWorld.deleteButton");
+                String var7 = translate.translateKey("gui.cancel");
+                GuiYesNo var8 = new GuiYesNo(this, var4, var5, var6, var7, this.selectedWorld);
+                this.mc.displayGuiScreen(var8);
+            }
+        } else if (button.id == 1) {
+            this.selectWorld(this.selectedWorld);
+        } else if (button.id == 3) {
+            this.mc.displayGuiScreen(new GuiCreateWorld(this));
+        } else if (button.id == 6) {
+            this.mc.displayGuiScreen(new GuiRenameWorld(this, this.getSaveFileName(this.selectedWorld)));
+        } else if (button.id == 0) {
+            this.mc.displayGuiScreen(this.parentScreen);
+        } else {
+            this.worldSlotContainer.actionPerformed(button);
         }
     }
 

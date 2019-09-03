@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
-import net.minecraft.client.render.FontRenderer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.render.FontRenderer;
 import net.minecraft.util.StringTranslate;
 import org.lwjgl.Sys;
 
@@ -88,16 +88,16 @@ public class GuiTexturePacks extends GuiScreen {
     }
 
     protected void actionPerformed(GuiButton button) {
-        if (button.enabled) {
-            if (button.id == 5) {
-                Sys.openURL("file://" + this.fileLocation);
-            } else if (button.id == 6) {
-                this.mc.renderEngine.refreshTextures();
-                this.mc.displayGuiScreen(this.guiScreen);
-            } else {
-                this.guiTexturePackSlot.actionPerformed(button);
-            }
+        if (!button.enabled)
+            return;
 
+        if (button.id == 5) {
+            Sys.openURL("file://" + this.fileLocation);
+        } else if (button.id == 6) {
+            this.mc.renderEngine.refreshTextures();
+            this.mc.displayGuiScreen(this.guiScreen);
+        } else {
+            this.guiTexturePackSlot.actionPerformed(button);
         }
     }
 

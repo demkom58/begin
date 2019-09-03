@@ -14,10 +14,10 @@ public class PanelCrashReport extends Panel {
     public PanelCrashReport(UnexpectedThrowable unexpectedThrowable) {
         this.setBackground(new Color(3028036));
         this.setLayout(new BorderLayout());
-        StringWriter var2 = new StringWriter();
-        unexpectedThrowable.throwable.printStackTrace(new PrintWriter(var2));
-        String var3 = var2.toString();
-        String var4 = "";
+        StringWriter writer = new StringWriter();
+        unexpectedThrowable.throwable.printStackTrace(new PrintWriter(writer));
+        String var3 = writer.toString();
+        String vendor = "";
         String mcInfo = "";
 
         try {
@@ -28,7 +28,7 @@ public class PanelCrashReport extends Panel {
             mcInfo = mcInfo + "Java: " + System.getProperty("java.version") + ", " + System.getProperty("java.vendor") + "\n";
             mcInfo = mcInfo + "VM: " + System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor") + "\n";
             mcInfo = mcInfo + "LWJGL: " + Sys.getVersion() + "\n";
-            var4 = GL11.glGetString(GL11.GL_VENDOR);
+            vendor = GL11.glGetString(GL11.GL_VENDOR);
             mcInfo = mcInfo + "OpenGL: " + GL11.glGetString(GL11.GL_RENDER) + " version " + GL11.glGetString(GL11.GL_VERSION) + ", " + GL11.glGetString(GL11.GL_VENDOR) + "\n";
         } catch (Throwable throwable) {
             mcInfo = mcInfo + "[failed to get system properties (" + throwable + ")]\n";
@@ -46,11 +46,11 @@ public class PanelCrashReport extends Panel {
             cardInfo = cardInfo + "\n";
             cardInfo = cardInfo + "Minecraft was unable to start because it failed to find an accelerated OpenGL mode.\n";
             cardInfo = cardInfo + "This can usually be fixed by updating the video card drivers.\n";
-            if (var4.toLowerCase().contains("nvidia")) {
+            if (vendor.toLowerCase().contains("nvidia")) {
                 cardInfo = cardInfo + "\n";
                 cardInfo = cardInfo + "You might be able to find drivers for your video card here:\n";
                 cardInfo = cardInfo + "  http://www.nvidia.com/\n";
-            } else if (var4.toLowerCase().contains("ati")) {
+            } else if (vendor.toLowerCase().contains("ati")) {
                 cardInfo = cardInfo + "\n";
                 cardInfo = cardInfo + "You might be able to find drivers for your video card here:\n";
                 cardInfo = cardInfo + "  http://www.amd.com/\n";
@@ -74,12 +74,12 @@ public class PanelCrashReport extends Panel {
         cardInfo = cardInfo + "\n";
         cardInfo = cardInfo + "\n";
 
-        TextArea var7 = new TextArea(cardInfo, 0, 0, 1);
-        var7.setFont(new Font("Monospaced", 0, 12));
+        TextArea area = new TextArea(cardInfo, 0, 0, 1);
+        area.setFont(new Font("Monospaced", 0, 12));
         this.add(new CanvasMojangLogo(), "North");
         this.add(new CanvasCrashReport(80), "East");
         this.add(new CanvasCrashReport(80), "West");
         this.add(new CanvasCrashReport(100), "South");
-        this.add(var7, "Center");
+        this.add(area, "Center");
     }
 }

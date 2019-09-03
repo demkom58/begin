@@ -16,14 +16,14 @@ public class GuiTextField extends Gui {
     private int cursorCounter;
     private GuiScreen parentGuiScreen;
 
-    public GuiTextField(GuiScreen var1, FontRenderer var2, int var3, int var4, int var5, int var6, String var7) {
-        this.parentGuiScreen = var1;
-        this.fontRenderer = var2;
-        this.xPos = var3;
-        this.yPos = var4;
-        this.width = var5;
-        this.height = var6;
-        this.setText(var7);
+    public GuiTextField(GuiScreen parentGuiScreen, FontRenderer fontRenderer, int xPos, int yPos, int width, int height, String text) {
+        this.parentGuiScreen = parentGuiScreen;
+        this.fontRenderer = fontRenderer;
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.width = width;
+        this.height = height;
+        this.setText(text);
     }
 
     public String getText() {
@@ -38,50 +38,48 @@ public class GuiTextField extends Gui {
         ++this.cursorCounter;
     }
 
-    public void textboxKeyTyped(char var1, int var2) {
-        if (this.isEnabled && this.isFocused) {
-            if (var1 == '\t') {
-                this.parentGuiScreen.selectNextField();
+    public void textboxKeyTyped(char ch, int key) {
+        if (!this.isEnabled || !this.isFocused)
+            return;
+
+        if (ch == '\t')
+            this.parentGuiScreen.selectNextField();
+
+        if (ch == 22) {
+            String var3 = GuiScreen.getClipboardString();
+            if (var3 == null) {
+                var3 = "";
             }
 
-            if (var1 == 22) {
-                String var3 = GuiScreen.getClipboardString();
-                if (var3 == null) {
-                    var3 = "";
-                }
-
-                int var4 = 32 - this.text.length();
-                if (var4 > var3.length()) {
-                    var4 = var3.length();
-                }
-
-                if (var4 > 0) {
-                    this.text = this.text + var3.substring(0, var4);
-                }
+            int var4 = 32 - this.text.length();
+            if (var4 > var3.length()) {
+                var4 = var3.length();
             }
 
-            if (var2 == 14 && this.text.length() > 0) {
-                this.text = this.text.substring(0, this.text.length() - 1);
+            if (var4 > 0) {
+                this.text = this.text + var3.substring(0, var4);
             }
+        }
 
-            if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(var1) >= 0 && (this.text.length() < this.maxStringLength || this.maxStringLength == 0)) {
-                this.text = this.text + var1;
-            }
+        if (key == 14 && this.text.length() > 0)
+            this.text = this.text.substring(0, this.text.length() - 1);
 
+        if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(ch) >= 0
+                && (this.text.length() < this.maxStringLength || this.maxStringLength == 0)) {
+            this.text = this.text + ch;
         }
     }
 
-    public void mouseClicked(int var1, int var2, int var3) {
-        boolean var4 = this.isEnabled && var1 >= this.xPos && var1 < this.xPos + this.width && var2 >= this.yPos && var2 < this.yPos + this.height;
-        this.setFocused(var4);
+    public void mouseClicked(int x, int y, int var3) {
+        this.setFocused(this.isEnabled && x >= this.xPos && x < this.xPos + this.width && y >= this.yPos && y < this.yPos + this.height);
     }
 
-    public void setFocused(boolean var1) {
-        if (var1 && !this.isFocused) {
+    public void setFocused(boolean focused) {
+        if (focused && !this.isFocused) {
             this.cursorCounter = 0;
         }
 
-        this.isFocused = var1;
+        this.isFocused = focused;
     }
 
     public void drawTextBox() {

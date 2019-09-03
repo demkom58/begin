@@ -158,14 +158,14 @@ abstract class GuiSlotStats extends GuiSlot {
 
     protected void func_27267_a(StatCrafting var1, int var2, int var3) {
         if (var1 != null) {
-            Item var4 = Item.ITEMS_LIST[var1.func_25072_b()];
-            String var5 = ("" + StringTranslate.getInstance().translateNamedKey(var4.getItemName())).trim();
-            if (var5.length() > 0) {
+            Item item = Item.ITEMS_LIST[var1.func_25072_b()];
+            String itemName = StringTranslate.getInstance().translateNamedKey(item.getItemName()).trim();
+            if (itemName.length() > 0) {
                 int var6 = var2 + 12;
                 int var7 = var3 - 12;
-                int var8 = GuiStats.func_27127_n(this.guiStats).getStringWidth(var5);
+                int var8 = GuiStats.func_27127_n(this.guiStats).getStringWidth(itemName);
                 GuiStats.func_27135_b(this.guiStats, var6 - 3, var7 - 3, var6 + var8 + 3, var7 + 8 + 3, -1073741824, -1073741824);
-                GuiStats.func_27131_o(this.guiStats).drawStringWithShadow(var5, var6, var7, -1);
+                GuiStats.func_27131_o(this.guiStats).drawStringWithShadow(itemName, var6, var7, -1);
             }
 
         }

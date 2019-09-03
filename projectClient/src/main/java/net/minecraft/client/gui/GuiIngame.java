@@ -39,7 +39,7 @@ public class GuiIngame extends Gui {
         ScaledResolution var5 = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
         int var6 = var5.getScaledWidth();
         int var7 = var5.getScaledHeight();
-        FontRenderer var8 = this.mc.fontRenderer;
+        FontRenderer fontRenderer = this.mc.fontRenderer;
         this.mc.entityRenderer.func_905_b();
         GL11.glEnable(GL11.GL_BLEND);
         if (Minecraft.isFancyGraphicsEnabled()) {
@@ -72,25 +72,25 @@ public class GuiIngame extends Gui {
             var12 = false;
         }
 
-        int var13 = this.mc.thePlayer.health;
-        int var14 = this.mc.thePlayer.prevHealth;
+        int health = this.mc.thePlayer.health;
+        int prevHealth = this.mc.thePlayer.prevHealth;
         this.rand.setSeed(this.updateCounter * 312871);
         if (this.mc.playerController.shouldDrawHUD()) {
             int var15 = this.mc.thePlayer.getPlayerArmorValue();
 
-            for (int var16 = 0; var16 < 10; ++var16) {
+            for (int i = 0; i < 10; ++i) {
                 int var17 = var7 - 32;
                 if (var15 > 0) {
-                    int var18 = var6 / 2 + 91 - var16 * 8 - 9;
-                    if (var16 * 2 + 1 < var15) {
+                    int var18 = var6 / 2 + 91 - i * 8 - 9;
+                    if (i * 2 + 1 < var15) {
                         this.drawTexturedModalRect(var18, var17, 34, 9, 9, 9);
                     }
 
-                    if (var16 * 2 + 1 == var15) {
+                    if (i * 2 + 1 == var15) {
                         this.drawTexturedModalRect(var18, var17, 25, 9, 9, 9);
                     }
 
-                    if (var16 * 2 + 1 > var15) {
+                    if (i * 2 + 1 > var15) {
                         this.drawTexturedModalRect(var18, var17, 16, 9, 9, 9);
                     }
                 }
@@ -100,27 +100,27 @@ public class GuiIngame extends Gui {
                     var40 = 1;
                 }
 
-                int var19 = var6 / 2 - 91 + var16 * 8;
-                if (var13 <= 4) {
+                int var19 = var6 / 2 - 91 + i * 8;
+                if (health <= 4) {
                     var17 += this.rand.nextInt(2);
                 }
 
                 this.drawTexturedModalRect(var19, var17, 16 + var40 * 9, 0, 9, 9);
                 if (var12) {
-                    if (var16 * 2 + 1 < var14) {
+                    if (i * 2 + 1 < prevHealth) {
                         this.drawTexturedModalRect(var19, var17, 70, 0, 9, 9);
                     }
 
-                    if (var16 * 2 + 1 == var14) {
+                    if (i * 2 + 1 == prevHealth) {
                         this.drawTexturedModalRect(var19, var17, 79, 0, 9, 9);
                     }
                 }
 
-                if (var16 * 2 + 1 < var13) {
+                if (i * 2 + 1 < health) {
                     this.drawTexturedModalRect(var19, var17, 52, 0, 9, 9);
                 }
 
-                if (var16 * 2 + 1 == var13) {
+                if (i * 2 + 1 == health) {
                     this.drawTexturedModalRect(var19, var17, 61, 0, 9, 9);
                 }
             }
@@ -129,11 +129,11 @@ public class GuiIngame extends Gui {
                 int var29 = (int) Math.ceil((double) (this.mc.thePlayer.air - 2) * 10.0D / 300.0D);
                 int var34 = (int) Math.ceil((double) this.mc.thePlayer.air * 10.0D / 300.0D) - var29;
 
-                for (int var41 = 0; var41 < var29 + var34; ++var41) {
-                    if (var41 < var29) {
-                        this.drawTexturedModalRect(var6 / 2 - 91 + var41 * 8, var7 - 32 - 9, 16, 18, 9, 9);
+                for (int i = 0; i < var29 + var34; ++i) {
+                    if (i < var29) {
+                        this.drawTexturedModalRect(var6 / 2 - 91 + i * 8, var7 - 32 - 9, 16, 18, 9, 9);
                     } else {
-                        this.drawTexturedModalRect(var6 / 2 - 91 + var41 * 8, var7 - 32 - 9, 25, 18, 9, 9);
+                        this.drawTexturedModalRect(var6 / 2 - 91 + i * 8, var7 - 32 - 9, 25, 18, 9, 9);
                     }
                 }
             }
@@ -146,10 +146,10 @@ public class GuiIngame extends Gui {
         RenderHelper.enableStandardItemLighting();
         GL11.glPopMatrix();
 
-        for (int var24 = 0; var24 < 9; ++var24) {
-            int var30 = var6 / 2 - 90 + var24 * 20 + 2;
+        for (int i = 0; i < 9; ++i) {
+            int var30 = var6 / 2 - 90 + i * 20 + 2;
             int var35 = var7 - 16 - 3;
-            this.renderInventorySlot(var24, var30, var35, var1);
+            this.renderInventorySlot(i, var30, var35, var1);
         }
 
         RenderHelper.disableStandardItemLighting();
@@ -175,23 +175,27 @@ public class GuiIngame extends Gui {
                 GL11.glTranslatef(0.0F, 32.0F, 0.0F);
             }
 
-            var8.drawStringWithShadow("Minecraft Beta 1.7.3 (" + this.mc.debug + ")", 2, 2, 16777215);
-            var8.drawStringWithShadow(this.mc.func_6241_m(), 2, 12, 16777215);
-            var8.drawStringWithShadow(this.mc.func_6262_n(), 2, 22, 16777215);
-            var8.drawStringWithShadow(this.mc.func_6245_o(), 2, 32, 16777215);
-            var8.drawStringWithShadow(this.mc.func_21002_o(), 2, 42, 16777215);
-            long var26 = Runtime.getRuntime().maxMemory();
-            long var37 = Runtime.getRuntime().totalMemory();
-            long var46 = Runtime.getRuntime().freeMemory();
-            long var21 = var37 - var46;
-            String var23 = "Used memory: " + var21 * 100L / var26 + "% (" + var21 / 1024L / 1024L + "MB) of " + var26 / 1024L / 1024L + "MB";
-            this.drawString(var8, var23, var6 - var8.getStringWidth(var23) - 2, 2, 14737632);
-            var23 = "Allocated memory: " + var37 * 100L / var26 + "% (" + var37 / 1024L / 1024L + "MB)";
-            this.drawString(var8, var23, var6 - var8.getStringWidth(var23) - 2, 12, 14737632);
-            this.drawString(var8, "x: " + this.mc.thePlayer.posX, 2, 64, 14737632);
-            this.drawString(var8, "y: " + this.mc.thePlayer.posY, 2, 72, 14737632);
-            this.drawString(var8, "z: " + this.mc.thePlayer.posZ, 2, 80, 14737632);
-            this.drawString(var8, "f: " + (MathHelper.floor((double) (this.mc.thePlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3), 2, 88, 14737632);
+            fontRenderer.drawStringWithShadow("Minecraft Beta 1.7.3 (" + this.mc.debug + ")", 2, 2, 16777215);
+            fontRenderer.drawStringWithShadow(this.mc.func_6241_m(), 2, 12, 16777215);
+            fontRenderer.drawStringWithShadow(this.mc.func_6262_n(), 2, 22, 16777215);
+            fontRenderer.drawStringWithShadow(this.mc.func_6245_o(), 2, 32, 16777215);
+            fontRenderer.drawStringWithShadow(this.mc.func_21002_o(), 2, 42, 16777215);
+
+            long maxMemory = Runtime.getRuntime().maxMemory();
+            long totalMemory = Runtime.getRuntime().totalMemory();
+            long freeMemory = Runtime.getRuntime().freeMemory();
+            long usedMemory = totalMemory - freeMemory;
+
+            String usedMemoryInfo = "Used memory: " + usedMemory * 100L / maxMemory + "% (" + usedMemory / 1024L / 1024L + "MB) of " + maxMemory / 1024L / 1024L + "MB";
+            this.drawString(fontRenderer, usedMemoryInfo, var6 - fontRenderer.getStringWidth(usedMemoryInfo) - 2, 2, 14737632);
+
+            String allocatedMemoryInfo = "Allocated memory: " + totalMemory * 100L / maxMemory + "% (" + totalMemory / 1024L / 1024L + "MB)";
+            this.drawString(fontRenderer, allocatedMemoryInfo, var6 - fontRenderer.getStringWidth(allocatedMemoryInfo) - 2, 12, 14737632);
+
+            this.drawString(fontRenderer, "x: " + this.mc.thePlayer.posX, 2, 64, 14737632);
+            this.drawString(fontRenderer, "y: " + this.mc.thePlayer.posY, 2, 72, 14737632);
+            this.drawString(fontRenderer, "z: " + this.mc.thePlayer.posZ, 2, 80, 14737632);
+            this.drawString(fontRenderer, "f: " + (MathHelper.floor((double) (this.mc.thePlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3), 2, 88, 14737632);
             GL11.glPopMatrix();
         }
 
@@ -212,7 +216,7 @@ public class GuiIngame extends Gui {
                     var38 = Color.HSBtoRGB(var27 / 50.0F, 0.7F, 0.6F) & 16777215;
                 }
 
-                var8.drawString(this.recordPlaying, -var8.getStringWidth(this.recordPlaying) / 2, -4, var38 + (var32 << 24));
+                fontRenderer.drawString(this.recordPlaying, -fontRenderer.getStringWidth(this.recordPlaying) / 2, -4, var38 + (var32 << 24));
                 GL11.glDisable(GL11.GL_BLEND);
                 GL11.glPopMatrix();
             }
@@ -256,7 +260,7 @@ public class GuiIngame extends Gui {
                     String message = this.chatMessageList.get(i).message;
                     this.drawRect(var47, var22 - 1, var47 + 320, var22 + 8, var20 / 2 << 24);
                     GL11.glEnable(GL11.GL_BLEND);
-                    var8.drawStringWithShadow(message, var47, var22, 16777215 + (var20 << 24));
+                    fontRenderer.drawStringWithShadow(message, var47, var22, 16777215 + (var20 << 24));
                 }
             }
         }
@@ -273,13 +277,13 @@ public class GuiIngame extends Gui {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("%blur%/misc/pumpkinblur.png"));
-        Tessellator var3 = Tessellator.INSTANCE;
-        var3.startDrawingQuads();
-        var3.addVertexWithUV(0.0D, var2, -90.0D, 0.0D, 1.0D);
-        var3.addVertexWithUV(var1, var2, -90.0D, 1.0D, 1.0D);
-        var3.addVertexWithUV(var1, 0.0D, -90.0D, 1.0D, 0.0D);
-        var3.addVertexWithUV(0.0D, 0.0D, -90.0D, 0.0D, 0.0D);
-        var3.draw();
+        Tessellator tess = Tessellator.INSTANCE;
+        tess.startDrawingQuads();
+        tess.addVertexWithUV(0.0D, var2, -90.0D, 0.0D, 1.0D);
+        tess.addVertexWithUV(var1, var2, -90.0D, 1.0D, 1.0D);
+        tess.addVertexWithUV(var1, 0.0D, -90.0D, 1.0D, 0.0D);
+        tess.addVertexWithUV(0.0D, 0.0D, -90.0D, 0.0D, 0.0D);
+        tess.draw();
         GL11.glDepthMask(true);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -302,13 +306,13 @@ public class GuiIngame extends Gui {
         GL11.glBlendFunc(0, 769);
         GL11.glColor4f(this.prevVignetteBrightness, this.prevVignetteBrightness, this.prevVignetteBrightness, 1.0F);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("%blur%/misc/vignette.png"));
-        Tessellator var4 = Tessellator.INSTANCE;
-        var4.startDrawingQuads();
-        var4.addVertexWithUV(0.0D, var3, -90.0D, 0.0D, 1.0D);
-        var4.addVertexWithUV(var2, var3, -90.0D, 1.0D, 1.0D);
-        var4.addVertexWithUV(var2, 0.0D, -90.0D, 1.0D, 0.0D);
-        var4.addVertexWithUV(0.0D, 0.0D, -90.0D, 0.0D, 0.0D);
-        var4.draw();
+        Tessellator tess = Tessellator.INSTANCE;
+        tess.startDrawingQuads();
+        tess.addVertexWithUV(0.0D, var3, -90.0D, 0.0D, 1.0D);
+        tess.addVertexWithUV(var2, var3, -90.0D, 1.0D, 1.0D);
+        tess.addVertexWithUV(var2, 0.0D, -90.0D, 1.0D, 0.0D);
+        tess.addVertexWithUV(0.0D, 0.0D, -90.0D, 0.0D, 0.0D);
+        tess.draw();
         GL11.glDepthMask(true);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -332,13 +336,13 @@ public class GuiIngame extends Gui {
         float var5 = (float) (Block.PORTAL.blockIndexInTexture / 16) / 16.0F;
         float var6 = (float) (Block.PORTAL.blockIndexInTexture % 16 + 1) / 16.0F;
         float var7 = (float) (Block.PORTAL.blockIndexInTexture / 16 + 1) / 16.0F;
-        Tessellator var8 = Tessellator.INSTANCE;
-        var8.startDrawingQuads();
-        var8.addVertexWithUV(0.0D, var3, -90.0D, var4, var7);
-        var8.addVertexWithUV(var2, var3, -90.0D, var6, var7);
-        var8.addVertexWithUV(var2, 0.0D, -90.0D, var6, var5);
-        var8.addVertexWithUV(0.0D, 0.0D, -90.0D, var4, var5);
-        var8.draw();
+        Tessellator tess = Tessellator.INSTANCE;
+        tess.startDrawingQuads();
+        tess.addVertexWithUV(0.0D, var3, -90.0D, var4, var7);
+        tess.addVertexWithUV(var2, var3, -90.0D, var6, var7);
+        tess.addVertexWithUV(var2, 0.0D, -90.0D, var6, var5);
+        tess.addVertexWithUV(0.0D, 0.0D, -90.0D, var4, var5);
+        tess.draw();
         GL11.glDepthMask(true);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -346,9 +350,9 @@ public class GuiIngame extends Gui {
     }
 
     private void renderInventorySlot(int var1, int var2, int var3, float var4) {
-        ItemStack var5 = this.mc.thePlayer.inventory.mainInventory[var1];
-        if (var5 != null) {
-            float var6 = (float) var5.animationsToGo - var4;
+        ItemStack stack = this.mc.thePlayer.inventory.mainInventory[var1];
+        if (stack != null) {
+            float var6 = (float) stack.animationsToGo - var4;
             if (var6 > 0.0F) {
                 GL11.glPushMatrix();
                 float var7 = 1.0F + var6 / 5.0F;
@@ -357,12 +361,12 @@ public class GuiIngame extends Gui {
                 GL11.glTranslatef((float) (-(var2 + 8)), (float) (-(var3 + 12)), 0.0F);
             }
 
-            itemRenderer.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, var5, var2, var3);
+            itemRenderer.renderItemIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, stack, var2, var3);
             if (var6 > 0.0F) {
                 GL11.glPopMatrix();
             }
 
-            itemRenderer.renderItemOverlayIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, var5, var2, var3);
+            itemRenderer.renderItemOverlayIntoGUI(this.mc.fontRenderer, this.mc.renderEngine, stack, var2, var3);
         }
     }
 
@@ -408,8 +412,8 @@ public class GuiIngame extends Gui {
     }
 
     public void addChatMessageTranslate(String localeMessage) {
-        StringTranslate stringTranslate = StringTranslate.getInstance();
-        String message = stringTranslate.translateKey(localeMessage);
+        StringTranslate translate = StringTranslate.getInstance();
+        String message = translate.translateKey(localeMessage);
         this.addChatMessage(message);
     }
 }

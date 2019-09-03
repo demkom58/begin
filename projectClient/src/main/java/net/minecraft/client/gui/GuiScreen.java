@@ -41,8 +41,8 @@ public class GuiScreen extends Gui {
         }
     }
 
-    protected void keyTyped(char var1, int var2) {
-        if (var2 == 1) {
+    protected void keyTyped(char ch, int key) {
+        if (key == 1) {
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }
@@ -68,7 +68,6 @@ public class GuiScreen extends Gui {
             this.selectedButton.mouseReleased(var1, var2);
             this.selectedButton = null;
         }
-
     }
 
     protected void actionPerformed(GuiButton button) {
@@ -95,7 +94,6 @@ public class GuiScreen extends Gui {
         while (Keyboard.next()) {
             this.handleKeyboardInput();
         }
-
     }
 
     public void handleMouseInput() {
@@ -139,7 +137,6 @@ public class GuiScreen extends Gui {
         } else {
             this.drawBackground(var1);
         }
-
     }
 
     public void drawBackground(int var1) {

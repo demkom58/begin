@@ -1,10 +1,10 @@
 package net.minecraft.client.gui;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.client.render.RenderHelper;
-import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.item.Item;
 import net.minecraft.stats.StatCollector;
 import net.minecraft.stats.StatFileWriter;
@@ -153,19 +153,19 @@ public class GuiStats extends GuiScreen {
     }
 
     protected void actionPerformed(GuiButton button) {
-        if (button.enabled) {
-            if (button.id == 0) {
-                this.mc.displayGuiScreen(this.field_27152_a);
-            } else if (button.id == 1) {
-                this.field_27155_p = this.field_27151_l;
-            } else if (button.id == 3) {
-                this.field_27155_p = this.field_27150_m;
-            } else if (button.id == 2) {
-                this.field_27155_p = this.field_27157_n;
-            } else {
-                this.field_27155_p.actionPerformed(button);
-            }
+        if (!button.enabled)
+            return;
 
+        if (button.id == 0) {
+            this.mc.displayGuiScreen(this.field_27152_a);
+        } else if (button.id == 1) {
+            this.field_27155_p = this.field_27151_l;
+        } else if (button.id == 3) {
+            this.field_27155_p = this.field_27150_m;
+        } else if (button.id == 2) {
+            this.field_27155_p = this.field_27157_n;
+        } else {
+            this.field_27155_p.actionPerformed(button);
         }
     }
 
@@ -192,15 +192,15 @@ public class GuiStats extends GuiScreen {
     }
 
     private void func_27136_c(int var1, int var2, int var3, int var4) {
-        int var5 = this.mc.renderEngine.getTexture("/gui/slot.png");
+        int textureId = this.mc.renderEngine.getTexture("/gui/slot.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture(var5);
-        Tessellator var10 = Tessellator.INSTANCE;
-        var10.startDrawingQuads();
-        var10.addVertexWithUV(var1 + 0, var2 + 18, this.zLevel, (float) (var3 + 0) * 0.0078125F, (float) (var4 + 18) * 0.0078125F);
-        var10.addVertexWithUV(var1 + 18, var2 + 18, this.zLevel, (float) (var3 + 18) * 0.0078125F, (float) (var4 + 18) * 0.0078125F);
-        var10.addVertexWithUV(var1 + 18, var2 + 0, this.zLevel, (float) (var3 + 18) * 0.0078125F, (float) (var4 + 0) * 0.0078125F);
-        var10.addVertexWithUV(var1 + 0, var2 + 0, this.zLevel, (float) (var3 + 0) * 0.0078125F, (float) (var4 + 0) * 0.0078125F);
-        var10.draw();
+        this.mc.renderEngine.bindTexture(textureId);
+        Tessellator tess = Tessellator.INSTANCE;
+        tess.startDrawingQuads();
+        tess.addVertexWithUV(var1 + 0, var2 + 18, this.zLevel, (float) (var3 + 0) * 0.0078125F, (float) (var4 + 18) * 0.0078125F);
+        tess.addVertexWithUV(var1 + 18, var2 + 18, this.zLevel, (float) (var3 + 18) * 0.0078125F, (float) (var4 + 18) * 0.0078125F);
+        tess.addVertexWithUV(var1 + 18, var2 + 0, this.zLevel, (float) (var3 + 18) * 0.0078125F, (float) (var4 + 0) * 0.0078125F);
+        tess.addVertexWithUV(var1 + 0, var2 + 0, this.zLevel, (float) (var3 + 0) * 0.0078125F, (float) (var4 + 0) * 0.0078125F);
+        tess.draw();
     }
 }

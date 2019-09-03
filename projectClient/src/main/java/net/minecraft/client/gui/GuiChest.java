@@ -9,14 +9,14 @@ public class GuiChest extends GuiContainer {
     private IInventory lowerChestInventory;
     private int inventoryRows = 0;
 
-    public GuiChest(IInventory var1, IInventory var2) {
-        super(new ContainerChest(var1, var2));
-        this.upperChestInventory = var1;
-        this.lowerChestInventory = var2;
+    public GuiChest(IInventory upperChestInventory, IInventory lowerChestInventory) {
+        super(new ContainerChest(upperChestInventory, lowerChestInventory));
+        this.upperChestInventory = upperChestInventory;
+        this.lowerChestInventory = lowerChestInventory;
         this.field_948_f = false;
         short var3 = 222;
         int var4 = var3 - 108;
-        this.inventoryRows = var2.getSizeInventory() / 9;
+        this.inventoryRows = lowerChestInventory.getSizeInventory() / 9;
         this.ySize = var4 + this.inventoryRows * 18;
     }
 
