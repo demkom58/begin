@@ -36,9 +36,9 @@ public class BiomeGenBase {
     public byte topBlock;
     public byte fillerBlock;
     public int field_6502_q;
-    protected List spawnableMonsterList;
-    protected List spawnableCreatureList;
-    protected List spawnableWaterCreatureList;
+    protected List<SpawnListEntry> spawnableMonsterList;
+    protected List<SpawnListEntry> spawnableCreatureList;
+    protected List<SpawnListEntry> spawnableWaterCreatureList;
     private boolean enableSnow;
     private boolean enableRain;
 
@@ -46,9 +46,9 @@ public class BiomeGenBase {
         this.topBlock = (byte) Block.GRASS.blockID;
         this.fillerBlock = (byte) Block.DIRT.blockID;
         this.field_6502_q = 5169201;
-        this.spawnableMonsterList = new ArrayList();
-        this.spawnableCreatureList = new ArrayList();
-        this.spawnableWaterCreatureList = new ArrayList();
+        this.spawnableMonsterList = new ArrayList<>();
+        this.spawnableCreatureList = new ArrayList<>();
+        this.spawnableWaterCreatureList = new ArrayList<>();
         this.enableRain = true;
         this.spawnableMonsterList.add(new SpawnListEntry(EntitySpider.class, 10));
         this.spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 10));
@@ -63,9 +63,9 @@ public class BiomeGenBase {
     }
 
     public static void generateBiomeLookup() {
-        for (int var0 = 0; var0 < 64; ++var0) {
-            for (int var1 = 0; var1 < 64; ++var1) {
-                biomeLookupTable[var0 + var1 * 64] = getBiome((float) var0 / 63.0F, (float) var1 / 63.0F);
+        for (int i = 0; i < 64; ++i) {
+            for (int j = 0; j < 64; ++j) {
+                biomeLookupTable[i + j * 64] = getBiome((float) i / 63.0F, (float) j / 63.0F);
             }
         }
 
@@ -79,27 +79,30 @@ public class BiomeGenBase {
         return biomeLookupTable[var4 + var5 * 64];
     }
 
-    public static BiomeGenBase getBiome(float var0, float var1) {
-        var1 = var1 * var0;
-        if (var0 < 0.1F) {
+    public static BiomeGenBase getBiome(float a, float b) {
+        b *= a;
+        if (a < 0.1F)
             return TUNDRA;
-        } else if (var1 < 0.2F) {
-            if (var0 < 0.5F) {
+
+        if (b < 0.2F) {
+            if (a < 0.5F)
                 return TUNDRA;
-            } else {
-                return var0 < 0.95F ? SAVANNA : DESERT;
-            }
-        } else if (var1 > 0.5F && var0 < 0.7F) {
-            return SWAMPLAND;
-        } else if (var0 < 0.5F) {
-            return TAIGA;
-        } else if (var0 < 0.97F) {
-            return var1 < 0.35F ? SHRUBLAND : FOREST;
-        } else if (var1 < 0.45F) {
-            return PLAINS;
-        } else {
-            return var1 < 0.9F ? SEASONAL_FOREST : RAINFOREST;
+            return a < 0.95F ? SAVANNA : DESERT;
         }
+
+        if (b > 0.5F && a < 0.7F)
+            return SWAMPLAND;
+
+        if (a < 0.5F)
+            return TAIGA;
+
+        if (a < 0.97F)
+            return b < 0.35F ? SHRUBLAND : FOREST;
+
+        if (b < 0.45F)
+            return PLAINS;
+
+        return b < 0.9F ? SEASONAL_FOREST : RAINFOREST;
     }
 
     private BiomeGenBase setDisableRain() {
@@ -107,8 +110,8 @@ public class BiomeGenBase {
         return this;
     }
 
-    public WorldGenerator getRandomWorldGenForTrees(Random var1) {
-        return (var1.nextInt(10) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
+    public WorldGenerator getRandomWorldGenForTrees(Random random) {
+        return random.nextInt(10) == 0 ? new WorldGenBigTree() : new WorldGenTrees();
     }
 
     protected BiomeGenBase setEnableSnow() {
@@ -116,8 +119,8 @@ public class BiomeGenBase {
         return this;
     }
 
-    protected BiomeGenBase setBiomeName(String var1) {
-        this.biomeName = var1;
+    protected BiomeGenBase setBiomeName(String biomeName) {
+        this.biomeName = biomeName;
         return this;
     }
 
@@ -126,8 +129,8 @@ public class BiomeGenBase {
         return this;
     }
 
-    protected BiomeGenBase setColor(int var1) {
-        this.color = var1;
+    protected BiomeGenBase setColor(int color) {
+        this.color = color;
         return this;
     }
 
@@ -144,14 +147,14 @@ public class BiomeGenBase {
         return Color.getHSBColor(0.62222224F - var1 * 0.05F, 0.5F + var1 * 0.1F, 1.0F).getRGB();
     }
 
-    public List getSpawnableList(EnumCreatureType var1) {
-        if (var1 == EnumCreatureType.MONSTER) {
+    public List<SpawnListEntry> getSpawnableList(EnumCreatureType type) {
+        if (type == EnumCreatureType.MONSTER)
             return this.spawnableMonsterList;
-        } else if (var1 == EnumCreatureType.CREATURE) {
+
+        if (type == EnumCreatureType.CREATURE)
             return this.spawnableCreatureList;
-        } else {
-            return var1 == EnumCreatureType.WATER_CREATURE ? this.spawnableWaterCreatureList : null;
-        }
+
+        return type == EnumCreatureType.WATER_CREATURE ? this.spawnableWaterCreatureList : null;
     }
 
     public boolean getEnableSnow() {
@@ -159,6 +162,6 @@ public class BiomeGenBase {
     }
 
     public boolean canSpawnLightningBolt() {
-        return this.enableSnow ? false : this.enableRain;
+        return !this.enableSnow && this.enableRain;
     }
 }

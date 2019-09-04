@@ -139,8 +139,6 @@ public final class Minecraft implements Runnable {
     }
 
     public static void startMainThread(String username, String sessionId, String connectionIp) {
-        boolean fullscreen = false;
-
         Frame frame = new Frame("Minecraft");
         Canvas canvas = new Canvas();
         frame.setLayout(new BorderLayout());
@@ -149,7 +147,7 @@ public final class Minecraft implements Runnable {
         frame.pack();
         frame.setLocationRelativeTo(null);
 
-        Minecraft minecraft = new Minecraft(frame, canvas, 854, 480, fullscreen, frame);
+        Minecraft minecraft = new Minecraft(frame, canvas, 854, 480, false, frame);
         Thread thread = new Thread(minecraft, "Minecraft main thread");
         thread.setPriority(10);
         minecraft.minecraftUri = "www.minecraft.net";
