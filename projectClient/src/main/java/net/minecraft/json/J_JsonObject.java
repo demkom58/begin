@@ -19,7 +19,7 @@ final class J_JsonObject extends J_JsonRootNode {
         return EnumJsonNodeType.OBJECT;
     }
 
-    public String func_27216_b() {
+    public String getValue() {
         throw new IllegalStateException("Attempt to get text on a JsonNode without text.");
     }
 

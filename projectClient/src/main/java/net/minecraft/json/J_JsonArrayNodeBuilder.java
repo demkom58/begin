@@ -4,18 +4,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public final class J_JsonArrayNodeBuilder implements J_JsonNodeBuilder {
-    private final List<J_JsonNodeBuilder> field_27242_a = new LinkedList<>();
+    private final List<J_JsonNodeBuilder> builders = new LinkedList<>();
 
     public J_JsonArrayNodeBuilder func_27240_a(J_JsonNodeBuilder var1) {
-        this.field_27242_a.add(var1);
+        this.builders.add(var1);
         return this;
     }
 
     public J_JsonRootNode func_27241_a() {
-        LinkedList var1 = new LinkedList();
+        LinkedList<J_JsonNode> var1 = new LinkedList<>();
 
-        for (J_JsonNodeBuilder var3 : this.field_27242_a) {
-            var1.add(var3.func_27234_b());
+        for (J_JsonNodeBuilder builder : this.builders) {
+            var1.add(builder.func_27234_b());
         }
 
         return J_JsonNodeFactories.func_27309_a(var1);

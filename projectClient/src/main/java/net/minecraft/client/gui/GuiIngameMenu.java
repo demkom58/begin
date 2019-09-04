@@ -29,7 +29,7 @@ public class GuiIngameMenu extends GuiScreen {
         }
 
         if (button.id == 1) {
-            this.mc.statFileWriter.readStat(StatList.leaveGameStat, 1);
+            this.mc.statFileWriter.addStat(StatList.leaveGameStat, 1);
             if (this.mc.isMultiplayerWorld()) {
                 this.mc.theWorld.sendQuittingDisconnectingPacket();
             }

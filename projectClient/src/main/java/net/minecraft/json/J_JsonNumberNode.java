@@ -22,7 +22,7 @@ final class J_JsonNumberNode extends J_JsonNode {
         return EnumJsonNodeType.NUMBER;
     }
 
-    public String func_27216_b() {
+    public String getValue() {
         return this.field_27225_b;
     }
 

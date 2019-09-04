@@ -198,10 +198,10 @@ public class EntityPlayerSP extends EntityPlayer {
                         this.mc.guiAchievement.queueTakenAchievement(var3);
                     }
 
-                    this.mc.statFileWriter.readStat(var1, var2);
+                    this.mc.statFileWriter.addStat(var1, var2);
                 }
             } else {
-                this.mc.statFileWriter.readStat(var1, var2);
+                this.mc.statFileWriter.addStat(var1, var2);
             }
 
         }

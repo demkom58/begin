@@ -2,15 +2,16 @@ package net.minecraft.client;
 
 import net.minecraft.achievement.AchievementList;
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.input.MouseHelper;
 import net.minecraft.client.input.MovementInputFromOptions;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.RenderBlocks;
 import net.minecraft.client.render.texture.*;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityRenderer;
 import net.minecraft.entity.player.*;
-import net.minecraft.client.gui.*;
 import net.minecraft.item.ItemRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetClientHandler;
@@ -36,8 +37,6 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3D;
 
 import java.awt.*;
 import java.io.File;
@@ -295,11 +294,11 @@ public final class Minecraft implements Runnable {
         GL11.glViewport(0, 0, this.displayWidth, this.displayHeight);
         this.effectRenderer = new EffectRenderer(this.theWorld, this.renderEngine);
 
-//      try {
-//         this.downloadResourcesThread = new ThreadDownloadResources(this.mcDataDir, this);
-//         this.downloadResourcesThread.start();
-//      } catch (Exception var3) {
-//      }
+      try {
+         this.downloadResourcesThread = new ThreadDownloadResources(this.mcDataDir, this);
+         this.downloadResourcesThread.start();
+      } catch (Exception var3) {
+      }
 
         this.checkGLError("Post startup");
         this.ingameGUI = new GuiIngame(this);
@@ -363,39 +362,40 @@ public final class Minecraft implements Runnable {
     }
 
     public void displayGuiScreen(GuiScreen guiScreen) {
-        if (!(this.currentScreen instanceof GuiUnused)) {
-            if (this.currentScreen != null) {
-                this.currentScreen.onGuiClosed();
-            }
+        if (this.currentScreen instanceof GuiUnused)
+            return;
 
-            if (guiScreen instanceof GuiMainMenu) {
-                this.statFileWriter.func_27175_b();
-            }
-
-            this.statFileWriter.syncStats();
-            if (guiScreen == null && this.theWorld == null) {
-                guiScreen = new GuiMainMenu();
-            } else if (guiScreen == null && this.thePlayer.health <= 0) {
-                guiScreen = new GuiGameOver();
-            }
-
-            if (guiScreen instanceof GuiMainMenu) {
-                this.ingameGUI.clearChatMessages();
-            }
-
-            this.currentScreen = guiScreen;
-            if (guiScreen != null) {
-                this.setIngameNotInFocus();
-                ScaledResolution scaledResolution = new ScaledResolution(this.gameSettings, this.displayWidth, this.displayHeight);
-                int width = scaledResolution.getScaledWidth();
-                int height = scaledResolution.getScaledHeight();
-                guiScreen.setWorldAndResolution(this, width, height);
-                this.skipRenderWorld = false;
-            } else {
-                this.setIngameFocus();
-            }
-
+        if (this.currentScreen != null) {
+            this.currentScreen.onGuiClosed();
         }
+
+        if (guiScreen instanceof GuiMainMenu) {
+            this.statFileWriter.func_27175_b();
+        }
+
+        this.statFileWriter.syncStats();
+        if (guiScreen == null && this.theWorld == null) {
+            guiScreen = new GuiMainMenu();
+        } else if (guiScreen == null && this.thePlayer.health <= 0) {
+            guiScreen = new GuiGameOver();
+        }
+
+        if (guiScreen instanceof GuiMainMenu) {
+            this.ingameGUI.clearChatMessages();
+        }
+
+        this.currentScreen = guiScreen;
+        if (guiScreen != null) {
+            this.setIngameNotInFocus();
+            ScaledResolution scaledResolution = new ScaledResolution(this.gameSettings, this.displayWidth, this.displayHeight);
+            int width = scaledResolution.getScaledWidth();
+            int height = scaledResolution.getScaledHeight();
+            guiScreen.setWorldAndResolution(this, width, height);
+            this.skipRenderWorld = false;
+        } else {
+            this.setIngameFocus();
+        }
+
     }
 
     private void checkGLError(String message) {
@@ -1128,12 +1128,12 @@ public final class Minecraft implements Runnable {
             World var6 = null;
             var6 = new World(var5, var2, var3);
             if (var6.isNewWorld) {
-                this.statFileWriter.readStat(StatList.createWorldStat, 1);
-                this.statFileWriter.readStat(StatList.startGameStat, 1);
+                this.statFileWriter.addStat(StatList.createWorldStat, 1);
+                this.statFileWriter.addStat(StatList.startGameStat, 1);
                 this.changeWorld2(var6, "Generating level");
             } else {
-                this.statFileWriter.readStat(StatList.loadWorldStat, 1);
-                this.statFileWriter.readStat(StatList.startGameStat, 1);
+                this.statFileWriter.addStat(StatList.loadWorldStat, 1);
+                this.statFileWriter.addStat(StatList.startGameStat, 1);
                 this.changeWorld2(var6, "Loading level");
             }
         }
@@ -1306,20 +1306,21 @@ public final class Minecraft implements Runnable {
         this.theWorld.func_656_j();
     }
 
-    public void installResource(String var1, File var2) {
-        int var3 = var1.indexOf("/");
-        String var4 = var1.substring(0, var3);
-        var1 = var1.substring(var3 + 1);
-        if (var4.equalsIgnoreCase("sound")) {
-            this.sndManager.addSound(var1, var2);
-        } else if (var4.equalsIgnoreCase("newsound")) {
-            this.sndManager.addSound(var1, var2);
-        } else if (var4.equalsIgnoreCase("streaming")) {
-            this.sndManager.addStreaming(var1, var2);
-        } else if (var4.equalsIgnoreCase("music")) {
-            this.sndManager.addMusic(var1, var2);
-        } else if (var4.equalsIgnoreCase("newmusic")) {
-            this.sndManager.addMusic(var1, var2);
+    public void installResource(String resource, File file) {
+        int index = resource.indexOf("/");
+        String path = resource.substring(0, index);
+        resource = resource.substring(index + 1);
+
+        if (path.equalsIgnoreCase("sound")) {
+            this.sndManager.addSound(resource, file);
+        } else if (path.equalsIgnoreCase("newsound")) {
+            this.sndManager.addSound(resource, file);
+        } else if (path.equalsIgnoreCase("streaming")) {
+            this.sndManager.addStreaming(resource, file);
+        } else if (path.equalsIgnoreCase("music")) {
+            this.sndManager.addMusic(resource, file);
+        } else if (path.equalsIgnoreCase("newmusic")) {
+            this.sndManager.addMusic(resource, file);
         }
 
     }

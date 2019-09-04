@@ -16,18 +16,18 @@ public class ThreadDownloadResources extends Thread {
     private Minecraft mc;
     private boolean closing = false;
 
-    public ThreadDownloadResources(File var1, Minecraft var2) {
-        this.mc = var2;
+    public ThreadDownloadResources(File root, Minecraft mc) {
+        this.mc = mc;
         this.setName("Resource download thread");
         this.setDaemon(true);
-        this.resourcesFolder = new File(var1, "resources/");
-        if (!this.resourcesFolder.exists() && !this.resourcesFolder.mkdirs()) {
+        this.resourcesFolder = new File(root, "resources/");
+
+        if (!this.resourcesFolder.exists() && !this.resourcesFolder.mkdirs())
             throw new RuntimeException("The working directory could not be created: " + this.resourcesFolder);
-        }
     }
 
     public void run() {
-        try {
+/*        try {
             URL var1 = new URL("http://s3.amazonaws.com/MinecraftResources/");
             DocumentBuilderFactory var2 = DocumentBuilderFactory.newInstance();
             DocumentBuilder var3 = var2.newDocumentBuilder();
@@ -53,26 +53,27 @@ public class ThreadDownloadResources extends Thread {
         } catch (Exception e) {
             this.loadResource(this.resourcesFolder, "");
             e.printStackTrace();
-        }
-
+        }*/
+        this.loadResource(this.resourcesFolder, "");
     }
 
     public void reloadResources() {
         this.loadResource(this.resourcesFolder, "");
     }
 
-    private void loadResource(File var1, String var2) {
-        File[] var3 = var1.listFiles();
+    private void loadResource(File resourceFolder, String resource) {
+        File[] files = resourceFolder.listFiles();
 
-        for (int var4 = 0; var4 < var3.length; ++var4) {
-            if (var3[var4].isDirectory()) {
-                this.loadResource(var3[var4], var2 + var3[var4].getName() + "/");
-            } else {
-                try {
-                    this.mc.installResource(var2 + var3[var4].getName(), var3[var4]);
-                } catch (Exception e) {
-                    System.out.println("Failed to add " + var2 + var3[var4].getName());
-                }
+        for (int i = 0; i < files.length; ++i) {
+            if (files[i].isDirectory()) {
+                this.loadResource(files[i], resource + files[i].getName() + "/");
+                continue;
+            }
+
+            try {
+                this.mc.installResource(resource + files[i].getName(), files[i]);
+            } catch (Exception e) {
+                System.out.println("Failed to add " + resource + files[i].getName());
             }
         }
 

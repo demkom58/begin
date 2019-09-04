@@ -15,7 +15,7 @@ final class J_JsonFieldNodeSelector extends J_LeafFunctor {
     }
 
     public String func_27060_a() {
-        return "\"" + this.field_27066_a.func_27216_b() + "\"";
+        return "\"" + this.field_27066_a.getValue() + "\"";
     }
 
     public J_JsonNode func_27064_b(Map var1) {
@@ -23,7 +23,7 @@ final class J_JsonFieldNodeSelector extends J_LeafFunctor {
     }
 
     public String toString() {
-        return "a field called [\"" + this.field_27066_a.func_27216_b() + "\"]";
+        return "a field called [\"" + this.field_27066_a.getValue() + "\"]";
     }
 
     // $FF: synthetic method

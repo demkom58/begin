@@ -45,13 +45,13 @@ public class StatBase {
     }
 
     public StatBase registerStat() {
-        if (StatList.field_25169_C.containsKey(this.statId))
+        if (StatList.int2Stat.containsKey(this.statId))
             throw new RuntimeException("Duplicate stat id: \""
-                    + StatList.field_25169_C.get(this.statId).statName
+                    + StatList.int2Stat.get(this.statId).statName
                     + "\" and \"" + this.statName + "\" at id " + this.statId);
 
         StatList.field_25188_a.add(this);
-        StatList.field_25169_C.put(this.statId, this);
+        StatList.int2Stat.put(this.statId, this);
         this.statGuid = AchievementMap.getGuid(this.statId);
         return this;
     }

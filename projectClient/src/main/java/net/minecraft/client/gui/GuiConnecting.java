@@ -2,32 +2,45 @@ package net.minecraft.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.NetClientHandler;
-import net.minecraft.network.ThreadConnectToServer;
+import net.minecraft.network.packet.Packet2Handshake;
 import net.minecraft.util.StringTranslate;
+
+import java.net.ConnectException;
+import java.net.UnknownHostException;
 
 public class GuiConnecting extends GuiScreen {
     private NetClientHandler clientHandler;
     private boolean cancelled = false;
 
-    public GuiConnecting(Minecraft var1, String var2, int var3) {
-        System.out.println("Connecting to " + var2 + ", " + var3);
-        var1.changeWorld1(null);
-        (new ThreadConnectToServer(this, var1, var2, var3)).start();
-    }
+    public GuiConnecting(Minecraft mc, String host, int port) {
+        System.out.println("Connecting to " + host + ", " + port);
+        mc.changeWorld1(null);
 
-    // $FF: synthetic method
-    public static NetClientHandler setNetClientHandler(GuiConnecting var0, NetClientHandler var1) {
-        return var0.clientHandler = var1;
-    }
+        new Thread(() -> {
+            try {
+                clientHandler = new NetClientHandler(mc, host, port);
+                if (cancelled)
+                    return;
 
-    // $FF: synthetic method
-    public static boolean isCancelled(GuiConnecting var0) {
-        return var0.cancelled;
-    }
+                clientHandler.addToSendQueue(new Packet2Handshake(mc.session.username));
+            } catch (UnknownHostException e) {
+                if (cancelled)
+                    return;
 
-    // $FF: synthetic method
-    public static NetClientHandler getNetClientHandler(GuiConnecting var0) {
-        return var0.clientHandler;
+                this.mc.displayGuiScreen(new GuiConnectFailed("connect.failed", "disconnect.genericReason", "Unknown host '" + host + "'"));
+            } catch (ConnectException e) {
+                if (cancelled)
+                    return;
+
+                this.mc.displayGuiScreen(new GuiConnectFailed("connect.failed", "disconnect.genericReason", e.getMessage()));
+            } catch (Exception e) {
+                if (cancelled)
+                    return;
+
+                e.printStackTrace();
+                this.mc.displayGuiScreen(new GuiConnectFailed("connect.failed", "disconnect.genericReason", e.toString()));
+            }
+        }).start();
     }
 
     public void updateScreen() {

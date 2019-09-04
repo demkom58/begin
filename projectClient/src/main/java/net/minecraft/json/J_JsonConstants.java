@@ -17,7 +17,7 @@ final class J_JsonConstants extends J_JsonNode {
         return this.field_27229_d;
     }
 
-    public String func_27216_b() {
+    public String getValue() {
         throw new IllegalStateException("Attempt to get text on a JsonNode without text.");
     }
 

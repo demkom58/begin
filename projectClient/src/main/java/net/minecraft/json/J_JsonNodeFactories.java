@@ -24,7 +24,7 @@ public final class J_JsonNodeFactories {
         return new J_JsonNumberNode(var0);
     }
 
-    public static J_JsonRootNode func_27309_a(Iterable var0) {
+    public static J_JsonRootNode func_27309_a(Iterable<J_JsonNode> var0) {
         return new J_JsonArray(var0);
     }
 

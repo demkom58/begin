@@ -3,7 +3,7 @@ package net.minecraft.world.chunk;
 import java.io.File;
 import java.util.regex.Matcher;
 
-public class ChunkFile implements Comparable {
+public class ChunkFile implements Comparable<ChunkFile> {
     private final File field_22326_a;
     private final int field_22325_b;
     private final int field_22327_c;
@@ -21,18 +21,6 @@ public class ChunkFile implements Comparable {
 
     }
 
-    public int func_22322_a(ChunkFile var1) {
-        int var2 = this.field_22325_b >> 5;
-        int var3 = var1.field_22325_b >> 5;
-        if (var2 == var3) {
-            int var4 = this.field_22327_c >> 5;
-            int var5 = var1.field_22327_c >> 5;
-            return var4 - var5;
-        } else {
-            return var2 - var3;
-        }
-    }
-
     public File func_22324_a() {
         return this.field_22326_a;
     }
@@ -45,9 +33,16 @@ public class ChunkFile implements Comparable {
         return this.field_22327_c;
     }
 
-    // $FF: synthetic method
-    // $FF: bridge method
-    public int compareTo(Object var1) {
-        return this.func_22322_a((ChunkFile) var1);
+    @Override
+    public int compareTo(ChunkFile var1) {
+        int var2 = this.field_22325_b >> 5;
+        int var3 = var1.field_22325_b >> 5;
+        if (var2 == var3) {
+            int var4 = this.field_22327_c >> 5;
+            int var5 = var1.field_22327_c >> 5;
+            return var4 - var5;
+        } else {
+            return var2 - var3;
+        }
     }
 }

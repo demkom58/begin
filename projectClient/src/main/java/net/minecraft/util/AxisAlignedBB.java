@@ -275,87 +275,90 @@ public class AxisAlignedBB {
         }
 
         Vec3D var9 = null;
-        if (var3 != null && (var9 == null || vec1.squareDistanceTo(var3) < vec1.squareDistanceTo(var9))) {
+        if (var3 != null && (var9 == null || vec1.squareDistanceTo(var3) < vec1.squareDistanceTo(var9)))
             var9 = var3;
-        }
 
-        if (var4 != null && (var9 == null || vec1.squareDistanceTo(var4) < vec1.squareDistanceTo(var9))) {
+        if (var4 != null && (var9 == null || vec1.squareDistanceTo(var4) < vec1.squareDistanceTo(var9)))
             var9 = var4;
-        }
 
-        if (var5 != null && (var9 == null || vec1.squareDistanceTo(var5) < vec1.squareDistanceTo(var9))) {
+        if (var5 != null && (var9 == null || vec1.squareDistanceTo(var5) < vec1.squareDistanceTo(var9)))
             var9 = var5;
-        }
 
-        if (var6 != null && (var9 == null || vec1.squareDistanceTo(var6) < vec1.squareDistanceTo(var9))) {
+        if (var6 != null && (var9 == null || vec1.squareDistanceTo(var6) < vec1.squareDistanceTo(var9)))
             var9 = var6;
-        }
 
-        if (var7 != null && (var9 == null || vec1.squareDistanceTo(var7) < vec1.squareDistanceTo(var9))) {
+        if (var7 != null && (var9 == null || vec1.squareDistanceTo(var7) < vec1.squareDistanceTo(var9)))
             var9 = var7;
-        }
 
-        if (var8 != null && (var9 == null || vec1.squareDistanceTo(var8) < vec1.squareDistanceTo(var9))) {
+        if (var8 != null && (var9 == null || vec1.squareDistanceTo(var8) < vec1.squareDistanceTo(var9)))
             var9 = var8;
-        }
 
-        if (var9 == null) {
+        if (var9 == null)
             return null;
-        } else {
-            byte var10 = -1;
-            if (var9 == var3) {
-                var10 = 4;
-            }
 
-            if (var9 == var4) {
-                var10 = 5;
-            }
-
-            if (var9 == var5) {
-                var10 = 0;
-            }
-
-            if (var9 == var6) {
-                var10 = 1;
-            }
-
-            if (var9 == var7) {
-                var10 = 2;
-            }
-
-            if (var9 == var8) {
-                var10 = 3;
-            }
-
-            return new MovingObjectPosition(0, 0, 0, var10, var9);
+        byte var10 = -1;
+        if (var9 == var3) {
+            var10 = 4;
         }
+
+        if (var9 == var4) {
+            var10 = 5;
+        }
+
+        if (var9 == var5) {
+            var10 = 0;
+        }
+
+        if (var9 == var6) {
+            var10 = 1;
+        }
+
+        if (var9 == var7) {
+            var10 = 2;
+        }
+
+        if (var9 == var8) {
+            var10 = 3;
+        }
+
+        return new MovingObjectPosition(0, 0, 0, var10, var9);
     }
 
     private boolean isVecInYZ(Vec3D vec) {
         if (vec == null)
             return false;
 
-        return vec.yCoord >= this.minY && vec.yCoord <= this.maxY && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
+        return vec.yCoord >= this.minY
+                && vec.yCoord <= this.maxY
+                && vec.zCoord >= this.minZ
+                && vec.zCoord <= this.maxZ;
     }
 
     private boolean isVecInXZ(Vec3D vec) {
         if (vec == null)
             return false;
 
-        return vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
+        return vec.xCoord >= this.minX
+                && vec.xCoord <= this.maxX
+                && vec.zCoord >= this.minZ
+                && vec.zCoord <= this.maxZ;
     }
 
     private boolean isVecInXY(Vec3D vec) {
         if (vec == null)
             return false;
 
-        return vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.yCoord >= this.minY && vec.yCoord <= this.maxY;
+        return vec.xCoord >= this.minX
+                && vec.xCoord <= this.maxX
+                && vec.yCoord >= this.minY
+                && vec.yCoord <= this.maxY;
     }
 
     public void setBB(AxisAlignedBB axis) {
         this.minX = axis.minX;
         this.minY = axis.minY;
         this.minZ = axis.minZ;
+
         this.maxX = axis.maxX;
         this.maxY = axis.maxY;
         this.maxZ = axis.maxZ;

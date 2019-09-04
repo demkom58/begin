@@ -19,7 +19,7 @@ public class StatList {
     public static StatBase[] field_25158_z;
     public static StatBase[] field_25172_A;
     public static StatBase[] field_25170_B;
-    protected static Map<Integer, StatBase> field_25169_C = new HashMap<>();
+    protected static Map<Integer, StatBase> int2Stat = new HashMap<>();
     public static StatBase startGameStat = (new StatBasic(1000, StatCollector.translateToLocal("stat.startGame"))).func_27082_h().registerStat();
     public static StatBase createWorldStat = (new StatBasic(1001, StatCollector.translateToLocal("stat.createWorld"))).func_27082_h().registerStat();
     public static StatBase loadWorldStat = (new StatBasic(1002, StatCollector.translateToLocal("stat.loadWorld"))).func_27082_h().registerStat();
@@ -69,28 +69,26 @@ public class StatList {
     }
 
     public static void func_25157_c() {
-        if (field_25166_D && field_25164_E) {
-            Set<Integer> var0 = new HashSet<>();
+        if (!field_25166_D || !field_25164_E)
+            return;
 
-            for (IRecipe var2 : CraftingManager.getInstance().getRecipeList()) {
-                var0.add(var2.getCraftingResult().itemID);
+        Set<Integer> integers = new HashSet<>();
+        for (IRecipe recipe : CraftingManager.getInstance().getRecipeList())
+            integers.add(recipe.getCraftingResult().itemID);
+
+        for (ItemStack stack : FurnaceRecipes.smelting().getSmeltingList().values())
+            integers.add(stack.itemID);
+
+        field_25158_z = new StatBase[32000];
+
+        for (Integer integer : integers) {
+            if (Item.ITEMS_LIST[integer] != null) {
+                String s = StatCollector.translateToLocalFormatted("stat.craftItem", Item.ITEMS_LIST[integer].getStatName());
+                field_25158_z[integer] = (new StatCrafting(16842752 + integer, s, integer)).registerStat();
             }
-
-            for (ItemStack var6 : FurnaceRecipes.smelting().getSmeltingList().values()) {
-                var0.add(var6.itemID);
-            }
-
-            field_25158_z = new StatBase[32000];
-
-            for (Integer var7 : var0) {
-                if (Item.ITEMS_LIST[var7] != null) {
-                    String var3 = StatCollector.translateToLocalFormatted("stat.craftItem", Item.ITEMS_LIST[var7].getStatName());
-                    field_25158_z[var7] = (new StatCrafting(16842752 + var7, var3, var7)).registerStat();
-                }
-            }
-
-            replaceAllSimilarBlocks(field_25158_z);
         }
+
+        replaceAllSimilarBlocks(field_25158_z);
     }
 
     private static StatBase[] func_25153_a(String var0, int var1) {
@@ -127,14 +125,13 @@ public class StatList {
     }
 
     private static StatBase[] func_25149_b(StatBase[] var0, String var1, int var2, int var3, int var4) {
-        if (var0 == null) {
+        if (var0 == null)
             var0 = new StatBase[32000];
-        }
 
-        for (int var5 = var3; var5 < var4; ++var5) {
-            if (Item.ITEMS_LIST[var5] != null && Item.ITEMS_LIST[var5].isDamagable()) {
-                String var6 = StatCollector.translateToLocalFormatted(var1, Item.ITEMS_LIST[var5].getStatName());
-                var0[var5] = (new StatCrafting(var2 + var5, var6, var5)).registerStat();
+        for (int i = var3; i < var4; ++i) {
+            if (Item.ITEMS_LIST[i] != null && Item.ITEMS_LIST[i].isDamagable()) {
+                String var6 = StatCollector.translateToLocalFormatted(var1, Item.ITEMS_LIST[i].getStatName());
+                var0[i] = (new StatCrafting(var2 + i, var6, i)).registerStat();
             }
         }
 
@@ -167,7 +164,7 @@ public class StatList {
         }
     }
 
-    public static StatBase func_27361_a(int var0) {
-        return field_25169_C.get(var0);
+    public static StatBase getStat(int index) {
+        return int2Stat.get(index);
     }
 }

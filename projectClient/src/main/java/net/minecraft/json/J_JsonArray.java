@@ -7,11 +7,11 @@ import java.util.Map;
 final class J_JsonArray extends J_JsonRootNode {
     private final List field_27221_a;
 
-    J_JsonArray(Iterable var1) {
+    J_JsonArray(Iterable<J_JsonNode> var1) {
         this.field_27221_a = func_27220_a(var1);
     }
 
-    private static List func_27220_a(Iterable var0) {
+    private static List<J_JsonNode> func_27220_a(Iterable<J_JsonNode> var0) {
         return new J_JsonNodeList(var0);
     }
 
@@ -23,7 +23,7 @@ final class J_JsonArray extends J_JsonRootNode {
         return new ArrayList(this.field_27221_a);
     }
 
-    public String func_27216_b() {
+    public String getValue() {
         throw new IllegalStateException("Attempt to get text on a JsonNode without text.");
     }
 

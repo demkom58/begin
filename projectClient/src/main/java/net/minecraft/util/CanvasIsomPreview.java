@@ -89,12 +89,19 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
     }
 
     public void func_1272_b() {
-        (new ThreadRunIsoClient(this)).start();
+        new Thread(() -> {
+            while (CanvasIsomPreview.isRunning(this)) {
+                this.showNextBuffer();
 
-        for (int var1 = 0; var1 < 8; ++var1) {
-            (new Thread(this)).start();
-        }
+                try {
+                    Thread.sleep(1L);
+                } catch (Exception ignored) {
+                }
+            }
+        }).start();
 
+        for (int i = 0; i < 8; ++i)
+            new Thread(this).start();
     }
 
     public void exit() {
@@ -105,16 +112,16 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
         int var3 = var1 & 63;
         int var4 = var2 & 63;
         IsoImageBuffer var5 = this.imageBuffers[var3][var4];
-        if (var5.field_1354_c == var1 && var5.field_1353_d == var2) {
+        if (var5.field_1354_c == var1 && var5.field_1353_d == var2)
             return var5;
-        } else {
-            synchronized (this.imageBufferList) {
-                this.imageBufferList.remove(var5);
-            }
 
-            var5.func_889_a(var1, var2);
-            return var5;
+        synchronized (this.imageBufferList) {
+            this.imageBufferList.remove(var5);
         }
+
+        var5.func_889_a(var1, var2);
+        return var5;
+
     }
 
     public void run() {

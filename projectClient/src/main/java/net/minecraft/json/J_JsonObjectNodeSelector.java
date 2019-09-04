@@ -11,7 +11,7 @@ final class J_JsonObjectNodeSelector extends J_LeafFunctor {
         return "A short form object";
     }
 
-    public Map func_27071_b(J_JsonNode var1) {
+    public Map<J_JsonStringNode, J_JsonNode> func_27071_b(J_JsonNode var1) {
         return var1.func_27214_c();
     }
 

@@ -66,7 +66,7 @@ public class NetClientHandler extends NetHandler {
 
     public void handleLogin(Packet1Login var1) {
         this.mc.playerController = new PlayerControllerMP(this.mc, this);
-        this.mc.statFileWriter.readStat(StatList.joinMultiplayerStat, 1);
+        this.mc.statFileWriter.addStat(StatList.joinMultiplayerStat, 1);
         this.worldClient = new WorldClient(this, var1.mapSeed, var1.dimension);
         this.worldClient.multiplayerWorld = true;
         this.mc.changeWorld1(this.worldClient);
@@ -644,7 +644,7 @@ public class NetClientHandler extends NetHandler {
     }
 
     public void func_27245_a(Packet200Statistic var1) {
-        ((EntityClientPlayerMP) this.mc.thePlayer).func_27027_b(StatList.func_27361_a(var1.field_27052_a), var1.field_27051_b);
+        ((EntityClientPlayerMP) this.mc.thePlayer).func_27027_b(StatList.getStat(var1.field_27052_a), var1.field_27051_b);
     }
 
     public boolean isServerHandler() {

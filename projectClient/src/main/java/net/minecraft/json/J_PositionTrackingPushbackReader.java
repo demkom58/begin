@@ -10,8 +10,8 @@ final class J_PositionTrackingPushbackReader implements J_ThingWithPosition {
     private int field_27340_c = 1;
     private boolean field_27339_d = false;
 
-    public J_PositionTrackingPushbackReader(Reader var1) {
-        this.field_27338_a = new PushbackReader(var1);
+    public J_PositionTrackingPushbackReader(Reader reader) {
+        this.field_27338_a = new PushbackReader(reader);
     }
 
     public void func_27334_a(char var1) throws IOException {

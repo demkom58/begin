@@ -10,7 +10,7 @@ final class J_JsonStringNodeSelector extends J_LeafFunctor {
     }
 
     public String func_27073_b(J_JsonNode var1) {
-        return var1.func_27216_b();
+        return var1.getValue();
     }
 
     public String toString() {

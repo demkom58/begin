@@ -6,25 +6,25 @@ import java.util.Map;
 public abstract class J_JsonNode {
     public abstract EnumJsonNodeType func_27218_a();
 
-    public abstract String func_27216_b();
+    public abstract String getValue();
 
-    public abstract Map func_27214_c();
+    public abstract Map<J_JsonStringNode, J_JsonNode> func_27214_c();
 
     public abstract List func_27215_d();
 
-    public final String func_27213_a(Object... var1) {
-        return (String) this.func_27219_a(J_JsonNodeSelectors.func_27349_a(var1), this, var1);
+    public final String func_27213_a(Object... objects) {
+        return (String) this.func_27219_a(J_JsonNodeSelectors.func_27349_a(objects), this, objects);
     }
 
-    public final List<J_JsonNode> func_27217_b(Object... var1) {
-        return (List<J_JsonNode>) this.func_27219_a(J_JsonNodeSelectors.func_27346_b(var1), this, var1);
+    public final List<J_JsonNode> func_27217_b(Object... objects) {
+        return (List<J_JsonNode>) this.func_27219_a(J_JsonNodeSelectors.func_27346_b(objects), this, objects);
     }
 
-    private Object func_27219_a(J_JsonNodeSelector var1, J_JsonNode var2, Object[] var3) {
+    private Object func_27219_a(J_JsonNodeSelector var1, J_JsonNode var2, Object[] objects) {
         try {
             return var1.func_27357_b(var2);
         } catch (J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException e) {
-            throw J_JsonNodeDoesNotMatchPathElementsException.func_27319_a(e, var3, J_JsonNodeFactories.func_27315_a(var2));
+            throw J_JsonNodeDoesNotMatchPathElementsException.func_27319_a(e, objects, J_JsonNodeFactories.func_27315_a(var2));
         }
     }
 }

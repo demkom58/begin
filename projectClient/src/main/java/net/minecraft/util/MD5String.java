@@ -5,18 +5,20 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MD5String {
-    private String field_27370_a;
+    private String salt;
 
-    public MD5String(String var1) {
-        this.field_27370_a = var1;
+    public MD5String(String salt) {
+        this.salt = salt;
     }
 
-    public String func_27369_a(String var1) {
+    public String hash(String input) {
         try {
-            String var2 = this.field_27370_a + var1;
-            MessageDigest var3 = MessageDigest.getInstance("MD5");
-            var3.update(var2.getBytes(), 0, var2.length());
-            return (new BigInteger(1, var3.digest())).toString(16);
+            final String valueAndSalt = this.salt + input;
+
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            digest.update(valueAndSalt.getBytes(), 0, valueAndSalt.length());
+
+            return new BigInteger(1, digest.digest()).toString(16);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
