@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AxisAlignedBB {
-    private static List<AxisAlignedBB> boundingBoxes = new ArrayList<>();
+    private static final List<AxisAlignedBB> BOUNDING_BOXES_POOL = new ArrayList<>();
     private static int numBoundingBoxesInUse = 0;
     public double minX;
     public double minY;
@@ -26,8 +26,8 @@ public class AxisAlignedBB {
         return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
-    public static void func_28196_a() {
-        boundingBoxes.clear();
+    public static void resetPool() {
+        BOUNDING_BOXES_POOL.clear();
         numBoundingBoxesInUse = 0;
     }
 
@@ -36,11 +36,11 @@ public class AxisAlignedBB {
     }
 
     public static AxisAlignedBB getBoundingBoxFromPool(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
-        if (numBoundingBoxesInUse >= boundingBoxes.size()) {
-            boundingBoxes.add(getBoundingBox(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D));
+        if (numBoundingBoxesInUse >= BOUNDING_BOXES_POOL.size()) {
+            BOUNDING_BOXES_POOL.add(getBoundingBox(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D));
         }
 
-        return boundingBoxes.get(numBoundingBoxesInUse++).setBounds(minX, minY, minZ, maxX, maxY, maxZ);
+        return BOUNDING_BOXES_POOL.get(numBoundingBoxesInUse++).setBounds(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
     public AxisAlignedBB setBounds(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {

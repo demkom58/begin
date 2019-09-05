@@ -124,12 +124,12 @@ public class GameSettings {
     public void setOptionFloatValue(EnumOption var1, float var2) {
         if (var1 == EnumOption.MUSIC) {
             this.musicVolume = var2;
-            this.mc.sndManager.onSoundOptionsChanged();
+            this.mc.soundManager.onSoundOptionsChanged();
         }
 
         if (var1 == EnumOption.SOUND) {
             this.soundVolume = var2;
-            this.mc.sndManager.onSoundOptionsChanged();
+            this.mc.soundManager.onSoundOptionsChanged();
         }
 
         if (var1 == EnumOption.SENSITIVITY) {

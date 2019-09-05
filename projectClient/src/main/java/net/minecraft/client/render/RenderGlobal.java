@@ -1248,7 +1248,7 @@ public class RenderGlobal implements IWorldAccess {
             this.mc.ingameGUI.setRecordPlayingMessage("C418 - " + var1);
         }
 
-        this.mc.sndManager.playStreaming(var1, (float) var2, (float) var3, (float) var4, 1.0F, 1.0F);
+        this.mc.soundManager.playStreaming(var1, (float) var2, (float) var3, (float) var4, 1.0F, 1.0F);
     }
 
     public void playSound(String var1, double var2, double var4, double var6, float var8, float var9) {
@@ -1258,7 +1258,7 @@ public class RenderGlobal implements IWorldAccess {
         }
 
         if (this.mc.renderViewEntity.getDistanceSq(var2, var4, var6) < (double) (var10 * var10)) {
-            this.mc.sndManager.playSound(var1, (float) var2, (float) var4, (float) var6, var8, var9);
+            this.mc.soundManager.playSound(var1, (float) var2, (float) var4, (float) var6, var8, var9);
         }
 
     }
@@ -1398,7 +1398,7 @@ public class RenderGlobal implements IWorldAccess {
                 int var16 = var6 & 255;
                 if (var16 > 0) {
                     Block var17 = Block.BLOCKS_LIST[var16];
-                    this.mc.sndManager.playSound(var17.stepSound.stepSoundDir(), (float) var3 + 0.5F, (float) var4 + 0.5F, (float) var5 + 0.5F, (var17.stepSound.getVolume() + 1.0F) / 2.0F, var17.stepSound.getPitch() * 0.8F);
+                    this.mc.soundManager.playSound(var17.stepSound.stepSoundDir(), (float) var3 + 0.5F, (float) var4 + 0.5F, (float) var5 + 0.5F, (var17.stepSound.getVolume() + 1.0F) / 2.0F, var17.stepSound.getPitch() * 0.8F);
                 }
 
                 this.mc.effectRenderer.addBlockDestroyEffects(var3, var4, var5, var6 & 255, var6 >> 8 & 255);

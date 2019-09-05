@@ -57,7 +57,7 @@ public class GuiScreen extends Gui {
             GuiButton guiButton = buttons.get(i);
             if (guiButton.mousePressed(this.mc, x, y)) {
                 this.selectedButton = guiButton;
-                this.mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+                this.mc.soundManager.playSoundFX("random.click", 1.0F, 1.0F);
                 this.actionPerformed(guiButton);
             }
         }

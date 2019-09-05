@@ -63,7 +63,7 @@ public class EntityPlayerSP extends EntityPlayer {
             }
 
             if (this.timeInPortal == 0.0F) {
-                this.mc.sndManager.playSoundFX("portal.trigger", 1.0F, this.rand.nextFloat() * 0.4F + 0.8F);
+                this.mc.soundManager.playSoundFX("portal.trigger", 1.0F, this.rand.nextFloat() * 0.4F + 0.8F);
             }
 
             this.timeInPortal += 0.0125F;
@@ -71,7 +71,7 @@ public class EntityPlayerSP extends EntityPlayer {
                 this.timeInPortal = 1.0F;
                 if (!this.worldObj.multiplayerWorld) {
                     this.timeUntilPortal = 10;
-                    this.mc.sndManager.playSoundFX("portal.travel", 1.0F, this.rand.nextFloat() * 0.4F + 0.8F);
+                    this.mc.soundManager.playSoundFX("portal.travel", 1.0F, this.rand.nextFloat() * 0.4F + 0.8F);
                     this.mc.usePortal();
                 }
             }

@@ -8,13 +8,13 @@ import net.minecraft.world.World;
 
 public class PlayerController {
     protected final Minecraft mc;
-    public boolean field_1064_b = false;
+    public boolean ghost = false;
 
-    public PlayerController(Minecraft var1) {
-        this.mc = var1;
+    public PlayerController(Minecraft mc) {
+        this.mc = mc;
     }
 
-    public void func_717_a(World var1) {
+    public void func_717_a(World world) {
     }
 
     public void clickBlock(int var1, int var2, int var3, int var4) {
@@ -22,17 +22,17 @@ public class PlayerController {
         this.sendBlockRemoved(var1, var2, var3, var4);
     }
 
-    public boolean sendBlockRemoved(int var1, int var2, int var3, int var4) {
-        World var5 = this.mc.theWorld;
-        Block var6 = Block.BLOCKS_LIST[var5.getBlockId(var1, var2, var3)];
-        var5.func_28106_e(2001, var1, var2, var3, var6.blockID + var5.getBlockMetadata(var1, var2, var3) * 256);
-        int var7 = var5.getBlockMetadata(var1, var2, var3);
-        boolean var8 = var5.setBlockWithNotify(var1, var2, var3, 0);
-        if (var6 != null && var8) {
-            var6.onBlockDestroyedByPlayer(var5, var1, var2, var3, var7);
-        }
+    public boolean sendBlockRemoved(int x, int y, int z, int var4) {
+        World world = this.mc.theWorld;
+        Block block = Block.BLOCKS_LIST[world.getBlockId(x, y, z)];
+        world.func_28106_e(2001, x, y, z, block.blockID + world.getBlockMetadata(x, y, z) * 256);
+        int metadata = world.getBlockMetadata(x, y, z);
+        boolean changed = world.setBlockWithNotify(x, y, z, 0);
 
-        return var8;
+        if (block != null && changed)
+            block.onBlockDestroyedByPlayer(world, x, y, z, metadata);
+
+        return changed;
     }
 
     public void sendBlockRemoving(int var1, int var2, int var3, int var4) {

@@ -14,7 +14,7 @@ public class GuiConnecting extends GuiScreen {
 
     public GuiConnecting(Minecraft mc, String host, int port) {
         System.out.println("Connecting to " + host + ", " + port);
-        mc.changeWorld1(null);
+        mc.changeWorld(null);
 
         new Thread(() -> {
             try {

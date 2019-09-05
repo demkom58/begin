@@ -22,14 +22,14 @@ public class PlayerControllerSP extends PlayerController {
         var1.rotationYaw = -180.0F;
     }
 
-    public boolean sendBlockRemoved(int var1, int var2, int var3, int var4) {
-        int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
-        int var6 = this.mc.theWorld.getBlockMetadata(var1, var2, var3);
-        boolean var7 = super.sendBlockRemoved(var1, var2, var3, var4);
+    public boolean sendBlockRemoved(int x, int y, int z, int var4) {
+        int var5 = this.mc.theWorld.getBlockId(x, y, z);
+        int var6 = this.mc.theWorld.getBlockMetadata(x, y, z);
+        boolean var7 = super.sendBlockRemoved(x, y, z, var4);
         ItemStack var8 = this.mc.thePlayer.getCurrentEquippedItem();
         boolean var9 = this.mc.thePlayer.canHarvestBlock(Block.BLOCKS_LIST[var5]);
         if (var8 != null) {
-            var8.onDestroyBlock(var5, var1, var2, var3, this.mc.thePlayer);
+            var8.onDestroyBlock(var5, x, y, z, this.mc.thePlayer);
             if (var8.stackSize == 0) {
                 var8.func_1097_a(this.mc.thePlayer);
                 this.mc.thePlayer.destroyCurrentEquippedItem();
@@ -37,7 +37,7 @@ public class PlayerControllerSP extends PlayerController {
         }
 
         if (var7 && var9) {
-            Block.BLOCKS_LIST[var5].harvestBlock(this.mc.theWorld, this.mc.thePlayer, var1, var2, var3, var6);
+            Block.BLOCKS_LIST[var5].harvestBlock(this.mc.theWorld, this.mc.thePlayer, x, y, z, var6);
         }
 
         return var7;
@@ -74,7 +74,7 @@ public class PlayerControllerSP extends PlayerController {
                 Block var6 = Block.BLOCKS_LIST[var5];
                 this.curBlockDamage += var6.blockStrength(this.mc.thePlayer);
                 if (this.field_1069_h % 4.0F == 0.0F && var6 != null) {
-                    this.mc.sndManager.playSound(var6.stepSound.func_1145_d(), (float) var1 + 0.5F, (float) var2 + 0.5F, (float) var3 + 0.5F, (var6.stepSound.getVolume() + 1.0F) / 8.0F, var6.stepSound.getPitch() * 0.5F);
+                    this.mc.soundManager.playSound(var6.stepSound.func_1145_d(), (float) var1 + 0.5F, (float) var2 + 0.5F, (float) var3 + 0.5F, (var6.stepSound.getVolume() + 1.0F) / 8.0F, var6.stepSound.getPitch() * 0.5F);
                 }
 
                 ++this.field_1069_h;
@@ -113,12 +113,12 @@ public class PlayerControllerSP extends PlayerController {
         return 4.0F;
     }
 
-    public void func_717_a(World var1) {
-        super.func_717_a(var1);
+    public void func_717_a(World world) {
+        super.func_717_a(world);
     }
 
     public void updateController() {
         this.prevBlockDamage = this.curBlockDamage;
-        this.mc.sndManager.playRandomMusicIfReady();
+        this.mc.soundManager.playRandomMusicIfReady();
     }
 }

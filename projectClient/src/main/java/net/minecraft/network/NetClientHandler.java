@@ -69,7 +69,7 @@ public class NetClientHandler extends NetHandler {
         this.mc.statFileWriter.addStat(StatList.joinMultiplayerStat, 1);
         this.worldClient = new WorldClient(this, var1.mapSeed, var1.dimension);
         this.worldClient.multiplayerWorld = true;
-        this.mc.changeWorld1(this.worldClient);
+        this.mc.changeWorld(this.worldClient);
         this.mc.thePlayer.dimension = var1.dimension;
         this.mc.displayGuiScreen(new GuiDownloadTerrain(this));
         this.mc.thePlayer.entityId = var1.protocolVersion;
@@ -332,14 +332,14 @@ public class NetClientHandler extends NetHandler {
     public void handleKickDisconnect(Packet255KickDisconnect var1) {
         this.netManager.networkShutdown("disconnect.kicked");
         this.disconnected = true;
-        this.mc.changeWorld1(null);
+        this.mc.changeWorld(null);
         this.mc.displayGuiScreen(new GuiConnectFailed("disconnect.disconnected", "disconnect.genericReason", var1.reason));
     }
 
     public void handleErrorMessage(String var1, Object[] var2) {
         if (!this.disconnected) {
             this.disconnected = true;
-            this.mc.changeWorld1(null);
+            this.mc.changeWorld(null);
             this.mc.displayGuiScreen(new GuiConnectFailed("disconnect.lost", var1, var2));
         }
     }
@@ -497,7 +497,7 @@ public class NetClientHandler extends NetHandler {
             this.field_1210_g = false;
             this.worldClient = new WorldClient(this, this.worldClient.getWorldInfo().getRandomSeed(), var1.field_28048_a);
             this.worldClient.multiplayerWorld = true;
-            this.mc.changeWorld1(this.worldClient);
+            this.mc.changeWorld(this.worldClient);
             this.mc.thePlayer.dimension = var1.field_28048_a;
             this.mc.displayGuiScreen(new GuiDownloadTerrain(this));
         }

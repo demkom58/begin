@@ -92,7 +92,7 @@ abstract class GuiSlotStats extends GuiSlot {
 
         if (this.field_27268_b >= 0) {
             this.func_27266_c(this.field_27268_b);
-            GuiStats.func_27149_g(this.guiStats).sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+            GuiStats.func_27149_g(this.guiStats).soundManager.playSoundFX("random.click", 1.0F, 1.0F);
         }
 
     }

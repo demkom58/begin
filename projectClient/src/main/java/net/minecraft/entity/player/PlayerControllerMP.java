@@ -29,12 +29,12 @@ public class PlayerControllerMP extends PlayerController {
         var1.rotationYaw = -180.0F;
     }
 
-    public boolean sendBlockRemoved(int var1, int var2, int var3, int var4) {
-        int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
-        boolean var6 = super.sendBlockRemoved(var1, var2, var3, var4);
+    public boolean sendBlockRemoved(int x, int y, int z, int var4) {
+        int var5 = this.mc.theWorld.getBlockId(x, y, z);
+        boolean var6 = super.sendBlockRemoved(x, y, z, var4);
         ItemStack var7 = this.mc.thePlayer.getCurrentEquippedItem();
         if (var7 != null) {
-            var7.onDestroyBlock(var5, var1, var2, var3, this.mc.thePlayer);
+            var7.onDestroyBlock(var5, x, y, z, this.mc.thePlayer);
             if (var7.stackSize == 0) {
                 var7.func_1097_a(this.mc.thePlayer);
                 this.mc.thePlayer.destroyCurrentEquippedItem();
@@ -88,7 +88,7 @@ public class PlayerControllerMP extends PlayerController {
                     Block var6 = Block.BLOCKS_LIST[var5];
                     this.curBlockDamageMP += var6.blockStrength(this.mc.thePlayer);
                     if (this.field_9441_h % 4.0F == 0.0F && var6 != null) {
-                        this.mc.sndManager.playSound(var6.stepSound.func_1145_d(), (float) var1 + 0.5F, (float) var2 + 0.5F, (float) var3 + 0.5F, (var6.stepSound.getVolume() + 1.0F) / 8.0F, var6.stepSound.getPitch() * 0.5F);
+                        this.mc.soundManager.playSound(var6.stepSound.func_1145_d(), (float) var1 + 0.5F, (float) var2 + 0.5F, (float) var3 + 0.5F, (var6.stepSound.getVolume() + 1.0F) / 8.0F, var6.stepSound.getPitch() * 0.5F);
                     }
 
                     ++this.field_9441_h;
@@ -125,14 +125,14 @@ public class PlayerControllerMP extends PlayerController {
         return 4.0F;
     }
 
-    public void func_717_a(World var1) {
-        super.func_717_a(var1);
+    public void func_717_a(World world) {
+        super.func_717_a(world);
     }
 
     public void updateController() {
         this.syncCurrentPlayItem();
         this.prevBlockDamageMP = this.curBlockDamageMP;
-        this.mc.sndManager.playRandomMusicIfReady();
+        this.mc.soundManager.playRandomMusicIfReady();
     }
 
     private void syncCurrentPlayItem() {
