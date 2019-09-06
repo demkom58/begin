@@ -3,8 +3,8 @@ package net.minecraft.client.render;
 public class ColorizerGrass {
     private static int[] grassBuffer = new int[65536];
 
-    public static void func_28181_a(int[] var0) {
-        grassBuffer = var0;
+    public static void setGrassBuffer(int[] grassBuffer) {
+        ColorizerGrass.grassBuffer = grassBuffer;
     }
 
     public static int getGrassColor(double var0, double var2) {

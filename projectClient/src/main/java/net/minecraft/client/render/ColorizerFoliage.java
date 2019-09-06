@@ -3,8 +3,8 @@ package net.minecraft.client.render;
 public class ColorizerFoliage {
     private static int[] foliageBuffer = new int[65536];
 
-    public static void func_28152_a(int[] var0) {
-        foliageBuffer = var0;
+    public static void setFoliageBuffer(int[] foliageBuffer) {
+        ColorizerFoliage.foliageBuffer = foliageBuffer;
     }
 
     public static int getFoliageColor(double var0, double var2) {

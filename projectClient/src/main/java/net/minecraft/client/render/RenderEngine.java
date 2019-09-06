@@ -13,141 +13,147 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
 
 public class RenderEngine {
     public static boolean useMipmaps = false;
-    private HashMap<String, Object> textureMap = new HashMap<>();
-    private HashMap<String, Object> field_28151_c = new HashMap<>();
-    private HashMap textureNameToImageMap = new HashMap();
+
+    private BufferedImage missingTextureImage = new BufferedImage(64, 64, 2);
+
     private IntBuffer singleIntBuffer = GLAllocation.createDirectIntBuffer(1);
     private ByteBuffer imageData = GLAllocation.createDirectByteBuffer(1048576);
-    private List textureList = new ArrayList();
-    private Map<Object, ThreadDownloadImageData> urlToImageDataMap = new HashMap<>();
+
+    private List<TextureFX> textures = new ArrayList<>();
+
+    private Map<String, Integer> nameToId = new HashMap<>();
+    private Map<String, int[]> nameToBuff = new HashMap<>();
+    private Map<Integer, BufferedImage> nameToImage = new HashMap<>();
+    private Map<Object, ThreadDownloadImageData> urlToImageData = new HashMap<>();
+
     private GameSettings options;
+    private TexturePackList texturePack;
+
     private boolean clampTexture = false;
     private boolean blurTexture = false;
-    private TexturePackList texturePack;
-    private BufferedImage missingTextureImage = new BufferedImage(64, 64, 2);
+
 
     public RenderEngine(TexturePackList var1, GameSettings var2) {
         this.texturePack = var1;
         this.options = var2;
-        Graphics var3 = this.missingTextureImage.getGraphics();
-        var3.setColor(Color.WHITE);
-        var3.fillRect(0, 0, 64, 64);
-        var3.setColor(Color.BLACK);
-        var3.drawString("missingtex", 1, 10);
-        var3.dispose();
+        Graphics graphics = this.missingTextureImage.getGraphics();
+        graphics.setColor(Color.WHITE);
+        graphics.fillRect(0, 0, 64, 64);
+        graphics.setColor(Color.BLACK);
+        graphics.drawString("missingtex", 1, 10);
+        graphics.dispose();
     }
 
-    public int[] func_28149_a(String var1) {
-        TexturePackBase var2 = this.texturePack.selectedTexturePack;
-        int[] var3 = (int[]) this.field_28151_c.get(var1);
-        if (var3 != null) {
-            return var3;
-        } else {
-            try {
-                Object var6 = null;
-                int[] var7;
-                if (var1.startsWith("##")) {
-                    var7 = this.func_28148_b(this.unwrapImageByColumns(this.readTextureImage(var2.getResourceAsStream(var1.substring(2)))));
-                } else if (var1.startsWith("%clamp%")) {
-                    this.clampTexture = true;
-                    var7 = this.func_28148_b(this.readTextureImage(var2.getResourceAsStream(var1.substring(7))));
-                    this.clampTexture = false;
-                } else if (var1.startsWith("%blur%")) {
-                    this.blurTexture = true;
-                    var7 = this.func_28148_b(this.readTextureImage(var2.getResourceAsStream(var1.substring(6))));
-                    this.blurTexture = false;
-                } else {
-                    InputStream var8 = var2.getResourceAsStream(var1);
-                    if (var8 == null) {
-                        var7 = this.func_28148_b(this.missingTextureImage);
-                    } else {
-                        var7 = this.func_28148_b(this.readTextureImage(var8));
-                    }
-                }
+    public int[] loadTexture(String resource) {
+        TexturePackBase pack = this.texturePack.selectedTexturePack;
+        int[] loaded = this.nameToBuff.get(resource);
 
-                this.field_28151_c.put(var1, var7);
-                return var7;
-            } catch (IOException e) {
-                e.printStackTrace();
-                int[] var4 = this.func_28148_b(this.missingTextureImage);
-                this.field_28151_c.put(var1, var4);
-                return var4;
+        if (loaded != null)
+            return loaded;
+
+        try {
+            if (resource.startsWith("##")) {
+                loaded = this.convertImage(this.unwrapImageByColumns(this.readTextureImage(pack.getResourceAsStream(resource.substring(2)))));
+            } else if (resource.startsWith("%clamp%")) {
+                this.clampTexture = true;
+                loaded = this.convertImage(this.readTextureImage(pack.getResourceAsStream(resource.substring(7))));
+                this.clampTexture = false;
+            } else if (resource.startsWith("%blur%")) {
+                this.blurTexture = true;
+                loaded = this.convertImage(this.readTextureImage(pack.getResourceAsStream(resource.substring(6))));
+                this.blurTexture = false;
+            } else {
+                InputStream inputStream = pack.getResourceAsStream(resource);
+                if (inputStream == null)
+                    loaded = this.convertImage(this.missingTextureImage);
+                else
+                    loaded = this.convertImage(this.readTextureImage(inputStream));
             }
+
+            this.nameToBuff.put(resource, loaded);
+            return loaded;
+        } catch (IOException e) {
+            e.printStackTrace();
+            int[] missingTextureBuff = this.convertImage(this.missingTextureImage);
+            this.nameToBuff.put(resource, missingTextureBuff);
+            return missingTextureBuff;
         }
     }
 
-    private int[] func_28148_b(BufferedImage var1) {
-        int var2 = var1.getWidth();
-        int var3 = var1.getHeight();
-        int[] var4 = new int[var2 * var3];
-        var1.getRGB(0, 0, var2, var3, var4, 0, var2);
-        return var4;
+    private int[] convertImage(BufferedImage image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int[] buff = new int[width * height];
+        image.getRGB(0, 0, width, height, buff, 0, width);
+        return buff;
     }
 
-    private int[] func_28147_a(BufferedImage var1, int[] var2) {
-        int var3 = var1.getWidth();
-        int var4 = var1.getHeight();
-        var1.getRGB(0, 0, var3, var4, var2, 0, var3);
-        return var2;
+    private int[] writeImage(BufferedImage image, int[] input) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        image.getRGB(0, 0, width, height, input, 0, width);
+        return input;
     }
 
-    public int getTexture(String var1) {
-        TexturePackBase var2 = this.texturePack.selectedTexturePack;
-        Integer var3 = (Integer) this.textureMap.get(var1);
-        if (var3 != null) {
-            return var3;
-        } else {
-            try {
-                this.singleIntBuffer.clear();
-                GLAllocation.generateTextureNames(this.singleIntBuffer);
-                int var6 = this.singleIntBuffer.get(0);
-                if (var1.startsWith("##")) {
-                    this.setupTexture(this.unwrapImageByColumns(this.readTextureImage(var2.getResourceAsStream(var1.substring(2)))), var6);
-                } else if (var1.startsWith("%clamp%")) {
-                    this.clampTexture = true;
-                    this.setupTexture(this.readTextureImage(var2.getResourceAsStream(var1.substring(7))), var6);
-                    this.clampTexture = false;
-                } else if (var1.startsWith("%blur%")) {
-                    this.blurTexture = true;
-                    this.setupTexture(this.readTextureImage(var2.getResourceAsStream(var1.substring(6))), var6);
-                    this.blurTexture = false;
+    public int getTexture(String resource) {
+        TexturePackBase pack = this.texturePack.selectedTexturePack;
+        Integer id = this.nameToId.get(resource);
+
+        if (id != null)
+            return id;
+
+        try {
+            this.singleIntBuffer.clear();
+            GLAllocation.generateTextureNames(this.singleIntBuffer);
+            int var6 = this.singleIntBuffer.get(0);
+            if (resource.startsWith("##")) {
+                this.setupTexture(this.unwrapImageByColumns(this.readTextureImage(pack.getResourceAsStream(resource.substring(2)))), var6);
+            } else if (resource.startsWith("%clamp%")) {
+                this.clampTexture = true;
+                this.setupTexture(this.readTextureImage(pack.getResourceAsStream(resource.substring(7))), var6);
+                this.clampTexture = false;
+            } else if (resource.startsWith("%blur%")) {
+                this.blurTexture = true;
+                this.setupTexture(this.readTextureImage(pack.getResourceAsStream(resource.substring(6))), var6);
+                this.blurTexture = false;
+            } else {
+                InputStream inputStream = pack.getResourceAsStream(resource);
+                if (inputStream == null) {
+                    this.setupTexture(this.missingTextureImage, var6);
                 } else {
-                    InputStream var7 = var2.getResourceAsStream(var1);
-                    if (var7 == null) {
-                        this.setupTexture(this.missingTextureImage, var6);
-                    } else {
-                        this.setupTexture(this.readTextureImage(var7), var6);
-                    }
+                    this.setupTexture(this.readTextureImage(inputStream), var6);
                 }
-
-                this.textureMap.put(var1, var6);
-                return var6;
-            } catch (IOException e) {
-                e.printStackTrace();
-                GLAllocation.generateTextureNames(this.singleIntBuffer);
-                int var4 = this.singleIntBuffer.get(0);
-                this.setupTexture(this.missingTextureImage, var4);
-                this.textureMap.put(var1, var4);
-                return var4;
             }
+
+            this.nameToId.put(resource, var6);
+            return var6;
+        } catch (IOException e) {
+            e.printStackTrace();
+            GLAllocation.generateTextureNames(this.singleIntBuffer);
+            int var4 = this.singleIntBuffer.get(0);
+            this.setupTexture(this.missingTextureImage, var4);
+            this.nameToId.put(resource, var4);
+            return var4;
         }
     }
 
-    private BufferedImage unwrapImageByColumns(BufferedImage var1) {
-        int var2 = var1.getWidth() / 16;
-        BufferedImage var3 = new BufferedImage(16, var1.getHeight() * var2, 2);
-        Graphics var4 = var3.getGraphics();
+    private BufferedImage unwrapImageByColumns(BufferedImage image) {
+        int var2 = image.getWidth() / 16;
+        BufferedImage var3 = new BufferedImage(16, image.getHeight() * var2, 2);
+        Graphics graphics = var3.getGraphics();
 
-        for (int var5 = 0; var5 < var2; ++var5) {
-            var4.drawImage(var1, -var5 * 16, var5 * var1.getHeight(), null);
+        for (int i = 0; i < var2; ++i) {
+            graphics.drawImage(image, -i * 16, i * image.getHeight(), null);
         }
 
-        var4.dispose();
+        graphics.dispose();
         return var3;
     }
 
@@ -156,7 +162,7 @@ public class RenderEngine {
         GLAllocation.generateTextureNames(this.singleIntBuffer);
         int var2 = this.singleIntBuffer.get(0);
         this.setupTexture(var1, var2);
-        this.textureNameToImageMap.put(var2, var1);
+        this.nameToImage.put(var2, var1);
         return var2;
     }
 
@@ -189,11 +195,11 @@ public class RenderEngine {
         byte[] var6 = new byte[width * height * 4];
         bufferedImage.getRGB(0, 0, width, height, var5, 0, width);
 
-        for (int var7 = 0; var7 < var5.length; ++var7) {
-            int var8 = var5[var7] >> 24 & 255;
-            int var9 = var5[var7] >> 16 & 255;
-            int var10 = var5[var7] >> 8 & 255;
-            int var11 = var5[var7] & 255;
+        for (int i = 0; i < var5.length; ++i) {
+            int var8 = var5[i] >> 24 & 255;
+            int var9 = var5[i] >> 16 & 255;
+            int var10 = var5[i] >> 8 & 255;
+            int var11 = var5[i] & 255;
             if (this.options != null && this.options.anaglyph) {
                 int var12 = (var9 * 30 + var10 * 59 + var11 * 11) / 100;
                 int var13 = (var9 * 30 + var10 * 70) / 100;
@@ -203,37 +209,38 @@ public class RenderEngine {
                 var11 = var14;
             }
 
-            var6[var7 * 4 + 0] = (byte) var9;
-            var6[var7 * 4 + 1] = (byte) var10;
-            var6[var7 * 4 + 2] = (byte) var11;
-            var6[var7 * 4 + 3] = (byte) var8;
+            var6[i * 4 + 0] = (byte) var9;
+            var6[i * 4 + 1] = (byte) var10;
+            var6[i * 4 + 2] = (byte) var11;
+            var6[i * 4 + 3] = (byte) var8;
         }
 
         this.imageData.clear();
         this.imageData.put(var6);
         this.imageData.position(0).limit(var6.length);
         GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
-        if (useMipmaps) {
-            for (int var18 = 1; var18 <= 4; ++var18) {
-                int var19 = width >> var18 - 1;
-                int var20 = width >> var18;
-                int var21 = height >> var18;
+        if (!useMipmaps)
+            return;
 
-                for (int var22 = 0; var22 < var20; ++var22) {
-                    for (int var23 = 0; var23 < var21; ++var23) {
-                        int var24 = this.imageData.getInt((var22 * 2 + 0 + (var23 * 2 + 0) * var19) * 4);
-                        int var25 = this.imageData.getInt((var22 * 2 + 1 + (var23 * 2 + 0) * var19) * 4);
-                        int var15 = this.imageData.getInt((var22 * 2 + 1 + (var23 * 2 + 1) * var19) * 4);
-                        int var16 = this.imageData.getInt((var22 * 2 + 0 + (var23 * 2 + 1) * var19) * 4);
-                        int var17 = this.weightedAverageColor(this.weightedAverageColor(var24, var25), this.weightedAverageColor(var15, var16));
-                        this.imageData.putInt((var22 + var23 * var20) * 4, var17);
-                    }
+        for (int i = 1; i <= 4; ++i) {
+            int mul = width >> i - 1;
+
+            int eX = width >> i;
+            int eY = height >> i;
+
+            for (int x = 0; x < eX; ++x) {
+                for (int y = 0; y < eY; ++y) {
+                    int var24 = this.imageData.getInt((x * 2 + 0 + (y * 2 + 0) * mul) * 4);
+                    int var25 = this.imageData.getInt((x * 2 + 1 + (y * 2 + 0) * mul) * 4);
+                    int var15 = this.imageData.getInt((x * 2 + 1 + (y * 2 + 1) * mul) * 4);
+                    int var16 = this.imageData.getInt((x * 2 + 0 + (y * 2 + 1) * mul) * 4);
+                    int var17 = this.weightedAverageColor(this.weightedAverageColor(var24, var25), this.weightedAverageColor(var15, var16));
+                    this.imageData.putInt((x + y * eX) * 4, var17);
                 }
-
-                GL11.glTexImage2D(GL11.GL_TEXTURE_2D, var18, GL11.GL_RGBA, var20, var21, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
             }
-        }
 
+            GL11.glTexImage2D(GL11.GL_TEXTURE_2D, i, GL11.GL_RGBA, eX, eY, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
+        }
     }
 
     public void func_28150_a(int[] var1, int var2, int var3, int var4) {
@@ -288,101 +295,101 @@ public class RenderEngine {
     }
 
     public void deleteTexture(int var1) {
-        this.textureNameToImageMap.remove(var1);
+        this.nameToImage.remove(var1);
         this.singleIntBuffer.clear();
         this.singleIntBuffer.put(var1);
         this.singleIntBuffer.flip();
         GL11.glDeleteTextures(this.singleIntBuffer);
     }
 
-    public int getTextureForDownloadableImage(String var1, String var2) {
-        ThreadDownloadImageData var3 = this.urlToImageDataMap.get(var1);
-        if (var3 != null && var3.image != null && !var3.textureSetupComplete) {
-            if (var3.textureName < 0) {
-                var3.textureName = this.allocateAndSetupTexture(var3.image);
+    public int getTextureForDownloadableImage(String url, String name) {
+        ThreadDownloadImageData imageData = this.urlToImageData.get(url);
+        if (imageData != null && imageData.image != null && !imageData.textureSetupComplete) {
+            if (imageData.textureName < 0) {
+                imageData.textureName = this.allocateAndSetupTexture(imageData.image);
             } else {
-                this.setupTexture(var3.image, var3.textureName);
+                this.setupTexture(imageData.image, imageData.textureName);
             }
 
-            var3.textureSetupComplete = true;
+            imageData.textureSetupComplete = true;
         }
 
-        if (var3 != null && var3.textureName >= 0) {
-            return var3.textureName;
-        } else {
-            return var2 == null ? -1 : this.getTexture(var2);
-        }
+        if (imageData != null && imageData.textureName >= 0)
+            return imageData.textureName;
+
+        return name == null ? -1 : this.getTexture(name);
     }
 
-    public ThreadDownloadImageData obtainImageData(String var1, ImageBuffer var2) {
-        ThreadDownloadImageData var3 = this.urlToImageDataMap.get(var1);
-        if (var3 == null) {
-            this.urlToImageDataMap.put(var1, new ThreadDownloadImageData(var1, var2));
-        } else {
-            ++var3.referenceCount;
-        }
+    public ThreadDownloadImageData obtainImageData(String url, ImageBuffer buffer) {
+        ThreadDownloadImageData imageData = this.urlToImageData.get(url);
 
-        return var3;
+        if (imageData == null)
+            this.urlToImageData.put(url, new ThreadDownloadImageData(url, buffer));
+        else
+            ++imageData.referenceCount;
+
+        return imageData;
     }
 
-    public void releaseImageData(String var1) {
-        ThreadDownloadImageData var2 = this.urlToImageDataMap.get(var1);
-        if (var2 != null) {
-            --var2.referenceCount;
-            if (var2.referenceCount == 0) {
-                if (var2.textureName >= 0) {
-                    this.deleteTexture(var2.textureName);
-                }
+    public void releaseImageData(String url) {
+        ThreadDownloadImageData imageData = this.urlToImageData.get(url);
+        if (imageData == null)
+            return;
 
-                this.urlToImageDataMap.remove(var1);
+        --imageData.referenceCount;
+        if (imageData.referenceCount == 0) {
+            if (imageData.textureName >= 0) {
+                this.deleteTexture(imageData.textureName);
             }
-        }
 
+            this.urlToImageData.remove(url);
+        }
     }
 
-    public void registerTextureFX(TextureFX var1) {
-        this.textureList.add(var1);
-        var1.onTick();
+    public void registerTextureFX(TextureFX texture) {
+        this.textures.add(texture);
+        texture.onTick();
     }
 
     public void updateDynamicTextures() {
-        for (int var1 = 0; var1 < this.textureList.size(); ++var1) {
-            TextureFX var2 = (TextureFX) this.textureList.get(var1);
-            var2.anaglyphEnabled = this.options.anaglyph;
-            var2.onTick();
+        for (int i = 0; i < this.textures.size(); ++i) {
+            TextureFX texture = this.textures.get(i);
+            texture.anaglyphEnabled = this.options.anaglyph;
+            texture.onTick();
             this.imageData.clear();
-            this.imageData.put(var2.imageData);
-            this.imageData.position(0).limit(var2.imageData.length);
-            var2.bindImage(this);
+            this.imageData.put(texture.imageData);
+            this.imageData.position(0).limit(texture.imageData.length);
+            texture.bindImage(this);
 
-            for (int var3 = 0; var3 < var2.tileSize; ++var3) {
-                for (int var4 = 0; var4 < var2.tileSize; ++var4) {
-                    GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, var2.iconIndex % 16 * 16 + var3 * 16, var2.iconIndex / 16 * 16 + var4 * 16, 16, 16, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
-                    if (useMipmaps) {
-                        for (int var5 = 1; var5 <= 4; ++var5) {
-                            int var6 = 16 >> var5 - 1;
-                            int var7 = 16 >> var5;
+            for (int x = 0; x < texture.tileSize; ++x) {
+                for (int y = 0; y < texture.tileSize; ++y) {
+                    GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, texture.iconIndex % 16 * 16 + x * 16, texture.iconIndex / 16 * 16 + y * 16, 16, 16, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
+                    if (!useMipmaps)
+                        continue;
 
-                            for (int var8 = 0; var8 < var7; ++var8) {
-                                for (int var9 = 0; var9 < var7; ++var9) {
-                                    int var10 = this.imageData.getInt((var8 * 2 + 0 + (var9 * 2 + 0) * var6) * 4);
-                                    int var11 = this.imageData.getInt((var8 * 2 + 1 + (var9 * 2 + 0) * var6) * 4);
-                                    int var12 = this.imageData.getInt((var8 * 2 + 1 + (var9 * 2 + 1) * var6) * 4);
-                                    int var13 = this.imageData.getInt((var8 * 2 + 0 + (var9 * 2 + 1) * var6) * 4);
-                                    int var14 = this.averageColor(this.averageColor(var10, var11), this.averageColor(var12, var13));
-                                    this.imageData.putInt((var8 + var9 * var7) * 4, var14);
-                                }
+                    for (int var5 = 1; var5 <= 4; ++var5) {
+                        int var6 = 16 >> var5 - 1;
+                        int var7 = 16 >> var5;
+
+                        for (int var8 = 0; var8 < var7; ++var8) {
+                            for (int var9 = 0; var9 < var7; ++var9) {
+                                int var10 = this.imageData.getInt((var8 * 2 + 0 + (var9 * 2 + 0) * var6) * 4);
+                                int var11 = this.imageData.getInt((var8 * 2 + 1 + (var9 * 2 + 0) * var6) * 4);
+                                int var12 = this.imageData.getInt((var8 * 2 + 1 + (var9 * 2 + 1) * var6) * 4);
+                                int var13 = this.imageData.getInt((var8 * 2 + 0 + (var9 * 2 + 1) * var6) * 4);
+                                int var14 = this.averageColor(this.averageColor(var10, var11), this.averageColor(var12, var13));
+                                this.imageData.putInt((var8 + var9 * var7) * 4, var14);
                             }
-
-                            GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, var5, var2.iconIndex % 16 * var7, var2.iconIndex / 16 * var7, var7, var7, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
                         }
+
+                        GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, var5, texture.iconIndex % 16 * var7, texture.iconIndex / 16 * var7, var7, var7, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
                     }
                 }
             }
         }
 
-        for (int var15 = 0; var15 < this.textureList.size(); ++var15) {
-            TextureFX var16 = (TextureFX) this.textureList.get(var15);
+        for (int var15 = 0; var15 < this.textures.size(); ++var15) {
+            TextureFX var16 = this.textures.get(var15);
             if (var16.textureId > 0) {
                 this.imageData.clear();
                 this.imageData.put(var16.imageData);
@@ -444,17 +451,17 @@ public class RenderEngine {
     public void refreshTextures() {
         TexturePackBase var1 = this.texturePack.selectedTexturePack;
 
-        for (Object o : this.textureNameToImageMap.keySet()) {
+        for (Object o : this.nameToImage.keySet()) {
             int var3 = (Integer) o;
-            BufferedImage var4 = (BufferedImage) this.textureNameToImageMap.get(var3);
+            BufferedImage var4 = this.nameToImage.get(var3);
             this.setupTexture(var4, var3);
         }
 
-        for (ThreadDownloadImageData var11 : this.urlToImageDataMap.values()) {
+        for (ThreadDownloadImageData var11 : this.urlToImageData.values()) {
             var11.textureSetupComplete = false;
         }
 
-        for (String var12 : this.textureMap.keySet()) {
+        for (String var12 : this.nameToId.keySet()) {
             try {
                 BufferedImage var14;
                 if (var12.startsWith("##")) {
@@ -469,7 +476,7 @@ public class RenderEngine {
                     var14 = this.readTextureImage(var1.getResourceAsStream(var12));
                 }
 
-                int var5 = (Integer) this.textureMap.get(var12);
+                int var5 = this.nameToId.get(var12);
                 this.setupTexture(var14, var5);
                 this.blurTexture = false;
                 this.clampTexture = false;
@@ -478,7 +485,7 @@ public class RenderEngine {
             }
         }
 
-        for (String var13 : this.field_28151_c.keySet()) {
+        for (String var13 : this.nameToBuff.keySet()) {
             try {
                 BufferedImage var15;
                 if (var13.startsWith("##")) {
@@ -493,7 +500,7 @@ public class RenderEngine {
                     var15 = this.readTextureImage(var1.getResourceAsStream(var13));
                 }
 
-                this.func_28147_a(var15, (int[]) this.field_28151_c.get(var13));
+                this.writeImage(var15, this.nameToBuff.get(var13));
                 this.blurTexture = false;
                 this.clampTexture = false;
             } catch (IOException e) {
@@ -503,15 +510,15 @@ public class RenderEngine {
 
     }
 
-    private BufferedImage readTextureImage(InputStream var1) throws IOException {
-        BufferedImage var2 = ImageIO.read(var1);
-        var1.close();
-        return var2;
+    private BufferedImage readTextureImage(InputStream inputStream) throws IOException {
+        BufferedImage image = ImageIO.read(inputStream);
+        inputStream.close();
+        return image;
     }
 
-    public void bindTexture(int var1) {
-        if (var1 >= 0) {
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, var1);
+    public void bindTexture(int id) {
+        if (id >= 0) {
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
         }
     }
 }

@@ -60,8 +60,19 @@ public final class Minecraft implements Runnable {
     public String minecraftUri;
     private File mcDataDir;
 
+    /**
+     * Display sizes.
+     */
     public int displayWidth;
     public int displayHeight;
+
+    /**
+     * Temp variables that contains sizes of
+     * windowed for restoring window mode.
+     */
+    public int windowedWidth;
+    public int windowedHeight;
+
     private boolean fullscreen;
 
     public GameSettings gameSettings;
@@ -118,10 +129,10 @@ public final class Minecraft implements Runnable {
 
     public Minecraft(int displayWidth, int displayHeight, boolean fullscreen) {
         StatList.func_27360_a();
-        this.fullscreen = fullscreen;
         new ThreadSleepForever(this, "Timer hack thread");
-        this.displayWidth = displayWidth;
-        this.displayHeight = displayHeight;
+
+        this.displayWidth = this.windowedWidth = displayWidth;
+        this.displayHeight = this.windowedHeight = displayHeight;
         this.fullscreen = fullscreen;
 
         instance = this;
@@ -244,9 +255,9 @@ public final class Minecraft implements Runnable {
         this.texturePackList = new TexturePackList(this, this.mcDataDir);
         this.renderEngine = new RenderEngine(this.texturePackList, this.gameSettings);
         this.fontRenderer = new FontRenderer(this.gameSettings, "/font/default.png", this.renderEngine);
-        ColorizerWater.func_28182_a(this.renderEngine.func_28149_a("/misc/watercolor.png"));
-        ColorizerGrass.func_28181_a(this.renderEngine.func_28149_a("/misc/grasscolor.png"));
-        ColorizerFoliage.func_28152_a(this.renderEngine.func_28149_a("/misc/foliagecolor.png"));
+        ColorizerWater.setWaterBuffer(this.renderEngine.loadTexture("/misc/watercolor.png"));
+        ColorizerGrass.setGrassBuffer(this.renderEngine.loadTexture("/misc/grasscolor.png"));
+        ColorizerFoliage.setFoliageBuffer(this.renderEngine.loadTexture("/misc/foliagecolor.png"));
         this.entityRenderer = new EntityRenderer(this);
         RenderManager.instance.itemRenderer = new ItemRenderer(this);
         this.statFileWriter = new StatFileWriter(this.session, this.mcDataDir);
@@ -294,7 +305,7 @@ public final class Minecraft implements Runnable {
         try {
             this.downloadResourcesThread = new ThreadDownloadResources(this.mcDataDir, this);
             this.downloadResourcesThread.start();
-        } catch (Exception var3) {
+        } catch (Exception ignored) {
         }
 
         this.checkGLError("Post startup");
@@ -664,25 +675,25 @@ public final class Minecraft implements Runnable {
         tess.draw();
         tess.startDrawing(1);
 
-        for (int var12 = 0; var12 < frameTimes.length; ++var12) {
-            int var13 = (var12 - numRecordedFrameTimes & frameTimes.length - 1) * 255 / frameTimes.length;
+        for (int i = 0; i < frameTimes.length; ++i) {
+            int var13 = (i - numRecordedFrameTimes & frameTimes.length - 1) * 255 / frameTimes.length;
             int var14 = var13 * var13 / 255;
             var14 = var14 * var14 / 255;
             int var15 = var14 * var14 / 255;
             var15 = var15 * var15 / 255;
-            if (frameTimes[var12] > var3) {
+            if (frameTimes[i] > var3) {
                 tess.setColorOpaque_I(-16777216 + var14 * 65536);
             } else {
                 tess.setColorOpaque_I(-16777216 + var14 * 256);
             }
 
-            long var16 = frameTimes[var12] / 200000L;
-            long var18 = tickTimes[var12] / 200000L;
-            tess.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
-            tess.addVertex((float) var12 + 0.5F, (float) this.displayHeight + 0.5F, 0.0D);
+            long var16 = frameTimes[i] / 200000L;
+            long var18 = tickTimes[i] / 200000L;
+            tess.addVertex((float) i + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
+            tess.addVertex((float) i + 0.5F, (float) this.displayHeight + 0.5F, 0.0D);
             tess.setColorOpaque_I(-16777216 + var14 * 65536 + var14 * 256 + var14 * 1);
-            tess.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
-            tess.addVertex((float) var12 + 0.5F, (float) ((long) this.displayHeight - (var16 - var18)) + 0.5F, 0.0D);
+            tess.addVertex((float) i + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
+            tess.addVertex((float) i + 0.5F, (float) ((long) this.displayHeight - (var16 - var18)) + 0.5F, 0.0D);
         }
 
         tess.draw();
@@ -790,9 +801,8 @@ public final class Minecraft implements Runnable {
                     this.thePlayer.swingItem();
                 }
 
-                if (currentItem == null) {
+                if (currentItem == null)
                     return;
-                }
 
                 if (currentItem.stackSize == 0) {
                     this.thePlayer.inventory.mainInventory[this.thePlayer.inventory.currentItem] = null;
@@ -813,34 +823,30 @@ public final class Minecraft implements Runnable {
     public void toggleFullscreen() {
         try {
             this.fullscreen = !this.fullscreen;
+
             if (this.fullscreen) {
-                Display.setDisplayMode(Display.getDesktopDisplayMode());
-                this.displayWidth = Display.getDisplayMode().getWidth();
-                this.displayHeight = Display.getDisplayMode().getHeight();
-                if (this.displayWidth <= 0) {
-                    this.displayWidth = 1;
-                }
-
-                if (this.displayHeight <= 0) {
-                    this.displayHeight = 1;
-                }
+                this.windowedWidth = this.displayWidth;
+                this.windowedHeight = this.displayHeight;
+                DisplayMode displayMode = Display.getDesktopDisplayMode();
+                Display.setDisplayMode(displayMode);
+                this.displayWidth = displayMode.getWidth();
+                this.displayHeight = displayMode.getHeight();
             } else {
-                this.displayWidth = Display.getWidth();
-                this.displayHeight = Display.getHeight();
-
-                if (this.displayWidth <= 0) {
-                    this.displayWidth = 1;
-                }
-
-                if (this.displayHeight <= 0) {
-                    this.displayHeight = 1;
-                }
+                this.displayWidth = this.windowedWidth;
+                this.displayHeight = this.windowedHeight;
+                Display.setDisplayMode(new DisplayMode(displayWidth, displayHeight));
             }
 
-            if (this.currentScreen != null) {
+            if (this.displayWidth <= 0)
+                this.displayWidth = 1;
+
+            if (this.displayHeight <= 0)
+                this.displayHeight = 1;
+
+            if (this.currentScreen != null)
                 this.resize(this.displayWidth, this.displayHeight);
-            }
 
+            Display.setResizable(!this.fullscreen);
             Display.setFullscreen(this.fullscreen);
             Display.update();
         } catch (Exception e) {
@@ -858,11 +864,10 @@ public final class Minecraft implements Runnable {
 
         this.displayWidth = width;
         this.displayHeight = height;
+
         if (this.currentScreen != null) {
             ScaledResolution scaledResolution = new ScaledResolution(this.gameSettings, width, height);
-            int scaledWidth = scaledResolution.getScaledWidth();
-            int scaledHeight = scaledResolution.getScaledHeight();
-            this.currentScreen.setWorldAndResolution(this, scaledWidth, scaledHeight);
+            this.currentScreen.setWorldAndResolution(this, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight());
         }
 
     }
