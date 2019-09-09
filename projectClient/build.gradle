@@ -8,13 +8,27 @@ mainClassName = "net.minecraft.client.Minecraft"
 repositories {
 	mavenCentral()
 	maven { url 'https://jitpack.io' }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
+
+project.ext.lwjglVersion = "3.2.4-SNAPSHOT"
+project.ext.jomlVersion = "1.9.17"
+project.ext.lwjglNatives = "natives-windows"
 
 dependencies {
 	implementation project(":projectCommon")
 
 	compile group: 'com.github.cliftonlabs', name: 'json-simple', version: '3.1.0'
-	compile group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'
 	compile group: 'net.java.jinput', name: 'jinput', version: '2.0.9'
-	implementation 'com.github.divinacode:Paulscode-SoundSystem:2013-04-17'
+
+    runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
+
+    implementation "org.lwjgl:lwjgl"
+    implementation "org.lwjgl:lwjgl-glfw"
+    implementation "org.lwjgl:lwjgl-openal"
+    implementation "org.lwjgl:lwjgl-opengl"
+    implementation "org.joml:joml:${jomlVersion}"
 }
