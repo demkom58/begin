@@ -993,60 +993,51 @@ public final class Minecraft implements Runnable {
 
             while (Keyboard.next()) {
                 this.thePlayer.handleKeyPress(Keyboard.getEventKey(), Keyboard.getEventKeyState());
-                if (Keyboard.getEventKeyState()) {
-                    if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
-                        this.toggleFullscreen();
-                    } else {
-                        if (this.currentScreen != null) {
-                            this.currentScreen.handleKeyboardInput();
-                        } else {
-                            if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
-                                this.displayInGameMenu();
-                            }
+                if (!Keyboard.getEventKeyState())
+                    continue;
 
-                            if (Keyboard.getEventKey() == Keyboard.KEY_S && Keyboard.isKeyDown(Keyboard.KEY_F3)) {
-                                this.forceReload();
-                            }
+                if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
+                    this.toggleFullscreen();
+                    continue;
+                }
 
-                            if (Keyboard.getEventKey() == Keyboard.KEY_F1) {
-                                this.gameSettings.hideGUI = !this.gameSettings.hideGUI;
-                            }
+                if (this.currentScreen == null) {
+                    if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE)
+                        this.displayInGameMenu();
 
-                            if (Keyboard.getEventKey() == Keyboard.KEY_F3) {
-                                this.gameSettings.showDebugInfo = !this.gameSettings.showDebugInfo;
-                            }
+                    if (Keyboard.getEventKey() == Keyboard.KEY_S && Keyboard.isKeyDown(Keyboard.KEY_F3))
+                        this.forceReload();
 
-                            if (Keyboard.getEventKey() == Keyboard.KEY_F5) {
-                                this.gameSettings.thirdPersonView = !this.gameSettings.thirdPersonView;
-                            }
+                    if (Keyboard.getEventKey() == Keyboard.KEY_F1)
+                        this.gameSettings.hideGUI = !this.gameSettings.hideGUI;
 
-                            if (Keyboard.getEventKey() == Keyboard.KEY_F8) {
-                                this.gameSettings.smoothCamera = !this.gameSettings.smoothCamera;
-                            }
+                    if (Keyboard.getEventKey() == Keyboard.KEY_F3)
+                        this.gameSettings.showDebugInfo = !this.gameSettings.showDebugInfo;
 
-                            if (Keyboard.getEventKey() == this.gameSettings.keyBindInventory.keyCode) {
-                                this.displayGuiScreen(new GuiInventory(this.thePlayer));
-                            }
+                    if (Keyboard.getEventKey() == Keyboard.KEY_F5)
+                        this.gameSettings.thirdPersonView = !this.gameSettings.thirdPersonView;
 
-                            if (Keyboard.getEventKey() == this.gameSettings.keyBindDrop.keyCode) {
-                                this.thePlayer.dropCurrentItem();
-                            }
+                    if (Keyboard.getEventKey() == Keyboard.KEY_F8)
+                        this.gameSettings.smoothCamera = !this.gameSettings.smoothCamera;
 
-                            if (this.isMultiplayerWorld() && Keyboard.getEventKey() == this.gameSettings.keyBindChat.keyCode) {
-                                this.displayGuiScreen(new GuiChat());
-                            }
-                        }
+                    if (Keyboard.getEventKey() == this.gameSettings.keyBindInventory.keyCode)
+                        this.displayGuiScreen(new GuiInventory(this.thePlayer));
 
-                        for (int i = 0; i < 9; ++i) {
-                            if (Keyboard.getEventKey() == 2 + i) {
-                                this.thePlayer.inventory.currentItem = i;
-                            }
-                        }
+                    if (Keyboard.getEventKey() == this.gameSettings.keyBindDrop.keyCode)
+                        this.thePlayer.dropCurrentItem();
 
-                        if (Keyboard.getEventKey() == this.gameSettings.keyBindToggleFog.keyCode) {
-                            this.gameSettings.setOptionValue(EnumOption.RENDER_DISTANCE, !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) ? 1 : -1);
-                        }
+                    if (this.isMultiplayerWorld() && Keyboard.getEventKey() == this.gameSettings.keyBindChat.keyCode)
+                        this.displayGuiScreen(new GuiChat());
+                } else this.currentScreen.handleKeyboardInput();
+
+                for (int i = 0; i < 9; ++i) {
+                    if (Keyboard.getEventKey() == 2 + i) {
+                        this.thePlayer.inventory.currentItem = i;
                     }
+                }
+
+                if (Keyboard.getEventKey() == this.gameSettings.keyBindToggleFog.keyCode) {
+                    this.gameSettings.setOptionValue(EnumOption.RENDER_DISTANCE, !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) ? 1 : -1);
                 }
             }
 
@@ -1131,8 +1122,8 @@ public final class Minecraft implements Runnable {
             return;
         }
 
-        ISaveHandler var5 = this.saveLoader.getSaveLoader(var1, false);
-        World world = new World(var5, var2, var3);
+        ISaveHandler saveLoader = this.saveLoader.getSaveLoader(var1, false);
+        World world = new World(saveLoader, var2, var3);
 
         if (world.isNewWorld) {
             this.statFileWriter.addStat(StatList.createWorldStat, 1);
@@ -1156,13 +1147,13 @@ public final class Minecraft implements Runnable {
 
         this.theWorld.setEntityDead(this.thePlayer);
         this.thePlayer.isDead = false;
-        double var1 = this.thePlayer.posX;
-        double var3 = this.thePlayer.posZ;
+        double x = this.thePlayer.posX;
+        double z = this.thePlayer.posZ;
         double var5 = 8.0D;
         if (this.thePlayer.dimension == -1) {
-            var1 = var1 / var5;
-            var3 = var3 / var5;
-            this.thePlayer.setLocationAndAngles(var1, this.thePlayer.posY, var3, this.thePlayer.rotationYaw, this.thePlayer.rotationPitch);
+            x = x / var5;
+            z = z / var5;
+            this.thePlayer.setLocationAndAngles(x, this.thePlayer.posY, z, this.thePlayer.rotationYaw, this.thePlayer.rotationPitch);
             if (this.thePlayer.isEntityAlive()) {
                 this.theWorld.updateEntityWithOptionalForce(this.thePlayer, false);
             }
@@ -1170,9 +1161,9 @@ public final class Minecraft implements Runnable {
             World world = new World(this.theWorld, WorldProvider.getProviderForDimension(-1));
             this.changeWorld(world, "Entering the Nether", this.thePlayer);
         } else {
-            var1 = var1 * var5;
-            var3 = var3 * var5;
-            this.thePlayer.setLocationAndAngles(var1, this.thePlayer.posY, var3, this.thePlayer.rotationYaw, this.thePlayer.rotationPitch);
+            x = x * var5;
+            z = z * var5;
+            this.thePlayer.setLocationAndAngles(x, this.thePlayer.posY, z, this.thePlayer.rotationYaw, this.thePlayer.rotationPitch);
             if (this.thePlayer.isEntityAlive()) {
                 this.theWorld.updateEntityWithOptionalForce(this.thePlayer, false);
             }
@@ -1183,7 +1174,7 @@ public final class Minecraft implements Runnable {
 
         this.thePlayer.worldObj = this.theWorld;
         if (this.thePlayer.isEntityAlive()) {
-            this.thePlayer.setLocationAndAngles(var1, this.thePlayer.posY, var3, this.thePlayer.rotationYaw, this.thePlayer.rotationPitch);
+            this.thePlayer.setLocationAndAngles(x, this.thePlayer.posY, z, this.thePlayer.rotationYaw, this.thePlayer.rotationPitch);
             this.theWorld.updateEntityWithOptionalForce(this.thePlayer, false);
             new Teleporter().func_4107_a(this.theWorld, this.thePlayer);
         }
@@ -1247,23 +1238,21 @@ public final class Minecraft implements Runnable {
                 world.emptyMethod1();
             }
 
-            IChunkProvider var4 = world.getIChunkProvider();
-            if (var4 instanceof ChunkProviderLoadOrGenerate) {
-                ChunkProviderLoadOrGenerate var5 = (ChunkProviderLoadOrGenerate) var4;
+            IChunkProvider chunkProvider = world.getIChunkProvider();
+            if (chunkProvider instanceof ChunkProviderLoadOrGenerate) {
+                ChunkProviderLoadOrGenerate var5 = (ChunkProviderLoadOrGenerate) chunkProvider;
                 int var6 = MathHelper.floor((float) ((int) this.thePlayer.posX)) >> 4;
                 int var7 = MathHelper.floor((float) ((int) this.thePlayer.posZ)) >> 4;
                 var5.setCurrentChunkOver(var6, var7);
             }
 
             world.spawnPlayerWithLoadedChunks(this.thePlayer);
-            if (world.isNewWorld) {
+            if (world.isNewWorld)
                 world.saveWorldIndirectly(this.loadingScreen);
-            }
 
             this.renderViewEntity = this.thePlayer;
-        } else {
-            this.thePlayer = null;
-        }
+        } else this.thePlayer = null;
+
 
         System.gc();
         this.systemTime = 0L;
