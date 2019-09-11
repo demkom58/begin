@@ -1,10 +1,6 @@
 package net.minecraft.client.input;
 
 import net.minecraft.client.render.GLAllocation;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Cursor;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
 
 import java.nio.IntBuffer;
 

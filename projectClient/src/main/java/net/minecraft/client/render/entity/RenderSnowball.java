@@ -3,8 +3,8 @@ package net.minecraft.client.render.entity;
 import net.minecraft.client.render.Render;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
 
 public class RenderSnowball extends Render {
     private int itemIconIndex;
@@ -16,7 +16,7 @@ public class RenderSnowball extends Render {
     public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) var2, (float) var4, (float) var6);
-        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL15.GL_RESCALE_NORMAL);
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         this.loadTexture("/gui/items.png");
         Tessellator var10 = Tessellator.INSTANCE;
@@ -36,7 +36,7 @@ public class RenderSnowball extends Render {
         var10.addVertexWithUV(var15 - var16, 1.0F - var17, 0.0D, var12, var13);
         var10.addVertexWithUV(0.0F - var16, 1.0F - var17, 0.0D, var11, var13);
         var10.draw();
-        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glDisable(GL15.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     }
 }

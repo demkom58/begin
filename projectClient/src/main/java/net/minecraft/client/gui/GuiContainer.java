@@ -7,9 +7,8 @@ import net.minecraft.inventory.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
 
 public abstract class GuiContainer extends GuiScreen {
     private static RenderItem itemRenderer = new RenderItem();
@@ -38,7 +37,7 @@ public abstract class GuiContainer extends GuiScreen {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) var4, (float) var5, 0.0F);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL15.GL_RESCALE_NORMAL);
         Slot var6 = null;
 
         for (int var7 = 0; var7 < this.inventorySlots.slots.size(); ++var7) {
@@ -63,7 +62,7 @@ public abstract class GuiContainer extends GuiScreen {
             itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.renderEngine, var12.getItemStack(), var1 - var4 - 8, var2 - var5 - 8);
         }
 
-        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glDisable(GL15.GL_RESCALE_NORMAL);
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);

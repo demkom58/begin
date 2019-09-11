@@ -9,8 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.stats.StatCollector;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.util.StringTranslate;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
 
 public class GuiStats extends GuiScreen {
     private static RenderItem field_27153_j = new RenderItem();
@@ -177,14 +177,14 @@ public class GuiStats extends GuiScreen {
 
     private void func_27138_c(int var1, int var2, int var3) {
         this.func_27147_a(var1 + 1, var2 + 1);
-        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL15.GL_RESCALE_NORMAL);
         GL11.glPushMatrix();
         GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
         RenderHelper.enableStandardItemLighting();
         GL11.glPopMatrix();
         field_27153_j.drawItemIntoGui(this.fontRenderer, this.mc.renderEngine, var3, 0, Item.ITEMS_LIST[var3].getIconFromDamage(0), var1 + 2, var2 + 2);
         RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glDisable(GL15.GL_RESCALE_NORMAL);
     }
 
     private void func_27147_a(int var1, int var2) {

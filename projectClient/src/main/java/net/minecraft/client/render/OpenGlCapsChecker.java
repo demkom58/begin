@@ -1,7 +1,5 @@
 package net.minecraft.client.render;
 
-import org.lwjgl.opengl.GLContext;
-
 public class OpenGlCapsChecker {
     private static boolean tryCheckOcclusionCapable = true;
 

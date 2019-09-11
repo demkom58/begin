@@ -1,5 +1,10 @@
 package net.minecraft.client;
 
+import net.hypnosis.lwjgl.Api;
+import net.hypnosis.lwjgl.ContextApi;
+import net.hypnosis.lwjgl.LWJGL;
+import net.hypnosis.lwjgl.Profile;
+import net.hypnosis.monitor.Window;
 import net.minecraft.achievement.AchievementList;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.*;
@@ -28,14 +33,9 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.SaveConverterMcRegion;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Controllers;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.glu.GLU;
+import org.lwjgl.system.MemoryUtil;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -61,20 +61,13 @@ public final class Minecraft implements Runnable {
     private File mcDataDir;
 
     /**
-     * Display sizes.
+     * Engine objects
      */
-    public int displayWidth;
-    public int displayHeight;
+    public Window window;
 
     /**
-     * Temp variables that contains sizes of
-     * windowed for restoring window mode.
+     * Game objects
      */
-    public int windowedWidth;
-    public int windowedHeight;
-
-    private boolean fullscreen;
-
     public GameSettings gameSettings;
     public MouseHelper mouseHelper;
     public MovingObjectPosition objectMouseOver = null;
@@ -131,9 +124,10 @@ public final class Minecraft implements Runnable {
         StatList.func_27360_a();
         new ThreadSleepForever(this, "Timer hack thread");
 
-        this.displayWidth = this.windowedWidth = displayWidth;
-        this.displayHeight = this.windowedHeight = displayHeight;
-        this.fullscreen = fullscreen;
+        this.window = new Window("Minecraft Beta 1.7.3", displayWidth, displayHeight, MemoryUtil.NULL, fullscreen,
+                true, this::resize, null, null, null);
+        LWJGL.init(Api.OPENGL, ContextApi.NATIVE, Profile.CORE, 3, 3);
+        this.window.makeCurrentContext();
 
         instance = this;
     }
@@ -199,8 +193,8 @@ public final class Minecraft implements Runnable {
     public void displayUnexpectedThrowable(UnexpectedThrowable throwable) {
         Frame frame = new Frame("Minecraft Crashed");
         frame.setLayout(new BorderLayout());
-        frame.setSize(Display.getWidth(), Display.getHeight());
-        frame.setLocation(Display.getX(), Display.getY());
+        frame.setSize(window.getWidth(), window.getHeight());
+        frame.setLocation(window.getX(), window.getY());
         frame.add(new PanelCrashReport(throwable), "Center");
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -218,37 +212,7 @@ public final class Minecraft implements Runnable {
         this.serverPort = serverPort;
     }
 
-    public void startGame() throws LWJGLException {
-        if (this.fullscreen) {
-            Display.setFullscreen(true);
-            this.displayWidth = Display.getDisplayMode().getWidth();
-            this.displayHeight = Display.getDisplayMode().getHeight();
-
-            if (this.displayWidth <= 0)
-                this.displayWidth = 1;
-
-            if (this.displayHeight <= 0)
-                this.displayHeight = 1;
-
-        } else Display.setDisplayMode(new DisplayMode(this.displayWidth, this.displayHeight));
-
-
-        Display.setTitle("Minecraft Beta 1.7.3");
-        Display.setResizable(true);
-
-        try {
-            Display.create();
-        } catch (LWJGLException e) {
-            e.printStackTrace();
-
-            try {
-                Thread.sleep(1000L);
-            } catch (InterruptedException ignored) {
-            }
-
-            Display.create();
-        }
-
+    public void startGame() {
         this.mcDataDir = getMinecraftDir();
         this.saveLoader = new SaveConverterMcRegion(new File(this.mcDataDir, "saves"));
         this.gameSettings = new GameSettings(this, this.mcDataDir);
@@ -274,7 +238,7 @@ public final class Minecraft implements Runnable {
             e.printStackTrace();
         }
 
-        this.checkGLError("Pre startup");
+        this.window.setPhase("Pre startup");
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glShadeModel(GL11.GL_SMOOTH);
         GL11.glClearDepth(1.0D);
@@ -286,7 +250,7 @@ public final class Minecraft implements Runnable {
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
-        this.checkGLError("Startup");
+        this.window.setPhase("Startup");
         this.glCapabilities = new OpenGlCapsChecker();
         this.soundManager.loadSoundSettings(this.gameSettings);
         this.renderEngine.registerTextureFX(this.textureLavaFX);
@@ -299,7 +263,7 @@ public final class Minecraft implements Runnable {
         this.renderEngine.registerTextureFX(new TextureFlamesFX(0));
         this.renderEngine.registerTextureFX(new TextureFlamesFX(1));
         this.renderGlobal = new RenderGlobal(this, this.renderEngine);
-        GL11.glViewport(0, 0, this.displayWidth, this.displayHeight);
+        GL11.glViewport(0, 0, this.window.getWidth(), this.window.getHeight());
         this.effectRenderer = new EffectRenderer(this.theWorld, this.renderEngine);
 
         try {
@@ -308,7 +272,9 @@ public final class Minecraft implements Runnable {
         } catch (Exception ignored) {
         }
 
-        this.checkGLError("Post startup");
+        this.window.setPhase("Post startup");
+        this.window.logOnGlError();
+
         this.ingameGUI = new GuiIngame(this);
         if (this.serverName != null) {
             this.displayGuiScreen(new GuiConnecting(this, this.serverName, this.serverPort));
@@ -318,8 +284,10 @@ public final class Minecraft implements Runnable {
 
     }
 
-    private void loadScreen() throws LWJGLException {
-        ScaledResolution res = new ScaledResolution(this.gameSettings, this.displayWidth, this.displayHeight);
+    private void loadScreen() {
+        final Window window = this.window;
+        final ScaledResolution res = new ScaledResolution(this.gameSettings, window.getWidth(), window.getHeight());
+
         GL11.glClear(16640);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
@@ -327,7 +295,7 @@ public final class Minecraft implements Runnable {
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glLoadIdentity();
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
-        GL11.glViewport(0, 0, this.displayWidth, this.displayHeight);
+        GL11.glViewport(0, 0, window.getWidth(), window.getHeight());
         GL11.glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
         Tessellator tess = Tessellator.INSTANCE;
         GL11.glDisable(GL11.GL_LIGHTING);
@@ -336,9 +304,9 @@ public final class Minecraft implements Runnable {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/title/mojang.png"));
         tess.startDrawingQuads();
         tess.setColorOpaque_I(16777215);
-        tess.addVertexWithUV(0.0D, this.displayHeight, 0.0D, 0.0D, 0.0D);
-        tess.addVertexWithUV(this.displayWidth, this.displayHeight, 0.0D, 0.0D, 0.0D);
-        tess.addVertexWithUV(this.displayWidth, 0.0D, 0.0D, 0.0D, 0.0D);
+        tess.addVertexWithUV(0.0D, window.getHeight(), 0.0D, 0.0D, 0.0D);
+        tess.addVertexWithUV(window.getWidth(), window.getHeight(), 0.0D, 0.0D, 0.0D);
+        tess.addVertexWithUV(window.getWidth(), 0.0D, 0.0D, 0.0D, 0.0D);
         tess.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
         tess.draw();
         short var3 = 256;
@@ -350,7 +318,7 @@ public final class Minecraft implements Runnable {
         GL11.glDisable(GL11.GL_FOG);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glAlphaFunc(516, 0.1F);
-        Display.swapBuffers();
+        window.swapBuffer();
     }
 
     public void func_6274_a(int var1, int var2, int var3, int var4, int var5, int var6) {
@@ -395,24 +363,13 @@ public final class Minecraft implements Runnable {
         this.currentScreen = guiScreen;
         if (guiScreen != null) {
             this.setIngameNotInFocus();
-            ScaledResolution scaledResolution = new ScaledResolution(this.gameSettings, this.displayWidth, this.displayHeight);
+            ScaledResolution scaledResolution = new ScaledResolution(this.gameSettings, this.window.getWidth(), this.window.getHeight());
             int width = scaledResolution.getScaledWidth();
             int height = scaledResolution.getScaledHeight();
             guiScreen.setWorldAndResolution(this, width, height);
             this.skipRenderWorld = false;
         } else {
             this.setIngameFocus();
-        }
-
-    }
-
-    private void checkGLError(String message) {
-        int errorCode = GL11.glGetError();
-        if (errorCode != 0) {
-            String errorText = GLU.gluErrorString(errorCode);
-            System.out.println("########## GL ERROR ##########");
-            System.out.println("@ " + message);
-            System.out.println(errorCode + ": " + errorText);
         }
 
     }
@@ -445,7 +402,7 @@ public final class Minecraft implements Runnable {
             Mouse.destroy();
             Keyboard.destroy();
         } finally {
-            Display.destroy();
+            window.destroy();
             if (!this.hasCrashed) {
                 System.exit(0);
             }
@@ -474,7 +431,7 @@ public final class Minecraft implements Runnable {
                 try {
                     AxisAlignedBB.clearBoundingBoxPool();
                     Vec3D.initialize();
-                    if (Display.isCloseRequested()) {
+                    if (window.isCloseRequested()) {
                         this.shutdown();
                     }
 
@@ -501,7 +458,7 @@ public final class Minecraft implements Runnable {
                     }
 
                     long totalTick = System.nanoTime() - tickStart;
-                    this.checkGLError("Pre render");
+                    this.window.setPhase("Pre render");
                     RenderBlocks.fancyGrass = this.gameSettings.fancyGraphics;
                     this.soundManager.func_338_a(this.thePlayer, this.timer.renderPartialTicks);
                     GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -510,7 +467,7 @@ public final class Minecraft implements Runnable {
                     }
 
                     if (!Keyboard.isKeyDown(Keyboard.KEY_F2)) {
-                        Display.update();
+                        this.window.update();
                     }
 
                     if (this.thePlayer != null && this.thePlayer.isEntityInsideOpaqueBlock()) {
@@ -525,8 +482,8 @@ public final class Minecraft implements Runnable {
                         this.entityRenderer.updateCameraAndRender(this.timer.renderPartialTicks);
                     }
 
-                    if (!Display.isActive()) {
-                        if (this.fullscreen) {
+                    if (!this.window.isFocused()) {
+                        if (this.window.isFullscreen()) {
                             this.toggleFullscreen();
                         }
 
@@ -542,30 +499,32 @@ public final class Minecraft implements Runnable {
                     this.guiAchievement.updateAchievementWindow();
                     Thread.yield();
                     if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
-                        Display.update();
+                        this.window.update();
                     }
 
                     this.screenshotListener();
 
-                    int displayWidth = Display.getWidth();
-                    int displayHeight = Display.getHeight();
-                    if (!this.fullscreen && (displayWidth != this.displayWidth || displayHeight != this.displayHeight)) {
-                        this.displayWidth = displayWidth;
-                        this.displayHeight = displayHeight;
+//                    int displayWidth = Display.getWidth();
+//                    int displayHeight = Display.getHeight();
+//                    if (!this.fullscreen && (displayWidth != this.displayWidth || displayHeight != this.displayHeight)) {
+//                        this.displayWidth = displayWidth;
+//                        this.displayHeight = displayHeight;
+//
+//                        if (this.displayWidth <= 0)
+//                            this.displayWidth = 1;
+//
+//                        if (this.displayHeight <= 0)
+//                            this.displayHeight = 1;
+//
+//                        this.resize(this.displayWidth, this.displayHeight);
+//                    }
 
-                        if (this.displayWidth <= 0)
-                            this.displayWidth = 1;
-
-                        if (this.displayHeight <= 0)
-                            this.displayHeight = 1;
-
-                        this.resize(this.displayWidth, this.displayHeight);
-                    }
-
-                    this.checkGLError("Post render");
+                    this.window.setPhase("Post render");
                     ++fps;
 
-                    for (this.isGamePaused = !this.isMultiplayerWorld() && this.currentScreen != null && this.currentScreen.doesGuiPauseGame(); System.currentTimeMillis() >= renderStart + 1000L; fps = 0) {
+                    for (this.isGamePaused = !this.isMultiplayerWorld()
+                            && this.currentScreen != null
+                            && this.currentScreen.doesGuiPauseGame(); System.currentTimeMillis() >= renderStart + 1000L; fps = 0) {
                         this.debug = fps + " fps, " + WorldRenderer.chunksUpdated + " chunk updates";
                         WorldRenderer.chunksUpdated = 0;
                         renderStart += 1000L;
@@ -616,14 +575,13 @@ public final class Minecraft implements Runnable {
 
     private void screenshotListener() {
         if (Keyboard.isKeyDown(Keyboard.KEY_F2)) {
-            if (!this.isTakingScreenshot) {
-                this.isTakingScreenshot = true;
-                this.ingameGUI.addChatMessage(ScreenShotHelper.saveScreenshot(minecraftDir, this.displayWidth, this.displayHeight));
-            }
-        } else {
-            this.isTakingScreenshot = false;
-        }
+            if (this.isTakingScreenshot)
+                return;
+            this.isTakingScreenshot = true;
 
+            Window window = this.window;
+            this.ingameGUI.addChatMessage(ScreenShotHelper.saveScreenshot(minecraftDir, window.getWidth(), window.getHeight()));
+        } else this.isTakingScreenshot = false;
     }
 
     private void displayDebugInfo(long var1) {
@@ -639,7 +597,12 @@ public final class Minecraft implements Runnable {
         GL11.glClear(256);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GL11.glOrtho(0.0D, this.displayWidth, this.displayHeight, 0.0D, 1000.0D, 3000.0D);
+
+        final Window window = this.window;
+        int displayWidth = window.getWidth();
+        int displayHeight = window.getHeight();
+
+        GL11.glOrtho(0.0D, displayWidth, displayHeight, 0.0D, 1000.0D, 3000.0D);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glLoadIdentity();
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
@@ -649,15 +612,15 @@ public final class Minecraft implements Runnable {
         tess.startDrawing(7);
         int var8 = (int) (var3 / 200000L);
         tess.setColorOpaque_I(536870912);
-        tess.addVertex(0.0D, this.displayHeight - var8, 0.0D);
-        tess.addVertex(0.0D, this.displayHeight, 0.0D);
-        tess.addVertex(frameTimes.length, this.displayHeight, 0.0D);
-        tess.addVertex(frameTimes.length, this.displayHeight - var8, 0.0D);
+        tess.addVertex(0.0D, displayHeight - var8, 0.0D);
+        tess.addVertex(0.0D, displayHeight, 0.0D);
+        tess.addVertex(frameTimes.length, displayHeight, 0.0D);
+        tess.addVertex(frameTimes.length, displayHeight - var8, 0.0D);
         tess.setColorOpaque_I(538968064);
-        tess.addVertex(0.0D, this.displayHeight - var8 * 2, 0.0D);
-        tess.addVertex(0.0D, this.displayHeight - var8, 0.0D);
-        tess.addVertex(frameTimes.length, this.displayHeight - var8, 0.0D);
-        tess.addVertex(frameTimes.length, this.displayHeight - var8 * 2, 0.0D);
+        tess.addVertex(0.0D, displayHeight - var8 * 2, 0.0D);
+        tess.addVertex(0.0D, displayHeight - var8, 0.0D);
+        tess.addVertex(frameTimes.length, displayHeight - var8, 0.0D);
+        tess.addVertex(frameTimes.length, displayHeight - var8 * 2, 0.0D);
         tess.draw();
         long var9 = 0L;
 
@@ -668,10 +631,10 @@ public final class Minecraft implements Runnable {
         int var20 = (int) (var9 / 200000L / (long) frameTimes.length);
         tess.startDrawing(7);
         tess.setColorOpaque_I(541065216);
-        tess.addVertex(0.0D, this.displayHeight - var20, 0.0D);
-        tess.addVertex(0.0D, this.displayHeight, 0.0D);
-        tess.addVertex(frameTimes.length, this.displayHeight, 0.0D);
-        tess.addVertex(frameTimes.length, this.displayHeight - var20, 0.0D);
+        tess.addVertex(0.0D, displayHeight - var20, 0.0D);
+        tess.addVertex(0.0D, displayHeight, 0.0D);
+        tess.addVertex(frameTimes.length, displayHeight, 0.0D);
+        tess.addVertex(frameTimes.length, displayHeight - var20, 0.0D);
         tess.draw();
         tess.startDrawing(1);
 
@@ -689,11 +652,11 @@ public final class Minecraft implements Runnable {
 
             long var16 = frameTimes[i] / 200000L;
             long var18 = tickTimes[i] / 200000L;
-            tess.addVertex((float) i + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
-            tess.addVertex((float) i + 0.5F, (float) this.displayHeight + 0.5F, 0.0D);
+            tess.addVertex((float) i + 0.5F, (float) ((long) displayHeight - var16) + 0.5F, 0.0D);
+            tess.addVertex((float) i + 0.5F, (float) displayHeight + 0.5F, 0.0D);
             tess.setColorOpaque_I(-16777216 + var14 * 65536 + var14 * 256 + var14 * 1);
-            tess.addVertex((float) i + 0.5F, (float) ((long) this.displayHeight - var16) + 0.5F, 0.0D);
-            tess.addVertex((float) i + 0.5F, (float) ((long) this.displayHeight - (var16 - var18)) + 0.5F, 0.0D);
+            tess.addVertex((float) i + 0.5F, (float) ((long) displayHeight - var16) + 0.5F, 0.0D);
+            tess.addVertex((float) i + 0.5F, (float) ((long) displayHeight - (var16 - var18)) + 0.5F, 0.0D);
         }
 
         tess.draw();
@@ -705,7 +668,7 @@ public final class Minecraft implements Runnable {
     }
 
     public void setIngameFocus() {
-        if (!Display.isActive())
+        if (!this.window.isFocused())
             return;
 
         if (this.inGameHasFocus)
@@ -822,54 +785,26 @@ public final class Minecraft implements Runnable {
 
     public void toggleFullscreen() {
         try {
-            this.fullscreen = !this.fullscreen;
+            boolean fullscreen = this.window.isFullscreen();
+            this.window.setFullscreen(!fullscreen);
 
-            if (this.fullscreen) {
-                this.windowedWidth = this.displayWidth;
-                this.windowedHeight = this.displayHeight;
-                DisplayMode displayMode = Display.getDesktopDisplayMode();
-                Display.setDisplayMode(displayMode);
-                this.displayWidth = displayMode.getWidth();
-                this.displayHeight = displayMode.getHeight();
-            } else {
-                this.displayWidth = this.windowedWidth;
-                this.displayHeight = this.windowedHeight;
-                Display.setDisplayMode(new DisplayMode(displayWidth, displayHeight));
+            if (this.window.isFullscreen()) {
+                this.window.setResizable(!fullscreen);
             }
 
-            if (this.displayWidth <= 0)
-                this.displayWidth = 1;
-
-            if (this.displayHeight <= 0)
-                this.displayHeight = 1;
-
-            if (this.currentScreen != null)
-                this.resize(this.displayWidth, this.displayHeight);
-
-            Display.setResizable(!this.fullscreen);
-            Display.setFullscreen(this.fullscreen);
-            Display.update();
+            this.window.update();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    private void resize(int width, int height) {
-        if (width <= 0)
-            width = 1;
+    private void resize(long window, int width, int height) {
+        if (this.currentScreen == null)
+            return;
 
-        if (height <= 0)
-            height = 1;
-
-        this.displayWidth = width;
-        this.displayHeight = height;
-
-        if (this.currentScreen != null) {
-            ScaledResolution scaledResolution = new ScaledResolution(this.gameSettings, width, height);
-            this.currentScreen.setWorldAndResolution(this, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight());
-        }
-
+        ScaledResolution scaledResolution = new ScaledResolution(this.gameSettings, width, height);
+        this.currentScreen.setWorldAndResolution(this, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight());
     }
 
     private void clickMiddleMouseButton() {
@@ -1406,5 +1341,9 @@ public final class Minecraft implements Runnable {
 
     public boolean lineIsCommand(String line) {
         return line.startsWith("/");
+    }
+
+    public static Minecraft getInstance() {
+        return instance;
     }
 }

@@ -5,7 +5,6 @@ import net.minecraft.network.packet.Packet130UpdateSign;
 import net.minecraft.tileentity.TileEntityRenderer;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ChatAllowedCharacters;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 public class GuiEditSign extends GuiScreen {

@@ -3,7 +3,6 @@ package net.minecraft.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.util.StringTranslate;
-import org.lwjgl.Sys;
 
 import java.io.File;
 

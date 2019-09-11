@@ -1,10 +1,9 @@
 package net.minecraft.client.gui;
 
+import net.hypnosis.monitor.Window;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.client.render.Tessellator;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -97,13 +96,15 @@ public class GuiScreen extends Gui {
     }
 
     public void handleMouseInput() {
+        final Window window = this.mc.window;
+
         if (Mouse.getEventButtonState()) {
-            int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
-            int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
+            int x = Mouse.getEventX() * this.width / window.getWidth();
+            int y = this.height - Mouse.getEventY() * this.height / window.getHeight() - 1;
             this.mouseClicked(x, y, Mouse.getEventButton());
         } else {
-            int x = Mouse.getEventX() * this.width / this.mc.displayWidth;
-            int y = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
+            int x = Mouse.getEventX() * this.width / window.getWidth();
+            int y = this.height - Mouse.getEventY() * this.height / window.getHeight() - 1;
             this.mouseMovedOrUp(x, y, Mouse.getEventButton());
         }
 

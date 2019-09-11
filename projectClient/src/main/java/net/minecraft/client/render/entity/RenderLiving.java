@@ -7,9 +7,9 @@ import net.minecraft.client.render.Render;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
+import org.lwjgl.opengl.GL15;
 
 public class RenderLiving extends Render {
     protected ModelBase mainModel;
@@ -45,7 +45,7 @@ public class RenderLiving extends Render {
             float var13 = this.func_170_d(var1, var9);
             this.rotateCorpse(var1, var13, var10, var9);
             float var14 = 0.0625F;
-            GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+            GL11.glEnable(GL15.GL_RESCALE_NORMAL);
             GL11.glScalef(-1.0F, -1.0F, 1.0F);
             this.preRenderCallback(var1, var9);
             GL11.glTranslatef(0.0F, -24.0F * var14 - 0.0078125F, 0.0F);
@@ -111,7 +111,7 @@ public class RenderLiving extends Render {
                 GL11.glEnable(GL11.GL_TEXTURE_2D);
             }
 
-            GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+            GL11.glDisable(GL15.GL_RESCALE_NORMAL);
         } catch (Exception e) {
             e.printStackTrace();
         }

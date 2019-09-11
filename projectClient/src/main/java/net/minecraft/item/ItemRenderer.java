@@ -9,9 +9,9 @@ import net.minecraft.client.render.item.MapItemRenderer;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayerSP;
 import net.minecraft.material.Material;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
+import org.lwjgl.opengl.GL15;
 
 public class ItemRenderer {
     private Minecraft mc;
@@ -48,7 +48,7 @@ public class ItemRenderer {
             float var9 = 1.0F;
             float var10 = 0.0F;
             float var11 = 0.3F;
-            GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+            GL11.glEnable(GL15.GL_RESCALE_NORMAL);
             GL11.glTranslatef(-var10, -var11, 0.0F);
             float var12 = 1.5F;
             GL11.glScalef(var12, var12, var12);
@@ -126,7 +126,7 @@ public class ItemRenderer {
             }
 
             var3.draw();
-            GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+            GL11.glDisable(GL15.GL_RESCALE_NORMAL);
         }
 
         GL11.glPopMatrix();
@@ -173,7 +173,7 @@ public class ItemRenderer {
             GL11.glTranslatef(0.0F, 0.0F * var16 - (1.0F - var2) * 1.2F - var23 * 0.5F + 0.04F, -0.9F * var16);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(var23 * -85.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+            GL11.glEnable(GL15.GL_RESCALE_NORMAL);
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTextureForDownloadableImage(this.mc.thePlayer.skinUrl, this.mc.thePlayer.getEntityTexture()));
 
             for (int var32 = 0; var32 < 2; ++var32) {
@@ -227,7 +227,7 @@ public class ItemRenderer {
             GL11.glTranslatef(-var35 * 0.4F, MathHelper.sin(MathHelper.sqrt(var17) * 3.1415927F * 2.0F) * 0.2F, -var26 * 0.2F);
             GL11.glTranslatef(0.7F * var14, -0.65F * var14 - (1.0F - var2) * 0.6F, -0.9F * var14);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
-            GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+            GL11.glEnable(GL15.GL_RESCALE_NORMAL);
             var17 = var3.getSwingProgress(var1);
             var26 = MathHelper.sin(var17 * var17 * 3.1415927F);
             var35 = MathHelper.sin(MathHelper.sqrt(var17) * 3.1415927F);
@@ -251,7 +251,7 @@ public class ItemRenderer {
             GL11.glTranslatef(-var37 * 0.3F, MathHelper.sin(MathHelper.sqrt(var20) * 3.1415927F * 2.0F) * 0.4F, -var28 * 0.4F);
             GL11.glTranslatef(0.8F * var15, -0.75F * var15 - (1.0F - var2) * 0.6F, -0.9F * var15);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
-            GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+            GL11.glEnable(GL15.GL_RESCALE_NORMAL);
             var20 = var3.getSwingProgress(var1);
             var28 = MathHelper.sin(var20 * var20 * 3.1415927F);
             var37 = MathHelper.sin(MathHelper.sqrt(var20) * 3.1415927F);
@@ -272,7 +272,7 @@ public class ItemRenderer {
             GL11.glPopMatrix();
         }
 
-        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glDisable(GL15.GL_RESCALE_NORMAL);
         RenderHelper.disableStandardItemLighting();
     }
 

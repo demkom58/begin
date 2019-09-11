@@ -12,16 +12,12 @@ import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityRenderer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumMovingObjectType;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldRenderer;
 import org.lwjgl.opengl.ARBOcclusionQuery;
 import org.lwjgl.opengl.GL11;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3D;
 
 import java.nio.IntBuffer;
 import java.util.*;
@@ -520,17 +516,19 @@ public class RenderGlobal implements IWorldAccess {
     }
 
     private void checkOcclusionQueryResult(int var1, int var2) {
-        for (int var3 = var1; var3 < var2; ++var3) {
-            if (this.sortedWorldRenderers[var3].isWaitingOnOcclusionQuery) {
-                this.occlusionResult.clear();
-                ARBOcclusionQuery.glGetQueryObjectuARB(this.sortedWorldRenderers[var3].glOcclusionQuery, ARBOcclusionQuery.GL_QUERY_RESULT_AVAILABLE_ARB, this.occlusionResult);
-                if (this.occlusionResult.get(0) != 0) {
-                    this.sortedWorldRenderers[var3].isWaitingOnOcclusionQuery = false;
-                    this.occlusionResult.clear();
-                    ARBOcclusionQuery.glGetQueryObjectuARB(this.sortedWorldRenderers[var3].glOcclusionQuery, ARBOcclusionQuery.GL_QUERY_RESULT_ARB, this.occlusionResult);
-                    this.sortedWorldRenderers[var3].isVisible = this.occlusionResult.get(0) != 0;
-                }
-            }
+        for (int i = var1; i < var2; ++i) {
+            if (!this.sortedWorldRenderers[i].isWaitingOnOcclusionQuery)
+                continue;
+
+            this.occlusionResult.clear();
+            ARBOcclusionQuery.glGetQueryObjectuivARB(this.sortedWorldRenderers[i].glOcclusionQuery, ARBOcclusionQuery.GL_QUERY_RESULT_AVAILABLE_ARB, this.occlusionResult);
+            if (this.occlusionResult.get(0) == 0)
+                continue;
+
+            this.sortedWorldRenderers[i].isWaitingOnOcclusionQuery = false;
+            this.occlusionResult.clear();
+            ARBOcclusionQuery.glGetQueryObjectuivARB(this.sortedWorldRenderers[i].glOcclusionQuery, ARBOcclusionQuery.GL_QUERY_RESULT_ARB, this.occlusionResult);
+            this.sortedWorldRenderers[i].isVisible = this.occlusionResult.get(0) != 0;
         }
 
     }

@@ -4,7 +4,6 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.item.Item;
 import net.minecraft.stats.StatCrafting;
 import net.minecraft.util.StringTranslate;
-import org.lwjgl.input.Mouse;
 
 import java.util.Comparator;
 import java.util.List;

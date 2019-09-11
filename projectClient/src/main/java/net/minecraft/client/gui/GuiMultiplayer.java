@@ -1,7 +1,6 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.util.StringTranslate;
-import org.lwjgl.input.Keyboard;
 
 public class GuiMultiplayer extends GuiScreen {
     private GuiScreen parentScreen;

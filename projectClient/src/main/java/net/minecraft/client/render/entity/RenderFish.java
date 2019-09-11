@@ -4,16 +4,16 @@ import net.minecraft.client.render.Render;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityFish;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3D;
+import org.lwjgl.opengl.GL15;
 
 public class RenderFish extends Render {
     public void func_4011_a(EntityFish var1, double var2, double var4, double var6, float var8, float var9) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) var2, (float) var4, (float) var6);
-        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL15.GL_RESCALE_NORMAL);
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         byte var10 = 1;
         byte var11 = 2;
@@ -35,7 +35,7 @@ public class RenderFish extends Render {
         var12.addVertexWithUV(var17 - var18, 1.0F - var19, 0.0D, var14, var15);
         var12.addVertexWithUV(0.0F - var18, 1.0F - var19, 0.0D, var13, var15);
         var12.draw();
-        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glDisable(GL15.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
         if (var1.angler != null) {
             float var20 = (var1.angler.prevRotationYaw + (var1.angler.rotationYaw - var1.angler.prevRotationYaw) * var9) * 3.1415927F / 180.0F;

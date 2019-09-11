@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityClientPlayerMP;
 import net.minecraft.network.NetClientHandler;
 import net.minecraft.network.packet.Packet19EntityAction;
 import net.minecraft.util.StringTranslate;
-import org.lwjgl.input.Keyboard;
 
 public class GuiSleepMP extends GuiChat {
     public void initGui() {

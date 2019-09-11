@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import net.hypnosis.monitor.Window;
 import net.minecraft.client.render.RenderHelper;
 import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.client.render.ScaledResolution;
@@ -7,8 +8,8 @@ import net.minecraft.achievement.Achievement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.stats.StatCollector;
 import org.lwjgl.opengl.ARBVertexBlend;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
 
 public class GuiAchievement extends Gui {
     private Minecraft theGame;
@@ -43,14 +44,18 @@ public class GuiAchievement extends Gui {
     }
 
     private void updateAchievementWindowScale() {
-        GL11.glViewport(0, 0, this.theGame.displayWidth, this.theGame.displayHeight);
+        final Window window = this.theGame.window;
+        final int width = window.getWidth();
+        final int height = window.getHeight();
+
+        GL11.glViewport(0, 0, width, height);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
         GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
         GL11.glLoadIdentity();
-        this.achievementWindowWidth = this.theGame.displayWidth;
-        this.achievementWindowHeight = this.theGame.displayHeight;
-        ScaledResolution var1 = new ScaledResolution(this.theGame.gameSettings, this.theGame.displayWidth, this.theGame.displayHeight);
+        this.achievementWindowWidth = width;
+        this.achievementWindowHeight = height;
+        ScaledResolution var1 = new ScaledResolution(this.theGame.gameSettings, width, height);
         this.achievementWindowWidth = var1.getScaledWidth();
         this.achievementWindowHeight = var1.getScaledHeight();
         GL11.glClear(256);
@@ -117,7 +122,7 @@ public class GuiAchievement extends Gui {
                 RenderHelper.enableStandardItemLighting();
                 GL11.glPopMatrix();
                 GL11.glDisable(GL11.GL_LIGHTING);
-                GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+                GL11.glEnable(GL15.GL_RESCALE_NORMAL);
                 GL11.glEnable(GL11.GL_COLOR_MATERIAL);
                 GL11.glEnable(GL11.GL_LIGHTING);
                 this.itemRender.renderItemIntoGUI(this.theGame.fontRenderer, this.theGame.renderEngine, this.theAchievement.theItemStack, var5 + 8, var6 + 8);

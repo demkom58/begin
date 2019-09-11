@@ -2,11 +2,6 @@ package net.minecraft.sound;
 
 import net.minecraft.client.GameSettings;
 import net.minecraft.entity.EntityLiving;
-import paulscode.sound.SoundSystem;
-import paulscode.sound.SoundSystemConfig;
-import paulscode.sound.codecs.CodecJOrbis;
-import paulscode.sound.codecs.CodecWav;
-import paulscode.sound.libraries.LibraryLWJGLOpenAL;
 import net.minecraft.util.MathHelper;
 
 import java.io.File;
@@ -27,10 +22,10 @@ public class SoundManager {
         this.ticksBeforeMusic = this.rand.nextInt(12000);
     }
 
-    public void loadSoundSettings(GameSettings var1) {
+    public void loadSoundSettings(GameSettings settings) {
         this.soundPoolStreaming.field_1657_b = false;
-        this.options = var1;
-        if (!loaded && (var1 == null || var1.soundVolume != 0.0F || var1.musicVolume != 0.0F)) {
+        this.options = settings;
+        if (!loaded && (settings == null || settings.soundVolume != 0.0F || settings.musicVolume != 0.0F)) {
             this.tryToSetLibraryAndCodecs();
         }
 

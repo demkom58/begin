@@ -5,14 +5,14 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.item.Item;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
 
 public class RenderFireball extends Render {
     public void func_4012_a(EntityFireball var1, double var2, double var4, double var6, float var8, float var9) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) var2, (float) var4, (float) var6);
-        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL15.GL_RESCALE_NORMAL);
         float var10 = 2.0F;
         GL11.glScalef(var10 / 1.0F, var10 / 1.0F, var10 / 1.0F);
         int var11 = Item.SNOWBALL.getIconFromDamage(0);
@@ -34,7 +34,7 @@ public class RenderFireball extends Render {
         var12.addVertexWithUV(var17 - var18, 1.0F - var19, 0.0D, var14, var15);
         var12.addVertexWithUV(0.0F - var18, 1.0F - var19, 0.0D, var13, var15);
         var12.draw();
-        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glDisable(GL15.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     }
 

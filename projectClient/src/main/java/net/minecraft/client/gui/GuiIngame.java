@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import net.hypnosis.monitor.Window;
 import net.minecraft.block.Block;
 import net.minecraft.client.ChatLine;
 import net.minecraft.client.Minecraft;
@@ -9,9 +10,9 @@ import net.minecraft.inventory.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.material.Material;
 import net.minecraft.util.StringTranslate;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
+import org.lwjgl.opengl.GL15;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,7 +37,8 @@ public class GuiIngame extends Gui {
     }
 
     public void renderGameOverlay(float var1, boolean var2, int var3, int var4) {
-        ScaledResolution var5 = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+        Window window = this.mc.window;
+        ScaledResolution var5 = new ScaledResolution(this.mc.gameSettings, window.getWidth(), window.getHeight());
         int var6 = var5.getScaledWidth();
         int var7 = var5.getScaledHeight();
         FontRenderer fontRenderer = this.mc.fontRenderer;
@@ -140,7 +142,7 @@ public class GuiIngame extends Gui {
         }
 
         GL11.glDisable(GL11.GL_BLEND);
-        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL15.GL_RESCALE_NORMAL);
         GL11.glPushMatrix();
         GL11.glRotatef(120.0F, 1.0F, 0.0F, 0.0F);
         RenderHelper.enableStandardItemLighting();
@@ -153,7 +155,7 @@ public class GuiIngame extends Gui {
         }
 
         RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glDisable(GL15.GL_RESCALE_NORMAL);
         if (this.mc.thePlayer.func_22060_M() > 0) {
             GL11.glDisable(GL11.GL_ALPHA_TEST);
             GL11.glDisable(GL11.GL_DEPTH_TEST);

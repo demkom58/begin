@@ -4,9 +4,9 @@ import net.minecraft.client.render.Render;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityArrow;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
+import org.lwjgl.opengl.GL15;
 
 public class RenderArrow extends Render {
     public void renderArrow(EntityArrow var1, double var2, double var4, double var6, float var8, float var9) {
@@ -27,7 +27,7 @@ public class RenderArrow extends Render {
             float var18 = (float) (5 + var11 * 10) / 32.0F;
             float var19 = (float) (10 + var11 * 10) / 32.0F;
             float var20 = 0.05625F;
-            GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+            GL11.glEnable(GL15.GL_RESCALE_NORMAL);
             float var21 = (float) var1.arrowShake - var9;
             if (var21 > 0.0F) {
                 float var22 = -MathHelper.sin(var21 * 3.0F) * var21;
@@ -63,7 +63,7 @@ public class RenderArrow extends Render {
                 var10.draw();
             }
 
-            GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+            GL11.glDisable(GL15.GL_RESCALE_NORMAL);
             GL11.glPopMatrix();
         }
     }

@@ -1,10 +1,10 @@
 package net.minecraft.client.render;
 
+import net.hypnosis.monitor.Window;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.util.MinecraftError;
 import org.lwjgl.opengl.ARBVertexBlend;
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
 public class LoadingScreenRenderer implements IProgressUpdatable {
@@ -37,7 +37,8 @@ public class LoadingScreenRenderer implements IProgressUpdatable {
         }
 
         this.field_1007_c = var1;
-        ScaledResolution res = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+        final Window window = this.mc.window;
+        ScaledResolution res = new ScaledResolution(this.mc.gameSettings, window.getWidth(), window.getHeight());
         GL11.glClear(256);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
@@ -73,7 +74,8 @@ public class LoadingScreenRenderer implements IProgressUpdatable {
         if (mls - this.field_1006_d >= 20L) {
             this.field_1006_d = mls;
 
-            ScaledResolution res = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+            final Window window = this.mc.window;
+            ScaledResolution res = new ScaledResolution(this.mc.gameSettings, window.getWidth(), window.getHeight());
             int width = res.getScaledWidth();
             int height = res.getScaledHeight();
 
@@ -119,7 +121,7 @@ public class LoadingScreenRenderer implements IProgressUpdatable {
 
             this.mc.fontRenderer.drawStringWithShadow(this.field_1007_c, (width - this.mc.fontRenderer.getStringWidth(this.field_1007_c)) / 2, height / 2 - 4 - 16, 16777215);
             this.mc.fontRenderer.drawStringWithShadow(this.field_1004_a, (width - this.mc.fontRenderer.getStringWidth(this.field_1004_a)) / 2, height / 2 - 4 + 8, 16777215);
-            Display.update();
+            mc.window.update();
 
             try {
                 Thread.yield();

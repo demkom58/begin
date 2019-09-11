@@ -1,9 +1,7 @@
 package net.minecraft.client.render;
 
-import org.lwjgl.opengl.ARBBufferObject;
 import org.lwjgl.opengl.ARBVertexBufferObject;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GLContext;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -67,7 +65,7 @@ public class Tessellator {
             if (this.useVBO) {
                 this.vboIndex = (this.vboIndex + 1) % this.vboCount;
                 ARBVertexBufferObject.glBindBufferARB(ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB, this.vertexBuffers.get(this.vboIndex));
-                ARBVertexBufferObject.glBufferDataARB(ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB, this.byteBuffer, ARBBufferObject.GL_STREAM_DRAW_ARB);
+                ARBVertexBufferObject.glBufferDataARB(ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB, this.byteBuffer, ARBVertexBufferObject.GL_STREAM_DRAW_ARB);
             }
 
             if (this.hasTexture) {
@@ -145,79 +143,69 @@ public class Tessellator {
         this.startDrawing(7);
     }
 
-    public void startDrawing(int var1) {
+    public void startDrawing(int drawMode) {
         if (this.isDrawing)
             throw new IllegalStateException("Already tesselating!");
 
         this.isDrawing = true;
         this.reset();
-        this.drawMode = var1;
+        this.drawMode = drawMode;
         this.hasNormals = false;
         this.hasColor = false;
         this.hasTexture = false;
         this.isColorDisabled = false;
     }
 
-    public void setTextureUV(double var1, double var3) {
+    public void setTextureUV(double textureU, double textureV) {
         this.hasTexture = true;
-        this.textureU = var1;
-        this.textureV = var3;
+        this.textureU = textureU;
+        this.textureV = textureV;
     }
 
-    public void setColorOpaque_F(float var1, float var2, float var3) {
-        this.setColorOpaque((int) (var1 * 255.0F), (int) (var2 * 255.0F), (int) (var3 * 255.0F));
+    public void setColorOpaque_F(float r, float g, float b) {
+        this.setColorOpaque((int) (r * 255.0F), (int) (g * 255.0F), (int) (b * 255.0F));
     }
 
-    public void setColorRGBA_F(float var1, float var2, float var3, float var4) {
-        this.setColorRGBA((int) (var1 * 255.0F), (int) (var2 * 255.0F), (int) (var3 * 255.0F), (int) (var4 * 255.0F));
+    public void setColorRGBA_F(float r, float g, float b, float a) {
+        this.setColorRGBA((int) (r * 255.0F), (int) (g * 255.0F), (int) (b * 255.0F), (int) (a * 255.0F));
     }
 
-    public void setColorOpaque(int var1, int var2, int var3) {
-        this.setColorRGBA(var1, var2, var3, 255);
+    public void setColorOpaque(int r, int g, int b) {
+        this.setColorRGBA(r, g, b, 255);
     }
 
-    public void setColorRGBA(int var1, int var2, int var3, int var4) {
-        if (!this.isColorDisabled) {
-            if (var1 > 255) {
-                var1 = 255;
-            }
+    public void setColorRGBA(int r, int g, int b, int a) {
+        if (this.isColorDisabled)
+            return;
+        if (r > 255)
+            r = 255;
 
-            if (var2 > 255) {
-                var2 = 255;
-            }
+        if (g > 255)
+            g = 255;
 
-            if (var3 > 255) {
-                var3 = 255;
-            }
+        if (b > 255)
+            b = 255;
 
-            if (var4 > 255) {
-                var4 = 255;
-            }
+        if (a > 255)
+            a = 255;
 
-            if (var1 < 0) {
-                var1 = 0;
-            }
+        if (r < 0)
+            r = 0;
 
-            if (var2 < 0) {
-                var2 = 0;
-            }
+        if (g < 0)
+            g = 0;
 
-            if (var3 < 0) {
-                var3 = 0;
-            }
+        if (b < 0)
+            b = 0;
 
-            if (var4 < 0) {
-                var4 = 0;
-            }
+        if (a < 0)
+            a = 0;
 
-            this.hasColor = true;
-            if (ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN) {
-                this.color = var4 << 24 | var3 << 16 | var2 << 8 | var1;
-            } else {
-                this.color = var1 << 24 | var2 << 16 | var3 << 8 | var4;
-            }
-
-        }
+        this.hasColor = true;
+        if (ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN)
+            this.color = a << 24 | b << 16 | g << 8 | r;
+        else
+            this.color = r << 24 | g << 16 | b << 8 | a;
     }
 
     public void addVertexWithUV(double var1, double var3, double var5, double var7, double var9) {
@@ -272,18 +260,18 @@ public class Tessellator {
 
     }
 
-    public void setColorOpaque_I(int var1) {
-        int var2 = var1 >> 16 & 255;
-        int var3 = var1 >> 8 & 255;
-        int var4 = var1 & 255;
-        this.setColorOpaque(var2, var3, var4);
+    public void setColorOpaque_I(int hexColor) {
+        int r = hexColor >> 16 & 255;
+        int g = hexColor >> 8 & 255;
+        int b = hexColor & 255;
+        this.setColorOpaque(r, g, b);
     }
 
-    public void setColorRGBA_I(int var1, int var2) {
-        int var3 = var1 >> 16 & 255;
-        int var4 = var1 >> 8 & 255;
-        int var5 = var1 & 255;
-        this.setColorRGBA(var3, var4, var5, var2);
+    public void setColorRGBA_I(int hexColor, int alpha) {
+        int r = hexColor >> 16 & 255;
+        int g = hexColor >> 8 & 255;
+        int b = hexColor & 255;
+        this.setColorRGBA(r, g, b, alpha);
     }
 
     public void disableColor() {
@@ -302,15 +290,15 @@ public class Tessellator {
         this.normal = var4 | var5 << 8 | var6 << 16;
     }
 
-    public void setTranslationD(double var1, double var3, double var5) {
-        this.xOffset = var1;
-        this.yOffset = var3;
-        this.zOffset = var5;
+    public void setTranslationD(double xOffset, double yOffset, double zOffset) {
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+        this.zOffset = zOffset;
     }
 
-    public void setTranslationF(float var1, float var2, float var3) {
-        this.xOffset += var1;
-        this.yOffset += var2;
-        this.zOffset += var3;
+    public void setTranslationF(float xOffset, float yOffset, float zOffset) {
+        this.xOffset += xOffset;
+        this.yOffset += yOffset;
+        this.zOffset += zOffset;
     }
 }

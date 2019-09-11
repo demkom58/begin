@@ -3,7 +3,6 @@ package net.minecraft.client.gui;
 import net.minecraft.util.StringTranslate;
 import net.minecraft.world.WorldInfo;
 import net.minecraft.world.storage.ISaveFormat;
-import org.lwjgl.input.Keyboard;
 
 public class GuiRenameWorld extends GuiScreen {
     private final String worldName;

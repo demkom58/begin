@@ -4,7 +4,6 @@ import net.minecraft.entity.player.PlayerControllerSP;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.StringTranslate;
 import net.minecraft.world.storage.ISaveFormat;
-import org.lwjgl.input.Keyboard;
 import net.minecraft.util.MathHelper;
 
 import java.util.Random;

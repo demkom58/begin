@@ -1,5 +1,6 @@
 package net.minecraft.entity;
 
+import net.hypnosis.monitor.Window;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.input.MouseFilter;
@@ -14,12 +15,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkProviderLoadOrGenerate;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.BiomeGenBase;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.ARBVertexBlend;
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GLContext;
-import org.lwjgl.util.glu.GLU;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3D;
 
@@ -277,16 +274,16 @@ public class EntityRenderer {
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
         float var3 = 0.07F;
-        if (this.mc.gameSettings.anaglyph) {
+        if (this.mc.gameSettings.anaglyph)
             GL11.glTranslatef((float) (-(var2 * 2 - 1)) * var3, 0.0F, 0.0F);
-        }
 
+        final Window window = this.mc.window;
         if (this.cameraZoom != 1.0D) {
             GL11.glTranslatef((float) this.cameraYaw, (float) (-this.cameraPitch), 0.0F);
             GL11.glScaled(this.cameraZoom, this.cameraZoom, 1.0D);
-            GLU.gluPerspective(this.getFOVModifier(var1), (float) this.mc.displayWidth / (float) this.mc.displayHeight, 0.05F, this.farPlaneDistance * 2.0F);
+            GLU.gluPerspective(this.getFOVModifier(var1), (float) window.getWidth() / (float) window.getHeight(), 0.05F, this.farPlaneDistance * 2.0F);
         } else {
-            GLU.gluPerspective(this.getFOVModifier(var1), (float) this.mc.displayWidth / (float) this.mc.displayHeight, 0.05F, this.farPlaneDistance * 2.0F);
+            GLU.gluPerspective(this.getFOVModifier(var1), (float) window.getWidth() / (float) window.getHeight(), 0.05F, this.farPlaneDistance * 2.0F);
         }
 
         GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
@@ -341,13 +338,15 @@ public class EntityRenderer {
     }
 
     public void updateCameraAndRender(float var1) {
-        if (!Display.isActive()) {
+        final Window window = this.mc.window;
+        final int width = window.getWidth();
+        final int height = window.getHeight();
+
+        if (!window.isFocused()) {
             if (System.currentTimeMillis() - this.prevFrameTime > 500L) {
                 this.mc.displayInGameMenu();
             }
-        } else {
-            this.prevFrameTime = System.currentTimeMillis();
-        }
+        } else this.prevFrameTime = System.currentTimeMillis();
 
         if (this.mc.inGameHasFocus) {
             this.mc.mouseHelper.mouseXYChange();
@@ -370,11 +369,11 @@ public class EntityRenderer {
 
         if (!this.mc.skipRenderWorld) {
             field_28135_a = this.mc.gameSettings.anaglyph;
-            ScaledResolution var13 = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+            ScaledResolution var13 = new ScaledResolution(this.mc.gameSettings, width, height);
             int var14 = var13.getScaledWidth();
             int var15 = var13.getScaledHeight();
-            int var16 = Mouse.getX() * var14 / this.mc.displayWidth;
-            int var17 = var15 - Mouse.getY() * var15 / this.mc.displayHeight - 1;
+            int var16 = Mouse.getX() * var14 / width;
+            int var17 = var15 - Mouse.getY() * var15 / height - 1;
             short var7 = 200;
             if (this.mc.gameSettings.limitFramerate == 1) {
                 var7 = 120;
@@ -407,7 +406,7 @@ public class EntityRenderer {
                     this.mc.ingameGUI.renderGameOverlay(var1, this.mc.currentScreen != null, var16, var17);
                 }
             } else {
-                GL11.glViewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
+                GL11.glViewport(0, 0, width, height);
                 GL11.glMatrixMode(GL11.GL_PROJECTION);
                 GL11.glLoadIdentity();
                 GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
@@ -474,7 +473,8 @@ public class EntityRenderer {
                 }
             }
 
-            GL11.glViewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
+            final Window window = this.mc.window;
+            GL11.glViewport(0, 0, window.getWidth(), window.getHeight());
             this.updateFogColor(var1);
             GL11.glClear(16640);
             GL11.glEnable(GL11.GL_CULL_FACE);
@@ -779,7 +779,8 @@ public class EntityRenderer {
     }
 
     public void func_905_b() {
-        ScaledResolution var1 = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+        final Window window = this.mc.window;
+        ScaledResolution var1 = new ScaledResolution(this.mc.gameSettings, window.getWidth(), window.getHeight());
         GL11.glClear(256);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();

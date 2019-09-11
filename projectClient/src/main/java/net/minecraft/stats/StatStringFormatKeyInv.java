@@ -1,7 +1,6 @@
 package net.minecraft.stats;
 
 import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Keyboard;
 
 public class StatStringFormatKeyInv implements IStatStringFormat {
     // $FF: synthetic field

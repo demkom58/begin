@@ -4,7 +4,6 @@ import net.minecraft.client.gui.EnumOption;
 import net.minecraft.client.input.KeyBinding;
 import net.minecraft.stats.StatCollector;
 import net.minecraft.util.StringTranslate;
-import org.lwjgl.input.Keyboard;
 
 import java.io.*;
 

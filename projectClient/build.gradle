@@ -18,7 +18,8 @@ project.ext.lwjglNatives = "natives-windows"
 dependencies {
 	implementation project(":projectCommon")
 
-	compile group: 'com.github.cliftonlabs', name: 'json-simple', version: '3.1.0'
+    compile group: 'org.jetbrains', name: 'annotations', version: '17.0.0'
+    compile group: 'com.github.cliftonlabs', name: 'json-simple', version: '3.1.0'
 	compile group: 'net.java.jinput', name: 'jinput', version: '2.0.9'
 
     implementation "org.lwjgl:lwjgl:${lwjglVersion}"

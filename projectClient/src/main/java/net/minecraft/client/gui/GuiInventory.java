@@ -4,8 +4,8 @@ import net.minecraft.client.render.RenderHelper;
 import net.minecraft.client.render.RenderManager;
 import net.minecraft.achievement.AchievementList;
 import net.minecraft.entity.player.EntityPlayer;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
 
 public class GuiInventory extends GuiContainer {
     private float xSize_lo;
@@ -38,7 +38,7 @@ public class GuiInventory extends GuiContainer {
         int var3 = (this.width - this.xSize) / 2;
         int var4 = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(var3, var4, 0, 0, this.xSize, this.ySize);
-        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL15.GL_RESCALE_NORMAL);
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) (var3 + 51), (float) (var4 + 75), 50.0F);
@@ -67,7 +67,7 @@ public class GuiInventory extends GuiContainer {
         this.mc.thePlayer.rotationPitch = var8;
         GL11.glPopMatrix();
         RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glDisable(GL15.GL_RESCALE_NORMAL);
     }
 
     protected void actionPerformed(GuiButton button) {

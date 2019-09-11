@@ -7,10 +7,9 @@ import net.minecraft.achievement.AchievementList;
 import net.minecraft.block.Block;
 import net.minecraft.stats.StatCollector;
 import net.minecraft.stats.StatFileWriter;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
+import org.lwjgl.opengl.GL15;
 
 import java.util.Random;
 
@@ -164,7 +163,7 @@ public class GuiAchievements extends GuiScreen {
         GL11.glTranslatef(0.0F, 0.0F, -200.0F);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL15.GL_RESCALE_NORMAL);
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         this.mc.renderEngine.bindTexture(var6);
         int var12 = var4 + 288 >> 4;
@@ -241,7 +240,7 @@ public class GuiAchievements extends GuiScreen {
         RenderHelper.enableStandardItemLighting();
         GL11.glPopMatrix();
         GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL15.GL_RESCALE_NORMAL);
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
 
         for (int i = 0; i < AchievementList.achievementList.size(); ++i) {

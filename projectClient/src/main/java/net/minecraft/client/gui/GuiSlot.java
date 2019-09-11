@@ -2,7 +2,6 @@ package net.minecraft.client.gui;
 
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;

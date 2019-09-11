@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.util.UnexpectedThrowable;
-import org.lwjgl.Sys;
+import org.lwjgl.Version;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -27,7 +27,7 @@ public class PanelCrashReport extends Panel {
             mcInfo = mcInfo + "OS: " + System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version") + "\n";
             mcInfo = mcInfo + "Java: " + System.getProperty("java.version") + ", " + System.getProperty("java.vendor") + "\n";
             mcInfo = mcInfo + "VM: " + System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor") + "\n";
-            mcInfo = mcInfo + "LWJGL: " + Sys.getVersion() + "\n";
+            mcInfo = mcInfo + "LWJGL: " + Version.getVersion() + "\n";
             vendor = GL11.glGetString(GL11.GL_VENDOR);
             mcInfo = mcInfo + "OpenGL: " + GL11.glGetString(GL11.GL_RENDER) + " version " + GL11.glGetString(GL11.GL_VERSION) + ", " + GL11.glGetString(GL11.GL_VENDOR) + "\n";
         } catch (Throwable throwable) {

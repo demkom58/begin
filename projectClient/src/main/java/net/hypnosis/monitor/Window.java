@@ -1,0 +1,327 @@
+package net.hypnosis.monitor;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.Callbacks;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.system.MemoryUtil;
+
+import java.nio.IntBuffer;
+
+public class Window implements AutoCloseable {
+    private final GLFWErrorCallback errorCallback = GLFWErrorCallback.create(this::printGlError);
+
+    private final WindowResizeCallback resizeCallback;
+    private final WindowPositionCallback positionCallback;
+    private final WindowFocusCallback focusCallback;
+    private final WindowCloseCallback closeCallback;
+    private long pointer;
+
+    private String title;
+
+    private int x;
+    private int y;
+
+    private int width;
+    private int height;
+
+    private int windowedWidth;
+    private int windowedHeight;
+
+    private boolean fullscreen;
+    private boolean vsync;
+
+    private String phase;
+
+    public Window(@NotNull final String title, int width, int height,
+                  @Nullable final WindowResizeCallback resizeCallback,
+                  @Nullable final WindowPositionCallback positionCallback,
+                  @Nullable final WindowFocusCallback focusCallback,
+                  @Nullable final WindowCloseCallback closeCallback) {
+        this(title, width, height, 0, resizeCallback, positionCallback, focusCallback, closeCallback);
+    }
+
+    public Window(@NotNull final String title, int width, int height, long share,
+                  @Nullable final WindowResizeCallback resizeCallback,
+                  @Nullable final WindowPositionCallback positionCallback,
+                  @Nullable final WindowFocusCallback focusCallback,
+                  @Nullable final WindowCloseCallback closeCallback) {
+        this(title, width, height, share, false, resizeCallback, positionCallback, focusCallback, closeCallback);
+    }
+
+    public Window(@NotNull final String title, int width, int height, long share, boolean fullscreen,
+                  @Nullable final WindowResizeCallback resizeCallback,
+                  @Nullable final WindowPositionCallback positionCallback,
+                  @Nullable final WindowFocusCallback focusCallback,
+                  @Nullable final WindowCloseCallback closeCallback) {
+        this(title, width, height, share, fullscreen, true, resizeCallback, positionCallback, focusCallback, closeCallback);
+    }
+
+    public Window(@NotNull final String title,
+                  int width, int height, long share, boolean fullscreen, boolean resizable,
+                  @Nullable final WindowResizeCallback resizeCallback,
+                  @Nullable final WindowPositionCallback positionCallback,
+                  @Nullable final WindowFocusCallback focusCallback,
+                  @Nullable final WindowCloseCallback closeCallback) {
+        this.resizeCallback = resizeCallback;
+        this.positionCallback = positionCallback;
+        this.focusCallback = focusCallback;
+        this.closeCallback = closeCallback;
+
+        this.throwExceptionOnGlError();
+        this.setPhase("Pre startup");
+
+
+        if (width <= 0)
+            width = 1;
+
+        if (height <= 0)
+            height = 1;
+
+        this.width = windowedWidth = width;
+        this.height = windowedHeight = height;
+
+        this.pointer = GLFW.glfwCreateWindow(width, height, title, MemoryUtil.NULL, share);
+        if (this.pointer == MemoryUtil.NULL)
+            throw new RuntimeException("Failed to create window");
+
+        this.title = title;
+
+        IntBuffer x = IntBuffer.allocate(1);
+        IntBuffer y = IntBuffer.allocate(1);
+        GLFW.glfwGetWindowPos(pointer, x, y);
+
+        this.x = x.get();
+        this.y = y.get();
+
+        setFullscreen(fullscreen);
+        setResizable(resizable);
+        setVsync(false);
+
+        GLFW.glfwSetWindowSizeCallback(pointer, this::onResize);
+        GLFW.glfwSetWindowPosCallback(pointer, this::onPositionChanged);
+
+        if (focusCallback != null)
+            GLFW.glfwSetWindowFocusCallback(pointer, this.focusCallback::onFocus);
+
+        if (closeCallback != null)
+            GLFW.glfwSetWindowCloseCallback(pointer, this.closeCallback::onClose);
+    }
+
+    private void onResize(long window, int width, int height) {
+        final Window wnd = Window.this;
+        if (window != wnd.pointer)
+            return;
+
+        if (width <= 0)
+            width = 1;
+
+        if (height <= 0)
+            height = 1;
+
+        wnd.width = width;
+        wnd.height = height;
+
+        if (resizeCallback != null)
+            resizeCallback.onResize(window, width, height);
+    }
+
+    private void onPositionChanged(long window, int x, int y) {
+        final Window wnd = Window.this;
+        if (window != wnd.pointer)
+            return;
+
+        this.x = x;
+        this.y = y;
+
+        if (positionCallback != null)
+            positionCallback.onPositionChanged(window, x, y);
+    }
+
+    public void setPhase(String phase) {
+        this.phase = phase;
+    }
+
+    public long getPointer() {
+        return pointer;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+        GLFW.glfwSetWindowTitle(pointer, title);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+        setSize(x, y);
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+        setSize(x, y);
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+        GLFW.glfwSetWindowPos(pointer, x, y);
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+        setSize(width, height);
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+        setSize(width, height);
+    }
+
+    public void setSize(int width, int height) {
+        this.width = width;
+        this.height = height;
+        GLFW.glfwSetWindowSize(width, width, height);
+    }
+
+    public boolean isFullscreen() {
+        return fullscreen;
+    }
+
+    public void setFullscreen(boolean fullscreen) {
+        if (this.fullscreen == fullscreen)
+            return;
+
+        this.fullscreen = fullscreen;
+        if (fullscreen) {
+            GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+
+            windowedWidth = width;
+            windowedHeight = height;
+
+            windowedWidth = vidMode.width();
+            windowedHeight = vidMode.height();
+        } else {
+            width = windowedWidth;
+            height = windowedHeight;
+        }
+
+        if (this.width <= 0)
+            this.width = 1;
+
+        if (this.height <= 0)
+            this.height = 1;
+
+        long newPointer = GLFW.glfwCreateWindow(width, height, title, fullscreen ? GLFW.glfwGetPrimaryMonitor() : MemoryUtil.NULL, pointer);
+        GLFW.glfwDestroyWindow(pointer);
+        pointer = newPointer;
+
+        if (!fullscreen) {
+            GLFW.glfwSetWindowSize(pointer, width, height);
+            GLFW.glfwSetWindowPos(pointer, x, y);
+        }
+    }
+
+    public boolean isResizable() {
+        return GLFW.glfwGetWindowAttrib(pointer, GLFW.GLFW_RESIZABLE) == GLFW.GLFW_TRUE;
+    }
+
+    public void setResizable(boolean resizable) {
+        GLFW.glfwSetWindowAspectRatio(pointer, GLFW.GLFW_RESIZABLE, resizable ? GLFW.GLFW_TRUE : GLFW.GLFW_FALSE);
+    }
+
+    public boolean isVsync() {
+        return vsync;
+    }
+
+    public void setVsync(boolean vsync) {
+        this.vsync = vsync;
+        GLFW.glfwSwapInterval(vsync ? GLFW.GLFW_TRUE : GLFW.GLFW_FALSE);
+    }
+
+    public boolean isFocused() {
+        return GLFW.glfwGetWindowAttrib(pointer, GLFW.GLFW_FOCUSED) == GLFW.GLFW_TRUE;
+    }
+
+    public void focus() {
+        GLFW.glfwFocusWindow(pointer);
+    }
+
+    public boolean isCloseRequested() {
+        return GLFW.glfwWindowShouldClose(pointer);
+    }
+
+    public void makeCurrentContext() {
+        GLFW.glfwMakeContextCurrent(pointer);
+    }
+
+    public void update() {
+        GLFW.glfwPollEvents();
+        GLFW.glfwSwapBuffers(pointer);
+    }
+
+    public void pollEvents() {
+        GLFW.glfwPollEvents();
+    }
+
+    public void swapBuffer() {
+        GLFW.glfwSwapBuffers(pointer);
+    }
+
+    public void destroy() {
+        errorCallback.close();
+        Callbacks.glfwFreeCallbacks(pointer);
+        GLFW.glfwDestroyWindow(pointer);
+        GLFW.glfwTerminate();
+    }
+
+    @Override
+    public void close() throws Exception {
+        destroy();
+    }
+
+    private void throwExceptionOnGlError() {
+        GLFW.glfwSetErrorCallback(Window::throwGlErrorException);
+    }
+
+    private static void throwGlErrorException(int errorCode, long descriptionPointer) {
+        throw new IllegalStateException("GLFW error occurred " + errorCode + ": " + MemoryUtil.memUTF8(descriptionPointer));
+    }
+
+    public void printGlError(int errorCode, long descriptionPointer) {
+        String description = MemoryUtil.memUTF8(descriptionPointer);
+        System.out.println("########## GL ERROR ##########");
+        System.out.println("@ " + this.phase);
+        System.out.println(errorCode + ": " + description);
+    }
+
+    public void logOnGlError() {
+        GLFWErrorCallback glfwErrorCallback = GLFW.glfwSetErrorCallback(this.errorCallback);
+        if (glfwErrorCallback != null) {
+            glfwErrorCallback.free();
+        }
+    }
+
+
+}

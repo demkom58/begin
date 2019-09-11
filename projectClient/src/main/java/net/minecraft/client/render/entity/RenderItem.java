@@ -9,9 +9,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
+import org.lwjgl.opengl.GL15;
 
 import java.util.Random;
 
@@ -45,7 +45,7 @@ public class RenderItem extends Render {
         }
 
         GL11.glTranslatef((float) var2, (float) var4 + var11, (float) var6);
-        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL15.GL_RESCALE_NORMAL);
         if (var10.itemID < 256 && RenderBlocks.renderItemIn3d(Block.BLOCKS_LIST[var10.itemID].getRenderType())) {
             GL11.glRotatef(var12, 0.0F, 1.0F, 0.0F);
             this.loadTexture("/terrain.png");
@@ -115,7 +115,7 @@ public class RenderItem extends Render {
             }
         }
 
-        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glDisable(GL15.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     }
 
