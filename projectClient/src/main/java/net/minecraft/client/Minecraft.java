@@ -132,41 +132,11 @@ public final class Minecraft implements Runnable {
         instance = this;
     }
 
-    public static void main(String[] args) {
-        String username = args.length > 0 ? args[0] : "Player" + System.currentTimeMillis() % 1000L;
-        String sessionId = args.length > 1 ? args[1] : "-";
-        startMainThread(username, sessionId);
-    }
-
     public static File getMinecraftDir() {
         if (minecraftDir == null)
             minecraftDir = EnumOS.getAppDir("minecraft");
 
         return minecraftDir;
-    }
-
-    public static void startMainThread(String username, String sessionId) {
-        startMainThread(username, sessionId, null);
-    }
-
-    public static void startMainThread(String username, String sessionId, String connectionIp) {
-        Minecraft minecraft = new Minecraft(854, 480, false);
-
-        minecraft.minecraftUri = "www.minecraft.net";
-
-        if (username != null && sessionId != null)
-            minecraft.session = new Session(username, sessionId);
-        else
-            minecraft.session = new Session("Player" + System.currentTimeMillis() % 1000L, "");
-
-        if (connectionIp != null) {
-            String[] addressArr = connectionIp.split(":");
-            minecraft.setServer(addressArr[0], Integer.parseInt(addressArr[1]));
-        }
-
-        Thread thread = new Thread(minecraft, "Minecraft main thread");
-        thread.setPriority(10);
-        thread.start();
     }
 
     public static boolean isGuiEnabled() {
