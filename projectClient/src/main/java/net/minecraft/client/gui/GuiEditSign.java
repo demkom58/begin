@@ -20,12 +20,12 @@ public class GuiEditSign extends GuiScreen {
 
     public void initGui() {
         this.buttons.clear();
-        Keyboard.enableRepeatEvents(true);
+//        TODO: Keyboard.enableRepeatEvents(true);
         this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120, "Done"));
     }
 
     public void onGuiClosed() {
-        Keyboard.enableRepeatEvents(false);
+//        TODO: Keyboard.enableRepeatEvents(false);
         if (this.mc.theWorld.multiplayerWorld) {
             this.mc.getSendQueue().addToSendQueue(new Packet130UpdateSign(this.entitySign.xCoord, this.entitySign.yCoord, this.entitySign.zCoord, this.entitySign.signText));
         }

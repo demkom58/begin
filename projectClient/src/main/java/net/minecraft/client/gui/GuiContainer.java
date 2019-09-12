@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import net.hypnosis.input.keyboard.Keyboard;
 import net.minecraft.client.render.RenderHelper;
 import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.inventory.Container;
@@ -7,6 +8,7 @@ import net.minecraft.inventory.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
@@ -143,7 +145,8 @@ public abstract class GuiContainer extends GuiScreen {
             }
 
             if (var8 != -1) {
-                boolean var9 = var8 != -999 && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT));
+                final Keyboard keyboard = mc.keyboard;
+                boolean var9 = var8 != -999 && (keyboard.isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT) || keyboard.isKeyDown(GLFW.GLFW_KEY_RIGHT_SHIFT));
                 this.mc.playerController.func_27174_a(this.inventorySlots.windowId, var8, var3, var9, this.mc.thePlayer);
             }
         }

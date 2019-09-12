@@ -7,7 +7,6 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 
 public class Mouse {
-
     private CursorPositionCallback positionCallback;
     private CursorEnteredCallback enteredCallback;
 
@@ -15,6 +14,9 @@ public class Mouse {
 
     private double x;
     private double y;
+
+    public double deltaX;
+    public double deltaY;
 
     private boolean entered;
 
@@ -30,6 +32,9 @@ public class Mouse {
     }
 
     private void onMoved(long window, double x, double y) {
+        this.deltaX = this.x - x;
+        this.deltaY = this.y - y;
+
         this.x = x;
         this.y = y;
     }
@@ -76,7 +81,7 @@ public class Mouse {
         GLFW.glfwSetCursorPos(window.getPointer(), x, y);
     }
 
-    public boolean isPressedButton(int buttonId) {
+    public boolean isButtonPressed(int buttonId) {
         return GLFW.glfwGetMouseButton(window.getPointer(), buttonId) == GLFW.GLFW_PRESS;
     }
 
@@ -88,9 +93,15 @@ public class Mouse {
         return y;
     }
 
+    public double getDeltaX() {
+        return deltaX;
+    }
+
+    public double getDeltaY() {
+        return deltaY;
+    }
+
     public boolean isEntered() {
         return entered;
     }
-
-
 }

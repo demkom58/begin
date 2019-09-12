@@ -28,9 +28,4 @@ dependencies {
     implementation "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
 
     implementation "org.joml:joml:${jomlVersion}"
-
-    runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
-    runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
-    runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
-    runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
 }

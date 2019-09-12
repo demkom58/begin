@@ -1,6 +1,8 @@
 package net.minecraft.entity;
 
+import net.hypnosis.input.mouse.Mouse;
 import net.hypnosis.monitor.Window;
+import net.hypnosis.video.GLU;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.input.MouseFilter;
@@ -15,7 +17,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkProviderLoadOrGenerate;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.BiomeGenBase;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.ARBVertexBlend;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3D;
@@ -372,8 +376,11 @@ public class EntityRenderer {
             ScaledResolution var13 = new ScaledResolution(this.mc.gameSettings, width, height);
             int var14 = var13.getScaledWidth();
             int var15 = var13.getScaledHeight();
-            int var16 = Mouse.getX() * var14 / width;
-            int var17 = var15 - Mouse.getY() * var15 / height - 1;
+
+            Mouse mouse = mc.mouse;
+            int var16 = (int) (mouse.getX() * var14 / width);
+            int var17 = (int) (var15 - mouse.getY() * var15 / height - 1);
+
             short var7 = 200;
             if (this.mc.gameSettings.limitFramerate == 1) {
                 var7 = 120;
@@ -856,7 +863,7 @@ public class EntityRenderer {
 
     private void setupFog(int var1, float var2) {
         EntityLiving var3 = this.mc.renderViewEntity;
-        GL11.glFog(GL11.GL_FOG_COLOR, this.func_908_a(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 1.0F));
+        GL11.glFogfv(GL11.GL_FOG_COLOR, this.func_908_a(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 1.0F));
         GL11.glNormal3f(0.0F, -1.0F, 0.0F);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         if (this.cloudFog) {
@@ -901,7 +908,7 @@ public class EntityRenderer {
                 GL11.glFogf(GL11.GL_FOG_END, this.farPlaneDistance * 0.8F);
             }
 
-            if (GLContext.getCapabilities().GL_NV_fog_distance) {
+            if (GL.getCapabilities().GL_NV_fog_distance) {
                 GL11.glFogi(34138, 34139);
             }
 

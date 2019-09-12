@@ -1,9 +1,11 @@
 package net.minecraft.client.gui;
 
+import net.hypnosis.input.mouse.Mouse;
 import net.hypnosis.monitor.Window;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.client.render.Tessellator;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -85,41 +87,32 @@ public class GuiScreen extends Gui {
     public void initGui() {
     }
 
-    public void handleInput() {
-        while (Mouse.next()) {
-            this.handleMouseInput();
-        }
-
-        while (Keyboard.next()) {
-            this.handleKeyboardInput();
-        }
-    }
-
-    public void handleMouseInput() {
+    public void handleMouseInput(long windowPointer, int button, int action, int mods) {
         final Window window = this.mc.window;
+        final Mouse mouse = this.mc.mouse;
 
-        if (Mouse.getEventButtonState()) {
-            int x = Mouse.getEventX() * this.width / window.getWidth();
-            int y = this.height - Mouse.getEventY() * this.height / window.getHeight() - 1;
-            this.mouseClicked(x, y, Mouse.getEventButton());
+        if (action == GLFW.GLFW_PRESS) {
+            int x = (int) (mouse.getX() * this.width / window.getWidth());
+            int y = (int) (this.height - mouse.getY() * this.height / window.getHeight() - 1);
+            this.mouseClicked(x, y, button);
         } else {
-            int x = Mouse.getEventX() * this.width / window.getWidth();
-            int y = this.height - Mouse.getEventY() * this.height / window.getHeight() - 1;
-            this.mouseMovedOrUp(x, y, Mouse.getEventButton());
+            int x = (int) (mouse.getX() * this.width / window.getWidth());
+            int y = (int) (this.height - mouse.getY() * this.height / window.getHeight() - 1);
+            this.mouseMovedOrUp(x, y, button);
         }
 
     }
 
-    public void handleKeyboardInput() {
-        if (Keyboard.getEventKeyState()) {
-            if (Keyboard.getEventKey() == Keyboard.KEY_F11) {
+    public void onScreenKeyTyped(long windowPointer, int key, int scancode, int action, int mods) {
+        if (action == GLFW.GLFW_PRESS) {
+            if (key == GLFW.GLFW_KEY_F11) {
                 this.mc.toggleFullscreen();
                 return;
             }
 
-            this.keyTyped(Keyboard.getEventCharacter(), Keyboard.getEventKey());
+            // TODO: make different char handle methods.
+            this.keyTyped('\0', key);
         }
-
     }
 
     public void updateScreen() {

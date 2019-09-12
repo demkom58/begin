@@ -10,7 +10,7 @@ public abstract class GuiSlot {
     protected final int top;
     protected final int bottom;
     protected final int posZ;
-    private final Minecraft mc;
+    protected final Minecraft mc;
     private final int width;
     private final int height;
     private final int right;
@@ -122,7 +122,7 @@ public abstract class GuiSlot {
         int var4 = this.getSize();
         int var5 = this.width / 2 + 124;
         int var6 = var5 + 6;
-        if (Mouse.isButtonDown(0)) {
+        if (this.mc.keyboard.isKeyDown(0)) {
             if (this.initialClickY == -1.0F) {
                 boolean var7 = true;
                 if (var2 >= this.top && var2 <= this.bottom) {

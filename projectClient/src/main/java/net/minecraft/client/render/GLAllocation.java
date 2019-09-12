@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GLAllocation {
-    private static List displayLists = new ArrayList();
-    private static List textureNames = new ArrayList();
+    private static List<Integer> displayLists = new ArrayList<>();
+    private static List<Integer> textureNames = new ArrayList<>();
 
-    public static synchronized int generateDisplayLists(int var0) {
-        int var1 = GL11.glGenLists(var0);
-        displayLists.add(var1);
-        displayLists.add(var0);
-        return var1;
+    public static synchronized int generateDisplayLists(int s) {
+        int genLists = GL11.glGenLists(s);
+        displayLists.add(genLists);
+        displayLists.add(s);
+        return genLists;
     }
 
     public static synchronized void generateTextureNames(IntBuffer var0) {
@@ -31,33 +31,32 @@ public class GLAllocation {
 
     public static synchronized void func_28194_b(int var0) {
         int var1 = displayLists.indexOf(var0);
-        GL11.glDeleteLists((Integer) displayLists.get(var1), (Integer) displayLists.get(var1 + 1));
+        GL11.glDeleteLists(displayLists.get(var1), displayLists.get(var1 + 1));
         displayLists.remove(var1);
         displayLists.remove(var1);
     }
 
     public static synchronized void deleteTexturesAndDisplayLists() {
-        for (int var0 = 0; var0 < displayLists.size(); var0 += 2) {
-            GL11.glDeleteLists((Integer) displayLists.get(var0), (Integer) displayLists.get(var0 + 1));
+        for (int i = 0; i < displayLists.size(); i += 2) {
+            GL11.glDeleteLists(displayLists.get(i), displayLists.get(i + 1));
         }
 
-        IntBuffer var2 = createDirectIntBuffer(textureNames.size());
-        var2.flip();
-        GL11.glDeleteTextures(var2);
+        IntBuffer buff = createDirectIntBuffer(textureNames.size());
+        buff.flip();
+        GL11.glDeleteTextures(buff);
 
-        for (int var1 = 0; var1 < textureNames.size(); ++var1) {
-            var2.put((Integer) textureNames.get(var1));
+        for (int i = 0; i < textureNames.size(); ++i) {
+            buff.put(textureNames.get(i));
         }
 
-        var2.flip();
-        GL11.glDeleteTextures(var2);
+        buff.flip();
+        GL11.glDeleteTextures(buff);
         displayLists.clear();
         textureNames.clear();
     }
 
     public static synchronized ByteBuffer createDirectByteBuffer(int var0) {
-        ByteBuffer var1 = ByteBuffer.allocateDirect(var0).order(ByteOrder.nativeOrder());
-        return var1;
+        return ByteBuffer.allocateDirect(var0).order(ByteOrder.nativeOrder());
     }
 
     public static IntBuffer createDirectIntBuffer(int var0) {

@@ -7,13 +7,13 @@ import net.minecraft.util.StringTranslate;
 
 public class GuiSleepMP extends GuiChat {
     public void initGui() {
-        Keyboard.enableRepeatEvents(true);
+//        TODO: Keyboard.enableRepeatEvents(true);
         StringTranslate translate = StringTranslate.getInstance();
         this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, translate.translateKey("multiplayer.stopSleeping")));
     }
 
     public void onGuiClosed() {
-        Keyboard.enableRepeatEvents(false);
+//        TODO: Keyboard.enableRepeatEvents(false);
     }
 
     protected void keyTyped(char ch, int key) {

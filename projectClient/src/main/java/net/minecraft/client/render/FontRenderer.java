@@ -16,17 +16,17 @@ public class FontRenderer {
     private IntBuffer buffer = GLAllocation.createDirectIntBuffer(GL11.GL_FRONT_LEFT);
 
     public FontRenderer(GameSettings gameSettings, String fontResource, RenderEngine renderEngine) {
-        BufferedImage var4;
+        BufferedImage image;
         try {
-            var4 = ImageIO.read(RenderEngine.class.getResourceAsStream(fontResource));
+            image = ImageIO.read(RenderEngine.class.getResourceAsStream(fontResource));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        int var5 = var4.getWidth();
-        int var6 = var4.getHeight();
-        int[] var7 = new int[var5 * var6];
-        var4.getRGB(0, 0, var5, var6, var7, 0, var5);
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int[] map = new int[width * height];
+        image.getRGB(0, 0, width, height, map, 0, width);
 
         for (int var8 = 0; var8 < 256; ++var8) {
             int var9 = var8 % 16;
@@ -37,11 +37,12 @@ public class FontRenderer {
                 int var12 = var9 * 8 + var11;
                 boolean var13 = true;
 
-                for (int var14 = 0; var14 < 8 && var13; ++var14) {
-                    int var15 = (var10 * 8 + var14) * var5;
-                    int var16 = var7[var12 + var15] & 255;
+                for (int var14 = 0; var14 < 8; ++var14) {
+                    int var15 = (var10 * 8 + var14) * width;
+                    int var16 = map[var12 + var15] & 255;
                     if (var16 > 0) {
                         var13 = false;
+                        break;
                     }
                 }
 
@@ -57,15 +58,15 @@ public class FontRenderer {
             this.charWidth[var8] = var11 + 2;
         }
 
-        this.fontTextureName = renderEngine.allocateAndSetupTexture(var4);
+        this.fontTextureName = renderEngine.allocateAndSetupTexture(image);
         this.fontDisplayLists = GLAllocation.generateDisplayLists(288);
         Tessellator tess = Tessellator.INSTANCE;
 
-        for (int var20 = 0; var20 < 256; ++var20) {
-            GL11.glNewList(this.fontDisplayLists + var20, GL11.GL_COMPILE);
+        for (int i = 0; i < 256; ++i) {
+            GL11.glNewList(this.fontDisplayLists + i, GL11.GL_COMPILE);
             tess.startDrawingQuads();
-            int var22 = var20 % 16 * 8;
-            int var24 = var20 / 16 * 8;
+            int var22 = i % 16 * 8;
+            int var24 = i / 16 * 8;
             float var26 = 7.99F;
             float var28 = 0.0F;
             float var30 = 0.0F;
@@ -74,20 +75,20 @@ public class FontRenderer {
             tess.addVertexWithUV(0.0F + var26, 0.0D, 0.0D, ((float) var22 + var26) / 128.0F + var28, (float) var24 / 128.0F + var30);
             tess.addVertexWithUV(0.0D, 0.0D, 0.0D, (float) var22 / 128.0F + var28, (float) var24 / 128.0F + var30);
             tess.draw();
-            GL11.glTranslatef((float) this.charWidth[var20], 0.0F, 0.0F);
+            GL11.glTranslatef((float) this.charWidth[i], 0.0F, 0.0F);
             GL11.glEndList();
         }
 
-        for (int var21 = 0; var21 < 32; ++var21) {
-            int var23 = (var21 >> 3 & 1) * 85;
-            int var25 = (var21 >> 2 & 1) * 170 + var23;
-            int var27 = (var21 >> 1 & 1) * 170 + var23;
-            int var29 = (var21 & 1) * 170 + var23;
-            if (var21 == 6) {
+        for (int i = 0; i < 32; ++i) {
+            int var23 = (i >> 3 & 1) * 85;
+            int var25 = (i >> 2 & 1) * 170 + var23;
+            int var27 = (i >> 1 & 1) * 170 + var23;
+            int var29 = (i & 1) * 170 + var23;
+            if (i == 6) {
                 var25 += 85;
             }
 
-            boolean var31 = var21 >= 16;
+            boolean var31 = i >= 16;
             if (gameSettings.anaglyph) {
                 int var32 = (var25 * 30 + var27 * 59 + var29 * 11) / 100;
                 int var33 = (var25 * 30 + var27 * 70) / 100;
@@ -103,16 +104,16 @@ public class FontRenderer {
                 var29 /= 4;
             }
 
-            GL11.glNewList(this.fontDisplayLists + 256 + var21, GL11.GL_COMPILE);
+            GL11.glNewList(this.fontDisplayLists + 256 + i, GL11.GL_COMPILE);
             GL11.glColor3f((float) var25 / 255.0F, (float) var27 / 255.0F, (float) var29 / 255.0F);
             GL11.glEndList();
         }
 
     }
 
-    public void drawStringWithShadow(String var1, int var2, int var3, int var4) {
-        this.renderString(var1, var2 + 1, var3 + 1, var4, true);
-        this.drawString(var1, var2, var3, var4);
+    public void drawStringWithShadow(String text, int var2, int var3, int var4) {
+        this.renderString(text, var2 + 1, var3 + 1, var4, true);
+        this.drawString(text, var2, var3, var4);
     }
 
     public void drawString(String var1, int var2, int var3, int var4) {

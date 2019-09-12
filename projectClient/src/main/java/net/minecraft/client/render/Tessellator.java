@@ -1,6 +1,7 @@
 package net.minecraft.client.render;
 
 import org.lwjgl.opengl.ARBVertexBufferObject;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.ByteBuffer;
@@ -44,7 +45,7 @@ public class Tessellator {
         this.intBuffer = this.byteBuffer.asIntBuffer();
         this.floatBuffer = this.byteBuffer.asFloatBuffer();
         this.rawBuffer = new int[size];
-        this.useVBO = tryVBO && GLContext.getCapabilities().GL_ARB_vertex_buffer_object;
+        this.useVBO = tryVBO && GL.getCapabilities().GL_ARB_vertex_buffer_object;
         if (this.useVBO) {
             this.vertexBuffers = GLAllocation.createDirectIntBuffer(this.vboCount);
             ARBVertexBufferObject.glGenBuffersARB(this.vertexBuffers);
@@ -73,7 +74,7 @@ public class Tessellator {
                     GL11.glTexCoordPointer(2, GL11.GL_FLOAT, 32, 12L);
                 } else {
                     this.floatBuffer.position(3);
-                    GL11.glTexCoordPointer(2, 32, this.floatBuffer);
+                    GL11.glTexCoordPointer(2, 32, 0, this.floatBuffer);
                 }
 
                 GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
@@ -84,7 +85,7 @@ public class Tessellator {
                     GL11.glColorPointer(4, GL11.GL_UNSIGNED_BYTE, 32, 20L);
                 } else {
                     this.byteBuffer.position(20);
-                    GL11.glColorPointer(4, true, 32, this.byteBuffer);
+                    GL11.glColorPointer(4, 32, 0, this.byteBuffer);
                 }
 
                 GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
@@ -95,7 +96,7 @@ public class Tessellator {
                     GL11.glNormalPointer(GL11.GL_BYTE, 32, 24L);
                 } else {
                     this.byteBuffer.position(24);
-                    GL11.glNormalPointer(32, this.byteBuffer);
+                    GL11.glNormalPointer(32, 0, this.byteBuffer);
                 }
 
                 GL11.glEnableClientState(GL11.GL_NORMAL_ARRAY);
@@ -105,7 +106,7 @@ public class Tessellator {
                 GL11.glVertexPointer(3, GL11.GL_FLOAT, 32, 0L);
             } else {
                 this.floatBuffer.position(0);
-                GL11.glVertexPointer(3, 32, this.floatBuffer);
+                GL11.glVertexPointer(3, 32, 0, this.floatBuffer);
             }
 
             GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);

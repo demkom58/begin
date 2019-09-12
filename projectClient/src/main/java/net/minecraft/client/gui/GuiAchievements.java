@@ -64,7 +64,7 @@ public class GuiAchievements extends GuiScreen {
     }
 
     public void drawScreen(int var1, int var2, float var3) {
-        if (Mouse.isButtonDown(0)) {
+        if (mc.mouse.isButtonPressed(0)) {
             int var4 = (this.width - this.field_27121_a) / 2;
             int var5 = (this.height - this.field_27119_i) / 2;
             int var6 = var4 + 8;

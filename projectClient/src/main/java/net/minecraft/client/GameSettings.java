@@ -112,7 +112,7 @@ public class GameSettings {
     }
 
     public String getOptionDisplayString(int var1) {
-        return Keyboard.getKeyName(this.keyBindings[var1].keyCode);
+        return mc.keyboard.getKeyName(this.keyBindings[var1].keyCode);
     }
 
     public void setKeyBinding(int var1, int var2) {

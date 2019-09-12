@@ -73,7 +73,6 @@ public class Window implements AutoCloseable {
         this.throwExceptionOnGlError();
         this.setPhase("Pre startup");
 
-
         if (width <= 0)
             width = 1;
 
@@ -89,16 +88,14 @@ public class Window implements AutoCloseable {
 
         this.title = title;
 
-        IntBuffer x = IntBuffer.allocate(1);
-        IntBuffer y = IntBuffer.allocate(1);
+        int[] x = new int[1];
+        int[] y = new int[1];
         GLFW.glfwGetWindowPos(pointer, x, y);
-
-        this.x = x.get();
-        this.y = y.get();
+        this.x = x[0];
+        this.y = y[0];
 
         setFullscreen(fullscreen);
         setResizable(resizable);
-        setVsync(false);
 
         GLFW.glfwSetWindowSizeCallback(pointer, this::onResize);
         GLFW.glfwSetWindowPosCallback(pointer, this::onPositionChanged);
@@ -233,7 +230,8 @@ public class Window implements AutoCloseable {
         if (this.height <= 0)
             this.height = 1;
 
-        long newPointer = GLFW.glfwCreateWindow(width, height, title, fullscreen ? GLFW.glfwGetPrimaryMonitor() : MemoryUtil.NULL, pointer);
+        long newPointer = GLFW.glfwCreateWindow(width, height, title,
+                fullscreen ? GLFW.glfwGetPrimaryMonitor() : MemoryUtil.NULL, pointer);
         GLFW.glfwDestroyWindow(pointer);
         pointer = newPointer;
 
@@ -296,6 +294,14 @@ public class Window implements AutoCloseable {
         GLFW.glfwTerminate();
     }
 
+    public void show() {
+        GLFW.glfwShowWindow(pointer);
+    }
+
+    public void hide() {
+        GLFW.glfwHideWindow(pointer);
+    }
+
     @Override
     public void close() throws Exception {
         destroy();
@@ -322,6 +328,5 @@ public class Window implements AutoCloseable {
             glfwErrorCallback.free();
         }
     }
-
 
 }

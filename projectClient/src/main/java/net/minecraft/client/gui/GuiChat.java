@@ -1,17 +1,18 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.util.ChatAllowedCharacters;
+import org.lwjgl.glfw.GLFW;
 
 public class GuiChat extends GuiScreen {
     protected String message = "";
     private int updateCounter = 0;
 
     public void initGui() {
-        Keyboard.enableRepeatEvents(true);
+//        TODO: Keyboard.enableRepeatEvents(true);
     }
 
     public void onGuiClosed() {
-        Keyboard.enableRepeatEvents(false);
+//        TODO: Keyboard.enableRepeatEvents(false);
     }
 
     public void updateScreen() {
@@ -19,9 +20,9 @@ public class GuiChat extends GuiScreen {
     }
 
     protected void keyTyped(char ch, int key) {
-        if (key == Keyboard.KEY_ESCAPE) {
+        if (key == GLFW.GLFW_KEY_ESCAPE) {
             this.mc.displayGuiScreen(null);
-        } else if (key == Keyboard.KEY_RETURN) {
+        } else if (key == GLFW.GLFW_KEY_ENTER) {
             String trim = this.message.trim();
             if (trim.length() > 0) {
                 String msg = this.message.trim();
@@ -32,7 +33,7 @@ public class GuiChat extends GuiScreen {
 
             this.mc.displayGuiScreen(null);
         } else {
-            if (key == Keyboard.KEY_BACK && this.message.length() > 0) {
+            if (key == GLFW.GLFW_KEY_BACKSPACE && this.message.length() > 0) {
                 this.message = this.message.substring(0, this.message.length() - 1);
             }
 

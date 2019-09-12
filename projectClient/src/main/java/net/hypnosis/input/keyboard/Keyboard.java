@@ -28,4 +28,8 @@ public class Keyboard {
         return GLFW.glfwGetKey(window.getPointer(), keyCode) == GLFW.GLFW_PRESS;
     }
 
+    public String getKeyName(int keyCode) {
+        return GLFW.glfwGetKeyName(keyCode, 0);
+    }
+
 }

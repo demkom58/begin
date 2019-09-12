@@ -39,7 +39,7 @@ abstract class GuiSlotStats extends GuiSlot {
     }
 
     protected void func_27260_a(int var1, int var2, Tessellator tess) {
-        if (!Mouse.isButtonDown(0)) {
+        if (!mc.mouse.isButtonPressed(0)) {
             this.field_27268_b = -1;
         }
 
