@@ -140,8 +140,13 @@ public final class Minecraft implements Runnable {
 
     public void startGame() {
         LWJGL.init(Api.OPENGL, ContextApi.NATIVE, Profile.COMPAT, 3, 3, false);
-        this.window = new Window("Minecraft Beta 1.7.3", displayWidthArg, displayHeightArg, MemoryUtil.NULL, fullscreenArg,
-                true, false, this::resize, null, null, null);
+        this.window = Window.builder()
+                .title("Minecraft Beta 1.7.3")
+                .width(displayWidthArg)
+                .height(displayHeightArg)
+                .fullscreen(fullscreenArg)
+                .resizeCallback(this::resize)
+                .build();
 
         this.mouse = new Mouse(window);
         this.mouse.setScrollCallback(this::onScroll);

@@ -7,6 +7,7 @@ import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.IntBuffer;
@@ -35,30 +36,6 @@ public class Window implements AutoCloseable {
     private boolean vsync = false;
 
     private String phase;
-
-    public Window(@NotNull final String title, int width, int height,
-                  @Nullable final WindowResizeCallback resizeCallback,
-                  @Nullable final WindowPositionCallback positionCallback,
-                  @Nullable final WindowFocusCallback focusCallback,
-                  @Nullable final WindowCloseCallback closeCallback) {
-        this(title, width, height, 0, resizeCallback, positionCallback, focusCallback, closeCallback);
-    }
-
-    public Window(@NotNull final String title, int width, int height, long share,
-                  @Nullable final WindowResizeCallback resizeCallback,
-                  @Nullable final WindowPositionCallback positionCallback,
-                  @Nullable final WindowFocusCallback focusCallback,
-                  @Nullable final WindowCloseCallback closeCallback) {
-        this(title, width, height, share, false, resizeCallback, positionCallback, focusCallback, closeCallback);
-    }
-
-    public Window(@NotNull final String title, int width, int height, long share, boolean fullscreen,
-                  @Nullable final WindowResizeCallback resizeCallback,
-                  @Nullable final WindowPositionCallback positionCallback,
-                  @Nullable final WindowFocusCallback focusCallback,
-                  @Nullable final WindowCloseCallback closeCallback) {
-        this(title, width, height, share, fullscreen, true, false, resizeCallback, positionCallback, focusCallback, closeCallback);
-    }
 
     public Window(@NotNull final String title,
                   int width, int height, long share, boolean fullscreen, boolean resizable, boolean vsync,
@@ -291,6 +268,21 @@ public class Window implements AutoCloseable {
         GLFW.glfwSwapBuffers(pointer);
     }
 
+    public void moveToCenter() {
+        GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+
+        if (vidMode == null)
+            throw new RuntimeException("Can't get primary monitor video mode");
+
+        GLFW.glfwSetWindowPos(pointer, (vidMode.width() - width) / 2, (vidMode.height() - height) / 2);
+        try (MemoryStack frame = MemoryStack.stackPush()) {
+            IntBuffer framebufferSize = frame.mallocInt(2);
+            GLFW.nglfwGetFramebufferSize(pointer, MemoryUtil.memAddress(framebufferSize), MemoryUtil.memAddress(framebufferSize) + 4);
+            width = framebufferSize.get(0);
+            height = framebufferSize.get(1);
+        }
+    }
+
     public void destroy() {
         errorCallback.close();
         Callbacks.glfwFreeCallbacks(pointer);
@@ -330,6 +322,91 @@ public class Window implements AutoCloseable {
         GLFWErrorCallback glfwErrorCallback = GLFW.glfwSetErrorCallback(this.errorCallback);
         if (glfwErrorCallback != null) {
             glfwErrorCallback.free();
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String title = "";
+
+        private int width = 854;
+        private int height = 480;
+
+        private long share = MemoryUtil.NULL;
+        private boolean fullscreen = false;
+        private boolean resizable = true;
+        private boolean vsync = false;
+
+        private WindowResizeCallback resizeCallback = null;
+        private WindowPositionCallback positionCallback = null;
+        private WindowFocusCallback focusCallback = null;
+        private WindowCloseCallback closeCallback = null;
+
+        private Builder() {}
+
+        public Builder title(@Nullable final String title) {
+            this.title = title == null ? "" : title;
+            return this;
+        }
+
+        public Builder width(int width) {
+            this.width = Math.max(width, 1);
+            return this;
+        }
+
+        public Builder height(int height) {
+            this.height = Math.max(height, 1);
+            return this;
+        }
+
+        public Builder share(long share) {
+            this.share = share;
+            return this;
+        }
+
+        public Builder fullscreen(boolean fullscreen) {
+            this.fullscreen = fullscreen;
+            return this;
+        }
+
+        public Builder resizable(boolean resizable) {
+            this.resizable = resizable;
+            return this;
+        }
+
+        public Builder vsync(boolean vsync) {
+            this.vsync = vsync;
+            return this;
+        }
+
+        public Builder resizeCallback(WindowResizeCallback resizeCallback) {
+            this.resizeCallback = resizeCallback;
+            return this;
+        }
+
+        public Builder positionCallback(WindowPositionCallback positionCallback) {
+            this.positionCallback = positionCallback;
+            return this;
+        }
+
+        public Builder focusCallback(WindowFocusCallback focusCallback) {
+            this.focusCallback = focusCallback;
+            return this;
+        }
+
+        public Builder closeCallback(WindowCloseCallback closeCallback) {
+            this.closeCallback = closeCallback;
+            return this;
+        }
+
+        public Window build() {
+            return new Window(
+                    this.title, this.width, this.height, this.share, this.fullscreen, this.resizable, this.vsync,
+                    this.resizeCallback, this.positionCallback, this.focusCallback, this.closeCallback
+            );
         }
     }
 
