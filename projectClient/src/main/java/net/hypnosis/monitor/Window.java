@@ -15,10 +15,8 @@ import java.nio.IntBuffer;
 public class Window implements AutoCloseable {
     private final GLFWErrorCallback errorCallback = GLFWErrorCallback.create(this::printGlError);
 
-    private final WindowResizeCallback resizeCallback;
-    private final WindowPositionCallback positionCallback;
-    private final WindowFocusCallback focusCallback;
-    private final WindowCloseCallback closeCallback;
+    private WindowResizeCallback resizeCallback;
+    private WindowPositionCallback positionCallback;
     private long pointer;
 
     private String title;
@@ -38,16 +36,12 @@ public class Window implements AutoCloseable {
     private String phase;
 
     public Window(@NotNull final String title,
-                  int width, int height, long share, boolean fullscreen, boolean resizable, boolean vsync,
+                  int width, int height, long share,
+                  boolean fullscreen, boolean resizable, boolean vsync,
                   @Nullable final WindowResizeCallback resizeCallback,
                   @Nullable final WindowPositionCallback positionCallback,
                   @Nullable final WindowFocusCallback focusCallback,
                   @Nullable final WindowCloseCallback closeCallback) {
-        this.resizeCallback = resizeCallback;
-        this.positionCallback = positionCallback;
-        this.focusCallback = focusCallback;
-        this.closeCallback = closeCallback;
-
         this.throwExceptionOnGlError();
         this.setPhase("Pre startup");
 
@@ -71,19 +65,34 @@ public class Window implements AutoCloseable {
         this.x = x[0];
         this.y = y[0];
 
+        setResizeCallback(resizeCallback);
+        setPositionCallback(positionCallback);
+        setFocusCallback(focusCallback);
+        setCloseCallback(closeCallback);
+
         GLFW.glfwSetWindowSizeCallback(pointer, this::onResize);
         GLFW.glfwSetWindowPosCallback(pointer, this::onPositionChanged);
-
-        if (focusCallback != null)
-            GLFW.glfwSetWindowFocusCallback(pointer, this.focusCallback::onFocus);
-
-        if (closeCallback != null)
-            GLFW.glfwSetWindowCloseCallback(pointer, this.closeCallback::onClose);
 
         setVsync(vsync);
         setResizable(resizable);
         setSize(width, height);
         setFullscreen(fullscreen);
+    }
+
+    public void setResizeCallback(WindowResizeCallback resizeCallback) {
+        this.resizeCallback = resizeCallback;
+    }
+
+    public void setPositionCallback(WindowPositionCallback positionCallback) {
+        this.positionCallback = positionCallback;
+    }
+
+    public void setFocusCallback(WindowFocusCallback focusCallback) {
+        GLFW.glfwSetWindowFocusCallback(pointer, focusCallback == null ? null : focusCallback::onFocus);
+    }
+
+    public void setCloseCallback(WindowCloseCallback closeCallback) {
+        GLFW.glfwSetWindowCloseCallback(pointer, closeCallback == null ? null : closeCallback::onClose);
     }
 
     private void onResize(long pointer, int width, int height) {
