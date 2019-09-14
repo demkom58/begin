@@ -25,10 +25,13 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3D;
 
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class EntityRenderer {
+
     public static boolean field_28135_a = false;
     public static int anaglyphField;
     public ItemRenderer itemRenderer;
@@ -356,12 +359,14 @@ public class EntityRenderer {
             this.mc.mouseHelper.mouseXYChange();
             float var2 = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
             float var3 = var2 * var2 * var2 * 8.0F;
+
+            System.out.println("Mouse delta. X: " + mc.mouseHelper.deltaX + "; Y: " + mc.mouseHelper.deltaY + ";");
             float var4 = (float) this.mc.mouseHelper.deltaX * var3;
             float var5 = (float) this.mc.mouseHelper.deltaY * var3;
             byte var6 = 1;
-            if (this.mc.gameSettings.invertMouse) {
+
+            if (this.mc.gameSettings.invertMouse)
                 var6 = -1;
-            }
 
             if (this.mc.gameSettings.smoothCamera) {
                 var4 = this.mouseFilterXAxis.func_22386_a(var4, 0.05F * var3);

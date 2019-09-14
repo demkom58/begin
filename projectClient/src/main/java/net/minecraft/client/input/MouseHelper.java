@@ -12,25 +12,16 @@ public class MouseHelper {
     private final Window window;
     private final Mouse mouse;
 
+    public double x;
+    public double y;
+
     public double deltaX;
     public double deltaY;
-//    private Cursor cursor;
-
+    
     public MouseHelper(@NotNull final Window window, @NotNull final Mouse mouse) {
         this.window = window;
         this.mouse = mouse;
-
-        IntBuffer intBuffer = GLAllocation.createDirectIntBuffer(1);
-        intBuffer.put(0);
-        intBuffer.flip();
-        IntBuffer buffer = GLAllocation.createDirectIntBuffer(1024);
-
-//        try {
-//            this.cursor = new Cursor(32, 32, 16, 16, 1, buffer, intBuffer);
-//        } catch (LWJGLException e) {
-//            e.printStackTrace();
-//        }
-
+        this.mouseXYChange();
     }
 
     public void grabMouseCursor() {
@@ -45,7 +36,13 @@ public class MouseHelper {
     }
 
     public void mouseXYChange() {
-        this.deltaX = mouse.getDeltaX();
-        this.deltaY = mouse.getDeltaY();
+        double newX = mouse.getX();
+        double newY = mouse.getY();
+
+        this.deltaX = newX - this.x;
+        this.deltaY = newY - this.y;
+
+        this.x = newX;
+        this.y = newY;
     }
 }
