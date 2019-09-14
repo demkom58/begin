@@ -34,8 +34,8 @@ public class Mouse {
     private void onMoved(long window, double x, double y) {
         y = this.window.getHeight() - y;
 
-        this.deltaX = this.x - x;
-        this.deltaY = this.y - y;
+        this.deltaX = x - this.x;
+        this.deltaY = y - this.y;
 
         this.x = x;
         this.y = y;
