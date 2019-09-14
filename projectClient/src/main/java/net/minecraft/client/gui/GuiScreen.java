@@ -4,7 +4,7 @@ import net.hypnosis.input.mouse.Mouse;
 import net.hypnosis.monitor.Window;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.FontRenderer;
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 

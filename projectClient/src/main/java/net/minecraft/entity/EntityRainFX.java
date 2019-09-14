@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.BlockFluid;
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.util.MathHelper;

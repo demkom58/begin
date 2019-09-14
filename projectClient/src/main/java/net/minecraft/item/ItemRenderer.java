@@ -1,5 +1,6 @@
 package net.minecraft.item;
 
+import net.hypnosis.render.Tessellator;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.*;

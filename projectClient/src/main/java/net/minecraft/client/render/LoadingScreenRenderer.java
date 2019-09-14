@@ -1,6 +1,7 @@
 package net.minecraft.client.render;
 
 import net.hypnosis.monitor.Window;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.IProgressUpdatable;
 import net.minecraft.util.MinecraftError;

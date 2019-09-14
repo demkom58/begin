@@ -1,6 +1,6 @@
 package net.minecraft.entity;
 
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.world.World;
 
 public class EntityExplodeFX extends EntityFX {

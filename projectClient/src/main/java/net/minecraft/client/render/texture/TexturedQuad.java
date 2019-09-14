@@ -1,6 +1,6 @@
 package net.minecraft.client.render.texture;
 
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.util.Vec3D;
 
 public class TexturedQuad {

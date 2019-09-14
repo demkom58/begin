@@ -1,6 +1,6 @@
 package net.minecraft.client.gui;
 
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 

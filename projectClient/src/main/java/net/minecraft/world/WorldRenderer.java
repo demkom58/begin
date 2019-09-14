@@ -2,7 +2,7 @@ package net.minecraft.world;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.render.ICamera;
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.client.render.entity.RenderBlocks;
 import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.entity.Entity;

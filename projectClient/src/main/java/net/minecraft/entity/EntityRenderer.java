@@ -2,7 +2,8 @@ package net.minecraft.entity;
 
 import net.hypnosis.input.mouse.Mouse;
 import net.hypnosis.monitor.Window;
-import net.hypnosis.video.GLU;
+import net.hypnosis.render.GLU;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.input.MouseFilter;
@@ -17,7 +18,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkProviderLoadOrGenerate;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.BiomeGenBase;
-import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.ARBVertexBlend;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;

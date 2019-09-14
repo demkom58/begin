@@ -3,7 +3,7 @@ package net.minecraft.client.render.item;
 import net.minecraft.client.GameSettings;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.client.render.RenderEngine;
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.MapCoord;
 import net.minecraft.item.MapData;

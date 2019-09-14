@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.render.FontRenderer;
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.world.storage.SaveFormatData;
 import net.minecraft.util.MathHelper;
 

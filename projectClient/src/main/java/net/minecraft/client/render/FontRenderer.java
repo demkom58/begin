@@ -1,5 +1,6 @@
 package net.minecraft.client.render;
 
+import net.hypnosis.render.Tessellator;
 import net.minecraft.client.GameSettings;
 import net.minecraft.util.ChatAllowedCharacters;
 import org.lwjgl.opengl.GL11;
@@ -15,7 +16,7 @@ public class FontRenderer {
     private int fontDisplayLists;
     private IntBuffer buffer = GLAllocation.createDirectIntBuffer(GL11.GL_FRONT_LEFT);
 
-    public FontRenderer(GameSettings gameSettings, String fontResource, RenderEngine renderEngine) {
+    public FontRenderer(GameSettings settings, String fontResource, RenderEngine renderEngine) {
         BufferedImage image;
         try {
             image = ImageIO.read(RenderEngine.class.getResourceAsStream(fontResource));
@@ -60,98 +61,100 @@ public class FontRenderer {
 
         this.fontTextureName = renderEngine.allocateAndSetupTexture(image);
         this.fontDisplayLists = GLAllocation.generateDisplayLists(288);
+
         Tessellator tess = Tessellator.INSTANCE;
 
         for (int i = 0; i < 256; ++i) {
             GL11.glNewList(this.fontDisplayLists + i, GL11.GL_COMPILE);
             tess.startDrawingQuads();
-            int var22 = i % 16 * 8;
-            int var24 = i / 16 * 8;
-            float var26 = 7.99F;
-            float var28 = 0.0F;
-            float var30 = 0.0F;
-            tess.addVertexWithUV(0.0D, 0.0F + var26, 0.0D, (float) var22 / 128.0F + var28, ((float) var24 + var26) / 128.0F + var30);
-            tess.addVertexWithUV(0.0F + var26, 0.0F + var26, 0.0D, ((float) var22 + var26) / 128.0F + var28, ((float) var24 + var26) / 128.0F + var30);
-            tess.addVertexWithUV(0.0F + var26, 0.0D, 0.0D, ((float) var22 + var26) / 128.0F + var28, (float) var24 / 128.0F + var30);
-            tess.addVertexWithUV(0.0D, 0.0D, 0.0D, (float) var22 / 128.0F + var28, (float) var24 / 128.0F + var30);
+
+            int i1 = i % 16 * 8;
+            int i2 = i / 16 * 8;
+
+            float f1 = 7.99F;
+            float f2 = 0.0F;
+            float f3 = 0.0F;
+
+            tess.addVertexWithUV(0.0D, 0.0F + f1, 0.0D, (float) i1 / 128.0F + f2, ((float) i2 + f1) / 128.0F + f3);
+            tess.addVertexWithUV(0.0F + f1, 0.0F + f1, 0.0D, ((float) i1 + f1) / 128.0F + f2, ((float) i2 + f1) / 128.0F + f3);
+            tess.addVertexWithUV(0.0F + f1, 0.0D, 0.0D, ((float) i1 + f1) / 128.0F + f2, (float) i2 / 128.0F + f3);
+            tess.addVertexWithUV(0.0D, 0.0D, 0.0D, (float) i1 / 128.0F + f2, (float) i2 / 128.0F + f3);
             tess.draw();
+
             GL11.glTranslatef((float) this.charWidth[i], 0.0F, 0.0F);
             GL11.glEndList();
         }
 
         for (int i = 0; i < 32; ++i) {
-            int var23 = (i >> 3 & 1) * 85;
-            int var25 = (i >> 2 & 1) * 170 + var23;
-            int var27 = (i >> 1 & 1) * 170 + var23;
-            int var29 = (i & 1) * 170 + var23;
-            if (i == 6) {
-                var25 += 85;
-            }
+            int mod = (i >> 3 & 1) * 85;
+            int r = (i >> 2 & 1) * 170 + mod;
+            int g = (i >> 1 & 1) * 170 + mod;
+            int b = (i & 1) * 170 + mod;
+            if (i == 6)
+                r += 85;
 
             boolean var31 = i >= 16;
-            if (gameSettings.anaglyph) {
-                int var32 = (var25 * 30 + var27 * 59 + var29 * 11) / 100;
-                int var33 = (var25 * 30 + var27 * 70) / 100;
-                int var17 = (var25 * 30 + var29 * 70) / 100;
-                var25 = var32;
-                var27 = var33;
-                var29 = var17;
+            if (settings.anaglyph) {
+                int tempRed = (r * 30 + g * 59 + b * 11) / 100;
+                int tempGreen = (r * 30 + g * 70) / 100;
+                int tempBlue = (r * 30 + b * 70) / 100;
+
+                r = tempRed;
+                g = tempGreen;
+                b = tempBlue;
             }
 
             if (var31) {
-                var25 /= 4;
-                var27 /= 4;
-                var29 /= 4;
+                r /= 4;
+                g /= 4;
+                b /= 4;
             }
 
             GL11.glNewList(this.fontDisplayLists + 256 + i, GL11.GL_COMPILE);
-            GL11.glColor3f((float) var25 / 255.0F, (float) var27 / 255.0F, (float) var29 / 255.0F);
+            GL11.glColor3f((float) r / 255.0F, (float) g / 255.0F, (float) b / 255.0F);
             GL11.glEndList();
         }
-
     }
 
-    public void drawStringWithShadow(String text, int var2, int var3, int var4) {
-        this.renderString(text, var2 + 1, var3 + 1, var4, true);
-        this.drawString(text, var2, var3, var4);
+    public void drawStringWithShadow(String text, int x, int y, int color) {
+        this.renderString(text, x + 1, y + 1, color, true);
+        this.drawString(text, x, y, color);
     }
 
-    public void drawString(String var1, int var2, int var3, int var4) {
-        this.renderString(var1, var2, var3, var4, false);
+    public void drawString(String text, int x, int y, int color) {
+        this.renderString(text, x, y, color, false);
     }
 
-    public void renderString(String str, int x, int y, int var4, boolean var5) {
-        if (str == null)
+    public void renderString(String text, int x, int y, int color, boolean isShadow) {
+        if (text == null)
             return;
 
-        if (var5) {
-            int var6 = var4 & -16777216;
-            var4 = (var4 & 16579836) >> 2;
-            var4 = var4 + var6;
+        if (isShadow) {
+            int dark = color & -16777216;
+            color = (color & 16579836) >> 2;
+            color = color + dark;
         }
 
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.fontTextureName);
-        float var11 = (float) (var4 >> 16 & 255) / 255.0F;
-        float var7 = (float) (var4 >> 8 & 255) / 255.0F;
-        float var8 = (float) (var4 & 255) / 255.0F;
-        float var9 = (float) (var4 >> 24 & 255) / 255.0F;
-        if (var9 == 0.0F) {
-            var9 = 1.0F;
-        }
+        float r = (float) (color >> 16 & 255) / 255.0F;
+        float g = (float) (color >> 8 & 255) / 255.0F;
+        float b = (float) (color & 255) / 255.0F;
+        float a = (float) (color >> 24 & 255) / 255.0F;
+        if (a == 0.0F)
+            a = 1.0F;
 
-        GL11.glColor4f(var11, var7, var8, var9);
+        GL11.glColor4f(r, g, b, a);
         this.buffer.clear();
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y, 0.0F);
 
-        for (int i = 0; i < str.length(); ++i) {
-            for (; str.length() > i + 1 && str.charAt(i) == 167; i += 2) {
-                int var13 = "0123456789abcdef".indexOf(str.toLowerCase().charAt(i + 1));
-                if (var13 < 0 || var13 > 15) {
-                    var13 = 15;
-                }
+        for (int i = 0; i < text.length(); ++i) {
+            for (; text.length() > i + 1 && text.charAt(i) == 167; i += 2) {
+                int ind = "0123456789abcdef".indexOf(text.toLowerCase().charAt(i + 1));
+                if (ind < 0 || ind > 15)
+                    ind = 15;
 
-                this.buffer.put(this.fontDisplayLists + 256 + var13 + (var5 ? 16 : 0));
+                this.buffer.put(this.fontDisplayLists + 256 + ind + (isShadow ? 16 : 0));
                 if (this.buffer.remaining() == 0) {
                     this.buffer.flip();
                     GL11.glCallLists(this.buffer);
@@ -159,11 +162,10 @@ public class FontRenderer {
                 }
             }
 
-            if (i < str.length()) {
-                int var14 = ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(str.charAt(i));
-                if (var14 >= 0) {
-                    this.buffer.put(this.fontDisplayLists + var14 + 32);
-                }
+            if (i < text.length()) {
+                int index = ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(text.charAt(i));
+                if (index >= 0)
+                    this.buffer.put(this.fontDisplayLists + index + 32);
             }
 
             if (this.buffer.remaining() == 0) {
@@ -178,22 +180,20 @@ public class FontRenderer {
         GL11.glPopMatrix();
     }
 
-    public int getStringWidth(String str) {
-        if (str == null)
+    public int getStringWidth(String text) {
+        if (text == null)
             return 0;
 
         int width = 0;
-        for (int i = 0; i < str.length(); ++i) {
-            if (str.charAt(i) == 167) {
+        for (int i = 0; i < text.length(); ++i) {
+            if (text.charAt(i) == 167) {
                 ++i;
                 continue;
             }
 
-            int indexOf = ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(str.charAt(i));
-            if (indexOf >= 0) {
+            int indexOf = ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(text.charAt(i));
+            if (indexOf >= 0)
                 width += this.charWidth[indexOf + 32];
-            }
-
         }
 
         return width;
@@ -202,9 +202,9 @@ public class FontRenderer {
     public void func_27278_a(String var1, int var2, int var3, int var4, int var5) {
         String[] var6 = var1.split("\n");
         if (var6.length > 1) {
-            for (int var11 = 0; var11 < var6.length; ++var11) {
-                this.func_27278_a(var6[var11], var2, var3, var4, var5);
-                var3 += this.func_27277_a(var6[var11], var4);
+            for (int i = 0; i < var6.length; ++i) {
+                this.func_27278_a(var6[i], var2, var3, var4, var5);
+                var3 += this.func_27277_a(var6[i], var4);
             }
 
         } else {
@@ -236,19 +236,19 @@ public class FontRenderer {
         }
     }
 
-    public int func_27277_a(String var1, int var2) {
-        String[] lines = var1.split("\n");
+    public int func_27277_a(String s, int var2) {
+        String[] lines = s.split("\n");
         if (lines.length > 1) {
-            int var9 = 0;
+            int linesLength = 0;
 
             for (int i = 0; i < lines.length; ++i) {
-                var9 += this.func_27277_a(lines[i], var2);
+                linesLength += this.func_27277_a(lines[i], var2);
             }
 
-            return var9;
+            return linesLength;
         }
 
-        String[] var4 = var1.split(" ");
+        String[] var4 = s.split(" ");
         int var5 = 0;
         int var6 = 0;
 

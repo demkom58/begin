@@ -1,8 +1,7 @@
 package net.minecraft.client.render;
 
+import net.hypnosis.render.Tessellator;
 import net.minecraft.block.Block;
-import net.minecraft.client.render.RenderEngine;
-import net.minecraft.client.render.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDiggingFX;
 import net.minecraft.entity.EntityFX;

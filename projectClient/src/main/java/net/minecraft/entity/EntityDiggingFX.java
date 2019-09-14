@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.world.World;
 
 public class EntityDiggingFX extends EntityFX {

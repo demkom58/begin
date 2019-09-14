@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.render.FontRenderer;
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import org.lwjgl.opengl.GL11;
 
 public class Gui {

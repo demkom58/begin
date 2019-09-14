@@ -531,35 +531,35 @@ public class World implements IBlockAccess {
         }
     }
 
-    public boolean canBlockSeeTheSky(int var1, int var2, int var3) {
-        return this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4).canBlockSeeTheSky(var1 & 15, var2, var3 & 15);
+    public boolean canBlockSeeTheSky(int x, int y, int z) {
+        return this.getChunkFromChunkCoords(x >> 4, z >> 4).canBlockSeeTheSky(x & 15, y, z & 15);
     }
 
-    public int getFullBlockLightValue(int var1, int var2, int var3) {
-        if (var2 < 0)
+    public int getFullBlockLightValue(int x, int y, int z) {
+        if (y < 0)
             return 0;
 
-        if (var2 >= 128) {
-            var2 = 127;
+        if (y >= 128) {
+            y = 127;
         }
 
-        return this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4).getBlockLightValue(var1 & 15, var2, var3 & 15, 0);
+        return this.getChunkFromChunkCoords(x >> 4, z >> 4).getBlockLightValue(x & 15, y, z & 15, 0);
     }
 
-    public int getBlockLightValue(int var1, int var2, int var3) {
-        return this.getBlockLightValue_do(var1, var2, var3, true);
+    public int getBlockLightValue(int x, int y, int z) {
+        return this.getBlockLightValue_do(x, y, z, true);
     }
 
-    public int getBlockLightValue_do(int var1, int var2, int var3, boolean var4) {
-        if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
+    public int getBlockLightValue_do(int x, int y, int z, boolean var4) {
+        if (x >= -32000000 && z >= -32000000 && x < 32000000 && z <= 32000000) {
             if (var4) {
-                int var5 = this.getBlockId(var1, var2, var3);
+                int var5 = this.getBlockId(x, y, z);
                 if (var5 == Block.STAIR_SINGLE.blockID || var5 == Block.FARMLAND.blockID || var5 == Block.STAIR_COMPACT_COBBLESTONE.blockID || var5 == Block.STAIR_COMPACT_PLANKS.blockID) {
-                    int var6 = this.getBlockLightValue_do(var1, var2 + 1, var3, false);
-                    int var7 = this.getBlockLightValue_do(var1 + 1, var2, var3, false);
-                    int var8 = this.getBlockLightValue_do(var1 - 1, var2, var3, false);
-                    int var9 = this.getBlockLightValue_do(var1, var2, var3 + 1, false);
-                    int var10 = this.getBlockLightValue_do(var1, var2, var3 - 1, false);
+                    int var6 = this.getBlockLightValue_do(x, y + 1, z, false);
+                    int var7 = this.getBlockLightValue_do(x + 1, y, z, false);
+                    int var8 = this.getBlockLightValue_do(x - 1, y, z, false);
+                    int var9 = this.getBlockLightValue_do(x, y, z + 1, false);
+                    int var10 = this.getBlockLightValue_do(x, y, z - 1, false);
                     if (var7 > var6) {
                         var6 = var7;
                     }
@@ -580,70 +580,70 @@ public class World implements IBlockAccess {
                 }
             }
 
-            if (var2 < 0)
+            if (y < 0)
                 return 0;
 
-            if (var2 >= 128) {
-                var2 = 127;
+            if (y >= 128) {
+                y = 127;
             }
 
-            Chunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
-            var1 = var1 & 15;
-            var3 = var3 & 15;
-            return chunk.getBlockLightValue(var1, var2, var3, this.skylightSubtracted);
+            Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+            x = x & 15;
+            z = z & 15;
+            return chunk.getBlockLightValue(x, y, z, this.skylightSubtracted);
         }
 
         return 15;
     }
 
-    public boolean canExistingBlockSeeTheSky(int var1, int var2, int var3) {
-        if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
-            if (var2 < 0)
+    public boolean canExistingBlockSeeTheSky(int x, int y, int z) {
+        if (x >= -32000000 && z >= -32000000 && x < 32000000 && z <= 32000000) {
+            if (y < 0)
                 return false;
 
-            if (var2 >= 128)
+            if (y >= 128)
                 return true;
 
-            if (!this.chunkExists(var1 >> 4, var3 >> 4))
+            if (!this.chunkExists(x >> 4, z >> 4))
                 return false;
 
-            Chunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
-            var1 = var1 & 15;
-            var3 = var3 & 15;
-            return chunk.canBlockSeeTheSky(var1, var2, var3);
+            Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+            x = x & 15;
+            z = z & 15;
+            return chunk.canBlockSeeTheSky(x, y, z);
         }
 
         return false;
     }
 
-    public int getHeightValue(int var1, int var2) {
-        if (var1 >= -32000000 && var2 >= -32000000 && var1 < 32000000 && var2 <= 32000000) {
-            if (!this.chunkExists(var1 >> 4, var2 >> 4))
+    public int getHeightValue(int x, int z) {
+        if (x >= -32000000 && z >= -32000000 && x < 32000000 && z <= 32000000) {
+            if (!this.chunkExists(x >> 4, z >> 4))
                 return 0;
 
-            Chunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var2 >> 4);
-            return chunk.getHeightValue(var1 & 15, var2 & 15);
+            Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+            return chunk.getHeightValue(x & 15, z & 15);
         }
 
         return 0;
     }
 
-    public void neighborLightPropagationChanged(EnumSkyBlock var1, int var2, int var3, int var4, int var5) {
-        if (!this.worldProvider.hasNoSky || var1 != EnumSkyBlock.SKY) {
-            if (this.blockExists(var2, var3, var4)) {
-                if (var1 == EnumSkyBlock.SKY) {
-                    if (this.canExistingBlockSeeTheSky(var2, var3, var4)) {
+    public void neighborLightPropagationChanged(EnumSkyBlock skyBlock, int x, int y, int z, int var5) {
+        if (!this.worldProvider.hasNoSky || skyBlock != EnumSkyBlock.SKY) {
+            if (this.blockExists(x, y, z)) {
+                if (skyBlock == EnumSkyBlock.SKY) {
+                    if (this.canExistingBlockSeeTheSky(x, y, z)) {
                         var5 = 15;
                     }
-                } else if (var1 == EnumSkyBlock.BLOCK) {
-                    int var6 = this.getBlockId(var2, var3, var4);
+                } else if (skyBlock == EnumSkyBlock.BLOCK) {
+                    int var6 = this.getBlockId(x, y, z);
                     if (Block.LIGHT_VALUE[var6] > var5) {
                         var5 = Block.LIGHT_VALUE[var6];
                     }
                 }
 
-                if (this.getSavedLightValue(var1, var2, var3, var4) != var5) {
-                    this.scheduleLightingUpdate(var1, var2, var3, var4, var2, var3, var4);
+                if (this.getSavedLightValue(skyBlock, x, y, z) != var5) {
+                    this.scheduleLightingUpdate(skyBlock, x, y, z, x, y, z);
                 }
 
             }
@@ -662,9 +662,9 @@ public class World implements IBlockAccess {
         if (var3 >= 0 && var3 < 128 && var2 >= -32000000 && var4 >= -32000000 && var2 < 32000000 && var4 <= 32000000) {
             int var5 = var2 >> 4;
             int var6 = var4 >> 4;
-            if (!this.chunkExists(var5, var6)) {
+            if (!this.chunkExists(var5, var6))
                 return 0;
-            }
+
             Chunk chunk = this.getChunkFromChunkCoords(var5, var6);
             return chunk.getSavedLightValue(var1, var2 & 15, var3, var4 & 15);
         }
@@ -672,16 +672,16 @@ public class World implements IBlockAccess {
         return var1.lightValue;
     }
 
-    public void setLightValue(EnumSkyBlock var1, int var2, int var3, int var4, int var5) {
-        if (var2 >= -32000000 && var4 >= -32000000 && var2 < 32000000 && var4 <= 32000000) {
-            if (var3 >= 0) {
-                if (var3 < 128) {
-                    if (this.chunkExists(var2 >> 4, var4 >> 4)) {
-                        Chunk chunk = this.getChunkFromChunkCoords(var2 >> 4, var4 >> 4);
-                        chunk.setLightValue(var1, var2 & 15, var3, var4 & 15, var5);
+    public void setLightValue(EnumSkyBlock skyBlock, int x, int y, int z, int var5) {
+        if (x >= -32000000 && z >= -32000000 && x < 32000000 && z <= 32000000) {
+            if (y >= 0) {
+                if (y < 128) {
+                    if (this.chunkExists(x >> 4, z >> 4)) {
+                        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+                        chunk.setLightValue(skyBlock, x & 15, y, z & 15, var5);
 
                         for (IWorldAccess worldAccess : this.worldAccesses) {
-                            worldAccess.markBlockAndNeighborsNeedsUpdate(var2, var3, var4);
+                            worldAccess.markBlockAndNeighborsNeedsUpdate(x, y, z);
                         }
 
                     }
@@ -869,15 +869,15 @@ public class World implements IBlockAccess {
         }
     }
 
-    public void playSoundAtEntity(Entity var1, String var2, float var3, float var4) {
+    public void playSoundAtEntity(Entity entity, String var2, float var3, float var4) {
         for (IWorldAccess worldAccess : this.worldAccesses) {
-            worldAccess.playSound(var2, var1.posX, var1.posY - (double) var1.yOffset, var1.posZ, var3, var4);
+            worldAccess.playSound(var2, entity.posX, entity.posY - (double) entity.yOffset, entity.posZ, var3, var4);
         }
     }
 
-    public void playSoundEffect(double var1, double var3, double var5, String var7, float var8, float var9) {
+    public void playSoundEffect(double x, double y, double z, String var7, float var8, float var9) {
         for (IWorldAccess worldAccess : this.worldAccesses) {
-            worldAccess.playSound(var7, var1, var3, var5, var8, var9);
+            worldAccess.playSound(var7, x, y, z, var8, var9);
         }
     }
 
@@ -893,46 +893,42 @@ public class World implements IBlockAccess {
         }
     }
 
-    public boolean addWeatherEffect(Entity var1) {
-        this.weatherEffects.add(var1);
+    public boolean addWeatherEffect(Entity entity) {
+        this.weatherEffects.add(entity);
         return true;
     }
 
-    public boolean entityJoinedWorld(Entity var1) {
-        int var2 = MathHelper.floor(var1.posX / 16.0D);
-        int var3 = MathHelper.floor(var1.posZ / 16.0D);
-        boolean var4 = false;
-        if (var1 instanceof EntityPlayer) {
-            var4 = true;
-        }
+    public boolean entityJoinedWorld(Entity entity) {
+        int chunkX = MathHelper.floor(entity.posX / 16.0D);
+        int chunkZ = MathHelper.floor(entity.posZ / 16.0D);
+        boolean isPlayer = false;
 
-        if (!var4 && !this.chunkExists(var2, var3)) {
+        if (entity instanceof EntityPlayer)
+            isPlayer = true;
+
+        if (!isPlayer && !this.chunkExists(chunkX, chunkZ))
             return false;
-        } else {
-            if (var1 instanceof EntityPlayer) {
-                EntityPlayer var5 = (EntityPlayer) var1;
-                this.playerEntities.add(var5);
-                this.updateAllPlayersSleepingFlag();
-            }
 
-            this.getChunkFromChunkCoords(var2, var3).addEntity(var1);
-            this.loadedEntityList.add(var1);
-            this.obtainEntitySkin(var1);
-            return true;
+        if (entity instanceof EntityPlayer) {
+            EntityPlayer var5 = (EntityPlayer) entity;
+            this.playerEntities.add(var5);
+            this.updateAllPlayersSleepingFlag();
         }
+
+        this.getChunkFromChunkCoords(chunkX, chunkZ).addEntity(entity);
+        this.loadedEntityList.add(entity);
+        this.obtainEntitySkin(entity);
+        return true;
     }
 
     protected void obtainEntitySkin(Entity entity) {
-        for (IWorldAccess worldAccess : this.worldAccesses) {
+        for (IWorldAccess worldAccess : this.worldAccesses)
             worldAccess.obtainEntitySkin(entity);
-        }
-
     }
 
     protected void releaseEntitySkin(Entity entity) {
-        for (IWorldAccess worldAccess : this.worldAccesses) {
+        for (IWorldAccess worldAccess : this.worldAccesses)
             worldAccess.releaseEntitySkin(entity);
-        }
     }
 
     public void setEntityDead(Entity entity) {
@@ -960,14 +956,14 @@ public class World implements IBlockAccess {
         this.worldAccesses.remove(worldAccess);
     }
 
-    public List getCollidingBoundingBoxes(Entity entity, AxisAlignedBB var2) {
+    public List getCollidingBoundingBoxes(Entity entity, AxisAlignedBB axis) {
         this.collidingBoundingBoxes.clear();
-        int var3 = MathHelper.floor(var2.minX);
-        int var4 = MathHelper.floor(var2.maxX + 1.0D);
-        int var5 = MathHelper.floor(var2.minY);
-        int var6 = MathHelper.floor(var2.maxY + 1.0D);
-        int var7 = MathHelper.floor(var2.minZ);
-        int var8 = MathHelper.floor(var2.maxZ + 1.0D);
+        int var3 = MathHelper.floor(axis.minX);
+        int var4 = MathHelper.floor(axis.maxX + 1.0D);
+        int var5 = MathHelper.floor(axis.minY);
+        int var6 = MathHelper.floor(axis.maxY + 1.0D);
+        int var7 = MathHelper.floor(axis.minZ);
+        int var8 = MathHelper.floor(axis.maxZ + 1.0D);
 
         for (int var9 = var3; var9 < var4; ++var9) {
             for (int var10 = var7; var10 < var8; ++var10) {
@@ -975,7 +971,7 @@ public class World implements IBlockAccess {
                     for (int var11 = var5 - 1; var11 < var6; ++var11) {
                         Block var12 = Block.BLOCKS_LIST[this.getBlockId(var9, var11, var10)];
                         if (var12 != null) {
-                            var12.getCollidingBoundingBoxes(this, var9, var11, var10, var2, this.collidingBoundingBoxes);
+                            var12.getCollidingBoundingBoxes(this, var9, var11, var10, axis, this.collidingBoundingBoxes);
                         }
                     }
                 }
@@ -983,16 +979,16 @@ public class World implements IBlockAccess {
         }
 
         double var14 = 0.25D;
-        List<Entity> var15 = this.getEntitiesWithinAABBExcludingEntity(entity, var2.expand(var14, var14, var14));
+        List<Entity> var15 = this.getEntitiesWithinAABBExcludingEntity(entity, axis.expand(var14, var14, var14));
 
         for (int var16 = 0; var16 < var15.size(); ++var16) {
-            AxisAlignedBB var13 = ((Entity) var15.get(var16)).getBoundingBox();
-            if (var13 != null && var13.intersectsWith(var2)) {
+            AxisAlignedBB var13 = var15.get(var16).getBoundingBox();
+            if (var13 != null && var13.intersectsWith(axis)) {
                 this.collidingBoundingBoxes.add(var13);
             }
 
-            var13 = entity.getCollisionBox((Entity) var15.get(var16));
-            if (var13 != null && var13.intersectsWith(var2)) {
+            var13 = entity.getCollisionBox(var15.get(var16));
+            if (var13 != null && var13.intersectsWith(axis)) {
                 this.collidingBoundingBoxes.add(var13);
             }
         }
@@ -1018,8 +1014,8 @@ public class World implements IBlockAccess {
         return (int) (var3 * 11.0F);
     }
 
-    public Vec3D func_4079_a(Entity var1, float var2) {
-        float var3 = this.getCelestialAngle(var2);
+    public Vec3D func_4079_a(Entity entity, float angle) {
+        float var3 = this.getCelestialAngle(angle);
         float var4 = MathHelper.cos(var3 * 3.1415927F * 2.0F) * 2.0F + 0.5F;
         if (var4 < 0.0F) {
             var4 = 0.0F;
@@ -1029,8 +1025,8 @@ public class World implements IBlockAccess {
             var4 = 1.0F;
         }
 
-        int var5 = MathHelper.floor(var1.posX);
-        int var6 = MathHelper.floor(var1.posZ);
+        int var5 = MathHelper.floor(entity.posX);
+        int var6 = MathHelper.floor(entity.posZ);
         float var7 = (float) this.getWorldChunkManager().getTemperature(var5, var6);
         int var8 = this.getWorldChunkManager().getBiomeGenAt(var5, var6).getSkyColorByTemp(var7);
         float var9 = (float) (var8 >> 16 & 255) / 255.0F;
@@ -1039,7 +1035,7 @@ public class World implements IBlockAccess {
         var9 = var9 * var4;
         var10 = var10 * var4;
         var11 = var11 * var4;
-        float var12 = this.func_27162_g(var2);
+        float var12 = this.func_27162_g(angle);
         if (var12 > 0.0F) {
             float var13 = (var9 * 0.3F + var10 * 0.59F + var11 * 0.11F) * 0.6F;
             float var14 = 1.0F - var12 * 0.75F;
@@ -1048,7 +1044,7 @@ public class World implements IBlockAccess {
             var11 = var11 * var14 + var13 * (1.0F - var14);
         }
 
-        float var19 = this.func_27166_f(var2);
+        float var19 = this.func_27166_f(angle);
         if (var19 > 0.0F) {
             float var20 = (var9 * 0.3F + var10 * 0.59F + var11 * 0.11F) * 0.2F;
             float var15 = 1.0F - var19 * 0.75F;
@@ -1058,7 +1054,7 @@ public class World implements IBlockAccess {
         }
 
         if (this.field_27172_i > 0) {
-            float var21 = (float) this.field_27172_i - var2;
+            float var21 = (float) this.field_27172_i - angle;
             if (var21 > 1.0F) {
                 var21 = 1.0F;
             }

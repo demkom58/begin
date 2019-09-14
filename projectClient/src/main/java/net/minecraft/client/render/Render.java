@@ -1,5 +1,6 @@
 package net.minecraft.client.render;
 
+import net.hypnosis.render.Tessellator;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.block.Block;

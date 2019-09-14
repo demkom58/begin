@@ -10,7 +10,8 @@ public class LWJGL {
                             @NotNull final ContextApi contextApi,
                             @NotNull final Profile profile,
                             int majorVer,
-                            int minorVer) {
+                            int minorVer,
+                            boolean forwardCompat) {
         if (!GLFW.glfwInit())
             throw new RuntimeException("Failed to init GLFW");
 
@@ -20,6 +21,7 @@ public class LWJGL {
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, profile.getConstant());
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, majorVer);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, minorVer);
+        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, forwardCompat ? GLFW.GLFW_TRUE : GLFW.GLFW_FALSE);
     }
 
     public static void createCapabilities() {

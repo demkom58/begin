@@ -1,4 +1,4 @@
-package net.hypnosis.video;
+package net.hypnosis.render;
 
 import org.lwjgl.opengl.GL11;
 

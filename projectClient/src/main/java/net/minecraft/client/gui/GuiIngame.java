@@ -1,6 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.hypnosis.monitor.Window;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.block.Block;
 import net.minecraft.client.ChatLine;
 import net.minecraft.client.Minecraft;

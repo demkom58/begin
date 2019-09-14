@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import net.minecraft.client.render.RenderEngine;
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;

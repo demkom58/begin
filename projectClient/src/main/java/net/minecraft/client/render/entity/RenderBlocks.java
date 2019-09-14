@@ -2,7 +2,7 @@ package net.minecraft.client.render.entity;
 
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.entity.EntityRenderer;
 import net.minecraft.material.Material;
 import net.minecraft.world.IBlockAccess;

@@ -1,7 +1,7 @@
 package net.minecraft.client.render.entity;
 
 import net.minecraft.client.render.Render;
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;

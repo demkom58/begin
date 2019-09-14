@@ -1,8 +1,8 @@
 package net.minecraft.client.model;
 
 import net.minecraft.client.render.GLAllocation;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.client.render.texture.PositionTextureVertex;
-import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.texture.TexturedQuad;
 import org.lwjgl.opengl.GL11;
 

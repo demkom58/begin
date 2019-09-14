@@ -7,6 +7,7 @@ import net.hypnosis.lwjgl.ContextApi;
 import net.hypnosis.lwjgl.LWJGL;
 import net.hypnosis.lwjgl.Profile;
 import net.hypnosis.monitor.Window;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.achievement.AchievementList;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.*;
@@ -36,7 +37,6 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.SaveConverterMcRegion;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 
@@ -138,11 +138,11 @@ public final class Minecraft implements Runnable {
         instance = this;
     }
 
-
     public void startGame() {
-        LWJGL.init(Api.OPENGL, ContextApi.NATIVE, Profile.CORE, 3, 3);
+        LWJGL.init(Api.OPENGL, ContextApi.NATIVE, Profile.COMPAT, 3, 3, false);
         this.window = new Window("Minecraft Beta 1.7.3", displayWidthArg, displayHeightArg, MemoryUtil.NULL, fullscreenArg,
                 true, this::resize, null, null, null);
+
         this.window.makeCurrentContext();
         LWJGL.createCapabilities();
         this.window.setVsync(false);

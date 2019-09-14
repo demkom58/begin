@@ -1,6 +1,7 @@
 package net.minecraft.client.render;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.system.MemoryUtil;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -13,27 +14,32 @@ public class GLAllocation {
     private static List<Integer> displayLists = new ArrayList<>();
     private static List<Integer> textureNames = new ArrayList<>();
 
-    public static synchronized int generateDisplayLists(int s) {
-        int genLists = GL11.glGenLists(s);
+    public static synchronized int generateDisplayLists(int searchedMemLen) {
+        int genLists = GL11.glGenLists(searchedMemLen);
+
+        if (genLists == MemoryUtil.NULL)
+            throw new RuntimeException("Failed to allocate lists");
+
         displayLists.add(genLists);
-        displayLists.add(s);
+        displayLists.add(searchedMemLen);
+
         return genLists;
     }
 
-    public static synchronized void generateTextureNames(IntBuffer var0) {
-        GL11.glGenTextures(var0);
+    public static synchronized void generateTextureNames(IntBuffer buff) {
+        GL11.glGenTextures(buff);
 
-        for (int var1 = var0.position(); var1 < var0.limit(); ++var1) {
-            textureNames.add(var0.get(var1));
+        for (int i = buff.position(); i < buff.limit(); ++i) {
+            textureNames.add(buff.get(i));
         }
 
     }
 
-    public static synchronized void func_28194_b(int var0) {
-        int var1 = displayLists.indexOf(var0);
-        GL11.glDeleteLists(displayLists.get(var1), displayLists.get(var1 + 1));
-        displayLists.remove(var1);
-        displayLists.remove(var1);
+    public static synchronized void func_28194_b(int elem) {
+        int index = displayLists.indexOf(elem);
+        GL11.glDeleteLists(displayLists.get(index), displayLists.get(index + 1));
+        displayLists.remove(index);
+        displayLists.remove(index);
     }
 
     public static synchronized void deleteTexturesAndDisplayLists() {

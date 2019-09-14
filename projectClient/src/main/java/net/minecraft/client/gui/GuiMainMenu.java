@@ -1,13 +1,12 @@
 package net.minecraft.client.gui;
 
-import net.minecraft.client.render.Tessellator;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.util.StringTranslate;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
