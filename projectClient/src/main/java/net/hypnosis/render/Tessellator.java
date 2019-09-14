@@ -94,7 +94,7 @@ public class Tessellator {
                     GL11.glNormalPointer(GL11.GL_BYTE, 32, 24L);
                 } else {
                     this.byteBuffer.position(24);
-                    GL11.glNormalPointer(32, GL11.GL_BYTE, this.byteBuffer);
+                    GL11.glNormalPointer(GL11.GL_BYTE, 32, this.byteBuffer);
                 }
 
                 GL11.glEnableClientState(GL11.GL_NORMAL_ARRAY);

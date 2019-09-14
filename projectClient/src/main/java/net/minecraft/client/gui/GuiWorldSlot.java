@@ -20,7 +20,7 @@ class GuiWorldSlot extends GuiSlot {
     }
 
     protected void elementClicked(int var1, boolean var2) {
-        GuiSelectWorld.onElementSelected(this.parentWorldGui, var1);
+        GuiSelectWorld.setSelectedWorld(this.parentWorldGui, var1);
         boolean var3 = GuiSelectWorld.getSelectedWorld(this.parentWorldGui) >= 0
                 && GuiSelectWorld.getSelectedWorld(this.parentWorldGui) < this.getSize();
         GuiSelectWorld.getSelectButton(this.parentWorldGui).enabled = var3;
@@ -49,7 +49,7 @@ class GuiWorldSlot extends GuiSlot {
 
         String displayName = comparator.getDisplayName();
         if (displayName == null || MathHelper.stringNullOrLengthZero(displayName))
-            displayName = GuiSelectWorld.func_22087_f(this.parentWorldGui) + " " + (var1 + 1);
+            displayName = GuiSelectWorld.getScreenWorld(this.parentWorldGui) + " " + (var1 + 1);
 
         String fileName = comparator.getFileName();
         fileName = fileName + " (" + GuiSelectWorld.getDateFormatter(this.parentWorldGui).format(new Date(comparator.getLastTimePlayed()));
@@ -59,7 +59,7 @@ class GuiWorldSlot extends GuiSlot {
 
         String var11 = "";
         if (comparator.isInvalidVersion()) {
-            var11 = GuiSelectWorld.func_22088_h(this.parentWorldGui) + " " + var11;
+            var11 = GuiSelectWorld.getScreenConversion(this.parentWorldGui) + " " + var11;
         }
 
         final FontRenderer fontRenderer = this.parentWorldGui.fontRenderer;

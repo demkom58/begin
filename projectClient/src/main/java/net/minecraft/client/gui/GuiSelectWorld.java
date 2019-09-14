@@ -36,7 +36,7 @@ public class GuiSelectWorld extends GuiScreen {
     }
 
     // $FF: synthetic method
-    static int onElementSelected(GuiSelectWorld var0, int var1) {
+    static int setSelectedWorld(GuiSelectWorld var0, int var1) {
         return var0.selectedWorld = var1;
     }
 
@@ -61,7 +61,7 @@ public class GuiSelectWorld extends GuiScreen {
     }
 
     // $FF: synthetic method
-    static String func_22087_f(GuiSelectWorld var0) {
+    static String getScreenWorld(GuiSelectWorld var0) {
         return var0.screenWorld;
     }
 
@@ -71,7 +71,7 @@ public class GuiSelectWorld extends GuiScreen {
     }
 
     // $FF: synthetic method
-    static String func_22088_h(GuiSelectWorld var0) {
+    static String getScreenConversion(GuiSelectWorld var0) {
         return var0.screenConversion;
     }
 
@@ -110,12 +110,12 @@ public class GuiSelectWorld extends GuiScreen {
     }
 
     public void initButtons() {
-        StringTranslate var1 = StringTranslate.getInstance();
-        this.buttons.add(this.buttonSelect = new GuiButton(1, this.width / 2 - 154, this.height - 52, 150, 20, var1.translateKey("selectWorld.select")));
-        this.buttons.add(this.buttonRename = new GuiButton(6, this.width / 2 - 154, this.height - 28, 70, 20, var1.translateKey("selectWorld.rename")));
-        this.buttons.add(this.buttonDelete = new GuiButton(2, this.width / 2 - 74, this.height - 28, 70, 20, var1.translateKey("selectWorld.delete")));
-        this.buttons.add(new GuiButton(3, this.width / 2 + 4, this.height - 52, 150, 20, var1.translateKey("selectWorld.create")));
-        this.buttons.add(new GuiButton(0, this.width / 2 + 4, this.height - 28, 150, 20, var1.translateKey("gui.cancel")));
+        StringTranslate translate = StringTranslate.getInstance();
+        this.buttons.add(this.buttonSelect = new GuiButton(1, this.width / 2 - 154, this.height - 52, 150, 20, translate.translateKey("selectWorld.select")));
+        this.buttons.add(this.buttonRename = new GuiButton(6, this.width / 2 - 154, this.height - 28, 70, 20, translate.translateKey("selectWorld.rename")));
+        this.buttons.add(this.buttonDelete = new GuiButton(2, this.width / 2 - 74, this.height - 28, 70, 20, translate.translateKey("selectWorld.delete")));
+        this.buttons.add(new GuiButton(3, this.width / 2 + 4, this.height - 52, 150, 20, translate.translateKey("selectWorld.create")));
+        this.buttons.add(new GuiButton(0, this.width / 2 + 4, this.height - 28, 150, 20, translate.translateKey("gui.cancel")));
         this.buttonSelect.enabled = false;
         this.buttonRename.enabled = false;
         this.buttonDelete.enabled = false;
@@ -126,16 +126,16 @@ public class GuiSelectWorld extends GuiScreen {
             return;
 
         if (button.id == 2) {
-            String var2 = this.getSaveName(this.selectedWorld);
-            if (var2 != null) {
+            String saveName = this.getSaveName(this.selectedWorld);
+            if (saveName != null) {
                 this.deleting = true;
                 StringTranslate translate = StringTranslate.getInstance();
-                String var4 = translate.translateKey("selectWorld.deleteQuestion");
-                String var5 = "'" + var2 + "' " + translate.translateKey("selectWorld.deleteWarning");
-                String var6 = translate.translateKey("selectWorld.deleteButton");
-                String var7 = translate.translateKey("gui.cancel");
-                GuiYesNo var8 = new GuiYesNo(this, var4, var5, var6, var7, this.selectedWorld);
-                this.mc.displayGuiScreen(var8);
+                String deleteQuestionTest = translate.translateKey("selectWorld.deleteQuestion");
+                String deleteWarningText = "'" + saveName + "' " + translate.translateKey("selectWorld.deleteWarning");
+                String deleteBtnText = translate.translateKey("selectWorld.deleteButton");
+                String cancelText = translate.translateKey("gui.cancel");
+                GuiYesNo yesNo = new GuiYesNo(this, deleteQuestionTest, deleteWarningText, deleteBtnText, cancelText, this.selectedWorld);
+                this.mc.displayGuiScreen(yesNo);
             }
         } else if (button.id == 1) {
             this.selectWorld(this.selectedWorld);
@@ -152,32 +152,33 @@ public class GuiSelectWorld extends GuiScreen {
 
     public void selectWorld(int var1) {
         this.mc.displayGuiScreen(null);
-        if (!this.selected) {
-            this.selected = true;
-            this.mc.playerController = new PlayerControllerSP(this.mc);
-            String var2 = this.getSaveFileName(var1);
-            if (var2 == null) {
-                var2 = "World" + var1;
-            }
+        if (this.selected)
+            return;
 
-            this.mc.startWorld(var2, this.getSaveName(var1), 0L);
-            this.mc.displayGuiScreen(null);
+        this.selected = true;
+        this.mc.playerController = new PlayerControllerSP(this.mc);
+        String fileName = this.getSaveFileName(var1);
+        if (fileName == null) {
+            fileName = "World" + var1;
         }
+
+        this.mc.startWorld(fileName, this.getSaveName(var1), 0L);
+        this.mc.displayGuiScreen(null);
     }
 
     public void deleteWorld(boolean var1, int var2) {
-        if (this.deleting) {
-            this.deleting = false;
-            if (var1) {
-                ISaveFormat var3 = this.mc.getSaveLoader();
-                var3.flushCache();
-                var3.removeWorld(this.getSaveFileName(var2));
-                this.loadSaves();
-            }
+        if (!this.deleting)
+            return;
 
-            this.mc.displayGuiScreen(this);
+        this.deleting = false;
+        if (var1) {
+            ISaveFormat var3 = this.mc.getSaveLoader();
+            var3.flushCache();
+            var3.removeWorld(this.getSaveFileName(var2));
+            this.loadSaves();
         }
 
+        this.mc.displayGuiScreen(this);
     }
 
     public void drawScreen(int var1, int var2, float var3) {
