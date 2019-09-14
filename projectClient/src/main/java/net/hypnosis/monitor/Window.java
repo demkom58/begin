@@ -79,9 +79,6 @@ public class Window implements AutoCloseable {
         if (height <= 0)
             height = 1;
 
-        this.width = windowedWidth = width;
-        this.height = windowedHeight = height;
-
         this.pointer = GLFW.glfwCreateWindow(width, height, title, MemoryUtil.NULL, share);
         if (this.pointer == MemoryUtil.NULL)
             throw new RuntimeException("Failed to create window");
@@ -96,6 +93,7 @@ public class Window implements AutoCloseable {
 
         setFullscreen(fullscreen);
         setResizable(resizable);
+        setSize(windowedWidth = width, windowedHeight = height);
 
         GLFW.glfwSetWindowSizeCallback(pointer, this::onResize);
         GLFW.glfwSetWindowPosCallback(pointer, this::onPositionChanged);
@@ -107,9 +105,8 @@ public class Window implements AutoCloseable {
             GLFW.glfwSetWindowCloseCallback(pointer, this.closeCallback::onClose);
     }
 
-    private void onResize(long window, int width, int height) {
-        final Window wnd = Window.this;
-        if (window != wnd.pointer)
+    private void onResize(long pointer, int width, int height) {
+        if (pointer != this.pointer)
             return;
 
         if (width <= 0)
@@ -118,11 +115,11 @@ public class Window implements AutoCloseable {
         if (height <= 0)
             height = 1;
 
-        wnd.width = width;
-        wnd.height = height;
+        this.width = width;
+        this.height = height;
 
-        if (resizeCallback != null)
-            resizeCallback.onResize(window, width, height);
+        if (this.resizeCallback != null)
+            this.resizeCallback.onResize(pointer, width, height);
     }
 
     private void onPositionChanged(long window, int x, int y) {
@@ -160,7 +157,7 @@ public class Window implements AutoCloseable {
 
     public void setX(int x) {
         this.x = x;
-        setSize(x, y);
+        setPosition(x, y);
     }
 
     public int getY() {
@@ -169,7 +166,7 @@ public class Window implements AutoCloseable {
 
     public void setY(int y) {
         this.y = y;
-        setSize(x, y);
+        setPosition(x, y);
     }
 
     public void setPosition(int x, int y) {
@@ -183,7 +180,6 @@ public class Window implements AutoCloseable {
     }
 
     public void setWidth(int width) {
-        this.width = width;
         setSize(width, height);
     }
 
@@ -192,14 +188,14 @@ public class Window implements AutoCloseable {
     }
 
     public void setHeight(int height) {
-        this.height = height;
         setSize(width, height);
     }
 
     public void setSize(int width, int height) {
         this.width = width;
         this.height = height;
-        GLFW.glfwSetWindowSize(width, width, height);
+
+        GLFW.glfwSetWindowSize(pointer, width, height);
     }
 
     public boolean isFullscreen() {
