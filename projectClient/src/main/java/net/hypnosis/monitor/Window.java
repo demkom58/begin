@@ -1,5 +1,6 @@
 package net.hypnosis.monitor;
 
+import net.hypnosis.lwjgl.LWJGL;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.Callbacks;
@@ -30,8 +31,8 @@ public class Window implements AutoCloseable {
     private int windowedWidth;
     private int windowedHeight;
 
-    private boolean fullscreen;
-    private boolean vsync;
+    private boolean fullscreen = false;
+    private boolean vsync = false;
 
     private String phase;
 
@@ -56,11 +57,11 @@ public class Window implements AutoCloseable {
                   @Nullable final WindowPositionCallback positionCallback,
                   @Nullable final WindowFocusCallback focusCallback,
                   @Nullable final WindowCloseCallback closeCallback) {
-        this(title, width, height, share, fullscreen, true, resizeCallback, positionCallback, focusCallback, closeCallback);
+        this(title, width, height, share, fullscreen, true, false, resizeCallback, positionCallback, focusCallback, closeCallback);
     }
 
     public Window(@NotNull final String title,
-                  int width, int height, long share, boolean fullscreen, boolean resizable,
+                  int width, int height, long share, boolean fullscreen, boolean resizable, boolean vsync,
                   @Nullable final WindowResizeCallback resizeCallback,
                   @Nullable final WindowPositionCallback positionCallback,
                   @Nullable final WindowFocusCallback focusCallback,
@@ -83,6 +84,8 @@ public class Window implements AutoCloseable {
         if (this.pointer == MemoryUtil.NULL)
             throw new RuntimeException("Failed to create window");
 
+        makeCurrentContext();
+
         this.title = title;
 
         int[] x = new int[1];
@@ -90,10 +93,6 @@ public class Window implements AutoCloseable {
         GLFW.glfwGetWindowPos(pointer, x, y);
         this.x = x[0];
         this.y = y[0];
-
-        setFullscreen(fullscreen);
-        setResizable(resizable);
-        setSize(windowedWidth = width, windowedHeight = height);
 
         GLFW.glfwSetWindowSizeCallback(pointer, this::onResize);
         GLFW.glfwSetWindowPosCallback(pointer, this::onPositionChanged);
@@ -103,6 +102,11 @@ public class Window implements AutoCloseable {
 
         if (closeCallback != null)
             GLFW.glfwSetWindowCloseCallback(pointer, this.closeCallback::onClose);
+
+        setVsync(vsync);
+        setResizable(resizable);
+        setSize(width, height);
+        setFullscreen(fullscreen);
     }
 
     private void onResize(long pointer, int width, int height) {
@@ -210,11 +214,14 @@ public class Window implements AutoCloseable {
         if (fullscreen) {
             GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
 
+            if (vidMode == null)
+                throw new RuntimeException("Can't get primary monitor video mode");
+
             windowedWidth = width;
             windowedHeight = height;
 
-            windowedWidth = vidMode.width();
-            windowedHeight = vidMode.height();
+            width = vidMode.width();
+            height = vidMode.height();
         } else {
             width = windowedWidth;
             height = windowedHeight;
@@ -232,8 +239,8 @@ public class Window implements AutoCloseable {
         pointer = newPointer;
 
         if (!fullscreen) {
-            GLFW.glfwSetWindowSize(pointer, width, height);
-            GLFW.glfwSetWindowPos(pointer, x, y);
+            this.setSize(windowedWidth, windowedHeight);
+            this.setPosition(x, y);
         }
     }
 
@@ -251,7 +258,7 @@ public class Window implements AutoCloseable {
 
     public void setVsync(boolean vsync) {
         this.vsync = vsync;
-        GLFW.glfwSwapInterval(vsync ? GLFW.GLFW_TRUE : GLFW.GLFW_FALSE);
+        GLFW.glfwSwapInterval(vsync ? 1 : 0);
     }
 
     public boolean isFocused() {
@@ -268,6 +275,7 @@ public class Window implements AutoCloseable {
 
     public void makeCurrentContext() {
         GLFW.glfwMakeContextCurrent(pointer);
+        LWJGL.createCapabilities();
     }
 
     public void update() {

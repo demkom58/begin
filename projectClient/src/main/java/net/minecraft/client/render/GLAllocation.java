@@ -35,7 +35,7 @@ public class GLAllocation {
 
     }
 
-    public static synchronized void func_28194_b(int elem) {
+    public static synchronized void removeLists(int elem) {
         int index = displayLists.indexOf(elem);
         GL11.glDeleteLists(displayLists.get(index), displayLists.get(index + 1));
         displayLists.remove(index);

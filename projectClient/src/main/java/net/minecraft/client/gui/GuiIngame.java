@@ -179,8 +179,8 @@ public class GuiIngame extends Gui {
             }
 
             fontRenderer.drawStringWithShadow("Minecraft Beta 1.7.3 (" + this.mc.debug + ")", 2, 2, 16777215);
-            fontRenderer.drawStringWithShadow(this.mc.func_6241_m(), 2, 12, 16777215);
-            fontRenderer.drawStringWithShadow(this.mc.func_6262_n(), 2, 22, 16777215);
+            fontRenderer.drawStringWithShadow(this.mc.getDebugInfoRenders(), 2, 12, 16777215);
+            fontRenderer.drawStringWithShadow(this.mc.getDebugInfoEntities(), 2, 22, 16777215);
             fontRenderer.drawStringWithShadow(this.mc.func_6245_o(), 2, 32, 16777215);
             fontRenderer.drawStringWithShadow(this.mc.func_21002_o(), 2, 42, 16777215);
 

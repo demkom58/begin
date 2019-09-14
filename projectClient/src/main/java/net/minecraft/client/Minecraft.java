@@ -141,11 +141,7 @@ public final class Minecraft implements Runnable {
     public void startGame() {
         LWJGL.init(Api.OPENGL, ContextApi.NATIVE, Profile.COMPAT, 3, 3, false);
         this.window = new Window("Minecraft Beta 1.7.3", displayWidthArg, displayHeightArg, MemoryUtil.NULL, fullscreenArg,
-                true, this::resize, null, null, null);
-
-        this.window.makeCurrentContext();
-        LWJGL.createCapabilities();
-        this.window.setVsync(false);
+                true, false, this::resize, null, null, null);
 
         this.mouse = new Mouse(window);
         this.mouse.setScrollCallback(this::onScroll);
@@ -170,16 +166,7 @@ public final class Minecraft implements Runnable {
         this.statFileWriter = new StatFileWriter(this.session, this.mcDataDir);
         AchievementList.openInventory.setStatStringFormatter(new StatStringFormatKeyInv(this));
         this.loadScreen();
-//        Keyboard.create();
-//        Mouse.create();
-
         this.mouseHelper = new MouseHelper(window, mouse);
-
-//        try {
-//            Controllers.create();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
         this.window.setPhase("Pre startup");
         GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -415,22 +402,22 @@ public final class Minecraft implements Runnable {
         short var4 = 256;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         tess.setColorOpaque_I(16777215);
-        this.func_6274_a((res.getScaledWidth() - var3) / 2, (res.getScaledHeight() - var4) / 2, 0, 0, var3, var4);
+        this.drawTess((res.getScaledWidth() - var3) / 2, (res.getScaledHeight() - var4) / 2, 0, 0, var3, var4);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_FOG);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glAlphaFunc(516, 0.1F);
     }
 
-    public void func_6274_a(int var1, int var2, int var3, int var4, int var5, int var6) {
-        float var7 = 0.00390625F;
-        float var8 = 0.00390625F;
+    public void drawTess(int x, int y, int u, int v, int var5, int var6) {
+        float uMul = 0.00390625F;
+        float vMul = 0.00390625F;
         Tessellator tess = Tessellator.INSTANCE;
         tess.startDrawingQuads();
-        tess.addVertexWithUV(var1 + 0, var2 + var6, 0.0D, (float) (var3 + 0) * var7, (float) (var4 + var6) * var8);
-        tess.addVertexWithUV(var1 + var5, var2 + var6, 0.0D, (float) (var3 + var5) * var7, (float) (var4 + var6) * var8);
-        tess.addVertexWithUV(var1 + var5, var2 + 0, 0.0D, (float) (var3 + var5) * var7, (float) (var4 + 0) * var8);
-        tess.addVertexWithUV(var1 + 0, var2 + 0, 0.0D, (float) (var3 + 0) * var7, (float) (var4 + 0) * var8);
+        tess.addVertexWithUV(x + 0, y + var6, 0.0D, (float) (u + 0) * uMul, (float) (v + var6) * vMul);
+        tess.addVertexWithUV(x + var5, y + var6, 0.0D, (float) (u + var5) * uMul, (float) (v + var6) * vMul);
+        tess.addVertexWithUV(x + var5, y + 0, 0.0D, (float) (u + var5) * uMul, (float) (v + 0) * vMul);
+        tess.addVertexWithUV(x + 0, y + 0, 0.0D, (float) (u + 0) * uMul, (float) (v + 0) * vMul);
         tess.draw();
     }
 
@@ -612,14 +599,14 @@ public final class Minecraft implements Runnable {
                     this.changeWorld(null);
                     this.displayGuiScreen(new GuiConflictWarning());
                 } catch (OutOfMemoryError e) {
-                    this.func_28002_e();
+                    this.dispose();
                     this.displayGuiScreen(new GuiErrorScreen());
                     System.gc();
                 }
             }
         } catch (MinecraftError ignored) {
         } catch (Throwable throwable) {
-            this.func_28002_e();
+            this.dispose();
             throwable.printStackTrace();
             this.onMinecraftCrash(new UnexpectedThrowable("Unexpected error", throwable));
         } finally {
@@ -628,10 +615,10 @@ public final class Minecraft implements Runnable {
 
     }
 
-    public void func_28002_e() {
+    public void dispose() {
         try {
             reserved = new byte[0];
-            this.renderGlobal.func_28137_f();
+            this.renderGlobal.dispose();
         } catch (Throwable ignored) {
         }
 
@@ -887,14 +874,14 @@ public final class Minecraft implements Runnable {
         this.thePlayer.inventory.setCurrentItem(blockId, this.playerController instanceof PlayerControllerTest);
     }
 
-    private void func_28001_B() {
+    private void startSessionChecker() {
         new ThreadCheckHasPaid(this).start();
     }
 
     public void runTick() {
         GLFW.glfwPollEvents();
         if (this.ticksRan == 6000) {
-            this.func_28001_B();
+            this.startSessionChecker();
         }
 
         this.statFileWriter.func_27178_d();
@@ -1155,22 +1142,22 @@ public final class Minecraft implements Runnable {
         int var3 = 0;
         int var4 = var2 * 2 / 16 + 1;
         var4 = var4 * var4;
-        IChunkProvider var5 = this.theWorld.getIChunkProvider();
-        ChunkCoordinates var6 = this.theWorld.getSpawnPoint();
+        IChunkProvider chunkProvider = this.theWorld.getIChunkProvider();
+        ChunkCoordinates chunkCoord = this.theWorld.getSpawnPoint();
         if (this.thePlayer != null) {
-            var6.x = (int) this.thePlayer.posX;
-            var6.z = (int) this.thePlayer.posZ;
+            chunkCoord.x = (int) this.thePlayer.posX;
+            chunkCoord.z = (int) this.thePlayer.posZ;
         }
 
-        if (var5 instanceof ChunkProviderLoadOrGenerate) {
-            ChunkProviderLoadOrGenerate var7 = (ChunkProviderLoadOrGenerate) var5;
-            var7.setCurrentChunkOver(var6.x >> 4, var6.z >> 4);
+        if (chunkProvider instanceof ChunkProviderLoadOrGenerate) {
+            ChunkProviderLoadOrGenerate ch = (ChunkProviderLoadOrGenerate) chunkProvider;
+            ch.setCurrentChunkOver(chunkCoord.x >> 4, chunkCoord.z >> 4);
         }
 
-        for (int var11 = -var2; var11 <= var2; var11 += 16) {
-            for (int var8 = -var2; var8 <= var2; var8 += 16) {
+        for (int x = -var2; x <= var2; x += 16) {
+            for (int z = -var2; z <= var2; z += 16) {
                 this.loadingScreen.setLoadingProgress(var3++ * 100 / var4);
-                this.theWorld.getBlockId(var6.x + var11, 64, var6.z + var8);
+                this.theWorld.getBlockId(chunkCoord.x + x, 64, chunkCoord.z + z);
 
                 while (this.theWorld.updatingLighting()) {
                 }
@@ -1205,11 +1192,11 @@ public final class Minecraft implements Runnable {
         return this.glCapabilities;
     }
 
-    public String func_6241_m() {
+    public String getDebugInfoRenders() {
         return this.renderGlobal.getDebugInfoRenders();
     }
 
-    public String func_6262_n() {
+    public String getDebugInfoEntities() {
         return this.renderGlobal.getDebugInfoEntities();
     }
 

@@ -1318,8 +1318,8 @@ public class RenderGlobal implements IWorldAccess {
     public void doNothingWithTileEntity(int var1, int var2, int var3, TileEntity var4) {
     }
 
-    public void func_28137_f() {
-        GLAllocation.func_28194_b(this.glRenderListBase);
+    public void dispose() {
+        GLAllocation.removeLists(this.glRenderListBase);
     }
 
     public void func_28136_a(EntityPlayer player, int var2, int x, int y, int z, int var6) {
