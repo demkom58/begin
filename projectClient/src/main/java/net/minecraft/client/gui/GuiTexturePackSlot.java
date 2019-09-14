@@ -11,24 +11,24 @@ class GuiTexturePackSlot extends GuiSlot {
     final GuiTexturePacks parentTexturePackGui;
 
     public GuiTexturePackSlot(GuiTexturePacks var1) {
-        super(GuiTexturePacks.func_22124_a(var1), var1.width, var1.height, 32, var1.height - 55 + 4, 36);
+        super(var1.mc, var1.width, var1.height, 32, var1.height - 55 + 4, 36);
         this.parentTexturePackGui = var1;
     }
 
     protected int getSize() {
-        List<TexturePackBase> packs = GuiTexturePacks.func_22126_b(this.parentTexturePackGui).texturePackList.availableTexturePacks();
+        List<TexturePackBase> packs = this.parentTexturePackGui.mc.texturePackList.availableTexturePacks();
         return packs.size();
     }
 
     protected void elementClicked(int var1, boolean var2) {
-        List<TexturePackBase> packs = GuiTexturePacks.func_22119_c(this.parentTexturePackGui).texturePackList.availableTexturePacks();
-        GuiTexturePacks.func_22122_d(this.parentTexturePackGui).texturePackList.setTexturePack(packs.get(var1));
-        GuiTexturePacks.func_22117_e(this.parentTexturePackGui).renderEngine.refreshTextures();
+        List<TexturePackBase> packs = this.parentTexturePackGui.mc.texturePackList.availableTexturePacks();
+        this.parentTexturePackGui.mc.texturePackList.setTexturePack(packs.get(var1));
+        this.parentTexturePackGui.mc.renderEngine.refreshTextures();
     }
 
     protected boolean isSelected(int var1) {
-        List<TexturePackBase> packs = GuiTexturePacks.func_22118_f(this.parentTexturePackGui).texturePackList.availableTexturePacks();
-        return GuiTexturePacks.func_22116_g(this.parentTexturePackGui).texturePackList.selectedTexturePack == packs.get(var1);
+        List<TexturePackBase> packs = this.parentTexturePackGui.mc.texturePackList.availableTexturePacks();
+        return this.parentTexturePackGui.mc.texturePackList.selectedTexturePack == packs.get(var1);
     }
 
     protected int getContentHeight() {
@@ -40,8 +40,8 @@ class GuiTexturePackSlot extends GuiSlot {
     }
 
     protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator tess) {
-        TexturePackBase packBase = GuiTexturePacks.func_22121_h(this.parentTexturePackGui).texturePackList.availableTexturePacks().get(var1);
-        packBase.bindThumbnailTexture(GuiTexturePacks.func_22123_i(this.parentTexturePackGui));
+        TexturePackBase packBase = this.parentTexturePackGui.mc.texturePackList.availableTexturePacks().get(var1);
+        packBase.bindThumbnailTexture(this.parentTexturePackGui.mc);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         tess.startDrawingQuads();
         tess.setColorOpaque_I(16777215);
@@ -50,8 +50,8 @@ class GuiTexturePackSlot extends GuiSlot {
         tess.addVertexWithUV(var2 + 32, var3, 0.0D, 1.0D, 0.0D);
         tess.addVertexWithUV(var2, var3, 0.0D, 0.0D, 0.0D);
         tess.draw();
-        this.parentTexturePackGui.drawString(GuiTexturePacks.func_22127_j(this.parentTexturePackGui), packBase.texturePackFileName, var2 + 32 + 2, var3 + 1, 16777215);
-        this.parentTexturePackGui.drawString(GuiTexturePacks.func_22120_k(this.parentTexturePackGui), packBase.firstDescriptionLine, var2 + 32 + 2, var3 + 12, 8421504);
-        this.parentTexturePackGui.drawString(GuiTexturePacks.func_22125_l(this.parentTexturePackGui), packBase.secondDescriptionLine, var2 + 32 + 2, var3 + 12 + 10, 8421504);
+        this.parentTexturePackGui.drawString(this.parentTexturePackGui.fontRenderer, packBase.texturePackFileName, var2 + 32 + 2, var3 + 1, 16777215);
+        this.parentTexturePackGui.drawString(this.parentTexturePackGui.fontRenderer, packBase.firstDescriptionLine, var2 + 32 + 2, var3 + 12, 8421504);
+        this.parentTexturePackGui.drawString(this.parentTexturePackGui.fontRenderer, packBase.secondDescriptionLine, var2 + 32 + 2, var3 + 12 + 10, 8421504);
     }
 }

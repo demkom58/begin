@@ -1,11 +1,12 @@
 package net.minecraft.client.gui;
 
-import net.hypnosis.util.Sys;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.util.StringTranslate;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 public class GuiTexturePacks extends GuiScreen {
     protected GuiScreen guiScreen;
@@ -13,68 +14,8 @@ public class GuiTexturePacks extends GuiScreen {
     private String fileLocation = "";
     private GuiTexturePackSlot guiTexturePackSlot;
 
-    public GuiTexturePacks(GuiScreen var1) {
-        this.guiScreen = var1;
-    }
-
-    // $FF: synthetic method
-    static Minecraft func_22124_a(GuiTexturePacks var0) {
-        return var0.mc;
-    }
-
-    // $FF: synthetic method
-    static Minecraft func_22126_b(GuiTexturePacks var0) {
-        return var0.mc;
-    }
-
-    // $FF: synthetic method
-    static Minecraft func_22119_c(GuiTexturePacks var0) {
-        return var0.mc;
-    }
-
-    // $FF: synthetic method
-    static Minecraft func_22122_d(GuiTexturePacks var0) {
-        return var0.mc;
-    }
-
-    // $FF: synthetic method
-    static Minecraft func_22117_e(GuiTexturePacks var0) {
-        return var0.mc;
-    }
-
-    // $FF: synthetic method
-    static Minecraft func_22118_f(GuiTexturePacks var0) {
-        return var0.mc;
-    }
-
-    // $FF: synthetic method
-    static Minecraft func_22116_g(GuiTexturePacks var0) {
-        return var0.mc;
-    }
-
-    // $FF: synthetic method
-    static Minecraft func_22121_h(GuiTexturePacks var0) {
-        return var0.mc;
-    }
-
-    // $FF: synthetic method
-    static Minecraft func_22123_i(GuiTexturePacks var0) {
-        return var0.mc;
-    }
-
-    // $FF: synthetic method
-    static FontRenderer func_22127_j(GuiTexturePacks var0) {
-        return var0.fontRenderer;
-    }
-
-    // $FF: synthetic method
-    static FontRenderer func_22120_k(GuiTexturePacks var0) {
-        return var0.fontRenderer;
-    }
-
-    // $FF: synthetic method
-    static FontRenderer func_22125_l(GuiTexturePacks var0) {
-        return var0.fontRenderer;
+    public GuiTexturePacks(GuiScreen guiScreen) {
+        this.guiScreen = guiScreen;
     }
 
     public void initGui() {
@@ -82,7 +23,7 @@ public class GuiTexturePacks extends GuiScreen {
         this.buttons.add(new GuiSmallButton(5, this.width / 2 - 154, this.height - 48, var1.translateKey("texturePack.openFolder")));
         this.buttons.add(new GuiSmallButton(6, this.width / 2 + 4, this.height - 48, var1.translateKey("gui.done")));
         this.mc.texturePackList.updateAvaliableTexturePacks();
-        this.fileLocation = (new File(Minecraft.getMinecraftDir(), "texturepacks")).getAbsolutePath();
+        this.fileLocation = new File(Minecraft.getMinecraftDir(), "texturepacks").getAbsolutePath();
         this.guiTexturePackSlot = new GuiTexturePackSlot(this);
         this.guiTexturePackSlot.registerScrollButtons(this.buttons, 7, 8);
     }
@@ -92,7 +33,11 @@ public class GuiTexturePacks extends GuiScreen {
             return;
 
         if (button.id == 5) {
-            Sys.openURL("file://" + this.fileLocation);
+            try {
+                Desktop.getDesktop().open(new File(this.fileLocation));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else if (button.id == 6) {
             this.mc.renderEngine.refreshTextures();
             this.mc.displayGuiScreen(this.guiScreen);
