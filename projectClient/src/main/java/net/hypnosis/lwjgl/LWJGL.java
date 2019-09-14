@@ -15,7 +15,6 @@ public class LWJGL {
         if (!GLFW.glfwInit())
             throw new RuntimeException("Failed to init GLFW");
 
-        GLFW.glfwDefaultWindowHints();
         GLFW.glfwWindowHint(GLFW.GLFW_CLIENT_API, api.getConstant());
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_CREATION_API, contextApi.getConstant());
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, profile.getConstant());

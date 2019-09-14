@@ -43,7 +43,9 @@ public class Window implements AutoCloseable {
                   @Nullable final WindowFocusCallback focusCallback,
                   @Nullable final WindowCloseCallback closeCallback) {
         this.throwExceptionOnGlError();
-        this.setPhase("Pre startup");
+        this.setPhase("Window creation");
+
+        this.title = title;
 
         if (width <= 0)
             width = 1;
@@ -51,19 +53,18 @@ public class Window implements AutoCloseable {
         if (height <= 0)
             height = 1;
 
+        GLFW.glfwDefaultWindowHints();
+        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
+        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, resizable ? GLFW.GLFW_TRUE : GLFW.GLFW_FALSE);
+
         this.pointer = GLFW.glfwCreateWindow(width, height, title, MemoryUtil.NULL, share);
         if (this.pointer == MemoryUtil.NULL)
             throw new RuntimeException("Failed to create window");
 
-        makeCurrentContext();
+        moveToCenter();
 
-        this.title = title;
-
-        int[] x = new int[1];
-        int[] y = new int[1];
-        GLFW.glfwGetWindowPos(pointer, x, y);
-        this.x = x[0];
-        this.y = y[0];
+        this.makeCurrentContext();
+        LWJGL.createCapabilities();
 
         setResizeCallback(resizeCallback);
         setPositionCallback(positionCallback);
@@ -74,7 +75,6 @@ public class Window implements AutoCloseable {
         GLFW.glfwSetWindowPosCallback(pointer, this::onPositionChanged);
 
         setVsync(vsync);
-        setResizable(resizable);
         setSize(width, height);
         setFullscreen(fullscreen);
     }
@@ -235,7 +235,7 @@ public class Window implements AutoCloseable {
     }
 
     public void setResizable(boolean resizable) {
-        GLFW.glfwSetWindowAspectRatio(pointer, GLFW.GLFW_RESIZABLE, resizable ? GLFW.GLFW_TRUE : GLFW.GLFW_FALSE);
+        GLFW.glfwSetWindowAttrib(pointer, GLFW.GLFW_RESIZABLE, resizable ? GLFW.GLFW_TRUE : GLFW.GLFW_FALSE);
     }
 
     public boolean isVsync() {
@@ -261,7 +261,6 @@ public class Window implements AutoCloseable {
 
     public void makeCurrentContext() {
         GLFW.glfwMakeContextCurrent(pointer);
-        LWJGL.createCapabilities();
     }
 
     public void update() {
@@ -278,17 +277,14 @@ public class Window implements AutoCloseable {
     }
 
     public void moveToCenter() {
-        GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            IntBuffer pWidth = stack.mallocInt(1);
+            IntBuffer pHeight = stack.mallocInt(1);
 
-        if (vidMode == null)
-            throw new RuntimeException("Can't get primary monitor video mode");
+            GLFW.glfwGetWindowSize(pointer, pWidth, pHeight);
 
-        GLFW.glfwSetWindowPos(pointer, (vidMode.width() - width) / 2, (vidMode.height() - height) / 2);
-        try (MemoryStack frame = MemoryStack.stackPush()) {
-            IntBuffer framebufferSize = frame.mallocInt(2);
-            GLFW.nglfwGetFramebufferSize(pointer, MemoryUtil.memAddress(framebufferSize), MemoryUtil.memAddress(framebufferSize) + 4);
-            width = framebufferSize.get(0);
-            height = framebufferSize.get(1);
+            GLFWVidMode vidmode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+            setPosition((vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
         }
     }
 
@@ -354,7 +350,8 @@ public class Window implements AutoCloseable {
         private WindowFocusCallback focusCallback = null;
         private WindowCloseCallback closeCallback = null;
 
-        private Builder() {}
+        private Builder() {
+        }
 
         public Builder title(@Nullable final String title) {
             this.title = title == null ? "" : title;

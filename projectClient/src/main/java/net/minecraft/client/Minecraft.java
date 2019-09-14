@@ -146,6 +146,7 @@ public final class Minecraft implements Runnable {
                 .fullscreen(fullscreenArg)
                 .onResize(this::resize)
                 .build();
+        this.window.show();
 
         this.mouse = new Mouse(window);
         this.mouse.setScrollCallback(this::onScroll);
