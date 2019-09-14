@@ -146,7 +146,6 @@ public final class Minecraft implements Runnable {
         this.window.makeCurrentContext();
         LWJGL.createCapabilities();
         this.window.setVsync(false);
-        this.window.show();
 
         this.mouse = new Mouse(window);
         this.mouse.setScrollCallback(this::onScroll);
@@ -804,7 +803,7 @@ public final class Minecraft implements Runnable {
             this.thePlayer.swingItem();
         }
 
-        boolean var2 = true;
+        boolean notLeftClick = true;
         if (this.objectMouseOver == null) {
             if (buttonId == 0 && !(this.playerController instanceof PlayerControllerTest)) {
                 this.leftClickCounter = 10;
@@ -818,17 +817,17 @@ public final class Minecraft implements Runnable {
                 this.playerController.interactWithEntity(this.thePlayer, this.objectMouseOver.entityHit);
             }
         } else if (this.objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
-            int var3 = this.objectMouseOver.blockX;
-            int var4 = this.objectMouseOver.blockY;
-            int var5 = this.objectMouseOver.blockZ;
-            int var6 = this.objectMouseOver.sideHit;
+            int x = this.objectMouseOver.blockX;
+            int y = this.objectMouseOver.blockY;
+            int z = this.objectMouseOver.blockZ;
+            int sideHit = this.objectMouseOver.sideHit;
             if (buttonId == 0) {
-                this.playerController.clickBlock(var3, var4, var5, this.objectMouseOver.sideHit);
+                this.playerController.clickBlock(x, y, z, this.objectMouseOver.sideHit);
             } else {
                 ItemStack currentItem = this.thePlayer.inventory.getCurrentItem();
-                int var8 = currentItem != null ? currentItem.stackSize : 0;
-                if (this.playerController.sendPlaceBlock(this.thePlayer, this.theWorld, currentItem, var3, var4, var5, var6)) {
-                    var2 = false;
+                int stackSize = currentItem != null ? currentItem.stackSize : 0;
+                if (this.playerController.sendPlaceBlock(this.thePlayer, this.theWorld, currentItem, x, y, z, sideHit)) {
+                    notLeftClick = false;
                     this.thePlayer.swingItem();
                 }
 
@@ -837,13 +836,13 @@ public final class Minecraft implements Runnable {
 
                 if (currentItem.stackSize == 0) {
                     this.thePlayer.inventory.mainInventory[this.thePlayer.inventory.currentItem] = null;
-                } else if (currentItem.stackSize != var8) {
+                } else if (currentItem.stackSize != stackSize) {
                     this.entityRenderer.itemRenderer.func_9449_b();
                 }
             }
         }
 
-        if (var2 && buttonId == 1) {
+        if (notLeftClick && buttonId == 1) {
             ItemStack currentItem = this.thePlayer.inventory.getCurrentItem();
             if (currentItem != null && this.playerController.sendUseItem(this.thePlayer, this.theWorld, currentItem)) {
                 this.entityRenderer.itemRenderer.func_9450_c();
@@ -867,8 +866,8 @@ public final class Minecraft implements Runnable {
         if (this.currentScreen == null)
             return;
 
-        ScaledResolution scaledResolution = new ScaledResolution(this.gameSettings, width, height);
-        this.currentScreen.setWorldAndResolution(this, scaledResolution.getScaledWidth(), scaledResolution.getScaledHeight());
+        ScaledResolution resolution = new ScaledResolution(this.gameSettings, width, height);
+        this.currentScreen.setWorldAndResolution(this, resolution.getScaledWidth(), resolution.getScaledHeight());
     }
 
     private void clickMiddleMouseButton() {
