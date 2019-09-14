@@ -391,22 +391,22 @@ public class Window implements AutoCloseable {
             return this;
         }
 
-        public Builder resizeCallback(WindowResizeCallback resizeCallback) {
+        public Builder onResize(WindowResizeCallback resizeCallback) {
             this.resizeCallback = resizeCallback;
             return this;
         }
 
-        public Builder positionCallback(WindowPositionCallback positionCallback) {
+        public Builder onPosition(WindowPositionCallback positionCallback) {
             this.positionCallback = positionCallback;
             return this;
         }
 
-        public Builder focusCallback(WindowFocusCallback focusCallback) {
+        public Builder onFocus(WindowFocusCallback focusCallback) {
             this.focusCallback = focusCallback;
             return this;
         }
 
-        public Builder closeCallback(WindowCloseCallback closeCallback) {
+        public Builder onClose(WindowCloseCallback closeCallback) {
             this.closeCallback = closeCallback;
             return this;
         }

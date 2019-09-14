@@ -38,7 +38,6 @@ import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.SaveConverterMcRegion;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.system.MemoryUtil;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -145,7 +144,7 @@ public final class Minecraft implements Runnable {
                 .width(displayWidthArg)
                 .height(displayHeightArg)
                 .fullscreen(fullscreenArg)
-                .resizeCallback(this::resize)
+                .onResize(this::resize)
                 .build();
 
         this.mouse = new Mouse(window);
