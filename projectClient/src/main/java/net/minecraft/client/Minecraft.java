@@ -149,7 +149,6 @@ public final class Minecraft implements Runnable {
         this.window.show();
 
         this.mouse = new Mouse(window);
-        this.mouse.setPositionCallback(this::onCursorPosition);
         this.mouse.setScrollCallback(this::onScroll);
         this.mouse.setButtonCallback(this::onMouseButton);
 
@@ -296,9 +295,6 @@ public final class Minecraft implements Runnable {
     }
 
     public void onMouseButton(long windowPointer, int button, int action, int mods) {
-        if (this.currentScreen != null)
-            this.currentScreen.handleMouseInput(windowPointer, button, action, mods);
-
         if (this.currentScreen == null || this.currentScreen.field_948_f) {
             if (this.currentScreen == null) {
                 if (!this.inGameHasFocus && action == GLFW.GLFW_PRESS) {
@@ -318,14 +314,15 @@ public final class Minecraft implements Runnable {
                         this.clickMiddleMouseButton();
                     }
                 }
-            } else if (this.currentScreen != null) {
-                this.currentScreen.handleMouseInput(windowPointer, button, action, mods);
+            }
+
+            if (button == 0) {
+                this.handleBlockBreaking(0, this.currentScreen == null && action == GLFW.GLFW_PRESS && this.inGameHasFocus);
             }
         }
 
-        if (this.leftClickCounter > 0) {
+        if (this.leftClickCounter > 0)
             --this.leftClickCounter;
-        }
 
         if (this.currentScreen == null) {
             if (button == 0 && (float) (this.ticksRan - this.mouseTicksRan) >= this.timer.ticksPerSecond / 4.0F && this.inGameHasFocus) {
@@ -337,10 +334,7 @@ public final class Minecraft implements Runnable {
                 this.clickMouse(1);
                 this.mouseTicksRan = this.ticksRan;
             }
-        }
-
-        if (button == 0)
-            this.handleBlockBreaking(0, this.currentScreen == null && action == GLFW.GLFW_PRESS && this.inGameHasFocus);
+        } else this.currentScreen.handleMouseInput(windowPointer, button, action, mods);
     }
 
     public void onScroll(long window, double xOffset, double yOffset) {
@@ -364,10 +358,6 @@ public final class Minecraft implements Runnable {
                 }
             }
         }
-    }
-
-    public void onCursorPosition(long window, double x, double y) {
-
     }
 
     public void onMinecraftCrash(UnexpectedThrowable throwable) {
@@ -431,7 +421,6 @@ public final class Minecraft implements Runnable {
         GL11.glDisable(GL11.GL_FOG);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glAlphaFunc(516, 0.1F);
-        window.swapBuffer();
     }
 
     public void func_6274_a(int var1, int var2, int var3, int var4, int var5, int var6) {
@@ -608,21 +597,7 @@ public final class Minecraft implements Runnable {
                     this.guiAchievement.updateAchievementWindow();
                     Thread.yield();
 
-//                    int displayWidth = Display.getWidth();
-//                    int displayHeight = Display.getHeight();
-//                    if (!this.fullscreen && (displayWidth != this.displayWidth || displayHeight != this.displayHeight)) {
-//                        this.displayWidth = displayWidth;
-//                        this.displayHeight = displayHeight;
-//
-//                        if (this.displayWidth <= 0)
-//                            this.displayWidth = 1;
-//
-//                        if (this.displayHeight <= 0)
-//                            this.displayHeight = 1;
-//
-//                        this.resize(this.displayWidth, this.displayHeight);
-//                    }
-
+                    // was input handle here
                     this.window.setPhase("Post render");
                     ++fps;
 
@@ -918,6 +893,7 @@ public final class Minecraft implements Runnable {
     }
 
     public void runTick() {
+        GLFW.glfwPollEvents();
         if (this.ticksRan == 6000) {
             this.func_28001_B();
         }
@@ -928,10 +904,10 @@ public final class Minecraft implements Runnable {
         if (this.thePlayer != null) {
             IChunkProvider provider = this.theWorld.getIChunkProvider();
             if (provider instanceof ChunkProviderLoadOrGenerate) {
-                ChunkProviderLoadOrGenerate var2 = (ChunkProviderLoadOrGenerate) provider;
-                int var3 = MathHelper.floor((float) ((int) this.thePlayer.posX)) >> 4;
-                int var4 = MathHelper.floor((float) ((int) this.thePlayer.posZ)) >> 4;
-                var2.setCurrentChunkOver(var3, var4);
+                ChunkProviderLoadOrGenerate currentChunkOver = (ChunkProviderLoadOrGenerate) provider;
+                int chunkX = MathHelper.floor((float) ((int) this.thePlayer.posX)) >> 4;
+                int chunkY = MathHelper.floor((float) ((int) this.thePlayer.posZ)) >> 4;
+                currentChunkOver.setCurrentChunkOver(chunkX, chunkY);
             }
         }
 
@@ -961,8 +937,6 @@ public final class Minecraft implements Runnable {
             this.currentScreen.guiParticle.func_25088_a();
             this.currentScreen.updateScreen();
         }
-
-        // input removed from here :)
 
         if (this.theWorld != null) {
             if (this.thePlayer != null) {
@@ -1009,6 +983,8 @@ public final class Minecraft implements Runnable {
         }
 
         this.systemTime = System.currentTimeMillis();
+        this.window.swapBuffer();
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
     }
 
     private void forceReload() {
