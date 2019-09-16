@@ -17,7 +17,7 @@ public class MouseHelper {
 
     public double deltaX;
     public double deltaY;
-    
+
     public MouseHelper(@NotNull final Window window, @NotNull final Mouse mouse) {
         this.window = window;
         this.mouse = mouse;

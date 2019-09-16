@@ -360,7 +360,6 @@ public class EntityRenderer {
             float var2 = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
             float var3 = var2 * var2 * var2 * 8.0F;
 
-            System.out.println("Mouse delta. X: " + mc.mouseHelper.deltaX + "; Y: " + mc.mouseHelper.deltaY + ";");
             float var4 = (float) this.mc.mouseHelper.deltaX * var3;
             float var5 = (float) this.mc.mouseHelper.deltaY * var3;
             byte var6 = 1;
