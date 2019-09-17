@@ -83,7 +83,7 @@ public class Tessellator {
                     GL11.glColorPointer(4, GL11.GL_UNSIGNED_BYTE, 32, 20L);
                 } else {
                     this.byteBuffer.position(20);
-                    GL11.glColorPointer(4, GL11.GL_BYTE, 32, this.byteBuffer);
+                    GL11.glColorPointer(4, GL11.GL_UNSIGNED_BYTE, 32, this.byteBuffer);
                 }
 
                 GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);

@@ -8,10 +8,7 @@ import net.minecraft.util.MathHelper;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 public class GuiMainMenu extends GuiScreen {
     private static final Random rand = new Random();
@@ -21,18 +18,17 @@ public class GuiMainMenu extends GuiScreen {
 
     public GuiMainMenu() {
         try {
-            ArrayList var1 = new ArrayList();
-            BufferedReader var2 = new BufferedReader(new InputStreamReader(GuiMainMenu.class.getResourceAsStream("/title/splashes.txt"), StandardCharsets.UTF_8));
-            String var3 = "";
+            List<String> splashes = new ArrayList<>();
+            BufferedReader splashesReader = new BufferedReader(new InputStreamReader(GuiMainMenu.class.getResourceAsStream("/title/splashes.txt"), StandardCharsets.UTF_8));
 
-            while ((var3 = var2.readLine()) != null) {
-                var3 = var3.trim();
-                if (var3.length() > 0) {
-                    var1.add(var3);
-                }
+            String buffStr;
+            while ((buffStr = splashesReader.readLine()) != null) {
+                buffStr = buffStr.trim();
+                if (buffStr.length() > 0)
+                    splashes.add(buffStr);
             }
 
-            this.splashText = (String) var1.get(rand.nextInt(var1.size()));
+            this.splashText = splashes.get(rand.nextInt(splashes.size()));
         } catch (Exception e) {
 
         }
@@ -59,14 +55,14 @@ public class GuiMainMenu extends GuiScreen {
             this.splashText = "Happy new year!";
         }
 
-        StringTranslate var2 = StringTranslate.getInstance();
+        StringTranslate translate = StringTranslate.getInstance();
         int var4 = this.height / 4 + 48;
-        this.buttons.add(new GuiButton(1, this.width / 2 - 100, var4, var2.translateKey("menu.singleplayer")));
-        this.buttons.add(this.multiplayerButton = new GuiButton(2, this.width / 2 - 100, var4 + 24, var2.translateKey("menu.multiplayer")));
-        this.buttons.add(new GuiButton(3, this.width / 2 - 100, var4 + 48, var2.translateKey("menu.mods")));
+        this.buttons.add(new GuiButton(1, this.width / 2 - 100, var4, translate.translateKey("menu.singleplayer")));
+        this.buttons.add(this.multiplayerButton = new GuiButton(2, this.width / 2 - 100, var4 + 24, translate.translateKey("menu.multiplayer")));
+        this.buttons.add(new GuiButton(3, this.width / 2 - 100, var4 + 48, translate.translateKey("menu.mods")));
 
-        this.buttons.add(new GuiButton(0, this.width / 2 - 100, var4 + 72 + 12, 98, 20, var2.translateKey("menu.options")));
-        this.buttons.add(new GuiButton(4, this.width / 2 + 2, var4 + 72 + 12, 98, 20, var2.translateKey("menu.quit")));
+        this.buttons.add(new GuiButton(0, this.width / 2 - 100, var4 + 72 + 12, 98, 20, translate.translateKey("menu.options")));
+        this.buttons.add(new GuiButton(4, this.width / 2 + 2, var4 + 72 + 12, 98, 20, translate.translateKey("menu.quit")));
 
         if (this.mc.session == null) {
             this.multiplayerButton.enabled = false;
