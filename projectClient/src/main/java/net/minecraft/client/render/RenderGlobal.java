@@ -974,7 +974,7 @@ public class RenderGlobal implements IWorldAccess {
             }
 
             for (int var21 = var7.size() - 1; var21 >= 0; --var21) {
-                WorldRenderer var23 = (WorldRenderer) var7.get(var21);
+                WorldRenderer var23 = var7.get(var21);
                 var23.updateRenderer();
                 var23.needsUpdate = false;
             }

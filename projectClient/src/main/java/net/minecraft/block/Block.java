@@ -1,6 +1,8 @@
 package net.minecraft.block;
 
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EnumMobType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
@@ -10,9 +12,9 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3D;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.util.Vec3D;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -175,24 +177,24 @@ public class Block {
     protected boolean enableStats;
     private String blockName;
 
-    protected Block(int var1, Material var2) {
+    protected Block(int id, Material material) {
         this.blockConstructorCalled = true;
         this.enableStats = true;
         this.stepSound = SOUND_POWDER_FOOTSTEP;
         this.blockParticleGravity = 1.0F;
         this.slipperiness = 0.6F;
-        if (BLOCKS_LIST[var1] != null) {
-            throw new IllegalArgumentException("Slot " + var1 + " is already occupied by " + BLOCKS_LIST[var1] + " when adding " + this);
-        } else {
-            this.blockMaterial = var2;
-            BLOCKS_LIST[var1] = this;
-            this.blockID = var1;
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-            OPAQUE_CUBE_LOOKUP[var1] = this.isOpaqueCube();
-            LIGHT_OPACITY[var1] = this.isOpaqueCube() ? 255 : 0;
-            CAN_BLOCK_GRASS[var1] = !var2.getCanBlockGrass();
-            IS_BLOCK_CONTAINER[var1] = false;
-        }
+
+        if (BLOCKS_LIST[id] != null)
+            throw new IllegalArgumentException("Slot " + id + " is already occupied by " + BLOCKS_LIST[id] + " when adding " + this);
+
+        this.blockMaterial = material;
+        BLOCKS_LIST[id] = this;
+        this.blockID = id;
+        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        OPAQUE_CUBE_LOOKUP[id] = this.isOpaqueCube();
+        LIGHT_OPACITY[id] = this.isOpaqueCube() ? 255 : 0;
+        CAN_BLOCK_GRASS[id] = !material.getCanBlockGrass();
+        IS_BLOCK_CONTAINER[id] = false;
     }
 
     protected Block(int var1, int var2, Material var3) {
