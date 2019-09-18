@@ -2,6 +2,7 @@ package net.hypnosis.input.keyboard;
 
 import org.lwjgl.glfw.GLFW;
 
+@FunctionalInterface
 public interface KeyCallback {
     /**
      * Will be called when a key is pressed, repeated or released.

@@ -1,5 +1,6 @@
 package net.hypnosis.input.keyboard;
 
+@FunctionalInterface
 public interface CharModsCallback {
     /**
      * Will be called when a Unicode character is input regardless of what modifier keys are used.

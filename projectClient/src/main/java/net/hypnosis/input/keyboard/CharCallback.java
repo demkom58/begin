@@ -1,5 +1,6 @@
 package net.hypnosis.input.keyboard;
 
+@FunctionalInterface
 public interface CharCallback {
     /**
      * Will be called when a Unicode character is input.
