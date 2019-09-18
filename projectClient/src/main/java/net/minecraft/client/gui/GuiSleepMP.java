@@ -7,19 +7,19 @@ import net.minecraft.util.StringTranslate;
 
 public class GuiSleepMP extends GuiChat {
     public void initGui() {
-//        TODO: Keyboard.enableRepeatEvents(true);
+        mc.keyboard.setRepeatingEvents(true);
         StringTranslate translate = StringTranslate.getInstance();
         this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, translate.translateKey("multiplayer.stopSleeping")));
     }
 
     public void onGuiClosed() {
-//        TODO: Keyboard.enableRepeatEvents(false);
+        mc.keyboard.setRepeatingEvents(false);
     }
 
-    protected void keyTyped(char ch, int key) {
-        if (key == 1) {
+    protected void keyTyped(char ch, int keycode) {
+        if (keycode == 1) {
             this.func_22115_j();
-        } else if (key == 28) {
+        } else if (keycode == 28) {
             String var3 = this.message.trim();
             if (var3.length() > 0) {
                 this.mc.thePlayer.sendChatMessage(this.message.trim());
@@ -27,7 +27,7 @@ public class GuiSleepMP extends GuiChat {
 
             this.message = "";
         } else {
-            super.keyTyped(ch, key);
+            super.keyTyped(ch, keycode);
         }
 
     }

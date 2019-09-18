@@ -6,7 +6,7 @@ import net.hypnosis.render.GLU;
 import net.hypnosis.render.Tessellator;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.input.MouseFilter;
+import net.minecraft.client.input.mouse.MouseFilter;
 import net.minecraft.client.render.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerControllerTest;
@@ -25,8 +25,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3D;
 
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package net.minecraft.client.input;
+package net.minecraft.client.input.keyboard;
 
 public class KeyBinding {
     public String keyDescription;

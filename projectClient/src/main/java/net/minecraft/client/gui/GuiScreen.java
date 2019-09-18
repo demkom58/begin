@@ -2,9 +2,9 @@ package net.minecraft.client.gui;
 
 import net.hypnosis.input.mouse.Mouse;
 import net.hypnosis.monitor.Window;
+import net.hypnosis.render.Tessellator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.FontRenderer;
-import net.hypnosis.render.Tessellator;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
@@ -42,15 +42,18 @@ public class GuiScreen extends Gui {
         }
     }
 
-    protected void keyTyped(char ch, int key) {
-        if (key == 1) {
+    protected void charTyped(char ch, int key) {
+    }
+
+    protected void keyTyped(int keycode, int scancode, int action, int mods) {
+        if (keycode == 1) {
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }
     }
 
-    protected void mouseClicked(int x, int y, int var3) {
-        if (var3 != 0)
+    protected void mouseClicked(int x, int y, int button) {
+        if (button != 0)
             return;
 
         // foreach CME, on graphic quality change
@@ -64,9 +67,9 @@ public class GuiScreen extends Gui {
         }
     }
 
-    protected void mouseMovedOrUp(int var1, int var2, int var3) {
-        if (this.selectedButton != null && var3 == 0) {
-            this.selectedButton.mouseReleased(var1, var2);
+    protected void mouseMovedOrUp(int x, int y, int button) {
+        if (this.selectedButton != null && button == 0) {
+            this.selectedButton.mouseReleased(x, y);
             this.selectedButton = null;
         }
     }
@@ -103,16 +106,18 @@ public class GuiScreen extends Gui {
 
     }
 
-    public void onScreenKeyTyped(long windowPointer, int key, int scancode, int action, int mods) {
+    public void onScreenKey(int keycode, int scancode, int action, int mods) {
         if (action == GLFW.GLFW_PRESS) {
-            if (key == GLFW.GLFW_KEY_F11) {
+            if (keycode == GLFW.GLFW_KEY_F11) {
                 this.mc.toggleFullscreen();
-                return;
             }
-
-            // TODO: make different char handle methods.
-            this.keyTyped('\0', key);
         }
+
+        this.keyTyped(keycode, scancode, action, mods);
+    }
+
+    public void onScreenChar(char ch, int keycode) {
+        this.charTyped(ch, keycode);
     }
 
     public void updateScreen() {

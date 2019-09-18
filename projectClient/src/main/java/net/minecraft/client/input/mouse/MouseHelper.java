@@ -1,4 +1,4 @@
-package net.minecraft.client.input;
+package net.minecraft.client.input.mouse;
 
 import net.hypnosis.input.mouse.Mouse;
 import net.hypnosis.monitor.Window;

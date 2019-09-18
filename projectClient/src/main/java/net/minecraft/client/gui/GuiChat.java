@@ -8,11 +8,11 @@ public class GuiChat extends GuiScreen {
     private int updateCounter = 0;
 
     public void initGui() {
-//        TODO: Keyboard.enableRepeatEvents(true);
+        mc.keyboard.setRepeatingEvents(true);
     }
 
     public void onGuiClosed() {
-//        TODO: Keyboard.enableRepeatEvents(false);
+        mc.keyboard.setRepeatingEvents(false);
     }
 
     public void updateScreen() {
@@ -50,8 +50,8 @@ public class GuiChat extends GuiScreen {
         super.drawScreen(var1, var2, var3);
     }
 
-    protected void mouseClicked(int x, int y, int var3) {
-        if (var3 == 0) {
+    protected void mouseClicked(int x, int y, int button) {
+        if (button == 0) {
             if (this.mc.ingameGUI.field_933_a != null) {
                 if (this.message.length() > 0 && !this.message.endsWith(" ")) {
                     this.message = this.message + " ";
@@ -63,7 +63,7 @@ public class GuiChat extends GuiScreen {
                     this.message = this.message.substring(0, var4);
                 }
             } else {
-                super.mouseClicked(x, y, var3);
+                super.mouseClicked(x, y, button);
             }
         }
 

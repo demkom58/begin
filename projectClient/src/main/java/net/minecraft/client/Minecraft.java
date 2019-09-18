@@ -11,8 +11,9 @@ import net.hypnosis.render.Tessellator;
 import net.minecraft.achievement.AchievementList;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.*;
-import net.minecraft.client.input.MouseHelper;
-import net.minecraft.client.input.MovementInputFromOptions;
+import net.minecraft.client.input.keyboard.CraftKeyboard;
+import net.minecraft.client.input.keyboard.MovementInputFromOptions;
+import net.minecraft.client.input.mouse.MouseHelper;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.RenderBlocks;
 import net.minecraft.client.render.texture.*;
@@ -25,7 +26,6 @@ import net.minecraft.network.NetClientHandler;
 import net.minecraft.sound.SoundManager;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.stats.StatList;
-import net.minecraft.stats.StatStringFormatKeyInv;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
@@ -67,7 +67,7 @@ public final class Minecraft implements Runnable {
      */
     public Window window;
     public Mouse mouse;
-    public Keyboard keyboard;
+    public CraftKeyboard keyboard;
 
     /**
      * Game objects
@@ -152,7 +152,8 @@ public final class Minecraft implements Runnable {
         this.mouse.setScrollCallback(this::onScroll);
         this.mouse.setButtonCallback(this::onMouseButton);
 
-        this.keyboard = new Keyboard(window);
+        this.keyboard = new CraftKeyboard(window);
+        this.keyboard.setCharCallback(this::onChar);
         this.keyboard.setKeyCallback(this::onKey);
 
         this.mcDataDir = getMinecraftDir();
@@ -169,7 +170,7 @@ public final class Minecraft implements Runnable {
         this.entityRenderer = new EntityRenderer(this);
         RenderManager.instance.itemRenderer = new ItemRenderer(this);
         this.statFileWriter = new StatFileWriter(this.session, this.mcDataDir);
-        AchievementList.openInventory.setStatStringFormatter(new StatStringFormatKeyInv(this));
+        AchievementList.openInventory.setStatStringFormatter(var1 -> String.format(var1, Keyboard.getKeycodeName(this.gameSettings.keyBindInventory.keyCode)));
         this.loadScreen();
         this.mouseHelper = new MouseHelper(window, mouse);
 
@@ -219,9 +220,14 @@ public final class Minecraft implements Runnable {
 
     }
 
-    public void onKey(long windowPointer, int key, int scancode, int action, int mods) {
+    public void onChar(char ch, int keycode) {
         if (this.currentScreen != null)
-            this.currentScreen.onScreenKeyTyped(windowPointer, key, scancode, action, mods);
+            this.currentScreen.onScreenChar(ch, keycode);
+    }
+
+    public void onKey(int key, int scancode, int action, int mods) {
+        if (this.currentScreen != null)
+            this.currentScreen.onScreenKey(key, scancode, action, mods);
 
         if (key == GLFW.GLFW_KEY_F2) {
             this.window.update();
@@ -271,7 +277,7 @@ public final class Minecraft implements Runnable {
 
                 if (this.isMultiplayerWorld() && key == this.gameSettings.keyBindChat.keyCode)
                     this.displayGuiScreen(new GuiChat());
-            } else this.currentScreen.onScreenKeyTyped(windowPointer, key, scancode, action, mods);
+            } else this.currentScreen.onScreenKey(key, scancode, action, mods);
 
             for (int i = 0; i < 9; ++i) {
                 if (key == 2 + i) {
@@ -280,7 +286,8 @@ public final class Minecraft implements Runnable {
             }
 
             if (key == this.gameSettings.keyBindToggleFog.keyCode) {
-                this.gameSettings.setOptionValue(EnumOption.RENDER_DISTANCE, !keyboard.isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT) && !keyboard.isKeyDown(GLFW.GLFW_KEY_RIGHT_SHIFT) ? 1 : -1);
+                this.gameSettings.setOptionValue(EnumOption.RENDER_DISTANCE,
+                        !keyboard.isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT) && !keyboard.isKeyDown(GLFW.GLFW_KEY_RIGHT_SHIFT) ? 1 : -1);
             }
         }
     }

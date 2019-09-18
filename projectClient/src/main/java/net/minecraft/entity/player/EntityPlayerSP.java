@@ -4,8 +4,8 @@ import net.minecraft.achievement.Achievement;
 import net.minecraft.achievement.AchievementList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Session;
-import net.minecraft.client.input.MouseFilter;
-import net.minecraft.client.input.MovementInput;
+import net.minecraft.client.input.mouse.MouseFilter;
+import net.minecraft.client.input.keyboard.MovementInput;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPickupFX;
 import net.minecraft.client.gui.*;
@@ -246,19 +246,19 @@ public class EntityPlayerSP extends EntityPlayer {
 
             float var21 = 0.1F;
             if (var18 == 0) {
-                this.motionX = (double) (-var21);
+                this.motionX = -var21;
             }
 
             if (var18 == 1) {
-                this.motionX = (double) var21;
+                this.motionX = var21;
             }
 
             if (var18 == 4) {
-                this.motionZ = (double) (-var21);
+                this.motionZ = -var21;
             }
 
             if (var18 == 5) {
-                this.motionZ = (double) var21;
+                this.motionZ = var21;
             }
         }
 

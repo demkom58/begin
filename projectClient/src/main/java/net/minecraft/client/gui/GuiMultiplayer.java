@@ -16,7 +16,7 @@ public class GuiMultiplayer extends GuiScreen {
 
     public void initGui() {
         StringTranslate translate = StringTranslate.getInstance();
-//        TODO: Keyboard.enableRepeatEvents(true);
+        mc.keyboard.setRepeatingEvents(true);
         this.buttons.clear();
         this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12, translate.translateKey("multiplayer.connect")));
         this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, translate.translateKey("gui.cancel")));
@@ -28,7 +28,7 @@ public class GuiMultiplayer extends GuiScreen {
     }
 
     public void onGuiClosed() {
-//        TODO: Keyboard.enableRepeatEvents(false);
+        mc.keyboard.setRepeatingEvents(false);
     }
 
     protected void actionPerformed(GuiButton button) {
@@ -81,9 +81,9 @@ public class GuiMultiplayer extends GuiScreen {
         this.buttons.get(0).enabled = this.addressField.getText().length() > 0;
     }
 
-    protected void mouseClicked(int x, int y, int var3) {
-        super.mouseClicked(x, y, var3);
-        this.addressField.mouseClicked(x, y, var3);
+    protected void mouseClicked(int x, int y, int button) {
+        super.mouseClicked(x, y, button);
+        this.addressField.mouseClicked(x, y, button);
     }
 
     public void drawScreen(int var1, int var2, float var3) {

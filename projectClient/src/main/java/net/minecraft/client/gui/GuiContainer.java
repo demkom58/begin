@@ -1,6 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.hypnosis.input.keyboard.Keyboard;
+import net.minecraft.client.input.keyboard.CraftKeyboard;
 import net.minecraft.client.render.RenderHelper;
 import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.inventory.Container;
@@ -128,16 +129,16 @@ public abstract class GuiContainer extends GuiScreen {
         return x >= slot.xDisplayPosition - 1 && x < slot.xDisplayPosition + 16 + 1 && y >= slot.yDisplayPosition - 1 && y < slot.yDisplayPosition + 16 + 1;
     }
 
-    protected void mouseClicked(int x, int y, int var3) {
-        super.mouseClicked(x, y, var3);
-        if (var3 == 0 || var3 == 1) {
-            Slot var4 = this.getSlotAtPosition(x, y);
+    protected void mouseClicked(int x, int y, int button) {
+        super.mouseClicked(x, y, button);
+        if (button == 0 || button == 1) {
+            Slot slot = this.getSlotAtPosition(x, y);
             int var5 = (this.width - this.xSize) / 2;
             int var6 = (this.height - this.ySize) / 2;
             boolean var7 = x < var5 || y < var6 || x >= var5 + this.xSize || y >= var6 + this.ySize;
             int var8 = -1;
-            if (var4 != null) {
-                var8 = var4.slotNumber;
+            if (slot != null) {
+                var8 = slot.slotNumber;
             }
 
             if (var7) {
@@ -145,16 +146,16 @@ public abstract class GuiContainer extends GuiScreen {
             }
 
             if (var8 != -1) {
-                final Keyboard keyboard = mc.keyboard;
+                final CraftKeyboard keyboard = mc.keyboard;
                 boolean var9 = var8 != -999 && (keyboard.isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT) || keyboard.isKeyDown(GLFW.GLFW_KEY_RIGHT_SHIFT));
-                this.mc.playerController.func_27174_a(this.inventorySlots.windowId, var8, var3, var9, this.mc.thePlayer);
+                this.mc.playerController.func_27174_a(this.inventorySlots.windowId, var8, button, var9, this.mc.thePlayer);
             }
         }
 
     }
 
-    protected void mouseMovedOrUp(int var1, int var2, int var3) {
-        if (var3 == 0) {
+    protected void mouseMovedOrUp(int x, int y, int button) {
+        if (button == 0) {
         }
 
     }

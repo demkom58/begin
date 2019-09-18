@@ -1,4 +1,4 @@
-package net.minecraft.client.input;
+package net.minecraft.client.input.keyboard;
 
 import net.minecraft.client.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;

@@ -53,12 +53,12 @@ public class GuiAchievements extends GuiScreen {
         super.actionPerformed(button);
     }
 
-    protected void keyTyped(char ch, int key) {
-        if (key == this.mc.gameSettings.keyBindInventory.keyCode) {
+    protected void keyTyped(int keycode, int scancode, int action, int mods) {
+        if (keycode == this.mc.gameSettings.keyBindInventory.keyCode) {
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         } else {
-            super.keyTyped(ch, key);
+            super.keyTyped(keycode, scancode, action, mods);
         }
 
     }

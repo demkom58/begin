@@ -46,12 +46,12 @@ public class GuiTexturePacks extends GuiScreen {
         }
     }
 
-    protected void mouseClicked(int x, int y, int var3) {
-        super.mouseClicked(x, y, var3);
+    protected void mouseClicked(int x, int y, int button) {
+        super.mouseClicked(x, y, button);
     }
 
-    protected void mouseMovedOrUp(int var1, int var2, int var3) {
-        super.mouseMovedOrUp(var1, var2, var3);
+    protected void mouseMovedOrUp(int x, int y, int button) {
+        super.mouseMovedOrUp(x, y, button);
     }
 
     public void drawScreen(int var1, int var2, float var3) {

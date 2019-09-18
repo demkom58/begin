@@ -1,9 +1,12 @@
 package net.minecraft.client;
 
+import net.hypnosis.input.KeySource;
+import net.hypnosis.input.keyboard.Keyboard;
 import net.minecraft.client.gui.EnumOption;
-import net.minecraft.client.input.KeyBinding;
+import net.minecraft.client.input.keyboard.KeyBinding;
 import net.minecraft.stats.StatCollector;
 import net.minecraft.util.StringTranslate;
+import org.lwjgl.glfw.GLFW;
 
 import java.io.*;
 
@@ -24,16 +27,16 @@ public class GameSettings {
     public boolean fancyGraphics = true;
     public boolean ambientOcclusion = true;
     public String skin = "Default";
-    public KeyBinding keyBindForward = new KeyBinding("key.forward", 17);
-    public KeyBinding keyBindLeft = new KeyBinding("key.left", 30);
-    public KeyBinding keyBindBack = new KeyBinding("key.back", 31);
-    public KeyBinding keyBindRight = new KeyBinding("key.right", 32);
-    public KeyBinding keyBindJump = new KeyBinding("key.jump", 57);
-    public KeyBinding keyBindInventory = new KeyBinding("key.inventory", 18);
-    public KeyBinding keyBindDrop = new KeyBinding("key.drop", 16);
-    public KeyBinding keyBindChat = new KeyBinding("key.chat", 20);
-    public KeyBinding keyBindToggleFog = new KeyBinding("key.fog", 33);
-    public KeyBinding keyBindSneak = new KeyBinding("key.sneak", 42);
+    public KeyBinding keyBindForward = new KeyBinding("key.forward", GLFW.GLFW_KEY_W);
+    public KeyBinding keyBindLeft = new KeyBinding("key.left", GLFW.GLFW_KEY_A);
+    public KeyBinding keyBindBack = new KeyBinding("key.back", GLFW.GLFW_KEY_S);
+    public KeyBinding keyBindRight = new KeyBinding("key.right", GLFW.GLFW_KEY_R);
+    public KeyBinding keyBindJump = new KeyBinding("key.jump", GLFW.GLFW_KEY_SPACE);
+    public KeyBinding keyBindInventory = new KeyBinding("key.inventory", GLFW.GLFW_KEY_E);
+    public KeyBinding keyBindDrop = new KeyBinding("key.drop", GLFW.GLFW_KEY_Q);
+    public KeyBinding keyBindChat = new KeyBinding("key.chat", GLFW.GLFW_KEY_T);
+    public KeyBinding keyBindToggleFog = new KeyBinding("key.fog", GLFW.GLFW_KEY_L);
+    public KeyBinding keyBindSneak = new KeyBinding("key.sneak", GLFW.GLFW_KEY_LEFT_SHIFT);
     public KeyBinding[] keyBindings;
     public int difficulty;
     public boolean hideGUI;
@@ -106,48 +109,49 @@ public class GameSettings {
         this.guiScale = 0;
     }
 
-    public String getKeyBindingDescription(int var1) {
+    public String getKeyBindingDescription(int bindingId) {
         StringTranslate translate = StringTranslate.getInstance();
-        return translate.translateKey(this.keyBindings[var1].keyDescription);
+        return translate.translateKey(this.keyBindings[bindingId].keyDescription);
     }
 
-    public String getOptionDisplayString(int var1) {
-        return mc.keyboard.getKeyName(this.keyBindings[var1].keyCode);
+    public String getOptionDisplayString(int bindingId) {
+        return KeySource.KEYBOARD.getKeyInfo(this.keyBindings[bindingId].keyCode).getName();
     }
 
-    public void setKeyBinding(int var1, int var2) {
-        this.keyBindings[var1].keyCode = var2;
+    public void setKeyBinding(int bindingId, int keyCode, int scanCode) {
+        final KeyBinding keyBinding = this.keyBindings[bindingId];
+        keyBinding.keyCode = keyCode;
         this.saveOptions();
     }
 
-    public void setOptionFloatValue(EnumOption var1, float var2) {
-        if (var1 == EnumOption.MUSIC) {
-            this.musicVolume = var2;
+    public void setOptionFloatValue(EnumOption option, float value) {
+        if (option == EnumOption.MUSIC) {
+            this.musicVolume = value;
             this.mc.soundManager.onSoundOptionsChanged();
         }
 
-        if (var1 == EnumOption.SOUND) {
-            this.soundVolume = var2;
+        if (option == EnumOption.SOUND) {
+            this.soundVolume = value;
             this.mc.soundManager.onSoundOptionsChanged();
         }
 
-        if (var1 == EnumOption.SENSITIVITY) {
-            this.mouseSensitivity = var2;
+        if (option == EnumOption.SENSITIVITY) {
+            this.mouseSensitivity = value;
         }
 
     }
 
-    public void setOptionValue(EnumOption option, int var2) {
+    public void setOptionValue(EnumOption option, int value) {
         if (option == EnumOption.INVERT_MOUSE) {
             this.invertMouse = !this.invertMouse;
         }
 
         if (option == EnumOption.RENDER_DISTANCE) {
-            this.renderDistance = this.renderDistance + var2 & 3;
+            this.renderDistance = this.renderDistance + value & 3;
         }
 
         if (option == EnumOption.GUI_SCALE) {
-            this.guiScale = this.guiScale + var2 & 3;
+            this.guiScale = this.guiScale + value & 3;
         }
 
         if (option == EnumOption.VIEW_BOBBING) {
@@ -165,11 +169,11 @@ public class GameSettings {
         }
 
         if (option == EnumOption.FRAMERATE_LIMIT) {
-            this.limitFramerate = (this.limitFramerate + var2 + 3) % 3;
+            this.limitFramerate = (this.limitFramerate + value + 3) % 3;
         }
 
         if (option == EnumOption.DIFFICULTY) {
-            this.difficulty = this.difficulty + var2 & 3;
+            this.difficulty = this.difficulty + value & 3;
         }
 
         if (option == EnumOption.GRAPHICS) {

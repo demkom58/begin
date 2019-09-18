@@ -1,4 +1,4 @@
-package net.minecraft.client.input;
+package net.minecraft.client.input.mouse;
 
 public class MouseFilter {
     private float field_22388_a;
