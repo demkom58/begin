@@ -8,31 +8,27 @@ import org.lwjgl.glfw.GLFW;
 
 public class GuiSleepMP extends GuiChat {
     public void initGui() {
-        mc.keyboard.setRepeatingEvents(true);
         StringTranslate translate = StringTranslate.getInstance();
         this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, translate.translateKey("multiplayer.stopSleeping")));
     }
 
-    public void onGuiClosed() {
-        mc.keyboard.setRepeatingEvents(false);
-    }
+    public void onGuiClosed() { }
 
     @Override
     public void keyTyped(int keycode, int scancode, int action, int mods) {
+        if (keycode == GLFW.GLFW_KEY_ESCAPE) {
+            this.func_22115_j();
+        } else if (keycode == GLFW.GLFW_KEY_ENTER) {
+            String msg = this.message.trim();
+            if (msg.length() > 0)
+                this.mc.thePlayer.sendChatMessage(this.message.trim());
+            this.message = "";
+        }
     }
 
     @Override
     public void charTyped(char ch, int key) {
-        if (key == GLFW.GLFW_KEY_ESCAPE) {
-            this.func_22115_j();
-        } else if (key == GLFW.GLFW_KEY_ENTER) {
-            String var3 = this.message.trim();
-            if (var3.length() > 0) {
-                this.mc.thePlayer.sendChatMessage(this.message.trim());
-            }
-
-            this.message = "";
-        } else {
+        if (key != GLFW.GLFW_KEY_ESCAPE && key != GLFW.GLFW_KEY_ENTER) {
             super.charTyped(ch, key);
         }
     }

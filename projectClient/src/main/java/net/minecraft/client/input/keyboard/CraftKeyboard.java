@@ -7,7 +7,6 @@ import org.jetbrains.annotations.NotNull;
 public class CraftKeyboard {
     private final Window window;
     private final Keyboard keyboard;
-    private boolean repeatingEvents = false;
 
     public CraftKeyboard(@NotNull final Window window) {
         this.window = window;
@@ -37,14 +36,6 @@ public class CraftKeyboard {
 
             callback.onKey(key, scancode, action, mods);
         });
-    }
-
-    public boolean isRepeatingEvents() {
-        return repeatingEvents;
-    }
-
-    public void setRepeatingEvents(boolean repeatingEvents) {
-        this.repeatingEvents = repeatingEvents;
     }
 
     public boolean isKeyDown(int keyCode) {

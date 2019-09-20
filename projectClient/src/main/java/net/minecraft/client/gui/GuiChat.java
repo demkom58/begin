@@ -8,14 +8,10 @@ public class GuiChat extends GuiScreen {
     private int updateCounter = 0;
 
     @Override
-    public void initGui() {
-        mc.keyboard.setRepeatingEvents(true);
-    }
+    public void initGui() { }
 
     @Override
-    public void onGuiClosed() {
-        mc.keyboard.setRepeatingEvents(false);
-    }
+    public void onGuiClosed() { }
 
     @Override
     public void updateScreen() {
