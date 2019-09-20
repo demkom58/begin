@@ -49,26 +49,23 @@ public class GuiEditSign extends GuiScreen {
 
     @Override
     public void charTyped(char ch, int key) {
-        if (key == GLFW.GLFW_KEY_UP) {
-            this.editLine = this.editLine - 1 & 3;
-        }
-
-        if (key == GLFW.GLFW_KEY_DOWN || key == GLFW.GLFW_KEY_ENTER) {
-            this.editLine = this.editLine + 1 & 3;
-        }
-
-        if (key == GLFW.GLFW_KEY_BACKSPACE && this.entitySign.signText[this.editLine].length() > 0) {
-            this.entitySign.signText[this.editLine] = this.entitySign.signText[this.editLine].substring(0, this.entitySign.signText[this.editLine].length() - 1);
-        }
-
         if (allowedCharacters.indexOf(ch) >= 0 && this.entitySign.signText[this.editLine].length() < 15) {
             this.entitySign.signText[this.editLine] = this.entitySign.signText[this.editLine] + ch;
         }
-
     }
 
     @Override
     public void keyTyped(int keycode, int scancode, int action, int mods) {
+        if (keycode == GLFW.GLFW_KEY_UP)
+            this.editLine = this.editLine - 1 & 3;
+
+        if (keycode == GLFW.GLFW_KEY_DOWN || keycode == GLFW.GLFW_KEY_ENTER)
+            this.editLine = this.editLine + 1 & 3;
+
+        if (keycode == GLFW.GLFW_KEY_BACKSPACE && this.entitySign.signText[this.editLine].length() > 0) {
+            this.entitySign.signText[this.editLine] =
+                    this.entitySign.signText[this.editLine].substring(0, this.entitySign.signText[this.editLine].length() - 1);
+        }
     }
 
     public void drawScreen(int var1, int var2, float var3) {

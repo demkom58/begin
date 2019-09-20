@@ -52,7 +52,7 @@ public class GuiRenameWorld extends GuiScreen {
 
     @Override
     public void charTyped(char ch, int key) {
-        this.renameField.textboxKeyTyped(ch, key);
+        this.renameField.charTyped(ch, key);
         this.buttons.get(0).enabled = this.renameField.getText().trim().length() > 0;
         if (ch == '\r') {
             this.actionPerformed(this.buttons.get(0));

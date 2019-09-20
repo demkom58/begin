@@ -24,9 +24,19 @@ public class GuiChat extends GuiScreen {
 
     @Override
     public void charTyped(char ch, int key) {
-        if (key == GLFW.GLFW_KEY_ESCAPE) {
+        if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(ch) >= 0 && this.message.length() < 100) {
+            this.message = this.message + ch;
+        }
+    }
+
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
+        if (keycode == GLFW.GLFW_KEY_ESCAPE) {
             this.mc.displayGuiScreen(null);
-        } else if (key == GLFW.GLFW_KEY_ENTER) {
+            return;
+        }
+
+        if (keycode == GLFW.GLFW_KEY_ENTER) {
             String trim = this.message.trim();
             if (trim.length() > 0) {
                 String msg = this.message.trim();
@@ -36,15 +46,11 @@ public class GuiChat extends GuiScreen {
             }
 
             this.mc.displayGuiScreen(null);
-        } else {
-            if (key == GLFW.GLFW_KEY_BACKSPACE && this.message.length() > 0) {
-                this.message = this.message.substring(0, this.message.length() - 1);
-            }
+            return;
+        }
 
-            if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(ch) >= 0 && this.message.length() < 100) {
-                this.message = this.message + ch;
-            }
-
+        if (keycode == GLFW.GLFW_KEY_BACKSPACE && this.message.length() > 0) {
+            this.message = this.message.substring(0, this.message.length() - 1);
         }
     }
 

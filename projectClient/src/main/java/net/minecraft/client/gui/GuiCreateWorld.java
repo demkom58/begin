@@ -97,9 +97,9 @@ public class GuiCreateWorld extends GuiScreen {
     @Override
     public void charTyped(char ch, int key) {
         if (this.textboxWorldName.isFocused) {
-            this.textboxWorldName.textboxKeyTyped(ch, key);
+            this.textboxWorldName.charTyped(ch, key);
         } else {
-            this.textboxSeed.textboxKeyTyped(ch, key);
+            this.textboxSeed.charTyped(ch, key);
         }
 
         if (ch == '\r') {

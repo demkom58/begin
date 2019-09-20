@@ -74,16 +74,17 @@ public class GuiMultiplayer extends GuiScreen {
 
     @Override
     public void charTyped(char ch, int key) {
-        this.addressField.textboxKeyTyped(ch, key);
-        if (ch == '\r') {
+        this.addressField.charTyped(ch, key);
+
+        if (ch == '\r')
             this.actionPerformed(this.buttons.get(0));
-        }
 
         this.buttons.get(0).enabled = this.addressField.getText().length() > 0;
     }
 
     @Override
     public void keyTyped(int keycode, int scancode, int action, int mods) {
+        this.addressField.keyTyped(keycode, scancode, action, mods);
     }
 
     protected void mouseClicked(int x, int y, int button) {

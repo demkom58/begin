@@ -39,7 +39,7 @@ public class GuiTextField extends Gui {
         ++this.cursorCounter;
     }
 
-    public void textboxKeyTyped(char ch, int key) {
+    public void charTyped(char ch, int key) {
         if (!this.isEnabled || !this.isFocused)
             return;
 
@@ -62,13 +62,18 @@ public class GuiTextField extends Gui {
             }
         }
 
-        if (key == GLFW.GLFW_KEY_BACKSPACE && this.text.length() > 0)
-            this.text = this.text.substring(0, this.text.length() - 1);
-
         if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(ch) >= 0
                 && (this.text.length() < this.maxStringLength || this.maxStringLength == 0)) {
             this.text = this.text + ch;
         }
+    }
+
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
+        if (action == GLFW.GLFW_RELEASE)
+            return;
+
+        if (keycode == GLFW.GLFW_KEY_BACKSPACE && this.text.length() > 0)
+            this.text = this.text.substring(0, this.text.length() - 1);
     }
 
     public void mouseClicked(int x, int y, int var3) {
