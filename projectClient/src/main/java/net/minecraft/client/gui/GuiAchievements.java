@@ -53,7 +53,8 @@ public class GuiAchievements extends GuiScreen {
         super.actionPerformed(button);
     }
 
-    protected void keyTyped(int keycode, int scancode, int action, int mods) {
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
         if (keycode == this.mc.gameSettings.keyBindInventory.keyCode) {
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();

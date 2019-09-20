@@ -7,19 +7,23 @@ public class GuiChat extends GuiScreen {
     protected String message = "";
     private int updateCounter = 0;
 
+    @Override
     public void initGui() {
         mc.keyboard.setRepeatingEvents(true);
     }
 
+    @Override
     public void onGuiClosed() {
         mc.keyboard.setRepeatingEvents(false);
     }
 
+    @Override
     public void updateScreen() {
         ++this.updateCounter;
     }
 
-    protected void keyTyped(char ch, int key) {
+    @Override
+    public void charTyped(char ch, int key) {
         if (key == GLFW.GLFW_KEY_ESCAPE) {
             this.mc.displayGuiScreen(null);
         } else if (key == GLFW.GLFW_KEY_ENTER) {
@@ -50,21 +54,23 @@ public class GuiChat extends GuiScreen {
         super.drawScreen(var1, var2, var3);
     }
 
+    @Override
     protected void mouseClicked(int x, int y, int button) {
-        if (button == 0) {
-            if (this.mc.ingameGUI.field_933_a != null) {
-                if (this.message.length() > 0 && !this.message.endsWith(" ")) {
-                    this.message = this.message + " ";
-                }
+        if (button != 0)
+            return;
 
-                this.message = this.message + this.mc.ingameGUI.field_933_a;
-                byte var4 = 100;
-                if (this.message.length() > var4) {
-                    this.message = this.message.substring(0, var4);
-                }
-            } else {
-                super.mouseClicked(x, y, button);
+        if (this.mc.ingameGUI.field_933_a != null) {
+            if (this.message.length() > 0 && !this.message.endsWith(" ")) {
+                this.message = this.message + " ";
             }
+
+            this.message = this.message + this.mc.ingameGUI.field_933_a;
+            byte var4 = 100;
+            if (this.message.length() > var4) {
+                this.message = this.message.substring(0, var4);
+            }
+        } else {
+            super.mouseClicked(x, y, button);
         }
 
     }

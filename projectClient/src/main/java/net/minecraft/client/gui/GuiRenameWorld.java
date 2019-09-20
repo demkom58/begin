@@ -50,13 +50,17 @@ public class GuiRenameWorld extends GuiScreen {
         }
     }
 
-    protected void keyTyped(char ch, int key) {
+    @Override
+    public void charTyped(char ch, int key) {
         this.renameField.textboxKeyTyped(ch, key);
         this.buttons.get(0).enabled = this.renameField.getText().trim().length() > 0;
         if (ch == '\r') {
             this.actionPerformed(this.buttons.get(0));
         }
+    }
 
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
     }
 
     protected void mouseClicked(int x, int y, int button) {

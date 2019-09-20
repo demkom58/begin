@@ -39,7 +39,12 @@ public class GuiMainMenu extends GuiScreen {
         ++this.updateCounter;
     }
 
-    protected void keyTyped(char ch, int key) {
+    @Override
+    public void charTyped(char ch, int key) {
+    }
+
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
     }
 
     public void initGui() {

@@ -222,12 +222,15 @@ public final class Minecraft implements Runnable {
 
     public void onChar(char ch, int keycode) {
         if (this.currentScreen != null)
-            this.currentScreen.onScreenChar(ch, keycode);
+            this.currentScreen.charTyped(ch, keycode);
     }
 
     public void onKey(int key, int scancode, int action, int mods) {
+        if (action == GLFW.GLFW_PRESS && key == GLFW.GLFW_KEY_F11)
+            this.toggleFullscreen();
+
         if (this.currentScreen != null)
-            this.currentScreen.onScreenKey(key, scancode, action, mods);
+            this.currentScreen.keyTyped(key, scancode, action, mods);
 
         if (key == GLFW.GLFW_KEY_F2) {
             this.window.update();
@@ -269,18 +272,19 @@ public final class Minecraft implements Runnable {
                 if (key == GLFW.GLFW_KEY_F8)
                     this.gameSettings.smoothCamera = !this.gameSettings.smoothCamera;
 
-                if (key == this.gameSettings.keyBindInventory.keyCode)
+                if (key == this.gameSettings.keyBindInventory.keyCode) {
                     this.displayGuiScreen(new GuiInventory(this.thePlayer));
+                }
 
                 if (key == this.gameSettings.keyBindDrop.keyCode)
                     this.thePlayer.dropCurrentItem();
 
                 if (this.isMultiplayerWorld() && key == this.gameSettings.keyBindChat.keyCode)
                     this.displayGuiScreen(new GuiChat());
-            } else this.currentScreen.onScreenKey(key, scancode, action, mods);
+            } else this.currentScreen.keyTyped(key, scancode, action, mods);
 
             for (int i = 0; i < 9; ++i) {
-                if (key == 2 + i) {
+                if (key == GLFW.GLFW_KEY_1 + i) {
                     this.thePlayer.inventory.currentItem = i;
                 }
             }

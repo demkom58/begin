@@ -160,11 +160,16 @@ public abstract class GuiContainer extends GuiScreen {
 
     }
 
-    protected void keyTyped(char ch, int key) {
-        if (key == 1 || key == this.mc.gameSettings.keyBindInventory.keyCode) {
+    @Override
+    public void charTyped(char ch, int key) {
+        super.charTyped(ch, key);
+    }
+
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
+        if (keycode == GLFW.GLFW_KEY_ESCAPE || keycode == this.mc.gameSettings.keyBindInventory.keyCode) {
             this.mc.thePlayer.closeScreen();
         }
-
     }
 
     public void onGuiClosed() {

@@ -2,6 +2,7 @@ package net.minecraft.client.gui;
 
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.util.ChatAllowedCharacters;
+import org.lwjgl.glfw.GLFW;
 
 public class GuiTextField extends Gui {
     private final FontRenderer fontRenderer;
@@ -45,7 +46,7 @@ public class GuiTextField extends Gui {
         if (ch == '\t')
             this.parentGuiScreen.selectNextField();
 
-        if (ch == 22) {
+        if (ch == GLFW.GLFW_KEY_U) {
             String var3 = GuiScreen.getClipboardString();
             if (var3 == null) {
                 var3 = "";
@@ -61,7 +62,7 @@ public class GuiTextField extends Gui {
             }
         }
 
-        if (key == 14 && this.text.length() > 0)
+        if (key == GLFW.GLFW_KEY_BACKSPACE && this.text.length() > 0)
             this.text = this.text.substring(0, this.text.length() - 1);
 
         if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(ch) >= 0

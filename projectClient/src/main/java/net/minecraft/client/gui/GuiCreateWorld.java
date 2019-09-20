@@ -94,7 +94,8 @@ public class GuiCreateWorld extends GuiScreen {
         }
     }
 
-    protected void keyTyped(char ch, int key) {
+    @Override
+    public void charTyped(char ch, int key) {
         if (this.textboxWorldName.isFocused) {
             this.textboxWorldName.textboxKeyTyped(ch, key);
         } else {
@@ -107,6 +108,11 @@ public class GuiCreateWorld extends GuiScreen {
 
         this.buttons.get(0).enabled = this.textboxWorldName.getText().length() > 0;
         this.func_22129_j();
+    }
+
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
+        super.keyTyped(keycode, scancode, action, mods);
     }
 
     protected void mouseClicked(int x, int y, int button) {

@@ -20,13 +20,18 @@ public class GuiConnectFailed extends GuiScreen {
     public void updateScreen() {
     }
 
-    protected void keyTyped(char ch, int key) {
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
+    }
+
+    @Override
+    public void charTyped(char ch, int key) {
     }
 
     public void initGui() {
-        StringTranslate var1 = StringTranslate.getInstance();
+        StringTranslate translate = StringTranslate.getInstance();
         this.buttons.clear();
-        this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, var1.translateKey("gui.toMenu")));
+        this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, translate.translateKey("gui.toMenu")));
     }
 
     protected void actionPerformed(GuiButton button) {

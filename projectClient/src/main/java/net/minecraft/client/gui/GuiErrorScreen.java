@@ -13,7 +13,12 @@ public class GuiErrorScreen extends GuiScreen {
     protected void actionPerformed(GuiButton button) {
     }
 
-    protected void keyTyped(char ch, int key) {
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
+    }
+
+    @Override
+    public void charTyped(char ch, int key) {
     }
 
     public void drawScreen(int var1, int var2, float var3) {

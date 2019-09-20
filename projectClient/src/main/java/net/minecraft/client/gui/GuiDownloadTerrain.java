@@ -12,7 +12,12 @@ public class GuiDownloadTerrain extends GuiScreen {
         this.netHandler = var1;
     }
 
-    protected void keyTyped(char ch, int key) {
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
+    }
+
+    @Override
+    public void charTyped(char ch, int key) {
     }
 
     public void initGui() {

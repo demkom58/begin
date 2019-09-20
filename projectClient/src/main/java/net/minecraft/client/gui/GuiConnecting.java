@@ -43,6 +43,7 @@ public class GuiConnecting extends GuiScreen {
         }).start();
     }
 
+    @Override
     public void updateScreen() {
         if (this.clientHandler != null) {
             this.clientHandler.processReadPackets();
@@ -50,15 +51,22 @@ public class GuiConnecting extends GuiScreen {
 
     }
 
-    protected void keyTyped(char ch, int key) {
+    @Override
+    public void charTyped(char ch, int key) {
     }
 
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
+    }
+
+    @Override
     public void initGui() {
         StringTranslate var1 = StringTranslate.getInstance();
         this.buttons.clear();
         this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, var1.translateKey("gui.cancel")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             this.cancelled = true;
@@ -71,6 +79,7 @@ public class GuiConnecting extends GuiScreen {
 
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
         StringTranslate var4 = StringTranslate.getInstance();

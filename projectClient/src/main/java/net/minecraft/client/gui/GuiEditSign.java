@@ -5,6 +5,7 @@ import net.minecraft.network.packet.Packet130UpdateSign;
 import net.minecraft.tileentity.TileEntityRenderer;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ChatAllowedCharacters;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
 public class GuiEditSign extends GuiScreen {
@@ -46,16 +47,17 @@ public class GuiEditSign extends GuiScreen {
         }
     }
 
-    protected void keyTyped(char ch, int key) {
-        if (key == 200) {
+    @Override
+    public void charTyped(char ch, int key) {
+        if (key == GLFW.GLFW_KEY_UP) {
             this.editLine = this.editLine - 1 & 3;
         }
 
-        if (key == 208 || key == 28) {
+        if (key == GLFW.GLFW_KEY_DOWN || key == GLFW.GLFW_KEY_ENTER) {
             this.editLine = this.editLine + 1 & 3;
         }
 
-        if (key == 14 && this.entitySign.signText[this.editLine].length() > 0) {
+        if (key == GLFW.GLFW_KEY_BACKSPACE && this.entitySign.signText[this.editLine].length() > 0) {
             this.entitySign.signText[this.editLine] = this.entitySign.signText[this.editLine].substring(0, this.entitySign.signText[this.editLine].length() - 1);
         }
 
@@ -63,6 +65,10 @@ public class GuiEditSign extends GuiScreen {
             this.entitySign.signText[this.editLine] = this.entitySign.signText[this.editLine] + ch;
         }
 
+    }
+
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
     }
 
     public void drawScreen(int var1, int var2, float var3) {

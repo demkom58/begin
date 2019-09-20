@@ -44,7 +44,7 @@ public class GuiControls extends GuiScreen {
 
     }
 
-    protected void keyTyped(int keycode, int scancode, int action, int mods) {
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
         if (this.buttonId >= 0) {
             this.options.setKeyBinding(this.buttonId, keycode, scancode);
             this.buttons.get(this.buttonId).displayString = this.options.getOptionDisplayString(this.buttonId);

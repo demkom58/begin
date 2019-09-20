@@ -42,11 +42,11 @@ public class GuiScreen extends Gui {
         }
     }
 
-    protected void charTyped(char ch, int key) {
+    public void charTyped(char ch, int key) {
     }
 
-    protected void keyTyped(int keycode, int scancode, int action, int mods) {
-        if (keycode == 1) {
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
+        if (keycode == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_PRESS) {
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }
@@ -104,20 +104,6 @@ public class GuiScreen extends Gui {
             this.mouseMovedOrUp(x, y, button);
         }
 
-    }
-
-    public void onScreenKey(int keycode, int scancode, int action, int mods) {
-        if (action == GLFW.GLFW_PRESS) {
-            if (keycode == GLFW.GLFW_KEY_F11) {
-                this.mc.toggleFullscreen();
-            }
-        }
-
-        this.keyTyped(keycode, scancode, action, mods);
-    }
-
-    public void onScreenChar(char ch, int keycode) {
-        this.charTyped(ch, keycode);
     }
 
     public void updateScreen() {

@@ -124,6 +124,7 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
 
     }
 
+    @Override
     public void run() {
         TerrainTextureManager var1 = new TerrainTextureManager();
 
@@ -131,7 +132,7 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
             IsoImageBuffer var2 = null;
             synchronized (this.imageBufferList) {
                 if (this.imageBufferList.size() > 0) {
-                    var2 = (IsoImageBuffer) this.imageBufferList.remove(0);
+                    var2 = this.imageBufferList.remove(0);
                 }
             }
 
@@ -153,9 +154,11 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
 
     }
 
+    @Override
     public void update(Graphics var1) {
     }
 
+    @Override
     public void paint(Graphics var1) {
     }
 
@@ -175,7 +178,7 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
         var1.setClip(0, 0, this.getWidth(), this.getHeight());
         var1.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
         var1.translate(this.getWidth() / 2, this.getHeight() / 2);
-        var1.scale((double) this.zoomLevel, (double) this.zoomLevel);
+        var1.scale(this.zoomLevel, this.zoomLevel);
         var1.translate(this.field_1785_i, this.field_1784_j);
         if (this.worldObj != null) {
             ChunkCoordinates var3 = this.worldObj.getSpawnPoint();
@@ -227,6 +230,7 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
         var1.dispose();
     }
 
+    @Override
     public void mouseDragged(MouseEvent var1) {
         int var2 = var1.getX() / this.zoomLevel;
         int var3 = var1.getY() / this.zoomLevel;
@@ -237,9 +241,11 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
         this.repaint();
     }
 
+    @Override
     public void mouseMoved(MouseEvent var1) {
     }
 
+    @Override
     public void mouseClicked(MouseEvent var1) {
         if (var1.getClickCount() == 2) {
             this.zoomLevel = 3 - this.zoomLevel;
@@ -248,12 +254,15 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
 
     }
 
+    @Override
     public void mouseEntered(MouseEvent var1) {
     }
 
+    @Override
     public void mouseExited(MouseEvent var1) {
     }
 
+    @Override
     public void mousePressed(MouseEvent var1) {
         int var2 = var1.getX() / this.zoomLevel;
         int var3 = var1.getY() / this.zoomLevel;
@@ -261,9 +270,11 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
         this.yPosition = var3;
     }
 
+    @Override
     public void mouseReleased(MouseEvent var1) {
     }
 
+    @Override
     public void keyPressed(KeyEvent var1) {
         if (var1.getKeyCode() == 48) {
             this.setTimeOfDay(11);
@@ -336,9 +347,11 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
         this.repaint();
     }
 
+    @Override
     public void keyReleased(KeyEvent var1) {
     }
 
+    @Override
     public void keyTyped(KeyEvent var1) {
     }
 }
