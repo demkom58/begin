@@ -299,24 +299,20 @@ public final class Minecraft implements Runnable {
                 if (!this.inGameHasFocus && action == GLFW.GLFW_PRESS) {
                     this.setIngameFocus();
                 } else {
-                    if (button == 0 && action == GLFW.GLFW_PRESS) {
-                        this.clickMouse(0);
+                    if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT && action == GLFW.GLFW_PRESS) {
+                        this.clickMouse(GLFW.GLFW_MOUSE_BUTTON_LEFT);
                         this.mouseTicksRan = this.ticksRan;
                     }
 
-                    if (button == 1 && action == GLFW.GLFW_PRESS) {
-                        this.clickMouse(1);
+                    if (button == GLFW.GLFW_MOUSE_BUTTON_RIGHT && action == GLFW.GLFW_PRESS) {
+                        this.clickMouse(GLFW.GLFW_MOUSE_BUTTON_RIGHT);
                         this.mouseTicksRan = this.ticksRan;
                     }
 
-                    if (button == 2 && action == GLFW.GLFW_PRESS) {
+                    if (button == GLFW.GLFW_MOUSE_BUTTON_MIDDLE && action == GLFW.GLFW_PRESS) {
                         this.clickMiddleMouseButton();
                     }
                 }
-            }
-
-            if (button == 0) {
-                this.handleBlockBreaking(0, this.currentScreen == null && action == GLFW.GLFW_PRESS && this.inGameHasFocus);
             }
         }
 
@@ -780,6 +776,10 @@ public final class Minecraft implements Runnable {
             int x = this.objectMouseOver.blockX;
             int y = this.objectMouseOver.blockY;
             int z = this.objectMouseOver.blockZ;
+
+            if (!this.thePlayer.isSwinging)
+                this.thePlayer.swingItem();
+
             this.playerController.sendBlockRemoving(x, y, z, this.objectMouseOver.sideHit);
             this.effectRenderer.addBlockHitEffects(x, y, z, this.objectMouseOver.sideHit);
         } else this.playerController.resetBlockRemoving();
@@ -932,6 +932,13 @@ public final class Minecraft implements Runnable {
 
             this.currentScreen.guiParticle.func_25088_a();
             this.currentScreen.updateScreen();
+        }
+
+        if (currentScreen == null || currentScreen.inputable) {
+            this.handleBlockBreaking(
+                    0,
+                    this.currentScreen == null && mouse.isButtonPressed(GLFW.GLFW_MOUSE_BUTTON_LEFT) && this.inGameHasFocus
+            );
         }
 
         if (this.theWorld != null) {
