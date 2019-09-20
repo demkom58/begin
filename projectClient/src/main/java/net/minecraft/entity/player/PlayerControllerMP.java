@@ -72,40 +72,48 @@ public class PlayerControllerMP extends PlayerController {
         this.isHittingBlock = false;
     }
 
-    public void sendBlockRemoving(int var1, int var2, int var3, int var4) {
-        if (this.isHittingBlock) {
-            this.syncCurrentPlayItem();
-            if (this.blockHitDelay > 0) {
-                --this.blockHitDelay;
-            } else {
-                if (var1 == this.currentBlockX && var2 == this.currentBlockY && var3 == this.currentblockZ) {
-                    int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
-                    if (var5 == 0) {
-                        this.isHittingBlock = false;
-                        return;
-                    }
+    public void sendBlockRemoving(int x, int y, int z, int sideHit) {
+        if (!this.isHittingBlock)
+            return;
 
-                    Block var6 = Block.BLOCKS_LIST[var5];
-                    this.curBlockDamageMP += var6.blockStrength(this.mc.thePlayer);
-                    if (this.field_9441_h % 4.0F == 0.0F && var6 != null) {
-                        this.mc.soundManager.playSound(var6.stepSound.func_1145_d(), (float) var1 + 0.5F, (float) var2 + 0.5F, (float) var3 + 0.5F, (var6.stepSound.getVolume() + 1.0F) / 8.0F, var6.stepSound.getPitch() * 0.5F);
-                    }
+        this.syncCurrentPlayItem();
+        if (this.blockHitDelay > 0) {
+            --this.blockHitDelay;
+            return;
+        }
 
-                    ++this.field_9441_h;
-                    if (this.curBlockDamageMP >= 1.0F) {
-                        this.isHittingBlock = false;
-                        this.netClientHandler.addToSendQueue(new Packet14BlockDig(2, var1, var2, var3, var4));
-                        this.sendBlockRemoved(var1, var2, var3, var4);
-                        this.curBlockDamageMP = 0.0F;
-                        this.prevBlockDamageMP = 0.0F;
-                        this.field_9441_h = 0.0F;
-                        this.blockHitDelay = 5;
-                    }
-                } else {
-                    this.clickBlock(var1, var2, var3, var4);
-                }
-
+        if (x == this.currentBlockX && y == this.currentBlockY && z == this.currentblockZ) {
+            int blockId = this.mc.theWorld.getBlockId(x, y, z);
+            if (blockId == 0) {
+                this.isHittingBlock = false;
+                return;
             }
+
+            Block block = Block.BLOCKS_LIST[blockId];
+            this.curBlockDamageMP += block.blockStrength(this.mc.thePlayer);
+            if (this.field_9441_h % 4.0F == 0.0F && block != null) {
+                this.mc.soundManager.playSound(
+                        block.stepSound.func_1145_d(),
+                        (float) x + 0.5F,
+                        (float) y + 0.5F,
+                        (float) z + 0.5F,
+                        (block.stepSound.getVolume() + 1.0F) / 8.0F,
+                        block.stepSound.getPitch() * 0.5F
+                );
+            }
+
+            ++this.field_9441_h;
+            if (this.curBlockDamageMP >= 1.0F) {
+                this.isHittingBlock = false;
+                this.netClientHandler.addToSendQueue(new Packet14BlockDig(2, x, y, z, sideHit));
+                this.sendBlockRemoved(x, y, z, sideHit);
+                this.curBlockDamageMP = 0.0F;
+                this.prevBlockDamageMP = 0.0F;
+                this.field_9441_h = 0.0F;
+                this.blockHitDelay = 5;
+            }
+        } else {
+            this.clickBlock(x, y, z, sideHit);
         }
     }
 

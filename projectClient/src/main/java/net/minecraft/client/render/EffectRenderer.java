@@ -5,9 +5,9 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDiggingFX;
 import net.minecraft.entity.EntityFX;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-import net.minecraft.util.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,7 +128,7 @@ public class EffectRenderer {
                         double var13 = (double) var2 + ((double) var9 + 0.5D) / (double) var7;
                         double var15 = (double) var3 + ((double) var10 + 0.5D) / (double) var7;
                         int var17 = this.rand.nextInt(6);
-                        this.addEffect((new EntityDiggingFX(this.worldObj, var11, var13, var15, var11 - (double) var1 - 0.5D, var13 - (double) var2 - 0.5D, var15 - (double) var3 - 0.5D, var6, var17, var5)).func_4041_a(var1, var2, var3));
+                        this.addEffect((new EntityDiggingFX(this.worldObj, var11, var13, var15, var11 - (double) var1 - 0.5D, var13 - (double) var2 - 0.5D, var15 - (double) var3 - 0.5D, var6, var17, var5)).position(var1, var2, var3));
                     }
                 }
             }
@@ -136,40 +136,30 @@ public class EffectRenderer {
         }
     }
 
-    public void addBlockHitEffects(int var1, int var2, int var3, int var4) {
-        int var5 = this.worldObj.getBlockId(var1, var2, var3);
-        if (var5 != 0) {
-            Block var6 = Block.BLOCKS_LIST[var5];
-            float var7 = 0.1F;
-            double var8 = (double) var1 + this.rand.nextDouble() * (var6.maxX - var6.minX - (double) (var7 * 2.0F)) + (double) var7 + var6.minX;
-            double var10 = (double) var2 + this.rand.nextDouble() * (var6.maxY - var6.minY - (double) (var7 * 2.0F)) + (double) var7 + var6.minY;
-            double var12 = (double) var3 + this.rand.nextDouble() * (var6.maxZ - var6.minZ - (double) (var7 * 2.0F)) + (double) var7 + var6.minZ;
-            if (var4 == 0) {
-                var10 = (double) var2 + var6.minY - (double) var7;
-            }
+    public void addBlockHitEffects(int x, int y, int z, int sideHit) {
+        int blockId = this.worldObj.getBlockId(x, y, z);
+        if (blockId == 0)
+            return;
 
-            if (var4 == 1) {
-                var10 = (double) var2 + var6.maxY + (double) var7;
-            }
+        Block block = Block.BLOCKS_LIST[blockId];
+        float rad = 0.1F;
+        double efX = (double) x + this.rand.nextDouble() * (block.maxX - block.minX - (double) (rad * 2.0F)) + (double) rad + block.minX;
+        double efY = (double) y + this.rand.nextDouble() * (block.maxY - block.minY - (double) (rad * 2.0F)) + (double) rad + block.minY;
+        double efZ = (double) z + this.rand.nextDouble() * (block.maxZ - block.minZ - (double) (rad * 2.0F)) + (double) rad + block.minZ;
 
-            if (var4 == 2) {
-                var12 = (double) var3 + var6.minZ - (double) var7;
-            }
-
-            if (var4 == 3) {
-                var12 = (double) var3 + var6.maxZ + (double) var7;
-            }
-
-            if (var4 == 4) {
-                var8 = (double) var1 + var6.minX - (double) var7;
-            }
-
-            if (var4 == 5) {
-                var8 = (double) var1 + var6.maxX + (double) var7;
-            }
-
-            this.addEffect((new EntityDiggingFX(this.worldObj, var8, var10, var12, 0.0D, 0.0D, 0.0D, var6, var4, this.worldObj.getBlockMetadata(var1, var2, var3))).func_4041_a(var1, var2, var3).func_407_b(0.2F).func_405_d(0.6F));
+        switch (sideHit) {
+            case 0: efY = (double) y + block.minY - (double) rad; break;
+            case 1: efY = (double) y + block.maxY + (double) rad; break;
+            case 2: efZ = (double) z + block.minZ - (double) rad; break;
+            case 3: efZ = (double) z + block.maxZ + (double) rad; break;
+            case 4: efX = (double) x + block.minX - (double) rad; break;
+            case 5: efX = (double) x + block.maxX + (double) rad; break;
         }
+
+        this.addEffect(
+                new EntityDiggingFX(this.worldObj, efX, efY, efZ, 0.0D, 0.0D, 0.0D, block, sideHit, this.worldObj.getBlockMetadata(x, y, z))
+                        .position(x, y, z).motion(0.2F).scale(0.6F)
+        );
     }
 
     public String getStatistics() {

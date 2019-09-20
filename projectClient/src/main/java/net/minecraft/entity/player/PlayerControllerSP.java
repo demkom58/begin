@@ -6,9 +6,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class PlayerControllerSP extends PlayerController {
-    private int field_1074_c = -1;
-    private int field_1073_d = -1;
-    private int field_1072_e = -1;
+    private int currentBlockX = -1;
+    private int currentBlockY = -1;
+    private int currentblockZ = -1;
     private float curBlockDamage = 0.0F;
     private float prevBlockDamage = 0.0F;
     private float field_1069_h = 0.0F;
@@ -61,40 +61,47 @@ public class PlayerControllerSP extends PlayerController {
         this.blockHitWait = 0;
     }
 
-    public void sendBlockRemoving(int var1, int var2, int var3, int var4) {
+    public void sendBlockRemoving(int x, int y, int z, int sideHit) {
         if (this.blockHitWait > 0) {
             --this.blockHitWait;
-        } else {
-            if (var1 == this.field_1074_c && var2 == this.field_1073_d && var3 == this.field_1072_e) {
-                int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
-                if (var5 == 0) {
-                    return;
-                }
+            return;
+        }
 
-                Block var6 = Block.BLOCKS_LIST[var5];
-                this.curBlockDamage += var6.blockStrength(this.mc.thePlayer);
-                if (this.field_1069_h % 4.0F == 0.0F && var6 != null) {
-                    this.mc.soundManager.playSound(var6.stepSound.func_1145_d(), (float) var1 + 0.5F, (float) var2 + 0.5F, (float) var3 + 0.5F, (var6.stepSound.getVolume() + 1.0F) / 8.0F, var6.stepSound.getPitch() * 0.5F);
-                }
+        if (x == this.currentBlockX && y == this.currentBlockY && z == this.currentblockZ) {
+            int blockId = this.mc.theWorld.getBlockId(x, y, z);
+            if (blockId == 0)
+                return;
 
-                ++this.field_1069_h;
-                if (this.curBlockDamage >= 1.0F) {
-                    this.sendBlockRemoved(var1, var2, var3, var4);
-                    this.curBlockDamage = 0.0F;
-                    this.prevBlockDamage = 0.0F;
-                    this.field_1069_h = 0.0F;
-                    this.blockHitWait = 5;
-                }
-            } else {
+            Block block = Block.BLOCKS_LIST[blockId];
+            this.curBlockDamage += block.blockStrength(this.mc.thePlayer);
+            if (this.field_1069_h % 4.0F == 0.0F && block != null) {
+                this.mc.soundManager.playSound(
+                        block.stepSound.func_1145_d(),
+                        (float) x + 0.5F,
+                        (float) y + 0.5F,
+                        (float) z + 0.5F,
+                        (block.stepSound.getVolume() + 1.0F) / 8.0F,
+                        block.stepSound.getPitch() * 0.5F
+                );
+            }
+
+            ++this.field_1069_h;
+            if (this.curBlockDamage >= 1.0F) {
+                this.sendBlockRemoved(x, y, z, sideHit);
                 this.curBlockDamage = 0.0F;
                 this.prevBlockDamage = 0.0F;
                 this.field_1069_h = 0.0F;
-                this.field_1074_c = var1;
-                this.field_1073_d = var2;
-                this.field_1072_e = var3;
+                this.blockHitWait = 5;
             }
-
+            return;
         }
+
+        this.curBlockDamage = 0.0F;
+        this.prevBlockDamage = 0.0F;
+        this.field_1069_h = 0.0F;
+        this.currentBlockX = x;
+        this.currentBlockY = y;
+        this.currentblockZ = z;
     }
 
     public void setPartialTime(float var1) {

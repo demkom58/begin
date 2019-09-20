@@ -35,7 +35,7 @@ public class PlayerController {
         return changed;
     }
 
-    public void sendBlockRemoving(int var1, int var2, int var3, int var4) {
+    public void sendBlockRemoving(int x, int y, int z, int sideHit) {
     }
 
     public void resetBlockRemoving() {
