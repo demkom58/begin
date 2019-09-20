@@ -26,8 +26,12 @@ public class MouseHelper {
 
     public void grabMouseCursor() {
         GLFW.glfwSetInputMode(window.getPointer(), GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
+
         this.deltaX = 0;
         this.deltaY = 0;
+
+        x = mouse.getX();
+        y = mouse.getY();
     }
 
     public void ungrabMouseCursor() {
