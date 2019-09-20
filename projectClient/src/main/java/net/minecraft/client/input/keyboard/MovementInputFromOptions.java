@@ -11,36 +11,24 @@ public class MovementInputFromOptions extends MovementInput {
         this.gameSettings = var1;
     }
 
-    public void checkKeyForMovementInput(int var1, boolean var2) {
-        byte var3 = -1;
-        if (var1 == this.gameSettings.keyBindForward.keyCode) {
-            var3 = 0;
-        }
+    public void checkKeyForMovementInput(int key, boolean isDown) {
+        byte moveId = -1;
 
-        if (var1 == this.gameSettings.keyBindBack.keyCode) {
-            var3 = 1;
-        }
+        if (key == this.gameSettings.keyBindForward.keyCode)
+            moveId = 0;
+        else if (key == this.gameSettings.keyBindBack.keyCode)
+            moveId = 1;
+        else if (key == this.gameSettings.keyBindLeft.keyCode)
+            moveId = 2;
+        else if (key == this.gameSettings.keyBindRight.keyCode)
+            moveId = 3;
+        else if (key == this.gameSettings.keyBindJump.keyCode)
+            moveId = 4;
+        else if (key == this.gameSettings.keyBindSneak.keyCode)
+            moveId = 5;
 
-        if (var1 == this.gameSettings.keyBindLeft.keyCode) {
-            var3 = 2;
-        }
-
-        if (var1 == this.gameSettings.keyBindRight.keyCode) {
-            var3 = 3;
-        }
-
-        if (var1 == this.gameSettings.keyBindJump.keyCode) {
-            var3 = 4;
-        }
-
-        if (var1 == this.gameSettings.keyBindSneak.keyCode) {
-            var3 = 5;
-        }
-
-        if (var3 >= 0) {
-            this.movementKeyStates[var3] = var2;
-        }
-
+        if (moveId >= 0)
+            this.movementKeyStates[moveId] = isDown;
     }
 
     public void resetKeyState() {
