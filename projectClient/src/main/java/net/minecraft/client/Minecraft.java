@@ -884,15 +884,8 @@ public final class Minecraft implements Runnable {
         this.thePlayer.inventory.setCurrentItem(blockId, this.playerController instanceof PlayerControllerTest);
     }
 
-    private void startSessionChecker() {
-        new ThreadCheckHasPaid(this).start();
-    }
-
     public void runTick() {
         GLFW.glfwPollEvents();
-        if (this.ticksRan == 6000) {
-            this.startSessionChecker();
-        }
 
         this.statFileWriter.func_27178_d();
         this.ingameGUI.updateTick();
