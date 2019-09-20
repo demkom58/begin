@@ -38,11 +38,11 @@ public final class ItemStack {
         this(var1.shiftedIndex, var2, var3);
     }
 
-    public ItemStack(int var1, int var2, int var3) {
+    public ItemStack(int itemID, int stackSize, int itemDamage) {
         this.stackSize = 0;
-        this.itemID = var1;
-        this.stackSize = var2;
-        this.itemDamage = var3;
+        this.itemID = itemID;
+        this.stackSize = stackSize;
+        this.itemDamage = itemDamage;
     }
 
     public ItemStack(TagCompound var1) {
@@ -50,21 +50,20 @@ public final class ItemStack {
         this.readFromNBT(var1);
     }
 
-    public static boolean areItemStacksEqual(ItemStack var0, ItemStack var1) {
-        if (var0 == null && var1 == null) {
+    public static boolean areItemStacksEqual(ItemStack stack1, ItemStack stack2) {
+        if (stack1 == null && stack2 == null)
             return true;
-        } else {
-            return var0 != null && var1 != null ? var0.isItemStackEqual(var1) : false;
-        }
+
+        return (stack1 != null && stack2 != null) && stack1.isItemStackEqual(stack2);
     }
 
     public static ItemStack copyItemStack(ItemStack var0) {
         return var0 == null ? null : var0.copy();
     }
 
-    public ItemStack splitStack(int var1) {
-        this.stackSize -= var1;
-        return new ItemStack(this.itemID, var1, this.itemDamage);
+    public ItemStack splitStack(int stackSize) {
+        this.stackSize -= stackSize;
+        return new ItemStack(this.itemID, stackSize, this.itemDamage);
     }
 
     public Item getItem() {
@@ -75,13 +74,13 @@ public final class ItemStack {
         return this.getItem().getIconIndex(this);
     }
 
-    public boolean useItem(EntityPlayer var1, World var2, int var3, int var4, int var5, int var6) {
-        boolean var7 = this.getItem().onItemUse(this, var1, var2, var3, var4, var5, var6);
-        if (var7) {
-            var1.addStat(StatList.field_25172_A[this.itemID], 1);
-        }
+    public boolean useItem(EntityPlayer player, World world, int var3, int var4, int var5, int var6) {
+        boolean used = this.getItem().onItemUse(this, player, world, var3, var4, var5, var6);
 
-        return var7;
+        if (used)
+            player.addStat(StatList.field_25172_A[this.itemID], 1);
+
+        return used;
     }
 
     public float getStrVsBlock(Block var1) {

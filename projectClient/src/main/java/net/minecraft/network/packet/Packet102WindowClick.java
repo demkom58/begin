@@ -18,12 +18,12 @@ public class Packet102WindowClick extends Packet {
     public Packet102WindowClick() {
     }
 
-    public Packet102WindowClick(int var1, int var2, int var3, boolean var4, ItemStack var5, short var6) {
-        this.window_Id = var1;
-        this.inventorySlot = var2;
-        this.mouseClick = var3;
-        this.itemStack = var5;
-        this.action = var6;
+    public Packet102WindowClick(int window_Id, int inventorySlot, int mouseClick, boolean var4, ItemStack itemStack, short action) {
+        this.window_Id = window_Id;
+        this.inventorySlot = inventorySlot;
+        this.mouseClick = mouseClick;
+        this.itemStack = itemStack;
+        this.action = action;
         this.field_27050_f = var4;
     }
 

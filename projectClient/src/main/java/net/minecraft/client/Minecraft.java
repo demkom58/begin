@@ -258,16 +258,13 @@ public final class Minecraft implements Runnable {
         if (key == GLFW.GLFW_KEY_F2) {
             this.window.update();
 
-            if (ingameGUI != null) {
+            if (this.ingameGUI != null) {
                 if (action == GLFW.GLFW_PRESS) {
-                    isTakingScreenshot = true;
+                    this.isTakingScreenshot = true;
                     this.ingameGUI.addChatMessage(ScreenShotHelper.saveScreenshot(minecraftDir, this.window.getWidth(), this.window.getHeight()));
-                } else isTakingScreenshot = false;
+                } else this.isTakingScreenshot = false;
             }
         }
-
-        if (currentScreen == null || currentScreen.inputable)
-            this.thePlayer.handleKeyPress(key, action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT);
 
         if (key == GLFW.GLFW_KEY_F11 && action == GLFW.GLFW_PRESS) {
             this.toggleFullscreen();
@@ -275,6 +272,7 @@ public final class Minecraft implements Runnable {
         }
 
         if (this.currentScreen == null) {
+            // Ingame control keys
             if (action == GLFW.GLFW_PRESS) {
                 if (key == GLFW.GLFW_KEY_ESCAPE)
                     this.displayInGameMenu();
@@ -308,14 +306,21 @@ public final class Minecraft implements Runnable {
                         this.thePlayer.inventory.currentItem = i;
                 }
             }
-        } else this.currentScreen.keyTyped(key, scancode, action, mods);
+        } else {
+            this.currentScreen.keyTyped(key, scancode, action, mods);
+        }
+
+        if (this.currentScreen == null || this.currentScreen.inputable)
+            this.thePlayer.handleKeyPress(key, (action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT));
 
         if (action != GLFW.GLFW_PRESS)
             return;
 
         if (key == this.gameSettings.keyBindToggleFog.keyCode) {
-            this.gameSettings.setOptionValue(EnumOption.RENDER_DISTANCE,
-                    !keyboard.isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT) && !keyboard.isKeyDown(GLFW.GLFW_KEY_RIGHT_SHIFT) ? 1 : -1);
+            this.gameSettings.setOptionValue(
+                    EnumOption.RENDER_DISTANCE,
+                    !this.keyboard.isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT) && !this.keyboard.isKeyDown(GLFW.GLFW_KEY_RIGHT_SHIFT) ? 1 : -1
+            );
         }
     }
 

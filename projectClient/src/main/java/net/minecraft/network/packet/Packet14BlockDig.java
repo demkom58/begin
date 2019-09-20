@@ -16,32 +16,32 @@ public class Packet14BlockDig extends Packet {
     public Packet14BlockDig() {
     }
 
-    public Packet14BlockDig(int var1, int var2, int var3, int var4, int var5) {
-        this.status = var1;
-        this.xPosition = var2;
-        this.yPosition = var3;
-        this.zPosition = var4;
-        this.face = var5;
+    public Packet14BlockDig(int status, int x, int y, int z, int face) {
+        this.status = status;
+        this.xPosition = x;
+        this.yPosition = y;
+        this.zPosition = z;
+        this.face = face;
     }
 
-    public void readPacketData(DataInputStream var1) throws IOException {
-        this.status = var1.read();
-        this.xPosition = var1.readInt();
-        this.yPosition = var1.read();
-        this.zPosition = var1.readInt();
-        this.face = var1.read();
+    public void readPacketData(DataInputStream dis) throws IOException {
+        this.status = dis.read();
+        this.xPosition = dis.readInt();
+        this.yPosition = dis.read();
+        this.zPosition = dis.readInt();
+        this.face = dis.read();
     }
 
-    public void writePacketData(DataOutputStream var1) throws IOException {
-        var1.write(this.status);
-        var1.writeInt(this.xPosition);
-        var1.write(this.yPosition);
-        var1.writeInt(this.zPosition);
-        var1.write(this.face);
+    public void writePacketData(DataOutputStream dos) throws IOException {
+        dos.write(this.status);
+        dos.writeInt(this.xPosition);
+        dos.write(this.yPosition);
+        dos.writeInt(this.zPosition);
+        dos.write(this.face);
     }
 
-    public void processPacket(NetHandler var1) {
-        var1.handleBlockDig(this);
+    public void processPacket(NetHandler handler) {
+        handler.handleBlockDig(this);
     }
 
     public int getPacketSize() {

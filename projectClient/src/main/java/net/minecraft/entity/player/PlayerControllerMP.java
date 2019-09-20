@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetClientHandler;
 import net.minecraft.network.packet.*;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class PlayerControllerMP extends PlayerController {
@@ -30,41 +31,41 @@ public class PlayerControllerMP extends PlayerController {
     }
 
     public boolean sendBlockRemoved(int x, int y, int z, int var4) {
-        int var5 = this.mc.theWorld.getBlockId(x, y, z);
-        boolean var6 = super.sendBlockRemoved(x, y, z, var4);
-        ItemStack var7 = this.mc.thePlayer.getCurrentEquippedItem();
-        if (var7 != null) {
-            var7.onDestroyBlock(var5, x, y, z, this.mc.thePlayer);
-            if (var7.stackSize == 0) {
-                var7.func_1097_a(this.mc.thePlayer);
+        int blockId = this.mc.theWorld.getBlockId(x, y, z);
+        boolean removed = super.sendBlockRemoved(x, y, z, var4);
+        ItemStack equippedItem = this.mc.thePlayer.getCurrentEquippedItem();
+
+        if (equippedItem != null) {
+            equippedItem.onDestroyBlock(blockId, x, y, z, this.mc.thePlayer);
+            if (equippedItem.stackSize == 0) {
+                equippedItem.func_1097_a(this.mc.thePlayer);
                 this.mc.thePlayer.destroyCurrentEquippedItem();
             }
         }
 
-        return var6;
+        return removed;
     }
 
-    public void clickBlock(int var1, int var2, int var3, int var4) {
-        if (!this.isHittingBlock || var1 != this.currentBlockX || var2 != this.currentBlockY || var3 != this.currentblockZ) {
-            this.netClientHandler.addToSendQueue(new Packet14BlockDig(0, var1, var2, var3, var4));
-            int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
-            if (var5 > 0 && this.curBlockDamageMP == 0.0F) {
-                Block.BLOCKS_LIST[var5].onBlockClicked(this.mc.theWorld, var1, var2, var3, this.mc.thePlayer);
-            }
+    public void clickBlock(int x, int y, int z, int sideHit) {
+        if (!this.isHittingBlock || x != this.currentBlockX || y != this.currentBlockY || z != this.currentblockZ) {
+            this.netClientHandler.addToSendQueue(new Packet14BlockDig(0, x, y, z, sideHit));
+            int blockId = this.mc.theWorld.getBlockId(x, y, z);
 
-            if (var5 > 0 && Block.BLOCKS_LIST[var5].blockStrength(this.mc.thePlayer) >= 1.0F) {
-                this.sendBlockRemoved(var1, var2, var3, var4);
+            if (blockId > 0 && this.curBlockDamageMP == 0.0F)
+                Block.BLOCKS_LIST[blockId].onBlockClicked(this.mc.theWorld, x, y, z, this.mc.thePlayer);
+
+            if (blockId > 0 && Block.BLOCKS_LIST[blockId].blockStrength(this.mc.thePlayer) >= 1.0F) {
+                this.sendBlockRemoved(x, y, z, sideHit);
             } else {
                 this.isHittingBlock = true;
-                this.currentBlockX = var1;
-                this.currentBlockY = var2;
-                this.currentblockZ = var3;
+                this.currentBlockX = x;
+                this.currentBlockY = y;
+                this.currentblockZ = z;
                 this.curBlockDamageMP = 0.0F;
                 this.prevBlockDamageMP = 0.0F;
                 this.field_9441_h = 0.0F;
             }
         }
-
     }
 
     public void resetBlockRemoving() {
@@ -73,6 +74,9 @@ public class PlayerControllerMP extends PlayerController {
     }
 
     public void sendBlockRemoving(int x, int y, int z, int sideHit) {
+        MovingObjectPosition mOver = this.mc.objectMouseOver;
+        this.clickBlock(mOver.blockX, mOver.blockY, mOver.blockZ, mOver.sideHit);
+
         if (!this.isHittingBlock)
             return;
 
@@ -117,12 +121,12 @@ public class PlayerControllerMP extends PlayerController {
         }
     }
 
-    public void setPartialTime(float var1) {
+    public void setPartialTime(float delta) {
         if (this.curBlockDamageMP <= 0.0F) {
             this.mc.ingameGUI.damageGuiPartialTime = 0.0F;
             this.mc.renderGlobal.damagePartialTime = 0.0F;
         } else {
-            float var2 = this.prevBlockDamageMP + (this.curBlockDamageMP - this.prevBlockDamageMP) * var1;
+            float var2 = this.prevBlockDamageMP + (this.curBlockDamageMP - this.prevBlockDamageMP) * delta;
             this.mc.ingameGUI.damageGuiPartialTime = var2;
             this.mc.renderGlobal.damagePartialTime = var2;
         }
@@ -144,52 +148,50 @@ public class PlayerControllerMP extends PlayerController {
     }
 
     private void syncCurrentPlayItem() {
-        int var1 = this.mc.thePlayer.inventory.currentItem;
-        if (var1 != this.currentPlayerItem) {
-            this.currentPlayerItem = var1;
+        int currentItem = this.mc.thePlayer.inventory.currentItem;
+        if (currentItem != this.currentPlayerItem) {
+            this.currentPlayerItem = currentItem;
             this.netClientHandler.addToSendQueue(new Packet16BlockItemSwitch(this.currentPlayerItem));
         }
 
     }
 
-    public boolean sendPlaceBlock(EntityPlayer var1, World var2, ItemStack var3, int var4, int var5, int var6, int var7) {
+    public boolean sendPlaceBlock(EntityPlayer player, World world, ItemStack stack, int x, int y, int z, int direction) {
         this.syncCurrentPlayItem();
-        this.netClientHandler.addToSendQueue(new Packet15Place(var4, var5, var6, var7, var1.inventory.getCurrentItem()));
-        boolean var8 = super.sendPlaceBlock(var1, var2, var3, var4, var5, var6, var7);
-        return var8;
+        this.netClientHandler.addToSendQueue(new Packet15Place(x, y, z, direction, player.inventory.getCurrentItem()));
+        return super.sendPlaceBlock(player, world, stack, x, y, z, direction);
     }
 
-    public boolean sendUseItem(EntityPlayer var1, World var2, ItemStack var3) {
+    public boolean sendUseItem(EntityPlayer player, World world, ItemStack stack) {
         this.syncCurrentPlayItem();
-        this.netClientHandler.addToSendQueue(new Packet15Place(-1, -1, -1, 255, var1.inventory.getCurrentItem()));
-        boolean var4 = super.sendUseItem(var1, var2, var3);
-        return var4;
+        this.netClientHandler.addToSendQueue(new Packet15Place(-1, -1, -1, 255, player.inventory.getCurrentItem()));
+        return super.sendUseItem(player, world, stack);
     }
 
-    public EntityPlayer createPlayer(World var1) {
-        return new EntityClientPlayerMP(this.mc, var1, this.mc.session, this.netClientHandler);
+    public EntityPlayer createPlayer(World world) {
+        return new EntityClientPlayerMP(this.mc, world, this.mc.session, this.netClientHandler);
     }
 
-    public void attackEntity(EntityPlayer var1, Entity var2) {
+    public void attackEntity(EntityPlayer player, Entity entity) {
         this.syncCurrentPlayItem();
-        this.netClientHandler.addToSendQueue(new Packet7UseEntity(var1.entityId, var2.entityId, 1));
-        var1.attackTargetEntityWithCurrentItem(var2);
+        this.netClientHandler.addToSendQueue(new Packet7UseEntity(player.entityId, entity.entityId, 1));
+        player.attackTargetEntityWithCurrentItem(entity);
     }
 
-    public void interactWithEntity(EntityPlayer var1, Entity var2) {
+    public void interactWithEntity(EntityPlayer player, Entity entity) {
         this.syncCurrentPlayItem();
-        this.netClientHandler.addToSendQueue(new Packet7UseEntity(var1.entityId, var2.entityId, 0));
-        var1.useCurrentItemOnEntity(var2);
+        this.netClientHandler.addToSendQueue(new Packet7UseEntity(player.entityId, entity.entityId, 0));
+        player.useCurrentItemOnEntity(entity);
     }
 
-    public ItemStack func_27174_a(int var1, int var2, int var3, boolean var4, EntityPlayer var5) {
+    public ItemStack func_27174_a(int windowsId, int invSlot, int mouseClick, boolean var4, EntityPlayer var5) {
         short var6 = var5.craftingInventory.func_20111_a(var5.inventory);
-        ItemStack var7 = super.func_27174_a(var1, var2, var3, var4, var5);
-        this.netClientHandler.addToSendQueue(new Packet102WindowClick(var1, var2, var3, var4, var7, var6));
-        return var7;
+        ItemStack stack = super.func_27174_a(windowsId, invSlot, mouseClick, var4, var5);
+        this.netClientHandler.addToSendQueue(new Packet102WindowClick(windowsId, invSlot, mouseClick, var4, stack, var6));
+        return stack;
     }
 
-    public void func_20086_a(int var1, EntityPlayer var2) {
+    public void func_20086_a(int var1, EntityPlayer player) {
         if (var1 != -9999) {
         }
     }
