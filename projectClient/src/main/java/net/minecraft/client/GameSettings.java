@@ -115,7 +115,8 @@ public class GameSettings {
     }
 
     public String getOptionDisplayString(int bindingId) {
-        return KeySource.KEYBOARD.getKeyInfo(this.keyBindings[bindingId].keyCode).getName();
+        StringTranslate instance = StringTranslate.getInstance();
+        return instance.translateKey(KeySource.KEYBOARD.getKeyInfo(this.keyBindings[bindingId].keyCode).getName());
     }
 
     public void setKeyBinding(int bindingId, int keyCode, int scanCode) {
