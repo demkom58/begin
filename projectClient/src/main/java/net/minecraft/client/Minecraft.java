@@ -907,14 +907,12 @@ public final class Minecraft implements Runnable {
             }
         }
 
-        if (!this.isGamePaused && this.theWorld != null) {
+        if (!this.isGamePaused && this.theWorld != null)
             this.playerController.updateController();
-        }
 
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/terrain.png"));
-        if (!this.isGamePaused) {
+        if (!this.isGamePaused)
             this.renderEngine.updateDynamicTextures();
-        }
 
         if (this.currentScreen == null && this.thePlayer != null) {
             if (this.thePlayer.health <= 0) {
@@ -951,22 +949,18 @@ public final class Minecraft implements Runnable {
             }
 
             this.theWorld.difficultySetting = this.gameSettings.difficulty;
-            if (this.theWorld.multiplayerWorld) {
+            if (this.theWorld.multiplayerWorld)
                 this.theWorld.difficultySetting = 3;
-            }
 
-            if (!this.isGamePaused) {
+            if (!this.isGamePaused)
                 this.entityRenderer.updateRenderer();
-            }
 
-            if (!this.isGamePaused) {
+            if (!this.isGamePaused)
                 this.renderGlobal.updateClouds();
-            }
 
             if (!this.isGamePaused) {
-                if (this.theWorld.field_27172_i > 0) {
+                if (this.theWorld.field_27172_i > 0)
                     --this.theWorld.field_27172_i;
-                }
 
                 this.theWorld.updateEntities();
             }
@@ -977,17 +971,18 @@ public final class Minecraft implements Runnable {
             }
 
             if (!this.isGamePaused && this.theWorld != null) {
-                this.theWorld.randomDisplayUpdates(MathHelper.floor(this.thePlayer.posX), MathHelper.floor(this.thePlayer.posY), MathHelper.floor(this.thePlayer.posZ));
+                this.theWorld.randomDisplayUpdates(
+                        MathHelper.floor(this.thePlayer.posX),
+                        MathHelper.floor(this.thePlayer.posY),
+                        MathHelper.floor(this.thePlayer.posZ));
             }
 
-            if (!this.isGamePaused) {
+            if (!this.isGamePaused)
                 this.effectRenderer.updateEffects();
-            }
         }
 
         this.systemTime = System.currentTimeMillis();
         this.window.swapBuffer();
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
     }
 
     private void forceReload() {
