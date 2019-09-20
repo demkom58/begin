@@ -13,7 +13,7 @@ public class GuiChest extends GuiContainer {
         super(new ContainerChest(upperChestInventory, lowerChestInventory));
         this.upperChestInventory = upperChestInventory;
         this.lowerChestInventory = lowerChestInventory;
-        this.field_948_f = false;
+        this.inputable = false;
         short var3 = 222;
         int var4 = var3 - 108;
         this.inventoryRows = lowerChestInventory.getSizeInventory() / 9;

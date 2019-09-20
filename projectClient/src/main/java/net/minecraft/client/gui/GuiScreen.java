@@ -17,7 +17,7 @@ import java.util.List;
 public class GuiScreen extends Gui {
     public int width;
     public int height;
-    public boolean field_948_f = false;
+    public boolean inputable = false;
     public GuiParticle guiParticle;
     protected Minecraft mc;
     protected List<GuiButton> buttons = new ArrayList<>();
@@ -46,7 +46,10 @@ public class GuiScreen extends Gui {
     }
 
     public void keyTyped(int keycode, int scancode, int action, int mods) {
-        if (keycode == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_PRESS) {
+        if (action != GLFW.GLFW_PRESS)
+            return;
+
+        if (keycode == GLFW.GLFW_KEY_ESCAPE) {
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }

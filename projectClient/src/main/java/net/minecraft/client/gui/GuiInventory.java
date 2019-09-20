@@ -13,7 +13,7 @@ public class GuiInventory extends GuiContainer {
 
     public GuiInventory(EntityPlayer player) {
         super(player.inventorySlots);
-        this.field_948_f = true;
+        this.inputable = true;
         player.addStat(AchievementList.openInventory, 1);
     }
 

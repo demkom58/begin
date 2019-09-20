@@ -229,9 +229,6 @@ public final class Minecraft implements Runnable {
         if (action == GLFW.GLFW_PRESS && key == GLFW.GLFW_KEY_F11)
             this.toggleFullscreen();
 
-        if (this.currentScreen != null)
-            this.currentScreen.keyTyped(key, scancode, action, mods);
-
         if (key == GLFW.GLFW_KEY_F2) {
             this.window.update();
 
@@ -243,61 +240,61 @@ public final class Minecraft implements Runnable {
             }
         }
 
-        if (this.currentScreen == null || this.currentScreen.field_948_f) {
-            this.thePlayer.handleKeyPress(key, action == GLFW.GLFW_PRESS);
-            if (action != GLFW.GLFW_PRESS)
-                return;
+        if (currentScreen == null || currentScreen.inputable)
+            this.thePlayer.handleKeyPress(key, action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT);
 
-            if (key == GLFW.GLFW_KEY_F11) {
-                this.toggleFullscreen();
-                return;
+        if (action != GLFW.GLFW_PRESS)
+            return;
+
+        if (key == GLFW.GLFW_KEY_F11) {
+            this.toggleFullscreen();
+            return;
+        }
+
+        if (this.currentScreen == null) {
+            if (key == GLFW.GLFW_KEY_ESCAPE)
+                this.displayInGameMenu();
+
+            if (key == GLFW.GLFW_KEY_S && keyboard.isKeyDown(GLFW.GLFW_KEY_F3))
+                this.forceReload();
+
+            if (key == GLFW.GLFW_KEY_F1)
+                this.gameSettings.hideGUI = !this.gameSettings.hideGUI;
+
+            if (key == GLFW.GLFW_KEY_F3)
+                this.gameSettings.showDebugInfo = !this.gameSettings.showDebugInfo;
+
+            if (key == GLFW.GLFW_KEY_F5)
+                this.gameSettings.thirdPersonView = !this.gameSettings.thirdPersonView;
+
+            if (key == GLFW.GLFW_KEY_F8)
+                this.gameSettings.smoothCamera = !this.gameSettings.smoothCamera;
+
+            if (key == this.gameSettings.keyBindInventory.keyCode) {
+                this.displayGuiScreen(new GuiInventory(this.thePlayer));
             }
 
-            if (this.currentScreen == null) {
-                if (key == GLFW.GLFW_KEY_ESCAPE)
-                    this.displayInGameMenu();
+            if (key == this.gameSettings.keyBindDrop.keyCode)
+                this.thePlayer.dropCurrentItem();
 
-                if (key == GLFW.GLFW_KEY_S && keyboard.isKeyDown(GLFW.GLFW_KEY_F3))
-                    this.forceReload();
+            if (this.isMultiplayerWorld() && key == this.gameSettings.keyBindChat.keyCode)
+                this.displayGuiScreen(new GuiChat());
+        } else this.currentScreen.keyTyped(key, scancode, action, mods);
 
-                if (key == GLFW.GLFW_KEY_F1)
-                    this.gameSettings.hideGUI = !this.gameSettings.hideGUI;
-
-                if (key == GLFW.GLFW_KEY_F3)
-                    this.gameSettings.showDebugInfo = !this.gameSettings.showDebugInfo;
-
-                if (key == GLFW.GLFW_KEY_F5)
-                    this.gameSettings.thirdPersonView = !this.gameSettings.thirdPersonView;
-
-                if (key == GLFW.GLFW_KEY_F8)
-                    this.gameSettings.smoothCamera = !this.gameSettings.smoothCamera;
-
-                if (key == this.gameSettings.keyBindInventory.keyCode) {
-                    this.displayGuiScreen(new GuiInventory(this.thePlayer));
-                }
-
-                if (key == this.gameSettings.keyBindDrop.keyCode)
-                    this.thePlayer.dropCurrentItem();
-
-                if (this.isMultiplayerWorld() && key == this.gameSettings.keyBindChat.keyCode)
-                    this.displayGuiScreen(new GuiChat());
-            } else this.currentScreen.keyTyped(key, scancode, action, mods);
-
-            for (int i = 0; i < 9; ++i) {
-                if (key == GLFW.GLFW_KEY_1 + i) {
-                    this.thePlayer.inventory.currentItem = i;
-                }
+        for (int i = 0; i < 9; ++i) {
+            if (key == GLFW.GLFW_KEY_1 + i) {
+                this.thePlayer.inventory.currentItem = i;
             }
+        }
 
-            if (key == this.gameSettings.keyBindToggleFog.keyCode) {
-                this.gameSettings.setOptionValue(EnumOption.RENDER_DISTANCE,
-                        !keyboard.isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT) && !keyboard.isKeyDown(GLFW.GLFW_KEY_RIGHT_SHIFT) ? 1 : -1);
-            }
+        if (key == this.gameSettings.keyBindToggleFog.keyCode) {
+            this.gameSettings.setOptionValue(EnumOption.RENDER_DISTANCE,
+                    !keyboard.isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT) && !keyboard.isKeyDown(GLFW.GLFW_KEY_RIGHT_SHIFT) ? 1 : -1);
         }
     }
 
     public void onMouseButton(long windowPointer, int button, int action, int mods) {
-        if (this.currentScreen == null || this.currentScreen.field_948_f) {
+        if (this.currentScreen == null || this.currentScreen.inputable) {
             if (this.currentScreen == null) {
                 if (!this.inGameHasFocus && action == GLFW.GLFW_PRESS) {
                     this.setIngameFocus();
@@ -340,7 +337,7 @@ public final class Minecraft implements Runnable {
     }
 
     public void onScroll(long window, double xOffset, double yOffset) {
-        if (this.currentScreen == null || this.currentScreen.field_948_f) {
+        if (this.currentScreen == null || this.currentScreen.inputable) {
             long diff = System.currentTimeMillis() - this.systemTime;
             if (diff <= 200L) {
                 int offset = (int) yOffset;
@@ -738,10 +735,7 @@ public final class Minecraft implements Runnable {
     }
 
     public void setIngameFocus() {
-        if (!this.window.isFocused())
-            return;
-
-        if (this.inGameHasFocus)
+        if (!this.window.isFocused() || this.inGameHasFocus)
             return;
 
         this.inGameHasFocus = true;
