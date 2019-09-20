@@ -179,17 +179,17 @@ public class ChunkProviderHell implements IChunkProvider {
 
     }
 
-    public Chunk prepareChunk(int var1, int var2) {
-        return this.provideChunk(var1, var2);
+    public Chunk prepareChunk(int x, int z) {
+        return this.provideChunk(x, z);
     }
 
-    public Chunk provideChunk(int var1, int var2) {
-        this.hellRNG.setSeed((long) var1 * 341873128712L + (long) var2 * 132897987541L);
+    public Chunk provideChunk(int x, int z) {
+        this.hellRNG.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
         byte[] var3 = new byte['\u8000'];
-        this.func_4059_a(var1, var2, var3);
-        this.func_4058_b(var1, var2, var3);
-        this.field_4159_s.func_867_a(this, this.worldObj, var1, var2, var3);
-        Chunk var4 = new Chunk(this.worldObj, var3, var1, var2);
+        this.func_4059_a(x, z, var3);
+        this.func_4058_b(x, z, var3);
+        this.field_4159_s.func_867_a(this, this.worldObj, x, z, var3);
+        Chunk var4 = new Chunk(this.worldObj, var3, x, z);
         return var4;
     }
 
@@ -299,14 +299,14 @@ public class ChunkProviderHell implements IChunkProvider {
         return var1;
     }
 
-    public boolean chunkExists(int var1, int var2) {
+    public boolean chunkExists(int x, int z) {
         return true;
     }
 
-    public void populate(IChunkProvider var1, int var2, int var3) {
+    public void populate(IChunkProvider provider, int x, int z) {
         BlockSand.fallInstantly = true;
-        int var4 = var2 * 16;
-        int var5 = var3 * 16;
+        int var4 = x * 16;
+        int var5 = z * 16;
 
         for (int var6 = 0; var6 < 8; ++var6) {
             int var7 = var4 + this.hellRNG.nextInt(16) + 8;
@@ -357,7 +357,7 @@ public class ChunkProviderHell implements IChunkProvider {
         BlockSand.fallInstantly = false;
     }
 
-    public boolean saveChunks(boolean var1, IProgressUpdatable var2) {
+    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
         return true;
     }
 

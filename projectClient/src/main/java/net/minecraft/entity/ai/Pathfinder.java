@@ -18,21 +18,21 @@ public class Pathfinder {
         this.worldMap = var1;
     }
 
-    public PathEntity createEntityPathTo(Entity var1, Entity var2, float var3) {
-        return this.createEntityPathTo(var1, var2.posX, var2.boundingBox.minY, var2.posZ, var3);
+    public PathEntity createEntityPathTo(Entity from, Entity to, float var3) {
+        return this.createEntityPathTo(from, to.posX, to.boundingBox.minY, to.posZ, var3);
     }
 
-    public PathEntity createEntityPathTo(Entity var1, int var2, int var3, int var4, float var5) {
-        return this.createEntityPathTo(var1, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), var5);
+    public PathEntity createEntityPathTo(Entity from, int x, int y, int z, float var5) {
+        return this.createEntityPathTo(from, (float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, var5);
     }
 
-    private PathEntity createEntityPathTo(Entity var1, double var2, double var4, double var6, float var8) {
+    private PathEntity createEntityPathTo(Entity from, double x, double y, double z, float var8) {
         this.path.clearPath();
         this.pointMap.clearMap();
-        PathPoint var9 = this.openPoint(MathHelper.floor(var1.boundingBox.minX), MathHelper.floor(var1.boundingBox.minY), MathHelper.floor(var1.boundingBox.minZ));
-        PathPoint var10 = this.openPoint(MathHelper.floor(var2 - (double) (var1.width / 2.0F)), MathHelper.floor(var4), MathHelper.floor(var6 - (double) (var1.width / 2.0F)));
-        PathPoint var11 = new PathPoint(MathHelper.floor(var1.width + 1.0F), MathHelper.floor(var1.height + 1.0F), MathHelper.floor(var1.width + 1.0F));
-        PathEntity var12 = this.addToPath(var1, var9, var10, var11, var8);
+        PathPoint var9 = this.openPoint(MathHelper.floor(from.boundingBox.minX), MathHelper.floor(from.boundingBox.minY), MathHelper.floor(from.boundingBox.minZ));
+        PathPoint var10 = this.openPoint(MathHelper.floor(x - (double) (from.width / 2.0F)), MathHelper.floor(y), MathHelper.floor(z - (double) (from.width / 2.0F)));
+        PathPoint var11 = new PathPoint(MathHelper.floor(from.width + 1.0F), MathHelper.floor(from.height + 1.0F), MathHelper.floor(from.width + 1.0F));
+        PathEntity var12 = this.addToPath(from, var9, var10, var11, var8);
         return var12;
     }
 
@@ -74,11 +74,10 @@ public class Pathfinder {
             }
         }
 
-        if (var6 == var2) {
+        if (var6 == var2)
             return null;
-        } else {
-            return this.createEntityPath(var2, var6);
-        }
+
+        return this.createEntityPath(var2, var6);
     }
 
     private int findPathOptions(Entity var1, PathPoint var2, PathPoint var3, PathPoint var4, float var5) {

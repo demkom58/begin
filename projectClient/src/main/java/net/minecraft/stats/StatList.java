@@ -51,7 +51,7 @@ public class StatList {
         AchievementList.func_27374_a();
     }
 
-    public static void func_27360_a() {
+    public static void init() {
     }
 
     public static void func_25154_a() {

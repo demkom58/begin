@@ -4,7 +4,10 @@ import net.minecraft.achievement.AchievementList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.EnumBedStatus;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityMinecart;
+import net.minecraft.entity.EntityMob;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -28,10 +31,10 @@ import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkCoordinates;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.util.MathHelper;
 
 import java.util.List;
 
@@ -83,18 +86,17 @@ public abstract class EntityPlayer extends EntityLiving {
         this.texture = "/mob/char.png";
     }
 
-    public static ChunkCoordinates func_25060_a(World var0, ChunkCoordinates var1) {
-        IChunkProvider var2 = var0.getIChunkProvider();
-        var2.prepareChunk(var1.x - 3 >> 4, var1.z - 3 >> 4);
-        var2.prepareChunk(var1.x + 3 >> 4, var1.z - 3 >> 4);
-        var2.prepareChunk(var1.x - 3 >> 4, var1.z + 3 >> 4);
-        var2.prepareChunk(var1.x + 3 >> 4, var1.z + 3 >> 4);
-        if (var0.getBlockId(var1.x, var1.y, var1.z) != Block.BED.blockID) {
+    public static ChunkCoordinates func_25060_a(World world, ChunkCoordinates coord) {
+        IChunkProvider provider = world.getIChunkProvider();
+        provider.prepareChunk(coord.x - 3 >> 4, coord.z - 3 >> 4);
+        provider.prepareChunk(coord.x + 3 >> 4, coord.z - 3 >> 4);
+        provider.prepareChunk(coord.x - 3 >> 4, coord.z + 3 >> 4);
+        provider.prepareChunk(coord.x + 3 >> 4, coord.z + 3 >> 4);
+
+        if (world.getBlockId(coord.x, coord.y, coord.z) != Block.BED.blockID)
             return null;
-        } else {
-            ChunkCoordinates var3 = BlockBed.getNearestEmptyChunkCoordinates(var0, var1.x, var1.y, var1.z, 0);
-            return var3;
-        }
+
+        return BlockBed.getNearestEmptyChunkCoordinates(world, coord.x, coord.y, coord.z, 0);
     }
 
     protected void entityInit() {

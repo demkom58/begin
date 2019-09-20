@@ -12,24 +12,24 @@ public class Timer {
     private long field_28132_i;
     private double timeSyncAdjustment = 1.0D;
 
-    public Timer(float var1) {
-        this.ticksPerSecond = var1;
+    public Timer(float ticksPerSecond) {
+        this.ticksPerSecond = ticksPerSecond;
         this.lastSyncSysClock = System.currentTimeMillis();
-        this.lastSyncHRClock = System.nanoTime() / 1000000L;
+        this.lastSyncHRClock = System.nanoTime() / 1_000_000L;
     }
 
     public void updateTimer() {
         long var1 = System.currentTimeMillis();
         long var3 = var1 - this.lastSyncSysClock;
-        long var5 = System.nanoTime() / 1000000L;
-        double var7 = (double) var5 / 1000.0D;
+        long var5 = System.nanoTime() / 1_000_000L;
+        double var7 = (double) var5 / 1_000.0D;
         if (var3 > 1000L) {
             this.lastHRTime = var7;
         } else if (var3 < 0L) {
             this.lastHRTime = var7;
         } else {
             this.field_28132_i += var3;
-            if (this.field_28132_i > 1000L) {
+            if (this.field_28132_i > 1_000L) {
                 long var9 = var5 - this.lastSyncHRClock;
                 double var11 = (double) this.field_28132_i / (double) var9;
                 this.timeSyncAdjustment += (var11 - this.timeSyncAdjustment) * 0.20000000298023224D;

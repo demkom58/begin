@@ -2062,45 +2062,50 @@ public class World implements IBlockAccess {
         this.unloadedEntityList.addAll(entities);
     }
 
-    public void func_656_j() {
-        while (this.chunkProvider.unload100OldestChunks()) {
-        }
-
+    public void unloadOldChunks() {
+        while (this.chunkProvider.unload100OldestChunks());
     }
 
-    public boolean canBlockBePlacedAt(int var1, int var2, int var3, int var4, boolean var5, int var6) {
-        int var7 = this.getBlockId(var2, var3, var4);
-        Block var8 = Block.BLOCKS_LIST[var7];
-        Block var9 = Block.BLOCKS_LIST[var1];
-        AxisAlignedBB var10 = var9.getCollisionBoundingBoxFromPool(this, var2, var3, var4);
-        if (var5) {
-            var10 = null;
-        }
+    public boolean canBlockBePlacedAt(int blockId, int x, int y, int z, boolean var5, int var6) {
+        int coordBlockId = this.getBlockId(x, y, z);
+        Block locBlock = Block.BLOCKS_LIST[coordBlockId];
+        Block placeBlock = Block.BLOCKS_LIST[blockId];
+        AxisAlignedBB axis = placeBlock.getCollisionBoundingBoxFromPool(this, x, y, z);
 
-        if (var10 != null && !this.checkIfAABBIsClear(var10)) {
+        if (var5)
+            axis = null;
+
+        if (axis != null && !this.checkIfAABBIsClear(axis))
             return false;
+
+        if (locBlock == Block.WATER_MOVING
+                || locBlock == Block.WATER_STILL
+                || locBlock == Block.LAVA_MOVING
+                || locBlock == Block.LAVA_STILL
+                || locBlock == Block.FIRE
+                || locBlock == Block.SNOW) {
+            locBlock = null;
         }
 
-        if (var8 == Block.WATER_MOVING || var8 == Block.WATER_STILL || var8 == Block.LAVA_MOVING || var8 == Block.LAVA_STILL || var8 == Block.FIRE || var8 == Block.SNOW) {
-            var8 = null;
-        }
-
-        return var1 > 0 && var8 == null && var9.canPlaceBlockOnSide(this, var2, var3, var4, var6);
+        return blockId > 0 && locBlock == null && placeBlock.canPlaceBlockOnSide(this, x, y, z, var6);
     }
 
-    public PathEntity getPathToEntity(Entity var1, Entity var2, float var3) {
-        int var4 = MathHelper.floor(var1.posX);
-        int var5 = MathHelper.floor(var1.posY);
-        int var6 = MathHelper.floor(var1.posZ);
-        int var7 = (int) (var3 + 16.0F);
-        int var8 = var4 - var7;
-        int var9 = var5 - var7;
-        int var10 = var6 - var7;
-        int var11 = var4 + var7;
-        int var12 = var5 + var7;
-        int var13 = var6 + var7;
-        ChunkCache var14 = new ChunkCache(this, var8, var9, var10, var11, var12, var13);
-        return (new Pathfinder(var14)).createEntityPathTo(var1, var2, var3);
+    public PathEntity getPathToEntity(Entity from, Entity to, float var3) {
+        int x = MathHelper.floor(from.posX);
+        int y = MathHelper.floor(from.posY);
+        int z = MathHelper.floor(from.posZ);
+        int diameter = (int) (var3 + 16.0F);
+
+        int startX = x - diameter;
+        int startY = y - diameter;
+        int startZ = z - diameter;
+
+        int endX = x + diameter;
+        int endY = y + diameter;
+        int endZ = z + diameter;
+
+        ChunkCache chunkCache = new ChunkCache(this, startX, startY, startZ, endX, endY, endZ);
+        return new Pathfinder(chunkCache).createEntityPathTo(from, to, var3);
     }
 
     public PathEntity getEntityPathToXYZ(Entity var1, int var2, int var3, int var4, float var5) {

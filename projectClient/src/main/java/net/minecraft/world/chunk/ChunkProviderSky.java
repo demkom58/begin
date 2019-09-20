@@ -154,19 +154,19 @@ public class ChunkProviderSky implements IChunkProvider {
 
     }
 
-    public Chunk prepareChunk(int var1, int var2) {
-        return this.provideChunk(var1, var2);
+    public Chunk prepareChunk(int x, int z) {
+        return this.provideChunk(x, z);
     }
 
-    public Chunk provideChunk(int var1, int var2) {
-        this.field_28087_j.setSeed((long) var1 * 341873128712L + (long) var2 * 132897987541L);
+    public Chunk provideChunk(int x, int z) {
+        this.field_28087_j.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
         byte[] var3 = new byte['\u8000'];
-        Chunk var4 = new Chunk(this.field_28081_p, var3, var1, var2);
-        this.field_28075_v = this.field_28081_p.getWorldChunkManager().loadBlockGeneratorData(this.field_28075_v, var1 * 16, var2 * 16, 16, 16);
+        Chunk var4 = new Chunk(this.field_28081_p, var3, x, z);
+        this.field_28075_v = this.field_28081_p.getWorldChunkManager().loadBlockGeneratorData(this.field_28075_v, x * 16, z * 16, 16, 16);
         double[] var5 = this.field_28081_p.getWorldChunkManager().temperature;
-        this.func_28071_a(var1, var2, var3, this.field_28075_v, var5);
-        this.func_28072_a(var1, var2, var3, this.field_28075_v);
-        this.field_28076_u.func_867_a(this, this.field_28081_p, var1, var2, var3);
+        this.func_28071_a(x, z, var3, this.field_28075_v, var5);
+        this.func_28072_a(x, z, var3, this.field_28075_v);
+        this.field_28076_u.func_867_a(this, this.field_28081_p, x, z, var3);
         var4.func_1024_c();
         return var4;
     }
@@ -268,19 +268,19 @@ public class ChunkProviderSky implements IChunkProvider {
         return var1;
     }
 
-    public boolean chunkExists(int var1, int var2) {
+    public boolean chunkExists(int x, int z) {
         return true;
     }
 
-    public void populate(IChunkProvider var1, int var2, int var3) {
+    public void populate(IChunkProvider provider, int x, int z) {
         BlockSand.fallInstantly = true;
-        int var4 = var2 * 16;
-        int var5 = var3 * 16;
+        int var4 = x * 16;
+        int var5 = z * 16;
         BiomeGenBase var6 = this.field_28081_p.getWorldChunkManager().getBiomeGenAt(var4 + 16, var5 + 16);
         this.field_28087_j.setSeed(this.field_28081_p.getRandomSeed());
         long var7 = this.field_28087_j.nextLong() / 2L * 2L + 1L;
         long var9 = this.field_28087_j.nextLong() / 2L * 2L + 1L;
-        this.field_28087_j.setSeed((long) var2 * var7 + (long) var3 * var9 ^ this.field_28081_p.getRandomSeed());
+        this.field_28087_j.setSeed((long) x * var7 + (long) z * var9 ^ this.field_28081_p.getRandomSeed());
         double var11 = 0.25D;
         if (this.field_28087_j.nextInt(4) == 0) {
             int var13 = var4 + this.field_28087_j.nextInt(16) + 8;
@@ -496,7 +496,7 @@ public class ChunkProviderSky implements IChunkProvider {
         BlockSand.fallInstantly = false;
     }
 
-    public boolean saveChunks(boolean var1, IProgressUpdatable var2) {
+    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
         return true;
     }
 

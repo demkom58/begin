@@ -22,21 +22,21 @@ public class ChunkProvider implements IChunkProvider {
         this.chunkProvider = var3;
     }
 
-    public boolean chunkExists(int var1, int var2) {
-        return this.chunkMap.containsKey(ChunkCoordIntPair.chunkXZ2Int(var1, var2));
+    public boolean chunkExists(int x, int z) {
+        return this.chunkMap.containsKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
     }
 
-    public Chunk prepareChunk(int var1, int var2) {
-        int var3 = ChunkCoordIntPair.chunkXZ2Int(var1, var2);
+    public Chunk prepareChunk(int x, int z) {
+        int var3 = ChunkCoordIntPair.chunkXZ2Int(x, z);
         this.droppedChunksSet.remove(var3);
         Chunk var4 = (Chunk) this.chunkMap.get(var3);
         if (var4 == null) {
-            var4 = this.loadChunkFromFile(var1, var2);
+            var4 = this.loadChunkFromFile(x, z);
             if (var4 == null) {
                 if (this.chunkProvider == null) {
                     var4 = this.field_28064_b;
                 } else {
-                    var4 = this.chunkProvider.provideChunk(var1, var2);
+                    var4 = this.chunkProvider.provideChunk(x, z);
                 }
             }
 
@@ -47,29 +47,29 @@ public class ChunkProvider implements IChunkProvider {
                 var4.onChunkLoad();
             }
 
-            if (!var4.isTerrainPopulated && this.chunkExists(var1 + 1, var2 + 1) && this.chunkExists(var1, var2 + 1) && this.chunkExists(var1 + 1, var2)) {
-                this.populate(this, var1, var2);
+            if (!var4.isTerrainPopulated && this.chunkExists(x + 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x + 1, z)) {
+                this.populate(this, x, z);
             }
 
-            if (this.chunkExists(var1 - 1, var2) && !this.provideChunk(var1 - 1, var2).isTerrainPopulated && this.chunkExists(var1 - 1, var2 + 1) && this.chunkExists(var1, var2 + 1) && this.chunkExists(var1 - 1, var2)) {
-                this.populate(this, var1 - 1, var2);
+            if (this.chunkExists(x - 1, z) && !this.provideChunk(x - 1, z).isTerrainPopulated && this.chunkExists(x - 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x - 1, z)) {
+                this.populate(this, x - 1, z);
             }
 
-            if (this.chunkExists(var1, var2 - 1) && !this.provideChunk(var1, var2 - 1).isTerrainPopulated && this.chunkExists(var1 + 1, var2 - 1) && this.chunkExists(var1, var2 - 1) && this.chunkExists(var1 + 1, var2)) {
-                this.populate(this, var1, var2 - 1);
+            if (this.chunkExists(x, z - 1) && !this.provideChunk(x, z - 1).isTerrainPopulated && this.chunkExists(x + 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x + 1, z)) {
+                this.populate(this, x, z - 1);
             }
 
-            if (this.chunkExists(var1 - 1, var2 - 1) && !this.provideChunk(var1 - 1, var2 - 1).isTerrainPopulated && this.chunkExists(var1 - 1, var2 - 1) && this.chunkExists(var1, var2 - 1) && this.chunkExists(var1 - 1, var2)) {
-                this.populate(this, var1 - 1, var2 - 1);
+            if (this.chunkExists(x - 1, z - 1) && !this.provideChunk(x - 1, z - 1).isTerrainPopulated && this.chunkExists(x - 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x - 1, z)) {
+                this.populate(this, x - 1, z - 1);
             }
         }
 
         return var4;
     }
 
-    public Chunk provideChunk(int var1, int var2) {
-        Chunk var3 = (Chunk) this.chunkMap.get(ChunkCoordIntPair.chunkXZ2Int(var1, var2));
-        return var3 == null ? this.prepareChunk(var1, var2) : var3;
+    public Chunk provideChunk(int x, int z) {
+        Chunk var3 = (Chunk) this.chunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
+        return var3 == null ? this.prepareChunk(x, z) : var3;
     }
 
     private Chunk loadChunkFromFile(int var1, int var2) {
@@ -113,19 +113,19 @@ public class ChunkProvider implements IChunkProvider {
         }
     }
 
-    public void populate(IChunkProvider var1, int var2, int var3) {
-        Chunk var4 = this.provideChunk(var2, var3);
+    public void populate(IChunkProvider provider, int x, int z) {
+        Chunk var4 = this.provideChunk(x, z);
         if (!var4.isTerrainPopulated) {
             var4.isTerrainPopulated = true;
             if (this.chunkProvider != null) {
-                this.chunkProvider.populate(var1, var2, var3);
+                this.chunkProvider.populate(provider, x, z);
                 var4.setChunkModified();
             }
         }
 
     }
 
-    public boolean saveChunks(boolean var1, IProgressUpdatable var2) {
+    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
         int var3 = 0;
 
         for (int var4 = 0; var4 < this.chunkList.size(); ++var4) {

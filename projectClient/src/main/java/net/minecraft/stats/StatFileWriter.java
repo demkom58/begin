@@ -1,8 +1,5 @@
 package net.minecraft.stats;
 
-import com.github.cliftonlabs.json_simple.JsonException;
-import com.github.cliftonlabs.json_simple.JsonObject;
-import com.github.cliftonlabs.json_simple.Jsoner;
 import net.minecraft.achievement.Achievement;
 import net.minecraft.client.Session;
 import net.minecraft.json.*;

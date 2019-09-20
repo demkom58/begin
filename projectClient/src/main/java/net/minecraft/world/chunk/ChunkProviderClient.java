@@ -16,11 +16,11 @@ public class ChunkProviderClient implements IChunkProvider {
         this.worldObj = var1;
     }
 
-    public boolean chunkExists(int var1, int var2) {
+    public boolean chunkExists(int x, int z) {
         if (this != null) {
             return true;
         } else {
-            ChunkCoordIntPair var3 = new ChunkCoordIntPair(var1, var2);
+            ChunkCoordIntPair var3 = new ChunkCoordIntPair(x, z);
             return this.chunkMapping.containsKey(var3);
         }
     }
@@ -35,23 +35,23 @@ public class ChunkProviderClient implements IChunkProvider {
         this.field_889_c.remove(var3);
     }
 
-    public Chunk prepareChunk(int var1, int var2) {
-        ChunkCoordIntPair var3 = new ChunkCoordIntPair(var1, var2);
+    public Chunk prepareChunk(int x, int z) {
+        ChunkCoordIntPair var3 = new ChunkCoordIntPair(x, z);
         byte[] var4 = new byte['\u8000'];
-        Chunk var5 = new Chunk(this.worldObj, var4, var1, var2);
+        Chunk var5 = new Chunk(this.worldObj, var4, x, z);
         Arrays.fill(var5.skylightMap.data, (byte) -1);
         this.chunkMapping.put(var3, var5);
         var5.isChunkLoaded = true;
         return var5;
     }
 
-    public Chunk provideChunk(int var1, int var2) {
-        ChunkCoordIntPair var3 = new ChunkCoordIntPair(var1, var2);
+    public Chunk provideChunk(int x, int z) {
+        ChunkCoordIntPair var3 = new ChunkCoordIntPair(x, z);
         Chunk var4 = (Chunk) this.chunkMapping.get(var3);
         return var4 == null ? this.blankChunk : var4;
     }
 
-    public boolean saveChunks(boolean var1, IProgressUpdatable var2) {
+    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
         return true;
     }
 
@@ -63,7 +63,7 @@ public class ChunkProviderClient implements IChunkProvider {
         return false;
     }
 
-    public void populate(IChunkProvider var1, int var2, int var3) {
+    public void populate(IChunkProvider provider, int x, int z) {
     }
 
     public String makeString() {
