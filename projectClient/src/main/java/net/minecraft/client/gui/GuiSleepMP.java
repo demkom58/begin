@@ -37,7 +37,6 @@ public class GuiSleepMP extends GuiChat {
         }
     }
 
-
     public void drawScreen(int var1, int var2, float var3) {
         super.drawScreen(var1, var2, var3);
     }

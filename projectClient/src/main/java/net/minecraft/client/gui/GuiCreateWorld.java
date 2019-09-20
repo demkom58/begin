@@ -113,6 +113,8 @@ public class GuiCreateWorld extends GuiScreen {
     @Override
     public void keyTyped(int keycode, int scancode, int action, int mods) {
         super.keyTyped(keycode, scancode, action, mods);
+        this.textboxWorldName.keyTyped(keycode, scancode, action, mods);
+        this.textboxSeed.keyTyped(keycode, scancode, action, mods);
     }
 
     protected void mouseClicked(int x, int y, int button) {

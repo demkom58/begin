@@ -51,7 +51,7 @@ class SorterStatsItem implements Comparator<StatCrafting> {
     }
 
     @Override
-    public int compare(StatCrafting var1, StatCrafting var2) {
-        return this.func_27371_a(var1, var2);
+    public int compare(StatCrafting a, StatCrafting b) {
+        return this.func_27371_a(a, b);
     }
 }

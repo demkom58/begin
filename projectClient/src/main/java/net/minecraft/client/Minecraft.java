@@ -269,47 +269,49 @@ public final class Minecraft implements Runnable {
         if (currentScreen == null || currentScreen.inputable)
             this.thePlayer.handleKeyPress(key, action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT);
 
-        if (action != GLFW.GLFW_PRESS)
-            return;
-
-        if (key == GLFW.GLFW_KEY_F11) {
+        if (key == GLFW.GLFW_KEY_F11 && action == GLFW.GLFW_PRESS) {
             this.toggleFullscreen();
             return;
         }
 
         if (this.currentScreen == null) {
-            if (key == GLFW.GLFW_KEY_ESCAPE)
-                this.displayInGameMenu();
+            if (action == GLFW.GLFW_PRESS) {
+                if (key == GLFW.GLFW_KEY_ESCAPE)
+                    this.displayInGameMenu();
 
-            if (key == GLFW.GLFW_KEY_S && keyboard.isKeyDown(GLFW.GLFW_KEY_F3))
-                this.forceReload();
+                if (key == GLFW.GLFW_KEY_S && keyboard.isKeyDown(GLFW.GLFW_KEY_F3))
+                    this.forceReload();
 
-            if (key == GLFW.GLFW_KEY_F1)
-                this.gameSettings.hideGUI = !this.gameSettings.hideGUI;
+                if (key == GLFW.GLFW_KEY_F1)
+                    this.gameSettings.hideGUI = !this.gameSettings.hideGUI;
 
-            if (key == GLFW.GLFW_KEY_F3)
-                this.gameSettings.showDebugInfo = !this.gameSettings.showDebugInfo;
+                if (key == GLFW.GLFW_KEY_F3)
+                    this.gameSettings.showDebugInfo = !this.gameSettings.showDebugInfo;
 
-            if (key == GLFW.GLFW_KEY_F5)
-                this.gameSettings.thirdPersonView = !this.gameSettings.thirdPersonView;
+                if (key == GLFW.GLFW_KEY_F5)
+                    this.gameSettings.thirdPersonView = !this.gameSettings.thirdPersonView;
 
-            if (key == GLFW.GLFW_KEY_F8)
-                this.gameSettings.smoothCamera = !this.gameSettings.smoothCamera;
+                if (key == GLFW.GLFW_KEY_F8)
+                    this.gameSettings.smoothCamera = !this.gameSettings.smoothCamera;
 
-            if (key == this.gameSettings.keyBindInventory.keyCode)
-                this.displayGuiScreen(new GuiInventory(this.thePlayer));
+                if (key == this.gameSettings.keyBindInventory.keyCode)
+                    this.displayGuiScreen(new GuiInventory(this.thePlayer));
 
-            if (key == this.gameSettings.keyBindDrop.keyCode)
-                this.thePlayer.dropCurrentItem();
+                if (key == this.gameSettings.keyBindDrop.keyCode)
+                    this.thePlayer.dropCurrentItem();
 
-            if (this.isMultiplayerWorld() && key == this.gameSettings.keyBindChat.keyCode)
-                this.displayGuiScreen(new GuiChat());
+                if (this.isMultiplayerWorld() && key == this.gameSettings.keyBindChat.keyCode)
+                    this.displayGuiScreen(new GuiChat());
+
+                for (int i = 0; i < 9; ++i) {
+                    if (key == GLFW.GLFW_KEY_1 + i)
+                        this.thePlayer.inventory.currentItem = i;
+                }
+            }
         } else this.currentScreen.keyTyped(key, scancode, action, mods);
 
-        for (int i = 0; i < 9; ++i) {
-            if (key == GLFW.GLFW_KEY_1 + i)
-                this.thePlayer.inventory.currentItem = i;
-        }
+        if (action != GLFW.GLFW_PRESS)
+            return;
 
         if (key == this.gameSettings.keyBindToggleFog.keyCode) {
             this.gameSettings.setOptionValue(EnumOption.RENDER_DISTANCE,

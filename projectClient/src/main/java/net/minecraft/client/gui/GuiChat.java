@@ -31,6 +31,9 @@ public class GuiChat extends GuiScreen {
 
     @Override
     public void keyTyped(int keycode, int scancode, int action, int mods) {
+        if (action == GLFW.GLFW_RELEASE)
+            return;
+
         if (keycode == GLFW.GLFW_KEY_ESCAPE) {
             this.mc.displayGuiScreen(null);
             return;

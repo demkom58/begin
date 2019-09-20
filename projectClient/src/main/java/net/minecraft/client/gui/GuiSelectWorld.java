@@ -172,9 +172,9 @@ public class GuiSelectWorld extends GuiScreen {
 
         this.deleting = false;
         if (var1) {
-            ISaveFormat var3 = this.mc.getSaveLoader();
-            var3.flushCache();
-            var3.removeWorld(this.getSaveFileName(var2));
+            ISaveFormat format = this.mc.getSaveLoader();
+            format.flushCache();
+            format.removeWorld(this.getSaveFileName(var2));
             this.loadSaves();
         }
 

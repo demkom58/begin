@@ -54,13 +54,14 @@ public class GuiRenameWorld extends GuiScreen {
     public void charTyped(char ch, int key) {
         this.renameField.charTyped(ch, key);
         this.buttons.get(0).enabled = this.renameField.getText().trim().length() > 0;
-        if (ch == '\r') {
+
+        if (ch == '\r')
             this.actionPerformed(this.buttons.get(0));
-        }
     }
 
     @Override
     public void keyTyped(int keycode, int scancode, int action, int mods) {
+        this.renameField.keyTyped(keycode, scancode, action, mods);
     }
 
     protected void mouseClicked(int x, int y, int button) {

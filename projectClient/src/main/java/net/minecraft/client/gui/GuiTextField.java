@@ -46,7 +46,23 @@ public class GuiTextField extends Gui {
         if (ch == '\t')
             this.parentGuiScreen.selectNextField();
 
-        if (ch == GLFW.GLFW_KEY_U) {
+        if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(ch) >= 0
+                && (this.text.length() < this.maxStringLength || this.maxStringLength == 0)) {
+            this.text = this.text + ch;
+        }
+    }
+
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
+        if (!this.isEnabled || !this.isFocused)
+            return;
+
+        if (action == GLFW.GLFW_RELEASE)
+            return;
+
+        if (keycode == GLFW.GLFW_KEY_BACKSPACE && this.text.length() > 0)
+            this.text = this.text.substring(0, this.text.length() - 1);
+
+        if (keycode == GLFW.GLFW_KEY_U) {
             String var3 = GuiScreen.getClipboardString();
             if (var3 == null) {
                 var3 = "";
@@ -61,19 +77,6 @@ public class GuiTextField extends Gui {
                 this.text = this.text + var3.substring(0, var4);
             }
         }
-
-        if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(ch) >= 0
-                && (this.text.length() < this.maxStringLength || this.maxStringLength == 0)) {
-            this.text = this.text + ch;
-        }
-    }
-
-    public void keyTyped(int keycode, int scancode, int action, int mods) {
-        if (action == GLFW.GLFW_RELEASE)
-            return;
-
-        if (keycode == GLFW.GLFW_KEY_BACKSPACE && this.text.length() > 0)
-            this.text = this.text.substring(0, this.text.length() - 1);
     }
 
     public void mouseClicked(int x, int y, int var3) {
