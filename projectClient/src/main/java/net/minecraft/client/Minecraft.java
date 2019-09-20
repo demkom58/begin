@@ -70,13 +70,16 @@ public final class Minecraft implements Runnable {
     public CraftKeyboard keyboard;
 
     /**
-     * Game objects
+     * Game system objects
      */
     public GameSettings gameSettings;
     public MouseHelper mouseHelper;
     public MovingObjectPosition objectMouseOver = null;
     public SoundManager soundManager = new SoundManager();
 
+    /**
+     * Render objects
+     */
     public LoadingScreenRenderer loadingScreen = new LoadingScreenRenderer(this);
     public RenderGlobal renderGlobal;
     public EffectRenderer effectRenderer;
@@ -85,27 +88,45 @@ public final class Minecraft implements Runnable {
     public FontRenderer fontRenderer;
     private OpenGlCapsChecker glCapabilities;
 
+    /**
+     * Gui screen objects
+     */
     public GuiScreen currentScreen = null;
     public GuiAchievement guiAchievement = new GuiAchievement(this);
     public GuiIngame ingameGUI;
 
+    /**
+     * Game world objects
+     */
     public World theWorld;
     public EntityPlayerSP thePlayer;
     public EntityLiving renderViewEntity;
     public PlayerController playerController;
     public Session session = null;
 
+    /**
+     * Resource objects
+     */
     public StatFileWriter statFileWriter;
     public TexturePackList texturePackList;
     private ISaveFormat saveLoader;
     private ThreadDownloadResources downloadResourcesThread;
 
+    /**
+     * Dynamic textures
+     */
     private TextureWaterFX textureWaterFX = new TextureWaterFX();
     private TextureLavaFX textureLavaFX = new TextureLavaFX();
 
+    /**
+     * Render utility variables
+     */
     public long prevFrameTime = -1L;
     public long systemTime = System.currentTimeMillis();
 
+    /**
+     * Game state variables
+     */
     private boolean hasCrashed = false;
     public boolean isTakingScreenshot = false;
     public volatile boolean isGamePaused = false;
@@ -113,6 +134,9 @@ public final class Minecraft implements Runnable {
     public boolean inGameHasFocus = false;
     public boolean skipRenderWorld = false;
 
+    /**
+     * Counter variables
+     */
     private int ticksRan = 0;
     private int leftClickCounter = 0;
     private int mouseTicksRan = 0;
@@ -124,6 +148,9 @@ public final class Minecraft implements Runnable {
 
     private Timer timer = new Timer(20.0F);
 
+    /**
+     * Arguments of game
+     */
     private final int displayWidthArg, displayHeightArg;
     private final boolean fullscreenArg;
 
