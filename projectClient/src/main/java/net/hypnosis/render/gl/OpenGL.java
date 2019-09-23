@@ -1,10 +1,10 @@
-package net.hypnosis.lwjgl;
+package net.hypnosis.render.gl;
 
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 
-public class LWJGL {
+public class OpenGL {
 
     public static void init(@NotNull final Api api,
                             @NotNull final ContextApi contextApi,

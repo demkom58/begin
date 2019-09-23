@@ -1,6 +1,6 @@
 package net.hypnosis.monitor;
 
-import net.hypnosis.lwjgl.LWJGL;
+import net.hypnosis.render.gl.OpenGL;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.Callbacks;
@@ -64,7 +64,7 @@ public class Window implements AutoCloseable {
         moveToCenter();
 
         this.makeCurrentContext();
-        LWJGL.createCapabilities();
+        OpenGL.createCapabilities();
 
         setResizeCallback(resizeCallback);
         setPositionCallback(positionCallback);

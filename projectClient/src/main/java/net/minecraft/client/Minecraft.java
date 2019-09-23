@@ -2,10 +2,10 @@ package net.minecraft.client;
 
 import net.hypnosis.input.keyboard.Keyboard;
 import net.hypnosis.input.mouse.Mouse;
-import net.hypnosis.lwjgl.Api;
-import net.hypnosis.lwjgl.ContextApi;
-import net.hypnosis.lwjgl.LWJGL;
-import net.hypnosis.lwjgl.Profile;
+import net.hypnosis.render.gl.Api;
+import net.hypnosis.render.gl.ContextApi;
+import net.hypnosis.render.gl.OpenGL;
+import net.hypnosis.render.gl.Profile;
 import net.hypnosis.monitor.Window;
 import net.hypnosis.render.Tessellator;
 import net.minecraft.achievement.AchievementList;
@@ -165,7 +165,7 @@ public final class Minecraft implements Runnable {
     }
 
     public void startGame() {
-        LWJGL.init(Api.OPENGL, ContextApi.NATIVE, Profile.COMPAT, 3, 3, false);
+        OpenGL.init(Api.OPENGL, ContextApi.NATIVE, Profile.COMPAT, 3, 3, false);
         this.window = Window.builder()
                 .title("Minecraft Beta 1.7.3")
                 .width(displayWidthArg)

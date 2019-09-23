@@ -1,4 +1,4 @@
-package net.hypnosis.lwjgl;
+package net.hypnosis.render.gl;
 
 import org.lwjgl.glfw.GLFW;
 
