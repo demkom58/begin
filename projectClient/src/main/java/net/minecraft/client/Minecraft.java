@@ -23,7 +23,7 @@ import net.minecraft.entity.player.*;
 import net.minecraft.item.ItemRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetClientHandler;
-import net.minecraft.sound.SoundManager;
+import net.minecraft.client.sound.SoundManager;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
@@ -271,6 +271,9 @@ public final class Minecraft implements Runnable {
             return;
         }
 
+        if (this.currentScreen == null || this.currentScreen.inputable)
+            this.thePlayer.handleKeyPress(key, (action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT));
+
         if (this.currentScreen == null) {
             // Ingame control keys
             if (action == GLFW.GLFW_PRESS) {
@@ -309,9 +312,6 @@ public final class Minecraft implements Runnable {
         } else {
             this.currentScreen.keyTyped(key, scancode, action, mods);
         }
-
-        if (this.currentScreen == null || this.currentScreen.inputable)
-            this.thePlayer.handleKeyPress(key, (action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT));
 
         if (action != GLFW.GLFW_PRESS)
             return;

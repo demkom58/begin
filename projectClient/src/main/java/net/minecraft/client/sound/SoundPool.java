@@ -1,4 +1,4 @@
-package net.minecraft.sound;
+package net.minecraft.client.sound;
 
 import java.io.File;
 import java.net.MalformedURLException;
