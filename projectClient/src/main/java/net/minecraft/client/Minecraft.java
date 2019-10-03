@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import net.hypnosis.audio.SoundSystem;
 import net.hypnosis.input.keyboard.Keyboard;
 import net.hypnosis.input.mouse.Mouse;
 import net.hypnosis.render.gl.Api;
@@ -68,6 +69,7 @@ public final class Minecraft implements Runnable {
     public Window window;
     public Mouse mouse;
     public CraftKeyboard keyboard;
+    public SoundSystem soundSystem;
 
     /**
      * Game system objects
@@ -154,8 +156,8 @@ public final class Minecraft implements Runnable {
     private final int displayWidthArg, displayHeightArg;
     private final boolean fullscreenArg;
 
-    public Minecraft(int displayWidthArg, int displayHeight, boolean fullscreen) {
-        this.displayWidthArg = displayWidthArg;
+    public Minecraft(int displayWidth, int displayHeight, boolean fullscreen) {
+        this.displayWidthArg = displayWidth;
         this.displayHeightArg = displayHeight;
         this.fullscreenArg = fullscreen;
 
@@ -174,6 +176,7 @@ public final class Minecraft implements Runnable {
                 .onResize(this::resize)
                 .build();
         this.window.show();
+        this.soundSystem = new SoundSystem();
 
         this.mouse = new Mouse(window);
         this.mouse.setScrollCallback(this::onScroll);
@@ -215,7 +218,7 @@ public final class Minecraft implements Runnable {
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         this.window.setPhase("Startup");
         this.glCapabilities = new OpenGlCapsChecker();
-        this.soundManager.loadSoundSettings(this.gameSettings);
+        this.soundManager.setSettings(this.gameSettings);
         this.renderEngine.registerTextureFX(this.textureLavaFX);
         this.renderEngine.registerTextureFX(this.textureWaterFX);
         this.renderEngine.registerTextureFX(new TexturePortalFX());
@@ -232,6 +235,7 @@ public final class Minecraft implements Runnable {
         try {
             this.downloadResourcesThread = new ThreadDownloadResources(this.mcDataDir, this);
             this.downloadResourcesThread.start();
+            this.downloadResourcesThread.join();
         } catch (Exception ignored) {
         }
 
@@ -555,6 +559,7 @@ public final class Minecraft implements Runnable {
 
             while (this.running) {
                 try {
+                    this.soundManager.tick();
                     AxisAlignedBB.clearBoundingBoxPool();
                     Vec3D.initialize();
 
@@ -586,7 +591,7 @@ public final class Minecraft implements Runnable {
                     long totalTick = System.nanoTime() - tickStart;
                     this.window.setPhase("Pre render");
                     RenderBlocks.fancyGrass = this.gameSettings.fancyGraphics;
-                    this.soundManager.func_338_a(this.thePlayer, this.timer.renderPartialTicks);
+                    this.soundManager.setListenerData(this.thePlayer, this.timer.renderPartialTicks);
                     GL11.glEnable(GL11.GL_TEXTURE_2D);
 
                     if (this.theWorld != null)
@@ -1003,7 +1008,7 @@ public final class Minecraft implements Runnable {
     private void forceReload() {
         System.out.println("FORCING RELOAD!");
         this.soundManager = new SoundManager();
-        this.soundManager.loadSoundSettings(this.gameSettings);
+        this.soundManager.setSettings(this.gameSettings);
         this.downloadResourcesThread.reloadResources();
     }
 
@@ -1319,7 +1324,7 @@ public final class Minecraft implements Runnable {
 
     public static File getMinecraftDir() {
         if (minecraftDir == null)
-            minecraftDir = EnumOS.getAppDir("minecraft");
+            minecraftDir = new File("."); //EnumOS.getAppDir("minecraft")
 
         return minecraftDir;
     }

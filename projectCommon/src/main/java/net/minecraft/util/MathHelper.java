@@ -9,16 +9,16 @@ public class MathHelper {
         }
     }
 
-    public static float sin(float var0) {
-        return SIN_TABLE[(int) (var0 * 10430.378F) & '\uffff'];
+    public static float sin(float radians) {
+        return SIN_TABLE[(int) (radians * 10430.378F) & '\uffff'];
     }
 
-    public static float cos(float var0) {
-        return SIN_TABLE[(int) (var0 * 10430.378F + 16384.0F) & '\uffff'];
+    public static float cos(float radians) {
+        return SIN_TABLE[(int) (radians * 10430.378F + 16384.0F) & '\uffff'];
     }
 
     public static float sqrt(float var0) {
-        return (float) Math.sqrt((double) var0);
+        return (float) Math.sqrt(var0);
     }
 
     public static float sqrt(double var0) {

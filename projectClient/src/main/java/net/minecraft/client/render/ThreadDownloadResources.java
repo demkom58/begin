@@ -74,6 +74,7 @@ public class ThreadDownloadResources extends Thread {
                 this.mc.installResource(resource + files[i].getName(), files[i]);
             } catch (Exception e) {
                 System.out.println("Failed to add " + resource + files[i].getName());
+                e.printStackTrace();
             }
         }
 

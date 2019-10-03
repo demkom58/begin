@@ -1,48 +1,123 @@
 package net.minecraft.client.sound;
 
-import java.io.File;
-import java.net.MalformedURLException;
+import net.hypnosis.audio.Sound;
+import net.hypnosis.audio.SoundSystem;
+import net.hypnosis.audio.Source;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.*;
 
 public class SoundPool {
-    public int numberOfSoundPoolEntries = 0;
-    public boolean field_1657_b = true;
-    private Random rand = new Random();
-    private Map nameToSoundPoolEntriesMapping = new HashMap();
-    private List allSoundPoolEntries = new ArrayList();
+    private final Random rand = new Random();
 
-    public SoundPoolEntry addSound(String var1, File var2) {
-        try {
-            String var3 = var1;
-            var1 = var1.substring(0, var1.indexOf("."));
-            if (this.field_1657_b) {
-                while (Character.isDigit(var1.charAt(var1.length() - 1))) {
-                    var1 = var1.substring(0, var1.length() - 1);
-                }
-            }
+    private final Map<String, List<SoundPoolEntry>> categoryEntryMap = new HashMap<>();
+    private final List<SoundPoolEntry> entries = new ArrayList<>();
+    private final Map<String, Source> playing = new HashMap<>();
 
-            var1 = var1.replaceAll("/", ".");
-            if (!this.nameToSoundPoolEntriesMapping.containsKey(var1)) {
-                this.nameToSoundPoolEntriesMapping.put(var1, new ArrayList());
-            }
+    private final SoundSystem soundSystem;
 
-            SoundPoolEntry var4 = new SoundPoolEntry(var3, var2.toURI().toURL());
-            ((List) this.nameToSoundPoolEntriesMapping.get(var1)).add(var4);
-            this.allSoundPoolEntries.add(var4);
-            ++this.numberOfSoundPoolEntries;
-            return var4;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+    public boolean categoryNameWithoutDigits = true;
+    private int registeredSize = 0;
+    private int counter = 0;
+
+    public SoundPool(@NotNull final SoundSystem soundSystem) {
+        this.soundSystem = soundSystem;
+    }
+
+    public @NotNull SoundPoolEntry addSound(@NotNull final String soundName,
+                                            @NotNull final Sound sound) {
+        String validCategory = soundName.substring(0, soundName.indexOf("."));
+        boolean numberString = validCategory.chars().allMatch(Character::isDigit);
+
+        if (this.categoryNameWithoutDigits && !numberString)
+            while (Character.isDigit(validCategory.charAt(validCategory.length() - 1)))
+                validCategory = validCategory.substring(0, validCategory.length() - 1);
+
+        validCategory = validCategory.replaceAll("/", ".");
+
+        this.categoryEntryMap.putIfAbsent(validCategory, new ArrayList<>());
+        SoundPoolEntry entry = new SoundPoolEntry(soundName, sound);
+        this.categoryEntryMap.get(validCategory).add(entry);
+
+        this.entries.add(entry);
+        ++this.registeredSize;
+
+        return entry;
+    }
+
+    public @Nullable SoundPoolEntry getRandomSound(@Nullable final String category) {
+        List<SoundPoolEntry> entries = this.categoryEntryMap.get(category);
+        return entries == null
+                ? null
+                : entries.get(this.rand.nextInt(entries.size()));
+    }
+
+    public @Nullable SoundPoolEntry getRandomSound() {
+        return this.entries.size() == 0
+                ? null
+                : this.entries.get(this.rand.nextInt(this.entries.size()));
+    }
+
+    public int getSoundsSize() {
+        return registeredSize;
+    }
+
+    public @NotNull String play(@NotNull final Source source) {
+        String name = source.getSound().getName() + "#" + (counter++);
+        this.play(name, source);
+        return name;
+    }
+
+    public void play(@NotNull final String name, @NotNull final Source source) {
+        final Source put = this.playing.put(name, source);
+
+        if (put != null)
+            put.dispose();
+
+        this.soundSystem.play(source);
+    }
+
+    public void tick() {
+        this.playing.entrySet().removeIf(entry -> {
+            Source source = entry.getValue();
+
+            if (source.isPlaying())
+                return false;
+
+            source.dispose();
+            return true;
+        });
+    }
+
+    public boolean isPlaying(@NotNull final String name) {
+        Source source = this.playing.get(name);
+        if (source == null)
+            return false;
+
+        return source.isPlaying();
+    }
+
+    public boolean stop(@NotNull final String name) {
+        Source source = playing.get(name);
+        if (source == null)
+            return false;
+
+        if (!source.isPlaying()) {
+            playing.remove(name);
+            return false;
         }
+
+        playing.remove(name);
+        source.dispose();
+        return true;
     }
 
-    public SoundPoolEntry getRandomSoundFromSoundPool(String var1) {
-        List var2 = (List) this.nameToSoundPoolEntriesMapping.get(var1);
-        return var2 == null ? null : (SoundPoolEntry) var2.get(this.rand.nextInt(var2.size()));
+    public @Nullable Source getPlaying(@NotNull final String name) {
+        return playing.get(name);
     }
 
-    public SoundPoolEntry getRandomSound() {
-        return this.allSoundPoolEntries.size() == 0 ? null : (SoundPoolEntry) this.allSoundPoolEntries.get(this.rand.nextInt(this.allSoundPoolEntries.size()));
+    public @NotNull List<SoundPoolEntry> getSoundEntries() {
+        return Collections.unmodifiableList(entries);
     }
 }
