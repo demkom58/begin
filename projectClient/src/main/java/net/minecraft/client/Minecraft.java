@@ -1324,7 +1324,7 @@ public final class Minecraft implements Runnable {
 
     public static File getMinecraftDir() {
         if (minecraftDir == null)
-            minecraftDir = new File("."); //EnumOS.getAppDir("minecraft")
+            minecraftDir = new File("."); //TODO: set again EnumOS.getAppDir("minecraft") and make it customizable
 
         return minecraftDir;
     }
