@@ -57,7 +57,7 @@ public class SoundManager {
             bgMusic.setVolume(this.settings.musicVolume);
     }
 
-    public void closeMinecraft() {
+    public void dispose() {
         if (!loaded)
             return;
 

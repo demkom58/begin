@@ -1,6 +1,5 @@
 package net.minecraft.client;
 
-import net.hypnosis.audio.SoundSystem;
 import net.hypnosis.input.KeySource;
 import net.hypnosis.input.mouse.Mouse;
 import net.hypnosis.monitor.Window;
@@ -69,7 +68,6 @@ public final class Minecraft implements Runnable {
     public Window window;
     public Mouse mouse;
     public CraftKeyboard keyboard;
-    public SoundSystem soundSystem;
 
     /**
      * Game system objects
@@ -176,7 +174,6 @@ public final class Minecraft implements Runnable {
                 .onResize(this::resize)
                 .build();
         this.window.show();
-        this.soundSystem = new SoundSystem();
 
         this.mouse = new Mouse(window);
         this.mouse.setScrollCallback(this::onScroll);
@@ -536,14 +533,16 @@ public final class Minecraft implements Runnable {
                 GLAllocation.deleteTexturesAndDisplayLists();
             } catch (Throwable ignored) {
             }
-
-            this.soundManager.closeMinecraft();
         } finally {
+            try {
+                this.soundManager.dispose();
+            } catch (Throwable ignored) {
+            }
+
             window.destroy();
             if (!this.hasCrashed) {
                 System.exit(0);
             }
-
         }
 
         System.gc();
@@ -574,9 +573,9 @@ public final class Minecraft implements Runnable {
                         this.shutdown();
 
                     if (this.isGamePaused && this.theWorld != null) {
-                        float var4 = this.timer.renderPartialTicks;
+                        float partialTicks = this.timer.renderPartialTicks;
                         this.timer.updateTimer();
-                        this.timer.renderPartialTicks = var4;
+                        this.timer.renderPartialTicks = partialTicks;
                     } else {
                         this.timer.updateTimer();
                     }
@@ -1193,7 +1192,7 @@ public final class Minecraft implements Runnable {
                 this.loadingScreen.setLoadingProgress(progress++ / total * 100);
                 this.theWorld.getBlockId(chunkCoord.x + x, 64, chunkCoord.z + z);
 
-                while (this.theWorld.updatingLighting());
+                while (this.theWorld.updatingLighting()) ;
             }
         }
 

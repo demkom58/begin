@@ -3249,17 +3249,22 @@ public class RenderBlocks {
             float r = (float) (var5 >> 16 & 255) / 255.0F;
             float g = (float) (var5 >> 8 & 255) / 255.0F;
             float b = (float) (var5 & 255) / 255.0F;
-            GL11.glColor4f(r * colorMul, g * colorMul, b * colorMul, 1.0F);
+            GL11.glColor4f(
+                    r * colorMul,
+                    g * colorMul,
+                    b * colorMul,
+                    1.0F
+            );
         }
 
-        int var9 = block.getRenderType();
-        if (var9 != 0 && var9 != 16) {
-            if (var9 == 1) {
+        int renderType = block.getRenderType();
+        if (renderType != 0 && renderType != 16) {
+            if (renderType == 1) {
                 tess.startDrawingQuads();
                 tess.setNormal(0.0F, -1.0F, 0.0F);
                 this.renderCrossedSquares(block, var2, -0.5D, -0.5D, -0.5D);
                 tess.draw();
-            } else if (var9 == 13) {
+            } else if (renderType == 13) {
                 block.setBlockBoundsForItemRender();
                 GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
                 float var10 = 0.0625F;
@@ -3296,17 +3301,17 @@ public class RenderBlocks {
                 tess.setTranslationF(var10, 0.0F, 0.0F);
                 tess.draw();
                 GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-            } else if (var9 == 6) {
+            } else if (renderType == 6) {
                 tess.startDrawingQuads();
                 tess.setNormal(0.0F, -1.0F, 0.0F);
                 this.func_1245_b(block, var2, -0.5D, -0.5D, -0.5D);
                 tess.draw();
-            } else if (var9 == 2) {
+            } else if (renderType == 2) {
                 tess.startDrawingQuads();
                 tess.setNormal(0.0F, -1.0F, 0.0F);
                 this.renderTorchAtAngle(block, -0.5D, -0.5D, -0.5D, 0.0D, 0.0D);
                 tess.draw();
-            } else if (var9 == 10) {
+            } else if (renderType == 10) {
                 for (int var11 = 0; var11 < 2; ++var11) {
                     if (var11 == 0) {
                         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.5F);
@@ -3343,7 +3348,7 @@ public class RenderBlocks {
                     tess.draw();
                     GL11.glTranslatef(0.5F, 0.5F, 0.5F);
                 }
-            } else if (var9 == 11) {
+            } else if (renderType == 11) {
                 for (int var12 = 0; var12 < 4; ++var12) {
                     float var13 = 0.125F;
                     if (var12 == 0) {
@@ -3394,7 +3399,7 @@ public class RenderBlocks {
                 block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
             }
         } else {
-            if (var9 == 16) {
+            if (renderType == 16) {
                 var2 = 1;
             }
 
