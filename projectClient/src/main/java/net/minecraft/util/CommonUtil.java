@@ -4,13 +4,13 @@ public class CommonUtil {
     public static String getDirectionName(int id) {
         switch (id) {
             case 0:
-                return "South";
-            case 1:
                 return "West";
-            case 2:
+            case 1:
                 return "North";
-            case 3:
+            case 2:
                 return "East";
+            case 3:
+                return "South";
             default:
                 return "Unknown Direction";
         }
