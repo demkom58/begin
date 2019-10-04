@@ -20,6 +20,9 @@ public class GuiChat extends GuiScreen {
 
     @Override
     public void charTyped(char ch, int key) {
+        if (updateCounter == 0)
+            return;
+
         if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(ch) >= 0 && this.message.length() < 100) {
             this.message = this.message + ch;
         }
