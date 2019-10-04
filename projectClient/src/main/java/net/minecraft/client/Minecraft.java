@@ -213,9 +213,9 @@ public final class Minecraft implements Runnable {
         GL11.glShadeModel(GL11.GL_SMOOTH);
         GL11.glClearDepth(1.0D);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glDepthFunc(515);
+        GL11.glDepthFunc(GL11.GL_LEQUAL);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
-        GL11.glAlphaFunc(516, 0.1F);
+        GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
         GL11.glCullFace(GL11.GL_BACK);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
@@ -454,7 +454,7 @@ public final class Minecraft implements Runnable {
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_FOG);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
-        GL11.glAlphaFunc(516, 0.1F);
+        GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
     }
 
     public void drawTess(int x, int y, int u, int v, int var5, int var6) {
@@ -707,7 +707,7 @@ public final class Minecraft implements Runnable {
         GL11.glLineWidth(1.0F);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         Tessellator tess = Tessellator.INSTANCE;
-        tess.startDrawing(7);
+        tess.startDrawing(GL11.GL_QUADS);
         int var8 = (int) (var3 / 200000L);
         tess.setColorOpaque_I(536870912);
         tess.addVertex(0.0D, displayHeight - var8, 0.0D);
@@ -727,14 +727,14 @@ public final class Minecraft implements Runnable {
         }
 
         int var20 = (int) (var9 / 200000L / (long) frameTimes.length);
-        tess.startDrawing(7);
+        tess.startDrawing(GL11.GL_QUADS);
         tess.setColorOpaque_I(541065216);
         tess.addVertex(0.0D, displayHeight - var20, 0.0D);
         tess.addVertex(0.0D, displayHeight, 0.0D);
         tess.addVertex(frameTimes.length, displayHeight, 0.0D);
         tess.addVertex(frameTimes.length, displayHeight - var20, 0.0D);
         tess.draw();
-        tess.startDrawing(1);
+        tess.startDrawing(GL11.GL_LINES);
 
         for (int i = 0; i < frameTimes.length; ++i) {
             int var13 = (i - numRecordedFrameTimes & frameTimes.length - 1) * 255 / frameTimes.length;

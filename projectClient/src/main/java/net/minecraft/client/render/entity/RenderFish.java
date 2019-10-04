@@ -68,7 +68,7 @@ public class RenderFish extends Render {
             double var44 = (float) (var32 - var38);
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glDisable(GL11.GL_LIGHTING);
-            var12.startDrawing(3);
+            var12.startDrawing(GL11.GL_LINE_STRIP);
             var12.setColorOpaque_I(0);
             byte var46 = 16;
 

@@ -353,7 +353,7 @@ public class ItemRenderer {
         float var3 = this.mc.thePlayer.getEntityBrightness(var1);
         GL11.glColor4f(var3, var3, var3, 0.5F);
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glPushMatrix();
         float var4 = 4.0F;
         float var5 = -1.0F;
@@ -378,7 +378,7 @@ public class ItemRenderer {
         Tessellator var2 = Tessellator.INSTANCE;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.9F);
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         float var3 = 1.0F;
 
         for (int var4 = 0; var4 < 2; ++var4) {

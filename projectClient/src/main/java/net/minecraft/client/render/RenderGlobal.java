@@ -632,7 +632,7 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glDisable(GL11.GL_FOG);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.disableStandardItemLighting();
         float[] var18 = this.worldObj.worldProvider.calcSunriseSunsetColors(this.worldObj.getCelestialAngle(var1), var1);
         if (var18 != null) {
@@ -654,7 +654,7 @@ public class RenderGlobal implements IWorldAccess {
                 var11 = var14;
             }
 
-            tess.startDrawing(6);
+            tess.startDrawing(GL11.GL_TRIANGLE_FAN);
             tess.setColorRGBA_F(var9, var10, var11, var18[3]);
             tess.addVertex(0.0D, 100.0D, 0.0D);
             byte var26 = 16;
@@ -673,7 +673,7 @@ public class RenderGlobal implements IWorldAccess {
         }
 
         GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glBlendFunc(770, 1);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         GL11.glPushMatrix();
         float var19 = 1.0F - this.worldObj.getRainStrength(var1);
         float var21 = 0.0F;
@@ -738,7 +738,7 @@ public class RenderGlobal implements IWorldAccess {
             Tessellator tess = Tessellator.INSTANCE;
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/environment/clouds.png"));
             GL11.glEnable(GL11.GL_BLEND);
-            GL11.glBlendFunc(770, 771);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             Vec3D vec = this.worldObj.func_628_d(var1);
 
             float xCoord = (float) vec.xCoord;
@@ -801,7 +801,7 @@ public class RenderGlobal implements IWorldAccess {
         var8 = var8 - (double) (var12 * GL11.GL_EXP);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/environment/clouds.png"));
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         Vec3D vec = this.worldObj.func_628_d(var1);
         float xCoord = (float) vec.xCoord;
         float yCoord = (float) vec.yCoord;
@@ -1035,11 +1035,11 @@ public class RenderGlobal implements IWorldAccess {
         Tessellator tessellator = Tessellator.INSTANCE;
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
-        GL11.glBlendFunc(770, 1);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, (MathHelper.sin((float) System.currentTimeMillis() / 100.0F) * 0.2F + 0.4F) * 0.5F);
         if (var3 == 0) {
             if (this.damagePartialTime > 0.0F) {
-                GL11.glBlendFunc(774, 768);
+                GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_SRC_COLOR);
                 int textureId = this.renderEngine.getTexture("/terrain.png");
                 GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureId);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
@@ -1071,7 +1071,7 @@ public class RenderGlobal implements IWorldAccess {
                 GL11.glPopMatrix();
             }
         } else if (stack != null) {
-            GL11.glBlendFunc(770, 771);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             float var16 = MathHelper.sin((float) System.currentTimeMillis() / 100.0F) * 0.2F + 0.8F;
             GL11.glColor4f(var16, var16, var16, MathHelper.sin((float) System.currentTimeMillis() / 200.0F) * 0.2F + 0.5F);
             int var17 = this.renderEngine.getTexture("/terrain.png");
@@ -1111,7 +1111,7 @@ public class RenderGlobal implements IWorldAccess {
     public void drawSelectionBox(EntityPlayer player, MovingObjectPosition pos, int var3, ItemStack stack, float var5) {
         if (var3 == 0 && pos.typeOfHit == EnumMovingObjectType.TILE) {
             GL11.glEnable(GL11.GL_BLEND);
-            GL11.glBlendFunc(770, 771);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.4F);
             GL11.glLineWidth(2.0F);
             GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -1138,21 +1138,21 @@ public class RenderGlobal implements IWorldAccess {
 
     private void drawOutlinedBoundingBox(AxisAlignedBB axis) {
         Tessellator tess = Tessellator.INSTANCE;
-        tess.startDrawing(3);
+        tess.startDrawing(GL11.GL_LINE_STRIP);
         tess.addVertex(axis.minX, axis.minY, axis.minZ);
         tess.addVertex(axis.maxX, axis.minY, axis.minZ);
         tess.addVertex(axis.maxX, axis.minY, axis.maxZ);
         tess.addVertex(axis.minX, axis.minY, axis.maxZ);
         tess.addVertex(axis.minX, axis.minY, axis.minZ);
         tess.draw();
-        tess.startDrawing(3);
+        tess.startDrawing(GL11.GL_LINE_STRIP);
         tess.addVertex(axis.minX, axis.maxY, axis.minZ);
         tess.addVertex(axis.maxX, axis.maxY, axis.minZ);
         tess.addVertex(axis.maxX, axis.maxY, axis.maxZ);
         tess.addVertex(axis.minX, axis.maxY, axis.maxZ);
         tess.addVertex(axis.minX, axis.maxY, axis.minZ);
         tess.draw();
-        tess.startDrawing(1);
+        tess.startDrawing(GL11.GL_LINES);
         tess.addVertex(axis.minX, axis.minY, axis.minZ);
         tess.addVertex(axis.minX, axis.maxY, axis.minZ);
         tess.addVertex(axis.maxX, axis.minY, axis.minZ);

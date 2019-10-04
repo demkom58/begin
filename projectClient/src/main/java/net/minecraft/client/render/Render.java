@@ -170,7 +170,7 @@ public abstract class Render {
 
     private void renderShadow(Entity var1, double var2, double var4, double var6, float var8, float var9) {
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderEngine var10 = this.renderManager.renderEngine;
         var10.bindTexture(var10.getTexture("%clamp%/misc/shadow.png"));
         World var11 = this.getWorldFromRenderManager();

@@ -18,7 +18,7 @@ public class RenderSlime extends RenderLiving {
             this.setRenderPassModel(this.scaleAmount);
             GL11.glEnable(GL11.GL_NORMALIZE);
             GL11.glEnable(GL11.GL_BLEND);
-            GL11.glBlendFunc(770, 771);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             return true;
         }
 

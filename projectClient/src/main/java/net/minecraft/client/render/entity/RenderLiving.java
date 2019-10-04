@@ -75,7 +75,7 @@ public class RenderLiving extends Render {
                 GL11.glDisable(GL11.GL_TEXTURE_2D);
                 GL11.glDisable(GL11.GL_ALPHA_TEST);
                 GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(770, 771);
+                GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 GL11.glDepthFunc(514);
                 if (var1.hurtTime > 0 || var1.deathTime > 0) {
                     GL11.glColor4f(var25, 0.0F, 0.0F, 0.4F);
@@ -192,7 +192,7 @@ public class RenderLiving extends Render {
             GL11.glDepthMask(false);
             GL11.glDisable(GL11.GL_DEPTH_TEST);
             GL11.glEnable(GL11.GL_BLEND);
-            GL11.glBlendFunc(770, 771);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             Tessellator var14 = Tessellator.INSTANCE;
             byte var15 = 0;
             if (var2.equals("deadmau5")) {

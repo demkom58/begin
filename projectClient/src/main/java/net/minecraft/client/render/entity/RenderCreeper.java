@@ -70,7 +70,7 @@ public class RenderCreeper extends RenderLiving {
                 float var7 = 0.5F;
                 GL11.glColor4f(var7, var7, var7, 1.0F);
                 GL11.glDisable(GL11.GL_LIGHTING);
-                GL11.glBlendFunc(1, 1);
+                GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
                 return true;
             }
 

@@ -197,7 +197,7 @@ public class Tessellator {
             }
 
             GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-            if (this.drawMode == 7 && convertQuadsToTriangles) {
+            if (this.drawMode == GL11.GL_QUADS && convertQuadsToTriangles) {
                 GL11.glDrawArrays(4, 0, this.vertexCount);
             } else {
                 GL11.glDrawArrays(this.drawMode, 0, this.vertexCount);
@@ -234,9 +234,16 @@ public class Tessellator {
     }
 
     public void startDrawingQuads() {
-        this.startDrawing(7);
+        this.startDrawing(GL11.GL_QUADS);
     }
 
+    /**
+     * Starts draw
+     * @param drawMode Specifies what kind of primitives to render. Symbolic constants
+     *                  GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES, GL_LINE_STRIP_ADJACENCY,
+     *                  GL_LINES_ADJACENCY, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLES,
+     *                  GL_TRIANGLE_STRIP_ADJACENCY, GL_TRIANGLES_ADJACENCY and GL_PATCHES are accepted.
+     */
     public void startDrawing(int drawMode) {
         if (this.isDrawing)
             throw new IllegalStateException("Already tesselating!");
@@ -315,7 +322,7 @@ public class Tessellator {
 
     public void addVertex(double x, double y, double z) {
         ++this.addedVertices;
-        if (this.drawMode == 7 && convertQuadsToTriangles && this.addedVertices % 4 == 0) {
+        if (this.drawMode == GL11.GL_QUADS && convertQuadsToTriangles && this.addedVertices % 4 == 0) {
             for (int i = 0; i < 2; ++i) {
                 int of = 8 * (3 - i);
                 if (this.hasTexture) {

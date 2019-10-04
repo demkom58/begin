@@ -23,7 +23,7 @@ public class RenderSpider extends RenderLiving {
         float var4 = (1.0F - var1.getEntityBrightness(1.0F)) * 0.5F;
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, var4);
         return true;
     }

@@ -35,7 +35,7 @@ public class EntityFootStepFX extends EntityFX {
         float var14 = this.worldObj.getLightBrightness(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ));
         this.field_27019_p.bindTexture(this.field_27019_p.getTexture("/misc/footprint.png"));
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         var1.startDrawingQuads();
         var1.setColorRGBA_F(var14, var14, var14, var9);
         var1.addVertexWithUV(var11 - var10, var12, var13 + var10, 0.0D, 1.0D);

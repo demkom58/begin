@@ -68,7 +68,7 @@ public class GuiIngame extends Gui {
         this.drawTexturedModalRect(var6 / 2 - 91 - 1 + var11.currentItem * 20, var7 - 22 - 1, 0, 22, 24, 22);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/gui/icons.png"));
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(775, 769);
+        GL11.glBlendFunc(GL11.GL_ONE_MINUS_DST_COLOR, GL11.GL_ONE_MINUS_SRC_COLOR);
         this.drawTexturedModalRect(var6 / 2 - 7, var7 / 2 - 7, 0, 0, 16, 16);
         GL11.glDisable(GL11.GL_BLEND);
         boolean var12 = this.mc.thePlayer.heartsLife / 3 % 2 == 1;
@@ -216,7 +216,7 @@ public class GuiIngame extends Gui {
                 GL11.glPushMatrix();
                 GL11.glTranslatef((float) (var6 / 2), (float) (var7 - 48), 0.0F);
                 GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(770, 771);
+                GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 int var38 = 0xFFFFFF;
                 if (this.field_22065_l) {
                     var38 = Color.HSBtoRGB(var27 / 50.0F, 0.7F, 0.6F) & 0xFFFFFF;
@@ -236,7 +236,7 @@ public class GuiIngame extends Gui {
         }
 
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0F, (float) (var7 - 48), 0.0F);
@@ -279,7 +279,7 @@ public class GuiIngame extends Gui {
     private void renderPumpkinBlur(int var1, int var2) {
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("%blur%/misc/pumpkinblur.png"));
@@ -309,7 +309,7 @@ public class GuiIngame extends Gui {
         this.prevVignetteBrightness = (float) ((double) this.prevVignetteBrightness + (double) (var1 - this.prevVignetteBrightness) * 0.01D);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
-        GL11.glBlendFunc(0, 769);
+        GL11.glBlendFunc(GL11.GL_ZERO, GL11.GL_ONE_MINUS_SRC_COLOR);
         GL11.glColor4f(this.prevVignetteBrightness, this.prevVignetteBrightness, this.prevVignetteBrightness, 1.0F);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("%blur%/misc/vignette.png"));
         Tessellator tess = Tessellator.INSTANCE;
@@ -322,7 +322,7 @@ public class GuiIngame extends Gui {
         GL11.glDepthMask(true);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
     }
 
     private void renderPortalOverlay(float var1, int var2, int var3) {
@@ -335,7 +335,7 @@ public class GuiIngame extends Gui {
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, var1);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/terrain.png"));
         float var4 = (float) (Block.PORTAL.blockIndexInTexture % 16) / 16.0F;
