@@ -2285,7 +2285,7 @@ public class RenderBlocks {
     public boolean renderStandardBlockWithColorMultiplier(Block block, int x, int y, int z, float r, float g, float b) {
         this.enableAO = false;
         Tessellator tess = Tessellator.INSTANCE;
-        boolean var9 = false;
+        boolean done = false;
         float var10 = 0.5F;
         float var11 = 1.0F;
         float var12 = 0.8F;
@@ -2318,92 +2318,92 @@ public class RenderBlocks {
 
         float blockBrightness = block.getBlockBrightness(this.blockAccess, x, y, z);
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y - 1, z, 0)) {
-            float var27 = block.getBlockBrightness(this.blockAccess, x, y - 1, z);
-            tess.setColorOpaque_F(var17 * var27, var20 * var27, var23 * var27);
+            float brightness = block.getBlockBrightness(this.blockAccess, x, y - 1, z);
+            tess.setColorOpaque_F(var17 * brightness, var20 * brightness, var23 * brightness);
             this.renderBottomFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 0));
-            var9 = true;
+            done = true;
         }
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y + 1, z, 1)) {
-            float var29 = block.getBlockBrightness(this.blockAccess, x, y + 1, z);
+            float brightness = block.getBlockBrightness(this.blockAccess, x, y + 1, z);
             if (block.maxY != 1.0D && !block.blockMaterial.getIsLiquid()) {
-                var29 = blockBrightness;
+                brightness = blockBrightness;
             }
 
-            tess.setColorOpaque_F(var14 * var29, var15 * var29, var16 * var29);
+            tess.setColorOpaque_F(var14 * brightness, var15 * brightness, var16 * brightness);
             this.renderTopFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 1));
-            var9 = true;
+            done = true;
         }
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y, z - 1, 2)) {
-            float var30 = block.getBlockBrightness(this.blockAccess, x, y, z - 1);
+            float brightness = block.getBlockBrightness(this.blockAccess, x, y, z - 1);
             if (block.minZ > 0.0D) {
-                var30 = blockBrightness;
+                brightness = blockBrightness;
             }
 
-            tess.setColorOpaque_F(var18 * var30, var21 * var30, var24 * var30);
-            int var28 = block.getBlockTexture(this.blockAccess, x, y, z, 2);
-            this.renderEastFace(block, x, y, z, var28);
-            if (fancyGrass && var28 == 3 && this.overrideBlockTexture < 0) {
-                tess.setColorOpaque_F(var18 * var30 * r, var21 * var30 * g, var24 * var30 * b);
+            tess.setColorOpaque_F(var18 * brightness, var21 * brightness, var24 * brightness);
+            int texture = block.getBlockTexture(this.blockAccess, x, y, z, 2);
+            this.renderEastFace(block, x, y, z, texture);
+            if (fancyGrass && texture == 3 && this.overrideBlockTexture < 0) {
+                tess.setColorOpaque_F(var18 * brightness * r, var21 * brightness * g, var24 * brightness * b);
                 this.renderEastFace(block, x, y, z, 38);
             }
 
-            var9 = true;
+            done = true;
         }
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y, z + 1, 3)) {
-            float var31 = block.getBlockBrightness(this.blockAccess, x, y, z + 1);
+            float brightness = block.getBlockBrightness(this.blockAccess, x, y, z + 1);
             if (block.maxZ < 1.0D) {
-                var31 = blockBrightness;
+                brightness = blockBrightness;
             }
 
-            tess.setColorOpaque_F(var18 * var31, var21 * var31, var24 * var31);
-            int var34 = block.getBlockTexture(this.blockAccess, x, y, z, 3);
-            this.renderWestFace(block, x, y, z, var34);
-            if (fancyGrass && var34 == 3 && this.overrideBlockTexture < 0) {
-                tess.setColorOpaque_F(var18 * var31 * r, var21 * var31 * g, var24 * var31 * b);
+            tess.setColorOpaque_F(var18 * brightness, var21 * brightness, var24 * brightness);
+            int texture = block.getBlockTexture(this.blockAccess, x, y, z, 3);
+            this.renderWestFace(block, x, y, z, texture);
+            if (fancyGrass && texture == 3 && this.overrideBlockTexture < 0) {
+                tess.setColorOpaque_F(var18 * brightness * r, var21 * brightness * g, var24 * brightness * b);
                 this.renderWestFace(block, x, y, z, 38);
             }
 
-            var9 = true;
+            done = true;
         }
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x - 1, y, z, 4)) {
-            float var32 = block.getBlockBrightness(this.blockAccess, x - 1, y, z);
+            float brightness = block.getBlockBrightness(this.blockAccess, x - 1, y, z);
             if (block.minX > 0.0D) {
-                var32 = blockBrightness;
+                brightness = blockBrightness;
             }
 
-            tess.setColorOpaque_F(var19 * var32, var22 * var32, var25 * var32);
-            int var35 = block.getBlockTexture(this.blockAccess, x, y, z, 4);
-            this.renderNorthFace(block, x, y, z, var35);
-            if (fancyGrass && var35 == 3 && this.overrideBlockTexture < 0) {
-                tess.setColorOpaque_F(var19 * var32 * r, var22 * var32 * g, var25 * var32 * b);
+            tess.setColorOpaque_F(var19 * brightness, var22 * brightness, var25 * brightness);
+            int texture = block.getBlockTexture(this.blockAccess, x, y, z, 4);
+            this.renderNorthFace(block, x, y, z, texture);
+            if (fancyGrass && texture == 3 && this.overrideBlockTexture < 0) {
+                tess.setColorOpaque_F(var19 * brightness * r, var22 * brightness * g, var25 * brightness * b);
                 this.renderNorthFace(block, x, y, z, 38);
             }
 
-            var9 = true;
+            done = true;
         }
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x + 1, y, z, 5)) {
-            float var33 = block.getBlockBrightness(this.blockAccess, x + 1, y, z);
+            float brightness = block.getBlockBrightness(this.blockAccess, x + 1, y, z);
             if (block.maxX < 1.0D) {
-                var33 = blockBrightness;
+                brightness = blockBrightness;
             }
 
-            tess.setColorOpaque_F(var19 * var33, var22 * var33, var25 * var33);
+            tess.setColorOpaque_F(var19 * brightness, var22 * brightness, var25 * brightness);
             int blockTexture = block.getBlockTexture(this.blockAccess, x, y, z, 5);
             this.renderSouthFace(block, x, y, z, blockTexture);
             if (fancyGrass && blockTexture == 3 && this.overrideBlockTexture < 0) {
-                tess.setColorOpaque_F(var19 * var33 * r, var22 * var33 * g, var25 * var33 * b);
+                tess.setColorOpaque_F(var19 * brightness * r, var22 * brightness * g, var25 * brightness * b);
                 this.renderSouthFace(block, x, y, z, 38);
             }
 
-            var9 = true;
+            done = true;
         }
 
-        return var9;
+        return done;
     }
 
     public boolean renderBlockCactus(Block block, int x, int y, int z) {
@@ -2423,98 +2423,98 @@ public class RenderBlocks {
         return this.func_1230_b(block, x, y, z, r, g, b);
     }
 
-    public boolean func_1230_b(Block var1, int var2, int var3, int var4, float var5, float var6, float var7) {
+    public boolean func_1230_b(Block block, int x, int y, int z, float r, float g, float b) {
         Tessellator tess = Tessellator.INSTANCE;
-        boolean var9 = false;
+        boolean done = false;
         float var10 = 0.5F;
         float var11 = 1.0F;
         float var12 = 0.8F;
         float var13 = 0.6F;
-        float var14 = var10 * var5;
-        float var15 = var11 * var5;
-        float var16 = var12 * var5;
-        float var17 = var13 * var5;
-        float var18 = var10 * var6;
-        float var19 = var11 * var6;
-        float var20 = var12 * var6;
-        float var21 = var13 * var6;
-        float var22 = var10 * var7;
-        float var23 = var11 * var7;
-        float var24 = var12 * var7;
-        float var25 = var13 * var7;
+        float var14 = var10 * r;
+        float var15 = var11 * r;
+        float var16 = var12 * r;
+        float var17 = var13 * r;
+        float var18 = var10 * g;
+        float var19 = var11 * g;
+        float var20 = var12 * g;
+        float var21 = var13 * g;
+        float var22 = var10 * b;
+        float var23 = var11 * b;
+        float var24 = var12 * b;
+        float var25 = var13 * b;
         float var26 = 0.0625F;
-        float var27 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
-        if (this.renderAllFaces || var1.shouldSideBeRendered(this.blockAccess, var2, var3 - 1, var4, 0)) {
-            float var28 = var1.getBlockBrightness(this.blockAccess, var2, var3 - 1, var4);
-            tess.setColorOpaque_F(var14 * var28, var18 * var28, var22 * var28);
-            this.renderBottomFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 0));
-            var9 = true;
+        float brightness = block.getBlockBrightness(this.blockAccess, x, y, z);
+        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y - 1, z, 0)) {
+            float decYBrightness = block.getBlockBrightness(this.blockAccess, x, y - 1, z);
+            tess.setColorOpaque_F(var14 * decYBrightness, var18 * decYBrightness, var22 * decYBrightness);
+            this.renderBottomFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 0));
+            done = true;
         }
 
-        if (this.renderAllFaces || var1.shouldSideBeRendered(this.blockAccess, var2, var3 + 1, var4, 1)) {
-            float var29 = var1.getBlockBrightness(this.blockAccess, var2, var3 + 1, var4);
-            if (var1.maxY != 1.0D && !var1.blockMaterial.getIsLiquid()) {
-                var29 = var27;
+        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y + 1, z, 1)) {
+            float incYBrightness = block.getBlockBrightness(this.blockAccess, x, y + 1, z);
+            if (block.maxY != 1.0D && !block.blockMaterial.getIsLiquid()) {
+                incYBrightness = brightness;
             }
 
-            tess.setColorOpaque_F(var15 * var29, var19 * var29, var23 * var29);
-            this.renderTopFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 1));
-            var9 = true;
+            tess.setColorOpaque_F(var15 * incYBrightness, var19 * incYBrightness, var23 * incYBrightness);
+            this.renderTopFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 1));
+            done = true;
         }
 
-        if (this.renderAllFaces || var1.shouldSideBeRendered(this.blockAccess, var2, var3, var4 - 1, 2)) {
-            float var30 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4 - 1);
-            if (var1.minZ > 0.0D) {
-                var30 = var27;
+        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y, z - 1, 2)) {
+            float decZBrightness = block.getBlockBrightness(this.blockAccess, x, y, z - 1);
+            if (block.minZ > 0.0D) {
+                decZBrightness = brightness;
             }
 
-            tess.setColorOpaque_F(var16 * var30, var20 * var30, var24 * var30);
+            tess.setColorOpaque_F(var16 * decZBrightness, var20 * decZBrightness, var24 * decZBrightness);
             tess.setTranslationF(0.0F, 0.0F, var26);
-            this.renderEastFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 2));
+            this.renderEastFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 2));
             tess.setTranslationF(0.0F, 0.0F, -var26);
-            var9 = true;
+            done = true;
         }
 
-        if (this.renderAllFaces || var1.shouldSideBeRendered(this.blockAccess, var2, var3, var4 + 1, 3)) {
-            float var31 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4 + 1);
-            if (var1.maxZ < 1.0D) {
-                var31 = var27;
+        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y, z + 1, 3)) {
+            float incZBrightness = block.getBlockBrightness(this.blockAccess, x, y, z + 1);
+            if (block.maxZ < 1.0D) {
+                incZBrightness = brightness;
             }
 
-            tess.setColorOpaque_F(var16 * var31, var20 * var31, var24 * var31);
+            tess.setColorOpaque_F(var16 * incZBrightness, var20 * incZBrightness, var24 * incZBrightness);
             tess.setTranslationF(0.0F, 0.0F, -var26);
-            this.renderWestFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 3));
+            this.renderWestFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 3));
             tess.setTranslationF(0.0F, 0.0F, var26);
-            var9 = true;
+            done = true;
         }
 
-        if (this.renderAllFaces || var1.shouldSideBeRendered(this.blockAccess, var2 - 1, var3, var4, 4)) {
-            float var32 = var1.getBlockBrightness(this.blockAccess, var2 - 1, var3, var4);
-            if (var1.minX > 0.0D) {
-                var32 = var27;
+        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x - 1, y, z, 4)) {
+            float decXBrightness = block.getBlockBrightness(this.blockAccess, x - 1, y, z);
+            if (block.minX > 0.0D) {
+                decXBrightness = brightness;
             }
 
-            tess.setColorOpaque_F(var17 * var32, var21 * var32, var25 * var32);
+            tess.setColorOpaque_F(var17 * decXBrightness, var21 * decXBrightness, var25 * decXBrightness);
             tess.setTranslationF(var26, 0.0F, 0.0F);
-            this.renderNorthFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 4));
+            this.renderNorthFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 4));
             tess.setTranslationF(-var26, 0.0F, 0.0F);
-            var9 = true;
+            done = true;
         }
 
-        if (this.renderAllFaces || var1.shouldSideBeRendered(this.blockAccess, var2 + 1, var3, var4, 5)) {
-            float var33 = var1.getBlockBrightness(this.blockAccess, var2 + 1, var3, var4);
-            if (var1.maxX < 1.0D) {
-                var33 = var27;
+        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x + 1, y, z, 5)) {
+            float incXBrightness = block.getBlockBrightness(this.blockAccess, x + 1, y, z);
+            if (block.maxX < 1.0D) {
+                incXBrightness = brightness;
             }
 
-            tess.setColorOpaque_F(var17 * var33, var21 * var33, var25 * var33);
+            tess.setColorOpaque_F(var17 * incXBrightness, var21 * incXBrightness, var25 * incXBrightness);
             tess.setTranslationF(-var26, 0.0F, 0.0F);
-            this.renderSouthFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 5));
+            this.renderSouthFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 5));
             tess.setTranslationF(var26, 0.0F, 0.0F);
-            var9 = true;
+            done = true;
         }
 
-        return var9;
+        return done;
     }
 
     public boolean renderBlockFence(Block block, int x, int y, int z) {
@@ -2725,519 +2725,518 @@ public class RenderBlocks {
         return var7;
     }
 
-    public void renderBottomFace(Block block, double var2, double var4, double var6, int var8) {
+    public void renderBottomFace(Block block, double x, double y, double z, int texture) {
         Tessellator tess = Tessellator.INSTANCE;
         if (this.overrideBlockTexture >= 0) {
-            var8 = this.overrideBlockTexture;
+            texture = this.overrideBlockTexture;
         }
 
-        int var10 = (var8 & 15) << 4;
-        int var11 = var8 & 240;
-        double var12 = ((double) var10 + block.minX * 16.0D) / 256.0D;
-        double var14 = ((double) var10 + block.maxX * 16.0D - 0.01D) / 256.0D;
-        double var16 = ((double) var11 + block.minZ * 16.0D) / 256.0D;
-        double var18 = ((double) var11 + block.maxZ * 16.0D - 0.01D) / 256.0D;
+        int var10 = (texture & 15) << 4;
+        int var11 = texture & 240;
+        double minX = ((double) var10 + block.minX * 16.0D) / 256.0D;
+        double maxX = ((double) var10 + block.maxX * 16.0D - 0.01D) / 256.0D;
+        double minZ = ((double) var11 + block.minZ * 16.0D) / 256.0D;
+        double maxZ = ((double) var11 + block.maxZ * 16.0D - 0.01D) / 256.0D;
         if (block.minX < 0.0D || block.maxX > 1.0D) {
-            var12 = ((float) var10 + 0.0F) / 256.0F;
-            var14 = ((float) var10 + 15.99F) / 256.0F;
+            minX = ((float) var10 + 0.0F) / 256.0F;
+            maxX = ((float) var10 + 15.99F) / 256.0F;
         }
 
         if (block.minZ < 0.0D || block.maxZ > 1.0D) {
-            var16 = ((float) var11 + 0.0F) / 256.0F;
-            var18 = ((float) var11 + 15.99F) / 256.0F;
+            minZ = ((float) var11 + 0.0F) / 256.0F;
+            maxZ = ((float) var11 + 15.99F) / 256.0F;
         }
 
-        double var20 = var14;
-        double var22 = var12;
-        double var24 = var16;
-        double var26 = var18;
+        double tMaxX = maxX;
+        double tMinX = minX;
+        double tMinZ = minZ;
+        double tMaxZ = maxZ;
         if (this.field_31082_l == 2) {
-            var12 = ((double) var10 + block.minZ * 16.0D) / 256.0D;
-            var16 = ((double) (var11 + 16) - block.maxX * 16.0D) / 256.0D;
-            var14 = ((double) var10 + block.maxZ * 16.0D) / 256.0D;
-            var18 = ((double) (var11 + 16) - block.minX * 16.0D) / 256.0D;
-            var24 = var16;
-            var26 = var18;
-            var20 = var12;
-            var22 = var14;
-            var16 = var18;
-            var18 = var24;
+            minX = ((double) var10 + block.minZ * 16.0D) / 256.0D;
+            minZ = ((double) (var11 + 16) - block.maxX * 16.0D) / 256.0D;
+            maxX = ((double) var10 + block.maxZ * 16.0D) / 256.0D;
+            maxZ = ((double) (var11 + 16) - block.minX * 16.0D) / 256.0D;
+            tMinZ = minZ;
+            tMaxZ = maxZ;
+            tMaxX = minX;
+            tMinX = maxX;
+            minZ = maxZ;
+            maxZ = tMinZ;
         } else if (this.field_31082_l == 1) {
-            var12 = ((double) (var10 + 16) - block.maxZ * 16.0D) / 256.0D;
-            var16 = ((double) var11 + block.minX * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - block.minZ * 16.0D) / 256.0D;
-            var18 = ((double) var11 + block.maxX * 16.0D) / 256.0D;
-            var20 = var14;
-            var22 = var12;
-            var12 = var14;
-            var14 = var22;
-            var24 = var18;
-            var26 = var16;
+            minX = ((double) (var10 + 16) - block.maxZ * 16.0D) / 256.0D;
+            minZ = ((double) var11 + block.minX * 16.0D) / 256.0D;
+            maxX = ((double) (var10 + 16) - block.minZ * 16.0D) / 256.0D;
+            maxZ = ((double) var11 + block.maxX * 16.0D) / 256.0D;
+            tMaxX = maxX;
+            tMinX = minX;
+            minX = maxX;
+            maxX = tMinX;
+            tMinZ = maxZ;
+            tMaxZ = minZ;
         } else if (this.field_31082_l == 3) {
-            var12 = ((double) (var10 + 16) - block.minX * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - block.maxX * 16.0D - 0.01D) / 256.0D;
-            var16 = ((double) (var11 + 16) - block.minZ * 16.0D) / 256.0D;
-            var18 = ((double) (var11 + 16) - block.maxZ * 16.0D - 0.01D) / 256.0D;
-            var20 = var14;
-            var22 = var12;
-            var24 = var16;
-            var26 = var18;
+            minX = ((double) (var10 + 16) - block.minX * 16.0D) / 256.0D;
+            maxX = ((double) (var10 + 16) - block.maxX * 16.0D - 0.01D) / 256.0D;
+            minZ = ((double) (var11 + 16) - block.minZ * 16.0D) / 256.0D;
+            maxZ = ((double) (var11 + 16) - block.maxZ * 16.0D - 0.01D) / 256.0D;
+            tMaxX = maxX;
+            tMinX = minX;
+            tMinZ = minZ;
+            tMaxZ = maxZ;
         }
 
-        double var28 = var2 + block.minX;
-        double var30 = var2 + block.maxX;
-        double var32 = var4 + block.minY;
-        double var34 = var6 + block.minZ;
-        double var36 = var6 + block.maxZ;
+        double sumMinX = x + block.minX;
+        double sumMaxX = x + block.maxX;
+        double sumMinY = y + block.minY;
+        double sumMinZ = z + block.minZ;
+        double sumMaxZ = z + block.maxZ;
         if (this.enableAO) {
             tess.setColorOpaque_F(this.colorRedTopLeft, this.colorGreenTopLeft, this.colorBlueTopLeft);
-            tess.addVertexWithUV(var28, var32, var36, var22, var26);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMaxZ, tMinX, tMaxZ);
             tess.setColorOpaque_F(this.colorRedBottomLeft, this.colorGreenBottomLeft, this.colorBlueBottomLeft);
-            tess.addVertexWithUV(var28, var32, var34, var12, var16);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMinZ, minX, minZ);
             tess.setColorOpaque_F(this.colorRedBottomRight, this.colorGreenBottomRight, this.colorBlueBottomRight);
-            tess.addVertexWithUV(var30, var32, var34, var20, var24);
+            tess.addVertexWithUV(sumMaxX, sumMinY, sumMinZ, tMaxX, tMinZ);
             tess.setColorOpaque_F(this.colorRedTopRight, this.colorGreenTopRight, this.colorBlueTopRight);
-            tess.addVertexWithUV(var30, var32, var36, var14, var18);
+            tess.addVertexWithUV(sumMaxX, sumMinY, sumMaxZ, maxX, maxZ);
         } else {
-            tess.addVertexWithUV(var28, var32, var36, var22, var26);
-            tess.addVertexWithUV(var28, var32, var34, var12, var16);
-            tess.addVertexWithUV(var30, var32, var34, var20, var24);
-            tess.addVertexWithUV(var30, var32, var36, var14, var18);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMaxZ, tMinX, tMaxZ);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMinZ, minX, minZ);
+            tess.addVertexWithUV(sumMaxX, sumMinY, sumMinZ, tMaxX, tMinZ);
+            tess.addVertexWithUV(sumMaxX, sumMinY, sumMaxZ, maxX, maxZ);
         }
 
     }
 
-    public void renderTopFace(Block var1, double var2, double var4, double var6, int var8) {
+    public void renderTopFace(Block block, double x, double y, double z, int texture) {
         Tessellator tess = Tessellator.INSTANCE;
         if (this.overrideBlockTexture >= 0) {
-            var8 = this.overrideBlockTexture;
+            texture = this.overrideBlockTexture;
         }
 
-        int var10 = (var8 & 15) << 4;
-        int var11 = var8 & 240;
-        double var12 = ((double) var10 + var1.minX * 16.0D) / 256.0D;
-        double var14 = ((double) var10 + var1.maxX * 16.0D - 0.01D) / 256.0D;
-        double var16 = ((double) var11 + var1.minZ * 16.0D) / 256.0D;
-        double var18 = ((double) var11 + var1.maxZ * 16.0D - 0.01D) / 256.0D;
-        if (var1.minX < 0.0D || var1.maxX > 1.0D) {
-            var12 = ((float) var10 + 0.0F) / 256.0F;
-            var14 = ((float) var10 + 15.99F) / 256.0F;
+        int var10 = (texture & 15) << 4;
+        int var11 = texture & 240;
+        double minX = ((double) var10 + block.minX * 16.0D) / 256.0D;
+        double maxX = ((double) var10 + block.maxX * 16.0D - 0.01D) / 256.0D;
+        double minZ = ((double) var11 + block.minZ * 16.0D) / 256.0D;
+        double maxZ = ((double) var11 + block.maxZ * 16.0D - 0.01D) / 256.0D;
+        if (block.minX < 0.0D || block.maxX > 1.0D) {
+            minX = ((float) var10 + 0.0F) / 256.0F;
+            maxX = ((float) var10 + 15.99F) / 256.0F;
         }
 
-        if (var1.minZ < 0.0D || var1.maxZ > 1.0D) {
-            var16 = ((float) var11 + 0.0F) / 256.0F;
-            var18 = ((float) var11 + 15.99F) / 256.0F;
+        if (block.minZ < 0.0D || block.maxZ > 1.0D) {
+            minZ = ((float) var11 + 0.0F) / 256.0F;
+            maxZ = ((float) var11 + 15.99F) / 256.0F;
         }
 
-        double var20 = var14;
-        double var22 = var12;
-        double var24 = var16;
-        double var26 = var18;
+        double tMaxX = maxX;
+        double tMinX = minX;
+        double tMinZ = minZ;
+        double tMaxZ = maxZ;
         if (this.field_31083_k == 1) {
-            var12 = ((double) var10 + var1.minZ * 16.0D) / 256.0D;
-            var16 = ((double) (var11 + 16) - var1.maxX * 16.0D) / 256.0D;
-            var14 = ((double) var10 + var1.maxZ * 16.0D) / 256.0D;
-            var18 = ((double) (var11 + 16) - var1.minX * 16.0D) / 256.0D;
-            var24 = var16;
-            var26 = var18;
-            var20 = var12;
-            var22 = var14;
-            var16 = var18;
-            var18 = var24;
+            minX = ((double) var10 + block.minZ * 16.0D) / 256.0D;
+            minZ = ((double) (var11 + 16) - block.maxX * 16.0D) / 256.0D;
+            maxX = ((double) var10 + block.maxZ * 16.0D) / 256.0D;
+            maxZ = ((double) (var11 + 16) - block.minX * 16.0D) / 256.0D;
+            tMinZ = minZ;
+            tMaxZ = maxZ;
+            tMaxX = minX;
+            tMinX = maxX;
+            minZ = maxZ;
+            maxZ = tMinZ;
         } else if (this.field_31083_k == 2) {
-            var12 = ((double) (var10 + 16) - var1.maxZ * 16.0D) / 256.0D;
-            var16 = ((double) var11 + var1.minX * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - var1.minZ * 16.0D) / 256.0D;
-            var18 = ((double) var11 + var1.maxX * 16.0D) / 256.0D;
-            var20 = var14;
-            var22 = var12;
-            var12 = var14;
-            var14 = var22;
-            var24 = var18;
-            var26 = var16;
+            minX = ((double) (var10 + 16) - block.maxZ * 16.0D) / 256.0D;
+            minZ = ((double) var11 + block.minX * 16.0D) / 256.0D;
+            maxX = ((double) (var10 + 16) - block.minZ * 16.0D) / 256.0D;
+            maxZ = ((double) var11 + block.maxX * 16.0D) / 256.0D;
+            tMaxX = maxX;
+            tMinX = minX;
+            minX = maxX;
+            maxX = tMinX;
+            tMinZ = maxZ;
+            tMaxZ = minZ;
         } else if (this.field_31083_k == 3) {
-            var12 = ((double) (var10 + 16) - var1.minX * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - var1.maxX * 16.0D - 0.01D) / 256.0D;
-            var16 = ((double) (var11 + 16) - var1.minZ * 16.0D) / 256.0D;
-            var18 = ((double) (var11 + 16) - var1.maxZ * 16.0D - 0.01D) / 256.0D;
-            var20 = var14;
-            var22 = var12;
-            var24 = var16;
-            var26 = var18;
+            minX = ((double) (var10 + 16) - block.minX * 16.0D) / 256.0D;
+            maxX = ((double) (var10 + 16) - block.maxX * 16.0D - 0.01D) / 256.0D;
+            minZ = ((double) (var11 + 16) - block.minZ * 16.0D) / 256.0D;
+            maxZ = ((double) (var11 + 16) - block.maxZ * 16.0D - 0.01D) / 256.0D;
+            tMaxX = maxX;
+            tMinX = minX;
+            tMinZ = minZ;
+            tMaxZ = maxZ;
         }
 
-        double var28 = var2 + var1.minX;
-        double var30 = var2 + var1.maxX;
-        double var32 = var4 + var1.maxY;
-        double var34 = var6 + var1.minZ;
-        double var36 = var6 + var1.maxZ;
+        double sumMinX = x + block.minX;
+        double sumMaxX = x + block.maxX;
+        double sumMaxY = y + block.maxY;
+        double sumMinZ = z + block.minZ;
+        double sumMaxZ = z + block.maxZ;
         if (this.enableAO) {
             tess.setColorOpaque_F(this.colorRedTopLeft, this.colorGreenTopLeft, this.colorBlueTopLeft);
-
-            tess.addVertexWithUV(var30, var32, var36, var14, var18);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, sumMaxZ, maxX, maxZ);
             tess.setColorOpaque_F(this.colorRedBottomLeft, this.colorGreenBottomLeft, this.colorBlueBottomLeft);
-            tess.addVertexWithUV(var30, var32, var34, var20, var24);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, sumMinZ, tMaxX, tMinZ);
             tess.setColorOpaque_F(this.colorRedBottomRight, this.colorGreenBottomRight, this.colorBlueBottomRight);
-            tess.addVertexWithUV(var28, var32, var34, var12, var16);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMinZ, minX, minZ);
             tess.setColorOpaque_F(this.colorRedTopRight, this.colorGreenTopRight, this.colorBlueTopRight);
-            tess.addVertexWithUV(var28, var32, var36, var22, var26);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMaxZ, tMinX, tMaxZ);
         } else {
-            tess.addVertexWithUV(var30, var32, var36, var14, var18);
-            tess.addVertexWithUV(var30, var32, var34, var20, var24);
-            tess.addVertexWithUV(var28, var32, var34, var12, var16);
-            tess.addVertexWithUV(var28, var32, var36, var22, var26);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, sumMaxZ, maxX, maxZ);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, sumMinZ, tMaxX, tMinZ);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMinZ, minX, minZ);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMaxZ, tMinX, tMaxZ);
         }
 
     }
 
-    public void renderEastFace(Block block, double var2, double var4, double var6, int var8) {
-        Tessellator var9 = Tessellator.INSTANCE;
+    public void renderEastFace(Block block, double x, double y, double z, int texture) {
+        Tessellator tess = Tessellator.INSTANCE;
         if (this.overrideBlockTexture >= 0) {
-            var8 = this.overrideBlockTexture;
+            texture = this.overrideBlockTexture;
         }
 
-        int var10 = (var8 & 15) << 4;
-        int var11 = var8 & 240;
-        double var12 = ((double) var10 + block.minX * 16.0D) / 256.0D;
-        double var14 = ((double) var10 + block.maxX * 16.0D - 0.01D) / 256.0D;
-        double var16 = ((double) (var11 + 16) - block.maxY * 16.0D) / 256.0D;
-        double var18 = ((double) (var11 + 16) - block.minY * 16.0D - 0.01D) / 256.0D;
+        int var10 = (texture & 15) << 4;
+        int var11 = texture & 240;
+        double minX = ((double) var10 + block.minX * 16.0D) / 256.0D;
+        double maxX = ((double) var10 + block.maxX * 16.0D - 0.01D) / 256.0D;
+        double maxY = ((double) (var11 + 16) - block.maxY * 16.0D) / 256.0D;
+        double minY = ((double) (var11 + 16) - block.minY * 16.0D - 0.01D) / 256.0D;
         if (this.flipTexture) {
-            double var20 = var12;
-            var12 = var14;
-            var14 = var20;
+            double tmpX = minX;
+            minX = maxX;
+            maxX = tmpX;
         }
 
         if (block.minX < 0.0D || block.maxX > 1.0D) {
-            var12 = ((float) var10 + 0.0F) / 256.0F;
-            var14 = ((float) var10 + 15.99F) / 256.0F;
+            minX = ((float) var10 + 0.0F) / 256.0F;
+            maxX = ((float) var10 + 15.99F) / 256.0F;
         }
 
         if (block.minY < 0.0D || block.maxY > 1.0D) {
-            var16 = ((float) var11 + 0.0F) / 256.0F;
-            var18 = ((float) var11 + 15.99F) / 256.0F;
+            maxY = ((float) var11 + 0.0F) / 256.0F;
+            minY = ((float) var11 + 15.99F) / 256.0F;
         }
 
-        double var42 = var14;
-        double var22 = var12;
-        double var24 = var16;
-        double var26 = var18;
+        double tMaxX = maxX;
+        double tMinX = minX;
+        double tMaxY = maxY;
+        double tMinY = minY;
         if (this.field_31087_g == 2) {
-            var12 = ((double) var10 + block.minY * 16.0D) / 256.0D;
-            var16 = ((double) (var11 + 16) - block.minX * 16.0D) / 256.0D;
-            var14 = ((double) var10 + block.maxY * 16.0D) / 256.0D;
-            var18 = ((double) (var11 + 16) - block.maxX * 16.0D) / 256.0D;
-            var24 = var16;
-            var26 = var18;
-            var42 = var12;
-            var22 = var14;
-            var16 = var18;
-            var18 = var24;
+            minX = ((double) var10 + block.minY * 16.0D) / 256.0D;
+            maxY = ((double) (var11 + 16) - block.minX * 16.0D) / 256.0D;
+            maxX = ((double) var10 + block.maxY * 16.0D) / 256.0D;
+            minY = ((double) (var11 + 16) - block.maxX * 16.0D) / 256.0D;
+            tMaxY = maxY;
+            tMinY = minY;
+            tMaxX = minX;
+            tMinX = maxX;
+            maxY = minY;
+            minY = tMaxY;
         } else if (this.field_31087_g == 1) {
-            var12 = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
-            var16 = ((double) var11 + block.maxX * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
-            var18 = ((double) var11 + block.minX * 16.0D) / 256.0D;
-            var42 = var14;
-            var22 = var12;
-            var12 = var14;
-            var14 = var22;
-            var24 = var18;
-            var26 = var16;
+            minX = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
+            maxY = ((double) var11 + block.maxX * 16.0D) / 256.0D;
+            maxX = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
+            minY = ((double) var11 + block.minX * 16.0D) / 256.0D;
+            tMaxX = maxX;
+            tMinX = minX;
+            minX = maxX;
+            maxX = tMinX;
+            tMaxY = minY;
+            tMinY = maxY;
         } else if (this.field_31087_g == 3) {
-            var12 = ((double) (var10 + 16) - block.minX * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - block.maxX * 16.0D - 0.01D) / 256.0D;
-            var16 = ((double) var11 + block.maxY * 16.0D) / 256.0D;
-            var18 = ((double) var11 + block.minY * 16.0D - 0.01D) / 256.0D;
-            var42 = var14;
-            var22 = var12;
-            var24 = var16;
-            var26 = var18;
+            minX = ((double) (var10 + 16) - block.minX * 16.0D) / 256.0D;
+            maxX = ((double) (var10 + 16) - block.maxX * 16.0D - 0.01D) / 256.0D;
+            maxY = ((double) var11 + block.maxY * 16.0D) / 256.0D;
+            minY = ((double) var11 + block.minY * 16.0D - 0.01D) / 256.0D;
+            tMaxX = maxX;
+            tMinX = minX;
+            tMaxY = maxY;
+            tMinY = minY;
         }
 
-        double var28 = var2 + block.minX;
-        double var30 = var2 + block.maxX;
-        double var32 = var4 + block.minY;
-        double var34 = var4 + block.maxY;
-        double var36 = var6 + block.minZ;
+        double sumMinX = x + block.minX;
+        double sumMaxX = x + block.maxX;
+        double sumMinY = y + block.minY;
+        double sumMaxY = y + block.maxY;
+        double sumMinZ = z + block.minZ;
         if (this.enableAO) {
-            var9.setColorOpaque_F(this.colorRedTopLeft, this.colorGreenTopLeft, this.colorBlueTopLeft);
-            var9.addVertexWithUV(var28, var34, var36, var42, var24);
-            var9.setColorOpaque_F(this.colorRedBottomLeft, this.colorGreenBottomLeft, this.colorBlueBottomLeft);
-            var9.addVertexWithUV(var30, var34, var36, var12, var16);
-            var9.setColorOpaque_F(this.colorRedBottomRight, this.colorGreenBottomRight, this.colorBlueBottomRight);
-            var9.addVertexWithUV(var30, var32, var36, var22, var26);
-            var9.setColorOpaque_F(this.colorRedTopRight, this.colorGreenTopRight, this.colorBlueTopRight);
-            var9.addVertexWithUV(var28, var32, var36, var14, var18);
+            tess.setColorOpaque_F(this.colorRedTopLeft, this.colorGreenTopLeft, this.colorBlueTopLeft);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMinZ, tMaxX, tMaxY);
+            tess.setColorOpaque_F(this.colorRedBottomLeft, this.colorGreenBottomLeft, this.colorBlueBottomLeft);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, sumMinZ, minX, maxY);
+            tess.setColorOpaque_F(this.colorRedBottomRight, this.colorGreenBottomRight, this.colorBlueBottomRight);
+            tess.addVertexWithUV(sumMaxX, sumMinY, sumMinZ, tMinX, tMinY);
+            tess.setColorOpaque_F(this.colorRedTopRight, this.colorGreenTopRight, this.colorBlueTopRight);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMinZ, maxX, minY);
         } else {
-            var9.addVertexWithUV(var28, var34, var36, var42, var24);
-            var9.addVertexWithUV(var30, var34, var36, var12, var16);
-            var9.addVertexWithUV(var30, var32, var36, var22, var26);
-            var9.addVertexWithUV(var28, var32, var36, var14, var18);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMinZ, tMaxX, tMaxY);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, sumMinZ, minX, maxY);
+            tess.addVertexWithUV(sumMaxX, sumMinY, sumMinZ, tMinX, tMinY);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMinZ, maxX, minY);
         }
 
     }
 
-    public void renderWestFace(Block block, double var2, double var4, double var6, int var8) {
+    public void renderWestFace(Block block, double x, double y, double z, int texture) {
         Tessellator tess = Tessellator.INSTANCE;
         if (this.overrideBlockTexture >= 0) {
-            var8 = this.overrideBlockTexture;
+            texture = this.overrideBlockTexture;
         }
 
-        int var10 = (var8 & 15) << 4;
-        int var11 = var8 & 240;
-        double var12 = ((double) var10 + block.minX * 16.0D) / 256.0D;
-        double var14 = ((double) var10 + block.maxX * 16.0D - 0.01D) / 256.0D;
-        double var16 = ((double) (var11 + 16) - block.maxY * 16.0D) / 256.0D;
-        double var18 = ((double) (var11 + 16) - block.minY * 16.0D - 0.01D) / 256.0D;
+        int var10 = (texture & 15) << 4;
+        int var11 = texture & 240;
+        double minX = ((double) var10 + block.minX * 16.0D) / 256.0D;
+        double maxX = ((double) var10 + block.maxX * 16.0D - 0.01D) / 256.0D;
+        double maxY = ((double) (var11 + 16) - block.maxY * 16.0D) / 256.0D;
+        double minY = ((double) (var11 + 16) - block.minY * 16.0D - 0.01D) / 256.0D;
         if (this.flipTexture) {
-            double var20 = var12;
-            var12 = var14;
-            var14 = var20;
+            double tmpX = minX;
+            minX = maxX;
+            maxX = tmpX;
         }
 
         if (block.minX < 0.0D || block.maxX > 1.0D) {
-            var12 = ((float) var10 + 0.0F) / 256.0F;
-            var14 = ((float) var10 + 15.99F) / 256.0F;
+            minX = ((float) var10 + 0.0F) / 256.0F;
+            maxX = ((float) var10 + 15.99F) / 256.0F;
         }
 
         if (block.minY < 0.0D || block.maxY > 1.0D) {
-            var16 = ((float) var11 + 0.0F) / 256.0F;
-            var18 = ((float) var11 + 15.99F) / 256.0F;
+            maxY = ((float) var11 + 0.0F) / 256.0F;
+            minY = ((float) var11 + 15.99F) / 256.0F;
         }
 
-        double var42 = var14;
-        double var22 = var12;
-        double var24 = var16;
-        double var26 = var18;
+        double tMaxX = maxX;
+        double tMinX = minX;
+        double tMaxY = maxY;
+        double tMinY = minY;
         if (this.field_31086_h == 1) {
-            var12 = ((double) var10 + block.minY * 16.0D) / 256.0D;
-            var18 = ((double) (var11 + 16) - block.minX * 16.0D) / 256.0D;
-            var14 = ((double) var10 + block.maxY * 16.0D) / 256.0D;
-            var16 = ((double) (var11 + 16) - block.maxX * 16.0D) / 256.0D;
-            var24 = var16;
-            var26 = var18;
-            var42 = var12;
-            var22 = var14;
-            var16 = var18;
-            var18 = var24;
+            minX = ((double) var10 + block.minY * 16.0D) / 256.0D;
+            minY = ((double) (var11 + 16) - block.minX * 16.0D) / 256.0D;
+            maxX = ((double) var10 + block.maxY * 16.0D) / 256.0D;
+            maxY = ((double) (var11 + 16) - block.maxX * 16.0D) / 256.0D;
+            tMaxY = maxY;
+            tMinY = minY;
+            tMaxX = minX;
+            tMinX = maxX;
+            maxY = minY;
+            minY = tMaxY;
         } else if (this.field_31086_h == 2) {
-            var12 = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
-            var16 = ((double) var11 + block.minX * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
-            var18 = ((double) var11 + block.maxX * 16.0D) / 256.0D;
-            var42 = var14;
-            var22 = var12;
-            var12 = var14;
-            var14 = var22;
-            var24 = var18;
-            var26 = var16;
+            minX = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
+            maxY = ((double) var11 + block.minX * 16.0D) / 256.0D;
+            maxX = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
+            minY = ((double) var11 + block.maxX * 16.0D) / 256.0D;
+            tMaxX = maxX;
+            tMinX = minX;
+            minX = maxX;
+            maxX = tMinX;
+            tMaxY = minY;
+            tMinY = maxY;
         } else if (this.field_31086_h == 3) {
-            var12 = ((double) (var10 + 16) - block.minX * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - block.maxX * 16.0D - 0.01D) / 256.0D;
-            var16 = ((double) var11 + block.maxY * 16.0D) / 256.0D;
-            var18 = ((double) var11 + block.minY * 16.0D - 0.01D) / 256.0D;
-            var42 = var14;
-            var22 = var12;
-            var24 = var16;
-            var26 = var18;
+            minX = ((double) (var10 + 16) - block.minX * 16.0D) / 256.0D;
+            maxX = ((double) (var10 + 16) - block.maxX * 16.0D - 0.01D) / 256.0D;
+            maxY = ((double) var11 + block.maxY * 16.0D) / 256.0D;
+            minY = ((double) var11 + block.minY * 16.0D - 0.01D) / 256.0D;
+            tMaxX = maxX;
+            tMinX = minX;
+            tMaxY = maxY;
+            tMinY = minY;
         }
 
-        double var28 = var2 + block.minX;
-        double var30 = var2 + block.maxX;
-        double var32 = var4 + block.minY;
-        double var34 = var4 + block.maxY;
-        double var36 = var6 + block.maxZ;
+        double sumMinX = x + block.minX;
+        double sumMaxX = x + block.maxX;
+        double sumMinY = y + block.minY;
+        double sumMaxY = y + block.maxY;
+        double sumMaxZ = z + block.maxZ;
         if (this.enableAO) {
             tess.setColorOpaque_F(this.colorRedTopLeft, this.colorGreenTopLeft, this.colorBlueTopLeft);
-            tess.addVertexWithUV(var28, var34, var36, var12, var16);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMaxZ, minX, maxY);
             tess.setColorOpaque_F(this.colorRedBottomLeft, this.colorGreenBottomLeft, this.colorBlueBottomLeft);
-            tess.addVertexWithUV(var28, var32, var36, var22, var26);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMaxZ, tMinX, tMinY);
             tess.setColorOpaque_F(this.colorRedBottomRight, this.colorGreenBottomRight, this.colorBlueBottomRight);
-            tess.addVertexWithUV(var30, var32, var36, var14, var18);
+            tess.addVertexWithUV(sumMaxX, sumMinY, sumMaxZ, maxX, minY);
             tess.setColorOpaque_F(this.colorRedTopRight, this.colorGreenTopRight, this.colorBlueTopRight);
-            tess.addVertexWithUV(var30, var34, var36, var42, var24);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, sumMaxZ, tMaxX, tMaxY);
         } else {
-            tess.addVertexWithUV(var28, var34, var36, var12, var16);
-            tess.addVertexWithUV(var28, var32, var36, var22, var26);
-            tess.addVertexWithUV(var30, var32, var36, var14, var18);
-            tess.addVertexWithUV(var30, var34, var36, var42, var24);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMaxZ, minX, maxY);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMaxZ, tMinX, tMinY);
+            tess.addVertexWithUV(sumMaxX, sumMinY, sumMaxZ, maxX, minY);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, sumMaxZ, tMaxX, tMaxY);
         }
 
     }
 
-    public void renderNorthFace(Block block, double var2, double var4, double var6, int var8) {
+    public void renderNorthFace(Block block, double x, double y, double z, int texture) {
         Tessellator tess = Tessellator.INSTANCE;
         if (this.overrideBlockTexture >= 0) {
-            var8 = this.overrideBlockTexture;
+            texture = this.overrideBlockTexture;
         }
 
-        int var10 = (var8 & 15) << 4;
-        int var11 = var8 & 240;
-        double var12 = ((double) var10 + block.minZ * 16.0D) / 256.0D;
-        double var14 = ((double) var10 + block.maxZ * 16.0D - 0.01D) / 256.0D;
-        double var16 = ((double) (var11 + 16) - block.maxY * 16.0D) / 256.0D;
-        double var18 = ((double) (var11 + 16) - block.minY * 16.0D - 0.01D) / 256.0D;
+        int var10 = (texture & 15) << 4;
+        int var11 = texture & 240;
+        double minZ = ((double) var10 + block.minZ * 16.0D) / 256.0D;
+        double maxZ = ((double) var10 + block.maxZ * 16.0D - 0.01D) / 256.0D;
+        double maxY = ((double) (var11 + 16) - block.maxY * 16.0D) / 256.0D;
+        double minY = ((double) (var11 + 16) - block.minY * 16.0D - 0.01D) / 256.0D;
         if (this.flipTexture) {
-            double var20 = var12;
-            var12 = var14;
-            var14 = var20;
+            double tmpZ = minZ;
+            minZ = maxZ;
+            maxZ = tmpZ;
         }
 
         if (block.minZ < 0.0D || block.maxZ > 1.0D) {
-            var12 = ((float) var10 + 0.0F) / 256.0F;
-            var14 = ((float) var10 + 15.99F) / 256.0F;
+            minZ = ((float) var10 + 0.0F) / 256.0F;
+            maxZ = ((float) var10 + 15.99F) / 256.0F;
         }
 
         if (block.minY < 0.0D || block.maxY > 1.0D) {
-            var16 = ((float) var11 + 0.0F) / 256.0F;
-            var18 = ((float) var11 + 15.99F) / 256.0F;
+            maxY = ((float) var11 + 0.0F) / 256.0F;
+            minY = ((float) var11 + 15.99F) / 256.0F;
         }
 
-        double var42 = var14;
-        double var22 = var12;
-        double var24 = var16;
-        double var26 = var18;
+        double tMaxZ = maxZ;
+        double tMinZ = minZ;
+        double tMaxY = maxY;
+        double tMinY = minY;
         if (this.field_31084_j == 1) {
-            var12 = ((double) var10 + block.minY * 16.0D) / 256.0D;
-            var16 = ((double) (var11 + 16) - block.maxZ * 16.0D) / 256.0D;
-            var14 = ((double) var10 + block.maxY * 16.0D) / 256.0D;
-            var18 = ((double) (var11 + 16) - block.minZ * 16.0D) / 256.0D;
-            var24 = var16;
-            var26 = var18;
-            var42 = var12;
-            var22 = var14;
-            var16 = var18;
-            var18 = var24;
+            minZ = ((double) var10 + block.minY * 16.0D) / 256.0D;
+            maxY = ((double) (var11 + 16) - block.maxZ * 16.0D) / 256.0D;
+            maxZ = ((double) var10 + block.maxY * 16.0D) / 256.0D;
+            minY = ((double) (var11 + 16) - block.minZ * 16.0D) / 256.0D;
+            tMaxY = maxY;
+            tMinY = minY;
+            tMaxZ = minZ;
+            tMinZ = maxZ;
+            maxY = minY;
+            minY = tMaxY;
         } else if (this.field_31084_j == 2) {
-            var12 = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
-            var16 = ((double) var11 + block.minZ * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
-            var18 = ((double) var11 + block.maxZ * 16.0D) / 256.0D;
-            var42 = var14;
-            var22 = var12;
-            var12 = var14;
-            var14 = var22;
-            var24 = var18;
-            var26 = var16;
+            minZ = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
+            maxY = ((double) var11 + block.minZ * 16.0D) / 256.0D;
+            maxZ = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
+            minY = ((double) var11 + block.maxZ * 16.0D) / 256.0D;
+            tMaxZ = maxZ;
+            tMinZ = minZ;
+            minZ = maxZ;
+            maxZ = tMinZ;
+            tMaxY = minY;
+            tMinY = maxY;
         } else if (this.field_31084_j == 3) {
-            var12 = ((double) (var10 + 16) - block.minZ * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - block.maxZ * 16.0D - 0.01D) / 256.0D;
-            var16 = ((double) var11 + block.maxY * 16.0D) / 256.0D;
-            var18 = ((double) var11 + block.minY * 16.0D - 0.01D) / 256.0D;
-            var42 = var14;
-            var22 = var12;
-            var24 = var16;
-            var26 = var18;
+            minZ = ((double) (var10 + 16) - block.minZ * 16.0D) / 256.0D;
+            maxZ = ((double) (var10 + 16) - block.maxZ * 16.0D - 0.01D) / 256.0D;
+            maxY = ((double) var11 + block.maxY * 16.0D) / 256.0D;
+            minY = ((double) var11 + block.minY * 16.0D - 0.01D) / 256.0D;
+            tMaxZ = maxZ;
+            tMinZ = minZ;
+            tMaxY = maxY;
+            tMinY = minY;
         }
 
-        double var28 = var2 + block.minX;
-        double var30 = var4 + block.minY;
-        double var32 = var4 + block.maxY;
-        double var34 = var6 + block.minZ;
-        double var36 = var6 + block.maxZ;
+        double sumMinX = x + block.minX;
+        double sumMinY = y + block.minY;
+        double sumMaxY = y + block.maxY;
+        double sumMinZ = z + block.minZ;
+        double sumMaxZ = z + block.maxZ;
         if (this.enableAO) {
             tess.setColorOpaque_F(this.colorRedTopLeft, this.colorGreenTopLeft, this.colorBlueTopLeft);
-            tess.addVertexWithUV(var28, var32, var36, var42, var24);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMaxZ, tMaxZ, tMaxY);
             tess.setColorOpaque_F(this.colorRedBottomLeft, this.colorGreenBottomLeft, this.colorBlueBottomLeft);
-            tess.addVertexWithUV(var28, var32, var34, var12, var16);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMinZ, minZ, maxY);
             tess.setColorOpaque_F(this.colorRedBottomRight, this.colorGreenBottomRight, this.colorBlueBottomRight);
-            tess.addVertexWithUV(var28, var30, var34, var22, var26);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMinZ, tMinZ, tMinY);
             tess.setColorOpaque_F(this.colorRedTopRight, this.colorGreenTopRight, this.colorBlueTopRight);
-            tess.addVertexWithUV(var28, var30, var36, var14, var18);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMaxZ, maxZ, minY);
         } else {
-            tess.addVertexWithUV(var28, var32, var36, var42, var24);
-            tess.addVertexWithUV(var28, var32, var34, var12, var16);
-            tess.addVertexWithUV(var28, var30, var34, var22, var26);
-            tess.addVertexWithUV(var28, var30, var36, var14, var18);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMaxZ, tMaxZ, tMaxY);
+            tess.addVertexWithUV(sumMinX, sumMaxY, sumMinZ, minZ, maxY);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMinZ, tMinZ, tMinY);
+            tess.addVertexWithUV(sumMinX, sumMinY, sumMaxZ, maxZ, minY);
         }
 
     }
 
-    public void renderSouthFace(Block block, double var2, double var4, double var6, int var8) {
+    public void renderSouthFace(Block block, double x, double y, double z, int texture) {
         Tessellator tess = Tessellator.INSTANCE;
         if (this.overrideBlockTexture >= 0) {
-            var8 = this.overrideBlockTexture;
+            texture = this.overrideBlockTexture;
         }
 
-        int var10 = (var8 & 15) << 4;
-        int var11 = var8 & 240;
-        double var12 = ((double) var10 + block.minZ * 16.0D) / 256.0D;
-        double var14 = ((double) var10 + block.maxZ * 16.0D - 0.01D) / 256.0D;
-        double var16 = ((double) (var11 + 16) - block.maxY * 16.0D) / 256.0D;
-        double var18 = ((double) (var11 + 16) - block.minY * 16.0D - 0.01D) / 256.0D;
+        int var10 = (texture & 15) << 4;
+        int var11 = texture & 240;
+        double minZ = ((double) var10 + block.minZ * 16.0D) / 256.0D;
+        double maxZ = ((double) var10 + block.maxZ * 16.0D - 0.01D) / 256.0D;
+        double maxY = ((double) (var11 + 16) - block.maxY * 16.0D) / 256.0D;
+        double minY = ((double) (var11 + 16) - block.minY * 16.0D - 0.01D) / 256.0D;
         if (this.flipTexture) {
-            double var20 = var12;
-            var12 = var14;
-            var14 = var20;
+            double tmpZ = minZ;
+            minZ = maxZ;
+            maxZ = tmpZ;
         }
 
         if (block.minZ < 0.0D || block.maxZ > 1.0D) {
-            var12 = ((float) var10 + 0.0F) / 256.0F;
-            var14 = ((float) var10 + 15.99F) / 256.0F;
+            minZ = ((float) var10 + 0.0F) / 256.0F;
+            maxZ = ((float) var10 + 15.99F) / 256.0F;
         }
 
         if (block.minY < 0.0D || block.maxY > 1.0D) {
-            var16 = ((float) var11 + 0.0F) / 256.0F;
-            var18 = ((float) var11 + 15.99F) / 256.0F;
+            maxY = ((float) var11 + 0.0F) / 256.0F;
+            minY = ((float) var11 + 15.99F) / 256.0F;
         }
 
-        double var42 = var14;
-        double var22 = var12;
-        double var24 = var16;
-        double var26 = var18;
+        double tMaxZ = maxZ;
+        double tMinZ = minZ;
+        double tMaxY = maxY;
+        double tMinY = minY;
         if (this.field_31085_i == 2) {
-            var12 = ((double) var10 + block.minY * 16.0D) / 256.0D;
-            var16 = ((double) (var11 + 16) - block.minZ * 16.0D) / 256.0D;
-            var14 = ((double) var10 + block.maxY * 16.0D) / 256.0D;
-            var18 = ((double) (var11 + 16) - block.maxZ * 16.0D) / 256.0D;
-            var24 = var16;
-            var26 = var18;
-            var42 = var12;
-            var22 = var14;
-            var16 = var18;
-            var18 = var24;
+            minZ = ((double) var10 + block.minY * 16.0D) / 256.0D;
+            maxY = ((double) (var11 + 16) - block.minZ * 16.0D) / 256.0D;
+            maxZ = ((double) var10 + block.maxY * 16.0D) / 256.0D;
+            minY = ((double) (var11 + 16) - block.maxZ * 16.0D) / 256.0D;
+            tMaxY = maxY;
+            tMinY = minY;
+            tMaxZ = minZ;
+            tMinZ = maxZ;
+            maxY = minY;
+            minY = tMaxY;
         } else if (this.field_31085_i == 1) {
-            var12 = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
-            var16 = ((double) var11 + block.maxZ * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
-            var18 = ((double) var11 + block.minZ * 16.0D) / 256.0D;
-            var42 = var14;
-            var22 = var12;
-            var12 = var14;
-            var14 = var22;
-            var24 = var18;
-            var26 = var16;
+            minZ = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
+            maxY = ((double) var11 + block.maxZ * 16.0D) / 256.0D;
+            maxZ = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
+            minY = ((double) var11 + block.minZ * 16.0D) / 256.0D;
+            tMaxZ = maxZ;
+            tMinZ = minZ;
+            minZ = maxZ;
+            maxZ = tMinZ;
+            tMaxY = minY;
+            tMinY = maxY;
         } else if (this.field_31085_i == 3) {
-            var12 = ((double) (var10 + 16) - block.minZ * 16.0D) / 256.0D;
-            var14 = ((double) (var10 + 16) - block.maxZ * 16.0D - 0.01D) / 256.0D;
-            var16 = ((double) var11 + block.maxY * 16.0D) / 256.0D;
-            var18 = ((double) var11 + block.minY * 16.0D - 0.01D) / 256.0D;
-            var42 = var14;
-            var22 = var12;
-            var24 = var16;
-            var26 = var18;
+            minZ = ((double) (var10 + 16) - block.minZ * 16.0D) / 256.0D;
+            maxZ = ((double) (var10 + 16) - block.maxZ * 16.0D - 0.01D) / 256.0D;
+            maxY = ((double) var11 + block.maxY * 16.0D) / 256.0D;
+            minY = ((double) var11 + block.minY * 16.0D - 0.01D) / 256.0D;
+            tMaxZ = maxZ;
+            tMinZ = minZ;
+            tMaxY = maxY;
+            tMinY = minY;
         }
 
-        double var28 = var2 + block.maxX;
-        double var30 = var4 + block.minY;
-        double var32 = var4 + block.maxY;
-        double var34 = var6 + block.minZ;
-        double var36 = var6 + block.maxZ;
+        double sumMaxX = x + block.maxX;
+        double sumMinY = y + block.minY;
+        double sumMaxY = y + block.maxY;
+        double sumMinZ = z + block.minZ;
+        double simMaxZ = z + block.maxZ;
         if (this.enableAO) {
             tess.setColorOpaque_F(this.colorRedTopLeft, this.colorGreenTopLeft, this.colorBlueTopLeft);
-            tess.addVertexWithUV(var28, var30, var36, var22, var26);
+            tess.addVertexWithUV(sumMaxX, sumMinY, simMaxZ, tMinZ, tMinY);
             tess.setColorOpaque_F(this.colorRedBottomLeft, this.colorGreenBottomLeft, this.colorBlueBottomLeft);
-            tess.addVertexWithUV(var28, var30, var34, var14, var18);
+            tess.addVertexWithUV(sumMaxX, sumMinY, sumMinZ, maxZ, minY);
             tess.setColorOpaque_F(this.colorRedBottomRight, this.colorGreenBottomRight, this.colorBlueBottomRight);
-            tess.addVertexWithUV(var28, var32, var34, var42, var24);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, sumMinZ, tMaxZ, tMaxY);
             tess.setColorOpaque_F(this.colorRedTopRight, this.colorGreenTopRight, this.colorBlueTopRight);
-            tess.addVertexWithUV(var28, var32, var36, var12, var16);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, simMaxZ, minZ, maxY);
         } else {
-            tess.addVertexWithUV(var28, var30, var36, var22, var26);
-            tess.addVertexWithUV(var28, var30, var34, var14, var18);
-            tess.addVertexWithUV(var28, var32, var34, var42, var24);
-            tess.addVertexWithUV(var28, var32, var36, var12, var16);
+            tess.addVertexWithUV(sumMaxX, sumMinY, simMaxZ, tMinZ, tMinY);
+            tess.addVertexWithUV(sumMaxX, sumMinY, sumMinZ, maxZ, minY);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, sumMinZ, tMaxZ, tMaxY);
+            tess.addVertexWithUV(sumMaxX, sumMaxY, simMaxZ, minZ, maxY);
         }
 
     }
