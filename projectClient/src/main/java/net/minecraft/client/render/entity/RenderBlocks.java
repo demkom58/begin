@@ -2424,7 +2424,7 @@ public class RenderBlocks {
     }
 
     public boolean func_1230_b(Block var1, int var2, int var3, int var4, float var5, float var6, float var7) {
-        Tessellator var8 = Tessellator.INSTANCE;
+        Tessellator tess = Tessellator.INSTANCE;
         boolean var9 = false;
         float var10 = 0.5F;
         float var11 = 1.0F;
@@ -2446,7 +2446,7 @@ public class RenderBlocks {
         float var27 = var1.getBlockBrightness(this.blockAccess, var2, var3, var4);
         if (this.renderAllFaces || var1.shouldSideBeRendered(this.blockAccess, var2, var3 - 1, var4, 0)) {
             float var28 = var1.getBlockBrightness(this.blockAccess, var2, var3 - 1, var4);
-            var8.setColorOpaque_F(var14 * var28, var18 * var28, var22 * var28);
+            tess.setColorOpaque_F(var14 * var28, var18 * var28, var22 * var28);
             this.renderBottomFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 0));
             var9 = true;
         }
@@ -2457,7 +2457,7 @@ public class RenderBlocks {
                 var29 = var27;
             }
 
-            var8.setColorOpaque_F(var15 * var29, var19 * var29, var23 * var29);
+            tess.setColorOpaque_F(var15 * var29, var19 * var29, var23 * var29);
             this.renderTopFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 1));
             var9 = true;
         }
@@ -2468,10 +2468,10 @@ public class RenderBlocks {
                 var30 = var27;
             }
 
-            var8.setColorOpaque_F(var16 * var30, var20 * var30, var24 * var30);
-            var8.setTranslationF(0.0F, 0.0F, var26);
+            tess.setColorOpaque_F(var16 * var30, var20 * var30, var24 * var30);
+            tess.setTranslationF(0.0F, 0.0F, var26);
             this.renderEastFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 2));
-            var8.setTranslationF(0.0F, 0.0F, -var26);
+            tess.setTranslationF(0.0F, 0.0F, -var26);
             var9 = true;
         }
 
@@ -2481,10 +2481,10 @@ public class RenderBlocks {
                 var31 = var27;
             }
 
-            var8.setColorOpaque_F(var16 * var31, var20 * var31, var24 * var31);
-            var8.setTranslationF(0.0F, 0.0F, -var26);
+            tess.setColorOpaque_F(var16 * var31, var20 * var31, var24 * var31);
+            tess.setTranslationF(0.0F, 0.0F, -var26);
             this.renderWestFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 3));
-            var8.setTranslationF(0.0F, 0.0F, var26);
+            tess.setTranslationF(0.0F, 0.0F, var26);
             var9 = true;
         }
 
@@ -2494,10 +2494,10 @@ public class RenderBlocks {
                 var32 = var27;
             }
 
-            var8.setColorOpaque_F(var17 * var32, var21 * var32, var25 * var32);
-            var8.setTranslationF(var26, 0.0F, 0.0F);
+            tess.setColorOpaque_F(var17 * var32, var21 * var32, var25 * var32);
+            tess.setTranslationF(var26, 0.0F, 0.0F);
             this.renderNorthFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 4));
-            var8.setTranslationF(-var26, 0.0F, 0.0F);
+            tess.setTranslationF(-var26, 0.0F, 0.0F);
             var9 = true;
         }
 
@@ -2507,10 +2507,10 @@ public class RenderBlocks {
                 var33 = var27;
             }
 
-            var8.setColorOpaque_F(var17 * var33, var21 * var33, var25 * var33);
-            var8.setTranslationF(-var26, 0.0F, 0.0F);
+            tess.setColorOpaque_F(var17 * var33, var21 * var33, var25 * var33);
+            tess.setTranslationF(-var26, 0.0F, 0.0F);
             this.renderSouthFace(var1, var2, var3, var4, var1.getBlockTexture(this.blockAccess, var2, var3, var4, 5));
-            var8.setTranslationF(var26, 0.0F, 0.0F);
+            tess.setTranslationF(var26, 0.0F, 0.0F);
             var9 = true;
         }
 
@@ -2614,7 +2614,7 @@ public class RenderBlocks {
     }
 
     public boolean renderBlockDoor(Block block, int x, int y, int z) {
-        Tessellator tes = Tessellator.INSTANCE;
+        Tessellator tess = Tessellator.INSTANCE;
         BlockDoor blockDoor = (BlockDoor) block;
         boolean var7 = false;
         float var8 = 0.5F;
@@ -2631,7 +2631,7 @@ public class RenderBlocks {
             var13 = 1.0F;
         }
 
-        tes.setColorOpaque_F(var8 * var13, var8 * var13, var8 * var13);
+        tess.setColorOpaque_F(var8 * var13, var8 * var13, var8 * var13);
         this.renderBottomFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 0));
         var7 = true;
         var13 = block.getBlockBrightness(this.blockAccess, x, y + 1, z);
@@ -2643,7 +2643,7 @@ public class RenderBlocks {
             var13 = 1.0F;
         }
 
-        tes.setColorOpaque_F(var9 * var13, var9 * var13, var9 * var13);
+        tess.setColorOpaque_F(var9 * var13, var9 * var13, var9 * var13);
         this.renderTopFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 1));
         var7 = true;
         var13 = block.getBlockBrightness(this.blockAccess, x, y, z - 1);
@@ -2655,7 +2655,7 @@ public class RenderBlocks {
             var13 = 1.0F;
         }
 
-        tes.setColorOpaque_F(var10 * var13, var10 * var13, var10 * var13);
+        tess.setColorOpaque_F(var10 * var13, var10 * var13, var10 * var13);
         int var14 = block.getBlockTexture(this.blockAccess, x, y, z, 2);
         if (var14 < 0) {
             this.flipTexture = true;
@@ -2674,7 +2674,7 @@ public class RenderBlocks {
             var13 = 1.0F;
         }
 
-        tes.setColorOpaque_F(var10 * var13, var10 * var13, var10 * var13);
+        tess.setColorOpaque_F(var10 * var13, var10 * var13, var10 * var13);
         var14 = block.getBlockTexture(this.blockAccess, x, y, z, 3);
         if (var14 < 0) {
             this.flipTexture = true;
@@ -2693,7 +2693,7 @@ public class RenderBlocks {
             var13 = 1.0F;
         }
 
-        tes.setColorOpaque_F(var11 * var13, var11 * var13, var11 * var13);
+        tess.setColorOpaque_F(var11 * var13, var11 * var13, var11 * var13);
         var14 = block.getBlockTexture(this.blockAccess, x, y, z, 4);
         if (var14 < 0) {
             this.flipTexture = true;
@@ -2712,7 +2712,7 @@ public class RenderBlocks {
             var13 = 1.0F;
         }
 
-        tes.setColorOpaque_F(var11 * var13, var11 * var13, var11 * var13);
+        tess.setColorOpaque_F(var11 * var13, var11 * var13, var11 * var13);
         var14 = block.getBlockTexture(this.blockAccess, x, y, z, 5);
         if (var14 < 0) {
             this.flipTexture = true;
@@ -2808,7 +2808,7 @@ public class RenderBlocks {
     }
 
     public void renderTopFace(Block var1, double var2, double var4, double var6, int var8) {
-        Tessellator var9 = Tessellator.INSTANCE;
+        Tessellator tess = Tessellator.INSTANCE;
         if (this.overrideBlockTexture >= 0) {
             var8 = this.overrideBlockTexture;
         }
@@ -2872,19 +2872,20 @@ public class RenderBlocks {
         double var34 = var6 + var1.minZ;
         double var36 = var6 + var1.maxZ;
         if (this.enableAO) {
-            var9.setColorOpaque_F(this.colorRedTopLeft, this.colorGreenTopLeft, this.colorBlueTopLeft);
-            var9.addVertexWithUV(var30, var32, var36, var14, var18);
-            var9.setColorOpaque_F(this.colorRedBottomLeft, this.colorGreenBottomLeft, this.colorBlueBottomLeft);
-            var9.addVertexWithUV(var30, var32, var34, var20, var24);
-            var9.setColorOpaque_F(this.colorRedBottomRight, this.colorGreenBottomRight, this.colorBlueBottomRight);
-            var9.addVertexWithUV(var28, var32, var34, var12, var16);
-            var9.setColorOpaque_F(this.colorRedTopRight, this.colorGreenTopRight, this.colorBlueTopRight);
-            var9.addVertexWithUV(var28, var32, var36, var22, var26);
+            tess.setColorOpaque_F(this.colorRedTopLeft, this.colorGreenTopLeft, this.colorBlueTopLeft);
+
+            tess.addVertexWithUV(var30, var32, var36, var14, var18);
+            tess.setColorOpaque_F(this.colorRedBottomLeft, this.colorGreenBottomLeft, this.colorBlueBottomLeft);
+            tess.addVertexWithUV(var30, var32, var34, var20, var24);
+            tess.setColorOpaque_F(this.colorRedBottomRight, this.colorGreenBottomRight, this.colorBlueBottomRight);
+            tess.addVertexWithUV(var28, var32, var34, var12, var16);
+            tess.setColorOpaque_F(this.colorRedTopRight, this.colorGreenTopRight, this.colorBlueTopRight);
+            tess.addVertexWithUV(var28, var32, var36, var22, var26);
         } else {
-            var9.addVertexWithUV(var30, var32, var36, var14, var18);
-            var9.addVertexWithUV(var30, var32, var34, var20, var24);
-            var9.addVertexWithUV(var28, var32, var34, var12, var16);
-            var9.addVertexWithUV(var28, var32, var36, var22, var26);
+            tess.addVertexWithUV(var30, var32, var36, var14, var18);
+            tess.addVertexWithUV(var30, var32, var34, var20, var24);
+            tess.addVertexWithUV(var28, var32, var34, var12, var16);
+            tess.addVertexWithUV(var28, var32, var36, var22, var26);
         }
 
     }

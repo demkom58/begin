@@ -1008,7 +1008,7 @@ public class World implements IBlockAccess {
         }
 
         var3 = 1.0F - var3;
-        var3 = (float) ((double) var3 * (1.0D - (double) (this.func_27162_g(var1) * 5.0F) / 16.0D));
+        var3 = (float) ((double) var3 * (1.0D - (double) (this.getRainStrength(var1) * 5.0F) / 16.0D));
         var3 = (float) ((double) var3 * (1.0D - (double) (this.func_27166_f(var1) * 5.0F) / 16.0D));
         var3 = 1.0F - var3;
         return (int) (var3 * 11.0F);
@@ -1035,7 +1035,7 @@ public class World implements IBlockAccess {
         var9 = var9 * var4;
         var10 = var10 * var4;
         var11 = var11 * var4;
-        float var12 = this.func_27162_g(angle);
+        float var12 = this.getRainStrength(angle);
         if (var12 > 0.0F) {
             float var13 = (var9 * 0.3F + var10 * 0.59F + var11 * 0.11F) * 0.6F;
             float var14 = 1.0F - var12 * 0.75F;
@@ -1086,7 +1086,7 @@ public class World implements IBlockAccess {
         float var4 = (float) (this.field_1019_F >> 16 & 255L) / 255.0F;
         float var5 = (float) (this.field_1019_F >> 8 & 255L) / 255.0F;
         float var6 = (float) (this.field_1019_F & 255L) / 255.0F;
-        float var7 = this.func_27162_g(var1);
+        float var7 = this.getRainStrength(var1);
         if (var7 > 0.0F) {
             float var8 = (var4 * 0.3F + var5 * 0.59F + var6 * 0.11F) * 0.6F;
             float var9 = 1.0F - var7 * 0.95F;
@@ -2391,10 +2391,10 @@ public class World implements IBlockAccess {
     }
 
     public float func_27166_f(float var1) {
-        return (this.prevThunderingStrength + (this.thunderingStrength - this.prevThunderingStrength) * var1) * this.func_27162_g(var1);
+        return (this.prevThunderingStrength + (this.thunderingStrength - this.prevThunderingStrength) * var1) * this.getRainStrength(var1);
     }
 
-    public float func_27162_g(float var1) {
+    public float getRainStrength(float var1) {
         return this.prevRainingStrength + (this.rainingStrength - this.prevRainingStrength) * var1;
     }
 
@@ -2408,7 +2408,7 @@ public class World implements IBlockAccess {
     }
 
     public boolean func_27161_C() {
-        return (double) this.func_27162_g(1.0F) > 0.2D;
+        return (double) this.getRainStrength(1.0F) > 0.2D;
     }
 
     public boolean canBlockBeRainedOn(int var1, int var2, int var3) {

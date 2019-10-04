@@ -4,40 +4,112 @@ import net.minecraft.client.render.GLAllocation;
 import org.lwjgl.opengl.ARBVertexBufferObject;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
+import java.nio.*;
 
 public class Tessellator {
     public static final Tessellator INSTANCE = new Tessellator(2097152);
     private static boolean convertQuadsToTriangles = true;
     private static boolean tryVBO = false;
-    private ByteBuffer byteBuffer;
-    private IntBuffer intBuffer;
-    private FloatBuffer floatBuffer;
-    private int[] rawBuffer;
-    private int vertexCount = 0;
+    /**
+     * The byte buffer used for GL allocation.
+     */
+    private final ByteBuffer byteBuffer;
+    /**
+     * The same memory as byteBuffer, but referenced as an integer buffer.
+     */
+    private final IntBuffer intBuffer;
+    /**
+     * The same memory as byteBuffer, but referenced as an float buffer.
+     */
+    private final FloatBuffer floatBuffer;
+    /**
+     * The same memory as byteBuffer, but referenced as an short buffer.
+     */
+    private final ShortBuffer shortBuffer;
+    /**
+     * Raw integer array.
+     */
+    private final int[] rawBuffer;
+    /**
+     * The number of vertices to be drawn in the next draw call. Reset to 0 between draw calls.
+     */
+    private int vertexCount;
+    /**
+     * The first coordinate to be used for the texture.
+     */
     private double textureU;
+    /**
+     * The second coordinate to be used for the texture.
+     */
     private double textureV;
+    private int brightness;
+    /**
+     * The color (RGBA) value to be used for the following draw call.
+     */
     private int color;
-    private boolean hasColor = false;
-    private boolean hasTexture = false;
-    private boolean hasNormals = false;
-    private int rawBufferIndex = 0;
-    private int addedVertices = 0;
-    private boolean isColorDisabled = false;
+    /**
+     * Whether the current draw object for this tessellator has color values.
+     */
+    private boolean hasColor;
+    /**
+     * Whether the current draw object for this tessellator has texture coordinates.
+     */
+    private boolean hasTexture;
+    private boolean hasBrightness;
+    /**
+     * Whether the current draw object for this tessellator has normal values.
+     */
+    private boolean hasNormals;
+    /**
+     * The index into the raw buffer to be used for the next data.
+     */
+    private int rawBufferIndex;
+    /**
+     * The number of vertices manually added to the given draw call. This differs from vertexCount because it adds extra
+     * vertices when converting quads to triangles.
+     */
+    private int addedVertices;
+    /**
+     * Disables all color information for the following draw call.
+     */
+    private boolean isColorDisabled;
+    /**
+     * The draw mode currently being used by the tessellator.
+     */
     private int drawMode;
+    /**
+     * An offset to be applied along the x-axis for all vertices in this draw call.
+     */
     private double xOffset;
+    /**
+     * An offset to be applied along the y-axis for all vertices in this draw call.
+     */
     private double yOffset;
+    /**
+     * An offset to be applied along the z-axis for all vertices in this draw call.
+     */
     private double zOffset;
+    /**
+     * The normal to be applied to the face being drawn.
+     */
     private int normal;
-    private boolean isDrawing = false;
-    private boolean useVBO;
+    /**
+     * The static instance of the Tessellator.
+     */
+    public static final Tessellator instance = new Tessellator(2097152);
+    /**
+     * Whether this tessellator is currently in draw mode.
+     */
+    private boolean isDrawing;
+    private final boolean useVBO;
     private IntBuffer vertexBuffers;
     private int vboIndex = 0;
     private int vboCount = 10;
+    /**
+     * The size of the buffers used (in integers).
+     */
     private int bufferSize;
 
     private Tessellator(int size) {
@@ -45,12 +117,17 @@ public class Tessellator {
         this.byteBuffer = GLAllocation.createDirectByteBuffer(size * 4);
         this.intBuffer = this.byteBuffer.asIntBuffer();
         this.floatBuffer = this.byteBuffer.asFloatBuffer();
+        this.shortBuffer = this.byteBuffer.asShortBuffer();
         this.rawBuffer = new int[size];
+
         this.useVBO = tryVBO && GL.getCapabilities().GL_ARB_vertex_buffer_object;
         if (this.useVBO)
             ARBVertexBufferObject.glGenBuffersARB(this.vertexBuffers = GLAllocation.createDirectIntBuffer(this.vboCount));
     }
 
+    /**
+     * Draws the data set up in this tessellator and resets the state to prepare for new drawing.
+     */
     public void draw() {
         if (!this.isDrawing)
             throw new IllegalStateException("Not tesselating!");
@@ -76,6 +153,18 @@ public class Tessellator {
                 }
 
                 GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+            }
+
+            if (this.hasBrightness) {
+                GL13.glClientActiveTexture(GL13.GL_TEXTURE1);
+                if (this.useVBO) {
+                    GL11.glTexCoordPointer(2, GL11.GL_SHORT, 32, 28L);
+                } else {
+                    this.shortBuffer.position(14);
+                    GL11.glTexCoordPointer(2, GL11.GL_SHORT, 32, this.shortBuffer);
+                }
+                GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+                GL13.glClientActiveTexture(GL13.GL_TEXTURE0);
             }
 
             if (this.hasColor) {
@@ -119,6 +208,12 @@ public class Tessellator {
                 GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
             }
 
+            if (this.hasBrightness) {
+                GL13.glClientActiveTexture(GL13.GL_TEXTURE1);
+                GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+                GL13.glClientActiveTexture(GL13.GL_TEXTURE0);
+            }
+
             if (this.hasColor) {
                 GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
             }
@@ -152,6 +247,7 @@ public class Tessellator {
         this.hasNormals = false;
         this.hasColor = false;
         this.hasTexture = false;
+        this.hasBrightness = false;
         this.isColorDisabled = false;
     }
 
@@ -159,6 +255,11 @@ public class Tessellator {
         this.hasTexture = true;
         this.textureU = textureU;
         this.textureV = textureV;
+    }
+
+    public void setBrightness(int brightness) {
+        this.hasBrightness = true;
+        this.brightness = brightness;
     }
 
     public void setColorOpaque_F(float r, float g, float b) {
@@ -238,6 +339,9 @@ public class Tessellator {
             this.rawBuffer[this.rawBufferIndex + 3] = Float.floatToRawIntBits((float) this.textureU);
             this.rawBuffer[this.rawBufferIndex + 4] = Float.floatToRawIntBits((float) this.textureV);
         }
+
+        if (this.hasBrightness)
+            this.rawBuffer[this.rawBufferIndex + 7] = this.brightness;
 
         if (this.hasColor)
             this.rawBuffer[this.rawBufferIndex + 5] = this.color;

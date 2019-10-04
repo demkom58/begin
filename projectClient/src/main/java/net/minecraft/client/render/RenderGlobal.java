@@ -675,7 +675,7 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glBlendFunc(770, 1);
         GL11.glPushMatrix();
-        float var19 = 1.0F - this.worldObj.func_27162_g(var1);
+        float var19 = 1.0F - this.worldObj.getRainStrength(var1);
         float var21 = 0.0F;
         float var22 = 0.0F;
         float var23 = 0.0F;
