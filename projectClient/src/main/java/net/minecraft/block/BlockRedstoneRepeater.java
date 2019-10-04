@@ -66,8 +66,8 @@ public class BlockRedstoneRepeater extends Block {
         return 15;
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        return this.getBlockTextureFromSideAndMetadata(var1, 0);
+    public int getBlockTextureFromSide(int side) {
+        return this.getBlockTextureFromSideAndMetadata(side, 0);
     }
 
     public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {

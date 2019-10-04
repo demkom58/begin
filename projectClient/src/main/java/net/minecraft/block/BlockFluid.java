@@ -44,8 +44,8 @@ public abstract class BlockFluid extends Block {
         return 16777215;
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        return var1 != 0 && var1 != 1 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture;
+    public int getBlockTextureFromSide(int side) {
+        return side != 0 && side != 1 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture;
     }
 
     protected int getFlowDecay(World var1, int var2, int var3, int var4) {

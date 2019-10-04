@@ -13,8 +13,8 @@ public class BlockJukeBox extends BlockContainer {
         super(var1, var2, Material.WOOD);
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        return this.blockIndexInTexture + (var1 == 1 ? 1 : 0);
+    public int getBlockTextureFromSide(int side) {
+        return this.blockIndexInTexture + (side == 1 ? 1 : 0);
     }
 
     public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {

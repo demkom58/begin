@@ -41,11 +41,11 @@ public class BlockCactus extends Block {
         return AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var5), (double) var3, (double) ((float) var4 + var5), (double) ((float) (var2 + 1) - var5), (double) (var3 + 1), (double) ((float) (var4 + 1) - var5));
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        if (var1 == 1) {
+    public int getBlockTextureFromSide(int side) {
+        if (side == 1) {
             return this.blockIndexInTexture - 1;
         } else {
-            return var1 == 0 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture;
+            return side == 0 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture;
         }
     }
 

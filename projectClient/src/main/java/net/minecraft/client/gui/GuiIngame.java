@@ -10,6 +10,7 @@ import net.minecraft.client.render.entity.RenderItem;
 import net.minecraft.inventory.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.material.Material;
+import net.minecraft.util.CommonUtil;
 import net.minecraft.util.StringTranslate;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.util.MathHelper;
@@ -178,11 +179,11 @@ public class GuiIngame extends Gui {
                 GL11.glTranslatef(0.0F, 32.0F, 0.0F);
             }
 
-            fontRenderer.drawStringWithShadow("Minecraft Beta 1.7.3 (" + this.mc.debug + ")", 2, 2, 16777215);
-            fontRenderer.drawStringWithShadow(this.mc.getDebugInfoRenders(), 2, 12, 16777215);
-            fontRenderer.drawStringWithShadow(this.mc.getDebugInfoEntities(), 2, 22, 16777215);
-            fontRenderer.drawStringWithShadow(this.mc.func_6245_o(), 2, 32, 16777215);
-            fontRenderer.drawStringWithShadow(this.mc.func_21002_o(), 2, 42, 16777215);
+            fontRenderer.drawStringWithShadow("Minecraft Beta 1.7.3 (" + this.mc.debug + ")", 2, 2, 0xFFFFFF);
+            fontRenderer.drawStringWithShadow(this.mc.getDebugInfoRenders(), 2, 12, 0xFFFFFF);
+            fontRenderer.drawStringWithShadow(this.mc.getDebugInfoEntities(), 2, 22, 0xFFFFFF);
+            fontRenderer.drawStringWithShadow(this.mc.func_6245_o(), 2, 32, 0xFFFFFF);
+            fontRenderer.drawStringWithShadow(this.mc.func_21002_o(), 2, 42, 0xFFFFFF);
 
             long maxMemory = Runtime.getRuntime().maxMemory();
             long totalMemory = Runtime.getRuntime().totalMemory();
@@ -190,15 +191,17 @@ public class GuiIngame extends Gui {
             long usedMemory = totalMemory - freeMemory;
 
             String usedMemoryInfo = "Used memory: " + usedMemory * 100L / maxMemory + "% (" + usedMemory / 1024L / 1024L + "MB) of " + maxMemory / 1024L / 1024L + "MB";
-            this.drawString(fontRenderer, usedMemoryInfo, var6 - fontRenderer.getStringWidth(usedMemoryInfo) - 2, 2, 14737632);
+            this.drawString(fontRenderer, usedMemoryInfo, var6 - fontRenderer.getStringWidth(usedMemoryInfo) - 2, 2, 0xE0E0E0);
 
             String allocatedMemoryInfo = "Allocated memory: " + totalMemory * 100L / maxMemory + "% (" + totalMemory / 1024L / 1024L + "MB)";
-            this.drawString(fontRenderer, allocatedMemoryInfo, var6 - fontRenderer.getStringWidth(allocatedMemoryInfo) - 2, 12, 14737632);
+            this.drawString(fontRenderer, allocatedMemoryInfo, var6 - fontRenderer.getStringWidth(allocatedMemoryInfo) - 2, 12, 0xE0E0E0);
 
-            this.drawString(fontRenderer, "x: " + this.mc.thePlayer.posX, 2, 64, 14737632);
-            this.drawString(fontRenderer, "y: " + this.mc.thePlayer.posY, 2, 72, 14737632);
-            this.drawString(fontRenderer, "z: " + this.mc.thePlayer.posZ, 2, 80, 14737632);
-            this.drawString(fontRenderer, "f: " + (MathHelper.floor((double) (this.mc.thePlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3), 2, 88, 14737632);
+            this.drawString(fontRenderer, "x: " + this.mc.thePlayer.posX, 2, 64, 0xE0E0E0);
+            this.drawString(fontRenderer, "y: " + this.mc.thePlayer.posY, 2, 72, 0xE0E0E0);
+            this.drawString(fontRenderer, "z: " + this.mc.thePlayer.posZ, 2, 80, 0xE0E0E0);
+
+            int directionId = (MathHelper.floor((double) (this.mc.thePlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3);
+            this.drawString(fontRenderer, "look: " + CommonUtil.getDirectionName(directionId) + " (f: " + directionId + ")", 2, 88, 0xE0E0E0);
             GL11.glPopMatrix();
         }
 
@@ -214,9 +217,9 @@ public class GuiIngame extends Gui {
                 GL11.glTranslatef((float) (var6 / 2), (float) (var7 - 48), 0.0F);
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(770, 771);
-                int var38 = 16777215;
+                int var38 = 0xFFFFFF;
                 if (this.field_22065_l) {
-                    var38 = Color.HSBtoRGB(var27 / 50.0F, 0.7F, 0.6F) & 16777215;
+                    var38 = Color.HSBtoRGB(var27 / 50.0F, 0.7F, 0.6F) & 0xFFFFFF;
                 }
 
                 fontRenderer.drawString(this.recordPlaying, -fontRenderer.getStringWidth(this.recordPlaying) / 2, -4, var38 + (var32 << 24));
@@ -263,7 +266,7 @@ public class GuiIngame extends Gui {
                     String message = this.chatMessageList.get(i).message;
                     this.drawRect(var47, var22 - 1, var47 + 320, var22 + 8, var20 / 2 << 24);
                     GL11.glEnable(GL11.GL_BLEND);
-                    fontRenderer.drawStringWithShadow(message, var47, var22, 16777215 + (var20 << 24));
+                    fontRenderer.drawStringWithShadow(message, var47, var22, 0xFFFFFF + (var20 << 24));
                 }
             }
         }

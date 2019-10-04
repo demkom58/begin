@@ -9,8 +9,8 @@ public class BlockBookshelf extends Block {
         super(var1, var2, Material.WOOD);
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        return var1 <= 1 ? 4 : this.blockIndexInTexture;
+    public int getBlockTextureFromSide(int side) {
+        return side <= 1 ? 4 : this.blockIndexInTexture;
     }
 
     public int quantityDropped(Random var1) {

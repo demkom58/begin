@@ -76,13 +76,13 @@ public class BlockDispenser extends BlockContainer {
         }
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        if (var1 == 1) {
+    public int getBlockTextureFromSide(int side) {
+        if (side == 1) {
             return this.blockIndexInTexture + 17;
-        } else if (var1 == 0) {
+        } else if (side == 0) {
             return this.blockIndexInTexture + 17;
         } else {
-            return var1 == 3 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture;
+            return side == 3 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture;
         }
     }
 

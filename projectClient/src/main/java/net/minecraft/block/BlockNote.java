@@ -11,7 +11,7 @@ public class BlockNote extends BlockContainer {
         super(var1, 74, Material.WOOD);
     }
 
-    public int getBlockTextureFromSide(int var1) {
+    public int getBlockTextureFromSide(int side) {
         return this.blockIndexInTexture;
     }
 

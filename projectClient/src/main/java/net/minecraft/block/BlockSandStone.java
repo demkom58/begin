@@ -7,11 +7,11 @@ public class BlockSandStone extends Block {
         super(var1, 192, Material.ROCK);
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        if (var1 == 1) {
+    public int getBlockTextureFromSide(int side) {
+        if (side == 1) {
             return this.blockIndexInTexture - 16;
         } else {
-            return var1 == 0 ? this.blockIndexInTexture + 16 : this.blockIndexInTexture;
+            return side == 0 ? this.blockIndexInTexture + 16 : this.blockIndexInTexture;
         }
     }
 }

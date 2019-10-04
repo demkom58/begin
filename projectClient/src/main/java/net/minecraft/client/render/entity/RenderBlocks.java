@@ -3242,10 +3242,10 @@ public class RenderBlocks {
 
     }
 
-    public void renderBlockOnInventory(Block block, int var2, float colorMul) {
+    public void renderBlockOnInventory(Block block, int metadata, float colorMul) {
         Tessellator tess = Tessellator.INSTANCE;
         if (this.field_31088_b) {
-            int var5 = block.getRenderColor(var2);
+            int var5 = block.getRenderColor(metadata);
             float r = (float) (var5 >> 16 & 255) / 255.0F;
             float g = (float) (var5 >> 8 & 255) / 255.0F;
             float b = (float) (var5 & 255) / 255.0F;
@@ -3262,7 +3262,7 @@ public class RenderBlocks {
             if (renderType == 1) {
                 tess.startDrawingQuads();
                 tess.setNormal(0.0F, -1.0F, 0.0F);
-                this.renderCrossedSquares(block, var2, -0.5D, -0.5D, -0.5D);
+                this.renderCrossedSquares(block, metadata, -0.5D, -0.5D, -0.5D);
                 tess.draw();
             } else if (renderType == 13) {
                 block.setBlockBoundsForItemRender();
@@ -3304,7 +3304,7 @@ public class RenderBlocks {
             } else if (renderType == 6) {
                 tess.startDrawingQuads();
                 tess.setNormal(0.0F, -1.0F, 0.0F);
-                this.func_1245_b(block, var2, -0.5D, -0.5D, -0.5D);
+                this.func_1245_b(block, metadata, -0.5D, -0.5D, -0.5D);
                 tess.draw();
             } else if (renderType == 2) {
                 tess.startDrawingQuads();
@@ -3400,34 +3400,34 @@ public class RenderBlocks {
             }
         } else {
             if (renderType == 16) {
-                var2 = 1;
+                metadata = 1;
             }
 
             block.setBlockBoundsForItemRender();
             GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
             tess.startDrawingQuads();
             tess.setNormal(0.0F, -1.0F, 0.0F);
-            this.renderBottomFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(0, var2));
+            this.renderBottomFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(0, metadata));
             tess.draw();
             tess.startDrawingQuads();
             tess.setNormal(0.0F, 1.0F, 0.0F);
-            this.renderTopFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(1, var2));
+            this.renderTopFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(1, metadata));
             tess.draw();
             tess.startDrawingQuads();
             tess.setNormal(0.0F, 0.0F, -1.0F);
-            this.renderEastFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(2, var2));
+            this.renderEastFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(2, metadata));
             tess.draw();
             tess.startDrawingQuads();
             tess.setNormal(0.0F, 0.0F, 1.0F);
-            this.renderWestFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(3, var2));
+            this.renderWestFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(3, metadata));
             tess.draw();
             tess.startDrawingQuads();
             tess.setNormal(-1.0F, 0.0F, 0.0F);
-            this.renderNorthFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(4, var2));
+            this.renderNorthFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(4, metadata));
             tess.draw();
             tess.startDrawingQuads();
             tess.setNormal(1.0F, 0.0F, 0.0F);
-            this.renderSouthFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(5, var2));
+            this.renderSouthFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(5, metadata));
             tess.draw();
             GL11.glTranslatef(0.5F, 0.5F, 0.5F);
         }

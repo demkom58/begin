@@ -8,7 +8,7 @@ public class BlockOreStorage extends Block {
         this.blockIndexInTexture = var2;
     }
 
-    public int getBlockTextureFromSide(int var1) {
+    public int getBlockTextureFromSide(int side) {
         return this.blockIndexInTexture;
     }
 }

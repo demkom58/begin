@@ -14,11 +14,11 @@ public class BlockTNT extends Block {
         super(var1, var2, Material.TNT);
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        if (var1 == 0) {
+    public int getBlockTextureFromSide(int side) {
+        if (side == 0) {
             return this.blockIndexInTexture + 2;
         } else {
-            return var1 == 1 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture;
+            return side == 1 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture;
         }
     }
 

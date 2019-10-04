@@ -36,8 +36,8 @@ public class BlockStep extends Block {
         }
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        return this.getBlockTextureFromSideAndMetadata(var1, 0);
+    public int getBlockTextureFromSide(int side) {
+        return this.getBlockTextureFromSideAndMetadata(side, 0);
     }
 
     public boolean isOpaqueCube() {

@@ -38,13 +38,13 @@ public class BlockPumpkin extends Block {
         }
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        if (var1 == 1) {
+    public int getBlockTextureFromSide(int side) {
+        if (side == 1) {
             return this.blockIndexInTexture;
-        } else if (var1 == 0) {
+        } else if (side == 0) {
             return this.blockIndexInTexture;
         } else {
-            return var1 == 3 ? this.blockIndexInTexture + 1 + 16 : this.blockIndexInTexture + 16;
+            return side == 3 ? this.blockIndexInTexture + 1 + 16 : this.blockIndexInTexture + 16;
         }
     }
 

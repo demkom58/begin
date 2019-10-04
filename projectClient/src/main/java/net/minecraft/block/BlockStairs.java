@@ -111,8 +111,8 @@ public class BlockStairs extends Block {
         return this.modelBlock.getBlockTextureFromSideAndMetadata(var1, var2);
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        return this.modelBlock.getBlockTextureFromSide(var1);
+    public int getBlockTextureFromSide(int side) {
+        return this.modelBlock.getBlockTextureFromSide(side);
     }
 
     public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {

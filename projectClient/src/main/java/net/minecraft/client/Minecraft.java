@@ -684,22 +684,21 @@ public final class Minecraft implements Runnable {
         System.gc();
     }
 
-    private void displayDebugInfo(long var1) {
+    private void displayDebugInfo(long delta) {
         long var3 = 16666666L;
         if (this.prevFrameTime == -1L)
             this.prevFrameTime = System.nanoTime();
 
         long var5 = System.nanoTime();
-        tickTimes[numRecordedFrameTimes & frameTimes.length - 1] = var1;
+        tickTimes[numRecordedFrameTimes & frameTimes.length - 1] = delta;
         frameTimes[numRecordedFrameTimes++ & frameTimes.length - 1] = var5 - this.prevFrameTime;
         this.prevFrameTime = var5;
         GL11.glClear(256);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
 
-        final Window window = this.window;
-        int displayWidth = window.getWidth();
-        int displayHeight = window.getHeight();
+        int displayWidth = this.window.getWidth();
+        int displayHeight = this.window.getHeight();
 
         GL11.glOrtho(0.0D, displayWidth, displayHeight, 0.0D, 1000.0D, 3000.0D);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);

@@ -10,13 +10,13 @@ public class BlockWorkbench extends Block {
         this.blockIndexInTexture = 59;
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        if (var1 == 1) {
+    public int getBlockTextureFromSide(int side) {
+        if (side == 1) {
             return this.blockIndexInTexture - 16;
-        } else if (var1 == 0) {
+        } else if (side == 0) {
             return Block.PLANKS.getBlockTextureFromSide(0);
         } else {
-            return var1 != 2 && var1 != 4 ? this.blockIndexInTexture : this.blockIndexInTexture + 1;
+            return side != 2 && side != 4 ? this.blockIndexInTexture : this.blockIndexInTexture + 1;
         }
     }
 

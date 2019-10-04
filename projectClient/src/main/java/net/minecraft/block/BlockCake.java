@@ -54,11 +54,11 @@ public class BlockCake extends Block {
         }
     }
 
-    public int getBlockTextureFromSide(int var1) {
-        if (var1 == 1) {
+    public int getBlockTextureFromSide(int side) {
+        if (side == 1) {
             return this.blockIndexInTexture;
         } else {
-            return var1 == 0 ? this.blockIndexInTexture + 3 : this.blockIndexInTexture + 1;
+            return side == 0 ? this.blockIndexInTexture + 3 : this.blockIndexInTexture + 1;
         }
     }
 

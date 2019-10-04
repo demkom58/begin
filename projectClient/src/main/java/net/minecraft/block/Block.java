@@ -304,7 +304,7 @@ public class Block {
         return this.getBlockTextureFromSide(var1);
     }
 
-    public int getBlockTextureFromSide(int var1) {
+    public int getBlockTextureFromSide(int side) {
         return this.blockIndexInTexture;
     }
 
