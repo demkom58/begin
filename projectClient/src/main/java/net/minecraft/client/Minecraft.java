@@ -1,14 +1,14 @@
 package net.minecraft.client;
 
 import net.hypnosis.audio.SoundSystem;
-import net.hypnosis.input.keyboard.Keyboard;
+import net.hypnosis.input.KeySource;
 import net.hypnosis.input.mouse.Mouse;
+import net.hypnosis.monitor.Window;
+import net.hypnosis.render.Tessellator;
 import net.hypnosis.render.gl.Api;
 import net.hypnosis.render.gl.ContextApi;
 import net.hypnosis.render.gl.OpenGL;
 import net.hypnosis.render.gl.Profile;
-import net.hypnosis.monitor.Window;
-import net.hypnosis.render.Tessellator;
 import net.minecraft.achievement.AchievementList;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.*;
@@ -18,13 +18,13 @@ import net.minecraft.client.input.mouse.MouseHelper;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.RenderBlocks;
 import net.minecraft.client.render.texture.*;
+import net.minecraft.client.sound.SoundManager;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityRenderer;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.ItemRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetClientHandler;
-import net.minecraft.client.sound.SoundManager;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
@@ -200,7 +200,14 @@ public final class Minecraft implements Runnable {
         this.entityRenderer = new EntityRenderer(this);
         RenderManager.instance.itemRenderer = new ItemRenderer(this);
         this.statFileWriter = new StatFileWriter(this.session, this.mcDataDir);
-        AchievementList.openInventory.setStatStringFormatter(s -> String.format(s, Keyboard.getKeycodeName(this.gameSettings.keyBindInventory.keyCode)));
+
+        final StringTranslate translate = StringTranslate.getInstance();
+        AchievementList.openInventory.setStatStringFormatter(s -> {
+            // TODO: update on lang change
+            String name = KeySource.KEYBOARD.getKeyInfo(this.gameSettings.keyBindInventory.keyCode).getName();
+            return String.format(s, translate.translateKey(name));
+        });
+
         this.loadScreen();
         this.mouseHelper = new MouseHelper(window, mouse);
 
