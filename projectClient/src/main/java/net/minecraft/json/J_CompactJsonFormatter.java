@@ -5,6 +5,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 public final class J_CompactJsonFormatter implements J_JsonFormatter {
+    @Override
     public String func_27327_a(J_JsonRootNode var1) {
         StringWriter var2 = new StringWriter();
 

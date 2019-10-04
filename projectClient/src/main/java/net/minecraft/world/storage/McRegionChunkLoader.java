@@ -20,6 +20,7 @@ public class McRegionChunkLoader implements IChunkLoader {
         this.worldDir = var1;
     }
 
+    @Override
     public Chunk loadChunk(World var1, int var2, int var3) throws IOException {
         DataInputStream inputStream = RegionFileCache.getChunkInputStream(this.worldDir, var2, var3);
         if (inputStream != null) {
@@ -47,6 +48,7 @@ public class McRegionChunkLoader implements IChunkLoader {
         }
     }
 
+    @Override
     public void saveChunk(World world, Chunk chunk) throws IOException {
         world.checkSessionLock();
 
@@ -66,12 +68,15 @@ public class McRegionChunkLoader implements IChunkLoader {
 
     }
 
+    @Override
     public void saveExtraChunkData(World var1, Chunk var2) throws IOException {
     }
 
+    @Override
     public void func_814_a() {
     }
 
+    @Override
     public void saveExtraData() {
     }
 }

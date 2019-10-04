@@ -20,13 +20,16 @@ public class BlockPistonMoving extends BlockContainer {
         return new TileEntityPiston(var0, var1, var2, var3, var4);
     }
 
+    @Override
     protected TileEntity getBlockEntity() {
         return null;
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
     }
 
+    @Override
     public void onBlockRemoval(World var1, int var2, int var3, int var4) {
         TileEntity var5 = var1.getBlockTileEntity(var2, var3, var4);
         if (var5 instanceof TileEntityPiston) {
@@ -37,26 +40,32 @@ public class BlockPistonMoving extends BlockContainer {
 
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World var1, int var2, int var3, int var4, int var5) {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return -1;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
         if (!var1.multiplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
             var1.setBlockWithNotify(var2, var3, var4, 0);
@@ -66,10 +75,12 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return 0;
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
         if (!var1.multiplayerWorld) {
             TileEntityPiston var7 = this.func_31034_c(var1, var2, var3, var4);
@@ -79,12 +90,14 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (!var1.multiplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
         }
 
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         TileEntityPiston var5 = this.func_31034_c(var1, var2, var3, var4);
         if (var5 == null) {
@@ -99,6 +112,7 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
         TileEntityPiston var5 = this.func_31034_c(var1, var2, var3, var4);
         if (var5 != null) {
@@ -130,12 +144,12 @@ public class BlockPistonMoving extends BlockContainer {
             if (var8 == null) {
                 return null;
             } else {
-                var8.minX -= (double) ((float) PistonBlockTextures.field_31056_b[var7] * var6);
-                var8.maxX -= (double) ((float) PistonBlockTextures.field_31056_b[var7] * var6);
-                var8.minY -= (double) ((float) PistonBlockTextures.field_31059_c[var7] * var6);
-                var8.maxY -= (double) ((float) PistonBlockTextures.field_31059_c[var7] * var6);
-                var8.minZ -= (double) ((float) PistonBlockTextures.field_31058_d[var7] * var6);
-                var8.maxZ -= (double) ((float) PistonBlockTextures.field_31058_d[var7] * var6);
+                var8.minX -= (float) PistonBlockTextures.field_31056_b[var7] * var6;
+                var8.maxX -= (float) PistonBlockTextures.field_31056_b[var7] * var6;
+                var8.minY -= (float) PistonBlockTextures.field_31059_c[var7] * var6;
+                var8.maxY -= (float) PistonBlockTextures.field_31059_c[var7] * var6;
+                var8.minZ -= (float) PistonBlockTextures.field_31058_d[var7] * var6;
+                var8.maxZ -= (float) PistonBlockTextures.field_31058_d[var7] * var6;
                 return var8;
             }
         } else {

@@ -9,6 +9,7 @@ public class ItemPainting extends Item {
         super(var1);
     }
 
+    @Override
     public boolean onItemUse(ItemStack var1, EntityPlayer var2, World var3, int var4, int var5, int var6, int var7) {
         if (var7 == 0) {
             return false;

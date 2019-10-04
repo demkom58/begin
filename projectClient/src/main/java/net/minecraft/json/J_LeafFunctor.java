@@ -1,6 +1,7 @@
 package net.minecraft.json;
 
 abstract class J_LeafFunctor implements J_Functor {
+    @Override
     public final Object func_27059_b(Object var1) {
         if (!this.func_27058_a(var1)) {
             throw J_JsonNodeDoesNotMatchChainedJsonNodeSelectorException.func_27322_a(this);

@@ -28,6 +28,7 @@ public class TexturePackCustom extends TexturePackBase {
         return var1;
     }
 
+    @Override
     public void func_6485_a(Minecraft var1) throws IOException {
         ZipFile var2 = null;
         InputStream var3 = null;
@@ -42,13 +43,13 @@ public class TexturePackCustom extends TexturePackBase {
                 this.secondDescriptionLine = this.truncateString(var4.readLine());
                 var4.close();
                 var3.close();
-            } catch (Exception e) { }
+            } catch (Exception ignored) { }
 
             try {
                 var3 = var2.getInputStream(var2.getEntry("pack.png"));
                 this.texturePackThumbnail = ImageIO.read(var3);
                 var3.close();
-            } catch (Exception e) { }
+            } catch (Exception ignored) { }
 
             var2.close();
         } catch (Exception e) {
@@ -56,16 +57,17 @@ public class TexturePackCustom extends TexturePackBase {
         } finally {
             try {
                 var3.close();
-            } catch (Exception e) { }
+            } catch (Exception ignored) { }
 
             try {
                 var2.close();
-            } catch (Exception e) { }
+            } catch (Exception ignored) { }
 
         }
 
     }
 
+    @Override
     public void func_6484_b(Minecraft var1) {
         if (this.texturePackThumbnail != null) {
             var1.renderEngine.deleteTexture(this.texturePackName);
@@ -74,6 +76,7 @@ public class TexturePackCustom extends TexturePackBase {
         this.closeTexturePackFile();
     }
 
+    @Override
     public void bindThumbnailTexture(Minecraft var1) {
         if (this.texturePackThumbnail != null && this.texturePackName < 0) {
             this.texturePackName = var1.renderEngine.allocateAndSetupTexture(this.texturePackThumbnail);
@@ -87,28 +90,31 @@ public class TexturePackCustom extends TexturePackBase {
 
     }
 
+    @Override
     public void func_6482_a() {
         try {
             this.texturePackZipFile = new ZipFile(this.texturePackFile);
-        } catch (Exception e) { }
+        } catch (Exception ignored) { }
 
     }
 
+    @Override
     public void closeTexturePackFile() {
         try {
             this.texturePackZipFile.close();
-        } catch (Exception e) { }
+        } catch (Exception ignored) { }
 
         this.texturePackZipFile = null;
     }
 
+    @Override
     public InputStream getResourceAsStream(String var1) {
         try {
             ZipEntry var2 = this.texturePackZipFile.getEntry(var1.substring(1));
             if (var2 != null) {
                 return this.texturePackZipFile.getInputStream(var2);
             }
-        } catch (Exception e) { }
+        } catch (Exception ignored) { }
 
         return TexturePackBase.class.getResourceAsStream(var1);
     }

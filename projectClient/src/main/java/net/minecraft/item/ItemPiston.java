@@ -5,6 +5,7 @@ public class ItemPiston extends ItemBlock {
         super(var1);
     }
 
+    @Override
     public int getPlacedBlockMetadata(int var1) {
         return 7;
     }

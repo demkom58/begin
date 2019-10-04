@@ -23,15 +23,18 @@ public class BlockSign extends BlockContainer {
         this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var5, 0.5F + var4);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         return null;
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
         return super.getSelectedBoundingBoxFromPool(var1, var2, var3, var4);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
         if (!this.isFreestanding) {
             int var5 = var1.getBlockMetadata(var2, var3, var4);
@@ -60,18 +63,22 @@ public class BlockSign extends BlockContainer {
         }
     }
 
+    @Override
     public int getRenderType() {
         return -1;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     protected TileEntity getBlockEntity() {
         try {
@@ -81,10 +88,12 @@ public class BlockSign extends BlockContainer {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Item.SIGN.shiftedIndex;
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         boolean var6 = false;
         if (this.isFreestanding) {
@@ -93,10 +102,7 @@ public class BlockSign extends BlockContainer {
             }
         } else {
             int var7 = var1.getBlockMetadata(var2, var3, var4);
-            var6 = true;
-            if (var7 == 2 && var1.getBlockMaterial(var2, var3, var4 + 1).isSolid()) {
-                var6 = false;
-            }
+            var6 = var7 != 2 || !var1.getBlockMaterial(var2, var3, var4 + 1).isSolid();
 
             if (var7 == 3 && var1.getBlockMaterial(var2, var3, var4 - 1).isSolid()) {
                 var6 = false;

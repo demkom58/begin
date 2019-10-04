@@ -14,6 +14,7 @@ public final class GameWindowListener extends WindowAdapter {
         this.mcThread = mcThread;
     }
 
+    @Override
     public void windowClosing(WindowEvent event) {
         this.mc.shutdown();
 

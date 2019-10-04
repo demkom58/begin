@@ -18,18 +18,22 @@ final class J_JsonNumberNode extends J_JsonNode {
         }
     }
 
+    @Override
     public EnumJsonNodeType func_27218_a() {
         return EnumJsonNodeType.NUMBER;
     }
 
+    @Override
     public String getValue() {
         return this.field_27225_b;
     }
 
+    @Override
     public Map func_27214_c() {
         throw new IllegalStateException("Attempt to get fields on a JsonNode without fields.");
     }
 
+    @Override
     public List func_27215_d() {
         throw new IllegalStateException("Attempt to get elements on a JsonNode without elements.");
     }

@@ -48,7 +48,7 @@ public class TexturedQuad {
 
         for (int var6 = 0; var6 < 4; ++var6) {
             PositionTextureVertex var7 = this.vertexPositions[var6];
-            var1.addVertexWithUV((double) ((float) var7.vector3D.xCoord * var2), (double) ((float) var7.vector3D.yCoord * var2), (double) ((float) var7.vector3D.zCoord * var2), (double) var7.texturePositionX, (double) var7.texturePositionY);
+            var1.addVertexWithUV((float) var7.vector3D.xCoord * var2, (float) var7.vector3D.yCoord * var2, (float) var7.vector3D.zCoord * var2, var7.texturePositionX, var7.texturePositionY);
         }
 
         var1.draw();

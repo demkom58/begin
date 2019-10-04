@@ -29,6 +29,7 @@ public class ChunkCache implements IBlockAccess {
 
     }
 
+    @Override
     public int getBlockId(int x, int y, int z) {
         if (y < 0)
             return 0;
@@ -46,12 +47,14 @@ public class ChunkCache implements IBlockAccess {
         return 0;
     }
 
+    @Override
     public TileEntity getBlockTileEntity(int var1, int var2, int var3) {
         int var4 = (var1 >> 4) - this.chunkX;
         int var5 = (var3 >> 4) - this.chunkZ;
         return this.chunkArray[var4][var5].getChunkBlockTileEntity(var1 & 15, var2, var3 & 15);
     }
 
+    @Override
     public float getBrightness(int var1, int var2, int var3, int var4) {
         int var5 = this.getLightValue(var1, var2, var3);
         if (var5 < var4) {
@@ -61,6 +64,7 @@ public class ChunkCache implements IBlockAccess {
         return this.worldObj.worldProvider.lightBrightnessTable[var5];
     }
 
+    @Override
     public float getLightBrightness(int var1, int var2, int var3) {
         return this.worldObj.worldProvider.lightBrightnessTable[this.getLightValue(var1, var2, var3)];
     }
@@ -118,6 +122,7 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
+    @Override
     public int getBlockMetadata(int var1, int var2, int var3) {
         if (var2 < 0) {
             return 0;
@@ -130,20 +135,24 @@ public class ChunkCache implements IBlockAccess {
         }
     }
 
+    @Override
     public Material getBlockMaterial(int var1, int var2, int var3) {
         int var4 = this.getBlockId(var1, var2, var3);
         return var4 == 0 ? Material.AIR : Block.BLOCKS_LIST[var4].blockMaterial;
     }
 
+    @Override
     public WorldChunkManager getWorldChunkManager() {
         return this.worldObj.getWorldChunkManager();
     }
 
+    @Override
     public boolean isBlockOpaqueCube(int var1, int var2, int var3) {
         Block var4 = Block.BLOCKS_LIST[this.getBlockId(var1, var2, var3)];
-        return var4 == null ? false : var4.isOpaqueCube();
+        return var4 != null && var4.isOpaqueCube();
     }
 
+    @Override
     public boolean isBlockNormalCube(int var1, int var2, int var3) {
         Block var4 = Block.BLOCKS_LIST[this.getBlockId(var1, var2, var3)];
         if (var4 == null) {

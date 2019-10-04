@@ -138,8 +138,8 @@ public class GuiScreen extends Gui {
         tessellator.setColorOpaque_I(4210752);
         tessellator.addVertexWithUV(0.0D, this.height, 0.0D, 0.0D, (float) this.height / var3 + (float) var1);
         tessellator.addVertexWithUV(this.width, this.height, 0.0D, (float) this.width / var3, (float) this.height / var3 + (float) var1);
-        tessellator.addVertexWithUV(this.width, 0.0D, 0.0D, (float) this.width / var3, 0 + var1);
-        tessellator.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0 + var1);
+        tessellator.addVertexWithUV(this.width, 0.0D, 0.0D, (float) this.width / var3, var1);
+        tessellator.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, var1);
         tessellator.draw();
     }
 

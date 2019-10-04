@@ -9,6 +9,7 @@ public class BlockGravel extends BlockSand {
         super(var1, var2);
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return var2.nextInt(10) == 0 ? Item.FLINT.shiftedIndex : this.blockID;
     }

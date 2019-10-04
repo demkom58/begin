@@ -19,20 +19,24 @@ public class Packet19EntityAction extends Packet {
         this.state = var2;
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.entityId = var1.readInt();
         this.state = var1.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeInt(this.entityId);
         var1.writeByte(this.state);
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.func_21147_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 5;
     }

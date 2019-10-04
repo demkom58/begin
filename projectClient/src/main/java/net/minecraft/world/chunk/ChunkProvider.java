@@ -22,10 +22,12 @@ public class ChunkProvider implements IChunkProvider {
         this.chunkProvider = var3;
     }
 
+    @Override
     public boolean chunkExists(int x, int z) {
         return this.chunkMap.containsKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
     }
 
+    @Override
     public Chunk prepareChunk(int x, int z) {
         int var3 = ChunkCoordIntPair.chunkXZ2Int(x, z);
         this.droppedChunksSet.remove(var3);
@@ -67,6 +69,7 @@ public class ChunkProvider implements IChunkProvider {
         return var4;
     }
 
+    @Override
     public Chunk provideChunk(int x, int z) {
         Chunk var3 = (Chunk) this.chunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
         return var3 == null ? this.prepareChunk(x, z) : var3;
@@ -113,6 +116,7 @@ public class ChunkProvider implements IChunkProvider {
         }
     }
 
+    @Override
     public void populate(IChunkProvider provider, int x, int z) {
         Chunk var4 = this.provideChunk(x, z);
         if (!var4.isTerrainPopulated) {
@@ -125,6 +129,7 @@ public class ChunkProvider implements IChunkProvider {
 
     }
 
+    @Override
     public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
         int var3 = 0;
 
@@ -155,6 +160,7 @@ public class ChunkProvider implements IChunkProvider {
         return true;
     }
 
+    @Override
     public boolean unload100OldestChunks() {
         for (int var1 = 0; var1 < 100; ++var1) {
             if (!this.droppedChunksSet.isEmpty()) {
@@ -176,10 +182,12 @@ public class ChunkProvider implements IChunkProvider {
         return this.chunkProvider.unload100OldestChunks();
     }
 
+    @Override
     public boolean canSave() {
         return true;
     }
 
+    @Override
     public String makeString() {
         return "ServerChunkCache: " + this.chunkMap.size() + " Drop: " + this.droppedChunksSet.size();
     }

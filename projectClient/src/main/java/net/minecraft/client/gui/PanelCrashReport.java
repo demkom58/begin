@@ -75,7 +75,7 @@ public class PanelCrashReport extends Panel {
         cardInfo = cardInfo + "\n";
 
         TextArea area = new TextArea(cardInfo, 0, 0, 1);
-        area.setFont(new Font("Monospaced", 0, 12));
+        area.setFont(new Font("Monospaced", Font.PLAIN, 12));
         this.add(new CanvasMojangLogo(), "North");
         this.add(new CanvasCrashReport(80), "East");
         this.add(new CanvasCrashReport(80), "West");

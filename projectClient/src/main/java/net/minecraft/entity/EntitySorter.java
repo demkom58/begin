@@ -27,6 +27,7 @@ public class EntitySorter implements Comparator<WorldRenderer> {
         return (int) ((var3 * var3 + var5 * var5 + var7 * var7 - (var9 * var9 + var11 * var11 + var13 * var13)) * 1024.0D);
     }
 
+    @Override
     public int compare(WorldRenderer ren1, WorldRenderer ren2) {
         return this.sortByDistanceToEntity(ren1, ren2);
     }

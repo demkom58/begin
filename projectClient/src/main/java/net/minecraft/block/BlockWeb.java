@@ -13,26 +13,32 @@ public class BlockWeb extends Block {
         super(var1, var2, Material.WEB);
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
         var5.isInWeb = true;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         return null;
     }
 
+    @Override
     public int getRenderType() {
         return 1;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Item.SILK.shiftedIndex;
     }

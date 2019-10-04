@@ -23,6 +23,7 @@ public class EntitySlime extends EntityLiving implements IMob {
         this.setSlimeSize(var2);
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 1);
@@ -39,16 +40,19 @@ public class EntitySlime extends EntityLiving implements IMob {
         this.setPosition(this.posX, this.posY, this.posZ);
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
         var1.setInteger("Size", this.getSlimeSize() - 1);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         this.setSlimeSize(var1.getInteger("Size") + 1);
     }
 
+    @Override
     public void onUpdate() {
         this.field_767_b = this.field_768_a;
         boolean var1 = this.onGround;
@@ -74,6 +78,7 @@ public class EntitySlime extends EntityLiving implements IMob {
         this.field_768_a *= 0.6F;
     }
 
+    @Override
     protected void updatePlayerActionState() {
         this.func_27021_X();
         EntityPlayer var1 = this.worldObj.getClosestPlayerToEntity(this, 16.0D);
@@ -94,7 +99,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 
             this.field_768_a = 1.0F;
             this.moveStrafing = 1.0F - this.rand.nextFloat() * 2.0F;
-            this.moveForward = (float) (1 * this.getSlimeSize());
+            this.moveForward = (float) (this.getSlimeSize());
         } else {
             this.isJumping = false;
             if (this.onGround) {
@@ -104,6 +109,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 
     }
 
+    @Override
     public void setEntityDead() {
         int var1 = this.getSlimeSize();
         if (!this.worldObj.multiplayerWorld && var1 > 1 && this.health == 0) {
@@ -120,6 +126,7 @@ public class EntitySlime extends EntityLiving implements IMob {
         super.setEntityDead();
     }
 
+    @Override
     public void onCollideWithPlayer(EntityPlayer var1) {
         int var2 = this.getSlimeSize();
         if (var2 > 1 && this.canEntityBeSeen(var1) && (double) this.getDistanceToEntity(var1) < 0.6D * (double) var2 && var1.attackEntityFrom(this, var2)) {
@@ -128,23 +135,28 @@ public class EntitySlime extends EntityLiving implements IMob {
 
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.slime";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.slime";
     }
 
+    @Override
     protected int getDropItemId() {
         return this.getSlimeSize() == 1 ? Item.SLIMEBALL.shiftedIndex : 0;
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         Chunk var1 = this.worldObj.getChunkFromBlockCoords(MathHelper.floor(this.posX), MathHelper.floor(this.posZ));
         return (this.getSlimeSize() == 1 || this.worldObj.difficultySetting > 0) && this.rand.nextInt(10) == 0 && var1.func_997_a(987234911L).nextInt(10) == 0 && this.posY < 16.0D;
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.6F;
     }

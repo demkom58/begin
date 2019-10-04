@@ -15,6 +15,7 @@ public class ItemBoat extends Item {
         this.maxStackSize = 1;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack var1, World var2, EntityPlayer var3) {
         float var4 = 1.0F;
         float var5 = var3.prevRotationPitch + (var3.rotationPitch - var3.prevRotationPitch) * var4;
@@ -44,7 +45,7 @@ public class ItemBoat extends Item {
                         --var26;
                     }
 
-                    var2.entityJoinedWorld(new EntityBoat(var2, (double) ((float) var25 + 0.5F), (double) ((float) var26 + 1.0F), (double) ((float) var27 + 0.5F)));
+                    var2.entityJoinedWorld(new EntityBoat(var2, (float) var25 + 0.5F, (float) var26 + 1.0F, (float) var27 + 0.5F));
                 }
 
                 --var1.stackSize;

@@ -462,10 +462,10 @@ public final class Minecraft implements Runnable {
         float vMul = 0.00390625F;
         Tessellator tess = Tessellator.INSTANCE;
         tess.startDrawingQuads();
-        tess.addVertexWithUV(x + 0, y + var6, 0.0D, (float) (u + 0) * uMul, (float) (v + var6) * vMul);
+        tess.addVertexWithUV(x, y + var6, 0.0D, (float) (u) * uMul, (float) (v + var6) * vMul);
         tess.addVertexWithUV(x + var5, y + var6, 0.0D, (float) (u + var5) * uMul, (float) (v + var6) * vMul);
-        tess.addVertexWithUV(x + var5, y + 0, 0.0D, (float) (u + var5) * uMul, (float) (v + 0) * vMul);
-        tess.addVertexWithUV(x + 0, y + 0, 0.0D, (float) (u + 0) * uMul, (float) (v + 0) * vMul);
+        tess.addVertexWithUV(x + var5, y, 0.0D, (float) (u + var5) * uMul, (float) (v) * vMul);
+        tess.addVertexWithUV(x, y, 0.0D, (float) (u) * uMul, (float) (v) * vMul);
         tess.draw();
     }
 
@@ -548,6 +548,7 @@ public final class Minecraft implements Runnable {
         System.gc();
     }
 
+    @Override
     public void run() {
         this.running = true;
 
@@ -752,7 +753,7 @@ public final class Minecraft implements Runnable {
             long var18 = tickTimes[i] / 200000L;
             tess.addVertex((float) i + 0.5F, (float) ((long) displayHeight - var16) + 0.5F, 0.0D);
             tess.addVertex((float) i + 0.5F, (float) displayHeight + 0.5F, 0.0D);
-            tess.setColorOpaque_I(-16777216 + var14 * 65536 + var14 * 256 + var14 * 1);
+            tess.setColorOpaque_I(-16777216 + var14 * 65536 + var14 * 256 + var14);
             tess.addVertex((float) i + 0.5F, (float) ((long) displayHeight - var16) + 0.5F, 0.0D);
             tess.addVertex((float) i + 0.5F, (float) ((long) displayHeight - (var16 - var18)) + 0.5F, 0.0D);
         }

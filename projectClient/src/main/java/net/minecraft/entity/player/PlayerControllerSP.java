@@ -18,10 +18,12 @@ public class PlayerControllerSP extends PlayerController {
         super(var1);
     }
 
+    @Override
     public void flipPlayer(EntityPlayer var1) {
         var1.rotationYaw = -180.0F;
     }
 
+    @Override
     public boolean sendBlockRemoved(int x, int y, int z, int var4) {
         int var5 = this.mc.theWorld.getBlockId(x, y, z);
         int var6 = this.mc.theWorld.getBlockMetadata(x, y, z);
@@ -43,6 +45,7 @@ public class PlayerControllerSP extends PlayerController {
         return var7;
     }
 
+    @Override
     public void clickBlock(int var1, int var2, int var3, int var4) {
         this.mc.theWorld.onBlockHit(this.mc.thePlayer, var1, var2, var3, var4);
         int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
@@ -56,11 +59,13 @@ public class PlayerControllerSP extends PlayerController {
 
     }
 
+    @Override
     public void resetBlockRemoving() {
         this.curBlockDamage = 0.0F;
         this.blockHitWait = 0;
     }
 
+    @Override
     public void sendBlockRemoving(int x, int y, int z, int sideHit) {
         if (this.blockHitWait > 0) {
             --this.blockHitWait;
@@ -104,6 +109,7 @@ public class PlayerControllerSP extends PlayerController {
         this.currentblockZ = z;
     }
 
+    @Override
     public void setPartialTime(float var1) {
         if (this.curBlockDamage <= 0.0F) {
             this.mc.ingameGUI.damageGuiPartialTime = 0.0F;
@@ -116,14 +122,17 @@ public class PlayerControllerSP extends PlayerController {
 
     }
 
+    @Override
     public float getBlockReachDistance() {
         return 4.0F;
     }
 
+    @Override
     public void func_717_a(World world) {
         super.func_717_a(world);
     }
 
+    @Override
     public void updateController() {
         this.prevBlockDamage = this.curBlockDamage;
         this.mc.soundManager.playRandomMusicIfReady();

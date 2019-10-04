@@ -21,12 +21,14 @@ public class EntityFlameFX extends EntityFX {
         this.particleTextureIndex = 48;
     }
 
+    @Override
     public void renderParticle(Tessellator var1, float var2, float var3, float var4, float var5, float var6, float var7) {
         float var8 = ((float) this.particleAge + var2) / (float) this.particleMaxAge;
         this.particleScale = this.field_672_a * (1.0F - var8 * var8 * 0.5F);
         super.renderParticle(var1, var2, var3, var4, var5, var6, var7);
     }
 
+    @Override
     public float getEntityBrightness(float var1) {
         float var2 = ((float) this.particleAge + var1) / (float) this.particleMaxAge;
         if (var2 < 0.0F) {
@@ -41,6 +43,7 @@ public class EntityFlameFX extends EntityFX {
         return var3 * var2 + (1.0F - var2);
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;

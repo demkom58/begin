@@ -8,6 +8,7 @@ public class Frustrum implements ICamera {
     private double yPosition;
     private double zPosition;
 
+    @Override
     public void setPosition(double var1, double var3, double var5) {
         this.xPosition = var1;
         this.yPosition = var3;
@@ -18,6 +19,7 @@ public class Frustrum implements ICamera {
         return this.clippingHelper.isBoxInFrustum(var1 - this.xPosition, var3 - this.yPosition, var5 - this.zPosition, var7 - this.xPosition, var9 - this.yPosition, var11 - this.zPosition);
     }
 
+    @Override
     public boolean isBoundingBoxInFrustum(AxisAlignedBB var1) {
         return this.isBoxInFrustum(var1.minX, var1.minY, var1.minZ, var1.maxX, var1.maxY, var1.maxZ);
     }

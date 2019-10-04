@@ -14,6 +14,7 @@ public class SaveOldDir extends SaveHandler {
         super(saveDirectory, worldName, createPlayerDirectory);
     }
 
+    @Override
     public IChunkLoader getChunkLoader(WorldProvider provider) {
         File saveDirectory = this.getSaveDirectory();
         if (provider instanceof WorldProviderHell) {
@@ -25,6 +26,7 @@ public class SaveOldDir extends SaveHandler {
         return new McRegionChunkLoader(saveDirectory);
     }
 
+    @Override
     public void saveWorldInfoAndPlayer(WorldInfo worldInfo, List<EntityPlayer> players) {
         worldInfo.setSaveVersion(19132);
         super.saveWorldInfoAndPlayer(worldInfo, players);

@@ -17,6 +17,7 @@ public class Packet53BlockChange extends Packet {
         this.isChunkDataPacket = true;
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.xPosition = var1.readInt();
         this.yPosition = var1.read();
@@ -25,6 +26,7 @@ public class Packet53BlockChange extends Packet {
         this.metadata = var1.read();
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeInt(this.xPosition);
         var1.write(this.yPosition);
@@ -33,10 +35,12 @@ public class Packet53BlockChange extends Packet {
         var1.write(this.metadata);
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.handleBlockChange(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 11;
     }

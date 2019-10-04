@@ -71,10 +71,10 @@ public class MapItemRenderer {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         var17.startDrawingQuads();
-        var17.addVertexWithUV((float) (var15 + 0) + var18, (float) (var16 + 128) - var18, -0.009999999776482582D, 0.0D, 1.0D);
+        var17.addVertexWithUV((float) (var15) + var18, (float) (var16 + 128) - var18, -0.009999999776482582D, 0.0D, 1.0D);
         var17.addVertexWithUV((float) (var15 + 128) - var18, (float) (var16 + 128) - var18, -0.009999999776482582D, 1.0D, 1.0D);
-        var17.addVertexWithUV((float) (var15 + 128) - var18, (float) (var16 + 0) + var18, -0.009999999776482582D, 1.0D, 0.0D);
-        var17.addVertexWithUV((float) (var15 + 0) + var18, (float) (var16 + 0) + var18, -0.009999999776482582D, 0.0D, 0.0D);
+        var17.addVertexWithUV((float) (var15 + 128) - var18, (float) (var16) + var18, -0.009999999776482582D, 1.0D, 0.0D);
+        var17.addVertexWithUV((float) (var15) + var18, (float) (var16) + var18, -0.009999999776482582D, 0.0D, 0.0D);
         var17.draw();
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glDisable(GL11.GL_BLEND);
@@ -86,8 +86,8 @@ public class MapItemRenderer {
             GL11.glRotatef((float) (var20.field_28219_d * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
             GL11.glScalef(4.0F, 4.0F, 3.0F);
             GL11.glTranslatef(-0.125F, 0.125F, 0.0F);
-            float var21 = (float) (var20.field_28217_a % 4 + 0) / 4.0F;
-            float var22 = (float) (var20.field_28217_a / 4 + 0) / 4.0F;
+            float var21 = (float) (var20.field_28217_a % 4) / 4.0F;
+            float var22 = (float) (var20.field_28217_a / 4) / 4.0F;
             float var23 = (float) (var20.field_28217_a % 4 + 1) / 4.0F;
             float var24 = (float) (var20.field_28217_a / 4 + 1) / 4.0F;
             var17.startDrawingQuads();

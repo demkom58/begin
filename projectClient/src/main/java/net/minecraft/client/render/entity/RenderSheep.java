@@ -25,6 +25,7 @@ public class RenderSheep extends RenderLiving {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected boolean shouldRenderPass(EntityLiving var1, int var2, float var3) {
         return this.setWoolColorAndRender((EntitySheep) var1, var2, var3);
     }

@@ -261,17 +261,17 @@ public class Block {
         return this;
     }
 
-    public void setBlockBounds(float var1, float var2, float var3, float var4, float var5, float var6) {
-        this.minX = (double) var1;
-        this.minY = (double) var2;
-        this.minZ = (double) var3;
-        this.maxX = (double) var4;
-        this.maxY = (double) var5;
-        this.maxZ = (double) var6;
+    public void setBlockBounds(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
+        this.minX = minX;
+        this.minY = minY;
+        this.minZ = minZ;
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.maxZ = maxZ;
     }
 
-    public float getBlockBrightness(IBlockAccess var1, int var2, int var3, int var4) {
-        return var1.getBrightness(var2, var3, var4, LIGHT_VALUE[this.blockID]);
+    public float getBlockBrightness(IBlockAccess blockAccess, int x, int y, int z) {
+        return blockAccess.getBrightness(x, y, z, LIGHT_VALUE[this.blockID]);
     }
 
     public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
@@ -416,8 +416,8 @@ public class Block {
 
     public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
         this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-        var5 = var5.addVector((double) (-var2), (double) (-var3), (double) (-var4));
-        var6 = var6.addVector((double) (-var2), (double) (-var3), (double) (-var4));
+        var5 = var5.addVector(-var2, -var3, -var4);
+        var6 = var6.addVector(-var2, -var3, -var4);
         Vec3D var7 = var5.getIntermediateWithXValue(var6, this.minX);
         Vec3D var8 = var5.getIntermediateWithXValue(var6, this.maxX);
         Vec3D var9 = var5.getIntermediateWithYValue(var6, this.minY);
@@ -501,7 +501,7 @@ public class Block {
                 var14 = 3;
             }
 
-            return new MovingObjectPosition(var2, var3, var4, var14, var13.addVector((double) var2, (double) var3, (double) var4));
+            return new MovingObjectPosition(var2, var3, var4, var14, var13.addVector(var2, var3, var4));
         }
     }
 

@@ -5,6 +5,7 @@ final class StepSoundSand extends StepSound {
         super(var1, var2, var3);
     }
 
+    @Override
     public String stepSoundDir() {
         return "step.gravel";
     }

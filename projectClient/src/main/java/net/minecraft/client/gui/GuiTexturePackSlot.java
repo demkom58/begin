@@ -15,30 +15,36 @@ class GuiTexturePackSlot extends GuiSlot {
         this.parentTexturePackGui = var1;
     }
 
+    @Override
     protected int getSize() {
         List<TexturePackBase> packs = this.parentTexturePackGui.mc.texturePackList.availableTexturePacks();
         return packs.size();
     }
 
+    @Override
     protected void elementClicked(int var1, boolean var2) {
         List<TexturePackBase> packs = this.parentTexturePackGui.mc.texturePackList.availableTexturePacks();
         this.parentTexturePackGui.mc.texturePackList.setTexturePack(packs.get(var1));
         this.parentTexturePackGui.mc.renderEngine.refreshTextures();
     }
 
+    @Override
     protected boolean isSelected(int var1) {
         List<TexturePackBase> packs = this.parentTexturePackGui.mc.texturePackList.availableTexturePacks();
         return this.parentTexturePackGui.mc.texturePackList.selectedTexturePack == packs.get(var1);
     }
 
+    @Override
     protected int getContentHeight() {
         return this.getSize() * 36;
     }
 
+    @Override
     protected void drawBackground() {
         this.parentTexturePackGui.drawDefaultBackground();
     }
 
+    @Override
     protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator tess) {
         TexturePackBase packBase = this.parentTexturePackGui.mc.texturePackList.availableTexturePacks().get(var1);
         packBase.bindThumbnailTexture(this.parentTexturePackGui.mc);

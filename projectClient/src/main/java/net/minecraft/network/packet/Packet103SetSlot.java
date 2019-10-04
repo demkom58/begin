@@ -12,10 +12,12 @@ public class Packet103SetSlot extends Packet {
     public int itemSlot;
     public ItemStack myItemStack;
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.func_20088_a(this);
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.windowId = var1.readByte();
         this.itemSlot = var1.readShort();
@@ -30,6 +32,7 @@ public class Packet103SetSlot extends Packet {
 
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeByte(this.windowId);
         var1.writeShort(this.itemSlot);
@@ -43,6 +46,7 @@ public class Packet103SetSlot extends Packet {
 
     }
 
+    @Override
     public int getPacketSize() {
         return 8;
     }

@@ -20,10 +20,12 @@ public class GuiDownloadTerrain extends GuiScreen {
     public void charTyped(char ch, int key) {
     }
 
+    @Override
     public void initGui() {
         this.buttons.clear();
     }
 
+    @Override
     public void updateScreen() {
         ++this.updateCounter;
         if (this.updateCounter % 20 == 0) {
@@ -36,9 +38,11 @@ public class GuiDownloadTerrain extends GuiScreen {
 
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawBackground(0);
         StringTranslate translate = StringTranslate.getInstance();

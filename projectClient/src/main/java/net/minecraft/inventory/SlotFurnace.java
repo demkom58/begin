@@ -13,10 +13,12 @@ public class SlotFurnace extends Slot {
         this.thePlayer = var1;
     }
 
+    @Override
     public boolean isItemValid(ItemStack var1) {
         return false;
     }
 
+    @Override
     public void onPickupFromSlot(ItemStack var1) {
         var1.onCrafting(this.thePlayer.worldObj, this.thePlayer);
         if (var1.itemID == Item.INGOT_IRON.shiftedIndex) {

@@ -16,18 +16,21 @@ public class Packet12PlayerLook extends Packet10Flying {
         this.rotating = true;
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.yaw = var1.readFloat();
         this.pitch = var1.readFloat();
         super.readPacketData(var1);
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeFloat(this.yaw);
         var1.writeFloat(this.pitch);
         super.writePacketData(var1);
     }
 
+    @Override
     public int getPacketSize() {
         return 9;
     }

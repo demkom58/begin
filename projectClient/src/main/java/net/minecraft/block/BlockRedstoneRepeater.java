@@ -21,18 +21,22 @@ public class BlockRedstoneRepeater extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return !var1.isBlockNormalCube(var2, var3 - 1, var4) ? false : super.canPlaceBlockAt(var1, var2, var3, var4);
+        return var1.isBlockNormalCube(var2, var3 - 1, var4) && super.canPlaceBlockAt(var1, var2, var3, var4);
     }
 
+    @Override
     public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        return !var1.isBlockNormalCube(var2, var3 - 1, var4) ? false : super.canBlockStay(var1, var2, var3, var4);
+        return var1.isBlockNormalCube(var2, var3 - 1, var4) && super.canBlockStay(var1, var2, var3, var4);
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         int var6 = var1.getBlockMetadata(var2, var3, var4);
         boolean var7 = this.func_22022_g(var1, var2, var3, var4, var6);
@@ -48,6 +52,7 @@ public class BlockRedstoneRepeater extends Block {
 
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var1 == 0) {
             return this.isRepeaterPowered ? 99 : 115;
@@ -58,22 +63,27 @@ public class BlockRedstoneRepeater extends Block {
         }
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
         return var5 != 0 && var5 != 1;
     }
 
+    @Override
     public int getRenderType() {
         return 15;
     }
 
+    @Override
     public int getBlockTextureFromSide(int side) {
         return this.getBlockTextureFromSideAndMetadata(side, 0);
     }
 
+    @Override
     public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
         return this.isPoweringTo(var1, var2, var3, var4, var5);
     }
 
+    @Override
     public boolean isPoweringTo(IBlockAccess var1, int var2, int var3, int var4, int var5) {
         if (!this.isRepeaterPowered) {
             return false;
@@ -91,6 +101,7 @@ public class BlockRedstoneRepeater extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (!this.canBlockStay(var1, var2, var3, var4)) {
             this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
@@ -124,6 +135,7 @@ public class BlockRedstoneRepeater extends Block {
         }
     }
 
+    @Override
     public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
         int var6 = var1.getBlockMetadata(var2, var3, var4);
         int var7 = (var6 & 12) >> 2;
@@ -132,10 +144,12 @@ public class BlockRedstoneRepeater extends Block {
         return true;
     }
 
+    @Override
     public boolean canProvidePower() {
         return false;
     }
 
+    @Override
     public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
         int var6 = ((MathHelper.floor((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
         var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
@@ -146,6 +160,7 @@ public class BlockRedstoneRepeater extends Block {
 
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         var1.notifyBlocksOfNeighborChange(var2 + 1, var3, var4, this.blockID);
         var1.notifyBlocksOfNeighborChange(var2 - 1, var3, var4, this.blockID);
@@ -155,14 +170,17 @@ public class BlockRedstoneRepeater extends Block {
         var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.blockID);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Item.REDSTONE_REPEATER.shiftedIndex;
     }
 
+    @Override
     public void randomDisplayTick(World var1, int var2, int var3, int var4, Random var5) {
         if (this.isRepeaterPowered) {
             int var6 = var1.getBlockMetadata(var2, var3, var4);

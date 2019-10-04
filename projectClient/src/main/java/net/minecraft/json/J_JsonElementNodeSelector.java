@@ -14,6 +14,7 @@ final class J_JsonElementNodeSelector extends J_LeafFunctor {
         return var1.size() > this.field_27069_a;
     }
 
+    @Override
     public String func_27060_a() {
         return Integer.toString(this.field_27069_a);
     }
@@ -28,12 +29,14 @@ final class J_JsonElementNodeSelector extends J_LeafFunctor {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public J_JsonNode func_27063_c(Object var1) {
         return this.func_27068_b((List) var1);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public boolean func_27058_a(Object var1) {
         return this.func_27067_a((List) var1);
     }

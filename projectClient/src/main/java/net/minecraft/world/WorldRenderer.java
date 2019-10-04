@@ -110,8 +110,7 @@ public class WorldRenderer {
         }
 
         Chunk.isLit = false;
-        Set<TileEntity> tileEntityRenderers = new HashSet<>();
-        tileEntityRenderers.addAll(this.tileEntityRenderers);
+        Set<TileEntity> tileEntityRenderers = new HashSet<>(this.tileEntityRenderers);
         this.tileEntityRenderers.clear();
         byte var8 = 1;
         ChunkCache chunkCache = new ChunkCache(this.worldObj, startX - var8, startY - var8, startZ - var8, endX + var8, endY + var8, endZ + var8);

@@ -9,10 +9,12 @@ public class ItemSapling extends ItemBlock {
         this.setHasSubtypes(true);
     }
 
+    @Override
     public int getPlacedBlockMetadata(int var1) {
         return var1;
     }
 
+    @Override
     public int getIconFromDamage(int var1) {
         return Block.SAPLING.getBlockTextureFromSideAndMetadata(0, var1);
     }

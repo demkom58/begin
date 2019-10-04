@@ -30,12 +30,14 @@ public class RenderSpider extends RenderLiving {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected float getDeathMaxRotation(EntityLiving var1) {
         return this.setSpiderDeathMaxRotation((EntitySpider) var1);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected boolean shouldRenderPass(EntityLiving var1, int var2, float var3) {
         return this.setSpiderEyeBrightness((EntitySpider) var1, var2, var3);
     }

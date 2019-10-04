@@ -27,17 +27,20 @@ public class EntityGhast extends EntityFlying implements IMob {
         this.isImmuneToFire = true;
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         byte var1 = this.dataWatcher.getWatchableObjectByte(16);
         this.texture = var1 == 1 ? "/mob/ghast_fire.png" : "/mob/ghast.png";
     }
 
+    @Override
     protected void updatePlayerActionState() {
         if (!this.worldObj.multiplayerWorld && this.worldObj.difficultySetting == 0) {
             this.setEntityDead();
@@ -48,7 +51,7 @@ public class EntityGhast extends EntityFlying implements IMob {
         double var1 = this.waypointX - this.posX;
         double var3 = this.waypointY - this.posY;
         double var5 = this.waypointZ - this.posZ;
-        double var7 = (double) MathHelper.sqrt(var1 * var1 + var3 * var3 + var5 * var5);
+        double var7 = MathHelper.sqrt(var1 * var1 + var3 * var3 + var5 * var5);
         if (var7 < 1.0D || var7 > 60.0D) {
             this.waypointX = this.posX + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
             this.waypointY = this.posY + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
@@ -138,30 +141,37 @@ public class EntityGhast extends EntityFlying implements IMob {
         return true;
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.ghast.moan";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.ghast.scream";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.ghast.death";
     }
 
+    @Override
     protected int getDropItemId() {
         return Item.GUNPOWDER.shiftedIndex;
     }
 
+    @Override
     protected float getSoundVolume() {
         return 10.0F;
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         return this.rand.nextInt(20) == 0 && super.getCanSpawnHere() && this.worldObj.difficultySetting > 0;
     }
 
+    @Override
     public int getMaxSpawnedInChunk() {
         return 1;
     }

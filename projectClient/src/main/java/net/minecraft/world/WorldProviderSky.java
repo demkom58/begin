@@ -8,23 +8,28 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3D;
 
 public class WorldProviderSky extends WorldProvider {
+    @Override
     public void registerWorldChunkManager() {
         this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.SKY, 0.5D, 0.0D);
         this.worldType = 1;
     }
 
+    @Override
     public IChunkProvider getChunkProvider() {
         return new ChunkProviderSky(this.worldObj, this.worldObj.getRandomSeed());
     }
 
+    @Override
     public float calculateCelestialAngle(long var1, float var3) {
         return 0.0F;
     }
 
+    @Override
     public float[] calcSunriseSunsetColors(float var1, float var2) {
         return null;
     }
 
+    @Override
     public Vec3D func_4096_a(float var1, float var2) {
         int var3 = 8421536;
         float var4 = MathHelper.cos(var1 * 3.1415927F * 2.0F) * 2.0F + 0.5F;
@@ -45,14 +50,17 @@ public class WorldProviderSky extends WorldProvider {
         return Vec3D.createVector(var5, var6, var7);
     }
 
+    @Override
     public boolean func_28112_c() {
         return false;
     }
 
+    @Override
     public float getCloudHeight() {
         return 8.0F;
     }
 
+    @Override
     public boolean canCoordinateBeSpawn(int var1, int var2) {
         int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
         return var3 != 0 && Block.BLOCKS_LIST[var3].blockMaterial.getIsSolid();

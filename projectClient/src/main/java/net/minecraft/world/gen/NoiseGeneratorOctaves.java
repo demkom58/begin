@@ -48,6 +48,6 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
     }
 
     public double[] func_4109_a(double[] var1, int var2, int var3, int var4, int var5, double var6, double var8, double var10) {
-        return this.generateNoiseOctaves(var1, (double) var2, 10.0D, (double) var3, var4, 1, var5, var6, 1.0D, var8);
+        return this.generateNoiseOctaves(var1, var2, 10.0D, var3, var4, 1, var5, var6, 1.0D, var8);
     }
 }

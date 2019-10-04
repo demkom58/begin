@@ -23,7 +23,7 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
     private World worldObj;
     private File dataFolder = this.getMinecraftDir();
     private boolean running = true;
-    private List<IsoImageBuffer> imageBufferList = Collections.synchronizedList(new LinkedList<>());
+    private final List<IsoImageBuffer> imageBufferList = Collections.synchronizedList(new LinkedList<>());
     private IsoImageBuffer[][] imageBuffers = new IsoImageBuffer[64][64];
     private int field_1785_i;
     private int field_1784_j;

@@ -12,18 +12,22 @@ public class BlockLog extends Block {
         this.blockIndexInTexture = 20;
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 1;
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Block.WOOD.blockID;
     }
 
+    @Override
     public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
         super.harvestBlock(var1, var2, var3, var4, var5, var6);
     }
 
+    @Override
     public void onBlockRemoval(World var1, int var2, int var3, int var4) {
         byte var5 = 4;
         int var6 = var5 + 1;
@@ -45,6 +49,7 @@ public class BlockLog extends Block {
 
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var1 == 1) {
             return 21;
@@ -57,6 +62,7 @@ public class BlockLog extends Block {
         }
     }
 
+    @Override
     protected int damageDropped(int var1) {
         return var1;
     }

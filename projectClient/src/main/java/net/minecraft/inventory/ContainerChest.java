@@ -30,10 +30,12 @@ public class ContainerChest extends Container {
 
     }
 
+    @Override
     public boolean isUsableByPlayer(EntityPlayer var1) {
         return this.field_20125_a.canInteractWith(var1);
     }
 
+    @Override
     public ItemStack getStackInSlot(int var1) {
         ItemStack var2 = null;
         Slot var3 = (Slot) this.slots.get(var1);

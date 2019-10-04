@@ -1,6 +1,7 @@
 package net.minecraft.stats;
 
 final class StatTypeDistance implements IStatType {
+    @Override
     public String func_27192_a(int var1) {
         double var3 = (double) var1 / 100.0D;
         double var5 = var3 / 1000.0D;

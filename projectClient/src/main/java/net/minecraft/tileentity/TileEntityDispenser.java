@@ -12,14 +12,17 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
     private ItemStack[] dispenserContents = new ItemStack[9];
     private Random dispenserRandom = new Random();
 
+    @Override
     public int getSizeInventory() {
         return 9;
     }
 
+    @Override
     public ItemStack getStackInSlot(int var1) {
         return this.dispenserContents[var1];
     }
 
+    @Override
     public ItemStack decrStackSize(int var1, int var2) {
         if (this.dispenserContents[var1] != null) {
             if (this.dispenserContents[var1].stackSize <= var2) {
@@ -58,6 +61,7 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
         }
     }
 
+    @Override
     public void setInventorySlotContents(int var1, ItemStack var2) {
         this.dispenserContents[var1] = var2;
         if (var2 != null && var2.stackSize > this.getInventoryStackLimit()) {
@@ -67,10 +71,12 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
         this.onInventoryChanged();
     }
 
+    @Override
     public String getInvName() {
         return "Trap";
     }
 
+    @Override
     public void readFromNBT(TagCompound var1) {
         super.readFromNBT(var1);
         TagList var2 = var1.getTagList("Items");
@@ -86,6 +92,7 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
 
     }
 
+    @Override
     public void writeToNBT(TagCompound var1) {
         super.writeToNBT(var1);
         TagList var2 = new TagList();
@@ -102,10 +109,12 @@ public class TileEntityDispenser extends TileEntity implements IInventory {
         var1.setTag("Items", var2);
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer var1) {
         if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this) {
             return false;

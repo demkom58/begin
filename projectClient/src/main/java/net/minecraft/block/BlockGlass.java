@@ -9,10 +9,12 @@ public class BlockGlass extends BlockBreakable {
         super(var1, var2, var3, var4);
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 0;
     }
 
+    @Override
     public int getRenderBlockPass() {
         return 0;
     }

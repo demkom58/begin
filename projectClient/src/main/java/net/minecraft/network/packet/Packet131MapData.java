@@ -15,6 +15,7 @@ public class Packet131MapData extends Packet {
         this.isChunkDataPacket = true;
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.field_28055_a = var1.readShort();
         this.field_28054_b = var1.readShort();
@@ -22,6 +23,7 @@ public class Packet131MapData extends Packet {
         var1.readFully(this.field_28056_c);
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeShort(this.field_28055_a);
         var1.writeShort(this.field_28054_b);
@@ -29,10 +31,12 @@ public class Packet131MapData extends Packet {
         var1.write(this.field_28056_c);
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.func_28116_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 4 + this.field_28056_c.length;
     }

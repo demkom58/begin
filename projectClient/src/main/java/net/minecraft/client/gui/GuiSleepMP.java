@@ -7,11 +7,13 @@ import net.minecraft.util.StringTranslate;
 import org.lwjgl.glfw.GLFW;
 
 public class GuiSleepMP extends GuiChat {
+    @Override
     public void initGui() {
         StringTranslate translate = StringTranslate.getInstance();
         this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, translate.translateKey("multiplayer.stopSleeping")));
     }
 
+    @Override
     public void onGuiClosed() { }
 
     @Override
@@ -33,10 +35,12 @@ public class GuiSleepMP extends GuiChat {
         }
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         super.drawScreen(var1, var2, var3);
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 1) {
             this.func_22115_j();

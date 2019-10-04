@@ -79,6 +79,7 @@ public abstract class EntityLiving extends Entity {
         this.stepHeight = 0.5F;
     }
 
+    @Override
     protected void entityInit() {
     }
 
@@ -86,18 +87,22 @@ public abstract class EntityLiving extends Entity {
         return this.worldObj.rayTraceBlocks(Vec3D.createVector(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ), Vec3D.createVector(var1.posX, var1.posY + (double) var1.getEyeHeight(), var1.posZ)) == null;
     }
 
+    @Override
     public String getEntityTexture() {
         return this.texture;
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
 
+    @Override
     public boolean canBePushed() {
         return !this.isDead;
     }
 
+    @Override
     public float getEyeHeight() {
         return this.height * 0.85F;
     }
@@ -114,6 +119,7 @@ public abstract class EntityLiving extends Entity {
 
     }
 
+    @Override
     public void onEntityUpdate() {
         this.prevSwingProgress = this.swingProgress;
         super.onEntityUpdate();
@@ -195,22 +201,25 @@ public abstract class EntityLiving extends Entity {
 
     }
 
+    @Override
     public void updateRidden() {
         super.updateRidden();
         this.field_9362_u = this.field_9361_v;
         this.field_9361_v = 0.0F;
     }
 
+    @Override
     public void setPositionAndRotation2(double var1, double var3, double var5, float var7, float var8, int var9) {
         this.yOffset = 0.0F;
         this.newPosX = var1;
         this.newPosY = var3;
         this.newPosZ = var5;
-        this.newRotationYaw = (double) var7;
-        this.newRotationPitch = (double) var8;
+        this.newRotationYaw = var7;
+        this.newRotationPitch = var8;
         this.newPosRotationIncrements = var9;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         this.onLivingUpdate();
@@ -300,6 +309,7 @@ public abstract class EntityLiving extends Entity {
         this.field_9360_w += var7;
     }
 
+    @Override
     protected void setSize(float var1, float var2) {
         super.setSize(var1, var2);
     }
@@ -315,6 +325,7 @@ public abstract class EntityLiving extends Entity {
         }
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         if (this.worldObj.multiplayerWorld) {
             return false;
@@ -375,6 +386,7 @@ public abstract class EntityLiving extends Entity {
         }
     }
 
+    @Override
     public void performHurtAnimation() {
         this.hurtTime = this.maxHurtTime = 10;
         this.attackedAtYaw = 0.0F;
@@ -448,9 +460,10 @@ public abstract class EntityLiving extends Entity {
         return 0;
     }
 
+    @Override
     protected void fall(float var1) {
         super.fall(var1);
-        int var2 = (int) Math.ceil((double) (var1 - 3.0F));
+        int var2 = (int) Math.ceil(var1 - 3.0F);
         if (var2 > 0) {
             this.attackEntityFrom(null, var2);
             int var3 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.posY - 0.20000000298023224D - (double) this.yOffset), MathHelper.floor(this.posZ));
@@ -509,19 +522,19 @@ public abstract class EntityLiving extends Entity {
             if (this.isOnLadder()) {
                 float var13 = 0.15F;
                 if (this.motionX < (double) (-var13)) {
-                    this.motionX = (double) (-var13);
+                    this.motionX = -var13;
                 }
 
                 if (this.motionX > (double) var13) {
-                    this.motionX = (double) var13;
+                    this.motionX = var13;
                 }
 
                 if (this.motionZ < (double) (-var13)) {
-                    this.motionZ = (double) (-var13);
+                    this.motionZ = -var13;
                 }
 
                 if (this.motionZ > (double) var13) {
-                    this.motionZ = (double) var13;
+                    this.motionZ = var13;
                 }
 
                 this.fallDistance = 0.0F;
@@ -541,8 +554,8 @@ public abstract class EntityLiving extends Entity {
 
             this.motionY -= 0.08D;
             this.motionY *= 0.9800000190734863D;
-            this.motionX *= (double) var9;
-            this.motionZ *= (double) var9;
+            this.motionX *= var9;
+            this.motionZ *= var9;
         }
 
         this.field_705_Q = this.field_704_R;
@@ -564,6 +577,7 @@ public abstract class EntityLiving extends Entity {
         return this.worldObj.getBlockId(var1, var2, var3) == Block.LADDER.blockID;
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("Health", (short) this.health);
         var1.setShort("HurtTime", (short) this.hurtTime);
@@ -571,6 +585,7 @@ public abstract class EntityLiving extends Entity {
         var1.setShort("AttackTime", (short) this.attackTime);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         this.health = var1.getShort("Health");
         if (!var1.hasKey("Health")) {
@@ -582,6 +597,7 @@ public abstract class EntityLiving extends Entity {
         this.attackTime = var1.getShort("AttackTime");
     }
 
+    @Override
     public boolean isEntityAlive() {
         return !this.isDead && this.health > 0;
     }
@@ -704,7 +720,7 @@ public abstract class EntityLiving extends Entity {
         this.moveForward = 0.0F;
         float var2 = 8.0F;
         if (this.rand.nextFloat() < 0.02F) {
-            var1 = this.worldObj.getClosestPlayerToEntity(this, (double) var2);
+            var1 = this.worldObj.getClosestPlayerToEntity(this, var2);
             if (var1 != null) {
                 this.currentTarget = var1;
                 this.numTicksToChaseTarget = 10 + this.rand.nextInt(20);
@@ -750,7 +766,7 @@ public abstract class EntityLiving extends Entity {
             var6 = (var1.boundingBox.minY + var1.boundingBox.maxY) / 2.0D - (this.posY + (double) this.getEyeHeight());
         }
 
-        double var14 = (double) MathHelper.sqrt(var4 * var4 + var8 * var8);
+        double var14 = MathHelper.sqrt(var4 * var4 + var8 * var8);
         float var12 = (float) (Math.atan2(var8, var4) * 180.0D / 3.1415927410125732D) - 90.0F;
         float var13 = (float) (-(Math.atan2(var6, var14) * 180.0D / 3.1415927410125732D));
         this.rotationPitch = -this.updateRotation(this.rotationPitch, var13, var3);
@@ -792,6 +808,7 @@ public abstract class EntityLiving extends Entity {
         return this.worldObj.checkIfAABBIsClear(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.worldObj.isAnyLiquid(this.boundingBox);
     }
 
+    @Override
     protected void kill() {
         this.attackEntityFrom(null, 4);
     }
@@ -816,6 +833,7 @@ public abstract class EntityLiving extends Entity {
         }
     }
 
+    @Override
     public Vec3D getLookVec() {
         return this.getLook(1.0F);
     }
@@ -826,7 +844,7 @@ public abstract class EntityLiving extends Entity {
             float var9 = MathHelper.sin(-this.rotationYaw * 0.017453292F - 3.1415927F);
             float var10 = -MathHelper.cos(-this.rotationPitch * 0.017453292F);
             float var11 = MathHelper.sin(-this.rotationPitch * 0.017453292F);
-            return Vec3D.createVector((double) (var9 * var10), (double) var11, (double) (var8 * var10));
+            return Vec3D.createVector(var9 * var10, var11, var8 * var10);
         } else {
             float var2 = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * var1;
             float var3 = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * var1;
@@ -834,7 +852,7 @@ public abstract class EntityLiving extends Entity {
             float var5 = MathHelper.sin(-var3 * 0.017453292F - 3.1415927F);
             float var6 = -MathHelper.cos(-var2 * 0.017453292F);
             float var7 = MathHelper.sin(-var2 * 0.017453292F);
-            return Vec3D.createVector((double) (var5 * var6), (double) var7, (double) (var4 * var6));
+            return Vec3D.createVector(var5 * var6, var7, var4 * var6);
         }
     }
 
@@ -853,6 +871,7 @@ public abstract class EntityLiving extends Entity {
         return null;
     }
 
+    @Override
     public void handleHealthUpdate(byte var1) {
         if (var1 == 2) {
             this.field_704_R = 1.5F;

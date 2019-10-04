@@ -65,6 +65,7 @@ public class Achievement extends StatBase {
         return this;
     }
 
+    @Override
     public boolean func_25067_a() {
         return true;
     }
@@ -84,12 +85,14 @@ public class Achievement extends StatBase {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public StatBase registerStat() {
         return this.registerAchievement();
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public StatBase func_27082_h() {
         return this.func_27089_a();
     }

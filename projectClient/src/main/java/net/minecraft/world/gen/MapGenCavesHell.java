@@ -12,8 +12,8 @@ public class MapGenCavesHell extends MapGenBase {
     }
 
     protected void func_4128_a(int var1, int var2, byte[] var3, double var4, double var6, double var8, float var10, float var11, float var12, int var13, int var14, double var15) {
-        double var17 = (double) (var1 * 16 + 8);
-        double var19 = (double) (var2 * 16 + 8);
+        double var17 = var1 * 16 + 8;
+        double var19 = var2 * 16 + 8;
         float var21 = 0.0F;
         float var22 = 0.0F;
         Random var23 = new Random(this.rand.nextLong());
@@ -35,9 +35,9 @@ public class MapGenCavesHell extends MapGenBase {
             double var29 = var27 * var15;
             float var31 = MathHelper.cos(var12);
             float var32 = MathHelper.sin(var12);
-            var4 += (double) (MathHelper.cos(var11) * var31);
-            var6 += (double) var32;
-            var8 += (double) (MathHelper.sin(var11) * var31);
+            var4 += MathHelper.cos(var11) * var31;
+            var6 += var32;
+            var8 += MathHelper.sin(var11) * var31;
             if (var26) {
                 var12 = var12 * 0.92F;
             } else {
@@ -59,8 +59,8 @@ public class MapGenCavesHell extends MapGenBase {
             if (var54 || var23.nextInt(4) != 0) {
                 double var33 = var4 - var17;
                 double var35 = var8 - var19;
-                double var37 = (double) (var14 - var13);
-                double var39 = (double) (var10 + 2.0F + 16.0F);
+                double var37 = var14 - var13;
+                double var39 = var10 + 2.0F + 16.0F;
                 if (var33 * var33 + var35 * var35 - var37 * var37 > var39 * var39) {
                     return;
                 }
@@ -147,6 +147,7 @@ public class MapGenCavesHell extends MapGenBase {
 
     }
 
+    @Override
     protected void func_868_a(World var1, int var2, int var3, int var4, int var5, byte[] var6) {
         int var7 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(10) + 1) + 1);
         if (this.rand.nextInt(5) != 0) {
@@ -154,9 +155,9 @@ public class MapGenCavesHell extends MapGenBase {
         }
 
         for (int var8 = 0; var8 < var7; ++var8) {
-            double var9 = (double) (var2 * 16 + this.rand.nextInt(16));
-            double var11 = (double) this.rand.nextInt(128);
-            double var13 = (double) (var3 * 16 + this.rand.nextInt(16));
+            double var9 = var2 * 16 + this.rand.nextInt(16);
+            double var11 = this.rand.nextInt(128);
+            double var13 = var3 * 16 + this.rand.nextInt(16);
             int var15 = 1;
             if (this.rand.nextInt(4) == 0) {
                 this.func_4129_a(var4, var5, var6, var9, var11, var13);

@@ -40,10 +40,12 @@ public class BlockFurnace extends BlockContainer {
         var1.setBlockTileEntity(var2, var3, var4, var6);
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Block.FURNACE.blockID;
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         super.onBlockAdded(var1, var2, var3, var4);
         this.setDefaultDirection(var1, var2, var3, var4);
@@ -76,6 +78,7 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
+    @Override
     public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
         if (var5 == 1) {
             return this.blockIndexInTexture + 17;
@@ -91,6 +94,7 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
+    @Override
     public void randomDisplayTick(World var1, int var2, int var3, int var4, Random var5) {
         if (this.isActive) {
             int var6 = var1.getBlockMetadata(var2, var3, var4);
@@ -100,22 +104,23 @@ public class BlockFurnace extends BlockContainer {
             float var10 = 0.52F;
             float var11 = var5.nextFloat() * 0.6F - 0.3F;
             if (var6 == 4) {
-                var1.spawnParticle("smoke", (double) (var7 - var10), (double) var8, (double) (var9 + var11), 0.0D, 0.0D, 0.0D);
-                var1.spawnParticle("flame", (double) (var7 - var10), (double) var8, (double) (var9 + var11), 0.0D, 0.0D, 0.0D);
+                var1.spawnParticle("smoke", var7 - var10, var8, var9 + var11, 0.0D, 0.0D, 0.0D);
+                var1.spawnParticle("flame", var7 - var10, var8, var9 + var11, 0.0D, 0.0D, 0.0D);
             } else if (var6 == 5) {
-                var1.spawnParticle("smoke", (double) (var7 + var10), (double) var8, (double) (var9 + var11), 0.0D, 0.0D, 0.0D);
-                var1.spawnParticle("flame", (double) (var7 + var10), (double) var8, (double) (var9 + var11), 0.0D, 0.0D, 0.0D);
+                var1.spawnParticle("smoke", var7 + var10, var8, var9 + var11, 0.0D, 0.0D, 0.0D);
+                var1.spawnParticle("flame", var7 + var10, var8, var9 + var11, 0.0D, 0.0D, 0.0D);
             } else if (var6 == 2) {
-                var1.spawnParticle("smoke", (double) (var7 + var11), (double) var8, (double) (var9 - var10), 0.0D, 0.0D, 0.0D);
-                var1.spawnParticle("flame", (double) (var7 + var11), (double) var8, (double) (var9 - var10), 0.0D, 0.0D, 0.0D);
+                var1.spawnParticle("smoke", var7 + var11, var8, var9 - var10, 0.0D, 0.0D, 0.0D);
+                var1.spawnParticle("flame", var7 + var11, var8, var9 - var10, 0.0D, 0.0D, 0.0D);
             } else if (var6 == 3) {
-                var1.spawnParticle("smoke", (double) (var7 + var11), (double) var8, (double) (var9 + var10), 0.0D, 0.0D, 0.0D);
-                var1.spawnParticle("flame", (double) (var7 + var11), (double) var8, (double) (var9 + var10), 0.0D, 0.0D, 0.0D);
+                var1.spawnParticle("smoke", var7 + var11, var8, var9 + var10, 0.0D, 0.0D, 0.0D);
+                var1.spawnParticle("flame", var7 + var11, var8, var9 + var10, 0.0D, 0.0D, 0.0D);
             }
 
         }
     }
 
+    @Override
     public int getBlockTextureFromSide(int side) {
         if (side == 1) {
             return this.blockIndexInTexture + 17;
@@ -126,6 +131,7 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
+    @Override
     public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
         if (var1.multiplayerWorld) {
             return true;
@@ -136,10 +142,12 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
+    @Override
     protected TileEntity getBlockEntity() {
         return new TileEntityFurnace();
     }
 
+    @Override
     public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
         int var6 = MathHelper.floor((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         if (var6 == 0) {
@@ -160,6 +168,7 @@ public class BlockFurnace extends BlockContainer {
 
     }
 
+    @Override
     public void onBlockRemoval(World var1, int var2, int var3, int var4) {
         if (!keepFurnaceInventory) {
             TileEntityFurnace var5 = (TileEntityFurnace) var1.getBlockTileEntity(var2, var3, var4);
@@ -178,11 +187,11 @@ public class BlockFurnace extends BlockContainer {
                         }
 
                         var7.stackSize -= var11;
-                        EntityItem var12 = new EntityItem(var1, (double) ((float) var2 + var8), (double) ((float) var3 + var9), (double) ((float) var4 + var10), new ItemStack(var7.itemID, var11, var7.getItemDamage()));
+                        EntityItem var12 = new EntityItem(var1, (float) var2 + var8, (float) var3 + var9, (float) var4 + var10, new ItemStack(var7.itemID, var11, var7.getItemDamage()));
                         float var13 = 0.05F;
-                        var12.motionX = (double) ((float) this.furnaceRand.nextGaussian() * var13);
-                        var12.motionY = (double) ((float) this.furnaceRand.nextGaussian() * var13 + 0.2F);
-                        var12.motionZ = (double) ((float) this.furnaceRand.nextGaussian() * var13);
+                        var12.motionX = (float) this.furnaceRand.nextGaussian() * var13;
+                        var12.motionY = (float) this.furnaceRand.nextGaussian() * var13 + 0.2F;
+                        var12.motionZ = (float) this.furnaceRand.nextGaussian() * var13;
                         var1.entityJoinedWorld(var12);
                     }
                 }

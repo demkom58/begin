@@ -29,13 +29,16 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
         this.sendQueue = var4;
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         return false;
     }
 
+    @Override
     public void heal(int var1) {
     }
 
+    @Override
     public void onUpdate() {
         if (this.worldObj.blockExists(MathHelper.floor(this.posX), 64, MathHelper.floor(this.posZ))) {
             super.onUpdate();
@@ -64,8 +67,8 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
         double var4 = this.boundingBox.minY - this.field_9378_bz;
         double var6 = this.posY - this.oldPosY;
         double var8 = this.posZ - this.oldPosZ;
-        double var10 = (double) (this.rotationYaw - this.oldRotationYaw);
-        double var12 = (double) (this.rotationPitch - this.oldRotationPitch);
+        double var10 = this.rotationYaw - this.oldRotationYaw;
+        double var12 = this.rotationPitch - this.oldRotationPitch;
         boolean var14 = var4 != 0.0D || var6 != 0.0D || var2 != 0.0D || var8 != 0.0D;
         boolean var15 = var10 != 0.0D || var12 != 0.0D;
         if (this.ridingEntity != null) {
@@ -109,6 +112,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
 
     }
 
+    @Override
     public void dropCurrentItem() {
         this.sendQueue.addToSendQueue(new Packet14BlockDig(4, 0, 0, 0, 0));
     }
@@ -116,33 +120,40 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
     private void sendInventoryChanged() {
     }
 
+    @Override
     protected void joinEntityItemWithWorld(EntityItem var1) {
     }
 
+    @Override
     public void sendChatMessage(String message) {
         this.sendQueue.addToSendQueue(new Packet3Chat(message));
     }
 
+    @Override
     public void swingItem() {
         super.swingItem();
         this.sendQueue.addToSendQueue(new Packet18Animation(this, 1));
     }
 
+    @Override
     public void respawnPlayer() {
         this.sendInventoryChanged();
         this.sendQueue.addToSendQueue(new Packet9Respawn((byte) this.dimension));
     }
 
+    @Override
     protected void damageEntity(int var1) {
         this.health -= var1;
     }
 
+    @Override
     public void closeScreen() {
         this.sendQueue.addToSendQueue(new Packet101CloseWindow(this.craftingInventory.windowId));
         this.inventory.setItemStack(null);
         super.closeScreen();
     }
 
+    @Override
     public void setHealth(int var1) {
         if (this.field_21093_bH) {
             super.setHealth(var1);
@@ -153,6 +164,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
 
     }
 
+    @Override
     public void addStat(StatBase var1, int var2) {
         if (var1 != null) {
             if (var1.field_27088_g) {

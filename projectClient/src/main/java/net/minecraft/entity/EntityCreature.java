@@ -18,6 +18,7 @@ public class EntityCreature extends EntityLiving {
         return false;
     }
 
+    @Override
     protected void updatePlayerActionState() {
         this.hasAttacked = this.isMovementCeased();
         float var1 = 16.0F;
@@ -51,7 +52,7 @@ public class EntityCreature extends EntityLiving {
         this.rotationPitch = 0.0F;
         if (this.pathToEntity != null && this.rand.nextInt(100) != 0) {
             Vec3D var5 = this.pathToEntity.getPosition(this);
-            double var6 = (double) (this.width * 2.0F);
+            double var6 = this.width * 2.0F;
 
             while (var5 != null && var5.squareDistanceTo(this.posX, var5.yCoord, this.posZ) < var6 * var6) {
                 this.pathToEntity.incrementPathIndex();
@@ -161,6 +162,7 @@ public class EntityCreature extends EntityLiving {
         return null;
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         int var1 = MathHelper.floor(this.posX);
         int var2 = MathHelper.floor(this.boundingBox.minY);

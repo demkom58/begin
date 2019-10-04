@@ -21,6 +21,7 @@ public class BlockChest extends BlockContainer {
         this.blockIndexInTexture = 26;
     }
 
+    @Override
     public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
         if (var5 == 1) {
             return this.blockIndexInTexture - 1;
@@ -104,6 +105,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
+    @Override
     public int getBlockTextureFromSide(int side) {
         if (side == 1) {
             return this.blockIndexInTexture - 1;
@@ -114,6 +116,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
         int var5 = 0;
         if (var1.getBlockId(var2 - 1, var3, var4) == this.blockID) {
@@ -159,6 +162,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
+    @Override
     public void onBlockRemoval(World var1, int var2, int var3, int var4) {
         TileEntityChest var5 = (TileEntityChest) var1.getBlockTileEntity(var2, var3, var4);
 
@@ -176,11 +180,11 @@ public class BlockChest extends BlockContainer {
                     }
 
                     var7.stackSize -= var11;
-                    EntityItem var12 = new EntityItem(var1, (double) ((float) var2 + var8), (double) ((float) var3 + var9), (double) ((float) var4 + var10), new ItemStack(var7.itemID, var11, var7.getItemDamage()));
+                    EntityItem var12 = new EntityItem(var1, (float) var2 + var8, (float) var3 + var9, (float) var4 + var10, new ItemStack(var7.itemID, var11, var7.getItemDamage()));
                     float var13 = 0.05F;
-                    var12.motionX = (double) ((float) this.random.nextGaussian() * var13);
-                    var12.motionY = (double) ((float) this.random.nextGaussian() * var13 + 0.2F);
-                    var12.motionZ = (double) ((float) this.random.nextGaussian() * var13);
+                    var12.motionX = (float) this.random.nextGaussian() * var13;
+                    var12.motionY = (float) this.random.nextGaussian() * var13 + 0.2F;
+                    var12.motionZ = (float) this.random.nextGaussian() * var13;
                     var1.entityJoinedWorld(var12);
                 }
             }
@@ -189,6 +193,7 @@ public class BlockChest extends BlockContainer {
         super.onBlockRemoval(var1, var2, var3, var4);
     }
 
+    @Override
     public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
         Object var6 = var1.getBlockTileEntity(var2, var3, var4);
         if (var1.isBlockNormalCube(var2, var3 + 1, var4)) {
@@ -227,6 +232,7 @@ public class BlockChest extends BlockContainer {
         }
     }
 
+    @Override
     protected TileEntity getBlockEntity() {
         return new TileEntityChest();
     }

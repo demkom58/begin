@@ -103,10 +103,10 @@ public class Gui {
         float var8 = 0.00390625F;
         Tessellator tess = Tessellator.INSTANCE;
         tess.startDrawingQuads();
-        tess.addVertexWithUV(var1 + 0, var2 + var6, this.zLevel, (float) (var3 + 0) * var7, (float) (var4 + var6) * var8);
+        tess.addVertexWithUV(var1, var2 + var6, this.zLevel, (float) (var3) * var7, (float) (var4 + var6) * var8);
         tess.addVertexWithUV(var1 + var5, var2 + var6, this.zLevel, (float) (var3 + var5) * var7, (float) (var4 + var6) * var8);
-        tess.addVertexWithUV(var1 + var5, var2 + 0, this.zLevel, (float) (var3 + var5) * var7, (float) (var4 + 0) * var8);
-        tess.addVertexWithUV(var1 + 0, var2 + 0, this.zLevel, (float) (var3 + 0) * var7, (float) (var4 + 0) * var8);
+        tess.addVertexWithUV(var1 + var5, var2, this.zLevel, (float) (var3 + var5) * var7, (float) (var4) * var8);
+        tess.addVertexWithUV(var1, var2, this.zLevel, (float) (var3) * var7, (float) (var4) * var8);
         tess.draw();
     }
 }

@@ -78,9 +78,9 @@ public class RenderItem extends Render {
             }
 
             Tessellator var15 = Tessellator.INSTANCE;
-            float var16 = (float) (var14 % 16 * 16 + 0) / 256.0F;
+            float var16 = (float) (var14 % 16 * 16) / 256.0F;
             float var17 = (float) (var14 % 16 * 16 + 16) / 256.0F;
-            float var18 = (float) (var14 / 16 * 16 + 0) / 256.0F;
+            float var18 = (float) (var14 / 16 * 16) / 256.0F;
             float var19 = (float) (var14 / 16 * 16 + 16) / 256.0F;
             float var20 = 1.0F;
             float var21 = 0.5F;
@@ -207,10 +207,10 @@ public class RenderItem extends Render {
     private void renderQuad(Tessellator var1, int var2, int var3, int var4, int var5, int var6) {
         var1.startDrawingQuads();
         var1.setColorOpaque_I(var6);
-        var1.addVertex(var2 + 0, var3 + 0, 0.0D);
-        var1.addVertex(var2 + 0, var3 + var5, 0.0D);
+        var1.addVertex(var2, var3, 0.0D);
+        var1.addVertex(var2, var3 + var5, 0.0D);
         var1.addVertex(var2 + var4, var3 + var5, 0.0D);
-        var1.addVertex(var2 + var4, var3 + 0, 0.0D);
+        var1.addVertex(var2 + var4, var3, 0.0D);
         var1.draw();
     }
 
@@ -220,15 +220,16 @@ public class RenderItem extends Render {
         float var9 = 0.00390625F;
         Tessellator var10 = Tessellator.INSTANCE;
         var10.startDrawingQuads();
-        var10.addVertexWithUV(var1 + 0, var2 + var6, var7, (float) (var3 + 0) * var8, (float) (var4 + var6) * var9);
+        var10.addVertexWithUV(var1, var2 + var6, var7, (float) (var3) * var8, (float) (var4 + var6) * var9);
         var10.addVertexWithUV(var1 + var5, var2 + var6, var7, (float) (var3 + var5) * var8, (float) (var4 + var6) * var9);
-        var10.addVertexWithUV(var1 + var5, var2 + 0, var7, (float) (var3 + var5) * var8, (float) (var4 + 0) * var9);
-        var10.addVertexWithUV(var1 + 0, var2 + 0, var7, (float) (var3 + 0) * var8, (float) (var4 + 0) * var9);
+        var10.addVertexWithUV(var1 + var5, var2, var7, (float) (var3 + var5) * var8, (float) (var4) * var9);
+        var10.addVertexWithUV(var1, var2, var7, (float) (var3) * var8, (float) (var4) * var9);
         var10.draw();
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
         this.doRenderItem((EntityItem) var1, var2, var4, var6, var8, var9);
     }

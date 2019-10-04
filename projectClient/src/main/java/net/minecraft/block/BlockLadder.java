@@ -11,6 +11,7 @@ public class BlockLadder extends Block {
         super(var1, var2, Material.CIRCUITS);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockMetadata(var2, var3, var4);
         float var6 = 0.125F;
@@ -33,6 +34,7 @@ public class BlockLadder extends Block {
         return super.getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockMetadata(var2, var3, var4);
         float var6 = 0.125F;
@@ -55,18 +57,22 @@ public class BlockLadder extends Block {
         return super.getSelectedBoundingBoxFromPool(var1, var2, var3, var4);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 8;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
         if (var1.isBlockNormalCube(var2 - 1, var3, var4)) {
             return true;
@@ -79,6 +85,7 @@ public class BlockLadder extends Block {
         }
     }
 
+    @Override
     public void onBlockPlaced(World var1, int var2, int var3, int var4, int var5) {
         int var6 = var1.getBlockMetadata(var2, var3, var4);
         if ((var6 == 0 || var5 == 2) && var1.isBlockNormalCube(var2, var3, var4 + 1)) {
@@ -100,6 +107,7 @@ public class BlockLadder extends Block {
         var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         int var6 = var1.getBlockMetadata(var2, var3, var4);
         boolean var7 = false;
@@ -127,6 +135,7 @@ public class BlockLadder extends Block {
         super.onNeighborBlockChange(var1, var2, var3, var4, var5);
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 1;
     }

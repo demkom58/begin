@@ -13,18 +13,22 @@ final class J_JsonConstants extends J_JsonNode {
         this.field_27229_d = var1;
     }
 
+    @Override
     public EnumJsonNodeType func_27218_a() {
         return this.field_27229_d;
     }
 
+    @Override
     public String getValue() {
         throw new IllegalStateException("Attempt to get text on a JsonNode without text.");
     }
 
+    @Override
     public Map func_27214_c() {
         throw new IllegalStateException("Attempt to get fields on a JsonNode without fields.");
     }
 
+    @Override
     public List func_27215_d() {
         throw new IllegalStateException("Attempt to get elements on a JsonNode without elements.");
     }

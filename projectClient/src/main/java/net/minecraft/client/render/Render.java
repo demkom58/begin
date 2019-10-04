@@ -152,10 +152,10 @@ public abstract class Render {
                 var12 = var24;
             }
 
-            var17.addVertexWithUV((double) (var18 - var19), (double) (0.0F - var21), (double) var22, (double) var13, (double) var15);
-            var17.addVertexWithUV((double) (-var18 - var19), (double) (0.0F - var21), (double) var22, (double) var12, (double) var15);
-            var17.addVertexWithUV((double) (-var18 - var19), (double) (1.4F - var21), (double) var22, (double) var12, (double) var14);
-            var17.addVertexWithUV((double) (var18 - var19), (double) (1.4F - var21), (double) var22, (double) var13, (double) var14);
+            var17.addVertexWithUV(var18 - var19, 0.0F - var21, var22, var13, var15);
+            var17.addVertexWithUV(-var18 - var19, 0.0F - var21, var22, var12, var15);
+            var17.addVertexWithUV(-var18 - var19, 1.4F - var21, var22, var12, var14);
+            var17.addVertexWithUV(var18 - var19, 1.4F - var21, var22, var13, var14);
             var20 -= 0.45F;
             var21 -= 0.45F;
             var18 *= 0.9F;
@@ -231,10 +231,10 @@ public abstract class Render {
                 float var33 = (float) ((var2 - var24) / 2.0D / (double) var12 + 0.5D);
                 float var34 = (float) ((var6 - var28) / 2.0D / (double) var12 + 0.5D);
                 float var35 = (float) ((var6 - var30) / 2.0D / (double) var12 + 0.5D);
-                var19.addVertexWithUV(var22, var26, var28, (double) var32, (double) var34);
-                var19.addVertexWithUV(var22, var26, var30, (double) var32, (double) var35);
-                var19.addVertexWithUV(var24, var26, var30, (double) var33, (double) var35);
-                var19.addVertexWithUV(var24, var26, var28, (double) var33, (double) var34);
+                var19.addVertexWithUV(var22, var26, var28, var32, var34);
+                var19.addVertexWithUV(var22, var26, var30, var32, var35);
+                var19.addVertexWithUV(var24, var26, var30, var33, var35);
+                var19.addVertexWithUV(var24, var26, var28, var33, var34);
             }
         }
     }

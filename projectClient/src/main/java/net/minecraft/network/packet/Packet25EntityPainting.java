@@ -28,6 +28,7 @@ public class Packet25EntityPainting extends Packet {
         this.title = var1.art.title;
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.entityId = var1.readInt();
         this.title = readString(var1, EnumArt.maxArtTitleLength);
@@ -37,6 +38,7 @@ public class Packet25EntityPainting extends Packet {
         this.direction = var1.readInt();
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeInt(this.entityId);
         writeString(this.title, var1);
@@ -46,10 +48,12 @@ public class Packet25EntityPainting extends Packet {
         var1.writeInt(this.direction);
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.func_21146_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 24;
     }

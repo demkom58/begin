@@ -7,6 +7,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.BiomeGenBase;
 
 public class WorldProviderHell extends WorldProvider {
+    @Override
     public void registerWorldChunkManager() {
         this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.HELL, 1.0D, 0.0D);
         this.isNether = true;
@@ -15,10 +16,12 @@ public class WorldProviderHell extends WorldProvider {
         this.worldType = -1;
     }
 
+    @Override
     public Vec3D func_4096_a(float var1, float var2) {
         return Vec3D.createVector(0.20000000298023224D, 0.029999999329447746D, 0.029999999329447746D);
     }
 
+    @Override
     protected void generateLightBrightnessTable() {
         float var1 = 0.1F;
 
@@ -29,10 +32,12 @@ public class WorldProviderHell extends WorldProvider {
 
     }
 
+    @Override
     public IChunkProvider getChunkProvider() {
         return new ChunkProviderHell(this.worldObj, this.worldObj.getRandomSeed());
     }
 
+    @Override
     public boolean canCoordinateBeSpawn(int var1, int var2) {
         int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
         if (var3 == Block.BEDROCK.blockID)
@@ -44,10 +49,12 @@ public class WorldProviderHell extends WorldProvider {
         return Block.OPAQUE_CUBE_LOOKUP[var3];
     }
 
+    @Override
     public float calculateCelestialAngle(long var1, float var3) {
         return 0.5F;
     }
 
+    @Override
     public boolean canRespawnHere() {
         return false;
     }

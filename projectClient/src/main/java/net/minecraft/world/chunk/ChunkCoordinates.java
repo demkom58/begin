@@ -45,11 +45,12 @@ public class ChunkCoordinates implements Comparable {
         int var4 = this.x - var1;
         int var5 = this.y - var2;
         int var6 = this.z - var3;
-        return Math.sqrt((double) (var4 * var4 + var5 * var5 + var6 * var6));
+        return Math.sqrt(var4 * var4 + var5 * var5 + var6 * var6);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public int compareTo(Object var1) {
         return this.compareChunkCoordinate((ChunkCoordinates) var1);
     }

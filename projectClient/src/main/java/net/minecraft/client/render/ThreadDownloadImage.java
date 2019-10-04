@@ -18,6 +18,7 @@ class ThreadDownloadImage extends Thread {
         this.buffer = var3;
     }
 
+    @Override
     public void run() {
         HttpURLConnection var1 = null;
 

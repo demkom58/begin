@@ -10,6 +10,7 @@ public class ItemBow extends Item {
         this.maxStackSize = 1;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack var1, World var2, EntityPlayer var3) {
         if (var3.inventory.consumeInventoryItem(Item.ARROW.shiftedIndex)) {
             var2.playSoundAtEntity(var3, "random.bow", 1.0F, 1.0F / (ITEM_RAND.nextFloat() * 0.4F + 0.8F));

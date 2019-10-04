@@ -17,6 +17,7 @@ public class GuiConnectFailed extends GuiScreen {
 
     }
 
+    @Override
     public void updateScreen() {
     }
 
@@ -28,12 +29,14 @@ public class GuiConnectFailed extends GuiScreen {
     public void charTyped(char ch, int key) {
     }
 
+    @Override
     public void initGui() {
         StringTranslate translate = StringTranslate.getInstance();
         this.buttons.clear();
         this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, translate.translateKey("gui.toMenu")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiMainMenu());
@@ -41,6 +44,7 @@ public class GuiConnectFailed extends GuiScreen {
 
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, this.errorMessage, this.width / 2, this.height / 2 - 50, 16777215);

@@ -18,6 +18,7 @@ public class GuiControls extends GuiScreen {
         return this.width / 2 - 155;
     }
 
+    @Override
     public void initGui() {
         StringTranslate translate = StringTranslate.getInstance();
         int var2 = this.func_20080_j();
@@ -30,6 +31,7 @@ public class GuiControls extends GuiScreen {
         this.screenTitle = translate.translateKey("controls.title");
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         for (int i = 0; i < this.options.keyBindings.length; ++i) {
             this.buttons.get(i).displayString = this.options.getOptionDisplayString(i);
@@ -44,6 +46,7 @@ public class GuiControls extends GuiScreen {
 
     }
 
+    @Override
     public void keyTyped(int keycode, int scancode, int action, int mods) {
         if (this.buttonId >= 0) {
             this.options.setKeyBinding(this.buttonId, keycode, scancode);
@@ -55,6 +58,7 @@ public class GuiControls extends GuiScreen {
 
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);

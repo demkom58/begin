@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class WorldGenTaiga2 extends WorldGenerator {
+    @Override
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
         int var6 = var2.nextInt(4) + 6;
         int var7 = 1 + var2.nextInt(2);

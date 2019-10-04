@@ -10,14 +10,17 @@ public class ItemSlab extends ItemBlock {
         this.setHasSubtypes(true);
     }
 
+    @Override
     public int getIconFromDamage(int var1) {
         return Block.STAIR_SINGLE.getBlockTextureFromSideAndMetadata(2, var1);
     }
 
+    @Override
     public int getPlacedBlockMetadata(int var1) {
         return var1;
     }
 
+    @Override
     public String getItemNameIS(ItemStack var1) {
         return super.getItemName() + "." + BlockStep.field_22037_a[var1.getItemDamage()];
     }

@@ -17,15 +17,18 @@ public class GuiYesNo extends GuiScreen {
         this.worldNumber = worldNumber;
     }
 
+    @Override
     public void initGui() {
-        this.buttons.add(new GuiSmallButton(0, this.width / 2 - 155 + 0, this.height / 6 + 96, this.field_22106_k));
+        this.buttons.add(new GuiSmallButton(0, this.width / 2 - 155, this.height / 6 + 96, this.field_22106_k));
         this.buttons.add(new GuiSmallButton(1, this.width / 2 - 155 + 160, this.height / 6 + 96, this.field_22105_l));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         this.parentScreen.deleteWorld(button.id == 0, this.worldNumber);
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, this.message1, this.width / 2, 70, 16777215);

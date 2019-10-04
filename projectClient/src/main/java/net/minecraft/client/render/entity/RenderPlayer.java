@@ -262,48 +262,56 @@ public class RenderPlayer extends RenderLiving {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected void passSpecialRender(EntityLiving var1, double var2, double var4, double var6) {
         this.renderName((EntityPlayer) var1, var2, var4, var6);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected void preRenderCallback(EntityLiving var1, float var2) {
         this.func_186_b((EntityPlayer) var1, var2);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected boolean shouldRenderPass(EntityLiving var1, int var2, float var3) {
         return this.setArmorModel((EntityPlayer) var1, var2, var3);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected void renderEquippedItems(EntityLiving var1, float var2) {
         this.renderSpecials((EntityPlayer) var1, var2);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected void rotateCorpse(EntityLiving var1, float var2, float var3, float var4) {
         this.func_22017_a((EntityPlayer) var1, var2, var3, var4);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected void func_22012_b(EntityLiving var1, double var2, double var4, double var6) {
         this.func_22016_b((EntityPlayer) var1, var2, var4, var6);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public void doRenderLiving(EntityLiving var1, double var2, double var4, double var6, float var8, float var9) {
         this.renderPlayer((EntityPlayer) var1, var2, var4, var6, var8, var9);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
         this.renderPlayer((EntityPlayer) var1, var2, var4, var6, var8, var9);
     }

@@ -13,6 +13,7 @@ public class TextureLavaFX extends TextureFX {
         super(Block.LAVA_MOVING.blockIndexInTexture);
     }
 
+    @Override
     public void onTick() {
         for (int var1 = 0; var1 < 16; ++var1) {
             for (int var2 = 0; var2 < 16; ++var2) {
@@ -28,7 +29,7 @@ public class TextureLavaFX extends TextureFX {
                     }
                 }
 
-                this.field_1146_h[var1 + var2 * 16] = var3 / 10.0F + (this.field_1145_i[(var1 + 0 & 15) + (var2 + 0 & 15) * 16] + this.field_1145_i[(var1 + 1 & 15) + (var2 + 0 & 15) * 16] + this.field_1145_i[(var1 + 1 & 15) + (var2 + 1 & 15) * 16] + this.field_1145_i[(var1 + 0 & 15) + (var2 + 1 & 15) * 16]) / 4.0F * 0.8F;
+                this.field_1146_h[var1 + var2 * 16] = var3 / 10.0F + (this.field_1145_i[(var1 & 15) + (var2 & 15) * 16] + this.field_1145_i[(var1 + 1 & 15) + (var2 & 15) * 16] + this.field_1145_i[(var1 + 1 & 15) + (var2 + 1 & 15) * 16] + this.field_1145_i[(var1 & 15) + (var2 + 1 & 15) * 16]) / 4.0F * 0.8F;
                 this.field_1145_i[var1 + var2 * 16] += this.field_1144_j[var1 + var2 * 16] * 0.01F;
                 if (this.field_1145_i[var1 + var2 * 16] < 0.0F) {
                     this.field_1145_i[var1 + var2 * 16] = 0.0F;
@@ -67,7 +68,7 @@ public class TextureLavaFX extends TextureFX {
                 var16 = var10;
             }
 
-            this.imageData[var12 * 4 + 0] = (byte) var14;
+            this.imageData[var12 * 4] = (byte) var14;
             this.imageData[var12 * 4 + 1] = (byte) var15;
             this.imageData[var12 * 4 + 2] = (byte) var16;
             this.imageData[var12 * 4 + 3] = -1;

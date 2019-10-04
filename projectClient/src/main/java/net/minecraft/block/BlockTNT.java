@@ -14,6 +14,7 @@ public class BlockTNT extends Block {
         super(var1, var2, Material.TNT);
     }
 
+    @Override
     public int getBlockTextureFromSide(int side) {
         if (side == 0) {
             return this.blockIndexInTexture + 2;
@@ -22,6 +23,7 @@ public class BlockTNT extends Block {
         }
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         super.onBlockAdded(var1, var2, var3, var4);
         if (var1.isBlockIndirectlyGettingPowered(var2, var3, var4)) {
@@ -31,6 +33,7 @@ public class BlockTNT extends Block {
 
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower() && var1.isBlockIndirectlyGettingPowered(var2, var3, var4)) {
             this.onBlockDestroyedByPlayer(var1, var2, var3, var4, 1);
@@ -39,22 +42,25 @@ public class BlockTNT extends Block {
 
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 0;
     }
 
+    @Override
     public void onBlockDestroyedByExplosion(World var1, int var2, int var3, int var4) {
-        EntityTNTPrimed var5 = new EntityTNTPrimed(var1, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F));
+        EntityTNTPrimed var5 = new EntityTNTPrimed(var1, (float) var2 + 0.5F, (float) var3 + 0.5F, (float) var4 + 0.5F);
         var5.fuse = var1.rand.nextInt(var5.fuse / 4) + var5.fuse / 8;
         var1.entityJoinedWorld(var5);
     }
 
+    @Override
     public void onBlockDestroyedByPlayer(World var1, int var2, int var3, int var4, int var5) {
         if (!var1.multiplayerWorld) {
             if ((var5 & 1) == 0) {
                 this.dropBlockAsItem_do(var1, var2, var3, var4, new ItemStack(Block.TNT.blockID, 1, 0));
             } else {
-                EntityTNTPrimed var6 = new EntityTNTPrimed(var1, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F));
+                EntityTNTPrimed var6 = new EntityTNTPrimed(var1, (float) var2 + 0.5F, (float) var3 + 0.5F, (float) var4 + 0.5F);
                 var1.entityJoinedWorld(var6);
                 var1.playSoundAtEntity(var6, "random.fuse", 1.0F, 1.0F);
             }
@@ -62,6 +68,7 @@ public class BlockTNT extends Block {
         }
     }
 
+    @Override
     public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
         if (var5.getCurrentEquippedItem() != null && var5.getCurrentEquippedItem().itemID == Item.FLINT_AND_STEEL.shiftedIndex) {
             var1.setBlockMetadata(var2, var3, var4, 1);
@@ -70,6 +77,7 @@ public class BlockTNT extends Block {
         super.onBlockClicked(var1, var2, var3, var4, var5);
     }
 
+    @Override
     public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
         return super.blockActivated(var1, var2, var3, var4, var5);
     }

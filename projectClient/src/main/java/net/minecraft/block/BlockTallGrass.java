@@ -13,6 +13,7 @@ public class BlockTallGrass extends BlockFlower {
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, 0.8F, 0.5F + var3);
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var2 == 1) {
             return this.blockIndexInTexture;
@@ -23,12 +24,13 @@ public class BlockTallGrass extends BlockFlower {
         }
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockMetadata(var2, var3, var4);
         if (var5 == 0) {
             return 16777215;
         } else {
-            long var6 = (long) (var2 * 3129871 + var4 * 6129781 + var3);
+            long var6 = var2 * 3129871 + var4 * 6129781 + var3;
             var6 = var6 * var6 * 42317861L + var6 * 11L;
             var2 = (int) ((long) var2 + (var6 >> 14 & 31L));
             var3 = (int) ((long) var3 + (var6 >> 19 & 31L));
@@ -40,6 +42,7 @@ public class BlockTallGrass extends BlockFlower {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return var2.nextInt(8) == 0 ? Item.SEEDS.shiftedIndex : -1;
     }

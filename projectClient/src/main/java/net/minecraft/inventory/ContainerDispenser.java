@@ -27,6 +27,7 @@ public class ContainerDispenser extends Container {
 
     }
 
+    @Override
     public boolean isUsableByPlayer(EntityPlayer var1) {
         return this.field_21149_a.canInteractWith(var1);
     }

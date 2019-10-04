@@ -19,30 +19,36 @@ public class BlockSnow extends Block {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockMetadata(var2, var3, var4) & 7;
-        return var5 >= 3 ? AxisAlignedBB.getBoundingBoxFromPool((double) var2 + this.minX, (double) var3 + this.minY, (double) var4 + this.minZ, (double) var2 + this.maxX, (double) ((float) var3 + 0.5F), (double) var4 + this.maxZ) : null;
+        return var5 >= 3 ? AxisAlignedBB.getBoundingBoxFromPool((double) var2 + this.minX, (double) var3 + this.minY, (double) var4 + this.minZ, (double) var2 + this.maxX, (float) var3 + 0.5F, (double) var4 + this.maxZ) : null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockMetadata(var2, var3, var4) & 7;
         float var6 = (float) (2 * (1 + var5)) / 16.0F;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, var6, 1.0F);
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockId(var2, var3 - 1, var4);
-        return var5 != 0 && Block.BLOCKS_LIST[var5].isOpaqueCube() ? var1.getBlockMaterial(var2, var3 - 1, var4).getIsSolid() : false;
+        return (var5 != 0 && Block.BLOCKS_LIST[var5].isOpaqueCube()) && var1.getBlockMaterial(var2, var3 - 1, var4).getIsSolid();
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         this.func_314_h(var1, var2, var3, var4);
     }
@@ -57,6 +63,7 @@ public class BlockSnow extends Block {
         }
     }
 
+    @Override
     public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
         int var7 = Item.SNOWBALL.shiftedIndex;
         float var8 = 0.7F;
@@ -70,14 +77,17 @@ public class BlockSnow extends Block {
         var2.addStat(StatList.mineBlockStatArray[this.blockID], 1);
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Item.SNOWBALL.shiftedIndex;
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 0;
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         if (var1.getSavedLightValue(EnumSkyBlock.BLOCK, var2, var3, var4) > 11) {
             this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
@@ -86,7 +96,8 @@ public class BlockSnow extends Block {
 
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        return var5 == 1 ? true : super.shouldSideBeRendered(var1, var2, var3, var4, var5);
+        return var5 == 1 || super.shouldSideBeRendered(var1, var2, var3, var4, var5);
     }
 }

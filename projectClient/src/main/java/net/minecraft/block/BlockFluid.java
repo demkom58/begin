@@ -23,8 +23,7 @@ public abstract class BlockFluid extends Block {
             var0 = 0;
         }
 
-        float var1 = (float) (var0 + 1) / 9.0F;
-        return var1;
+        return (float) (var0 + 1) / 9.0F;
     }
 
     public static double func_293_a(IBlockAccess var0, int var1, int var2, int var3, Material var4) {
@@ -40,10 +39,12 @@ public abstract class BlockFluid extends Block {
         return var5.xCoord == 0.0D && var5.zCoord == 0.0D ? -1000.0D : Math.atan2(var5.zCoord, var5.xCoord) - 1.5707963267948966D;
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
         return 16777215;
     }
 
+    @Override
     public int getBlockTextureFromSide(int side) {
         return side != 0 && side != 1 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture;
     }
@@ -65,18 +66,22 @@ public abstract class BlockFluid extends Block {
         }
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean canCollideCheck(int var1, boolean var2) {
         return var2 && var1 == 0;
     }
 
+    @Override
     public boolean getIsBlockSolid(IBlockAccess var1, int var2, int var3, int var4, int var5) {
         Material var6 = var1.getBlockMaterial(var2, var3, var4);
         if (var6 == this.blockMaterial) {
@@ -84,10 +89,11 @@ public abstract class BlockFluid extends Block {
         } else if (var6 == Material.ICE) {
             return false;
         } else {
-            return var5 == 1 ? true : super.getIsBlockSolid(var1, var2, var3, var4, var5);
+            return var5 == 1 || super.getIsBlockSolid(var1, var2, var3, var4, var5);
         }
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
         Material var6 = var1.getBlockMaterial(var2, var3, var4);
         if (var6 == this.blockMaterial) {
@@ -95,22 +101,26 @@ public abstract class BlockFluid extends Block {
         } else if (var6 == Material.ICE) {
             return false;
         } else {
-            return var5 == 1 ? true : super.shouldSideBeRendered(var1, var2, var3, var4, var5);
+            return var5 == 1 || super.shouldSideBeRendered(var1, var2, var3, var4, var5);
         }
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         return null;
     }
 
+    @Override
     public int getRenderType() {
         return 4;
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return 0;
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 0;
     }
@@ -144,12 +154,12 @@ public abstract class BlockFluid extends Block {
                     var11 = this.getEffectiveFlowDecay(var1, var8, var3 - 1, var10);
                     if (var11 >= 0) {
                         int var12 = var11 - (var6 - 8);
-                        var5 = var5.addVector((double) ((var8 - var2) * var12), (double) ((var3 - var3) * var12), (double) ((var10 - var4) * var12));
+                        var5 = var5.addVector((var8 - var2) * var12, (0) * var12, (var10 - var4) * var12);
                     }
                 }
             } else if (var11 >= 0) {
                 int var16 = var11 - var6;
-                var5 = var5.addVector((double) ((var8 - var2) * var16), (double) ((var3 - var3) * var16), (double) ((var10 - var4) * var16));
+                var5 = var5.addVector((var8 - var2) * var16, (0) * var16, (var10 - var4) * var16);
             }
         }
 
@@ -196,6 +206,7 @@ public abstract class BlockFluid extends Block {
         return var5;
     }
 
+    @Override
     public void velocityToAddToEntity(World var1, int var2, int var3, int var4, Entity var5, Vec3D var6) {
         Vec3D var7 = this.getFlowVector(var1, var2, var3, var4);
         var6.xCoord += var7.xCoord;
@@ -203,6 +214,7 @@ public abstract class BlockFluid extends Block {
         var6.zCoord += var7.zCoord;
     }
 
+    @Override
     public int tickRate() {
         if (this.blockMaterial == Material.WATER) {
             return 5;
@@ -211,41 +223,47 @@ public abstract class BlockFluid extends Block {
         }
     }
 
-    public float getBlockBrightness(IBlockAccess var1, int var2, int var3, int var4) {
-        float var5 = var1.getLightBrightness(var2, var3, var4);
-        float var6 = var1.getLightBrightness(var2, var3 + 1, var4);
-        return var5 > var6 ? var5 : var6;
+    @Override
+    public float getBlockBrightness(IBlockAccess blockAccess, int x, int y, int z) {
+        float var5 = blockAccess.getLightBrightness(x, y, z);
+        float var6 = blockAccess.getLightBrightness(x, y + 1, z);
+        return Math.max(var5, var6);
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         super.updateTick(var1, var2, var3, var4, var5);
     }
 
+    @Override
     public int getRenderBlockPass() {
         return this.blockMaterial == Material.WATER ? 1 : 0;
     }
 
+    @Override
     public void randomDisplayTick(World var1, int var2, int var3, int var4, Random var5) {
         if (this.blockMaterial == Material.WATER && var5.nextInt(64) == 0) {
             int var6 = var1.getBlockMetadata(var2, var3, var4);
             if (var6 > 0 && var6 < 8) {
-                var1.playSoundEffect((double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), "liquid.water", var5.nextFloat() * 0.25F + 0.75F, var5.nextFloat() * 1.0F + 0.5F);
+                var1.playSoundEffect((float) var2 + 0.5F, (float) var3 + 0.5F, (float) var4 + 0.5F, "liquid.water", var5.nextFloat() * 0.25F + 0.75F, var5.nextFloat() * 1.0F + 0.5F);
             }
         }
 
         if (this.blockMaterial == Material.LAVA && var1.getBlockMaterial(var2, var3 + 1, var4) == Material.AIR && !var1.isBlockOpaqueCube(var2, var3 + 1, var4) && var5.nextInt(100) == 0) {
-            double var12 = (double) ((float) var2 + var5.nextFloat());
+            double var12 = (float) var2 + var5.nextFloat();
             double var8 = (double) var3 + this.maxY;
-            double var10 = (double) ((float) var4 + var5.nextFloat());
+            double var10 = (float) var4 + var5.nextFloat();
             var1.spawnParticle("lava", var12, var8, var10, 0.0D, 0.0D, 0.0D);
         }
 
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         this.checkForHarden(var1, var2, var3, var4);
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         this.checkForHarden(var1, var2, var3, var4);
     }
@@ -290,7 +308,7 @@ public abstract class BlockFluid extends Block {
     }
 
     protected void triggerLavaMixEffects(World var1, int var2, int var3, int var4) {
-        var1.playSoundEffect((double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), "random.fizz", 0.5F, 2.6F + (var1.rand.nextFloat() - var1.rand.nextFloat()) * 0.8F);
+        var1.playSoundEffect((float) var2 + 0.5F, (float) var3 + 0.5F, (float) var4 + 0.5F, "random.fizz", 0.5F, 2.6F + (var1.rand.nextFloat() - var1.rand.nextFloat()) * 0.8F);
 
         for (int var5 = 0; var5 < 8; ++var5) {
             var1.spawnParticle("largesmoke", (double) var2 + Math.random(), (double) var3 + 1.2D, (double) var4 + Math.random(), 0.0D, 0.0D, 0.0D);

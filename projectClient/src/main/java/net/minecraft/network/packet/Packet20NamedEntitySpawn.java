@@ -34,6 +34,7 @@ public class Packet20NamedEntitySpawn extends Packet {
         this.currentItem = var2 == null ? 0 : var2.itemID;
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.entityId = var1.readInt();
         this.name = readString(var1, 16);
@@ -45,6 +46,7 @@ public class Packet20NamedEntitySpawn extends Packet {
         this.currentItem = var1.readShort();
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeInt(this.entityId);
         writeString(this.name, var1);
@@ -56,10 +58,12 @@ public class Packet20NamedEntitySpawn extends Packet {
         var1.writeShort(this.currentItem);
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.handleNamedEntitySpawn(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 28;
     }

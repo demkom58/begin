@@ -14,18 +14,22 @@ public class BlockTorch extends Block {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 2;
     }
@@ -34,6 +38,7 @@ public class BlockTorch extends Block {
         return var1.isBlockNormalCube(var2, var3, var4) || var1.getBlockId(var2, var3, var4) == Block.FENCE.blockID;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
         if (var1.isBlockNormalCube(var2 - 1, var3, var4)) {
             return true;
@@ -48,6 +53,7 @@ public class BlockTorch extends Block {
         }
     }
 
+    @Override
     public void onBlockPlaced(World var1, int var2, int var3, int var4, int var5) {
         int var6 = var1.getBlockMetadata(var2, var3, var4);
         if (var5 == 1 && this.func_31032_h(var1, var2, var3 - 1, var4)) {
@@ -73,6 +79,7 @@ public class BlockTorch extends Block {
         var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         super.updateTick(var1, var2, var3, var4, var5);
         if (var1.getBlockMetadata(var2, var3, var4) == 0) {
@@ -81,6 +88,7 @@ public class BlockTorch extends Block {
 
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         if (var1.isBlockNormalCube(var2 - 1, var3, var4)) {
             var1.setBlockMetadataWithNotify(var2, var3, var4, 1);
@@ -97,6 +105,7 @@ public class BlockTorch extends Block {
         this.dropTorchIfCantStay(var1, var2, var3, var4);
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (this.dropTorchIfCantStay(var1, var2, var3, var4)) {
             int var6 = var1.getBlockMetadata(var2, var3, var4);
@@ -139,6 +148,7 @@ public class BlockTorch extends Block {
         }
     }
 
+    @Override
     public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
         int var7 = var1.getBlockMetadata(var2, var3, var4) & 7;
         float var8 = 0.15F;
@@ -158,11 +168,12 @@ public class BlockTorch extends Block {
         return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
     }
 
+    @Override
     public void randomDisplayTick(World var1, int var2, int var3, int var4, Random var5) {
         int var6 = var1.getBlockMetadata(var2, var3, var4);
-        double var7 = (double) ((float) var2 + 0.5F);
-        double var9 = (double) ((float) var3 + 0.7F);
-        double var11 = (double) ((float) var4 + 0.5F);
+        double var7 = (float) var2 + 0.5F;
+        double var9 = (float) var3 + 0.7F;
+        double var11 = (float) var4 + 0.5F;
         double var13 = 0.2199999988079071D;
         double var15 = 0.27000001072883606D;
         if (var6 == 1) {

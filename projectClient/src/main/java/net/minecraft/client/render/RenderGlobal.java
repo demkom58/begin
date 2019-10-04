@@ -102,10 +102,10 @@ public class RenderGlobal implements IWorldAccess {
         for (int var8 = -var6 * var7; var8 <= var6 * var7; var8 += var6) {
             for (int var9 = -var6 * var7; var9 <= var6 * var7; var9 += var6) {
                 tess.startDrawingQuads();
-                tess.addVertex(var8 + 0, var5, var9 + 0);
-                tess.addVertex(var8 + var6, var5, var9 + 0);
+                tess.addVertex(var8, var5, var9);
+                tess.addVertex(var8 + var6, var5, var9);
                 tess.addVertex(var8 + var6, var5, var9 + var6);
-                tess.addVertex(var8 + 0, var5, var9 + var6);
+                tess.addVertex(var8, var5, var9 + var6);
                 tess.draw();
             }
         }
@@ -118,9 +118,9 @@ public class RenderGlobal implements IWorldAccess {
 
         for (int var11 = -var6 * var7; var11 <= var6 * var7; var11 += var6) {
             for (int var12 = -var6 * var7; var12 <= var6 * var7; var12 += var6) {
-                tess.addVertex(var11 + var6, var5, var12 + 0);
-                tess.addVertex(var11 + 0, var5, var12 + 0);
-                tess.addVertex(var11 + 0, var5, var12 + var6);
+                tess.addVertex(var11 + var6, var5, var12);
+                tess.addVertex(var11, var5, var12);
+                tess.addVertex(var11, var5, var12 + var6);
                 tess.addVertex(var11 + var6, var5, var12 + var6);
             }
         }
@@ -768,10 +768,10 @@ public class RenderGlobal implements IWorldAccess {
 
             for (int var20 = -var3 * var4; var20 < var3 * var4; var20 += var3) {
                 for (int var21 = -var3 * var4; var21 < var3 * var4; var21 += var3) {
-                    tess.addVertexWithUV(var20 + 0, var17, var21 + var3, (float) (var20 + 0) * var22 + var18, (float) (var21 + var3) * var22 + var19);
+                    tess.addVertexWithUV(var20, var17, var21 + var3, (float) (var20) * var22 + var18, (float) (var21 + var3) * var22 + var19);
                     tess.addVertexWithUV(var20 + var3, var17, var21 + var3, (float) (var20 + var3) * var22 + var18, (float) (var21 + var3) * var22 + var19);
-                    tess.addVertexWithUV(var20 + var3, var17, var21 + 0, (float) (var20 + var3) * var22 + var18, (float) (var21 + 0) * var22 + var19);
-                    tess.addVertexWithUV(var20 + 0, var17, var21 + 0, (float) (var20 + 0) * var22 + var18, (float) (var21 + 0) * var22 + var19);
+                    tess.addVertexWithUV(var20 + var3, var17, var21, (float) (var20 + var3) * var22 + var18, (float) (var21) * var22 + var19);
+                    tess.addVertexWithUV(var20, var17, var21, (float) (var20) * var22 + var18, (float) (var21) * var22 + var19);
                 }
             }
 
@@ -970,7 +970,7 @@ public class RenderGlobal implements IWorldAccess {
 
         if (var7 != null) {
             if (var7.size() > 1) {
-                Collections.sort(var7, var5);
+                var7.sort(var5);
             }
 
             for (int var21 = var7.size() - 1; var21 >= 0; --var21) {
@@ -1202,10 +1202,12 @@ public class RenderGlobal implements IWorldAccess {
 
     }
 
+    @Override
     public void markBlockAndNeighborsNeedsUpdate(int var1, int var2, int var3) {
         this.func_949_a(var1 - 1, var2 - 1, var3 - 1, var1 + 1, var2 + 1, var3 + 1);
     }
 
+    @Override
     public void markBlockRangeNeedsUpdate(int var1, int var2, int var3, int var4, int var5, int var6) {
         this.func_949_a(var1 - 1, var2 - 1, var3 - 1, var4 + 1, var5 + 1, var6 + 1);
     }
@@ -1220,6 +1222,7 @@ public class RenderGlobal implements IWorldAccess {
         ++this.frustrumCheckOffset;
     }
 
+    @Override
     public void playRecord(String var1, int var2, int var3, int var4) {
         if (var1 != null)
             this.mc.ingameGUI.setRecordPlayingMessage("C418 - " + var1);
@@ -1227,6 +1230,7 @@ public class RenderGlobal implements IWorldAccess {
         this.mc.soundManager.playStreaming(var1, (float) var2, (float) var3, (float) var4, 1.0F, 1.0F);
     }
 
+    @Override
     public void playSound(String var1, double var2, double var4, double var6, float var8, float var9) {
         float var10 = 16.0F;
         if (var8 > 1.0F) {
@@ -1239,6 +1243,7 @@ public class RenderGlobal implements IWorldAccess {
 
     }
 
+    @Override
     public void spawnParticle(String var1, double var2, double var4, double var6, double var8, double var10, double var12) {
         if (this.mc != null && this.mc.renderViewEntity != null && this.mc.effectRenderer != null) {
             double var14 = this.mc.renderViewEntity.posX - var2;
@@ -1246,42 +1251,59 @@ public class RenderGlobal implements IWorldAccess {
             double var18 = this.mc.renderViewEntity.posZ - var6;
             double var20 = 16.0D;
             if (var14 * var14 + var16 * var16 + var18 * var18 <= var20 * var20) {
-                if (var1.equals("bubble")) {
-                    this.mc.effectRenderer.addEffect(new EntityBubbleFX(this.worldObj, var2, var4, var6, var8, var10, var12));
-                } else if (var1.equals("smoke")) {
-                    this.mc.effectRenderer.addEffect(new EntitySmokeFX(this.worldObj, var2, var4, var6, var8, var10, var12));
-                } else if (var1.equals("note")) {
-                    this.mc.effectRenderer.addEffect(new EntityNoteFX(this.worldObj, var2, var4, var6, var8, var10, var12));
-                } else if (var1.equals("portal")) {
-                    this.mc.effectRenderer.addEffect(new EntityPortalFX(this.worldObj, var2, var4, var6, var8, var10, var12));
-                } else if (var1.equals("explode")) {
-                    this.mc.effectRenderer.addEffect(new EntityExplodeFX(this.worldObj, var2, var4, var6, var8, var10, var12));
-                } else if (var1.equals("flame")) {
-                    this.mc.effectRenderer.addEffect(new EntityFlameFX(this.worldObj, var2, var4, var6, var8, var10, var12));
-                } else if (var1.equals("lava")) {
-                    this.mc.effectRenderer.addEffect(new EntityLavaFX(this.worldObj, var2, var4, var6));
-                } else if (var1.equals("footstep")) {
-                    this.mc.effectRenderer.addEffect(new EntityFootStepFX(this.renderEngine, this.worldObj, var2, var4, var6));
-                } else if (var1.equals("splash")) {
-                    this.mc.effectRenderer.addEffect(new EntitySplashFX(this.worldObj, var2, var4, var6, var8, var10, var12));
-                } else if (var1.equals("largesmoke")) {
-                    this.mc.effectRenderer.addEffect(new EntitySmokeFX(this.worldObj, var2, var4, var6, var8, var10, var12, 2.5F));
-                } else if (var1.equals("reddust")) {
-                    this.mc.effectRenderer.addEffect(new EntityReddustFX(this.worldObj, var2, var4, var6, (float) var8, (float) var10, (float) var12));
-                } else if (var1.equals("snowballpoof")) {
-                    this.mc.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.SNOWBALL));
-                } else if (var1.equals("snowshovel")) {
-                    this.mc.effectRenderer.addEffect(new EntitySnowShovelFX(this.worldObj, var2, var4, var6, var8, var10, var12));
-                } else if (var1.equals("slime")) {
-                    this.mc.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.SLIMEBALL));
-                } else if (var1.equals("heart")) {
-                    this.mc.effectRenderer.addEffect(new EntityHeartFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                switch (var1) {
+                    case "bubble":
+                        this.mc.effectRenderer.addEffect(new EntityBubbleFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        break;
+                    case "smoke":
+                        this.mc.effectRenderer.addEffect(new EntitySmokeFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        break;
+                    case "note":
+                        this.mc.effectRenderer.addEffect(new EntityNoteFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        break;
+                    case "portal":
+                        this.mc.effectRenderer.addEffect(new EntityPortalFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        break;
+                    case "explode":
+                        this.mc.effectRenderer.addEffect(new EntityExplodeFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        break;
+                    case "flame":
+                        this.mc.effectRenderer.addEffect(new EntityFlameFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        break;
+                    case "lava":
+                        this.mc.effectRenderer.addEffect(new EntityLavaFX(this.worldObj, var2, var4, var6));
+                        break;
+                    case "footstep":
+                        this.mc.effectRenderer.addEffect(new EntityFootStepFX(this.renderEngine, this.worldObj, var2, var4, var6));
+                        break;
+                    case "splash":
+                        this.mc.effectRenderer.addEffect(new EntitySplashFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        break;
+                    case "largesmoke":
+                        this.mc.effectRenderer.addEffect(new EntitySmokeFX(this.worldObj, var2, var4, var6, var8, var10, var12, 2.5F));
+                        break;
+                    case "reddust":
+                        this.mc.effectRenderer.addEffect(new EntityReddustFX(this.worldObj, var2, var4, var6, (float) var8, (float) var10, (float) var12));
+                        break;
+                    case "snowballpoof":
+                        this.mc.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.SNOWBALL));
+                        break;
+                    case "snowshovel":
+                        this.mc.effectRenderer.addEffect(new EntitySnowShovelFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        break;
+                    case "slime":
+                        this.mc.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.SLIMEBALL));
+                        break;
+                    case "heart":
+                        this.mc.effectRenderer.addEffect(new EntityHeartFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        break;
                 }
 
             }
         }
     }
 
+    @Override
     public void obtainEntitySkin(Entity entity) {
         entity.updateCloak();
         if (entity.skinUrl != null) {
@@ -1294,6 +1316,7 @@ public class RenderGlobal implements IWorldAccess {
 
     }
 
+    @Override
     public void releaseEntitySkin(Entity entity) {
         if (entity.skinUrl != null) {
             this.renderEngine.releaseImageData(entity.skinUrl);
@@ -1305,6 +1328,7 @@ public class RenderGlobal implements IWorldAccess {
 
     }
 
+    @Override
     public void updateAllRenderers() {
         for (int i = 0; i < this.worldRenderers.length; ++i) {
             if (this.worldRenderers[i].isChunkLit && !this.worldRenderers[i].needsUpdate) {
@@ -1315,6 +1339,7 @@ public class RenderGlobal implements IWorldAccess {
 
     }
 
+    @Override
     public void doNothingWithTileEntity(int var1, int var2, int var3, TileEntity var4) {
     }
 
@@ -1322,6 +1347,7 @@ public class RenderGlobal implements IWorldAccess {
         GLAllocation.removeLists(this.glRenderListBase);
     }
 
+    @Override
     public void func_28136_a(EntityPlayer player, int var2, int x, int y, int z, int var6) {
         Random rand = this.worldObj.rand;
         switch (var2) {

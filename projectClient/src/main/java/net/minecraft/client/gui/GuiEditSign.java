@@ -19,11 +19,13 @@ public class GuiEditSign extends GuiScreen {
         this.entitySign = var1;
     }
 
+    @Override
     public void initGui() {
         this.buttons.clear();
         this.buttons.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120, "Done"));
     }
 
+    @Override
     public void onGuiClosed() {
         if (this.mc.theWorld.multiplayerWorld) {
             this.mc.getSendQueue().addToSendQueue(new Packet130UpdateSign(this.entitySign.xCoord, this.entitySign.yCoord, this.entitySign.zCoord, this.entitySign.signText));
@@ -31,10 +33,12 @@ public class GuiEditSign extends GuiScreen {
 
     }
 
+    @Override
     public void updateScreen() {
         ++this.updateCounter;
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (!button.enabled)
             return;
@@ -69,6 +73,7 @@ public class GuiEditSign extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 40, 16777215);

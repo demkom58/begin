@@ -16,6 +16,7 @@ public class BlockFire extends Block {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public void initializeBlock() {
         this.setBurnRate(Block.PLANKS.blockID, 5, 20);
         this.setBurnRate(Block.FENCE.blockID, 5, 20);
@@ -33,30 +34,37 @@ public class BlockFire extends Block {
         this.abilityToCatchFire[var1] = var3;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 3;
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 0;
     }
 
+    @Override
     public int tickRate() {
         return 40;
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         boolean var6 = var1.getBlockId(var2, var3 - 1, var4) == Block.BLOOD_STONE.blockID;
         if (!this.canPlaceBlockAt(var1, var2, var3, var4)) {
@@ -170,6 +178,7 @@ public class BlockFire extends Block {
         }
     }
 
+    @Override
     public boolean isCollidable() {
         return false;
     }
@@ -180,19 +189,22 @@ public class BlockFire extends Block {
 
     public int getChanceToEncourageFire(World var1, int var2, int var3, int var4, int var5) {
         int var6 = this.chanceToEncourageFire[var1.getBlockId(var2, var3, var4)];
-        return var6 > var5 ? var6 : var5;
+        return Math.max(var6, var5);
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
         return var1.isBlockNormalCube(var2, var3 - 1, var4) || this.func_263_h(var1, var2, var3, var4);
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (!var1.isBlockNormalCube(var2, var3 - 1, var4) && !this.func_263_h(var1, var2, var3, var4)) {
             var1.setBlockWithNotify(var2, var3, var4, 0);
         }
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         if (var1.getBlockId(var2, var3 - 1, var4) != Block.OBSIDIAN.blockID || !Block.PORTAL.tryToCreatePortal(var1, var2, var3, var4)) {
             if (!var1.isBlockNormalCube(var2, var3 - 1, var4) && !this.func_263_h(var1, var2, var3, var4)) {
@@ -203,9 +215,10 @@ public class BlockFire extends Block {
         }
     }
 
+    @Override
     public void randomDisplayTick(World var1, int var2, int var3, int var4, Random var5) {
         if (var5.nextInt(24) == 0) {
-            var1.playSoundEffect((double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), "fire.fire", 1.0F + var5.nextFloat(), var5.nextFloat() * 0.7F + 0.3F);
+            var1.playSoundEffect((float) var2 + 0.5F, (float) var3 + 0.5F, (float) var4 + 0.5F, "fire.fire", 1.0F + var5.nextFloat(), var5.nextFloat() * 0.7F + 0.3F);
         }
 
         if (!var1.isBlockNormalCube(var2, var3 - 1, var4) && !Block.FIRE.canBlockCatchFire(var1, var2, var3 - 1, var4)) {
@@ -214,7 +227,7 @@ public class BlockFire extends Block {
                     float var15 = (float) var2 + var5.nextFloat() * 0.1F;
                     float var20 = (float) var3 + var5.nextFloat();
                     float var25 = (float) var4 + var5.nextFloat();
-                    var1.spawnParticle("largesmoke", (double) var15, (double) var20, (double) var25, 0.0D, 0.0D, 0.0D);
+                    var1.spawnParticle("largesmoke", var15, var20, var25, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -223,7 +236,7 @@ public class BlockFire extends Block {
                     float var16 = (float) (var2 + 1) - var5.nextFloat() * 0.1F;
                     float var21 = (float) var3 + var5.nextFloat();
                     float var26 = (float) var4 + var5.nextFloat();
-                    var1.spawnParticle("largesmoke", (double) var16, (double) var21, (double) var26, 0.0D, 0.0D, 0.0D);
+                    var1.spawnParticle("largesmoke", var16, var21, var26, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -232,7 +245,7 @@ public class BlockFire extends Block {
                     float var17 = (float) var2 + var5.nextFloat();
                     float var22 = (float) var3 + var5.nextFloat();
                     float var27 = (float) var4 + var5.nextFloat() * 0.1F;
-                    var1.spawnParticle("largesmoke", (double) var17, (double) var22, (double) var27, 0.0D, 0.0D, 0.0D);
+                    var1.spawnParticle("largesmoke", var17, var22, var27, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -241,7 +254,7 @@ public class BlockFire extends Block {
                     float var18 = (float) var2 + var5.nextFloat();
                     float var23 = (float) var3 + var5.nextFloat();
                     float var28 = (float) (var4 + 1) - var5.nextFloat() * 0.1F;
-                    var1.spawnParticle("largesmoke", (double) var18, (double) var23, (double) var28, 0.0D, 0.0D, 0.0D);
+                    var1.spawnParticle("largesmoke", var18, var23, var28, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -250,7 +263,7 @@ public class BlockFire extends Block {
                     float var19 = (float) var2 + var5.nextFloat();
                     float var24 = (float) (var3 + 1) - var5.nextFloat() * 0.1F;
                     float var29 = (float) var4 + var5.nextFloat();
-                    var1.spawnParticle("largesmoke", (double) var19, (double) var24, (double) var29, 0.0D, 0.0D, 0.0D);
+                    var1.spawnParticle("largesmoke", var19, var24, var29, 0.0D, 0.0D, 0.0D);
                 }
             }
         } else {
@@ -258,7 +271,7 @@ public class BlockFire extends Block {
                 float var7 = (float) var2 + var5.nextFloat();
                 float var8 = (float) var3 + var5.nextFloat() * 0.5F + 0.5F;
                 float var9 = (float) var4 + var5.nextFloat();
-                var1.spawnParticle("largesmoke", (double) var7, (double) var8, (double) var9, 0.0D, 0.0D, 0.0D);
+                var1.spawnParticle("largesmoke", var7, var8, var9, 0.0D, 0.0D, 0.0D);
             }
         }
 

@@ -3,6 +3,7 @@ package net.minecraft.client.gui;
 import org.lwjgl.opengl.GL11;
 
 public class GuiGameOver extends GuiScreen {
+    @Override
     public void initGui() {
         this.buttons.clear();
         this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 72, "Respawn"));
@@ -21,6 +22,7 @@ public class GuiGameOver extends GuiScreen {
     public void keyTyped(int keycode, int scancode, int action, int mods) {
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
 
         if (button.id == 1) {
@@ -35,6 +37,7 @@ public class GuiGameOver extends GuiScreen {
 
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawGradientRect(0, 0, this.width, this.height, 1615855616, -1602211792);
         GL11.glPushMatrix();
@@ -45,6 +48,7 @@ public class GuiGameOver extends GuiScreen {
         super.drawScreen(var1, var2, var3);
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }

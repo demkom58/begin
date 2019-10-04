@@ -117,7 +117,7 @@ public class RegionFile {
                         this.debugln("READ", var1, var2, "invalid sector");
                         return null;
                     } else {
-                        this.dataFile.seek((long) (var4 * 4096));
+                        this.dataFile.seek(var4 * 4096);
                         int var6 = this.dataFile.readInt();
                         if (var6 > 4096 * var5) {
                             this.debugln("READ", var1, var2, "invalid length: " + var6 + " > 4096 * " + var5);
@@ -127,13 +127,11 @@ public class RegionFile {
                             if (var7 == 1) {
                                 byte[] var11 = new byte[var6 - 1];
                                 this.dataFile.read(var11);
-                                DataInputStream var12 = new DataInputStream(new GZIPInputStream(new ByteArrayInputStream(var11)));
-                                return var12;
+                                return new DataInputStream(new GZIPInputStream(new ByteArrayInputStream(var11)));
                             } else if (var7 == 2) {
                                 byte[] var8 = new byte[var6 - 1];
                                 this.dataFile.read(var8);
-                                DataInputStream var9 = new DataInputStream(new InflaterInputStream(new ByteArrayInputStream(var8)));
-                                return var9;
+                                return new DataInputStream(new InflaterInputStream(new ByteArrayInputStream(var8)));
                             } else {
                                 this.debugln("READ", var1, var2, "unknown version " + var7);
                                 return null;
@@ -226,7 +224,7 @@ public class RegionFile {
 
     private void write(int var1, byte[] var2, int var3) throws IOException {
         this.debugln(" " + var1);
-        this.dataFile.seek((long) (var1 * 4096));
+        this.dataFile.seek(var1 * 4096);
         this.dataFile.writeInt(var3 + 1);
         this.dataFile.writeByte(2);
         this.dataFile.write(var2, 0, var3);
@@ -246,13 +244,13 @@ public class RegionFile {
 
     private void setOffset(int var1, int var2, int var3) throws IOException {
         this.offsets[var1 + var2 * 32] = var3;
-        this.dataFile.seek((long) ((var1 + var2 * 32) * 4));
+        this.dataFile.seek((var1 + var2 * 32) * 4);
         this.dataFile.writeInt(var3);
     }
 
     private void func_22208_b(int var1, int var2, int var3) throws IOException {
         this.field_22217_e[var1 + var2 * 32] = var3;
-        this.dataFile.seek((long) (4096 + (var1 + var2 * 32) * 4));
+        this.dataFile.seek(4096 + (var1 + var2 * 32) * 4);
         this.dataFile.writeInt(var3);
     }
 

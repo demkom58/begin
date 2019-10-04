@@ -15,6 +15,7 @@ public class RenderBiped extends RenderLiving {
         this.modelBipedMain = var1;
     }
 
+    @Override
     protected void renderEquippedItems(EntityLiving var1, float var2) {
         ItemStack var3 = var1.getHeldItem();
         if (var3 != null) {

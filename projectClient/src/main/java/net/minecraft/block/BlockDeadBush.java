@@ -9,14 +9,17 @@ public class BlockDeadBush extends BlockFlower {
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, 0.8F, 0.5F + var3);
     }
 
+    @Override
     protected boolean canThisPlantGrowOnThisBlockID(int var1) {
         return var1 == Block.SAND.blockID;
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         return this.blockIndexInTexture;
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return -1;
     }

@@ -11,6 +11,7 @@ public class Packet104WindowItems extends Packet {
     public int windowId;
     public ItemStack[] itemStack;
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.windowId = var1.readByte();
         short var2 = var1.readShort();
@@ -27,6 +28,7 @@ public class Packet104WindowItems extends Packet {
 
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeByte(this.windowId);
         var1.writeShort(this.itemStack.length);
@@ -43,10 +45,12 @@ public class Packet104WindowItems extends Packet {
 
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.func_20094_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 3 + this.itemStack.length * 5;
     }

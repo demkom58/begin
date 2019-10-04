@@ -25,7 +25,7 @@ public class ModelChicken extends ModelBase {
         this.chin.setRotationPoint(0.0F, (float) (-1 + var1), -4.0F);
         this.body = new ModelRenderer(0, 9);
         this.body.addBox(-3.0F, -4.0F, -3.0F, 6, 8, 6, 0.0F);
-        this.body.setRotationPoint(0.0F, (float) (0 + var1), 0.0F);
+        this.body.setRotationPoint(0.0F, (float) (var1), 0.0F);
         this.rightLeg = new ModelRenderer(26, 0);
         this.rightLeg.addBox(-1.0F, 0.0F, -3.0F, 3, 5, 3);
         this.rightLeg.setRotationPoint(-2.0F, (float) (3 + var1), 1.0F);
@@ -40,6 +40,7 @@ public class ModelChicken extends ModelBase {
         this.leftWing.setRotationPoint(4.0F, (float) (-3 + var1), 0.0F);
     }
 
+    @Override
     public void render(float var1, float var2, float var3, float var4, float var5, float var6) {
         this.setRotationAngles(var1, var2, var3, var4, var5, var6);
         this.head.render(var6);
@@ -52,6 +53,7 @@ public class ModelChicken extends ModelBase {
         this.leftWing.render(var6);
     }
 
+    @Override
     public void setRotationAngles(float var1, float var2, float var3, float var4, float var5, float var6) {
         this.head.rotateAngleX = -(var5 / 57.295776F);
         this.head.rotateAngleY = var4 / 57.295776F;

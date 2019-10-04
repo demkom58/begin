@@ -14,14 +14,17 @@ public class BlockIce extends BlockBreakable {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public int getRenderBlockPass() {
         return 1;
     }
 
+    @Override
     public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
         return super.shouldSideBeRendered(var1, var2, var3, var4, 1 - var5);
     }
 
+    @Override
     public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
         super.harvestBlock(var1, var2, var3, var4, var5, var6);
         Material var7 = var1.getBlockMaterial(var3, var4 - 1, var5);
@@ -31,10 +34,12 @@ public class BlockIce extends BlockBreakable {
 
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 0;
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         if (var1.getSavedLightValue(EnumSkyBlock.BLOCK, var2, var3, var4) > 11 - Block.LIGHT_OPACITY[this.blockID]) {
             this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
@@ -43,6 +48,7 @@ public class BlockIce extends BlockBreakable {
 
     }
 
+    @Override
     public int getMobilityFlag() {
         return 0;
     }

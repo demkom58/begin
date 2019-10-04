@@ -19,9 +19,9 @@ public class RenderFish extends Render {
         byte var11 = 2;
         this.loadTexture("/particles.png");
         Tessellator var12 = Tessellator.INSTANCE;
-        float var13 = (float) (var10 * 8 + 0) / 128.0F;
+        float var13 = (float) (var10 * 8) / 128.0F;
         float var14 = (float) (var10 * 8 + 8) / 128.0F;
-        float var15 = (float) (var11 * 8 + 0) / 128.0F;
+        float var15 = (float) (var11 * 8) / 128.0F;
         float var16 = (float) (var11 * 8 + 8) / 128.0F;
         float var17 = 1.0F;
         float var18 = 0.5F;
@@ -86,6 +86,7 @@ public class RenderFish extends Render {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
         this.func_4011_a((EntityFish) var1, var2, var4, var6, var8, var9);
     }

@@ -334,7 +334,7 @@ public class Tessellator {
                     this.rawBuffer[this.rawBufferIndex + 5] = this.rawBuffer[this.rawBufferIndex - of + 5];
                 }
 
-                this.rawBuffer[this.rawBufferIndex + 0] = this.rawBuffer[this.rawBufferIndex - of + 0];
+                this.rawBuffer[this.rawBufferIndex] = this.rawBuffer[this.rawBufferIndex - of];
                 this.rawBuffer[this.rawBufferIndex + 1] = this.rawBuffer[this.rawBufferIndex - of + 1];
                 this.rawBuffer[this.rawBufferIndex + 2] = this.rawBuffer[this.rawBufferIndex - of + 2];
                 ++this.vertexCount;
@@ -356,7 +356,7 @@ public class Tessellator {
         if (this.hasNormals)
             this.rawBuffer[this.rawBufferIndex + 6] = this.normal;
 
-        this.rawBuffer[this.rawBufferIndex + 0] = Float.floatToRawIntBits((float) (x + this.xOffset));
+        this.rawBuffer[this.rawBufferIndex] = Float.floatToRawIntBits((float) (x + this.xOffset));
         this.rawBuffer[this.rawBufferIndex + 1] = Float.floatToRawIntBits((float) (y + this.yOffset));
         this.rawBuffer[this.rawBufferIndex + 2] = Float.floatToRawIntBits((float) (z + this.zOffset));
         this.rawBufferIndex += 8;

@@ -10,10 +10,12 @@ public class BlockClay extends Block {
         super(var1, var2, Material.CLAY);
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Item.CLAY.shiftedIndex;
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 4;
     }

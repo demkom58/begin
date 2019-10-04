@@ -15,10 +15,12 @@ public class InventoryCrafting implements IInventory {
         this.field_21104_b = var2;
     }
 
+    @Override
     public int getSizeInventory() {
         return this.stackList.length;
     }
 
+    @Override
     public ItemStack getStackInSlot(int var1) {
         return var1 >= this.getSizeInventory() ? null : this.stackList[var1];
     }
@@ -32,10 +34,12 @@ public class InventoryCrafting implements IInventory {
         }
     }
 
+    @Override
     public String getInvName() {
         return "Crafting";
     }
 
+    @Override
     public ItemStack decrStackSize(int var1, int var2) {
         if (this.stackList[var1] != null) {
             if (this.stackList[var1].stackSize <= var2) {
@@ -57,18 +61,22 @@ public class InventoryCrafting implements IInventory {
         }
     }
 
+    @Override
     public void setInventorySlotContents(int var1, ItemStack var2) {
         this.stackList[var1] = var2;
         this.eventHandler.onCraftMatrixChanged(this);
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public void onInventoryChanged() {
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer var1) {
         return true;
     }

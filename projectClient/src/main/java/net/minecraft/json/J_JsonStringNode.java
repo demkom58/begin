@@ -13,18 +13,22 @@ public final class J_JsonStringNode extends J_JsonNode implements Comparable<J_J
         this.value = var1;
     }
 
+    @Override
     public EnumJsonNodeType func_27218_a() {
         return EnumJsonNodeType.STRING;
     }
 
+    @Override
     public String getValue() {
         return this.value;
     }
 
+    @Override
     public Map func_27214_c() {
         throw new IllegalStateException("Attempt to get fields on a JsonNode without fields.");
     }
 
+    @Override
     public List func_27215_d() {
         throw new IllegalStateException("Attempt to get elements on a JsonNode without elements.");
     }
@@ -54,6 +58,7 @@ public final class J_JsonStringNode extends J_JsonNode implements Comparable<J_J
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public int compareTo(J_JsonStringNode var1) {
         return this.func_27223_a(var1);
     }

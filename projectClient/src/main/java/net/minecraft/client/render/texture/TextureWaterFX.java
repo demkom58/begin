@@ -13,6 +13,7 @@ public class TextureWaterFX extends TextureFX {
         super(Block.WATER_MOVING.blockIndexInTexture);
     }
 
+    @Override
     public void onTick() {
         ++this.tickCounter;
 
@@ -72,7 +73,7 @@ public class TextureWaterFX extends TextureFX {
                 var7 = var11;
             }
 
-            this.imageData[var15 * 4 + 0] = (byte) var18;
+            this.imageData[var15 * 4] = (byte) var18;
             this.imageData[var15 * 4 + 1] = (byte) var19;
             this.imageData[var15 * 4 + 2] = (byte) var7;
             this.imageData[var15 * 4 + 3] = (byte) var8;

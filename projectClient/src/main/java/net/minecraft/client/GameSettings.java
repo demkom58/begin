@@ -1,7 +1,6 @@
 package net.minecraft.client;
 
 import net.hypnosis.input.KeySource;
-import net.hypnosis.input.keyboard.Keyboard;
 import net.minecraft.client.gui.EnumOption;
 import net.minecraft.client.input.keyboard.KeyBinding;
 import net.minecraft.stats.StatCollector;

@@ -16,12 +16,14 @@ public class RenderCow extends RenderLiving {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public void doRenderLiving(EntityLiving var1, double var2, double var4, double var6, float var8, float var9) {
         this.renderCow((EntityCow) var1, var2, var4, var6, var8, var9);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
         this.renderCow((EntityCow) var1, var2, var4, var6, var8, var9);
     }

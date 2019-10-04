@@ -13,6 +13,7 @@ public class RenderSnowball extends Render {
         this.itemIconIndex = var1;
     }
 
+    @Override
     public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) var2, (float) var4, (float) var6);
@@ -20,9 +21,9 @@ public class RenderSnowball extends Render {
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         this.loadTexture("/gui/items.png");
         Tessellator var10 = Tessellator.INSTANCE;
-        float var11 = (float) (this.itemIconIndex % 16 * 16 + 0) / 256.0F;
+        float var11 = (float) (this.itemIconIndex % 16 * 16) / 256.0F;
         float var12 = (float) (this.itemIconIndex % 16 * 16 + 16) / 256.0F;
-        float var13 = (float) (this.itemIconIndex / 16 * 16 + 0) / 256.0F;
+        float var13 = (float) (this.itemIconIndex / 16 * 16) / 256.0F;
         float var14 = (float) (this.itemIconIndex / 16 * 16 + 16) / 256.0F;
         float var15 = 1.0F;
         float var16 = 0.5F;

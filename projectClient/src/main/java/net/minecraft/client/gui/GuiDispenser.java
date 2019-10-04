@@ -10,11 +10,13 @@ public class GuiDispenser extends GuiContainer {
         super(new ContainerDispenser(var1, var2));
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer() {
         this.fontRenderer.drawString("Dispenser", 60, 6, 4210752);
         this.fontRenderer.drawString("Inventory", 8, this.ySize - 96 + 2, 4210752);
     }
 
+    @Override
     protected void drawGuiContainerBackgroundLayer(float var1) {
         int textureId = this.mc.renderEngine.getTexture("/gui/trap.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

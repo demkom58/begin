@@ -30,6 +30,7 @@ public class TextureCompassFX extends TextureFX {
 
     }
 
+    @Override
     public void onTick() {
         for (int var1 = 0; var1 < 256; ++var1) {
             int var2 = this.compassIconImageData[var1] >> 24 & 255;
@@ -45,7 +46,7 @@ public class TextureCompassFX extends TextureFX {
                 var5 = var8;
             }
 
-            this.imageData[var1 * 4 + 0] = (byte) var3;
+            this.imageData[var1 * 4] = (byte) var3;
             this.imageData[var1 * 4 + 1] = (byte) var4;
             this.imageData[var1 * 4 + 2] = (byte) var5;
             this.imageData[var1 * 4 + 3] = (byte) var2;
@@ -101,7 +102,7 @@ public class TextureCompassFX extends TextureFX {
                 var15 = var19;
             }
 
-            this.imageData[var12 * 4 + 0] = (byte) var13;
+            this.imageData[var12 * 4] = (byte) var13;
             this.imageData[var12 * 4 + 1] = (byte) var14;
             this.imageData[var12 * 4 + 2] = (byte) var15;
             this.imageData[var12 * 4 + 3] = (byte) var16;
@@ -124,7 +125,7 @@ public class TextureCompassFX extends TextureFX {
                 var33 = var37;
             }
 
-            this.imageData[var30 * 4 + 0] = (byte) var31;
+            this.imageData[var30 * 4] = (byte) var31;
             this.imageData[var30 * 4 + 1] = (byte) var32;
             this.imageData[var30 * 4 + 2] = (byte) var33;
             this.imageData[var30 * 4 + 3] = (byte) var34;

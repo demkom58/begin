@@ -209,7 +209,7 @@ public class RenderEngine {
                 var11 = var14;
             }
 
-            var6[i * 4 + 0] = (byte) var9;
+            var6[i * 4] = (byte) var9;
             var6[i * 4 + 1] = (byte) var10;
             var6[i * 4 + 2] = (byte) var11;
             var6[i * 4 + 3] = (byte) var8;
@@ -230,10 +230,10 @@ public class RenderEngine {
 
             for (int x = 0; x < eX; ++x) {
                 for (int y = 0; y < eY; ++y) {
-                    int var24 = this.imageData.getInt((x * 2 + 0 + (y * 2 + 0) * mul) * 4);
-                    int var25 = this.imageData.getInt((x * 2 + 1 + (y * 2 + 0) * mul) * 4);
+                    int var24 = this.imageData.getInt((x * 2 + (y * 2) * mul) * 4);
+                    int var25 = this.imageData.getInt((x * 2 + 1 + (y * 2) * mul) * 4);
                     int var15 = this.imageData.getInt((x * 2 + 1 + (y * 2 + 1) * mul) * 4);
-                    int var16 = this.imageData.getInt((x * 2 + 0 + (y * 2 + 1) * mul) * 4);
+                    int var16 = this.imageData.getInt((x * 2 + (y * 2 + 1) * mul) * 4);
                     int var17 = this.weightedAverageColor(this.weightedAverageColor(var24, var25), this.weightedAverageColor(var15, var16));
                     this.imageData.putInt((x + y * eX) * 4, var17);
                 }
@@ -282,7 +282,7 @@ public class RenderEngine {
                 var10 = var13;
             }
 
-            var5[var6 * 4 + 0] = (byte) var8;
+            var5[var6 * 4] = (byte) var8;
             var5[var6 * 4 + 1] = (byte) var9;
             var5[var6 * 4 + 2] = (byte) var10;
             var5[var6 * 4 + 3] = (byte) var7;
@@ -373,10 +373,10 @@ public class RenderEngine {
 
                         for (int var8 = 0; var8 < var7; ++var8) {
                             for (int var9 = 0; var9 < var7; ++var9) {
-                                int var10 = this.imageData.getInt((var8 * 2 + 0 + (var9 * 2 + 0) * var6) * 4);
-                                int var11 = this.imageData.getInt((var8 * 2 + 1 + (var9 * 2 + 0) * var6) * 4);
+                                int var10 = this.imageData.getInt((var8 * 2 + (var9 * 2) * var6) * 4);
+                                int var11 = this.imageData.getInt((var8 * 2 + 1 + (var9 * 2) * var6) * 4);
                                 int var12 = this.imageData.getInt((var8 * 2 + 1 + (var9 * 2 + 1) * var6) * 4);
-                                int var13 = this.imageData.getInt((var8 * 2 + 0 + (var9 * 2 + 1) * var6) * 4);
+                                int var13 = this.imageData.getInt((var8 * 2 + (var9 * 2 + 1) * var6) * 4);
                                 int var14 = this.averageColor(this.averageColor(var10, var11), this.averageColor(var12, var13));
                                 this.imageData.putInt((var8 + var9 * var7) * 4, var14);
                             }
@@ -403,10 +403,10 @@ public class RenderEngine {
 
                         for (int var20 = 0; var20 < var19; ++var20) {
                             for (int var21 = 0; var21 < var19; ++var21) {
-                                int var22 = this.imageData.getInt((var20 * 2 + 0 + (var21 * 2 + 0) * var18) * 4);
-                                int var23 = this.imageData.getInt((var20 * 2 + 1 + (var21 * 2 + 0) * var18) * 4);
+                                int var22 = this.imageData.getInt((var20 * 2 + (var21 * 2) * var18) * 4);
+                                int var23 = this.imageData.getInt((var20 * 2 + 1 + (var21 * 2) * var18) * 4);
                                 int var24 = this.imageData.getInt((var20 * 2 + 1 + (var21 * 2 + 1) * var18) * 4);
-                                int var25 = this.imageData.getInt((var20 * 2 + 0 + (var21 * 2 + 1) * var18) * 4);
+                                int var25 = this.imageData.getInt((var20 * 2 + (var21 * 2 + 1) * var18) * 4);
                                 int var26 = this.averageColor(this.averageColor(var22, var23), this.averageColor(var24, var25));
                                 this.imageData.putInt((var20 + var21 * var19) * 4, var26);
                             }

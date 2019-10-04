@@ -10,14 +10,17 @@ public class ItemLeaves extends ItemBlock {
         this.setHasSubtypes(true);
     }
 
+    @Override
     public int getPlacedBlockMetadata(int var1) {
         return var1 | 8;
     }
 
+    @Override
     public int getIconFromDamage(int var1) {
         return Block.LEAVES.getBlockTextureFromSideAndMetadata(0, var1);
     }
 
+    @Override
     public int getColorFromDamage(int var1) {
         if ((var1 & 1) == 1) {
             return ColorizerFoliage.getFoliageColorPine();

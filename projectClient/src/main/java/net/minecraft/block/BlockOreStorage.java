@@ -8,6 +8,7 @@ public class BlockOreStorage extends Block {
         this.blockIndexInTexture = var2;
     }
 
+    @Override
     public int getBlockTextureFromSide(int side) {
         return this.blockIndexInTexture;
     }

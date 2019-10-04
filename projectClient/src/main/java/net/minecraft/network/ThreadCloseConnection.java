@@ -8,6 +8,7 @@ class ThreadCloseConnection extends Thread {
         this.field_28109_a = var1;
     }
 
+    @Override
     public void run() {
         try {
             Thread.sleep(2000L);

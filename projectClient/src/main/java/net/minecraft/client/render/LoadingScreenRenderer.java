@@ -24,6 +24,7 @@ public class LoadingScreenRenderer implements IProgressUpdatable {
         this.func_597_c(var1);
     }
 
+    @Override
     public void display(String var1) {
         this.field_1005_e = true;
         this.func_597_c(this.field_1007_c);
@@ -49,6 +50,7 @@ public class LoadingScreenRenderer implements IProgressUpdatable {
         GL11.glTranslatef(0.0F, 0.0F, -200.0F);
     }
 
+    @Override
     public void displayLoadingString(String var1) {
         if (!this.mc.running) {
             if (!this.field_1005_e) {
@@ -63,6 +65,7 @@ public class LoadingScreenRenderer implements IProgressUpdatable {
         this.field_1006_d = 0L;
     }
 
+    @Override
     public void setLoadingProgress(int var1) {
         if (!this.mc.running) {
             if (!this.field_1005_e) {

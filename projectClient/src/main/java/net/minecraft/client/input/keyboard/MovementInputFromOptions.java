@@ -11,6 +11,7 @@ public class MovementInputFromOptions extends MovementInput {
         this.gameSettings = var1;
     }
 
+    @Override
     public void checkKeyForMovementInput(int key, boolean isDown) {
         byte moveId = -1;
 
@@ -31,6 +32,7 @@ public class MovementInputFromOptions extends MovementInput {
             this.movementKeyStates[moveId] = isDown;
     }
 
+    @Override
     public void resetKeyState() {
         for (int i = 0; i < 10; ++i) {
             this.movementKeyStates[i] = false;
@@ -38,6 +40,7 @@ public class MovementInputFromOptions extends MovementInput {
 
     }
 
+    @Override
     public void updatePlayerMoveState(EntityPlayer player) {
         this.moveStrafe = 0.0F;
         this.moveForward = 0.0F;

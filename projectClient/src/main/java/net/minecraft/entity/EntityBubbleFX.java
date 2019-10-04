@@ -19,6 +19,7 @@ public class EntityBubbleFX extends EntityFX {
         this.particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D));
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;

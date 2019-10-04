@@ -120,6 +120,7 @@ public class BlockPistonBase extends Block {
         return this.isSticky ? 106 : 107;
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         int var3 = func_31044_d(var2);
         if (var3 > 5) {
@@ -131,18 +132,22 @@ public class BlockPistonBase extends Block {
         }
     }
 
+    @Override
     public int getRenderType() {
         return 16;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
         return false;
     }
 
+    @Override
     public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
         int var6 = func_31039_c(var1, var2, var3, var4, (EntityPlayer) var5);
         var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
@@ -152,6 +157,7 @@ public class BlockPistonBase extends Block {
 
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (!var1.multiplayerWorld && !this.field_31048_b) {
             this.func_31043_h(var1, var2, var3, var4);
@@ -159,6 +165,7 @@ public class BlockPistonBase extends Block {
 
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         if (!var1.multiplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
             this.func_31043_h(var1, var2, var3, var4);
@@ -212,6 +219,7 @@ public class BlockPistonBase extends Block {
         }
     }
 
+    @Override
     public void playBlock(World var1, int var2, int var3, int var4, int var5, int var6) {
         this.field_31048_b = true;
         if (var5 == 0) {
@@ -275,6 +283,7 @@ public class BlockPistonBase extends Block {
         this.field_31048_b = false;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockMetadata(var2, var3, var4);
         if (isPowered(var5)) {
@@ -303,15 +312,18 @@ public class BlockPistonBase extends Block {
 
     }
 
+    @Override
     public void setBlockBoundsForItemRender() {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    @Override
     public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList var6) {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }

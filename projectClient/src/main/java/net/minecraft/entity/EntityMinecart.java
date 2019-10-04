@@ -61,29 +61,36 @@ public class EntityMinecart extends Entity implements IInventory {
         this.minecartType = var8;
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public AxisAlignedBB getCollisionBox(Entity var1) {
         return var1.boundingBox;
     }
 
+    @Override
     public AxisAlignedBB getBoundingBox() {
         return null;
     }
 
+    @Override
     public boolean canBePushed() {
         return true;
     }
 
+    @Override
     public double getMountedYOffset() {
         return (double) this.height * 0.0D - 0.30000001192092896D;
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         if (!this.worldObj.multiplayerWorld && !this.isDead) {
             this.minecartRockDirection = -this.minecartRockDirection;
@@ -116,9 +123,9 @@ public class EntityMinecart extends Entity implements IInventory {
                                 var5.stackSize -= var9;
                                 EntityItem var10 = new EntityItem(this.worldObj, this.posX + (double) var6, this.posY + (double) var7, this.posZ + (double) var8, new ItemStack(var5.itemID, var9, var5.getItemDamage()));
                                 float var11 = 0.05F;
-                                var10.motionX = (double) ((float) this.rand.nextGaussian() * var11);
-                                var10.motionY = (double) ((float) this.rand.nextGaussian() * var11 + 0.2F);
-                                var10.motionZ = (double) ((float) this.rand.nextGaussian() * var11);
+                                var10.motionX = (float) this.rand.nextGaussian() * var11;
+                                var10.motionY = (float) this.rand.nextGaussian() * var11 + 0.2F;
+                                var10.motionZ = (float) this.rand.nextGaussian() * var11;
                                 this.worldObj.entityJoinedWorld(var10);
                             }
                         }
@@ -136,6 +143,7 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
+    @Override
     public void performHurtAnimation() {
         System.out.println("Animating hurt");
         this.minecartRockDirection = -this.minecartRockDirection;
@@ -143,10 +151,12 @@ public class EntityMinecart extends Entity implements IInventory {
         this.minecartCurrentDamage += this.minecartCurrentDamage * 10;
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
 
+    @Override
     public void setEntityDead() {
         for (int var1 = 0; var1 < this.getSizeInventory(); ++var1) {
             ItemStack var2 = this.getStackInSlot(var1);
@@ -164,9 +174,9 @@ public class EntityMinecart extends Entity implements IInventory {
                     var2.stackSize -= var6;
                     EntityItem var7 = new EntityItem(this.worldObj, this.posX + (double) var3, this.posY + (double) var4, this.posZ + (double) var5, new ItemStack(var2.itemID, var6, var2.getItemDamage()));
                     float var8 = 0.05F;
-                    var7.motionX = (double) ((float) this.rand.nextGaussian() * var8);
-                    var7.motionY = (double) ((float) this.rand.nextGaussian() * var8 + 0.2F);
-                    var7.motionZ = (double) ((float) this.rand.nextGaussian() * var8);
+                    var7.motionX = (float) this.rand.nextGaussian() * var8;
+                    var7.motionY = (float) this.rand.nextGaussian() * var8 + 0.2F;
+                    var7.motionZ = (float) this.rand.nextGaussian() * var8;
                     this.worldObj.entityJoinedWorld(var7);
                 }
             }
@@ -175,6 +185,7 @@ public class EntityMinecart extends Entity implements IInventory {
         super.setEntityDead();
     }
 
+    @Override
     public void onUpdate() {
         if (this.minecartTimeSinceHit > 0) {
             --this.minecartTimeSinceHit;
@@ -227,7 +238,7 @@ public class EntityMinecart extends Entity implements IInventory {
             if (BlockRail.isRailBlock(var9)) {
                 Vec3D var10 = this.func_514_g(this.posX, this.posY, this.posZ);
                 int var11 = this.worldObj.getBlockMetadata(var1, var2, var3);
-                this.posY = (double) var2;
+                this.posY = var2;
                 boolean var12 = false;
                 boolean var13 = false;
                 if (var9 == Block.RAIL_POWERED.blockID) {
@@ -240,7 +251,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 }
 
                 if (var11 >= 2 && var11 <= 5) {
-                    this.posY = (double) (var2 + 1);
+                    this.posY = var2 + 1;
                 }
 
                 if (var11 == 2) {
@@ -260,8 +271,8 @@ public class EntityMinecart extends Entity implements IInventory {
                 }
 
                 int[][] var14 = field_855_j[var11];
-                double var15 = (double) (var14[1][0] - var14[0][0]);
-                double var17 = (double) (var14[1][2] - var14[0][2]);
+                double var15 = var14[1][0] - var14[0][0];
+                double var17 = var14[1][2] - var14[0][2];
                 double var19 = Math.sqrt(var15 * var15 + var17 * var17);
                 double var21 = this.motionX * var15 + this.motionZ * var17;
                 if (var21 < 0.0D) {
@@ -301,8 +312,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 } else {
                     double var35 = this.posX - var27;
                     double var37 = this.posZ - var29;
-                    double var39 = (var35 * var15 + var37 * var17) * 2.0D;
-                    var57 = var39;
+                    var57 = (var35 * var15 + var37 * var17) * 2.0D;
                 }
 
                 this.posX = var27 + var15 * var57;
@@ -344,7 +354,7 @@ public class EntityMinecart extends Entity implements IInventory {
                     this.motionZ *= 0.996999979019165D;
                 } else {
                     if (this.minecartType == 2) {
-                        double var61 = (double) MathHelper.sqrt(this.pushX * this.pushX + this.pushZ * this.pushZ);
+                        double var61 = MathHelper.sqrt(this.pushX * this.pushX + this.pushZ * this.pushZ);
                         if (var61 > 0.01D) {
                             var6 = true;
                             this.pushX /= var61;
@@ -388,7 +398,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 }
 
                 if (this.minecartType == 2) {
-                    double var42 = (double) MathHelper.sqrt(this.pushX * this.pushX + this.pushZ * this.pushZ);
+                    double var42 = MathHelper.sqrt(this.pushX * this.pushX + this.pushZ * this.pushZ);
                     if (var42 > 0.01D && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.001D) {
                         this.pushX /= var42;
                         this.pushZ /= var42;
@@ -464,7 +474,7 @@ public class EntityMinecart extends Entity implements IInventory {
             }
 
             double var51;
-            for (var51 = (double) (this.rotationYaw - this.prevRotationYaw); var51 >= 180.0D; var51 -= 360.0D) {
+            for (var51 = this.rotationYaw - this.prevRotationYaw; var51 >= 180.0D; var51 -= 360.0D) {
             }
 
             while (var51 < -180.0D) {
@@ -520,23 +530,23 @@ public class EntityMinecart extends Entity implements IInventory {
                 var13 &= 7;
             }
 
-            var3 = (double) var10;
+            var3 = var10;
             if (var13 >= 2 && var13 <= 5) {
-                var3 = (double) (var10 + 1);
+                var3 = var10 + 1;
             }
 
             int[][] var14 = field_855_j[var13];
-            double var15 = (double) (var14[1][0] - var14[0][0]);
-            double var17 = (double) (var14[1][2] - var14[0][2]);
+            double var15 = var14[1][0] - var14[0][0];
+            double var17 = var14[1][2] - var14[0][2];
             double var19 = Math.sqrt(var15 * var15 + var17 * var17);
             var15 = var15 / var19;
             var17 = var17 / var19;
             var1 = var1 + var15 * var7;
             var5 = var5 + var17 * var7;
             if (var14[0][1] != 0 && MathHelper.floor(var1) - var9 == var14[0][0] && MathHelper.floor(var5) - var11 == var14[0][2]) {
-                var3 += (double) var14[0][1];
+                var3 += var14[0][1];
             } else if (var14[1][1] != 0 && MathHelper.floor(var1) - var9 == var14[1][0] && MathHelper.floor(var5) - var11 == var14[1][2]) {
-                var3 += (double) var14[1][1];
+                var3 += var14[1][1];
             }
 
             return this.func_514_g(var1, var3, var5);
@@ -554,13 +564,13 @@ public class EntityMinecart extends Entity implements IInventory {
         int var10 = this.worldObj.getBlockId(var7, var8, var9);
         if (BlockRail.isRailBlock(var10)) {
             int var11 = this.worldObj.getBlockMetadata(var7, var8, var9);
-            var3 = (double) var8;
+            var3 = var8;
             if (((BlockRail) Block.BLOCKS_LIST[var10]).getIsPowered()) {
                 var11 &= 7;
             }
 
             if (var11 >= 2 && var11 <= 5) {
-                var3 = (double) (var8 + 1);
+                var3 = var8 + 1;
             }
 
             int[][] var12 = field_855_j[var11];
@@ -583,8 +593,7 @@ public class EntityMinecart extends Entity implements IInventory {
             } else {
                 double var33 = var1 - var15;
                 double var35 = var5 - var19;
-                double var37 = (var33 * var27 + var35 * var31) * 2.0D;
-                var13 = var37;
+                var13 = (var33 * var27 + var35 * var31) * 2.0D;
             }
 
             var1 = var15 + var27 * var13;
@@ -604,6 +613,7 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
+    @Override
     protected void writeEntityToNBT(TagCompound var1) {
         var1.setInteger("Type", this.minecartType);
         if (this.minecartType == 2) {
@@ -627,6 +637,7 @@ public class EntityMinecart extends Entity implements IInventory {
 
     }
 
+    @Override
     protected void readEntityFromNBT(TagCompound var1) {
         this.minecartType = var1.getInteger("Type");
         if (this.minecartType == 2) {
@@ -648,10 +659,12 @@ public class EntityMinecart extends Entity implements IInventory {
 
     }
 
+    @Override
     public float getShadowSize() {
         return 0.0F;
     }
 
+    @Override
     public void applyEntityCollision(Entity var1) {
         if (!this.worldObj.multiplayerWorld) {
             if (var1 != this.riddenByEntity) {
@@ -663,7 +676,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 double var4 = var1.posZ - this.posZ;
                 double var6 = var2 * var2 + var4 * var4;
                 if (var6 >= 9.999999747378752E-5D) {
-                    var6 = (double) MathHelper.sqrt(var6);
+                    var6 = MathHelper.sqrt(var6);
                     var2 = var2 / var6;
                     var4 = var4 / var6;
                     double var8 = 1.0D / var6;
@@ -722,14 +735,17 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
+    @Override
     public int getSizeInventory() {
         return 27;
     }
 
+    @Override
     public ItemStack getStackInSlot(int var1) {
         return this.cargoItems[var1];
     }
 
+    @Override
     public ItemStack decrStackSize(int var1, int var2) {
         if (this.cargoItems[var1] != null) {
             if (this.cargoItems[var1].stackSize <= var2) {
@@ -749,6 +765,7 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
+    @Override
     public void setInventorySlotContents(int var1, ItemStack var2) {
         this.cargoItems[var1] = var2;
         if (var2 != null && var2.stackSize > this.getInventoryStackLimit()) {
@@ -757,17 +774,21 @@ public class EntityMinecart extends Entity implements IInventory {
 
     }
 
+    @Override
     public String getInvName() {
         return "Minecart";
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public void onInventoryChanged() {
     }
 
+    @Override
     public boolean interact(EntityPlayer var1) {
         if (this.minecartType == 0) {
             if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != var1) {
@@ -798,24 +819,27 @@ public class EntityMinecart extends Entity implements IInventory {
         return true;
     }
 
+    @Override
     public void setPositionAndRotation2(double var1, double var3, double var5, float var7, float var8, int var9) {
         this.field_9414_l = var1;
         this.field_9413_m = var3;
         this.field_9412_n = var5;
-        this.field_9411_o = (double) var7;
-        this.field_9410_p = (double) var8;
+        this.field_9411_o = var7;
+        this.field_9410_p = var8;
         this.field_9415_k = var9 + 2;
         this.motionX = this.field_9409_q;
         this.motionY = this.field_9408_r;
         this.motionZ = this.field_9407_s;
     }
 
+    @Override
     public void setVelocity(double var1, double var3, double var5) {
         this.field_9409_q = this.motionX = var1;
         this.field_9408_r = this.motionY = var3;
         this.field_9407_s = this.motionZ = var5;
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer var1) {
         if (this.isDead) {
             return false;

@@ -14,22 +14,27 @@ public class InventoryLargeChest implements IInventory {
         this.lowerChest = var3;
     }
 
+    @Override
     public int getSizeInventory() {
         return this.upperChest.getSizeInventory() + this.lowerChest.getSizeInventory();
     }
 
+    @Override
     public String getInvName() {
         return this.name;
     }
 
+    @Override
     public ItemStack getStackInSlot(int var1) {
         return var1 >= this.upperChest.getSizeInventory() ? this.lowerChest.getStackInSlot(var1 - this.upperChest.getSizeInventory()) : this.upperChest.getStackInSlot(var1);
     }
 
+    @Override
     public ItemStack decrStackSize(int var1, int var2) {
         return var1 >= this.upperChest.getSizeInventory() ? this.lowerChest.decrStackSize(var1 - this.upperChest.getSizeInventory(), var2) : this.upperChest.decrStackSize(var1, var2);
     }
 
+    @Override
     public void setInventorySlotContents(int var1, ItemStack var2) {
         if (var1 >= this.upperChest.getSizeInventory()) {
             this.lowerChest.setInventorySlotContents(var1 - this.upperChest.getSizeInventory(), var2);
@@ -39,15 +44,18 @@ public class InventoryLargeChest implements IInventory {
 
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return this.upperChest.getInventoryStackLimit();
     }
 
+    @Override
     public void onInventoryChanged() {
         this.upperChest.onInventoryChanged();
         this.lowerChest.onInventoryChanged();
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer var1) {
         return this.upperChest.canInteractWith(var1) && this.lowerChest.canInteractWith(var1);
     }

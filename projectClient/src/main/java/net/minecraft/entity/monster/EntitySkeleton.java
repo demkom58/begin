@@ -17,18 +17,22 @@ public class EntitySkeleton extends EntityMob {
         this.texture = "/mob/skeleton.png";
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.skeleton";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.skeletonhurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.skeletonhurt";
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.worldObj.isDaytime()) {
             float var1 = this.getEntityBrightness(1.0F);
@@ -40,6 +44,7 @@ public class EntitySkeleton extends EntityMob {
         super.onLivingUpdate();
     }
 
+    @Override
     protected void attackEntity(Entity var1, float var2) {
         if (var2 < 10.0F) {
             double var3 = var1.posX - this.posX;
@@ -61,18 +66,22 @@ public class EntitySkeleton extends EntityMob {
 
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
     }
 
+    @Override
     protected int getDropItemId() {
         return Item.ARROW.shiftedIndex;
     }
 
+    @Override
     protected void dropFewItems() {
         int var1 = this.rand.nextInt(3);
 
@@ -88,6 +97,7 @@ public class EntitySkeleton extends EntityMob {
 
     }
 
+    @Override
     public ItemStack getHeldItem() {
         return defaultHeldItem;
     }

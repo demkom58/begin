@@ -85,7 +85,7 @@ public class GuiAchievement extends Gui {
 
         if (this.theAchievement != null && this.field_25083_f != 0L) {
             double var8 = (double) (System.currentTimeMillis() - this.field_25083_f) / 3000.0D;
-            if (this.field_27103_i || this.field_27103_i || var8 >= 0.0D && var8 <= 1.0D) {
+            if (this.field_27103_i || var8 >= 0.0D && var8 <= 1.0D) {
                 this.updateAchievementWindowScale();
                 GL11.glDisable(GL11.GL_DEPTH_TEST);
                 GL11.glDepthMask(false);

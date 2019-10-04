@@ -28,23 +28,27 @@ public class EntityOtherPlayerMP extends EntityPlayer {
         this.renderDistanceWeight = 10.0D;
     }
 
+    @Override
     protected void resetHeight() {
         this.yOffset = 0.0F;
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         return true;
     }
 
+    @Override
     public void setPositionAndRotation2(double var1, double var3, double var5, float var7, float var8, int var9) {
         this.field_784_bh = var1;
         this.field_783_bi = var3;
         this.field_782_bj = var5;
-        this.field_780_bk = (double) var7;
-        this.field_786_bl = (double) var8;
+        this.field_780_bk = var7;
+        this.field_786_bl = var8;
         this.field_785_bg = var9;
     }
 
+    @Override
     public void onUpdate() {
         this.field_22062_y = 0.0F;
         super.onUpdate();
@@ -60,10 +64,12 @@ public class EntityOtherPlayerMP extends EntityPlayer {
         this.field_703_S += this.field_704_R;
     }
 
+    @Override
     public float getShadowSize() {
         return 0.0F;
     }
 
+    @Override
     public void onLivingUpdate() {
         super.updatePlayerActionState();
         if (this.field_785_bg > 0) {
@@ -105,6 +111,7 @@ public class EntityOtherPlayerMP extends EntityPlayer {
         this.field_9328_R += (var2 - this.field_9328_R) * 0.8F;
     }
 
+    @Override
     public void outfitWithItem(int var1, int var2, int var3) {
         ItemStack var4 = null;
         if (var2 >= 0) {
@@ -119,6 +126,7 @@ public class EntityOtherPlayerMP extends EntityPlayer {
 
     }
 
+    @Override
     public void func_6420_o() {
     }
 }

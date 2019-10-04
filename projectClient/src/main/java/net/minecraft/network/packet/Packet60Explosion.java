@@ -16,6 +16,7 @@ public class Packet60Explosion extends Packet {
     public float explosionSize;
     public Set<ChunkPosition> destroyedBlockPositions;
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.explosionX = var1.readDouble();
         this.explosionY = var1.readDouble();
@@ -36,6 +37,7 @@ public class Packet60Explosion extends Packet {
 
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeDouble(this.explosionX);
         var1.writeDouble(this.explosionY);
@@ -57,10 +59,12 @@ public class Packet60Explosion extends Packet {
 
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.func_12245_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 32 + this.destroyedBlockPositions.size() * 3;
     }

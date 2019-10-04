@@ -75,21 +75,23 @@ public class EntityFish extends Entity {
         this.angler.fishEntity = this;
         this.setSize(0.25F, 0.25F);
         this.setLocationAndAngles(var2.posX, var2.posY + 1.62D - (double) var2.yOffset, var2.posZ, var2.rotationYaw, var2.rotationPitch);
-        this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
+        this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F;
         this.posY -= 0.10000000149011612D;
-        this.posZ -= (double) (MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
+        this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F;
         this.setPosition(this.posX, this.posY, this.posZ);
         this.yOffset = 0.0F;
         float var3 = 0.4F;
-        this.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var3);
-        this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var3);
-        this.motionY = (double) (-MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F) * var3);
+        this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var3;
+        this.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var3;
+        this.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F) * var3;
         this.func_4042_a(this.motionX, this.motionY, this.motionZ, 1.5F, 1.0F);
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public boolean isInRangeToRenderDist(double var1) {
         double var3 = this.boundingBox.getAverageEdgeLength() * 4.0D;
         var3 = var3 * 64.0D;
@@ -112,28 +114,31 @@ public class EntityFish extends Entity {
         this.motionZ = var5;
         float var10 = MathHelper.sqrt(var1 * var1 + var5 * var5);
         this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(var1, var5) * 180.0D / 3.1415927410125732D);
-        this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, (double) var10) * 180.0D / 3.1415927410125732D);
+        this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, var10) * 180.0D / 3.1415927410125732D);
         this.ticksInGround = 0;
     }
 
+    @Override
     public void setPositionAndRotation2(double var1, double var3, double var5, float var7, float var8, int var9) {
         this.field_6387_m = var1;
         this.field_6386_n = var3;
         this.field_6385_o = var5;
-        this.field_6384_p = (double) var7;
-        this.field_6383_q = (double) var8;
+        this.field_6384_p = var7;
+        this.field_6383_q = var8;
         this.field_6388_l = var9;
         this.motionX = this.velocityX;
         this.motionY = this.velocityY;
         this.motionZ = this.velocityZ;
     }
 
+    @Override
     public void setVelocity(double var1, double var3, double var5) {
         this.velocityX = this.motionX = var1;
         this.velocityY = this.motionY = var3;
         this.velocityZ = this.motionZ = var5;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         if (this.field_6388_l > 0) {
@@ -191,9 +196,9 @@ public class EntityFish extends Entity {
                 }
 
                 this.inGround = false;
-                this.motionX *= (double) (this.rand.nextFloat() * 0.2F);
-                this.motionY *= (double) (this.rand.nextFloat() * 0.2F);
-                this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
+                this.motionX *= this.rand.nextFloat() * 0.2F;
+                this.motionY *= this.rand.nextFloat() * 0.2F;
+                this.motionZ *= this.rand.nextFloat() * 0.2F;
                 this.ticksInGround = 0;
                 this.ticksInAir = 0;
             } else {
@@ -217,7 +222,7 @@ public class EntityFish extends Entity {
                 Entity var9 = (Entity) var5.get(var8);
                 if (var9.canBeCollidedWith() && (var9 != this.angler || this.ticksInAir >= 5)) {
                     float var10 = 0.3F;
-                    AxisAlignedBB var11 = var9.boundingBox.expand((double) var10, (double) var10, (double) var10);
+                    AxisAlignedBB var11 = var9.boundingBox.expand(var10, var10, var10);
                     MovingObjectPosition var12 = var11.func_706_a(var20, var2);
                     if (var12 != null) {
                         double var13 = var20.distanceTo(var12.hitVec);
@@ -248,7 +253,7 @@ public class EntityFish extends Entity {
                 float var26 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
                 this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
-                for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var26) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+                for (this.rotationPitch = (float) (Math.atan2(this.motionY, var26) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
                 }
 
                 while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
@@ -274,7 +279,7 @@ public class EntityFish extends Entity {
                 double var29 = 0.0D;
 
                 for (int var30 = 0; var30 < var28; ++var30) {
-                    double var14 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double) (var30 + 0) / (double) var28 - 0.125D + 0.125D;
+                    double var14 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double) (var30) / (double) var28 - 0.125D + 0.125D;
                     double var16 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double) (var30 + 1) / (double) var28 - 0.125D + 0.125D;
                     AxisAlignedBB var18 = AxisAlignedBB.getBoundingBoxFromPool(this.boundingBox.minX, var14, this.boundingBox.minZ, this.boundingBox.maxX, var16, this.boundingBox.maxZ);
                     if (this.worldObj.isAABBInMaterial(var18, Material.WATER)) {
@@ -300,13 +305,13 @@ public class EntityFish extends Entity {
                             for (int var15 = 0; (float) var15 < 1.0F + this.width * 20.0F; ++var15) {
                                 float var35 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
                                 float var17 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-                                this.worldObj.spawnParticle("bubble", this.posX + (double) var35, (double) (var33 + 1.0F), this.posZ + (double) var17, this.motionX, this.motionY - (double) (this.rand.nextFloat() * 0.2F), this.motionZ);
+                                this.worldObj.spawnParticle("bubble", this.posX + (double) var35, var33 + 1.0F, this.posZ + (double) var17, this.motionX, this.motionY - (double) (this.rand.nextFloat() * 0.2F), this.motionZ);
                             }
 
                             for (int var34 = 0; (float) var34 < 1.0F + this.width * 20.0F; ++var34) {
                                 float var36 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
                                 float var37 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-                                this.worldObj.spawnParticle("splash", this.posX + (double) var36, (double) (var33 + 1.0F), this.posZ + (double) var37, this.motionX, this.motionY, this.motionZ);
+                                this.worldObj.spawnParticle("splash", this.posX + (double) var36, var33 + 1.0F, this.posZ + (double) var37, this.motionX, this.motionY, this.motionZ);
                             }
                         }
                     }
@@ -323,14 +328,15 @@ public class EntityFish extends Entity {
                     this.motionY *= 0.8D;
                 }
 
-                this.motionX *= (double) var27;
-                this.motionY *= (double) var27;
-                this.motionZ *= (double) var27;
+                this.motionX *= var27;
+                this.motionY *= var27;
+                this.motionZ *= var27;
                 this.setPosition(this.posX, this.posY, this.posZ);
             }
         }
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("xTile", (short) this.xTile);
         var1.setShort("yTile", (short) this.yTile);
@@ -340,6 +346,7 @@ public class EntityFish extends Entity {
         var1.setByte("inGround", (byte) (this.inGround ? 1 : 0));
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         this.xTile = var1.getShort("xTile");
         this.yTile = var1.getShort("yTile");
@@ -349,6 +356,7 @@ public class EntityFish extends Entity {
         this.inGround = var1.getByte("inGround") == 1;
     }
 
+    @Override
     public float getShadowSize() {
         return 0.0F;
     }
@@ -359,7 +367,7 @@ public class EntityFish extends Entity {
             double var2 = this.angler.posX - this.posX;
             double var4 = this.angler.posY - this.posY;
             double var6 = this.angler.posZ - this.posZ;
-            double var8 = (double) MathHelper.sqrt(var2 * var2 + var4 * var4 + var6 * var6);
+            double var8 = MathHelper.sqrt(var2 * var2 + var4 * var4 + var6 * var6);
             double var10 = 0.1D;
             this.bobber.motionX += var2 * var10;
             this.bobber.motionY += var4 * var10 + (double) MathHelper.sqrt(var8) * 0.08D;
@@ -370,7 +378,7 @@ public class EntityFish extends Entity {
             double var3 = this.angler.posX - this.posX;
             double var5 = this.angler.posY - this.posY;
             double var7 = this.angler.posZ - this.posZ;
-            double var9 = (double) MathHelper.sqrt(var3 * var3 + var5 * var5 + var7 * var7);
+            double var9 = MathHelper.sqrt(var3 * var3 + var5 * var5 + var7 * var7);
             double var11 = 0.1D;
             var13.motionX = var3 * var11;
             var13.motionY = var5 * var11 + (double) MathHelper.sqrt(var9) * 0.08D;

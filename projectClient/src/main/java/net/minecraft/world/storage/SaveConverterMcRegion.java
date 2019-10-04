@@ -18,10 +18,12 @@ public class SaveConverterMcRegion extends SaveFormatOld {
         super(worldsFolder);
     }
 
+    @Override
     public String getFormatName() {
         return "Scaevolus' McRegion";
     }
 
+    @Override
     public List<SaveFormatData> readSaveFormatData() {
         List<SaveFormatData> loaded = new ArrayList<>();
         File[] files = this.worldsDirectory.listFiles();
@@ -50,19 +52,23 @@ public class SaveConverterMcRegion extends SaveFormatOld {
         return loaded;
     }
 
+    @Override
     public void flushCache() {
         RegionFileCache.func_22192_a();
     }
 
+    @Override
     public ISaveHandler getSaveLoader(String var1, boolean var2) {
         return new SaveOldDir(this.worldsDirectory, var1, var2);
     }
 
+    @Override
     public boolean isOldMapFormat(String var1) {
         WorldInfo var2 = this.readWorldInfo(var1);
         return var2 != null && var2.getSaveVersion() == 0;
     }
 
+    @Override
     public boolean convertMapFormat(String var1, IProgressUpdatable updatable) {
         updatable.setLoadingProgress(0);
 

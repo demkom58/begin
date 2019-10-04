@@ -37,30 +37,37 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         return this.blockIndexInTexture;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 5;
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
         return 8388608;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
         return var1.isBlockNormalCube(var2, var3 - 1, var4);
     }
@@ -202,6 +209,7 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         super.onBlockAdded(var1, var2, var3, var4);
         if (!var1.multiplayerWorld) {
@@ -239,6 +247,7 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public void onBlockRemoval(World var1, int var2, int var3, int var4) {
         super.onBlockRemoval(var1, var2, var3, var4);
         if (!var1.multiplayerWorld) {
@@ -281,10 +290,11 @@ public class BlockRedstoneWire extends Block {
             return var5;
         } else {
             int var6 = var1.getBlockMetadata(var2, var3, var4);
-            return var6 > var5 ? var6 : var5;
+            return Math.max(var6, var5);
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (!var1.multiplayerWorld) {
             int var6 = var1.getBlockMetadata(var2, var3, var4);
@@ -300,14 +310,17 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Item.REDSTONE.shiftedIndex;
     }
 
+    @Override
     public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
-        return !this.wiresProvidePower ? false : this.isPoweringTo(var1, var2, var3, var4, var5);
+        return this.wiresProvidePower && this.isPoweringTo(var1, var2, var3, var4, var5);
     }
 
+    @Override
     public boolean isPoweringTo(IBlockAccess var1, int var2, int var3, int var4, int var5) {
         if (!this.wiresProvidePower) {
             return false;
@@ -352,15 +365,17 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public boolean canProvidePower() {
         return this.wiresProvidePower;
     }
 
+    @Override
     public void randomDisplayTick(World var1, int var2, int var3, int var4, Random var5) {
         int var6 = var1.getBlockMetadata(var2, var3, var4);
         if (var6 > 0) {
             double var7 = (double) var2 + 0.5D + ((double) var5.nextFloat() - 0.5D) * 0.2D;
-            double var9 = (double) ((float) var3 + 0.0625F);
+            double var9 = (float) var3 + 0.0625F;
             double var11 = (double) var4 + 0.5D + ((double) var5.nextFloat() - 0.5D) * 0.2D;
             float var13 = (float) var6 / 15.0F;
             float var14 = var13 * 0.6F + 0.4F;
@@ -378,7 +393,7 @@ public class BlockRedstoneWire extends Block {
                 var16 = 0.0F;
             }
 
-            var1.spawnParticle("reddust", var7, var9, var11, (double) var14, (double) var15, (double) var16);
+            var1.spawnParticle("reddust", var7, var9, var11, var14, var15, var16);
         }
 
     }

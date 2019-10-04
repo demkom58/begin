@@ -16,10 +16,12 @@ public class BlockCrops extends BlockFlower {
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, 0.25F, 0.5F + var3);
     }
 
+    @Override
     protected boolean canThisPlantGrowOnThisBlockID(int var1) {
         return var1 == Block.FARMLAND.blockID;
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         super.updateTick(var1, var2, var3, var4, var5);
         if (var1.getBlockLightValue(var2, var3 + 1, var4) >= 9) {
@@ -79,6 +81,7 @@ public class BlockCrops extends BlockFlower {
         return var5;
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var2 < 0) {
             var2 = 7;
@@ -87,10 +90,12 @@ public class BlockCrops extends BlockFlower {
         return this.blockIndexInTexture + var2;
     }
 
+    @Override
     public int getRenderType() {
         return 6;
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
         super.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, var6);
         if (!var1.multiplayerWorld) {
@@ -100,7 +105,7 @@ public class BlockCrops extends BlockFlower {
                     float var9 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
                     float var10 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
                     float var11 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
-                    EntityItem var12 = new EntityItem(var1, (double) ((float) var2 + var9), (double) ((float) var3 + var10), (double) ((float) var4 + var11), new ItemStack(Item.SEEDS));
+                    EntityItem var12 = new EntityItem(var1, (float) var2 + var9, (float) var3 + var10, (float) var4 + var11, new ItemStack(Item.SEEDS));
                     var12.delayBeforeCanPickup = 10;
                     var1.entityJoinedWorld(var12);
                 }
@@ -109,10 +114,12 @@ public class BlockCrops extends BlockFlower {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return var1 == 7 ? Item.WHEAT.shiftedIndex : -1;
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 1;
     }

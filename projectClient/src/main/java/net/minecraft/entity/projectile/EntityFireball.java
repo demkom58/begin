@@ -35,7 +35,7 @@ public class EntityFireball extends Entity {
         this.setSize(1.0F, 1.0F);
         this.setLocationAndAngles(var2, var4, var6, this.rotationYaw, this.rotationPitch);
         this.setPosition(var2, var4, var6);
-        double var14 = (double) MathHelper.sqrt(var8 * var8 + var10 * var10 + var12 * var12);
+        double var14 = MathHelper.sqrt(var8 * var8 + var10 * var10 + var12 * var12);
         this.field_9405_b = var8 / var14 * 0.1D;
         this.field_9404_c = var10 / var14 * 0.1D;
         this.field_9403_d = var12 / var14 * 0.1D;
@@ -52,21 +52,24 @@ public class EntityFireball extends Entity {
         var3 = var3 + this.rand.nextGaussian() * 0.4D;
         var5 = var5 + this.rand.nextGaussian() * 0.4D;
         var7 = var7 + this.rand.nextGaussian() * 0.4D;
-        double var9 = (double) MathHelper.sqrt(var3 * var3 + var5 * var5 + var7 * var7);
+        double var9 = MathHelper.sqrt(var3 * var3 + var5 * var5 + var7 * var7);
         this.field_9405_b = var3 / var9 * 0.1D;
         this.field_9404_c = var5 / var9 * 0.1D;
         this.field_9403_d = var7 / var9 * 0.1D;
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public boolean isInRangeToRenderDist(double var1) {
         double var3 = this.boundingBox.getAverageEdgeLength() * 4.0D;
         var3 = var3 * 64.0D;
         return var1 < var3 * var3;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         this.fire = 10;
@@ -86,9 +89,9 @@ public class EntityFireball extends Entity {
             }
 
             this.field_9398_i = false;
-            this.motionX *= (double) (this.rand.nextFloat() * 0.2F);
-            this.motionY *= (double) (this.rand.nextFloat() * 0.2F);
-            this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
+            this.motionX *= this.rand.nextFloat() * 0.2F;
+            this.motionY *= this.rand.nextFloat() * 0.2F;
+            this.motionZ *= this.rand.nextFloat() * 0.2F;
             this.field_9396_k = 0;
             this.field_9395_l = 0;
         } else {
@@ -112,7 +115,7 @@ public class EntityFireball extends Entity {
             Entity var9 = (Entity) var5.get(var8);
             if (var9.canBeCollidedWith() && (var9 != this.field_9397_j || this.field_9395_l >= 25)) {
                 float var10 = 0.3F;
-                AxisAlignedBB var11 = var9.boundingBox.expand((double) var10, (double) var10, (double) var10);
+                AxisAlignedBB var11 = var9.boundingBox.expand(var10, var10, var10);
                 MovingObjectPosition var12 = var11.func_706_a(var15, var2);
                 if (var12 != null) {
                     double var13 = var15.distanceTo(var12.hitVec);
@@ -145,7 +148,7 @@ public class EntityFireball extends Entity {
         float var18 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
-        for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var18) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+        for (this.rotationPitch = (float) (Math.atan2(this.motionY, var18) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
         }
 
         while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
@@ -175,13 +178,14 @@ public class EntityFireball extends Entity {
         this.motionX += this.field_9405_b;
         this.motionY += this.field_9404_c;
         this.motionZ += this.field_9403_d;
-        this.motionX *= (double) var19;
-        this.motionY *= (double) var19;
-        this.motionZ *= (double) var19;
+        this.motionX *= var19;
+        this.motionY *= var19;
+        this.motionZ *= var19;
         this.worldObj.spawnParticle("smoke", this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
         this.setPosition(this.posX, this.posY, this.posZ);
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("xTile", (short) this.field_9402_e);
         var1.setShort("yTile", (short) this.field_9401_f);
@@ -191,6 +195,7 @@ public class EntityFireball extends Entity {
         var1.setByte("inGround", (byte) (this.field_9398_i ? 1 : 0));
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         this.field_9402_e = var1.getShort("xTile");
         this.field_9401_f = var1.getShort("yTile");
@@ -200,14 +205,17 @@ public class EntityFireball extends Entity {
         this.field_9398_i = var1.getByte("inGround") == 1;
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return true;
     }
 
+    @Override
     public float getCollisionBorderSize() {
         return 1.0F;
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         this.setBeenAttacked();
         if (var1 != null) {
@@ -227,6 +235,7 @@ public class EntityFireball extends Entity {
         }
     }
 
+    @Override
     public float getShadowSize() {
         return 0.0F;
     }

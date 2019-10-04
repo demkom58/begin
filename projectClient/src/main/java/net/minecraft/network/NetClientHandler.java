@@ -64,6 +64,7 @@ public class NetClientHandler extends NetHandler {
         this.netManager.wakeThreads();
     }
 
+    @Override
     public void handleLogin(Packet1Login var1) {
         this.mc.playerController = new PlayerControllerMP(this.mc, this);
         this.mc.statFileWriter.addStat(StatList.joinMultiplayerStat, 1);
@@ -75,6 +76,7 @@ public class NetClientHandler extends NetHandler {
         this.mc.thePlayer.entityId = var1.protocolVersion;
     }
 
+    @Override
     public void handlePickupSpawn(Packet21PickupSpawn var1) {
         double var2 = (double) var1.xPosition / 32.0D;
         double var4 = (double) var1.yPosition / 32.0D;
@@ -89,6 +91,7 @@ public class NetClientHandler extends NetHandler {
         this.worldClient.func_712_a(var1.entityId, var8);
     }
 
+    @Override
     public void handleVehicleSpawn(Packet23VehicleSpawn var1) {
         double var2 = (double) var1.xPosition / 32.0D;
         double var4 = (double) var1.yPosition / 32.0D;
@@ -165,6 +168,7 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void handleWeather(Packet71Weather var1) {
         double var2 = (double) var1.field_27053_b / 32.0D;
         double var4 = (double) var1.field_27057_c / 32.0D;
@@ -186,11 +190,13 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void func_21146_a(Packet25EntityPainting var1) {
         EntityPainting var2 = new EntityPainting(this.worldClient, var1.xPosition, var1.yPosition, var1.zPosition, var1.direction, var1.title);
         this.worldClient.func_712_a(var1.entityId, var2);
     }
 
+    @Override
     public void func_6498_a(Packet28EntityVelocity var1) {
         Entity var2 = this.getEntityByID(var1.entityId);
         if (var2 != null) {
@@ -198,6 +204,7 @@ public class NetClientHandler extends NetHandler {
         }
     }
 
+    @Override
     public void func_21148_a(Packet40EntityMetadata var1) {
         Entity var2 = this.getEntityByID(var1.entityId);
         if (var2 != null && var1.func_21047_b() != null) {
@@ -206,6 +213,7 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void handleNamedEntitySpawn(Packet20NamedEntitySpawn var1) {
         double var2 = (double) var1.xPosition / 32.0D;
         double var4 = (double) var1.yPosition / 32.0D;
@@ -213,9 +221,9 @@ public class NetClientHandler extends NetHandler {
         float var8 = (float) (var1.rotation * 360) / 256.0F;
         float var9 = (float) (var1.pitch * 360) / 256.0F;
         EntityOtherPlayerMP var10 = new EntityOtherPlayerMP(this.mc.theWorld, var1.name);
-        var10.prevPosX = var10.lastTickPosX = (double) (var10.serverPosX = var1.xPosition);
-        var10.prevPosY = var10.lastTickPosY = (double) (var10.serverPosY = var1.yPosition);
-        var10.prevPosZ = var10.lastTickPosZ = (double) (var10.serverPosZ = var1.zPosition);
+        var10.prevPosX = var10.lastTickPosX = var10.serverPosX = var1.xPosition;
+        var10.prevPosY = var10.lastTickPosY = var10.serverPosY = var1.yPosition;
+        var10.prevPosZ = var10.lastTickPosZ = var10.serverPosZ = var1.zPosition;
         int var11 = var1.currentItem;
         if (var11 == 0) {
             var10.inventory.mainInventory[var10.inventory.currentItem] = null;
@@ -227,6 +235,7 @@ public class NetClientHandler extends NetHandler {
         this.worldClient.func_712_a(var1.entityId, var10);
     }
 
+    @Override
     public void handleEntityTeleport(Packet34EntityTeleport var1) {
         Entity var2 = this.getEntityByID(var1.entityId);
         if (var2 != null) {
@@ -242,6 +251,7 @@ public class NetClientHandler extends NetHandler {
         }
     }
 
+    @Override
     public void handleEntity(Packet30Entity var1) {
         Entity var2 = this.getEntityByID(var1.entityId);
         if (var2 != null) {
@@ -257,10 +267,12 @@ public class NetClientHandler extends NetHandler {
         }
     }
 
+    @Override
     public void handleDestroyEntity(Packet29DestroyEntity var1) {
         this.worldClient.removeEntityFromWorld(var1.entityId);
     }
 
+    @Override
     public void handleFlying(Packet10Flying var1) {
         EntityPlayerSP var2 = this.mc.thePlayer;
         double var3 = var2.posX;
@@ -297,10 +309,12 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void handlePreChunk(Packet50PreChunk var1) {
         this.worldClient.doPreChunk(var1.xPosition, var1.yPosition, var1.mode);
     }
 
+    @Override
     public void handleMultiBlockChange(Packet52MultiBlockChange var1) {
         Chunk var2 = this.worldClient.getChunkFromChunkCoords(var1.xPosition, var1.zPosition);
         int var3 = var1.xPosition * 16;
@@ -320,15 +334,18 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void handleMapChunk(Packet51MapChunk var1) {
         this.worldClient.func_711_c(var1.xPosition, var1.yPosition, var1.zPosition, var1.xPosition + var1.xSize - 1, var1.yPosition + var1.ySize - 1, var1.zPosition + var1.zSize - 1);
         this.worldClient.setChunkData(var1.xPosition, var1.yPosition, var1.zPosition, var1.xSize, var1.ySize, var1.zSize, var1.chunk);
     }
 
+    @Override
     public void handleBlockChange(Packet53BlockChange var1) {
         this.worldClient.func_714_c(var1.xPosition, var1.yPosition, var1.zPosition, var1.type, var1.metadata);
     }
 
+    @Override
     public void handleKickDisconnect(Packet255KickDisconnect var1) {
         this.netManager.networkShutdown("disconnect.kicked");
         this.disconnected = true;
@@ -336,6 +353,7 @@ public class NetClientHandler extends NetHandler {
         this.mc.displayGuiScreen(new GuiConnectFailed("disconnect.disconnected", "disconnect.genericReason", var1.reason));
     }
 
+    @Override
     public void handleErrorMessage(String var1, Object[] var2) {
         if (!this.disconnected) {
             this.disconnected = true;
@@ -357,6 +375,7 @@ public class NetClientHandler extends NetHandler {
         }
     }
 
+    @Override
     public void handleCollect(Packet22Collect var1) {
         Entity var2 = this.getEntityByID(var1.collectedEntityId);
         Object var3 = this.getEntityByID(var1.collectorEntityId);
@@ -372,10 +391,12 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void handleChat(Packet3Chat chat) {
         this.mc.ingameGUI.addChatMessage(chat.message);
     }
 
+    @Override
     public void handleArmAnimation(Packet18Animation var1) {
         Entity var2 = this.getEntityByID(var1.entityId);
         if (var2 != null) {
@@ -395,6 +416,7 @@ public class NetClientHandler extends NetHandler {
         }
     }
 
+    @Override
     public void func_22186_a(Packet17Sleep var1) {
         Entity var2 = this.getEntityByID(var1.field_22045_a);
         if (var2 != null) {
@@ -406,6 +428,7 @@ public class NetClientHandler extends NetHandler {
         }
     }
 
+    @Override
     public void handleHandshake(Packet2Handshake var1) {
         if (var1.username.equals("-")) {
             this.addToSendQueue(new Packet1Login(this.mc.session.username, 14));
@@ -434,6 +457,7 @@ public class NetClientHandler extends NetHandler {
         this.netManager.networkShutdown("disconnect.closed");
     }
 
+    @Override
     public void handleMobSpawn(Packet24MobSpawn var1) {
         double var2 = (double) var1.xPosition / 32.0D;
         double var4 = (double) var1.yPosition / 32.0D;
@@ -455,15 +479,18 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void handleUpdateTime(Packet4UpdateTime var1) {
         this.mc.theWorld.setWorldTime(var1.time);
     }
 
+    @Override
     public void handleSpawnPosition(Packet6SpawnPosition var1) {
         this.mc.thePlayer.setPlayerSpawnCoordinate(new ChunkCoordinates(var1.xPosition, var1.yPosition, var1.zPosition));
         this.mc.theWorld.getWorldInfo().setSpawn(var1.xPosition, var1.yPosition, var1.zPosition);
     }
 
+    @Override
     public void func_6497_a(Packet39AttachEntity var1) {
         Object var2 = this.getEntityByID(var1.entityId);
         Entity var3 = this.getEntityByID(var1.vehicleEntityId);
@@ -476,6 +503,7 @@ public class NetClientHandler extends NetHandler {
         }
     }
 
+    @Override
     public void func_9447_a(Packet38EntityStatus var1) {
         Entity var2 = this.getEntityByID(var1.entityId);
         if (var2 != null) {
@@ -488,10 +516,12 @@ public class NetClientHandler extends NetHandler {
         return (var1 == this.mc.thePlayer.entityId ? this.mc.thePlayer : this.worldClient.func_709_b(var1));
     }
 
+    @Override
     public void handleHealth(Packet8UpdateHealth var1) {
         this.mc.thePlayer.setHealth(var1.healthMP);
     }
 
+    @Override
     public void func_9448_a(Packet9Respawn var1) {
         if (var1.field_28048_a != this.mc.thePlayer.dimension) {
             this.field_1210_g = false;
@@ -505,12 +535,14 @@ public class NetClientHandler extends NetHandler {
         this.mc.respawn(true, var1.field_28048_a);
     }
 
+    @Override
     public void func_12245_a(Packet60Explosion var1) {
         Explosion var2 = new Explosion(this.mc.theWorld, null, var1.explosionX, var1.explosionY, var1.explosionZ, var1.explosionSize);
         var2.destroyedBlockPositions = var1.destroyedBlockPositions;
         var2.doExplosionB(true);
     }
 
+    @Override
     public void func_20087_a(Packet100OpenWindow var1) {
         if (var1.inventoryType == 0) {
             InventoryBasic var2 = new InventoryBasic(var1.windowTitle, var1.slotsCount);
@@ -532,6 +564,7 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void func_20088_a(Packet103SetSlot var1) {
         if (var1.windowId == -1) {
             this.mc.thePlayer.inventory.setItemStack(var1.myItemStack);
@@ -548,6 +581,7 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void func_20089_a(Packet106Transaction var1) {
         Container var2 = null;
         if (var1.windowId == 0) {
@@ -567,6 +601,7 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void func_20094_a(Packet104WindowItems var1) {
         if (var1.windowId == 0) {
             this.mc.thePlayer.inventorySlots.putStacksInSlots(var1.itemStack);
@@ -576,6 +611,7 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void handleSignUpdate(Packet130UpdateSign var1) {
         if (this.mc.theWorld.blockExists(var1.xPosition, var1.yPosition, var1.zPosition)) {
             TileEntity var2 = this.mc.theWorld.getBlockTileEntity(var1.xPosition, var1.yPosition, var1.zPosition);
@@ -590,6 +626,7 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void func_20090_a(Packet105UpdateProgressbar var1) {
         this.registerPacket(var1);
         if (this.mc.thePlayer.craftingInventory != null && this.mc.thePlayer.craftingInventory.windowId == var1.windowId) {
@@ -598,6 +635,7 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void handlePlayerInventory(Packet5PlayerInventory var1) {
         Entity var2 = this.getEntityByID(var1.entityID);
         if (var2 != null) {
@@ -606,14 +644,17 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void func_20092_a(Packet101CloseWindow var1) {
         this.mc.thePlayer.closeScreen();
     }
 
+    @Override
     public void handleNotePlay(Packet54PlayNoteBlock var1) {
         this.mc.theWorld.playNoteAt(var1.xLocation, var1.yLocation, var1.zLocation, var1.instrumentType, var1.pitch);
     }
 
+    @Override
     public void func_25118_a(Packet70Bed var1) {
         int var2 = var1.field_25019_b;
         if (var2 >= 0 && var2 < Packet70Bed.field_25020_a.length && Packet70Bed.field_25020_a[var2] != null) {
@@ -630,6 +671,7 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void func_28116_a(Packet131MapData var1) {
         if (var1.field_28055_a == Item.MAP.shiftedIndex) {
             ItemMap.func_28013_a(var1.field_28054_b, this.mc.theWorld).func_28171_a(var1.field_28056_c);
@@ -639,14 +681,17 @@ public class NetClientHandler extends NetHandler {
 
     }
 
+    @Override
     public void func_28115_a(Packet61DoorChange var1) {
         this.mc.theWorld.func_28106_e(var1.field_28050_a, var1.field_28053_c, var1.field_28052_d, var1.field_28051_e, var1.field_28049_b);
     }
 
+    @Override
     public void func_27245_a(Packet200Statistic var1) {
         ((EntityClientPlayerMP) this.mc.thePlayer).func_27027_b(StatList.getStat(var1.field_27052_a), var1.field_27051_b);
     }
 
+    @Override
     public boolean isServerHandler() {
         return false;
     }

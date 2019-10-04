@@ -28,6 +28,7 @@ public class Packet34EntityTeleport extends Packet {
         this.pitch = (byte) ((int) (var1.rotationPitch * 256.0F / 360.0F));
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.entityId = var1.readInt();
         this.xPosition = var1.readInt();
@@ -37,6 +38,7 @@ public class Packet34EntityTeleport extends Packet {
         this.pitch = (byte) var1.read();
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeInt(this.entityId);
         var1.writeInt(this.xPosition);
@@ -46,10 +48,12 @@ public class Packet34EntityTeleport extends Packet {
         var1.write(this.pitch);
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.handleEntityTeleport(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 34;
     }

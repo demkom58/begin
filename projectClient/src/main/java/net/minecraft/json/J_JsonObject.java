@@ -11,18 +11,22 @@ final class J_JsonObject extends J_JsonRootNode {
         this.field_27222_a = new HashMap(var1);
     }
 
+    @Override
     public Map func_27214_c() {
         return new HashMap(this.field_27222_a);
     }
 
+    @Override
     public EnumJsonNodeType func_27218_a() {
         return EnumJsonNodeType.OBJECT;
     }
 
+    @Override
     public String getValue() {
         throw new IllegalStateException("Attempt to get text on a JsonNode without text.");
     }
 
+    @Override
     public List func_27215_d() {
         throw new IllegalStateException("Attempt to get elements on a JsonNode without elements.");
     }

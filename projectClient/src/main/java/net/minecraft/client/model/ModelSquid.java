@@ -25,6 +25,7 @@ public class ModelSquid extends ModelBase {
 
     }
 
+    @Override
     public void setRotationAngles(float var1, float var2, float var3, float var4, float var5, float var6) {
         for (int var7 = 0; var7 < this.squidTentacles.length; ++var7) {
             this.squidTentacles[var7].rotateAngleX = var3;
@@ -32,6 +33,7 @@ public class ModelSquid extends ModelBase {
 
     }
 
+    @Override
     public void render(float var1, float var2, float var3, float var4, float var5, float var6) {
         this.setRotationAngles(var1, var2, var3, var4, var5, var6);
         this.squidBody.render(var6);

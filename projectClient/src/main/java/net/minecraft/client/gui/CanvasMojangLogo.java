@@ -19,6 +19,7 @@ class CanvasMojangLogo extends Canvas {
         this.setMinimumSize(new Dimension(size, size));
     }
 
+    @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
         graphics.drawImage(this.logo, this.getWidth() / 2 - this.logo.getWidth() / 2, 32, null);

@@ -1,7 +1,6 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.FontRenderer;
 import net.minecraft.util.StringTranslate;
 
 import java.awt.*;
@@ -18,6 +17,7 @@ public class GuiTexturePacks extends GuiScreen {
         this.guiScreen = guiScreen;
     }
 
+    @Override
     public void initGui() {
         StringTranslate var1 = StringTranslate.getInstance();
         this.buttons.add(new GuiSmallButton(5, this.width / 2 - 154, this.height - 48, var1.translateKey("texturePack.openFolder")));
@@ -28,6 +28,7 @@ public class GuiTexturePacks extends GuiScreen {
         this.guiTexturePackSlot.registerScrollButtons(this.buttons, 7, 8);
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (!button.enabled)
             return;
@@ -46,14 +47,17 @@ public class GuiTexturePacks extends GuiScreen {
         }
     }
 
+    @Override
     protected void mouseClicked(int x, int y, int button) {
         super.mouseClicked(x, y, button);
     }
 
+    @Override
     protected void mouseMovedOrUp(int x, int y, int button) {
         super.mouseMovedOrUp(x, y, button);
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.guiTexturePackSlot.drawScreen(var1, var2, var3);
         if (this.field_6454_o <= 0) {
@@ -67,6 +71,7 @@ public class GuiTexturePacks extends GuiScreen {
         super.drawScreen(var1, var2, var3);
     }
 
+    @Override
     public void updateScreen() {
         super.updateScreen();
         --this.field_6454_o;

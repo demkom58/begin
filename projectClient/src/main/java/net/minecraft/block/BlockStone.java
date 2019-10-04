@@ -9,6 +9,7 @@ public class BlockStone extends Block {
         super(var1, var2, Material.ROCK);
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Block.COBBLESTONE.blockID;
     }

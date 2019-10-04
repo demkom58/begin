@@ -17,10 +17,12 @@ public class InventoryBasic implements IInventory {
         this.inventoryContents = new ItemStack[var2];
     }
 
+    @Override
     public ItemStack getStackInSlot(int var1) {
         return this.inventoryContents[var1];
     }
 
+    @Override
     public ItemStack decrStackSize(int var1, int var2) {
         if (this.inventoryContents[var1] != null) {
             if (this.inventoryContents[var1].stackSize <= var2) {
@@ -42,6 +44,7 @@ public class InventoryBasic implements IInventory {
         }
     }
 
+    @Override
     public void setInventorySlotContents(int var1, ItemStack var2) {
         this.inventoryContents[var1] = var2;
         if (var2 != null && var2.stackSize > this.getInventoryStackLimit()) {
@@ -51,18 +54,22 @@ public class InventoryBasic implements IInventory {
         this.onInventoryChanged();
     }
 
+    @Override
     public int getSizeInventory() {
         return this.slotsCount;
     }
 
+    @Override
     public String getInvName() {
         return this.inventoryTitle;
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public void onInventoryChanged() {
         if (this.field_20073_d != null) {
             for (int var1 = 0; var1 < this.field_20073_d.size(); ++var1) {
@@ -72,6 +79,7 @@ public class InventoryBasic implements IInventory {
 
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer var1) {
         return true;
     }

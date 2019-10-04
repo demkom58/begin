@@ -27,11 +27,13 @@ public class GuiCreateWorld extends GuiScreen {
         return name;
     }
 
+    @Override
     public void updateScreen() {
         this.textboxWorldName.updateCursorCounter();
         this.textboxSeed.updateCursorCounter();
     }
 
+    @Override
     public void initGui() {
         StringTranslate translate = StringTranslate.getInstance();
         this.buttons.clear();
@@ -58,8 +60,10 @@ public class GuiCreateWorld extends GuiScreen {
         this.folderName = generateUnusedFolderName(this.mc.getSaveLoader(), this.folderName);
     }
 
+    @Override
     public void onGuiClosed() { }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (!button.enabled)
             return;
@@ -114,12 +118,14 @@ public class GuiCreateWorld extends GuiScreen {
         this.textboxSeed.keyTyped(keycode, scancode, action, mods);
     }
 
+    @Override
     protected void mouseClicked(int x, int y, int button) {
         super.mouseClicked(x, y, button);
         this.textboxWorldName.mouseClicked(x, y, button);
         this.textboxSeed.mouseClicked(x, y, button);
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         StringTranslate translate = StringTranslate.getInstance();
         this.drawDefaultBackground();
@@ -133,6 +139,7 @@ public class GuiCreateWorld extends GuiScreen {
         super.drawScreen(var1, var2, var3);
     }
 
+    @Override
     public void selectNextField() {
         if (this.textboxWorldName.isFocused) {
             this.textboxWorldName.setFocused(false);

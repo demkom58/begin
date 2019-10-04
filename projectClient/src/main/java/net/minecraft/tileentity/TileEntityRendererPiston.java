@@ -49,12 +49,14 @@ public class TileEntityRendererPiston extends TileEntitySpecialRenderer {
 
     }
 
+    @Override
     public void func_31069_a(World var1) {
         this.field_31071_b = new RenderBlocks(var1);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public void renderTileEntityAt(TileEntity var1, double var2, double var4, double var6, float var8) {
         this.func_31070_a((TileEntityPiston) var1, var2, var4, var6, var8);
     }

@@ -34,6 +34,7 @@ class GuiSlotStatsBlock extends GuiSlotStats {
         this.comparator = new SorterStatsBlock(this, var1);
     }
 
+    @Override
     protected void func_27260_a(int var1, int var2, Tessellator tess) {
         super.func_27260_a(var1, var2, tess);
         if (this.field_27268_b == 0) {
@@ -56,6 +57,7 @@ class GuiSlotStatsBlock extends GuiSlotStats {
 
     }
 
+    @Override
     protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator tess) {
         StatCrafting statCrafting = this.func_27264_b(var1);
         int var7 = statCrafting.func_25072_b();
@@ -65,6 +67,7 @@ class GuiSlotStatsBlock extends GuiSlotStats {
         this.func_27265_a(statCrafting, var2 + 215, var3, var1 % 2 == 0);
     }
 
+    @Override
     protected String func_27263_a(int var1) {
         if (var1 == 0)
             return "stat.crafted";

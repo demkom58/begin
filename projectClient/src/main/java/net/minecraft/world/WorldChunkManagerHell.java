@@ -16,23 +16,28 @@ public class WorldChunkManagerHell extends WorldChunkManager {
         this.field_4199_g = var4;
     }
 
+    @Override
     public BiomeGenBase getBiomeGenAtChunkCoord(ChunkCoordIntPair var1) {
         return this.field_4201_e;
     }
 
+    @Override
     public BiomeGenBase getBiomeGenAt(int var1, int var2) {
         return this.field_4201_e;
     }
 
+    @Override
     public double getTemperature(int var1, int var2) {
         return this.field_4200_f;
     }
 
+    @Override
     public BiomeGenBase[] func_4069_a(int var1, int var2, int var3, int var4) {
         this.field_4195_d = this.loadBlockGeneratorData(this.field_4195_d, var1, var2, var3, var4);
         return this.field_4195_d;
     }
 
+    @Override
     public double[] getTemperatures(double[] var1, int var2, int var3, int var4, int var5) {
         if (var1 == null || var1.length < var4 * var5) {
             var1 = new double[var4 * var5];
@@ -42,6 +47,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
         return var1;
     }
 
+    @Override
     public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] var1, int var2, int var3, int var4, int var5) {
         if (var1 == null || var1.length < var4 * var5) {
             var1 = new BiomeGenBase[var4 * var5];

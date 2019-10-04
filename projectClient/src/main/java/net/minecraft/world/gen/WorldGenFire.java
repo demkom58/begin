@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class WorldGenFire extends WorldGenerator {
+    @Override
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
         for (int var6 = 0; var6 < 64; ++var6) {
             int var7 = var3 + var2.nextInt(8) - var2.nextInt(8);

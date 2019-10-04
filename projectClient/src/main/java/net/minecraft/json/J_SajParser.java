@@ -381,8 +381,7 @@ public final class J_SajParser {
             throw new J_InvalidSyntaxException("Expected a 4 digit hexidecimal number but got only [" + var3 + "], namely [" + String.valueOf(var2, 0, var3) + "].", var1);
 
         try {
-            int var4 = Integer.parseInt(String.valueOf(var2), 16);
-            return var4;
+            return Integer.parseInt(String.valueOf(var2), 16);
         } catch (NumberFormatException e) {
             var1.func_27335_a(var2);
             throw new J_InvalidSyntaxException("Unable to parse [" + String.valueOf(var2) + "] as a hexidecimal number.", e, var1);
@@ -393,7 +392,7 @@ public final class J_SajParser {
         boolean var3 = false;
 
         int var2;
-        while (true) {
+        do {
             var2 = var1.func_27333_c();
             switch (var2) {
                 case 9:
@@ -405,10 +404,7 @@ public final class J_SajParser {
                     var3 = true;
             }
 
-            if (var3) {
-                break;
-            }
-        }
+        } while (!var3);
 
         return var2;
     }

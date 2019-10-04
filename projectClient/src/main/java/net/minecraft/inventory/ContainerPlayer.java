@@ -43,10 +43,12 @@ public class ContainerPlayer extends Container {
         this.onCraftMatrixChanged(this.craftMatrix);
     }
 
+    @Override
     public void onCraftMatrixChanged(IInventory var1) {
         this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix));
     }
 
+    @Override
     public void onCraftGuiClosed(EntityPlayer var1) {
         super.onCraftGuiClosed(var1);
 
@@ -60,10 +62,12 @@ public class ContainerPlayer extends Container {
 
     }
 
+    @Override
     public boolean isUsableByPlayer(EntityPlayer var1) {
         return true;
     }
 
+    @Override
     public ItemStack getStackInSlot(int var1) {
         ItemStack var2 = null;
         Slot var3 = (Slot) this.slots.get(var1);

@@ -32,34 +32,42 @@ public class EntitySquid extends EntityWaterMob {
         this.field_21080_l = 1.0F / (this.rand.nextFloat() + 1.0F) * 0.2F;
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
     }
 
+    @Override
     protected String getLivingSound() {
         return null;
     }
 
+    @Override
     protected String getHurtSound() {
         return null;
     }
 
+    @Override
     protected String getDeathSound() {
         return null;
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.4F;
     }
 
+    @Override
     protected int getDropItemId() {
         return 0;
     }
 
+    @Override
     protected void dropFewItems() {
         int var1 = this.rand.nextInt(3) + 1;
 
@@ -69,14 +77,17 @@ public class EntitySquid extends EntityWaterMob {
 
     }
 
+    @Override
     public boolean interact(EntityPlayer var1) {
         return false;
     }
 
+    @Override
     public boolean isInWater() {
         return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, -0.6000000238418579D, 0.0D), Material.WATER, this);
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
         this.field_21088_b = this.field_21089_a;
@@ -108,16 +119,16 @@ public class EntitySquid extends EntityWaterMob {
             }
 
             if (!this.isMultiplayerEntity) {
-                this.motionX = (double) (this.randomMotionVecX * this.randomMotionSpeed);
-                this.motionY = (double) (this.randomMotionVecY * this.randomMotionSpeed);
-                this.motionZ = (double) (this.randomMotionVecZ * this.randomMotionSpeed);
+                this.motionX = this.randomMotionVecX * this.randomMotionSpeed;
+                this.motionY = this.randomMotionVecY * this.randomMotionSpeed;
+                this.motionZ = this.randomMotionVecZ * this.randomMotionSpeed;
             }
 
             float var2 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.renderYawOffset += (-((float) Math.atan2(this.motionX, this.motionZ)) * 180.0F / 3.1415927F - this.renderYawOffset) * 0.1F;
             this.rotationYaw = this.renderYawOffset;
             this.field_21087_c += 3.1415927F * this.field_21079_m * 1.5F;
-            this.field_21089_a += (-((float) Math.atan2((double) var2, this.motionY)) * 180.0F / 3.1415927F - this.field_21089_a) * 0.1F;
+            this.field_21089_a += (-((float) Math.atan2(var2, this.motionY)) * 180.0F / 3.1415927F - this.field_21089_a) * 0.1F;
         } else {
             this.field_21083_i = MathHelper.abs(MathHelper.sin(this.field_21085_g)) * 3.1415927F * 0.25F;
             if (!this.isMultiplayerEntity) {
@@ -132,10 +143,12 @@ public class EntitySquid extends EntityWaterMob {
 
     }
 
+    @Override
     public void moveEntityWithHeading(float var1, float var2) {
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
     }
 
+    @Override
     protected void updatePlayerActionState() {
         if (this.rand.nextInt(50) == 0 || !this.inWater || this.randomMotionVecX == 0.0F && this.randomMotionVecY == 0.0F && this.randomMotionVecZ == 0.0F) {
             float var1 = this.rand.nextFloat() * 3.1415927F * 2.0F;

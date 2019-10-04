@@ -15,6 +15,7 @@ public class BlockStationary extends BlockFluid {
 
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         super.onNeighborBlockChange(var1, var2, var3, var4, var5);
         if (var1.getBlockId(var2, var3, var4) == this.blockID) {
@@ -32,6 +33,7 @@ public class BlockStationary extends BlockFluid {
         var1.editingBlocks = false;
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         if (this.blockMaterial == Material.LAVA) {
             int var6 = var5.nextInt(3);

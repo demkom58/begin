@@ -11,14 +11,17 @@ public class ItemFishingRod extends Item {
         this.setMaxStackSize(1);
     }
 
+    @Override
     public boolean isFull3D() {
         return true;
     }
 
+    @Override
     public boolean shouldRotateAroundWhenRendering() {
         return true;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack var1, World var2, EntityPlayer var3) {
         if (var3.fishEntity != null) {
             int var4 = var3.fishEntity.catchFish();

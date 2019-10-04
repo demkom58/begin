@@ -22,6 +22,7 @@ public final class J_JsonObjectNodeBuilder implements J_JsonNodeBuilder {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public J_JsonNode func_27234_b() {
         return this.func_27235_a();
     }

@@ -57,6 +57,7 @@ public class ModelBiped extends ModelBase {
         this.bipedLeftLeg.setRotationPoint(2.0F, 12.0F + var2, 0.0F);
     }
 
+    @Override
     public void render(float var1, float var2, float var3, float var4, float var5, float var6) {
         this.setRotationAngles(var1, var2, var3, var4, var5, var6);
         this.bipedHead.render(var6);
@@ -68,6 +69,7 @@ public class ModelBiped extends ModelBase {
         this.bipedHeadwear.render(var6);
     }
 
+    @Override
     public void setRotationAngles(float var1, float var2, float var3, float var4, float var5, float var6) {
         this.bipedHead.rotateAngleY = var4 / 57.295776F;
         this.bipedHead.rotateAngleX = var5 / 57.295776F;

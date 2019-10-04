@@ -29,12 +29,13 @@ public class GuiMainMenu extends GuiScreen {
             }
 
             this.splashText = splashes.get(rand.nextInt(splashes.size()));
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 
     }
 
+    @Override
     public void updateScreen() {
         ++this.updateCounter;
     }
@@ -47,6 +48,7 @@ public class GuiMainMenu extends GuiScreen {
     public void keyTyped(int keycode, int scancode, int action, int mods) {
     }
 
+    @Override
     public void initGui() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -74,6 +76,7 @@ public class GuiMainMenu extends GuiScreen {
         }
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
@@ -97,6 +100,7 @@ public class GuiMainMenu extends GuiScreen {
 
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
         Tessellator tess = Tessellator.INSTANCE;
@@ -105,8 +109,8 @@ public class GuiMainMenu extends GuiScreen {
         byte var7 = 30;
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/title/mclogo.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.drawTexturedModalRect(var6 + 0, var7 + 0, 0, 0, 155, 44);
-        this.drawTexturedModalRect(var6 + 155, var7 + 0, 0, 45, 155, 44);
+        this.drawTexturedModalRect(var6, var7, 0, 0, 155, 44);
+        this.drawTexturedModalRect(var6 + 155, var7, 0, 45, 155, 44);
         tess.setColorOpaque_I(16777215);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) (this.width / 2 + 90), 70.0F, 0.0F);

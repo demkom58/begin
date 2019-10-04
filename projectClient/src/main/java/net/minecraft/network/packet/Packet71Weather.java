@@ -30,6 +30,7 @@ public class Packet71Weather extends Packet {
 
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.field_27054_a = var1.readInt();
         this.field_27055_e = var1.readByte();
@@ -38,6 +39,7 @@ public class Packet71Weather extends Packet {
         this.field_27056_d = var1.readInt();
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeInt(this.field_27054_a);
         var1.writeByte(this.field_27055_e);
@@ -46,10 +48,12 @@ public class Packet71Weather extends Packet {
         var1.writeInt(this.field_27056_d);
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.handleWeather(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 17;
     }

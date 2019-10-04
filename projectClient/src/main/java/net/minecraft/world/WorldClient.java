@@ -28,6 +28,7 @@ public class WorldClient extends World {
         this.mapStorage = var1.field_28118_b;
     }
 
+    @Override
     public void tick() {
         this.setWorldTime(this.getWorldTime() + 1L);
         int var1 = this.calculateSkylightSubtracted(1.0F);
@@ -69,21 +70,26 @@ public class WorldClient extends World {
 
     }
 
+    @Override
     protected IChunkProvider getChunkProvider() {
         this.field_20915_C = new ChunkProviderClient(this);
         return this.field_20915_C;
     }
 
+    @Override
     public void setSpawnLocation() {
         this.setSpawnPoint(new ChunkCoordinates(8, 64, 8));
     }
 
+    @Override
     protected void updateBlocksAndPlayCaveSounds() {
     }
 
+    @Override
     public void scheduleBlockUpdate(int var1, int var2, int var3, int var4, int var5) {
     }
 
+    @Override
     public boolean TickUpdates(boolean var1) {
         return false;
     }
@@ -101,6 +107,7 @@ public class WorldClient extends World {
 
     }
 
+    @Override
     public boolean entityJoinedWorld(Entity entity) {
         boolean var2 = super.entityJoinedWorld(entity);
         this.field_20914_E.add(entity);
@@ -111,17 +118,20 @@ public class WorldClient extends World {
         return var2;
     }
 
+    @Override
     public void setEntityDead(Entity entity) {
         super.setEntityDead(entity);
         this.field_20914_E.remove(entity);
     }
 
+    @Override
     protected void obtainEntitySkin(Entity entity) {
         super.obtainEntitySkin(entity);
         this.field_1053_F.remove(entity);
 
     }
 
+    @Override
     protected void releaseEntitySkin(Entity entity) {
         super.releaseEntitySkin(entity);
         if (this.field_20914_E.contains(entity)) {
@@ -159,6 +169,7 @@ public class WorldClient extends World {
         return entity;
     }
 
+    @Override
     public boolean setBlockMetadata(int var1, int var2, int var3, int var4) {
         int var5 = this.getBlockId(var1, var2, var3);
         int var6 = this.getBlockMetadata(var1, var2, var3);
@@ -170,6 +181,7 @@ public class WorldClient extends World {
         return false;
     }
 
+    @Override
     public boolean setBlockAndMetadata(int var1, int var2, int var3, int var4, int var5) {
         int var6 = this.getBlockId(var1, var2, var3);
         int var7 = this.getBlockMetadata(var1, var2, var3);
@@ -181,6 +193,7 @@ public class WorldClient extends World {
         return false;
     }
 
+    @Override
     public boolean setBlock(int var1, int var2, int var3, int var4) {
         int var5 = this.getBlockId(var1, var2, var3);
         int var6 = this.getBlockMetadata(var1, var2, var3);
@@ -202,10 +215,12 @@ public class WorldClient extends World {
         return false;
     }
 
+    @Override
     public void sendQuittingDisconnectingPacket() {
         this.sendQueue.func_28117_a(new Packet255KickDisconnect("Quitting"));
     }
 
+    @Override
     protected void updateWeather() {
         if (this.worldProvider.hasNoSky)
             return;

@@ -27,7 +27,7 @@ public class PathEntity {
 
     public Vec3D getPosition(Entity var1) {
         double var2 = (double) this.points[this.pathIndex].xCoord + (double) ((int) (var1.width + 1.0F)) * 0.5D;
-        double var4 = (double) this.points[this.pathIndex].yCoord;
+        double var4 = this.points[this.pathIndex].yCoord;
         double var6 = (double) this.points[this.pathIndex].zCoord + (double) ((int) (var1.width + 1.0F)) * 0.5D;
         return Vec3D.createVector(var2, var4, var6);
     }

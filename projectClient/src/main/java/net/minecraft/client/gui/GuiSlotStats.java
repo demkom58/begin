@@ -27,17 +27,21 @@ abstract class GuiSlotStats extends GuiSlot {
         this.func_27259_a(true, 20);
     }
 
+    @Override
     protected void elementClicked(int var1, boolean var2) {
     }
 
+    @Override
     protected boolean isSelected(int var1) {
         return false;
     }
 
+    @Override
     protected void drawBackground() {
         this.guiStats.drawDefaultBackground();
     }
 
+    @Override
     protected void func_27260_a(int var1, int var2, Tessellator tess) {
         if (!mc.mouse.isButtonPressed(0)) {
             this.field_27268_b = -1;
@@ -79,6 +83,7 @@ abstract class GuiSlotStats extends GuiSlot {
 
     }
 
+    @Override
     protected void func_27255_a(int var1, int var2) {
         this.field_27268_b = -1;
         if (var1 >= 79 && var1 < 115) {
@@ -96,6 +101,7 @@ abstract class GuiSlotStats extends GuiSlot {
 
     }
 
+    @Override
     protected final int getSize() {
         return this.statCraftings.size();
     }
@@ -117,6 +123,7 @@ abstract class GuiSlotStats extends GuiSlot {
 
     }
 
+    @Override
     protected void func_27257_b(int var1, int var2) {
         if (var2 >= this.top && var2 <= this.bottom) {
             int var3 = this.func_27256_c(var1, var2);

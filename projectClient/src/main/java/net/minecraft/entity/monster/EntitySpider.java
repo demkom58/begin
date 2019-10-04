@@ -15,14 +15,17 @@ public class EntitySpider extends EntityMob {
         this.moveSpeed = 0.8F;
     }
 
+    @Override
     public double getMountedYOffset() {
         return (double) this.height * 0.75D - 0.5D;
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected Entity findPlayerToAttack() {
         float var1 = this.getEntityBrightness(1.0F);
         if (var1 < 0.5F) {
@@ -33,18 +36,22 @@ public class EntitySpider extends EntityMob {
         }
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.spider";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.spider";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.spiderdeath";
     }
 
+    @Override
     protected void attackEntity(Entity var1, float var2) {
         float var3 = this.getEntityBrightness(1.0F);
         if (var3 > 0.5F && this.rand.nextInt(100) == 0) {
@@ -66,18 +73,22 @@ public class EntitySpider extends EntityMob {
         }
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
     }
 
+    @Override
     protected int getDropItemId() {
         return Item.SILK.shiftedIndex;
     }
 
+    @Override
     public boolean isOnLadder() {
         return this.isCollidedHorizontally;
     }

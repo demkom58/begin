@@ -368,28 +368,28 @@ public class RenderBlocks {
         float var31 = 0.125F;
         float var32 = (float) (x + 1);
         float var33 = (float) (x + 1);
-        float var34 = (float) (x + 0);
-        float var35 = (float) (x + 0);
-        float var36 = (float) (z + 0);
+        float var34 = (float) (x);
+        float var35 = (float) (x);
+        float var36 = (float) (z);
         float var37 = (float) (z + 1);
         float var38 = (float) (z + 1);
-        float var39 = (float) (z + 0);
+        float var39 = (float) (z);
         float var40 = (float) y + var31;
         if (var6 == 2) {
-            var32 = var33 = (float) (x + 0);
+            var32 = var33 = (float) (x);
             var34 = var35 = (float) (x + 1);
             var36 = var39 = (float) (z + 1);
-            var37 = var38 = (float) (z + 0);
+            var37 = var38 = (float) (z);
         } else if (var6 == 3) {
-            var32 = var35 = (float) (x + 0);
+            var32 = var35 = (float) (x);
             var33 = var34 = (float) (x + 1);
-            var36 = var37 = (float) (z + 0);
+            var36 = var37 = (float) (z);
             var38 = var39 = (float) (z + 1);
         } else if (var6 == 1) {
             var32 = var35 = (float) (x + 1);
-            var33 = var34 = (float) (x + 0);
+            var33 = var34 = (float) (x);
             var36 = var37 = (float) (z + 1);
-            var38 = var39 = (float) (z + 0);
+            var38 = var39 = (float) (z);
         }
 
         tess.addVertexWithUV(var35, var40, var39, var23, var27);
@@ -510,8 +510,8 @@ public class RenderBlocks {
         int var17 = (var16 & 15) << 4;
         int var18 = var16 & 240;
         Tessellator tess = Tessellator.INSTANCE;
-        double var20 = (float) (var17 + 0) / 256.0F;
-        double var22 = (float) (var18 + 0) / 256.0F;
+        double var20 = (float) (var17) / 256.0F;
+        double var22 = (float) (var18) / 256.0F;
         double var24 = ((double) var17 + var14 - 0.01D) / 256.0D;
         double var26 = ((double) ((float) var18 + 4.0F) - 0.01D) / 256.0D;
         tess.setColorOpaque_F(var13, var13, var13);
@@ -530,8 +530,8 @@ public class RenderBlocks {
         int var17 = (var16 & 15) << 4;
         int var18 = var16 & 240;
         Tessellator tess = Tessellator.INSTANCE;
-        double var20 = (float) (var17 + 0) / 256.0F;
-        double var22 = (float) (var18 + 0) / 256.0F;
+        double var20 = (float) (var17) / 256.0F;
+        double var22 = (float) (var18) / 256.0F;
         double var24 = ((double) var17 + var14 - 0.01D) / 256.0D;
         double var26 = ((double) ((float) var18 + 4.0F) - 0.01D) / 256.0D;
         tess.setColorOpaque_F(var13, var13, var13);
@@ -550,8 +550,8 @@ public class RenderBlocks {
         int var17 = (var16 & 15) << 4;
         int var18 = var16 & 240;
         Tessellator tess = Tessellator.INSTANCE;
-        double var20 = (float) (var17 + 0) / 256.0F;
-        double var22 = (float) (var18 + 0) / 256.0F;
+        double var20 = (float) (var17) / 256.0F;
+        double var22 = (float) (var18) / 256.0F;
         double var24 = ((double) var17 + var14 - 0.01D) / 256.0D;
         double var26 = ((double) ((float) var18 + 4.0F) - 0.01D) / 256.0D;
         tess.setColorOpaque_F(var13, var13, var13);
@@ -848,45 +848,45 @@ public class RenderBlocks {
 
             if (Block.FIRE.canBlockCatchFire(this.blockAccess, x - 1, y, z)) {
                 tess.addVertexWithUV((float) x + var60, (float) y + var18 + var20, z + 1, var12, var14);
-                tess.addVertexWithUV(x + 0, (float) (y + 0) + var20, z + 1, var12, var16);
-                tess.addVertexWithUV(x + 0, (float) (y + 0) + var20, z + 0, var10, var16);
-                tess.addVertexWithUV((float) x + var60, (float) y + var18 + var20, z + 0, var10, var14);
-                tess.addVertexWithUV((float) x + var60, (float) y + var18 + var20, z + 0, var10, var14);
-                tess.addVertexWithUV(x + 0, (float) (y + 0) + var20, z + 0, var10, var16);
-                tess.addVertexWithUV(x + 0, (float) (y + 0) + var20, z + 1, var12, var16);
+                tess.addVertexWithUV(x, (float) (y) + var20, z + 1, var12, var16);
+                tess.addVertexWithUV(x, (float) (y) + var20, z, var10, var16);
+                tess.addVertexWithUV((float) x + var60, (float) y + var18 + var20, z, var10, var14);
+                tess.addVertexWithUV((float) x + var60, (float) y + var18 + var20, z, var10, var14);
+                tess.addVertexWithUV(x, (float) (y) + var20, z, var10, var16);
+                tess.addVertexWithUV(x, (float) (y) + var20, z + 1, var12, var16);
                 tess.addVertexWithUV((float) x + var60, (float) y + var18 + var20, z + 1, var12, var14);
             }
 
             if (Block.FIRE.canBlockCatchFire(this.blockAccess, x + 1, y, z)) {
-                tess.addVertexWithUV((float) (x + 1) - var60, (float) y + var18 + var20, z + 0, var10, var14);
-                tess.addVertexWithUV(x + 1 - 0, (float) (y + 0) + var20, z + 0, var10, var16);
-                tess.addVertexWithUV(x + 1 - 0, (float) (y + 0) + var20, z + 1, var12, var16);
+                tess.addVertexWithUV((float) (x + 1) - var60, (float) y + var18 + var20, z, var10, var14);
+                tess.addVertexWithUV(x + 1, (float) (y) + var20, z, var10, var16);
+                tess.addVertexWithUV(x + 1, (float) (y) + var20, z + 1, var12, var16);
                 tess.addVertexWithUV((float) (x + 1) - var60, (float) y + var18 + var20, z + 1, var12, var14);
                 tess.addVertexWithUV((float) (x + 1) - var60, (float) y + var18 + var20, z + 1, var12, var14);
-                tess.addVertexWithUV(x + 1 - 0, (float) (y + 0) + var20, z + 1, var12, var16);
-                tess.addVertexWithUV(x + 1 - 0, (float) (y + 0) + var20, z + 0, var10, var16);
-                tess.addVertexWithUV((float) (x + 1) - var60, (float) y + var18 + var20, z + 0, var10, var14);
+                tess.addVertexWithUV(x + 1, (float) (y) + var20, z + 1, var12, var16);
+                tess.addVertexWithUV(x + 1, (float) (y) + var20, z, var10, var16);
+                tess.addVertexWithUV((float) (x + 1) - var60, (float) y + var18 + var20, z, var10, var14);
             }
 
             if (Block.FIRE.canBlockCatchFire(this.blockAccess, x, y, z - 1)) {
-                tess.addVertexWithUV(x + 0, (float) y + var18 + var20, (float) z + var60, var12, var14);
-                tess.addVertexWithUV(x + 0, (float) (y + 0) + var20, z + 0, var12, var16);
-                tess.addVertexWithUV(x + 1, (float) (y + 0) + var20, z + 0, var10, var16);
+                tess.addVertexWithUV(x, (float) y + var18 + var20, (float) z + var60, var12, var14);
+                tess.addVertexWithUV(x, (float) (y) + var20, z, var12, var16);
+                tess.addVertexWithUV(x + 1, (float) (y) + var20, z, var10, var16);
                 tess.addVertexWithUV(x + 1, (float) y + var18 + var20, (float) z + var60, var10, var14);
                 tess.addVertexWithUV(x + 1, (float) y + var18 + var20, (float) z + var60, var10, var14);
-                tess.addVertexWithUV(x + 1, (float) (y + 0) + var20, z + 0, var10, var16);
-                tess.addVertexWithUV(x + 0, (float) (y + 0) + var20, z + 0, var12, var16);
-                tess.addVertexWithUV(x + 0, (float) y + var18 + var20, (float) z + var60, var12, var14);
+                tess.addVertexWithUV(x + 1, (float) (y) + var20, z, var10, var16);
+                tess.addVertexWithUV(x, (float) (y) + var20, z, var12, var16);
+                tess.addVertexWithUV(x, (float) y + var18 + var20, (float) z + var60, var12, var14);
             }
 
             if (Block.FIRE.canBlockCatchFire(this.blockAccess, x, y, z + 1)) {
                 tess.addVertexWithUV(x + 1, (float) y + var18 + var20, (float) (z + 1) - var60, var10, var14);
-                tess.addVertexWithUV(x + 1, (float) (y + 0) + var20, z + 1 - 0, var10, var16);
-                tess.addVertexWithUV(x + 0, (float) (y + 0) + var20, z + 1 - 0, var12, var16);
-                tess.addVertexWithUV(x + 0, (float) y + var18 + var20, (float) (z + 1) - var60, var12, var14);
-                tess.addVertexWithUV(x + 0, (float) y + var18 + var20, (float) (z + 1) - var60, var12, var14);
-                tess.addVertexWithUV(x + 0, (float) (y + 0) + var20, z + 1 - 0, var12, var16);
-                tess.addVertexWithUV(x + 1, (float) (y + 0) + var20, z + 1 - 0, var10, var16);
+                tess.addVertexWithUV(x + 1, (float) (y) + var20, z + 1, var10, var16);
+                tess.addVertexWithUV(x, (float) (y) + var20, z + 1, var12, var16);
+                tess.addVertexWithUV(x, (float) y + var18 + var20, (float) (z + 1) - var60, var12, var14);
+                tess.addVertexWithUV(x, (float) y + var18 + var20, (float) (z + 1) - var60, var12, var14);
+                tess.addVertexWithUV(x, (float) (y) + var20, z + 1, var12, var16);
+                tess.addVertexWithUV(x + 1, (float) (y) + var20, z + 1, var10, var16);
                 tess.addVertexWithUV(x + 1, (float) y + var18 + var20, (float) (z + 1) - var60, var10, var14);
             }
 
@@ -906,31 +906,31 @@ public class RenderBlocks {
                 ++y;
                 var18 = -0.2F;
                 if ((x + y + z & 1) == 0) {
-                    tess.addVertexWithUV(var71, (float) y + var18, z + 0, var12, var14);
-                    tess.addVertexWithUV(var63, y + 0, z + 0, var12, var16);
-                    tess.addVertexWithUV(var63, y + 0, z + 1, var10, var16);
+                    tess.addVertexWithUV(var71, (float) y + var18, z, var12, var14);
+                    tess.addVertexWithUV(var63, y, z, var12, var16);
+                    tess.addVertexWithUV(var63, y, z + 1, var10, var16);
                     tess.addVertexWithUV(var71, (float) y + var18, z + 1, var10, var14);
                     var10 = (float) var8 / 256.0F;
                     var12 = ((float) var8 + 15.99F) / 256.0F;
                     var14 = (float) (var9 + 16) / 256.0F;
                     var16 = ((float) var9 + 15.99F + 16.0F) / 256.0F;
                     tess.addVertexWithUV(var73, (float) y + var18, z + 1, var12, var14);
-                    tess.addVertexWithUV(var65, y + 0, z + 1, var12, var16);
-                    tess.addVertexWithUV(var65, y + 0, z + 0, var10, var16);
-                    tess.addVertexWithUV(var73, (float) y + var18, z + 0, var10, var14);
+                    tess.addVertexWithUV(var65, y, z + 1, var12, var16);
+                    tess.addVertexWithUV(var65, y, z, var10, var16);
+                    tess.addVertexWithUV(var73, (float) y + var18, z, var10, var14);
                 } else {
-                    tess.addVertexWithUV(x + 0, (float) y + var18, var35, var12, var14);
-                    tess.addVertexWithUV(x + 0, y + 0, var69, var12, var16);
-                    tess.addVertexWithUV(x + 1, y + 0, var69, var10, var16);
+                    tess.addVertexWithUV(x, (float) y + var18, var35, var12, var14);
+                    tess.addVertexWithUV(x, y, var69, var12, var16);
+                    tess.addVertexWithUV(x + 1, y, var69, var10, var16);
                     tess.addVertexWithUV(x + 1, (float) y + var18, var35, var10, var14);
                     var10 = (float) var8 / 256.0F;
                     var12 = ((float) var8 + 15.99F) / 256.0F;
                     var14 = (float) (var9 + 16) / 256.0F;
                     var16 = ((float) var9 + 15.99F + 16.0F) / 256.0F;
                     tess.addVertexWithUV(x + 1, (float) y + var18, var75, var12, var14);
-                    tess.addVertexWithUV(x + 1, y + 0, var67, var12, var16);
-                    tess.addVertexWithUV(x + 0, y + 0, var67, var10, var16);
-                    tess.addVertexWithUV(x + 0, (float) y + var18, var75, var10, var14);
+                    tess.addVertexWithUV(x + 1, y, var67, var12, var16);
+                    tess.addVertexWithUV(x, y, var67, var10, var16);
+                    tess.addVertexWithUV(x, (float) y + var18, var75, var10, var14);
                 }
             }
         } else {
@@ -943,24 +943,24 @@ public class RenderBlocks {
             double var31 = (double) z + 0.5D - 0.3D;
             double var33 = (double) z + 0.5D + 0.3D;
             tess.addVertexWithUV(var27, (float) y + var18, z + 1, var12, var14);
-            tess.addVertexWithUV(var19, y + 0, z + 1, var12, var16);
-            tess.addVertexWithUV(var19, y + 0, z + 0, var10, var16);
-            tess.addVertexWithUV(var27, (float) y + var18, z + 0, var10, var14);
-            tess.addVertexWithUV(var29, (float) y + var18, z + 0, var12, var14);
-            tess.addVertexWithUV(var21, y + 0, z + 0, var12, var16);
-            tess.addVertexWithUV(var21, y + 0, z + 1, var10, var16);
+            tess.addVertexWithUV(var19, y, z + 1, var12, var16);
+            tess.addVertexWithUV(var19, y, z, var10, var16);
+            tess.addVertexWithUV(var27, (float) y + var18, z, var10, var14);
+            tess.addVertexWithUV(var29, (float) y + var18, z, var12, var14);
+            tess.addVertexWithUV(var21, y, z, var12, var16);
+            tess.addVertexWithUV(var21, y, z + 1, var10, var16);
             tess.addVertexWithUV(var29, (float) y + var18, z + 1, var10, var14);
             var10 = (float) var8 / 256.0F;
             var12 = ((float) var8 + 15.99F) / 256.0F;
             var14 = (float) (var9 + 16) / 256.0F;
             var16 = ((float) var9 + 15.99F + 16.0F) / 256.0F;
             tess.addVertexWithUV(x + 1, (float) y + var18, var33, var12, var14);
-            tess.addVertexWithUV(x + 1, y + 0, var25, var12, var16);
-            tess.addVertexWithUV(x + 0, y + 0, var25, var10, var16);
-            tess.addVertexWithUV(x + 0, (float) y + var18, var33, var10, var14);
-            tess.addVertexWithUV(x + 0, (float) y + var18, var31, var12, var14);
-            tess.addVertexWithUV(x + 0, y + 0, var23, var12, var16);
-            tess.addVertexWithUV(x + 1, y + 0, var23, var10, var16);
+            tess.addVertexWithUV(x + 1, y, var25, var12, var16);
+            tess.addVertexWithUV(x, y, var25, var10, var16);
+            tess.addVertexWithUV(x, (float) y + var18, var33, var10, var14);
+            tess.addVertexWithUV(x, (float) y + var18, var31, var12, var14);
+            tess.addVertexWithUV(x, y, var23, var12, var16);
+            tess.addVertexWithUV(x + 1, y, var23, var10, var16);
             tess.addVertexWithUV(x + 1, (float) y + var18, var31, var10, var14);
             var19 = (double) x + 0.5D - 0.5D;
             var21 = (double) x + 0.5D + 0.5D;
@@ -970,26 +970,26 @@ public class RenderBlocks {
             var29 = (double) x + 0.5D + 0.4D;
             var31 = (double) z + 0.5D - 0.4D;
             var33 = (double) z + 0.5D + 0.4D;
-            tess.addVertexWithUV(var27, (float) y + var18, z + 0, var10, var14);
-            tess.addVertexWithUV(var19, y + 0, z + 0, var10, var16);
-            tess.addVertexWithUV(var19, y + 0, z + 1, var12, var16);
+            tess.addVertexWithUV(var27, (float) y + var18, z, var10, var14);
+            tess.addVertexWithUV(var19, y, z, var10, var16);
+            tess.addVertexWithUV(var19, y, z + 1, var12, var16);
             tess.addVertexWithUV(var27, (float) y + var18, z + 1, var12, var14);
             tess.addVertexWithUV(var29, (float) y + var18, z + 1, var10, var14);
-            tess.addVertexWithUV(var21, y + 0, z + 1, var10, var16);
-            tess.addVertexWithUV(var21, y + 0, z + 0, var12, var16);
-            tess.addVertexWithUV(var29, (float) y + var18, z + 0, var12, var14);
+            tess.addVertexWithUV(var21, y, z + 1, var10, var16);
+            tess.addVertexWithUV(var21, y, z, var12, var16);
+            tess.addVertexWithUV(var29, (float) y + var18, z, var12, var14);
             var10 = (float) var8 / 256.0F;
             var12 = ((float) var8 + 15.99F) / 256.0F;
             var14 = (float) var9 / 256.0F;
             var16 = ((float) var9 + 15.99F) / 256.0F;
-            tess.addVertexWithUV(x + 0, (float) y + var18, var33, var10, var14);
-            tess.addVertexWithUV(x + 0, y + 0, var25, var10, var16);
-            tess.addVertexWithUV(x + 1, y + 0, var25, var12, var16);
+            tess.addVertexWithUV(x, (float) y + var18, var33, var10, var14);
+            tess.addVertexWithUV(x, y, var25, var10, var16);
+            tess.addVertexWithUV(x + 1, y, var25, var12, var16);
             tess.addVertexWithUV(x + 1, (float) y + var18, var33, var12, var14);
             tess.addVertexWithUV(x + 1, (float) y + var18, var31, var10, var14);
-            tess.addVertexWithUV(x + 1, y + 0, var23, var10, var16);
-            tess.addVertexWithUV(x + 0, y + 0, var23, var12, var16);
-            tess.addVertexWithUV(x + 0, (float) y + var18, var31, var12, var14);
+            tess.addVertexWithUV(x + 1, y, var23, var10, var16);
+            tess.addVertexWithUV(x, y, var23, var12, var16);
+            tess.addVertexWithUV(x, (float) y + var18, var31, var12, var14);
         }
 
         return true;
@@ -1049,9 +1049,9 @@ public class RenderBlocks {
             }
         }
 
-        float var31 = (float) (x + 0);
+        float var31 = (float) (x);
         float var32 = (float) (x + 1);
-        float var33 = (float) (z + 0);
+        float var33 = (float) (z);
         float var34 = (float) (z + 1);
         byte var35 = 0;
         if ((var26 || var27) && !var28 && !var29) {
@@ -1143,53 +1143,53 @@ public class RenderBlocks {
             if (this.blockAccess.isBlockNormalCube(x - 1, y, z) && this.blockAccess.getBlockId(x - 1, y + 1, z) == Block.REDSTONE_WIRE.blockID) {
                 tess.setColorOpaque_F(brightness * var10, brightness * var11, brightness * var12);
                 tess.addVertexWithUV((float) x + 0.015625F, (float) (y + 1) + 0.021875F, z + 1, var17, var19);
-                tess.addVertexWithUV((float) x + 0.015625F, y + 0, z + 1, var15, var19);
-                tess.addVertexWithUV((float) x + 0.015625F, y + 0, z + 0, var15, var21);
-                tess.addVertexWithUV((float) x + 0.015625F, (float) (y + 1) + 0.021875F, z + 0, var17, var21);
+                tess.addVertexWithUV((float) x + 0.015625F, y, z + 1, var15, var19);
+                tess.addVertexWithUV((float) x + 0.015625F, y, z, var15, var21);
+                tess.addVertexWithUV((float) x + 0.015625F, (float) (y + 1) + 0.021875F, z, var17, var21);
                 tess.setColorOpaque_F(brightness, brightness, brightness);
                 tess.addVertexWithUV((float) x + 0.015625F, (float) (y + 1) + 0.021875F, z + 1, var17, var19 + 0.0625D);
-                tess.addVertexWithUV((float) x + 0.015625F, y + 0, z + 1, var15, var19 + 0.0625D);
-                tess.addVertexWithUV((float) x + 0.015625F, y + 0, z + 0, var15, var21 + 0.0625D);
-                tess.addVertexWithUV((float) x + 0.015625F, (float) (y + 1) + 0.021875F, z + 0, var17, var21 + 0.0625D);
+                tess.addVertexWithUV((float) x + 0.015625F, y, z + 1, var15, var19 + 0.0625D);
+                tess.addVertexWithUV((float) x + 0.015625F, y, z, var15, var21 + 0.0625D);
+                tess.addVertexWithUV((float) x + 0.015625F, (float) (y + 1) + 0.021875F, z, var17, var21 + 0.0625D);
             }
 
             if (this.blockAccess.isBlockNormalCube(x + 1, y, z) && this.blockAccess.getBlockId(x + 1, y + 1, z) == Block.REDSTONE_WIRE.blockID) {
                 tess.setColorOpaque_F(brightness * var10, brightness * var11, brightness * var12);
-                tess.addVertexWithUV((float) (x + 1) - 0.015625F, y + 0, z + 1, var15, var21);
+                tess.addVertexWithUV((float) (x + 1) - 0.015625F, y, z + 1, var15, var21);
                 tess.addVertexWithUV((float) (x + 1) - 0.015625F, (float) (y + 1) + 0.021875F, z + 1, var17, var21);
-                tess.addVertexWithUV((float) (x + 1) - 0.015625F, (float) (y + 1) + 0.021875F, z + 0, var17, var19);
-                tess.addVertexWithUV((float) (x + 1) - 0.015625F, y + 0, z + 0, var15, var19);
+                tess.addVertexWithUV((float) (x + 1) - 0.015625F, (float) (y + 1) + 0.021875F, z, var17, var19);
+                tess.addVertexWithUV((float) (x + 1) - 0.015625F, y, z, var15, var19);
                 tess.setColorOpaque_F(brightness, brightness, brightness);
-                tess.addVertexWithUV((float) (x + 1) - 0.015625F, y + 0, z + 1, var15, var21 + 0.0625D);
+                tess.addVertexWithUV((float) (x + 1) - 0.015625F, y, z + 1, var15, var21 + 0.0625D);
                 tess.addVertexWithUV((float) (x + 1) - 0.015625F, (float) (y + 1) + 0.021875F, z + 1, var17, var21 + 0.0625D);
-                tess.addVertexWithUV((float) (x + 1) - 0.015625F, (float) (y + 1) + 0.021875F, z + 0, var17, var19 + 0.0625D);
-                tess.addVertexWithUV((float) (x + 1) - 0.015625F, y + 0, z + 0, var15, var19 + 0.0625D);
+                tess.addVertexWithUV((float) (x + 1) - 0.015625F, (float) (y + 1) + 0.021875F, z, var17, var19 + 0.0625D);
+                tess.addVertexWithUV((float) (x + 1) - 0.015625F, y, z, var15, var19 + 0.0625D);
             }
 
             if (this.blockAccess.isBlockNormalCube(x, y, z - 1) && this.blockAccess.getBlockId(x, y + 1, z - 1) == Block.REDSTONE_WIRE.blockID) {
                 tess.setColorOpaque_F(brightness * var10, brightness * var11, brightness * var12);
-                tess.addVertexWithUV(x + 1, y + 0, (float) z + 0.015625F, var15, var21);
+                tess.addVertexWithUV(x + 1, y, (float) z + 0.015625F, var15, var21);
                 tess.addVertexWithUV(x + 1, (float) (y + 1) + 0.021875F, (float) z + 0.015625F, var17, var21);
-                tess.addVertexWithUV(x + 0, (float) (y + 1) + 0.021875F, (float) z + 0.015625F, var17, var19);
-                tess.addVertexWithUV(x + 0, y + 0, (float) z + 0.015625F, var15, var19);
+                tess.addVertexWithUV(x, (float) (y + 1) + 0.021875F, (float) z + 0.015625F, var17, var19);
+                tess.addVertexWithUV(x, y, (float) z + 0.015625F, var15, var19);
                 tess.setColorOpaque_F(brightness, brightness, brightness);
-                tess.addVertexWithUV(x + 1, y + 0, (float) z + 0.015625F, var15, var21 + 0.0625D);
+                tess.addVertexWithUV(x + 1, y, (float) z + 0.015625F, var15, var21 + 0.0625D);
                 tess.addVertexWithUV(x + 1, (float) (y + 1) + 0.021875F, (float) z + 0.015625F, var17, var21 + 0.0625D);
-                tess.addVertexWithUV(x + 0, (float) (y + 1) + 0.021875F, (float) z + 0.015625F, var17, var19 + 0.0625D);
-                tess.addVertexWithUV(x + 0, y + 0, (float) z + 0.015625F, var15, var19 + 0.0625D);
+                tess.addVertexWithUV(x, (float) (y + 1) + 0.021875F, (float) z + 0.015625F, var17, var19 + 0.0625D);
+                tess.addVertexWithUV(x, y, (float) z + 0.015625F, var15, var19 + 0.0625D);
             }
 
             if (this.blockAccess.isBlockNormalCube(x, y, z + 1) && this.blockAccess.getBlockId(x, y + 1, z + 1) == Block.REDSTONE_WIRE.blockID) {
                 tess.setColorOpaque_F(brightness * var10, brightness * var11, brightness * var12);
                 tess.addVertexWithUV(x + 1, (float) (y + 1) + 0.021875F, (float) (z + 1) - 0.015625F, var17, var19);
-                tess.addVertexWithUV(x + 1, y + 0, (float) (z + 1) - 0.015625F, var15, var19);
-                tess.addVertexWithUV(x + 0, y + 0, (float) (z + 1) - 0.015625F, var15, var21);
-                tess.addVertexWithUV(x + 0, (float) (y + 1) + 0.021875F, (float) (z + 1) - 0.015625F, var17, var21);
+                tess.addVertexWithUV(x + 1, y, (float) (z + 1) - 0.015625F, var15, var19);
+                tess.addVertexWithUV(x, y, (float) (z + 1) - 0.015625F, var15, var21);
+                tess.addVertexWithUV(x, (float) (y + 1) + 0.021875F, (float) (z + 1) - 0.015625F, var17, var21);
                 tess.setColorOpaque_F(brightness, brightness, brightness);
                 tess.addVertexWithUV(x + 1, (float) (y + 1) + 0.021875F, (float) (z + 1) - 0.015625F, var17, var19 + 0.0625D);
-                tess.addVertexWithUV(x + 1, y + 0, (float) (z + 1) - 0.015625F, var15, var19 + 0.0625D);
-                tess.addVertexWithUV(x + 0, y + 0, (float) (z + 1) - 0.015625F, var15, var21 + 0.0625D);
-                tess.addVertexWithUV(x + 0, (float) (y + 1) + 0.021875F, (float) (z + 1) - 0.015625F, var17, var21 + 0.0625D);
+                tess.addVertexWithUV(x + 1, y, (float) (z + 1) - 0.015625F, var15, var19 + 0.0625D);
+                tess.addVertexWithUV(x, y, (float) (z + 1) - 0.015625F, var15, var21 + 0.0625D);
+                tess.addVertexWithUV(x, (float) (y + 1) + 0.021875F, (float) (z + 1) - 0.015625F, var17, var21 + 0.0625D);
             }
         }
 
@@ -1219,33 +1219,33 @@ public class RenderBlocks {
         float var19 = 0.0625F;
         float var20 = (float) (x + 1);
         float var21 = (float) (x + 1);
-        float var22 = (float) (x + 0);
-        float var23 = (float) (x + 0);
-        float var24 = (float) (z + 0);
+        float var22 = (float) (x);
+        float var23 = (float) (x);
+        float var24 = (float) (z);
         float var25 = (float) (z + 1);
         float var26 = (float) (z + 1);
-        float var27 = (float) (z + 0);
+        float var27 = (float) (z);
         float var28 = (float) y + var19;
         float var29 = (float) y + var19;
         float var30 = (float) y + var19;
         float var31 = (float) y + var19;
         if (blockMetadata != 1 && blockMetadata != 2 && blockMetadata != 3 && blockMetadata != 7) {
             if (blockMetadata == 8) {
-                var20 = var21 = (float) (x + 0);
+                var20 = var21 = (float) (x);
                 var22 = var23 = (float) (x + 1);
                 var24 = var27 = (float) (z + 1);
-                var25 = var26 = (float) (z + 0);
+                var25 = var26 = (float) (z);
             } else if (blockMetadata == 9) {
-                var20 = var23 = (float) (x + 0);
+                var20 = var23 = (float) (x);
                 var21 = var22 = (float) (x + 1);
-                var24 = var25 = (float) (z + 0);
+                var24 = var25 = (float) (z);
                 var26 = var27 = (float) (z + 1);
             }
         } else {
             var20 = var23 = (float) (x + 1);
-            var21 = var22 = (float) (x + 0);
+            var21 = var22 = (float) (x);
             var24 = var25 = (float) (z + 1);
-            var26 = var27 = (float) (z + 0);
+            var26 = var27 = (float) (z);
         }
 
         if (blockMetadata != 2 && blockMetadata != 4) {
@@ -1289,30 +1289,30 @@ public class RenderBlocks {
         float var20 = 0.05F;
         if (blockMetadata == 5) {
             tess.addVertexWithUV((float) x + var20, (float) (y + 1) + var19, (float) (z + 1) + var19, var10, var14);
-            tess.addVertexWithUV((float) x + var20, (float) (y + 0) - var19, (float) (z + 1) + var19, var10, var16);
-            tess.addVertexWithUV((float) x + var20, (float) (y + 0) - var19, (float) (z + 0) - var19, var12, var16);
-            tess.addVertexWithUV((float) x + var20, (float) (y + 1) + var19, (float) (z + 0) - var19, var12, var14);
+            tess.addVertexWithUV((float) x + var20, (float) (y) - var19, (float) (z + 1) + var19, var10, var16);
+            tess.addVertexWithUV((float) x + var20, (float) (y) - var19, (float) (z) - var19, var12, var16);
+            tess.addVertexWithUV((float) x + var20, (float) (y + 1) + var19, (float) (z) - var19, var12, var14);
         }
 
         if (blockMetadata == 4) {
-            tess.addVertexWithUV((float) (x + 1) - var20, (float) (y + 0) - var19, (float) (z + 1) + var19, var12, var16);
+            tess.addVertexWithUV((float) (x + 1) - var20, (float) (y) - var19, (float) (z + 1) + var19, var12, var16);
             tess.addVertexWithUV((float) (x + 1) - var20, (float) (y + 1) + var19, (float) (z + 1) + var19, var12, var14);
-            tess.addVertexWithUV((float) (x + 1) - var20, (float) (y + 1) + var19, (float) (z + 0) - var19, var10, var14);
-            tess.addVertexWithUV((float) (x + 1) - var20, (float) (y + 0) - var19, (float) (z + 0) - var19, var10, var16);
+            tess.addVertexWithUV((float) (x + 1) - var20, (float) (y + 1) + var19, (float) (z) - var19, var10, var14);
+            tess.addVertexWithUV((float) (x + 1) - var20, (float) (y) - var19, (float) (z) - var19, var10, var16);
         }
 
         if (blockMetadata == 3) {
-            tess.addVertexWithUV((float) (x + 1) + var19, (float) (y + 0) - var19, (float) z + var20, var12, var16);
+            tess.addVertexWithUV((float) (x + 1) + var19, (float) (y) - var19, (float) z + var20, var12, var16);
             tess.addVertexWithUV((float) (x + 1) + var19, (float) (y + 1) + var19, (float) z + var20, var12, var14);
-            tess.addVertexWithUV((float) (x + 0) - var19, (float) (y + 1) + var19, (float) z + var20, var10, var14);
-            tess.addVertexWithUV((float) (x + 0) - var19, (float) (y + 0) - var19, (float) z + var20, var10, var16);
+            tess.addVertexWithUV((float) (x) - var19, (float) (y + 1) + var19, (float) z + var20, var10, var14);
+            tess.addVertexWithUV((float) (x) - var19, (float) (y) - var19, (float) z + var20, var10, var16);
         }
 
         if (blockMetadata == 2) {
             tess.addVertexWithUV((float) (x + 1) + var19, (float) (y + 1) + var19, (float) (z + 1) - var20, var10, var14);
-            tess.addVertexWithUV((float) (x + 1) + var19, (float) (y + 0) - var19, (float) (z + 1) - var20, var10, var16);
-            tess.addVertexWithUV((float) (x + 0) - var19, (float) (y + 0) - var19, (float) (z + 1) - var20, var12, var16);
-            tess.addVertexWithUV((float) (x + 0) - var19, (float) (y + 1) + var19, (float) (z + 1) - var20, var12, var14);
+            tess.addVertexWithUV((float) (x + 1) + var19, (float) (y) - var19, (float) (z + 1) - var20, var10, var16);
+            tess.addVertexWithUV((float) (x) - var19, (float) (y) - var19, (float) (z + 1) - var20, var12, var16);
+            tess.addVertexWithUV((float) (x) - var19, (float) (y + 1) + var19, (float) (z + 1) - var20, var12, var14);
         }
 
         return true;
@@ -1553,10 +1553,10 @@ public class RenderBlocks {
             float var37 = MathHelper.cos(rad) * 8.0F / 256.0F;
             float var38 = block.getBlockBrightness(this.blockAccess, x, y, z);
             tess.setColorOpaque_F(var15 * var38 * r, var15 * var38 * g, var15 * var38 * b);
-            tess.addVertexWithUV(x + 0, (float) y + var24, z + 0, var32 - (double) var37 - (double) var36, var34 - (double) var37 + (double) var36);
-            tess.addVertexWithUV(x + 0, (float) y + var25, z + 1, var32 - (double) var37 + (double) var36, var34 + (double) var37 + (double) var36);
+            tess.addVertexWithUV(x, (float) y + var24, z, var32 - (double) var37 - (double) var36, var34 - (double) var37 + (double) var36);
+            tess.addVertexWithUV(x, (float) y + var25, z + 1, var32 - (double) var37 + (double) var36, var34 + (double) var37 + (double) var36);
             tess.addVertexWithUV(x + 1, (float) y + var26, z + 1, var32 + (double) var37 + (double) var36, var34 + (double) var37 - (double) var36);
-            tess.addVertexWithUV(x + 1, (float) y + var27, z + 0, var32 + (double) var37 - (double) var36, var34 - (double) var37 - (double) var36);
+            tess.addVertexWithUV(x + 1, (float) y + var27, z, var32 + (double) var37 - (double) var36, var34 - (double) var37 - (double) var36);
         }
 
         if (this.renderAllFaces || var11) {
@@ -1626,7 +1626,7 @@ public class RenderBlocks {
                 }
 
                 var13 = true;
-                double var41 = (float) (var33 + 0) / 256.0F;
+                double var41 = (float) (var33) / 256.0F;
                 double var43 = ((double) (var33 + 16) - 0.01D) / 256.0D;
                 double var45 = ((float) var57 + (1.0F - var35) * 16.0F) / 256.0F;
                 double var47 = ((float) var57 + (1.0F - var58) * 16.0F) / 256.0F;
@@ -1641,8 +1641,8 @@ public class RenderBlocks {
                 tess.setColorOpaque_F(var15 * var51 * r, var15 * var51 * g, var15 * var51 * b);
                 tess.addVertexWithUV(var59, (float) y + var35, var60, var41, var45);
                 tess.addVertexWithUV(var39, (float) y + var58, var40, var43, var47);
-                tess.addVertexWithUV(var39, y + 0, var40, var43, var49);
-                tess.addVertexWithUV(var59, y + 0, var60, var41, var49);
+                tess.addVertexWithUV(var39, y, var40, var43, var49);
+                tess.addVertexWithUV(var59, y, var60, var41, var49);
             }
         }
 

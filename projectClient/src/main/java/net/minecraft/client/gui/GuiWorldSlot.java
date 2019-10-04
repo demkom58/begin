@@ -15,10 +15,12 @@ class GuiWorldSlot extends GuiSlot {
         this.parentWorldGui = selectWorld;
     }
 
+    @Override
     protected int getSize() {
         return GuiSelectWorld.getSize(this.parentWorldGui).size();
     }
 
+    @Override
     protected void elementClicked(int var1, boolean var2) {
         GuiSelectWorld.setSelectedWorld(this.parentWorldGui, var1);
         boolean var3 = GuiSelectWorld.getSelectedWorld(this.parentWorldGui) >= 0
@@ -32,18 +34,22 @@ class GuiWorldSlot extends GuiSlot {
 
     }
 
+    @Override
     protected boolean isSelected(int var1) {
         return var1 == GuiSelectWorld.getSelectedWorld(this.parentWorldGui);
     }
 
+    @Override
     protected int getContentHeight() {
         return GuiSelectWorld.getSize(this.parentWorldGui).size() * 36;
     }
 
+    @Override
     protected void drawBackground() {
         this.parentWorldGui.drawDefaultBackground();
     }
 
+    @Override
     protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator tessellator) {
         SaveFormatData comparator = GuiSelectWorld.getSize(this.parentWorldGui).get(var1);
 

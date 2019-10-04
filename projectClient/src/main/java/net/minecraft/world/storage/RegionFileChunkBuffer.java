@@ -15,6 +15,7 @@ class RegionFileChunkBuffer extends ByteArrayOutputStream {
         this.field_22285_c = var3;
     }
 
+    @Override
     public void close() {
         this.field_22284_a.write(this.field_22283_b, this.field_22285_c, this.buf, this.count);
     }

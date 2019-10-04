@@ -81,7 +81,7 @@ public class PlayerController {
         if (var8 > 0 && Block.BLOCKS_LIST[var8].blockActivated(var2, var4, var5, var6, var1)) {
             return true;
         } else {
-            return var3 == null ? false : var3.useItem(var1, var2, var4, var5, var6, var7);
+            return var3 != null && var3.useItem(var1, var2, var4, var5, var6, var7);
         }
     }
 

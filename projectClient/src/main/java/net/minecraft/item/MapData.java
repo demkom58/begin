@@ -23,6 +23,7 @@ public class MapData extends MapDataBase {
         super(var1);
     }
 
+    @Override
     public void readFromNBT(TagCompound var1) {
         this.field_28178_d = var1.getByte("dimension");
         this.field_28180_b = var1.getInteger("xCenter");
@@ -61,6 +62,7 @@ public class MapData extends MapDataBase {
 
     }
 
+    @Override
     public void writeToNBT(TagCompound var1) {
         var1.setByte("dimension", this.field_28178_d);
         var1.setInteger("xCenter", this.field_28180_b);

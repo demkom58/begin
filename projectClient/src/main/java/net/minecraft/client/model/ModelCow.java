@@ -33,6 +33,7 @@ public class ModelCow extends ModelQuadruped {
         --this.leg4.rotationPointZ;
     }
 
+    @Override
     public void render(float var1, float var2, float var3, float var4, float var5, float var6) {
         super.render(var1, var2, var3, var4, var5, var6);
         this.horn1.render(var6);
@@ -40,6 +41,7 @@ public class ModelCow extends ModelQuadruped {
         this.udders.render(var6);
     }
 
+    @Override
     public void setRotationAngles(float var1, float var2, float var3, float var4, float var5, float var6) {
         super.setRotationAngles(var1, var2, var3, var4, var5, var6);
         this.horn1.rotateAngleY = this.head.rotateAngleY;

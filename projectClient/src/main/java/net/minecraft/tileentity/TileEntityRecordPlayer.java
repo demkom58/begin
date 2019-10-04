@@ -5,11 +5,13 @@ import net.minecraft.nbt.TagCompound;
 public class TileEntityRecordPlayer extends TileEntity {
     public int record;
 
+    @Override
     public void readFromNBT(TagCompound var1) {
         super.readFromNBT(var1);
         this.record = var1.getInteger("Record");
     }
 
+    @Override
     public void writeToNBT(TagCompound var1) {
         super.writeToNBT(var1);
         if (this.record > 0) {

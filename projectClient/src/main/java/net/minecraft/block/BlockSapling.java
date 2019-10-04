@@ -12,6 +12,7 @@ public class BlockSapling extends BlockFlower {
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, var3 * 2.0F, 0.5F + var3);
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         if (!var1.multiplayerWorld) {
             super.updateTick(var1, var2, var3, var4, var5);
@@ -27,6 +28,7 @@ public class BlockSapling extends BlockFlower {
         }
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         var2 = var2 & 3;
         if (var2 == 1) {
@@ -39,7 +41,7 @@ public class BlockSapling extends BlockFlower {
     public void growTree(World var1, int var2, int var3, int var4, Random var5) {
         int var6 = var1.getBlockMetadata(var2, var3, var4) & 3;
         var1.setBlock(var2, var3, var4, 0);
-        Object var7 = null;
+        WorldGenerator var7 = null;
         if (var6 == 1) {
             var7 = new WorldGenTaiga2();
         } else if (var6 == 2) {
@@ -51,12 +53,13 @@ public class BlockSapling extends BlockFlower {
             }
         }
 
-        if (!((WorldGenerator) var7).generate(var1, var5, var2, var3, var4)) {
+        if (!var7.generate(var1, var5, var2, var3, var4)) {
             var1.setBlockAndMetadata(var2, var3, var4, this.blockID, var6);
         }
 
     }
 
+    @Override
     protected int damageDropped(int var1) {
         return var1 & 3;
     }

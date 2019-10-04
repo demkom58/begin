@@ -22,6 +22,7 @@ public class BlockLeaves extends BlockLeavesBase {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public int getRenderColor(int var1) {
         if ((var1 & 1) == 1) {
             return ColorizerFoliage.getFoliageColorPine();
@@ -30,6 +31,7 @@ public class BlockLeaves extends BlockLeavesBase {
         }
     }
 
+    @Override
     public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockMetadata(var2, var3, var4);
         if ((var5 & 1) == 1) {
@@ -44,6 +46,7 @@ public class BlockLeaves extends BlockLeavesBase {
         }
     }
 
+    @Override
     public void onBlockRemoval(World var1, int var2, int var3, int var4) {
         byte var5 = 1;
         int var6 = var5 + 1;
@@ -63,6 +66,7 @@ public class BlockLeaves extends BlockLeavesBase {
 
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         if (!var1.multiplayerWorld) {
             int var6 = var1.getBlockMetadata(var2, var3, var4);
@@ -143,14 +147,17 @@ public class BlockLeaves extends BlockLeavesBase {
         var1.setBlockWithNotify(var2, var3, var4, 0);
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return var1.nextInt(20) == 0 ? 1 : 0;
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Block.SAPLING.blockID;
     }
 
+    @Override
     public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
         if (!var1.multiplayerWorld && var2.getCurrentEquippedItem() != null && var2.getCurrentEquippedItem().itemID == Item.SHEARS.shiftedIndex) {
             var2.addStat(StatList.mineBlockStatArray[this.blockID], 1);
@@ -161,14 +168,17 @@ public class BlockLeaves extends BlockLeavesBase {
 
     }
 
+    @Override
     protected int damageDropped(int var1) {
         return var1 & 3;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return !this.graphicsLevel;
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         return (var2 & 3) == 1 ? this.blockIndexInTexture + 80 : this.blockIndexInTexture;
     }
@@ -178,6 +188,7 @@ public class BlockLeaves extends BlockLeavesBase {
         this.blockIndexInTexture = this.baseIndexInPNG + (var1 ? 0 : 1);
     }
 
+    @Override
     public void onEntityWalking(World var1, int var2, int var3, int var4, Entity var5) {
         super.onEntityWalking(var1, var2, var3, var4, var5);
     }

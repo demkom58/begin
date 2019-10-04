@@ -25,6 +25,7 @@ public class GuiVideoSettings extends GuiScreen {
         this.gameSettings = gameSettings;
     }
 
+    @Override
     public void initGui() {
         StringTranslate translate = StringTranslate.getInstance();
         this.titleText = translate.translateKey("options.videoTitle");
@@ -43,6 +44,7 @@ public class GuiVideoSettings extends GuiScreen {
         this.buttons.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, translate.translateKey("gui.done")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (!button.enabled)
             return;
@@ -63,6 +65,7 @@ public class GuiVideoSettings extends GuiScreen {
         this.setWorldAndResolution(this.mc, var3, var4);
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, this.titleText, this.width / 2, 20, 16777215);

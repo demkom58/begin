@@ -9,6 +9,7 @@ public class ImageBufferDownload implements ImageBuffer {
     private int imageWidth;
     private int imageHeight;
 
+    @Override
     public BufferedImage parseUserSkin(BufferedImage var1) {
         if (var1 == null) {
             return null;

@@ -16,17 +16,18 @@ public class WorldGenClay extends WorldGenerator {
         this.numberOfBlocks = var1;
     }
 
+    @Override
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
         if (var1.getBlockMaterial(var3, var4, var5) != Material.WATER) {
             return false;
         } else {
             float var6 = var2.nextFloat() * 3.1415927F;
-            double var7 = (double) ((float) (var3 + 8) + MathHelper.sin(var6) * (float) this.numberOfBlocks / 8.0F);
-            double var9 = (double) ((float) (var3 + 8) - MathHelper.sin(var6) * (float) this.numberOfBlocks / 8.0F);
-            double var11 = (double) ((float) (var5 + 8) + MathHelper.cos(var6) * (float) this.numberOfBlocks / 8.0F);
-            double var13 = (double) ((float) (var5 + 8) - MathHelper.cos(var6) * (float) this.numberOfBlocks / 8.0F);
-            double var15 = (double) (var4 + var2.nextInt(3) + 2);
-            double var17 = (double) (var4 + var2.nextInt(3) + 2);
+            double var7 = (float) (var3 + 8) + MathHelper.sin(var6) * (float) this.numberOfBlocks / 8.0F;
+            double var9 = (float) (var3 + 8) - MathHelper.sin(var6) * (float) this.numberOfBlocks / 8.0F;
+            double var11 = (float) (var5 + 8) + MathHelper.cos(var6) * (float) this.numberOfBlocks / 8.0F;
+            double var13 = (float) (var5 + 8) - MathHelper.cos(var6) * (float) this.numberOfBlocks / 8.0F;
+            double var15 = var4 + var2.nextInt(3) + 2;
+            double var17 = var4 + var2.nextInt(3) + 2;
 
             for (int var19 = 0; var19 <= this.numberOfBlocks; ++var19) {
                 double var20 = var7 + (var9 - var7) * (double) var19 / (double) this.numberOfBlocks;

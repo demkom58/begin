@@ -105,11 +105,10 @@ public class Explosion {
         }
 
         this.explosionSize = var1;
-        ArrayList var38 = new ArrayList();
-        var38.addAll(this.destroyedBlockPositions);
+        ArrayList<ChunkPosition> var38 = new ArrayList<>(this.destroyedBlockPositions);
         if (this.isFlaming) {
             for (int var40 = var38.size() - 1; var40 >= 0; --var40) {
-                ChunkPosition var41 = (ChunkPosition) var38.get(var40);
+                ChunkPosition var41 = var38.get(var40);
                 int var42 = var41.x;
                 int var45 = var41.y;
                 int var16 = var41.z;

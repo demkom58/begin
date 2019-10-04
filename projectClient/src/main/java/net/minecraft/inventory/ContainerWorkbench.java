@@ -40,10 +40,12 @@ public class ContainerWorkbench extends Container {
         this.onCraftMatrixChanged(this.craftMatrix);
     }
 
+    @Override
     public void onCraftMatrixChanged(IInventory var1) {
         this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix));
     }
 
+    @Override
     public void onCraftGuiClosed(EntityPlayer var1) {
         super.onCraftGuiClosed(var1);
         if (!this.field_20133_c.multiplayerWorld) {
@@ -57,6 +59,7 @@ public class ContainerWorkbench extends Container {
         }
     }
 
+    @Override
     public boolean isUsableByPlayer(EntityPlayer var1) {
         if (this.field_20133_c.getBlockId(this.field_20132_h, this.field_20131_i, this.field_20130_j) != Block.WORKBENCH.blockID) {
             return false;
@@ -65,6 +68,7 @@ public class ContainerWorkbench extends Container {
         }
     }
 
+    @Override
     public ItemStack getStackInSlot(int var1) {
         ItemStack var2 = null;
         Slot var3 = (Slot) this.slots.get(var1);

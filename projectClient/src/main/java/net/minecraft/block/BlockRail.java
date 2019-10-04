@@ -36,19 +36,23 @@ public class BlockRail extends Block {
         return this.isPowered;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
         this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
         return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockMetadata(var2, var3, var4);
         if (var5 >= 2 && var5 <= 5) {
@@ -59,6 +63,7 @@ public class BlockRail extends Block {
 
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (this.isPowered) {
             if (this.blockID == Block.RAIL_POWERED.blockID && (var2 & 8) == 0) {
@@ -71,22 +76,27 @@ public class BlockRail extends Block {
         return this.blockIndexInTexture;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 9;
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 1;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
         return var1.isBlockNormalCube(var2, var3 - 1, var4);
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         if (!var1.multiplayerWorld) {
             this.func_4031_h(var1, var2, var3, var4, true);
@@ -94,6 +104,7 @@ public class BlockRail extends Block {
 
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (!var1.multiplayerWorld) {
             int var6 = var1.getBlockMetadata(var2, var3, var4);
@@ -256,6 +267,7 @@ public class BlockRail extends Block {
         return false;
     }
 
+    @Override
     public int getMobilityFlag() {
         return 0;
     }

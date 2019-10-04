@@ -64,6 +64,7 @@ public class BlockBed extends Block {
         return null;
     }
 
+    @Override
     public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
         if (world.multiplayerWorld)
             return true;
@@ -130,6 +131,7 @@ public class BlockBed extends Block {
         return true;
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var1 == 0) {
             return Block.PLANKS.blockIndexInTexture;
@@ -150,22 +152,27 @@ public class BlockBed extends Block {
         }
     }
 
+    @Override
     public int getRenderType() {
         return 14;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
         this.setBounds();
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         int var6 = var1.getBlockMetadata(var2, var3, var4);
         int var7 = getDirectionFromMetadata(var6);
@@ -182,6 +189,7 @@ public class BlockBed extends Block {
 
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return isBlockFootOfBed(var1) ? 0 : Item.BED.shiftedIndex;
     }
@@ -190,6 +198,7 @@ public class BlockBed extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
         if (!isBlockFootOfBed(var5)) {
             super.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, var6);
@@ -197,6 +206,7 @@ public class BlockBed extends Block {
 
     }
 
+    @Override
     public int getMobilityFlag() {
         return 1;
     }

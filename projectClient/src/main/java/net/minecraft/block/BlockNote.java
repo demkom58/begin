@@ -11,10 +11,12 @@ public class BlockNote extends BlockContainer {
         super(var1, 74, Material.WOOD);
     }
 
+    @Override
     public int getBlockTextureFromSide(int side) {
         return this.blockIndexInTexture;
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower()) {
             boolean var6 = var1.isBlockGettingPowered(var2, var3, var4);
@@ -30,6 +32,7 @@ public class BlockNote extends BlockContainer {
 
     }
 
+    @Override
     public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
         if (var1.multiplayerWorld) {
             return true;
@@ -41,6 +44,7 @@ public class BlockNote extends BlockContainer {
         }
     }
 
+    @Override
     public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
         if (!var1.multiplayerWorld) {
             TileEntityNote var6 = (TileEntityNote) var1.getBlockTileEntity(var2, var3, var4);
@@ -48,10 +52,12 @@ public class BlockNote extends BlockContainer {
         }
     }
 
+    @Override
     protected TileEntity getBlockEntity() {
         return new TileEntityNote();
     }
 
+    @Override
     public void playBlock(World var1, int var2, int var3, int var4, int var5, int var6) {
         float var7 = (float) Math.pow(2.0D, (double) (var6 - 12) / 12.0D);
         String var8 = "harp";

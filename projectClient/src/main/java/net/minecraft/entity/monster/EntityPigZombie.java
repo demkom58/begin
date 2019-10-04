@@ -22,6 +22,7 @@ public class EntityPigZombie extends EntityZombie {
         this.isImmuneToFire = true;
     }
 
+    @Override
     public void onUpdate() {
         this.moveSpeed = this.playerToAttack != null ? 0.95F : 0.5F;
         if (this.randomSoundDelay > 0 && --this.randomSoundDelay == 0) {
@@ -31,28 +32,34 @@ public class EntityPigZombie extends EntityZombie {
         super.onUpdate();
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         return this.worldObj.difficultySetting > 0 && this.worldObj.checkIfAABBIsClear(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.worldObj.isAnyLiquid(this.boundingBox);
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
         var1.setShort("Anger", (short) this.angerLevel);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         this.angerLevel = var1.getShort("Anger");
     }
 
+    @Override
     protected Entity findPlayerToAttack() {
         return this.angerLevel == 0 ? null : super.findPlayerToAttack();
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         if (var1 instanceof EntityPlayer) {
             List var3 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(32.0D, 32.0D, 32.0D));
@@ -77,22 +84,27 @@ public class EntityPigZombie extends EntityZombie {
         this.randomSoundDelay = this.rand.nextInt(40);
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.zombiepig.zpig";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.zombiepig.zpighurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.zombiepig.zpigdeath";
     }
 
+    @Override
     protected int getDropItemId() {
         return Item.PORKCHOP_COOKED.shiftedIndex;
     }
 
+    @Override
     public ItemStack getHeldItem() {
         return defaultHeldItem;
     }

@@ -14,10 +14,12 @@ public class GuiSlider extends GuiButton {
         this.sliderValue = var6;
     }
 
+    @Override
     protected int getHoverState(boolean var1) {
         return 0;
     }
 
+    @Override
     protected void mouseDragged(Minecraft var1, int var2, int var3) {
         if (!this.enabled2)
             return;
@@ -41,6 +43,7 @@ public class GuiSlider extends GuiButton {
         this.drawTexturedModalRect(this.xPosition + (int) (this.sliderValue * (float) (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
     }
 
+    @Override
     public boolean mousePressed(Minecraft mc, int x, int y) {
         if (super.mousePressed(mc, x, y)) {
             this.sliderValue = (float) (x - (this.xPosition + 4)) / (float) (this.width - 8);
@@ -61,6 +64,7 @@ public class GuiSlider extends GuiButton {
         return false;
     }
 
+    @Override
     public void mouseReleased(int var1, int var2) {
         this.dragging = false;
     }

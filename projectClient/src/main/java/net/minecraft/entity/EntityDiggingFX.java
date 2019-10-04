@@ -29,10 +29,12 @@ public class EntityDiggingFX extends EntityFX {
         return this;
     }
 
+    @Override
     public int getFXLayer() {
         return 1;
     }
 
+    @Override
     public void renderParticle(Tessellator tess, float var2, float var3, float var4, float var5, float var6, float var7) {
         float var8 = ((float) (this.particleTextureIndex % 16) + this.particleTextureJitterX / 4.0F) / 16.0F;
         float var9 = var8 + 0.015609375F;

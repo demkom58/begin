@@ -35,15 +35,17 @@ public class GuiAchievements extends GuiScreen {
         this.statFileWriter = var1;
         short var2 = 141;
         short var3 = 141;
-        this.field_27116_m = this.field_27114_o = this.field_27112_q = AchievementList.openInventory.displayColumn * 24 - var2 / 2 - 12;
-        this.field_27115_n = this.field_27113_p = this.field_27111_r = AchievementList.openInventory.displayRow * 24 - var3 / 2;
+        this.field_27116_m = this.field_27114_o = this.field_27112_q = AchievementList.openInventory.displayColumn * 24 - var2 / 2d - 12;
+        this.field_27115_n = this.field_27113_p = this.field_27111_r = AchievementList.openInventory.displayRow * 24 - var3 / 2d;
     }
 
+    @Override
     public void initGui() {
         this.buttons.clear();
         this.buttons.add(new GuiSmallButton(1, this.width / 2 + 24, this.height / 2 + 74, 80, 20, StatCollector.translateToLocal("gui.done")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 1) {
             this.mc.displayGuiScreen(null);
@@ -64,6 +66,7 @@ public class GuiAchievements extends GuiScreen {
 
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         if (mc.mouse.isButtonPressed(0)) {
             int var4 = (this.width - this.field_27121_a) / 2;
@@ -112,6 +115,7 @@ public class GuiAchievements extends GuiScreen {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
 
+    @Override
     public void updateScreen() {
         this.field_27116_m = this.field_27114_o;
         this.field_27115_n = this.field_27113_p;
@@ -334,6 +338,7 @@ public class GuiAchievements extends GuiScreen {
         RenderHelper.disableStandardItemLighting();
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return true;
     }

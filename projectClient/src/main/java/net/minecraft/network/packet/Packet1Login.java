@@ -20,6 +20,7 @@ public class Packet1Login extends Packet {
         this.protocolVersion = var2;
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.protocolVersion = var1.readInt();
         this.username = readString(var1, 16);
@@ -27,6 +28,7 @@ public class Packet1Login extends Packet {
         this.dimension = var1.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeInt(this.protocolVersion);
         writeString(this.username, var1);
@@ -34,10 +36,12 @@ public class Packet1Login extends Packet {
         var1.writeByte(this.dimension);
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.handleLogin(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 4 + this.username.length() + 4 + 5;
     }

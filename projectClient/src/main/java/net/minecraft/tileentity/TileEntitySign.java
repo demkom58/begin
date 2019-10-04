@@ -7,6 +7,7 @@ public class TileEntitySign extends TileEntity {
     public int lineBeingEdited = -1;
     private boolean field_25062_c = true;
 
+    @Override
     public void writeToNBT(TagCompound var1) {
         super.writeToNBT(var1);
         var1.setString("Text1", this.signText[0]);
@@ -15,6 +16,7 @@ public class TileEntitySign extends TileEntity {
         var1.setString("Text4", this.signText[3]);
     }
 
+    @Override
     public void readFromNBT(TagCompound var1) {
         this.field_25062_c = false;
         super.readFromNBT(var1);

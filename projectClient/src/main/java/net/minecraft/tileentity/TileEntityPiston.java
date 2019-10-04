@@ -34,6 +34,7 @@ public class TileEntityPiston extends TileEntity {
         return this.storedBlockID;
     }
 
+    @Override
     public int getBlockMetadata() {
         return this.storedMetadata;
     }
@@ -84,7 +85,7 @@ public class TileEntityPiston extends TileEntity {
                 field_31018_m.addAll(var4);
 
                 for (Entity var6 : field_31018_m) {
-                    var6.moveEntity((double) (var2 * (float) PistonBlockTextures.field_31056_b[this.field_31025_c]), (double) (var2 * (float) PistonBlockTextures.field_31059_c[this.field_31025_c]), (double) (var2 * (float) PistonBlockTextures.field_31058_d[this.field_31025_c]));
+                    var6.moveEntity(var2 * (float) PistonBlockTextures.field_31056_b[this.field_31025_c], var2 * (float) PistonBlockTextures.field_31059_c[this.field_31025_c], var2 * (float) PistonBlockTextures.field_31058_d[this.field_31025_c]);
                 }
 
                 field_31018_m.clear();
@@ -105,6 +106,7 @@ public class TileEntityPiston extends TileEntity {
 
     }
 
+    @Override
     public void updateEntity() {
         this.field_31020_l = this.field_31022_k;
         if (this.field_31020_l >= 1.0F) {
@@ -128,6 +130,7 @@ public class TileEntityPiston extends TileEntity {
         }
     }
 
+    @Override
     public void readFromNBT(TagCompound var1) {
         super.readFromNBT(var1);
         this.storedBlockID = var1.getInteger("blockId");
@@ -137,6 +140,7 @@ public class TileEntityPiston extends TileEntity {
         this.field_31024_i = var1.getBoolean("extending");
     }
 
+    @Override
     public void writeToNBT(TagCompound var1) {
         super.writeToNBT(var1);
         var1.setInteger("blockId", this.storedBlockID);

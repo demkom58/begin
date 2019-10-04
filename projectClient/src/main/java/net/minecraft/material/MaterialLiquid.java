@@ -7,14 +7,17 @@ public class MaterialLiquid extends Material {
         this.setNoPushMobility();
     }
 
+    @Override
     public boolean getIsLiquid() {
         return true;
     }
 
+    @Override
     public boolean getIsSolid() {
         return false;
     }
 
+    @Override
     public boolean isSolid() {
         return false;
     }

@@ -40,6 +40,7 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         if (this.field_27028_b == 2) {
@@ -80,15 +81,19 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     protected void readEntityFromNBT(TagCompound var1) {
     }
 
+    @Override
     protected void writeEntityToNBT(TagCompound var1) {
     }
 
+    @Override
     public boolean isInRangeToRenderVec3D(Vec3D var1) {
         return this.field_27028_b >= 0;
     }

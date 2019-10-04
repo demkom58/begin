@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class Packet31RelEntityMove extends Packet30Entity {
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         super.readPacketData(var1);
         this.xPosition = var1.readByte();
@@ -12,6 +13,7 @@ public class Packet31RelEntityMove extends Packet30Entity {
         this.zPosition = var1.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         super.writePacketData(var1);
         var1.writeByte(this.xPosition);
@@ -19,6 +21,7 @@ public class Packet31RelEntityMove extends Packet30Entity {
         var1.writeByte(this.zPosition);
     }
 
+    @Override
     public int getPacketSize() {
         return 7;
     }

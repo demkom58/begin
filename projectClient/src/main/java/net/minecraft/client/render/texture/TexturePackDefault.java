@@ -23,6 +23,7 @@ public class TexturePackDefault extends TexturePackBase {
 
     }
 
+    @Override
     public void func_6484_b(Minecraft var1) {
         if (this.texturePackThumbnail != null) {
             var1.renderEngine.deleteTexture(this.texturePackName);
@@ -30,6 +31,7 @@ public class TexturePackDefault extends TexturePackBase {
 
     }
 
+    @Override
     public void bindThumbnailTexture(Minecraft var1) {
         if (this.texturePackThumbnail != null && this.texturePackName < 0) {
             this.texturePackName = var1.renderEngine.allocateAndSetupTexture(this.texturePackThumbnail);

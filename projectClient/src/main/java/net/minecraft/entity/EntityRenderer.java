@@ -720,14 +720,14 @@ public class EntityRenderer {
                         float var36 = world.getLightBrightness(x, var23, z);
                         GL11.glColor4f(var36, var36, var36, ((1.0F - var35 * var35) * 0.3F + 0.5F) * rainStrength);
                         tess.setTranslationD(-var9 * 1.0D, -var11 * 1.0D, -var13 * 1.0D);
-                        tess.addVertexWithUV(x + 0, var24, (double) z + 0.5D, 0.0F * var26 + var29, (float) var24 * var26 / 4.0F + var28 * var26 + var30);
+                        tess.addVertexWithUV(x, var24, (double) z + 0.5D, 0.0F * var26 + var29, (float) var24 * var26 / 4.0F + var28 * var26 + var30);
                         tess.addVertexWithUV(x + 1, var24, (double) z + 0.5D, 1.0F * var26 + var29, (float) var24 * var26 / 4.0F + var28 * var26 + var30);
                         tess.addVertexWithUV(x + 1, var25, (double) z + 0.5D, 1.0F * var26 + var29, (float) var25 * var26 / 4.0F + var28 * var26 + var30);
-                        tess.addVertexWithUV(x + 0, var25, (double) z + 0.5D, 0.0F * var26 + var29, (float) var25 * var26 / 4.0F + var28 * var26 + var30);
-                        tess.addVertexWithUV((double) x + 0.5D, var24, z + 0, 0.0F * var26 + var29, (float) var24 * var26 / 4.0F + var28 * var26 + var30);
+                        tess.addVertexWithUV(x, var25, (double) z + 0.5D, 0.0F * var26 + var29, (float) var25 * var26 / 4.0F + var28 * var26 + var30);
+                        tess.addVertexWithUV((double) x + 0.5D, var24, z, 0.0F * var26 + var29, (float) var24 * var26 / 4.0F + var28 * var26 + var30);
                         tess.addVertexWithUV((double) x + 0.5D, var24, z + 1, 1.0F * var26 + var29, (float) var24 * var26 / 4.0F + var28 * var26 + var30);
                         tess.addVertexWithUV((double) x + 0.5D, var25, z + 1, 1.0F * var26 + var29, (float) var25 * var26 / 4.0F + var28 * var26 + var30);
-                        tess.addVertexWithUV((double) x + 0.5D, var25, z + 0, 0.0F * var26 + var29, (float) var25 * var26 / 4.0F + var28 * var26 + var30);
+                        tess.addVertexWithUV((double) x + 0.5D, var25, z, 0.0F * var26 + var29, (float) var25 * var26 / 4.0F + var28 * var26 + var30);
                         tess.setTranslationD(0.0D, 0.0D, 0.0D);
                         tess.draw();
                     }
@@ -768,14 +768,14 @@ public class EntityRenderer {
                         float var32 = world.getLightBrightness(var38, 128, var39) * 0.85F + 0.15F;
                         GL11.glColor4f(var32, var32, var32, ((1.0F - var48 * var48) * 0.5F + 0.5F) * rainStrength);
                         tess.setTranslationD(-var9 * 1.0D, -var11 * 1.0D, -var13 * 1.0D);
-                        tess.addVertexWithUV(var38 + 0, var42, (double) var39 + 0.5D, 0.0F * var44, (float) var42 * var44 / 4.0F + var45 * var44);
+                        tess.addVertexWithUV(var38, var42, (double) var39 + 0.5D, 0.0F * var44, (float) var42 * var44 / 4.0F + var45 * var44);
                         tess.addVertexWithUV(var38 + 1, var42, (double) var39 + 0.5D, 1.0F * var44, (float) var42 * var44 / 4.0F + var45 * var44);
                         tess.addVertexWithUV(var38 + 1, var43, (double) var39 + 0.5D, 1.0F * var44, (float) var43 * var44 / 4.0F + var45 * var44);
-                        tess.addVertexWithUV(var38 + 0, var43, (double) var39 + 0.5D, 0.0F * var44, (float) var43 * var44 / 4.0F + var45 * var44);
-                        tess.addVertexWithUV((double) var38 + 0.5D, var42, var39 + 0, 0.0F * var44, (float) var42 * var44 / 4.0F + var45 * var44);
+                        tess.addVertexWithUV(var38, var43, (double) var39 + 0.5D, 0.0F * var44, (float) var43 * var44 / 4.0F + var45 * var44);
+                        tess.addVertexWithUV((double) var38 + 0.5D, var42, var39, 0.0F * var44, (float) var42 * var44 / 4.0F + var45 * var44);
                         tess.addVertexWithUV((double) var38 + 0.5D, var42, var39 + 1, 1.0F * var44, (float) var42 * var44 / 4.0F + var45 * var44);
                         tess.addVertexWithUV((double) var38 + 0.5D, var43, var39 + 1, 1.0F * var44, (float) var43 * var44 / 4.0F + var45 * var44);
-                        tess.addVertexWithUV((double) var38 + 0.5D, var43, var39 + 0, 0.0F * var44, (float) var43 * var44 / 4.0F + var45 * var44);
+                        tess.addVertexWithUV((double) var38 + 0.5D, var43, var39, 0.0F * var44, (float) var43 * var44 / 4.0F + var45 * var44);
                         tess.setTranslationD(0.0D, 0.0D, 0.0D);
                         tess.draw();
                     }

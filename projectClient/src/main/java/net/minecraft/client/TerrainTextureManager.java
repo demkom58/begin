@@ -50,7 +50,7 @@ public class TerrainTextureManager {
                         ++var9;
                     }
 
-                    this.field_1181_a[var3 * 3 + 0] = (float) (var4 / var9);
+                    this.field_1181_a[var3 * 3] = (float) (var4 / var9);
                     this.field_1181_a[var3 * 3 + 1] = (float) (var5 / var9);
                     this.field_1181_a[var3 * 3 + 2] = (float) (var6 / var9);
                 }
@@ -61,7 +61,7 @@ public class TerrainTextureManager {
 
         for (int var15 = 0; var15 < 256; ++var15) {
             if (Block.BLOCKS_LIST[var15] != null) {
-                this.field_1182_g[var15 * 3 + 0] = Block.BLOCKS_LIST[var15].getBlockTextureFromSide(1);
+                this.field_1182_g[var15 * 3] = Block.BLOCKS_LIST[var15].getBlockTextureFromSide(1);
                 this.field_1182_g[var15 * 3 + 1] = Block.BLOCKS_LIST[var15].getBlockTextureFromSide(2);
                 this.field_1182_g[var15 * 3 + 2] = Block.BLOCKS_LIST[var15].getBlockTextureFromSide(3);
             }
@@ -136,18 +136,18 @@ public class TerrainTextureManager {
                                     float var17 = (float) var14 / 127.0F * 0.6F + 0.4F;
                                     if (var15 >= 0 && var15 < 160) {
                                         int var18 = var12 + var15 * 32;
-                                        int var19 = this.field_1182_g[var16.blockID * 3 + 0];
+                                        int var19 = this.field_1182_g[var16.blockID * 3];
                                         float var20 = (var2.getLightBrightness(var9, var14 + 1, var8) * 0.8F + 0.2F) * var17;
                                         if (var12 >= 0 && this.field_1186_c[var18] <= var14) {
                                             this.field_1186_c[var18] = var14;
-                                            this.field_1180_b[var18] = -16777216 | (int) (this.field_1181_a[var19 * 3 + 0] * var20) << 16 | (int) (this.field_1181_a[var19 * 3 + 1] * var20) << 8 | (int) (this.field_1181_a[var19 * 3 + 2] * var20);
+                                            this.field_1180_b[var18] = -16777216 | (int) (this.field_1181_a[var19 * 3] * var20) << 16 | (int) (this.field_1181_a[var19 * 3 + 1] * var20) << 8 | (int) (this.field_1181_a[var19 * 3 + 2] * var20);
                                         }
 
                                         if (var12 < 31) {
                                             float var22 = var20 * 0.9F;
                                             if (this.field_1186_c[var18 + 1] <= var14) {
                                                 this.field_1186_c[var18 + 1] = var14;
-                                                this.field_1180_b[var18 + 1] = -16777216 | (int) (this.field_1181_a[var19 * 3 + 0] * var22) << 16 | (int) (this.field_1181_a[var19 * 3 + 1] * var22) << 8 | (int) (this.field_1181_a[var19 * 3 + 2] * var22);
+                                                this.field_1180_b[var18 + 1] = -16777216 | (int) (this.field_1181_a[var19 * 3] * var22) << 16 | (int) (this.field_1181_a[var19 * 3 + 1] * var22) << 8 | (int) (this.field_1181_a[var19 * 3 + 2] * var22);
                                             }
                                         }
                                     }
@@ -162,7 +162,7 @@ public class TerrainTextureManager {
                                             float var23 = var29 * var17 * 0.6F;
                                             if (this.field_1186_c[var25] <= var14 - 1) {
                                                 this.field_1186_c[var25] = var14 - 1;
-                                                this.field_1180_b[var25] = -16777216 | (int) (this.field_1181_a[var27 * 3 + 0] * var23) << 16 | (int) (this.field_1181_a[var27 * 3 + 1] * var23) << 8 | (int) (this.field_1181_a[var27 * 3 + 2] * var23);
+                                                this.field_1180_b[var25] = -16777216 | (int) (this.field_1181_a[var27 * 3] * var23) << 16 | (int) (this.field_1181_a[var27 * 3 + 1] * var23) << 8 | (int) (this.field_1181_a[var27 * 3 + 2] * var23);
                                             }
                                         }
 
@@ -170,7 +170,7 @@ public class TerrainTextureManager {
                                             float var32 = var31 * 0.9F * var17 * 0.4F;
                                             if (this.field_1186_c[var25 + 1] <= var14 - 1) {
                                                 this.field_1186_c[var25 + 1] = var14 - 1;
-                                                this.field_1180_b[var25 + 1] = -16777216 | (int) (this.field_1181_a[var21 * 3 + 0] * var32) << 16 | (int) (this.field_1181_a[var21 * 3 + 1] * var32) << 8 | (int) (this.field_1181_a[var21 * 3 + 2] * var32);
+                                                this.field_1180_b[var25 + 1] = -16777216 | (int) (this.field_1181_a[var21 * 3] * var32) << 16 | (int) (this.field_1181_a[var21 * 3 + 1] * var32) << 8 | (int) (this.field_1181_a[var21 * 3 + 2] * var32);
                                             }
                                         }
                                     }

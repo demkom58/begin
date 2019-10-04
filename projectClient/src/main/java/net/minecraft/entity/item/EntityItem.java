@@ -26,9 +26,9 @@ public class EntityItem extends Entity {
         this.setPosition(var2, var4, var6);
         this.item = var8;
         this.rotationYaw = (float) (Math.random() * 360.0D);
-        this.motionX = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
+        this.motionX = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D);
         this.motionY = 0.20000000298023224D;
-        this.motionZ = (double) ((float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D));
+        this.motionZ = (float) (Math.random() * 0.20000000298023224D - 0.10000000149011612D);
     }
 
     public EntityItem(World var1) {
@@ -37,13 +37,16 @@ public class EntityItem extends Entity {
         this.yOffset = this.height / 2.0F;
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         if (this.delayBeforeCanPickup > 0) {
@@ -56,8 +59,8 @@ public class EntityItem extends Entity {
         this.motionY -= 0.03999999910593033D;
         if (this.worldObj.getBlockMaterial(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) == Material.LAVA) {
             this.motionY = 0.20000000298023224D;
-            this.motionX = (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
-            this.motionZ = (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+            this.motionX = (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F;
+            this.motionZ = (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F;
             this.worldObj.playSoundAtEntity(this, "random.fizz", 0.4F, 2.0F + this.rand.nextFloat() * 0.4F);
         }
 
@@ -72,9 +75,9 @@ public class EntityItem extends Entity {
             }
         }
 
-        this.motionX *= (double) var1;
+        this.motionX *= var1;
         this.motionY *= 0.9800000190734863D;
-        this.motionZ *= (double) var1;
+        this.motionZ *= var1;
         if (this.onGround) {
             this.motionY *= -0.5D;
         }
@@ -87,14 +90,17 @@ public class EntityItem extends Entity {
 
     }
 
+    @Override
     public boolean handleWaterMovement() {
         return this.worldObj.handleMaterialAcceleration(this.boundingBox, Material.WATER, this);
     }
 
+    @Override
     protected void dealFireDamage(int var1) {
         this.attackEntityFrom(null, var1);
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         this.setBeenAttacked();
         this.health -= var2;
@@ -105,12 +111,14 @@ public class EntityItem extends Entity {
         return false;
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
-        var1.setShort("Health", (short) ((byte) this.health));
+        var1.setShort("Health", (byte) this.health);
         var1.setShort("Age", (short) this.age);
         var1.setCompoundTag("Item", this.item.writeToNBT(new TagCompound()));
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         this.health = var1.getShort("Health") & 255;
         this.age = var1.getShort("Age");
@@ -118,6 +126,7 @@ public class EntityItem extends Entity {
         this.item = new ItemStack(var2);
     }
 
+    @Override
     public void onCollideWithPlayer(EntityPlayer var1) {
         if (!this.worldObj.multiplayerWorld) {
             int var2 = this.item.stackSize;

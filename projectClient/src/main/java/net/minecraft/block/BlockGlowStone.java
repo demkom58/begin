@@ -10,10 +10,12 @@ public class BlockGlowStone extends Block {
         super(var1, var2, var3);
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 2 + var1.nextInt(3);
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Item.LIGHT_STONE_DUST.shiftedIndex;
     }

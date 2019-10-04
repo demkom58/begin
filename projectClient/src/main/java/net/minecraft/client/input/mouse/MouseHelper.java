@@ -2,11 +2,8 @@ package net.minecraft.client.input.mouse;
 
 import net.hypnosis.input.mouse.Mouse;
 import net.hypnosis.monitor.Window;
-import net.minecraft.client.render.GLAllocation;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
-
-import java.nio.IntBuffer;
 
 public class MouseHelper {
     private final Window window;

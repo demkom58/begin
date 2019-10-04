@@ -17,20 +17,24 @@ public class GuiInventory extends GuiContainer {
         player.addStat(AchievementList.openInventory, 1);
     }
 
+    @Override
     public void initGui() {
         this.buttons.clear();
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer() {
         this.fontRenderer.drawString("Crafting", 86, 16, 4210752);
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         super.drawScreen(var1, var2, var3);
         this.xSize_lo = (float) var1;
         this.ySize_lo = (float) var2;
     }
 
+    @Override
     protected void drawGuiContainerBackgroundLayer(float var1) {
         int var2 = this.mc.renderEngine.getTexture("/gui/inventory.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -70,6 +74,7 @@ public class GuiInventory extends GuiContainer {
         GL11.glDisable(GL15.GL_RESCALE_NORMAL);
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiAchievements(this.mc.statFileWriter));

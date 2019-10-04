@@ -85,7 +85,7 @@ public class Material {
     }
 
     public boolean getIsTranslucent() {
-        return this.isOpaque ? false : this.getIsSolid();
+        return !this.isOpaque && this.getIsSolid();
     }
 
     public boolean getIsHarvestable() {

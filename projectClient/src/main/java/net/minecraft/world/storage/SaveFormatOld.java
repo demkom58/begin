@@ -35,10 +35,12 @@ public class SaveFormatOld implements ISaveFormat {
         }
     }
 
+    @Override
     public String getFormatName() {
         return "Old Format";
     }
 
+    @Override
     public List<SaveFormatData> readSaveFormatData() {
         final List<SaveFormatData> comparators = new ArrayList<>();
 
@@ -52,9 +54,11 @@ public class SaveFormatOld implements ISaveFormat {
         return comparators;
     }
 
+    @Override
     public void flushCache() {
     }
 
+    @Override
     public WorldInfo readWorldInfo(String worldName) {
         File worldDirectory = new File(this.worldsDirectory, worldName);
         if (!worldDirectory.exists())
@@ -85,6 +89,7 @@ public class SaveFormatOld implements ISaveFormat {
         return null;
     }
 
+    @Override
     public void setLevelName(String worldName, String levelName) {
         File worldDirectory = new File(this.worldsDirectory, worldName);
         if (!worldDirectory.exists())
@@ -104,6 +109,7 @@ public class SaveFormatOld implements ISaveFormat {
         }
     }
 
+    @Override
     public void removeWorld(String worldName) {
         File worldDirectory = new File(this.worldsDirectory, worldName);
         if (worldDirectory.exists()) {
@@ -112,14 +118,17 @@ public class SaveFormatOld implements ISaveFormat {
         }
     }
 
+    @Override
     public ISaveHandler getSaveLoader(String var1, boolean var2) {
         return new SaveHandler(this.worldsDirectory, var1, var2);
     }
 
+    @Override
     public boolean isOldMapFormat(String var1) {
         return false;
     }
 
+    @Override
     public boolean convertMapFormat(String var1, IProgressUpdatable updatable) {
         return false;
     }

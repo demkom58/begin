@@ -27,6 +27,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         return var1 >= this.curChunkX - var3 && var2 >= this.curChunkY - var3 && var1 <= this.curChunkX + var3 && var2 <= this.curChunkY + var3;
     }
 
+    @Override
     public boolean chunkExists(int x, int z) {
         if (!this.canChunkExist(x, z)) {
             return false;
@@ -40,10 +41,12 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         }
     }
 
+    @Override
     public Chunk prepareChunk(int x, int z) {
         return this.provideChunk(x, z);
     }
 
+    @Override
     public Chunk provideChunk(int x, int z) {
         if (x == this.lastQueriedChunkXPos && z == this.lastQueriedChunkZPos && this.lastQueriedChunk != null) {
             return this.lastQueriedChunk;
@@ -141,6 +144,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         }
     }
 
+    @Override
     public void populate(IChunkProvider provider, int x, int z) {
         Chunk var4 = this.provideChunk(x, z);
         if (!var4.isTerrainPopulated) {
@@ -153,6 +157,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
 
     }
 
+    @Override
     public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
         int var3 = 0;
         int var4 = 0;
@@ -201,6 +206,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         return true;
     }
 
+    @Override
     public boolean unload100OldestChunks() {
         if (this.chunkLoader != null) {
             this.chunkLoader.func_814_a();
@@ -209,10 +215,12 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         return this.chunkProvider.unload100OldestChunks();
     }
 
+    @Override
     public boolean canSave() {
         return true;
     }
 
+    @Override
     public String makeString() {
         return "ChunkCache: " + this.chunks.length;
     }

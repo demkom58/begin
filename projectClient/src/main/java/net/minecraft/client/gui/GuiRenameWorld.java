@@ -14,10 +14,12 @@ public class GuiRenameWorld extends GuiScreen {
         this.worldName = worldName;
     }
 
+    @Override
     public void updateScreen() {
         this.renameField.updateCursorCounter();
     }
 
+    @Override
     public void initGui() {
         StringTranslate translate = StringTranslate.getInstance();
         this.buttons.clear();
@@ -32,8 +34,10 @@ public class GuiRenameWorld extends GuiScreen {
         this.renameField.setMaxStringLength(32);
     }
 
+    @Override
     public void onGuiClosed() { }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (!button.enabled)
             return;
@@ -61,11 +65,13 @@ public class GuiRenameWorld extends GuiScreen {
         this.renameField.keyTyped(keycode, scancode, action, mods);
     }
 
+    @Override
     protected void mouseClicked(int x, int y, int button) {
         super.mouseClicked(x, y, button);
         this.renameField.mouseClicked(x, y, button);
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         StringTranslate translate = StringTranslate.getInstance();
         this.drawDefaultBackground();

@@ -10,6 +10,7 @@ class NetworkWriterThread extends Thread {
         this.netManager = networkManager;
     }
 
+    @Override
     public void run() {
         synchronized (NetworkManager.threadSyncObject) {
             ++NetworkManager.numWriteThreads;
@@ -29,7 +30,7 @@ class NetworkWriterThread extends Thread {
 
                 try {
                     sleep(100L);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ignored) {
                 }
 
                 try {

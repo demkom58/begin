@@ -29,6 +29,7 @@ public class BlockPistonExtension extends Block {
         this.field_31053_a = -1;
     }
 
+    @Override
     public void onBlockRemoval(World var1, int var2, int var3, int var4) {
         super.onBlockRemoval(var1, var2, var3, var4);
         int var5 = var1.getBlockMetadata(var2, var3, var4);
@@ -47,6 +48,7 @@ public class BlockPistonExtension extends Block {
 
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         int var3 = func_31050_c(var2);
         if (var1 == var3) {
@@ -60,30 +62,37 @@ public class BlockPistonExtension extends Block {
         }
     }
 
+    @Override
     public int getRenderType() {
         return 17;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World var1, int var2, int var3, int var4, int var5) {
         return false;
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return 0;
     }
 
+    @Override
     public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList var6) {
         int var7 = var1.getBlockMetadata(var2, var3, var4);
         switch (func_31050_c(var7)) {
@@ -127,6 +136,7 @@ public class BlockPistonExtension extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
         int var5 = var1.getBlockMetadata(var2, var3, var4);
         switch (func_31050_c(var5)) {
@@ -151,6 +161,7 @@ public class BlockPistonExtension extends Block {
 
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         int var6 = func_31050_c(var1.getBlockMetadata(var2, var3, var4));
         int var7 = var1.getBlockId(var2 - PistonBlockTextures.field_31056_b[var6], var3 - PistonBlockTextures.field_31059_c[var6], var4 - PistonBlockTextures.field_31058_d[var6]);

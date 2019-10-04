@@ -16,10 +16,12 @@ class SlotArmor extends Slot {
         this.armorType = var6;
     }
 
+    @Override
     public int getSlotStackLimit() {
         return 1;
     }
 
+    @Override
     public boolean isItemValid(ItemStack var1) {
         if (var1.getItem() instanceof ItemArmor) {
             return ((ItemArmor) var1.getItem()).armorType == this.armorType;

@@ -16,18 +16,22 @@ public class BlockFarmland extends Block {
         this.setLightOpacity(255);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-        return AxisAlignedBB.getBoundingBoxFromPool((double) (var2 + 0), (double) (var3 + 0), (double) (var4 + 0), (double) (var2 + 1), (double) (var3 + 1), (double) (var4 + 1));
+        return AxisAlignedBB.getBoundingBoxFromPool(var2, var3, var4, var2 + 1, var3 + 1, var4 + 1);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var1 == 1 && var2 > 0) {
             return this.blockIndexInTexture - 1;
@@ -36,6 +40,7 @@ public class BlockFarmland extends Block {
         }
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         if (var5.nextInt(5) == 0) {
             if (!this.isWaterNearby(var1, var2, var3, var4) && !var1.canBlockBeRainedOn(var2, var3 + 1, var4)) {
@@ -52,6 +57,7 @@ public class BlockFarmland extends Block {
 
     }
 
+    @Override
     public void onEntityWalking(World var1, int var2, int var3, int var4, Entity var5) {
         if (var1.rand.nextInt(4) == 0) {
             var1.setBlockWithNotify(var2, var3, var4, Block.DIRT.blockID);
@@ -87,6 +93,7 @@ public class BlockFarmland extends Block {
         return false;
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         super.onNeighborBlockChange(var1, var2, var3, var4, var5);
         Material var6 = var1.getBlockMaterial(var2, var3 + 1, var4);
@@ -96,6 +103,7 @@ public class BlockFarmland extends Block {
 
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Block.DIRT.idDropped(0, var2);
     }

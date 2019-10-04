@@ -9,6 +9,7 @@ public class BlockSponge extends Block {
         this.blockIndexInTexture = 48;
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         byte var5 = 2;
 
@@ -23,6 +24,7 @@ public class BlockSponge extends Block {
 
     }
 
+    @Override
     public void onBlockRemoval(World var1, int var2, int var3, int var4) {
         byte var5 = 2;
 

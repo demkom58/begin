@@ -36,12 +36,9 @@ public class SaveHandler implements ISaveHandler {
     private void writeSession() {
         try {
             File sessionFile = new File(this.saveDirectory, "session.lock");
-            DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(sessionFile));
 
-            try {
+            try (DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(sessionFile))) {
                 outputStream.writeLong(this.lockTime);
-            } finally {
-                outputStream.close();
             }
 
         } catch (IOException e) {
@@ -54,16 +51,14 @@ public class SaveHandler implements ISaveHandler {
         return this.saveDirectory;
     }
 
+    @Override
     public void validateSession() throws MinecraftException {
         try {
             File sessionFile = new File(this.saveDirectory, "session.lock");
-            DataInputStream sessionInput = new DataInputStream(new FileInputStream(sessionFile));
 
-            try {
+            try (DataInputStream sessionInput = new DataInputStream(new FileInputStream(sessionFile))) {
                 if (sessionInput.readLong() != this.lockTime)
                     throw new MinecraftException("The save is being accessed from another location, aborting");
-            } finally {
-                sessionInput.close();
             }
 
         } catch (IOException e) {
@@ -71,6 +66,7 @@ public class SaveHandler implements ISaveHandler {
         }
     }
 
+    @Override
     public IChunkLoader getChunkLoader(WorldProvider provider) {
         if (provider instanceof WorldProviderHell) {
             File file = new File(this.saveDirectory, "DIM-1");
@@ -81,6 +77,7 @@ public class SaveHandler implements ISaveHandler {
         return new ChunkLoader(this.saveDirectory, true);
     }
 
+    @Override
     public WorldInfo loadWorldInfo() {
         File levelFile = new File(this.saveDirectory, "level.dat");
         if (levelFile.exists()) {
@@ -107,6 +104,7 @@ public class SaveHandler implements ISaveHandler {
         return null;
     }
 
+    @Override
     public void saveWorldInfoAndPlayer(WorldInfo worldInfo, List<EntityPlayer> players) {
         TagCompound var3 = worldInfo.getNBTTagCompoundWithPlayer(players);
         TagCompound var4 = new TagCompound();
@@ -136,6 +134,7 @@ public class SaveHandler implements ISaveHandler {
 
     }
 
+    @Override
     public void saveWorldInfo(WorldInfo worldInfo) {
         TagCompound var2 = worldInfo.getNBTTagCompound();
         TagCompound var3 = new TagCompound();
@@ -166,6 +165,7 @@ public class SaveHandler implements ISaveHandler {
 
     }
 
+    @Override
     public File func_28113_a(String var1) {
         return new File(this.dataDirectory, var1 + ".dat");
     }

@@ -18,6 +18,7 @@ public class EntityFootStepFX extends EntityFX {
         this.field_27020_o = 200;
     }
 
+    @Override
     public void renderParticle(Tessellator var1, float var2, float var3, float var4, float var5, float var6, float var7) {
         float var8 = ((float) this.field_27018_a + var2) / (float) this.field_27020_o;
         var8 = var8 * var8;
@@ -47,6 +48,7 @@ public class EntityFootStepFX extends EntityFX {
         GL11.glEnable(GL11.GL_LIGHTING);
     }
 
+    @Override
     public void onUpdate() {
         ++this.field_27018_a;
         if (this.field_27018_a == this.field_27020_o) {
@@ -55,6 +57,7 @@ public class EntityFootStepFX extends EntityFX {
 
     }
 
+    @Override
     public int getFXLayer() {
         return 3;
     }

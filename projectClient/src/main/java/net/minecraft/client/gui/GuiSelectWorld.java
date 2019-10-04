@@ -75,6 +75,7 @@ public class GuiSelectWorld extends GuiScreen {
         return var0.screenConversion;
     }
 
+    @Override
     public void initGui() {
         StringTranslate translate = StringTranslate.getInstance();
 
@@ -121,6 +122,7 @@ public class GuiSelectWorld extends GuiScreen {
         this.buttonDelete.enabled = false;
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (!button.enabled)
             return;
@@ -166,6 +168,7 @@ public class GuiSelectWorld extends GuiScreen {
         this.mc.displayGuiScreen(null);
     }
 
+    @Override
     public void deleteWorld(boolean var1, int var2) {
         if (!this.deleting)
             return;
@@ -181,6 +184,7 @@ public class GuiSelectWorld extends GuiScreen {
         this.mc.displayGuiScreen(this);
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.worldSlotContainer.drawScreen(var1, var2, var3);
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);

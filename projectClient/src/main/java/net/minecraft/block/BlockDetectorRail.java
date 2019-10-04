@@ -15,14 +15,17 @@ public class BlockDetectorRail extends BlockRail {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public int tickRate() {
         return 20;
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
         if (!var1.multiplayerWorld) {
             int var6 = var1.getBlockMetadata(var2, var3, var4);
@@ -32,6 +35,7 @@ public class BlockDetectorRail extends BlockRail {
         }
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         if (!var1.multiplayerWorld) {
             int var6 = var1.getBlockMetadata(var2, var3, var4);
@@ -41,10 +45,12 @@ public class BlockDetectorRail extends BlockRail {
         }
     }
 
+    @Override
     public boolean isPoweringTo(IBlockAccess var1, int var2, int var3, int var4, int var5) {
         return (var1.getBlockMetadata(var2, var3, var4) & 8) != 0;
     }
 
+    @Override
     public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
         if ((var1.getBlockMetadata(var2, var3, var4) & 8) == 0) {
             return false;
@@ -57,7 +63,7 @@ public class BlockDetectorRail extends BlockRail {
         boolean var6 = (var5 & 8) != 0;
         boolean var7 = false;
         float var8 = 0.125F;
-        List var9 = var1.getEntitiesWithinAABB(EntityMinecart.class, AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var8), (double) var3, (double) ((float) var4 + var8), (double) ((float) (var2 + 1) - var8), (double) var3 + 0.25D, (double) ((float) (var4 + 1) - var8)));
+        List var9 = var1.getEntitiesWithinAABB(EntityMinecart.class, AxisAlignedBB.getBoundingBoxFromPool((float) var2 + var8, var3, (float) var4 + var8, (float) (var2 + 1) - var8, (double) var3 + 0.25D, (float) (var4 + 1) - var8));
         if (var9.size() > 0) {
             var7 = true;
         }

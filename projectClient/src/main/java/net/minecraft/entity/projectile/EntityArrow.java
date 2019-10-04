@@ -46,17 +46,18 @@ public class EntityArrow extends Entity {
         this.doesArrowBelongToPlayer = var2 instanceof EntityPlayer;
         this.setSize(0.5F, 0.5F);
         this.setLocationAndAngles(var2.posX, var2.posY + (double) var2.getEyeHeight(), var2.posZ, var2.rotationYaw, var2.rotationPitch);
-        this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
+        this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F;
         this.posY -= 0.10000000149011612D;
-        this.posZ -= (double) (MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
+        this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F;
         this.setPosition(this.posX, this.posY, this.posZ);
         this.yOffset = 0.0F;
-        this.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F));
-        this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F));
-        this.motionY = (double) (-MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F));
+        this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F);
+        this.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F);
+        this.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F);
         this.setArrowHeading(this.motionX, this.motionY, this.motionZ, 1.5F, 1.0F);
     }
 
+    @Override
     protected void entityInit() {
     }
 
@@ -76,10 +77,11 @@ public class EntityArrow extends Entity {
         this.motionZ = var5;
         float var10 = MathHelper.sqrt(var1 * var1 + var5 * var5);
         this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(var1, var5) * 180.0D / 3.1415927410125732D);
-        this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, (double) var10) * 180.0D / 3.1415927410125732D);
+        this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, var10) * 180.0D / 3.1415927410125732D);
         this.ticksInGround = 0;
     }
 
+    @Override
     public void setVelocity(double var1, double var3, double var5) {
         this.motionX = var1;
         this.motionY = var3;
@@ -87,7 +89,7 @@ public class EntityArrow extends Entity {
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
             float var7 = MathHelper.sqrt(var1 * var1 + var5 * var5);
             this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(var1, var5) * 180.0D / 3.1415927410125732D);
-            this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, (double) var7) * 180.0D / 3.1415927410125732D);
+            this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, var7) * 180.0D / 3.1415927410125732D);
             this.prevRotationPitch = this.rotationPitch;
             this.prevRotationYaw = this.rotationYaw;
             this.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
@@ -96,12 +98,13 @@ public class EntityArrow extends Entity {
 
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
             float var1 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
-            this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var1) * 180.0D / 3.1415927410125732D);
+            this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, var1) * 180.0D / 3.1415927410125732D);
         }
 
         int var15 = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
@@ -128,9 +131,9 @@ public class EntityArrow extends Entity {
 
             } else {
                 this.inGround = false;
-                this.motionX *= (double) (this.rand.nextFloat() * 0.2F);
-                this.motionY *= (double) (this.rand.nextFloat() * 0.2F);
-                this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
+                this.motionX *= this.rand.nextFloat() * 0.2F;
+                this.motionY *= this.rand.nextFloat() * 0.2F;
+                this.motionZ *= this.rand.nextFloat() * 0.2F;
                 this.ticksInGround = 0;
                 this.ticksInAir = 0;
             }
@@ -153,7 +156,7 @@ public class EntityArrow extends Entity {
                 Entity var9 = (Entity) var5.get(var8);
                 if (var9.canBeCollidedWith() && (var9 != this.owner || this.ticksInAir >= 5)) {
                     float var10 = 0.3F;
-                    AxisAlignedBB var11 = var9.boundingBox.expand((double) var10, (double) var10, (double) var10);
+                    AxisAlignedBB var11 = var9.boundingBox.expand(var10, var10, var10);
                     MovingObjectPosition var12 = var11.func_706_a(var16, var19);
                     if (var12 != null) {
                         double var13 = var16.distanceTo(var12.hitVec);
@@ -188,9 +191,9 @@ public class EntityArrow extends Entity {
                     this.zTile = var3.blockZ;
                     this.inTile = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
                     this.field_28019_h = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
-                    this.motionX = (double) ((float) (var3.hitVec.xCoord - this.posX));
-                    this.motionY = (double) ((float) (var3.hitVec.yCoord - this.posY));
-                    this.motionZ = (double) ((float) (var3.hitVec.zCoord - this.posZ));
+                    this.motionX = (float) (var3.hitVec.xCoord - this.posX);
+                    this.motionY = (float) (var3.hitVec.yCoord - this.posY);
+                    this.motionZ = (float) (var3.hitVec.zCoord - this.posZ);
                     float var22 = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
                     this.posX -= this.motionX / (double) var22 * 0.05000000074505806D;
                     this.posY -= this.motionY / (double) var22 * 0.05000000074505806D;
@@ -207,7 +210,7 @@ public class EntityArrow extends Entity {
             float var23 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
-            for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var23) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+            for (this.rotationPitch = (float) (Math.atan2(this.motionY, var23) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
             }
 
             while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
@@ -235,14 +238,15 @@ public class EntityArrow extends Entity {
                 var24 = 0.8F;
             }
 
-            this.motionX *= (double) var24;
-            this.motionY *= (double) var24;
-            this.motionZ *= (double) var24;
-            this.motionY -= (double) var25;
+            this.motionX *= var24;
+            this.motionY *= var24;
+            this.motionZ *= var24;
+            this.motionY -= var25;
             this.setPosition(this.posX, this.posY, this.posZ);
         }
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("xTile", (short) this.xTile);
         var1.setShort("yTile", (short) this.yTile);
@@ -254,6 +258,7 @@ public class EntityArrow extends Entity {
         var1.setBoolean("player", this.doesArrowBelongToPlayer);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         this.xTile = var1.getShort("xTile");
         this.yTile = var1.getShort("yTile");
@@ -265,6 +270,7 @@ public class EntityArrow extends Entity {
         this.doesArrowBelongToPlayer = var1.getBoolean("player");
     }
 
+    @Override
     public void onCollideWithPlayer(EntityPlayer var1) {
         if (!this.worldObj.multiplayerWorld) {
             if (this.inGround && this.doesArrowBelongToPlayer && this.arrowShake <= 0 && var1.inventory.addItemStackToInventory(new ItemStack(Item.ARROW, 1))) {
@@ -276,6 +282,7 @@ public class EntityArrow extends Entity {
         }
     }
 
+    @Override
     public float getShadowSize() {
         return 0.0F;
     }

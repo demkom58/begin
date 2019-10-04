@@ -65,6 +65,7 @@ public class EntityPainting extends Entity {
         this.func_412_b(var5);
     }
 
+    @Override
     protected void entityInit() {
     }
 
@@ -120,9 +121,9 @@ public class EntityPainting extends Entity {
         }
 
         var6 = var6 + this.func_411_c(this.art.sizeY);
-        this.setPosition((double) var5, (double) var6, (double) var7);
+        this.setPosition(var5, var6, var7);
         float var9 = -0.00625F;
-        this.boundingBox.setBounds((double) (var5 - var2 - var9), (double) (var6 - var3 - var9), (double) (var7 - var4 - var9), (double) (var5 + var2 + var9), (double) (var6 + var3 + var9), (double) (var7 + var4 + var9));
+        this.boundingBox.setBounds(var5 - var2 - var9, var6 - var3 - var9, var7 - var4 - var9, var5 + var2 + var9, var6 + var3 + var9, var7 + var4 + var9);
     }
 
     private float func_411_c(int var1) {
@@ -133,6 +134,7 @@ public class EntityPainting extends Entity {
         }
     }
 
+    @Override
     public void onUpdate() {
         if (this.field_695_c++ == 100 && !this.worldObj.multiplayerWorld) {
             this.field_695_c = 0;
@@ -198,10 +200,12 @@ public class EntityPainting extends Entity {
         }
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return true;
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         if (!this.isDead && !this.worldObj.multiplayerWorld) {
             this.setEntityDead();
@@ -212,6 +216,7 @@ public class EntityPainting extends Entity {
         return true;
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         var1.setByte("Dir", (byte) this.direction);
         var1.setString("Motive", this.art.title);
@@ -220,6 +225,7 @@ public class EntityPainting extends Entity {
         var1.setInteger("TileZ", this.zPosition);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         this.direction = var1.getByte("Dir");
         this.xPosition = var1.getInteger("TileX");
@@ -240,6 +246,7 @@ public class EntityPainting extends Entity {
         this.func_412_b(this.direction);
     }
 
+    @Override
     public void moveEntity(double var1, double var3, double var5) {
         if (!this.worldObj.multiplayerWorld && var1 * var1 + var3 * var3 + var5 * var5 > 0.0D) {
             this.setEntityDead();
@@ -248,6 +255,7 @@ public class EntityPainting extends Entity {
 
     }
 
+    @Override
     public void addVelocity(double var1, double var3, double var5) {
         if (!this.worldObj.multiplayerWorld && var1 * var1 + var3 * var3 + var5 * var5 > 0.0D) {
             this.setEntityDead();

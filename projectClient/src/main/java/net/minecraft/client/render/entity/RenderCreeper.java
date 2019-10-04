@@ -92,24 +92,28 @@ public class RenderCreeper extends RenderLiving {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected void preRenderCallback(EntityLiving var1, float var2) {
         this.updateCreeperScale((EntityCreeper) var1, var2);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected int getColorMultiplier(EntityLiving var1, float var2, float var3) {
         return this.updateCreeperColorMultiplier((EntityCreeper) var1, var2, var3);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected boolean shouldRenderPass(EntityLiving var1, int var2, float var3) {
         return this.func_27006_a((EntityCreeper) var1, var2, var3);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected boolean func_27005_b(EntityLiving var1, int var2, float var3) {
         return this.func_27007_b((EntityCreeper) var1, var2, var3);
     }

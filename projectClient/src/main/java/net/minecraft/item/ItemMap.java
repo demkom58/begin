@@ -99,7 +99,7 @@ public class ItemMap extends ItemMapBase {
                                         if (var35 > 1) {
                                             boolean var37 = false;
 
-                                            while (true) {
+                                            do {
                                                 var37 = true;
                                                 var36 = var27.getBlockID(var43 + var28, var35 - 1, var34 + var29);
                                                 if (var36 == 0) {
@@ -113,22 +113,16 @@ public class ItemMap extends ItemMapBase {
                                                     var36 = var27.getBlockID(var43 + var28, var35 - 1, var34 + var29);
                                                 }
 
-                                                if (var37) {
-                                                    break;
-                                                }
-                                            }
+                                            } while (!var37);
 
                                             if (var36 != 0 && Block.BLOCKS_LIST[var36].blockMaterial.getIsLiquid()) {
                                                 int var38 = var35 - 1;
                                                 int var39 = 0;
 
-                                                while (true) {
+                                                do {
                                                     var39 = var27.getBlockID(var43 + var28, var38--, var34 + var29);
                                                     ++var30;
-                                                    if (var38 <= 0 || var39 == 0 || !Block.BLOCKS_LIST[var39].blockMaterial.getIsLiquid()) {
-                                                        break;
-                                                    }
-                                                }
+                                                } while (var38 > 0 && var39 != 0 && Block.BLOCKS_LIST[var39].blockMaterial.getIsLiquid());
                                             }
                                         }
 
@@ -208,6 +202,7 @@ public class ItemMap extends ItemMapBase {
         }
     }
 
+    @Override
     public void onUpdate(ItemStack var1, World var2, Entity var3, int var4, boolean var5) {
         if (!var2.multiplayerWorld) {
             MapData var6 = this.func_28012_a(var1, var2);
@@ -223,6 +218,7 @@ public class ItemMap extends ItemMapBase {
         }
     }
 
+    @Override
     public void onCreated(ItemStack var1, World var2, EntityPlayer var3) {
         var1.setItemDamage(var2.getUniqueDataId("map"));
         String var4 = "map_" + var1.getItemDamage();

@@ -16,6 +16,7 @@ public class ChunkProviderClient implements IChunkProvider {
         this.worldObj = var1;
     }
 
+    @Override
     public boolean chunkExists(int x, int z) {
         if (this != null) {
             return true;
@@ -35,6 +36,7 @@ public class ChunkProviderClient implements IChunkProvider {
         this.field_889_c.remove(var3);
     }
 
+    @Override
     public Chunk prepareChunk(int x, int z) {
         ChunkCoordIntPair var3 = new ChunkCoordIntPair(x, z);
         byte[] var4 = new byte['\u8000'];
@@ -45,27 +47,33 @@ public class ChunkProviderClient implements IChunkProvider {
         return var5;
     }
 
+    @Override
     public Chunk provideChunk(int x, int z) {
         ChunkCoordIntPair var3 = new ChunkCoordIntPair(x, z);
         Chunk var4 = (Chunk) this.chunkMapping.get(var3);
         return var4 == null ? this.blankChunk : var4;
     }
 
+    @Override
     public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
         return true;
     }
 
+    @Override
     public boolean unload100OldestChunks() {
         return false;
     }
 
+    @Override
     public boolean canSave() {
         return false;
     }
 
+    @Override
     public void populate(IChunkProvider provider, int x, int z) {
     }
 
+    @Override
     public String makeString() {
         return "MultiplayerChunkCache: " + this.chunkMapping.size();
     }

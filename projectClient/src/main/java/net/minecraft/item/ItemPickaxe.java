@@ -10,6 +10,7 @@ public class ItemPickaxe extends ItemTool {
         super(var1, 2, var2, blocksEffectiveAgainst);
     }
 
+    @Override
     public boolean canHarvestBlock(Block var1) {
         if (var1 == Block.OBSIDIAN) {
             return this.toolMaterial.getHarvestLevel() == 3;

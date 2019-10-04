@@ -18,6 +18,7 @@ public class Packet52MultiBlockChange extends Packet {
         this.isChunkDataPacket = true;
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.xPosition = var1.readInt();
         this.zPosition = var1.readInt();
@@ -34,6 +35,7 @@ public class Packet52MultiBlockChange extends Packet {
         var1.readFully(this.metadataArray);
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeInt(this.xPosition);
         var1.writeInt(this.zPosition);
@@ -47,10 +49,12 @@ public class Packet52MultiBlockChange extends Packet {
         var1.write(this.metadataArray);
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.handleMultiBlockChange(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 10 + this.size * 4;
     }

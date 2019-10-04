@@ -20,7 +20,7 @@ public class RenderArrow extends Render {
             byte var11 = 0;
             float var12 = 0.0F;
             float var13 = 0.5F;
-            float var14 = (float) (0 + var11 * 10) / 32.0F;
+            float var14 = (float) (var11 * 10) / 32.0F;
             float var15 = (float) (5 + var11 * 10) / 32.0F;
             float var16 = 0.0F;
             float var17 = 0.15625F;
@@ -70,6 +70,7 @@ public class RenderArrow extends Render {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
         this.renderArrow((EntityArrow) var1, var2, var4, var6, var8, var9);
     }

@@ -24,6 +24,7 @@ public class Packet14BlockDig extends Packet {
         this.face = face;
     }
 
+    @Override
     public void readPacketData(DataInputStream dis) throws IOException {
         this.status = dis.read();
         this.xPosition = dis.readInt();
@@ -32,6 +33,7 @@ public class Packet14BlockDig extends Packet {
         this.face = dis.read();
     }
 
+    @Override
     public void writePacketData(DataOutputStream dos) throws IOException {
         dos.write(this.status);
         dos.writeInt(this.xPosition);
@@ -40,10 +42,12 @@ public class Packet14BlockDig extends Packet {
         dos.write(this.face);
     }
 
+    @Override
     public void processPacket(NetHandler handler) {
         handler.handleBlockDig(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 11;
     }

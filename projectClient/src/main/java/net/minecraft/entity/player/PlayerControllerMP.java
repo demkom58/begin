@@ -26,10 +26,12 @@ public class PlayerControllerMP extends PlayerController {
         this.netClientHandler = var2;
     }
 
+    @Override
     public void flipPlayer(EntityPlayer var1) {
         var1.rotationYaw = -180.0F;
     }
 
+    @Override
     public boolean sendBlockRemoved(int x, int y, int z, int var4) {
         int blockId = this.mc.theWorld.getBlockId(x, y, z);
         boolean removed = super.sendBlockRemoved(x, y, z, var4);
@@ -46,6 +48,7 @@ public class PlayerControllerMP extends PlayerController {
         return removed;
     }
 
+    @Override
     public void clickBlock(int x, int y, int z, int sideHit) {
         if (!this.isHittingBlock || x != this.currentBlockX || y != this.currentBlockY || z != this.currentblockZ) {
             this.netClientHandler.addToSendQueue(new Packet14BlockDig(0, x, y, z, sideHit));
@@ -68,11 +71,13 @@ public class PlayerControllerMP extends PlayerController {
         }
     }
 
+    @Override
     public void resetBlockRemoving() {
         this.curBlockDamageMP = 0.0F;
         this.isHittingBlock = false;
     }
 
+    @Override
     public void sendBlockRemoving(int x, int y, int z, int sideHit) {
         MovingObjectPosition mOver = this.mc.objectMouseOver;
         this.clickBlock(mOver.blockX, mOver.blockY, mOver.blockZ, mOver.sideHit);
@@ -121,6 +126,7 @@ public class PlayerControllerMP extends PlayerController {
         }
     }
 
+    @Override
     public void setPartialTime(float delta) {
         if (this.curBlockDamageMP <= 0.0F) {
             this.mc.ingameGUI.damageGuiPartialTime = 0.0F;
@@ -133,14 +139,17 @@ public class PlayerControllerMP extends PlayerController {
 
     }
 
+    @Override
     public float getBlockReachDistance() {
         return 4.0F;
     }
 
+    @Override
     public void func_717_a(World world) {
         super.func_717_a(world);
     }
 
+    @Override
     public void updateController() {
         this.syncCurrentPlayItem();
         this.prevBlockDamageMP = this.curBlockDamageMP;
@@ -156,34 +165,40 @@ public class PlayerControllerMP extends PlayerController {
 
     }
 
+    @Override
     public boolean sendPlaceBlock(EntityPlayer player, World world, ItemStack stack, int x, int y, int z, int direction) {
         this.syncCurrentPlayItem();
         this.netClientHandler.addToSendQueue(new Packet15Place(x, y, z, direction, player.inventory.getCurrentItem()));
         return super.sendPlaceBlock(player, world, stack, x, y, z, direction);
     }
 
+    @Override
     public boolean sendUseItem(EntityPlayer player, World world, ItemStack stack) {
         this.syncCurrentPlayItem();
         this.netClientHandler.addToSendQueue(new Packet15Place(-1, -1, -1, 255, player.inventory.getCurrentItem()));
         return super.sendUseItem(player, world, stack);
     }
 
+    @Override
     public EntityPlayer createPlayer(World world) {
         return new EntityClientPlayerMP(this.mc, world, this.mc.session, this.netClientHandler);
     }
 
+    @Override
     public void attackEntity(EntityPlayer player, Entity entity) {
         this.syncCurrentPlayItem();
         this.netClientHandler.addToSendQueue(new Packet7UseEntity(player.entityId, entity.entityId, 1));
         player.attackTargetEntityWithCurrentItem(entity);
     }
 
+    @Override
     public void interactWithEntity(EntityPlayer player, Entity entity) {
         this.syncCurrentPlayItem();
         this.netClientHandler.addToSendQueue(new Packet7UseEntity(player.entityId, entity.entityId, 0));
         player.useCurrentItemOnEntity(entity);
     }
 
+    @Override
     public ItemStack func_27174_a(int windowsId, int invSlot, int mouseClick, boolean var4, EntityPlayer var5) {
         short var6 = var5.craftingInventory.func_20111_a(var5.inventory);
         ItemStack stack = super.func_27174_a(windowsId, invSlot, mouseClick, var4, var5);
@@ -191,6 +206,7 @@ public class PlayerControllerMP extends PlayerController {
         return stack;
     }
 
+    @Override
     public void func_20086_a(int var1, EntityPlayer player) {
         if (var1 != -9999) {
         }

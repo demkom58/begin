@@ -67,9 +67,9 @@ public class ModelRenderer {
         this.corners[6] = var17;
         this.corners[7] = var18;
         this.faces[0] = new TexturedQuad(new PositionTextureVertex[]{var16, var12, var13, var17}, this.textureOffsetX + var6 + var4, this.textureOffsetY + var6, this.textureOffsetX + var6 + var4 + var6, this.textureOffsetY + var6 + var5);
-        this.faces[1] = new TexturedQuad(new PositionTextureVertex[]{var26, var15, var18, var14}, this.textureOffsetX + 0, this.textureOffsetY + var6, this.textureOffsetX + var6, this.textureOffsetY + var6 + var5);
-        this.faces[2] = new TexturedQuad(new PositionTextureVertex[]{var16, var15, var26, var12}, this.textureOffsetX + var6, this.textureOffsetY + 0, this.textureOffsetX + var6 + var4, this.textureOffsetY + var6);
-        this.faces[3] = new TexturedQuad(new PositionTextureVertex[]{var13, var14, var18, var17}, this.textureOffsetX + var6 + var4, this.textureOffsetY + 0, this.textureOffsetX + var6 + var4 + var4, this.textureOffsetY + var6);
+        this.faces[1] = new TexturedQuad(new PositionTextureVertex[]{var26, var15, var18, var14}, this.textureOffsetX, this.textureOffsetY + var6, this.textureOffsetX + var6, this.textureOffsetY + var6 + var5);
+        this.faces[2] = new TexturedQuad(new PositionTextureVertex[]{var16, var15, var26, var12}, this.textureOffsetX + var6, this.textureOffsetY, this.textureOffsetX + var6 + var4, this.textureOffsetY + var6);
+        this.faces[3] = new TexturedQuad(new PositionTextureVertex[]{var13, var14, var18, var17}, this.textureOffsetX + var6 + var4, this.textureOffsetY, this.textureOffsetX + var6 + var4 + var4, this.textureOffsetY + var6);
         this.faces[4] = new TexturedQuad(new PositionTextureVertex[]{var12, var26, var14, var13}, this.textureOffsetX + var6, this.textureOffsetY + var6, this.textureOffsetX + var6 + var4, this.textureOffsetY + var6 + var5);
         this.faces[5] = new TexturedQuad(new PositionTextureVertex[]{var15, var16, var17, var18}, this.textureOffsetX + var6 + var4 + var6, this.textureOffsetY + var6, this.textureOffsetX + var6 + var4 + var6 + var4, this.textureOffsetY + var6 + var5);
         if (this.mirror) {

@@ -1,6 +1,7 @@
 package net.minecraft.stats;
 
 final class StatTypeTime implements IStatType {
+    @Override
     public String func_27192_a(int var1) {
         double var2 = (double) var1 / 20.0D;
         double var4 = var2 / 60.0D;

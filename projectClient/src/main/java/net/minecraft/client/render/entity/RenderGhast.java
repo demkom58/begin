@@ -25,6 +25,7 @@ public class RenderGhast extends RenderLiving {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     protected void preRenderCallback(EntityLiving var1, float var2) {
         this.func_4014_a((EntityGhast) var1, var2);
     }

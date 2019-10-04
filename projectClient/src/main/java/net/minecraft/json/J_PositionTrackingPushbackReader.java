@@ -65,10 +65,12 @@ final class J_PositionTrackingPushbackReader implements J_ThingWithPosition {
 
     }
 
+    @Override
     public int func_27331_a() {
         return this.field_27337_b;
     }
 
+    @Override
     public int func_27330_b() {
         return this.field_27340_c;
     }

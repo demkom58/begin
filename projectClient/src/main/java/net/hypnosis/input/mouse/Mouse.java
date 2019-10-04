@@ -4,7 +4,6 @@ import net.hypnosis.monitor.Window;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL;
 
 public class Mouse {
     private CursorPositionCallback positionCallback;

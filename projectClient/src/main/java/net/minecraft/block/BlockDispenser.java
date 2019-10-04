@@ -25,14 +25,17 @@ public class BlockDispenser extends BlockContainer {
         this.blockIndexInTexture = 45;
     }
 
+    @Override
     public int tickRate() {
         return 4;
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         return Block.DISPENSER.blockID;
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         super.onBlockAdded(var1, var2, var3, var4);
         this.setDispenserDefaultDirection(var1, var2, var3, var4);
@@ -65,6 +68,7 @@ public class BlockDispenser extends BlockContainer {
         }
     }
 
+    @Override
     public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
         if (var5 == 1) {
             return this.blockIndexInTexture + 17;
@@ -76,6 +80,7 @@ public class BlockDispenser extends BlockContainer {
         }
     }
 
+    @Override
     public int getBlockTextureFromSide(int side) {
         if (side == 1) {
             return this.blockIndexInTexture + 17;
@@ -86,6 +91,7 @@ public class BlockDispenser extends BlockContainer {
         }
     }
 
+    @Override
     public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
         if (var1.multiplayerWorld) {
             return true;
@@ -120,18 +126,18 @@ public class BlockDispenser extends BlockContainer {
         } else {
             if (var12.itemID == Item.ARROW.shiftedIndex) {
                 EntityArrow var19 = new EntityArrow(var1, var13, var15, var17);
-                var19.setArrowHeading((double) var9, 0.10000000149011612D, (double) var10, 1.1F, 6.0F);
+                var19.setArrowHeading(var9, 0.10000000149011612D, var10, 1.1F, 6.0F);
                 var19.doesArrowBelongToPlayer = true;
                 var1.entityJoinedWorld(var19);
                 var1.func_28106_e(1002, var2, var3, var4, 0);
             } else if (var12.itemID == Item.EGG.shiftedIndex) {
                 EntityEgg var22 = new EntityEgg(var1, var13, var15, var17);
-                var22.setEggHeading((double) var9, 0.10000000149011612D, (double) var10, 1.1F, 6.0F);
+                var22.setEggHeading(var9, 0.10000000149011612D, var10, 1.1F, 6.0F);
                 var1.entityJoinedWorld(var22);
                 var1.func_28106_e(1002, var2, var3, var4, 0);
             } else if (var12.itemID == Item.SNOWBALL.shiftedIndex) {
                 EntitySnowball var23 = new EntitySnowball(var1, var13, var15, var17);
-                var23.setSnowballHeading((double) var9, 0.10000000149011612D, (double) var10, 1.1F, 6.0F);
+                var23.setSnowballHeading(var9, 0.10000000149011612D, var10, 1.1F, 6.0F);
                 var1.entityJoinedWorld(var23);
                 var1.func_28106_e(1002, var2, var3, var4, 0);
             } else {
@@ -152,6 +158,7 @@ public class BlockDispenser extends BlockContainer {
 
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower()) {
             boolean var6 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4) || var1.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
@@ -162,6 +169,7 @@ public class BlockDispenser extends BlockContainer {
 
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         if (var1.isBlockIndirectlyGettingPowered(var2, var3, var4) || var1.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4)) {
             this.dispenseItem(var1, var2, var3, var4, var5);
@@ -169,10 +177,12 @@ public class BlockDispenser extends BlockContainer {
 
     }
 
+    @Override
     protected TileEntity getBlockEntity() {
         return new TileEntityDispenser();
     }
 
+    @Override
     public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
         int var6 = MathHelper.floor((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         if (var6 == 0) {
@@ -193,6 +203,7 @@ public class BlockDispenser extends BlockContainer {
 
     }
 
+    @Override
     public void onBlockRemoval(World var1, int var2, int var3, int var4) {
         TileEntityDispenser var5 = (TileEntityDispenser) var1.getBlockTileEntity(var2, var3, var4);
 
@@ -210,11 +221,11 @@ public class BlockDispenser extends BlockContainer {
                     }
 
                     var7.stackSize -= var11;
-                    EntityItem var12 = new EntityItem(var1, (double) ((float) var2 + var8), (double) ((float) var3 + var9), (double) ((float) var4 + var10), new ItemStack(var7.itemID, var11, var7.getItemDamage()));
+                    EntityItem var12 = new EntityItem(var1, (float) var2 + var8, (float) var3 + var9, (float) var4 + var10, new ItemStack(var7.itemID, var11, var7.getItemDamage()));
                     float var13 = 0.05F;
-                    var12.motionX = (double) ((float) this.random.nextGaussian() * var13);
-                    var12.motionY = (double) ((float) this.random.nextGaussian() * var13 + 0.2F);
-                    var12.motionZ = (double) ((float) this.random.nextGaussian() * var13);
+                    var12.motionX = (float) this.random.nextGaussian() * var13;
+                    var12.motionY = (float) this.random.nextGaussian() * var13 + 0.2F;
+                    var12.motionZ = (float) this.random.nextGaussian() * var13;
                     var1.entityJoinedWorld(var12);
                 }
             }

@@ -9,6 +9,7 @@ class NetworkReaderThread extends Thread {
         this.netManager = var1;
     }
 
+    @Override
     public void run() {
         synchronized (NetworkManager.threadSyncObject) {
             ++NetworkManager.numReadThreads;
@@ -35,7 +36,7 @@ class NetworkReaderThread extends Thread {
 
                 try {
                     sleep(100L);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ignored) {
 
                 }
             } finally {

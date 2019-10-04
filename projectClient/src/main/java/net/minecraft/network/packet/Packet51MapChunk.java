@@ -22,6 +22,7 @@ public class Packet51MapChunk extends Packet {
         this.isChunkDataPacket = true;
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.xPosition = var1.readInt();
         this.yPosition = var1.readShort();
@@ -46,6 +47,7 @@ public class Packet51MapChunk extends Packet {
 
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeInt(this.xPosition);
         var1.writeShort(this.yPosition);
@@ -57,10 +59,12 @@ public class Packet51MapChunk extends Packet {
         var1.write(this.chunk, 0, this.chunkSize);
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.handleMapChunk(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 17 + this.chunkSize;
     }

@@ -2,8 +2,6 @@ package net.minecraft.client.render;
 
 import net.minecraft.client.gui.GuiParticle;
 
-import java.util.Random;
-
 public class Particle {
     public double field_25146_a;
     public double field_25145_b;

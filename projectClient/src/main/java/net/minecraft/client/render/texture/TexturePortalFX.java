@@ -40,7 +40,7 @@ public class TexturePortalFX extends TextureFX {
                         }
 
                         float var11 = var9 * var9 + var10 * var10;
-                        float var12 = (float) Math.atan2((double) var10, (double) var9) + ((float) var2 / 32.0F * 3.1415927F * 2.0F - var11 * 10.0F + (float) (var6 * 2)) * (float) (var6 * 2 - 1);
+                        float var12 = (float) Math.atan2(var10, var9) + ((float) var2 / 32.0F * 3.1415927F * 2.0F - var11 * 10.0F + (float) (var6 * 2)) * (float) (var6 * 2 - 1);
                         var12 = (MathHelper.sin(var12) + 1.0F) / 2.0F;
                         var12 = var12 / (var11 + 1.0F);
                         var5 += var12 * 0.5F;
@@ -52,7 +52,7 @@ public class TexturePortalFX extends TextureFX {
                     int var16 = (int) (var5 * var5 * var5 * var5 * 255.0F);
                     int var17 = (int) (var5 * 100.0F + 155.0F);
                     int var18 = var4 * 16 + var3;
-                    this.portalTextureData[var2][var18 * 4 + 0] = (byte) var15;
+                    this.portalTextureData[var2][var18 * 4] = (byte) var15;
                     this.portalTextureData[var2][var18 * 4 + 1] = (byte) var16;
                     this.portalTextureData[var2][var18 * 4 + 2] = (byte) var14;
                     this.portalTextureData[var2][var18 * 4 + 3] = (byte) var17;
@@ -62,12 +62,13 @@ public class TexturePortalFX extends TextureFX {
 
     }
 
+    @Override
     public void onTick() {
         ++this.portalTickCounter;
         byte[] var1 = this.portalTextureData[this.portalTickCounter & 31];
 
         for (int var2 = 0; var2 < 256; ++var2) {
-            int var3 = var1[var2 * 4 + 0] & 255;
+            int var3 = var1[var2 * 4] & 255;
             int var4 = var1[var2 * 4 + 1] & 255;
             int var5 = var1[var2 * 4 + 2] & 255;
             int var6 = var1[var2 * 4 + 3] & 255;
@@ -80,7 +81,7 @@ public class TexturePortalFX extends TextureFX {
                 var5 = var9;
             }
 
-            this.imageData[var2 * 4 + 0] = (byte) var3;
+            this.imageData[var2 * 4] = (byte) var3;
             this.imageData[var2 * 4 + 1] = (byte) var4;
             this.imageData[var2 * 4 + 2] = (byte) var5;
             this.imageData[var2 * 4 + 3] = (byte) var6;

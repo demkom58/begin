@@ -21,6 +21,7 @@ public class BlockFlowing extends BlockFluid {
         var1.markBlockNeedsUpdate(var2, var3, var4);
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         int var6 = this.getFlowDecay(var1, var2, var3, var4);
         byte var7 = 1;
@@ -259,6 +260,7 @@ public class BlockFlowing extends BlockFluid {
         }
     }
 
+    @Override
     public void onBlockAdded(World var1, int var2, int var3, int var4) {
         super.onBlockAdded(var1, var2, var3, var4);
         if (var1.getBlockId(var2, var3, var4) == this.blockID) {

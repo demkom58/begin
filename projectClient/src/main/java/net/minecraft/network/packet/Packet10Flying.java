@@ -24,18 +24,22 @@ public class Packet10Flying extends Packet {
         this.onGround = var1;
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.handleFlying(this);
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.onGround = var1.read() != 0;
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.write(this.onGround ? 1 : 0);
     }
 
+    @Override
     public int getPacketSize() {
         return 1;
     }

@@ -7,6 +7,7 @@ public class ItemCoal extends Item {
         this.setMaxDamage(0);
     }
 
+    @Override
     public String getItemNameIS(ItemStack var1) {
         return var1.getItemDamage() == 1 ? "item.charcoal" : "item.coal";
     }

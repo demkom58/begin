@@ -14,6 +14,7 @@ final class J_JsonFieldNodeSelector extends J_LeafFunctor {
         return var1.containsKey(this.field_27066_a);
     }
 
+    @Override
     public String func_27060_a() {
         return "\"" + this.field_27066_a.getValue() + "\"";
     }
@@ -28,12 +29,14 @@ final class J_JsonFieldNodeSelector extends J_LeafFunctor {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public Object func_27063_c(Object var1) {
         return this.func_27064_b((Map) var1);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public boolean func_27058_a(Object var1) {
         return this.func_27065_a((Map) var1);
     }

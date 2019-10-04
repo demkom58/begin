@@ -17,6 +17,7 @@ public class GuiOptions extends GuiScreen {
         this.gameSettings = var2;
     }
 
+    @Override
     public void initGui() {
         StringTranslate vartranslate = StringTranslate.getInstance();
         this.screenTitle = vartranslate.translateKey("options.title");
@@ -37,6 +38,7 @@ public class GuiOptions extends GuiScreen {
         this.buttons.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, vartranslate.translateKey("gui.done")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (!button.enabled)
             return;
@@ -62,6 +64,7 @@ public class GuiOptions extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);

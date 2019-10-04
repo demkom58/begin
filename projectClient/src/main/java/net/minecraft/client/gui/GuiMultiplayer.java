@@ -10,10 +10,12 @@ public class GuiMultiplayer extends GuiScreen {
         this.parentScreen = var1;
     }
 
+    @Override
     public void updateScreen() {
         this.addressField.updateCursorCounter();
     }
 
+    @Override
     public void initGui() {
         StringTranslate translate = StringTranslate.getInstance();
         this.buttons.clear();
@@ -26,8 +28,10 @@ public class GuiMultiplayer extends GuiScreen {
         this.addressField.setMaxStringLength(128);
     }
 
+    @Override
     public void onGuiClosed() { }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (!button.enabled)
             return;
@@ -84,16 +88,18 @@ public class GuiMultiplayer extends GuiScreen {
         this.addressField.keyTyped(keycode, scancode, action, mods);
     }
 
+    @Override
     protected void mouseClicked(int x, int y, int button) {
         super.mouseClicked(x, y, button);
         this.addressField.mouseClicked(x, y, button);
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         StringTranslate translate = StringTranslate.getInstance();
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, translate.translateKey("multiplayer.title"), this.width / 2, this.height / 4 - 60 + 20, 16777215);
-        this.drawString(this.fontRenderer, translate.translateKey("multiplayer.info1"), this.width / 2 - 140, this.height / 4 - 60 + 60 + 0, 10526880);
+        this.drawString(this.fontRenderer, translate.translateKey("multiplayer.info1"), this.width / 2 - 140, this.height / 4 - 60 + 60, 10526880);
         this.drawString(this.fontRenderer, translate.translateKey("multiplayer.info2"), this.width / 2 - 140, this.height / 4 - 60 + 60 + 9, 10526880);
         this.drawString(this.fontRenderer, translate.translateKey("multiplayer.ipinfo"), this.width / 2 - 140, this.height / 4 - 60 + 60 + 36, 10526880);
         this.addressField.drawTextBox();

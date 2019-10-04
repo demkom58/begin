@@ -110,17 +110,14 @@ public class Chunk {
                     int var6 = 15;
                     int var7 = 127;
 
-                    while (true) {
+                    do {
                         var6 -= Block.LIGHT_OPACITY[this.blocks[var5 + var7] & 255];
                         if (var6 > 0) {
                             this.skylightMap.setNibble(var2, var7, var3, var6);
                         }
 
                         --var7;
-                        if (var7 <= 0 || var6 <= 0) {
-                            break;
-                        }
-                    }
+                    } while (var7 > 0 && var6 > 0);
                 }
             }
         }
@@ -522,10 +519,10 @@ public class Chunk {
         }
 
         for (int var6 = var4; var6 <= var5; ++var6) {
-            List var7 = this.entities[var6];
+            List<Entity> var7 = this.entities[var6];
 
             for (int var8 = 0; var8 < var7.size(); ++var8) {
-                Entity var9 = (Entity) var7.get(var8);
+                Entity var9 = var7.get(var8);
                 if (var1.isAssignableFrom(var9.getClass()) && var9.boundingBox.intersectsWith(var2)) {
                     var3.add(var9);
                 }

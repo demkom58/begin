@@ -18,10 +18,12 @@ public class ShapedRecipes implements IRecipe {
         this.recipeOutput = recipeOutput;
     }
 
+    @Override
     public ItemStack getCraftingResult() {
         return this.recipeOutput;
     }
 
+    @Override
     public boolean matches(InventoryCrafting var1) {
         for (int var2 = 0; var2 <= 3 - this.recipeWidth; ++var2) {
             for (int var3 = 0; var3 <= 3 - this.recipeHeight; ++var3) {
@@ -72,10 +74,12 @@ public class ShapedRecipes implements IRecipe {
         return true;
     }
 
+    @Override
     public ItemStack getCraftingResult(InventoryCrafting var1) {
         return new ItemStack(this.recipeOutput.itemID, this.recipeOutput.stackSize, this.recipeOutput.getItemDamage());
     }
 
+    @Override
     public int getRecipeSize() {
         return this.recipeWidth * this.recipeHeight;
     }

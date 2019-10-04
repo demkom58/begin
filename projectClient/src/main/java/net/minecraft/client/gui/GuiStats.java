@@ -122,6 +122,7 @@ public class GuiStats extends GuiScreen {
         var0.func_27138_c(var1, var2, var3);
     }
 
+    @Override
     public void initGui() {
         this.field_27154_i = StatCollector.translateToLocal("gui.stats");
         this.field_27151_l = new GuiSlotStatsGeneral(this);
@@ -152,6 +153,7 @@ public class GuiStats extends GuiScreen {
 
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (!button.enabled)
             return;
@@ -169,6 +171,7 @@ public class GuiStats extends GuiScreen {
         }
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.field_27155_p.drawScreen(var1, var2, var3);
         this.drawCenteredString(this.fontRenderer, this.field_27154_i, this.width / 2, 20, 16777215);
@@ -197,10 +200,10 @@ public class GuiStats extends GuiScreen {
         this.mc.renderEngine.bindTexture(textureId);
         Tessellator tess = Tessellator.INSTANCE;
         tess.startDrawingQuads();
-        tess.addVertexWithUV(var1 + 0, var2 + 18, this.zLevel, (float) (var3 + 0) * 0.0078125F, (float) (var4 + 18) * 0.0078125F);
+        tess.addVertexWithUV(var1, var2 + 18, this.zLevel, (float) (var3) * 0.0078125F, (float) (var4 + 18) * 0.0078125F);
         tess.addVertexWithUV(var1 + 18, var2 + 18, this.zLevel, (float) (var3 + 18) * 0.0078125F, (float) (var4 + 18) * 0.0078125F);
-        tess.addVertexWithUV(var1 + 18, var2 + 0, this.zLevel, (float) (var3 + 18) * 0.0078125F, (float) (var4 + 0) * 0.0078125F);
-        tess.addVertexWithUV(var1 + 0, var2 + 0, this.zLevel, (float) (var3 + 0) * 0.0078125F, (float) (var4 + 0) * 0.0078125F);
+        tess.addVertexWithUV(var1 + 18, var2, this.zLevel, (float) (var3 + 18) * 0.0078125F, (float) (var4) * 0.0078125F);
+        tess.addVertexWithUV(var1, var2, this.zLevel, (float) (var3) * 0.0078125F, (float) (var4) * 0.0078125F);
         tess.draw();
     }
 }

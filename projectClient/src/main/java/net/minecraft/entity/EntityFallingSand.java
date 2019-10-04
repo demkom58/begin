@@ -28,17 +28,21 @@ public class EntityFallingSand extends Entity {
         this.prevPosZ = var6;
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
 
+    @Override
     public void onUpdate() {
         if (this.blockID == 0) {
             this.setEntityDead();
@@ -75,14 +79,17 @@ public class EntityFallingSand extends Entity {
         }
     }
 
+    @Override
     protected void writeEntityToNBT(TagCompound var1) {
         var1.setByte("Tile", (byte) this.blockID);
     }
 
+    @Override
     protected void readEntityFromNBT(TagCompound var1) {
         this.blockID = var1.getByte("Tile") & 255;
     }
 
+    @Override
     public float getShadowSize() {
         return 0.0F;
     }

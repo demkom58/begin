@@ -46,7 +46,7 @@ public class ScreenShotHelper {
             for (int var7 = 0; var7 < var1; ++var7) {
                 for (int var8 = 0; var8 < var2; ++var8) {
                     int var9 = var7 + (var2 - var8 - 1) * var1;
-                    int var10 = pixelData[var9 * 3 + 0] & 255;
+                    int var10 = pixelData[var9 * 3] & 255;
                     int var11 = pixelData[var9 * 3 + 1] & 255;
                     int var12 = pixelData[var9 * 3 + 2] & 255;
                     int var13 = -16777216 | var10 << 16 | var11 << 8 | var12;

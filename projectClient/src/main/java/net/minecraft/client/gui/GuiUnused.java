@@ -4,9 +4,11 @@ public class GuiUnused extends GuiScreen {
     private String message1;
     private String message2;
 
+    @Override
     public void initGui() {
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawGradientRect(0, 0, this.width, this.height, -12574688, -11530224);
         this.drawCenteredString(this.fontRenderer, this.message1, this.width / 2, 90, 16777215);

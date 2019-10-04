@@ -232,13 +232,13 @@ public abstract class Entity {
                 for (int var3 = 0; (float) var3 < 1.0F + this.width * 20.0F; ++var3) {
                     float var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
                     float var5 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-                    this.worldObj.spawnParticle("bubble", this.posX + (double) var4, (double) (var2 + 1.0F), this.posZ + (double) var5, this.motionX, this.motionY - (double) (this.rand.nextFloat() * 0.2F), this.motionZ);
+                    this.worldObj.spawnParticle("bubble", this.posX + (double) var4, var2 + 1.0F, this.posZ + (double) var5, this.motionX, this.motionY - (double) (this.rand.nextFloat() * 0.2F), this.motionZ);
                 }
 
                 for (int var6 = 0; (float) var6 < 1.0F + this.width * 20.0F; ++var6) {
                     float var7 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
                     float var8 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-                    this.worldObj.spawnParticle("splash", this.posX + (double) var7, (double) (var2 + 1.0F), this.posZ + (double) var8, this.motionX, this.motionY, this.motionZ);
+                    this.worldObj.spawnParticle("splash", this.posX + (double) var7, var2 + 1.0F, this.posZ + (double) var8, this.motionX, this.motionY, this.motionZ);
                 }
             }
 
@@ -394,7 +394,7 @@ public abstract class Entity {
                 double var23 = var3;
                 double var25 = var5;
                 var1 = var11;
-                var3 = (double) this.stepHeight;
+                var3 = this.stepHeight;
                 var5 = var15;
                 AxisAlignedBB var27 = this.boundingBox.copy();
                 this.boundingBox.setBB(var17);
@@ -438,7 +438,7 @@ public abstract class Entity {
                     var3 = 0.0D;
                     var1 = 0.0D;
                 } else {
-                    var3 = (double) (-this.stepHeight);
+                    var3 = -this.stepHeight;
 
                     for (int var50 = 0; var50 < var36.size(); ++var50) {
                         var3 = ((AxisAlignedBB) var36.get(var50)).calculateYOffset(this.boundingBox, var3);
@@ -627,8 +627,8 @@ public abstract class Entity {
             var2 = var2 * var4;
             float var5 = MathHelper.sin(this.rotationYaw * 3.1415927F / 180.0F);
             float var6 = MathHelper.cos(this.rotationYaw * 3.1415927F / 180.0F);
-            this.motionX += (double) (var1 * var6 - var2 * var5);
-            this.motionZ += (double) (var2 * var6 + var1 * var5);
+            this.motionX += var1 * var6 - var2 * var5;
+            this.motionZ += var2 * var6 + var1 * var5;
         }
     }
 
@@ -660,7 +660,7 @@ public abstract class Entity {
         this.prevRotationYaw = this.rotationYaw = var7;
         this.prevRotationPitch = this.rotationPitch = var8;
         this.ySize = 0.0F;
-        double var9 = (double) (this.prevRotationYaw - var7);
+        double var9 = this.prevRotationYaw - var7;
         if (var9 < -180.0D) {
             this.prevRotationYaw += 360.0F;
         }
@@ -700,7 +700,7 @@ public abstract class Entity {
         double var7 = this.posX - var1;
         double var9 = this.posY - var3;
         double var11 = this.posZ - var5;
-        return (double) MathHelper.sqrt(var7 * var7 + var9 * var9 + var11 * var11);
+        return MathHelper.sqrt(var7 * var7 + var9 * var9 + var11 * var11);
     }
 
     public double getDistanceSqToEntity(Entity var1) {
@@ -719,7 +719,7 @@ public abstract class Entity {
             double var4 = var1.posZ - this.posZ;
             double var6 = MathHelper.absMax(var2, var4);
             if (var6 >= 0.009999999776482582D) {
-                var6 = (double) MathHelper.sqrt(var6);
+                var6 = MathHelper.sqrt(var6);
                 var2 = var2 / var6;
                 var4 = var4 / var6;
                 double var8 = 1.0D / var6;
@@ -924,9 +924,9 @@ public abstract class Entity {
             this.onUpdate();
             if (this.ridingEntity != null) {
                 this.ridingEntity.updateRiderPosition();
-                this.entityRiderYawDelta += (double) (this.ridingEntity.rotationYaw - this.ridingEntity.prevRotationYaw);
+                this.entityRiderYawDelta += this.ridingEntity.rotationYaw - this.ridingEntity.prevRotationYaw;
 
-                for (this.entityRiderPitchDelta += (double) (this.ridingEntity.rotationPitch - this.ridingEntity.prevRotationPitch); this.entityRiderYawDelta >= 180.0D; this.entityRiderYawDelta -= 360.0D) {
+                for (this.entityRiderPitchDelta += this.ridingEntity.rotationPitch - this.ridingEntity.prevRotationPitch; this.entityRiderYawDelta >= 180.0D; this.entityRiderYawDelta -= 360.0D) {
                 }
 
                 while (this.entityRiderYawDelta < -180.0D) {
@@ -945,19 +945,19 @@ public abstract class Entity {
                 double var3 = this.entityRiderPitchDelta * 0.5D;
                 float var5 = 10.0F;
                 if (var1 > (double) var5) {
-                    var1 = (double) var5;
+                    var1 = var5;
                 }
 
                 if (var1 < (double) (-var5)) {
-                    var1 = (double) (-var5);
+                    var1 = -var5;
                 }
 
                 if (var3 > (double) var5) {
-                    var3 = (double) var5;
+                    var3 = var5;
                 }
 
                 if (var3 < (double) (-var5)) {
-                    var3 = (double) (-var5);
+                    var3 = -var5;
                 }
 
                 this.entityRiderYawDelta -= var1;
@@ -973,7 +973,7 @@ public abstract class Entity {
     }
 
     public double getYOffset() {
-        return (double) this.yOffset;
+        return this.yOffset;
     }
 
     public double getMountedYOffset() {
@@ -1143,27 +1143,27 @@ public abstract class Entity {
 
             float var25 = this.rand.nextFloat() * 0.2F + 0.1F;
             if (var22 == 0) {
-                this.motionX = (double) (-var25);
+                this.motionX = -var25;
             }
 
             if (var22 == 1) {
-                this.motionX = (double) var25;
+                this.motionX = var25;
             }
 
             if (var22 == 2) {
-                this.motionY = (double) (-var25);
+                this.motionY = -var25;
             }
 
             if (var22 == 3) {
-                this.motionY = (double) var25;
+                this.motionY = var25;
             }
 
             if (var22 == 4) {
-                this.motionZ = (double) (-var25);
+                this.motionZ = -var25;
             }
 
             if (var22 == 5) {
-                this.motionZ = (double) var25;
+                this.motionZ = var25;
             }
         }
 

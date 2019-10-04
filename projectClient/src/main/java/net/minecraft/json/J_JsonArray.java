@@ -15,18 +15,22 @@ final class J_JsonArray extends J_JsonRootNode {
         return new J_JsonNodeList(var0);
     }
 
+    @Override
     public EnumJsonNodeType func_27218_a() {
         return EnumJsonNodeType.ARRAY;
     }
 
+    @Override
     public List func_27215_d() {
         return new ArrayList(this.field_27221_a);
     }
 
+    @Override
     public String getValue() {
         throw new IllegalStateException("Attempt to get text on a JsonNode without text.");
     }
 
+    @Override
     public Map func_27214_c() {
         throw new IllegalStateException("Attempt to get fields on a JsonNode without fields.");
     }

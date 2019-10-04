@@ -13,11 +13,12 @@ public class ThreadSleepForever extends Thread {
         this.start();
     }
 
+    @Override
     public void run() {
         while (this.mc.running) {
             try {
                 Thread.sleep(2147483647L);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ignored) {
             }
         }
 

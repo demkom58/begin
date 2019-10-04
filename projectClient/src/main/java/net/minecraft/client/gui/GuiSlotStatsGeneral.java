@@ -14,25 +14,31 @@ class GuiSlotStatsGeneral extends GuiSlot {
         this.func_27258_a(false);
     }
 
+    @Override
     protected int getSize() {
         return StatList.field_25187_b.size();
     }
 
+    @Override
     protected void elementClicked(int var1, boolean var2) {
     }
 
+    @Override
     protected boolean isSelected(int var1) {
         return false;
     }
 
+    @Override
     protected int getContentHeight() {
         return this.getSize() * 10;
     }
 
+    @Override
     protected void drawBackground() {
         this.field_27276_a.drawDefaultBackground();
     }
 
+    @Override
     protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator tess) {
         StatBase base = StatList.field_25187_b.get(var1);
         this.field_27276_a.drawString(GuiStats.func_27145_b(this.field_27276_a), base.statName, var2 + 2, var3 + 1, var1 % 2 == 0 ? 16777215 : 9474192);

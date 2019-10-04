@@ -9,6 +9,7 @@ public class StatBasic extends StatBase {
         super(var1, var2);
     }
 
+    @Override
     public StatBase registerStat() {
         super.registerStat();
         StatList.field_25187_b.add(this);

@@ -11,6 +11,7 @@ public class BiomeGenSky extends BiomeGenBase {
         this.spawnableCreatureList.add(new SpawnListEntry(EntityChicken.class, 10));
     }
 
+    @Override
     public int getSkyColorByTemp(float var1) {
         return 12632319;
     }

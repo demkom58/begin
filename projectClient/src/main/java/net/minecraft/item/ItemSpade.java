@@ -9,6 +9,7 @@ public class ItemSpade extends ItemTool {
         super(var1, 1, var2, blocksEffectiveAgainst);
     }
 
+    @Override
     public boolean canHarvestBlock(Block var1) {
         if (var1 == Block.SNOW) {
             return true;

@@ -54,13 +54,16 @@ public class EntityFX extends Entity {
         return this;
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -102,9 +105,11 @@ public class EntityFX extends Entity {
         return 0;
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
     }
 }

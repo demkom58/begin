@@ -10,6 +10,7 @@ public class BlockOre extends Block {
         super(var1, var2, Material.ROCK);
     }
 
+    @Override
     public int idDropped(int var1, Random var2) {
         if (this.blockID == Block.ORE_COAL.blockID) {
             return Item.COAL.shiftedIndex;
@@ -20,10 +21,12 @@ public class BlockOre extends Block {
         }
     }
 
+    @Override
     public int quantityDropped(Random var1) {
         return this.blockID == Block.ORE_LAPIS.blockID ? 4 + var1.nextInt(5) : 1;
     }
 
+    @Override
     protected int damageDropped(int var1) {
         return this.blockID == Block.ORE_LAPIS.blockID ? 4 : 0;
     }

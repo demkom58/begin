@@ -5,10 +5,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class CraftingManager {
     private static final CraftingManager instance = new CraftingManager();
@@ -79,7 +76,7 @@ public class CraftingManager {
         this.addRecipe(new ItemStack(Block.PISTON_BASE, 1), "TTT", "#X#", "#R#", '#', Block.COBBLESTONE, 'X', Item.INGOT_IRON, 'R', Item.REDSTONE, 'T', Block.PLANKS);
         this.addRecipe(new ItemStack(Block.PISTON_STICKY_BASE, 1), "S", "P", 'S', Item.SLIMEBALL, 'P', Block.PISTON_BASE);
         this.addRecipe(new ItemStack(Item.BED, 1), "###", "XXX", '#', Block.CLOTH, 'X', Block.PLANKS);
-        Collections.sort(this.recipes, new RecipeSorter(this));
+        this.recipes.sort(new RecipeSorter(this));
         System.out.println(this.recipes.size() + " recipes");
     }
 
@@ -88,7 +85,7 @@ public class CraftingManager {
     }
 
     void addRecipe(ItemStack var1, Object... var2) {
-        String var3 = "";
+        StringBuilder var3 = new StringBuilder();
         int var4 = 0;
         int var5 = 0;
         int var6 = 0;
@@ -99,19 +96,19 @@ public class CraftingManager {
                 String var9 = var11[var8];
                 ++var6;
                 var5 = var9.length();
-                var3 = var3 + var9;
+                var3.append(var9);
             }
         } else {
             while (var2[var4] instanceof String) {
                 String var7 = (String) var2[var4++];
                 ++var6;
                 var5 = var7.length();
-                var3 = var3 + var7;
+                var3.append(var7);
             }
         }
 
-        HashMap var12;
-        for (var12 = new HashMap(); var4 < var2.length; var4 += 2) {
+        Map<Character, ItemStack> var12;
+        for (var12 = new HashMap<>(); var4 < var2.length; var4 += 2) {
             Character var13 = (Character) var2[var4];
             ItemStack var15 = null;
             if (var2[var4 + 1] instanceof Item) {
@@ -140,7 +137,7 @@ public class CraftingManager {
     }
 
     void addShapelessRecipe(ItemStack var1, Object... var2) {
-        ArrayList var3 = new ArrayList();
+        ArrayList<ItemStack> var3 = new ArrayList<>();
 
         for (Object var7 : var2) {
             if (var7 instanceof ItemStack) {

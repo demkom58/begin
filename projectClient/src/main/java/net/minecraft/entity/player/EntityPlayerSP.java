@@ -36,10 +36,12 @@ public class EntityPlayerSP extends EntityPlayer {
         this.username = var3.username;
     }
 
+    @Override
     public void moveEntity(double var1, double var3, double var5) {
         super.moveEntity(var1, var3, var5);
     }
 
+    @Override
     public void updatePlayerActionState() {
         super.updatePlayerActionState();
         this.moveStrafing = this.movementInput.moveStrafe;
@@ -47,6 +49,7 @@ public class EntityPlayerSP extends EntityPlayer {
         this.isJumping = this.movementInput.jump;
     }
 
+    @Override
     public void onLivingUpdate() {
         if (!this.mc.statFileWriter.hasAchievementUnlocked(AchievementList.openInventory)) {
             this.mc.guiAchievement.queueAchievementInformation(AchievementList.openInventory);
@@ -111,41 +114,50 @@ public class EntityPlayerSP extends EntityPlayer {
         this.movementInput.checkKeyForMovementInput(var1, var2);
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
         var1.setInteger("Score", this.score);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         this.score = var1.getInteger("Score");
     }
 
+    @Override
     public void closeScreen() {
         super.closeScreen();
         this.mc.displayGuiScreen(null);
     }
 
+    @Override
     public void displayGUIEditSign(TileEntitySign var1) {
         this.mc.displayGuiScreen(new GuiEditSign(var1));
     }
 
+    @Override
     public void displayGUIChest(IInventory var1) {
         this.mc.displayGuiScreen(new GuiChest(this.inventory, var1));
     }
 
+    @Override
     public void displayWorkbenchGUI(int var1, int var2, int var3) {
         this.mc.displayGuiScreen(new GuiCrafting(this.inventory, this.worldObj, var1, var2, var3));
     }
 
+    @Override
     public void displayGUIFurnace(TileEntityFurnace var1) {
         this.mc.displayGuiScreen(new GuiFurnace(this.inventory, var1));
     }
 
+    @Override
     public void displayGUIDispenser(TileEntityDispenser var1) {
         this.mc.displayGuiScreen(new GuiDispenser(this.inventory, var1));
     }
 
+    @Override
     public void onItemPickup(Entity var1, int var2) {
         this.mc.effectRenderer.addEffect(new EntityPickupFX(this.mc.theWorld, var1, this, -0.5F));
     }
@@ -157,6 +169,7 @@ public class EntityPlayerSP extends EntityPlayer {
     public void sendChatMessage(String var1) {
     }
 
+    @Override
     public boolean isSneaking() {
         return this.movementInput.sneak && !this.sleeping;
     }
@@ -178,17 +191,21 @@ public class EntityPlayerSP extends EntityPlayer {
 
     }
 
+    @Override
     public void respawnPlayer() {
         this.mc.respawn(false, 0);
     }
 
+    @Override
     public void func_6420_o() {
     }
 
+    @Override
     public void addChatMessage(String var1) {
         this.mc.ingameGUI.addChatMessageTranslate(var1);
     }
 
+    @Override
     public void addStat(StatBase var1, int var2) {
         if (var1 != null) {
             if (var1.func_25067_a()) {
@@ -211,6 +228,7 @@ public class EntityPlayerSP extends EntityPlayer {
         return this.worldObj.isBlockNormalCube(var1, var2, var3);
     }
 
+    @Override
     protected boolean pushOutOfBlocks(double var1, double var3, double var5) {
         int var7 = MathHelper.floor(var1);
         int var8 = MathHelper.floor(var3);

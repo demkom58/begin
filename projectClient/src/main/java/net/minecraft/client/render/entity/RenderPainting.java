@@ -61,35 +61,35 @@ public class RenderPainting extends Render {
                 Tessellator var32 = Tessellator.INSTANCE;
                 var32.startDrawingQuads();
                 var32.setNormal(0.0F, 0.0F, -1.0F);
-                var32.addVertexWithUV((double) var12, (double) var15, (double) var8, (double) var17, (double) var18);
-                var32.addVertexWithUV((double) var13, (double) var15, (double) var8, (double) var16, (double) var18);
-                var32.addVertexWithUV((double) var13, (double) var14, (double) var8, (double) var16, (double) var19);
-                var32.addVertexWithUV((double) var12, (double) var14, (double) var8, (double) var17, (double) var19);
+                var32.addVertexWithUV(var12, var15, var8, var17, var18);
+                var32.addVertexWithUV(var13, var15, var8, var16, var18);
+                var32.addVertexWithUV(var13, var14, var8, var16, var19);
+                var32.addVertexWithUV(var12, var14, var8, var17, var19);
                 var32.setNormal(0.0F, 0.0F, 1.0F);
-                var32.addVertexWithUV((double) var12, (double) var14, (double) var9, (double) var20, (double) var22);
-                var32.addVertexWithUV((double) var13, (double) var14, (double) var9, (double) var21, (double) var22);
-                var32.addVertexWithUV((double) var13, (double) var15, (double) var9, (double) var21, (double) var23);
-                var32.addVertexWithUV((double) var12, (double) var15, (double) var9, (double) var20, (double) var23);
+                var32.addVertexWithUV(var12, var14, var9, var20, var22);
+                var32.addVertexWithUV(var13, var14, var9, var21, var22);
+                var32.addVertexWithUV(var13, var15, var9, var21, var23);
+                var32.addVertexWithUV(var12, var15, var9, var20, var23);
                 var32.setNormal(0.0F, -1.0F, 0.0F);
-                var32.addVertexWithUV((double) var12, (double) var14, (double) var8, (double) var24, (double) var26);
-                var32.addVertexWithUV((double) var13, (double) var14, (double) var8, (double) var25, (double) var26);
-                var32.addVertexWithUV((double) var13, (double) var14, (double) var9, (double) var25, (double) var27);
-                var32.addVertexWithUV((double) var12, (double) var14, (double) var9, (double) var24, (double) var27);
+                var32.addVertexWithUV(var12, var14, var8, var24, var26);
+                var32.addVertexWithUV(var13, var14, var8, var25, var26);
+                var32.addVertexWithUV(var13, var14, var9, var25, var27);
+                var32.addVertexWithUV(var12, var14, var9, var24, var27);
                 var32.setNormal(0.0F, 1.0F, 0.0F);
-                var32.addVertexWithUV((double) var12, (double) var15, (double) var9, (double) var24, (double) var26);
-                var32.addVertexWithUV((double) var13, (double) var15, (double) var9, (double) var25, (double) var26);
-                var32.addVertexWithUV((double) var13, (double) var15, (double) var8, (double) var25, (double) var27);
-                var32.addVertexWithUV((double) var12, (double) var15, (double) var8, (double) var24, (double) var27);
+                var32.addVertexWithUV(var12, var15, var9, var24, var26);
+                var32.addVertexWithUV(var13, var15, var9, var25, var26);
+                var32.addVertexWithUV(var13, var15, var8, var25, var27);
+                var32.addVertexWithUV(var12, var15, var8, var24, var27);
                 var32.setNormal(-1.0F, 0.0F, 0.0F);
-                var32.addVertexWithUV((double) var12, (double) var14, (double) var9, (double) var29, (double) var30);
-                var32.addVertexWithUV((double) var12, (double) var15, (double) var9, (double) var29, (double) var31);
-                var32.addVertexWithUV((double) var12, (double) var15, (double) var8, (double) var28, (double) var31);
-                var32.addVertexWithUV((double) var12, (double) var14, (double) var8, (double) var28, (double) var30);
+                var32.addVertexWithUV(var12, var14, var9, var29, var30);
+                var32.addVertexWithUV(var12, var15, var9, var29, var31);
+                var32.addVertexWithUV(var12, var15, var8, var28, var31);
+                var32.addVertexWithUV(var12, var14, var8, var28, var30);
                 var32.setNormal(1.0F, 0.0F, 0.0F);
-                var32.addVertexWithUV((double) var13, (double) var14, (double) var8, (double) var29, (double) var30);
-                var32.addVertexWithUV((double) var13, (double) var15, (double) var8, (double) var29, (double) var31);
-                var32.addVertexWithUV((double) var13, (double) var15, (double) var9, (double) var28, (double) var31);
-                var32.addVertexWithUV((double) var13, (double) var14, (double) var9, (double) var28, (double) var30);
+                var32.addVertexWithUV(var13, var14, var8, var29, var30);
+                var32.addVertexWithUV(var13, var15, var8, var29, var31);
+                var32.addVertexWithUV(var13, var15, var9, var28, var31);
+                var32.addVertexWithUV(var13, var14, var9, var28, var30);
                 var32.draw();
             }
         }
@@ -122,6 +122,7 @@ public class RenderPainting extends Render {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
         this.func_158_a((EntityPainting) var1, var2, var4, var6, var8, var9);
     }

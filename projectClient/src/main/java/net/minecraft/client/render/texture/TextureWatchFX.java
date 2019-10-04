@@ -32,11 +32,12 @@ public class TextureWatchFX extends TextureFX {
 
     }
 
+    @Override
     public void onTick() {
         double var1 = 0.0D;
         if (this.mc.theWorld != null && this.mc.thePlayer != null) {
             float var3 = this.mc.theWorld.getCelestialAngle(1.0F);
-            var1 = (double) (-var3 * 3.1415927F * 2.0F);
+            var1 = -var3 * 3.1415927F * 2.0F;
             if (this.mc.theWorld.worldProvider.isNether) {
                 var1 = Math.random() * 3.1415927410125732D * 2.0D;
             }
@@ -91,7 +92,7 @@ public class TextureWatchFX extends TextureFX {
                 var13 = var24;
             }
 
-            this.imageData[var9 * 4 + 0] = (byte) var11;
+            this.imageData[var9 * 4] = (byte) var11;
             this.imageData[var9 * 4 + 1] = (byte) var12;
             this.imageData[var9 * 4 + 2] = (byte) var13;
             this.imageData[var9 * 4 + 3] = (byte) var10;

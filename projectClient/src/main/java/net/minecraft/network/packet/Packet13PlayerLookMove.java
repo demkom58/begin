@@ -22,6 +22,7 @@ public class Packet13PlayerLookMove extends Packet10Flying {
         this.moving = true;
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.xPosition = var1.readDouble();
         this.yPosition = var1.readDouble();
@@ -32,6 +33,7 @@ public class Packet13PlayerLookMove extends Packet10Flying {
         super.readPacketData(var1);
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeDouble(this.xPosition);
         var1.writeDouble(this.yPosition);
@@ -42,6 +44,7 @@ public class Packet13PlayerLookMove extends Packet10Flying {
         super.writePacketData(var1);
     }
 
+    @Override
     public int getPacketSize() {
         return 41;
     }

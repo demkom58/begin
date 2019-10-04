@@ -10,12 +10,11 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class Container {
-    public List field_20123_d = new ArrayList();
-    public List slots = new ArrayList();
+    public List<ItemStack> field_20123_d = new ArrayList<>();
+    public List<Slot> slots = new ArrayList<>();
     public int windowId = 0;
-    protected List field_20121_g = new ArrayList();
+    protected List<ICrafting> field_20121_g = new ArrayList<>();
     private short field_20917_a = 0;
-    private Set field_20918_b = new HashSet();
 
     protected void addSlot(Slot var1) {
         var1.slotNumber = this.slots.size();
@@ -25,14 +24,14 @@ public abstract class Container {
 
     public void updateCraftingResults() {
         for (int var1 = 0; var1 < this.slots.size(); ++var1) {
-            ItemStack var2 = ((Slot) this.slots.get(var1)).getStack();
-            ItemStack var3 = (ItemStack) this.field_20123_d.get(var1);
+            ItemStack var2 = this.slots.get(var1).getStack();
+            ItemStack var3 = this.field_20123_d.get(var1);
             if (!ItemStack.areItemStacksEqual(var3, var2)) {
                 var3 = var2 == null ? null : var2.copy();
                 this.field_20123_d.set(var1, var3);
 
                 for (int var4 = 0; var4 < this.field_20121_g.size(); ++var4) {
-                    ((ICrafting) this.field_20121_g.get(var4)).func_20159_a(this, var1, var3);
+                    this.field_20121_g.get(var4).func_20159_a(this, var1, var3);
                 }
             }
         }
@@ -40,11 +39,11 @@ public abstract class Container {
     }
 
     public Slot getSlot(int var1) {
-        return (Slot) this.slots.get(var1);
+        return this.slots.get(var1);
     }
 
     public ItemStack getStackInSlot(int var1) {
-        Slot var2 = (Slot) this.slots.get(var1);
+        Slot var2 = this.slots.get(var1);
         return var2 != null ? var2.getStack() : null;
     }
 
@@ -71,7 +70,7 @@ public abstract class Container {
                 if (var7 != null) {
                     int var8 = var7.stackSize;
                     var5 = var7.copy();
-                    Slot var9 = (Slot) this.slots.get(var1);
+                    Slot var9 = this.slots.get(var1);
                     if (var9 != null && var9.getStack() != null) {
                         int var10 = var9.getStack().stackSize;
                         if (var10 < var8) {
@@ -80,7 +79,7 @@ public abstract class Container {
                     }
                 }
             } else {
-                Slot var12 = (Slot) this.slots.get(var1);
+                Slot var12 = this.slots.get(var1);
                 if (var12 != null) {
                     var12.onSlotChanged();
                     ItemStack var13 = var12.getStack();
@@ -200,7 +199,7 @@ public abstract class Container {
 
         if (var1.isStackable()) {
             while (var1.stackSize > 0 && (!var4 && var5 < var3 || var4 && var5 >= var2)) {
-                Slot var6 = (Slot) this.slots.get(var5);
+                Slot var6 = this.slots.get(var5);
                 ItemStack var7 = var6.getStack();
                 if (var7 != null && var7.itemID == var1.itemID && (!var1.getHasSubtypes() || var1.getItemDamage() == var7.getItemDamage())) {
                     int var8 = var7.stackSize + var1.stackSize;
@@ -231,7 +230,7 @@ public abstract class Container {
             }
 
             while (!var4 && var5 < var3 || var4 && var5 >= var2) {
-                Slot var10 = (Slot) this.slots.get(var5);
+                Slot var10 = this.slots.get(var5);
                 ItemStack var11 = var10.getStack();
                 if (var11 == null) {
                     var10.putStack(var1.copy());

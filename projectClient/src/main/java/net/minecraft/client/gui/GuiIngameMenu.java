@@ -8,6 +8,7 @@ public class GuiIngameMenu extends GuiScreen {
     private int updateCounter2 = 0;
     private int updateCounter = 0;
 
+    @Override
     public void initGui() {
         this.updateCounter2 = 0;
         this.buttons.clear();
@@ -23,6 +24,7 @@ public class GuiIngameMenu extends GuiScreen {
         this.buttons.add(new GuiButton(6, this.width / 2 + 2, this.height / 4 + 48 + var1, 98, 20, StatCollector.translateToLocal("gui.stats")));
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
@@ -53,11 +55,13 @@ public class GuiIngameMenu extends GuiScreen {
 
     }
 
+    @Override
     public void updateScreen() {
         super.updateScreen();
         ++this.updateCounter;
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
         boolean var4 = !this.mc.theWorld.func_650_a(this.updateCounter2++);

@@ -9,10 +9,12 @@ public class ItemLog extends ItemBlock {
         this.setHasSubtypes(true);
     }
 
+    @Override
     public int getIconFromDamage(int var1) {
         return Block.WOOD.getBlockTextureFromSideAndMetadata(2, var1);
     }
 
+    @Override
     public int getPlacedBlockMetadata(int var1) {
         return var1;
     }

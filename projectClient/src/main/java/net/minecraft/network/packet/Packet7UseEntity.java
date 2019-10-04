@@ -20,22 +20,26 @@ public class Packet7UseEntity extends Packet {
         this.isLeftClick = var3;
     }
 
+    @Override
     public void readPacketData(DataInputStream var1) throws IOException {
         this.playerEntityId = var1.readInt();
         this.targetEntity = var1.readInt();
         this.isLeftClick = var1.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream var1) throws IOException {
         var1.writeInt(this.playerEntityId);
         var1.writeInt(this.targetEntity);
         var1.writeByte(this.isLeftClick);
     }
 
+    @Override
     public void processPacket(NetHandler var1) {
         var1.handleUseEntity(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 9;
     }

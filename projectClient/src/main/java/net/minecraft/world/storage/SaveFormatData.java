@@ -35,6 +35,7 @@ public class SaveFormatData implements Comparable<SaveFormatData> {
         return this.lastTimePlayed;
     }
 
+    @Override
     public int compareTo(SaveFormatData comparator) {
         if (this.lastTimePlayed < comparator.lastTimePlayed)
             return 1;

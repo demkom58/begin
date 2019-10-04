@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import net.hypnosis.input.keyboard.Keyboard;
 import net.minecraft.client.input.keyboard.CraftKeyboard;
 import net.minecraft.client.render.RenderHelper;
 import net.minecraft.client.render.entity.RenderItem;
@@ -23,11 +22,13 @@ public abstract class GuiContainer extends GuiScreen {
         this.inventorySlots = var1;
     }
 
+    @Override
     public void initGui() {
         super.initGui();
         this.mc.thePlayer.craftingInventory = this.inventorySlots;
     }
 
+    @Override
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
         int var4 = (this.width - this.xSize) / 2;
@@ -129,6 +130,7 @@ public abstract class GuiContainer extends GuiScreen {
         return x >= slot.xDisplayPosition - 1 && x < slot.xDisplayPosition + 16 + 1 && y >= slot.yDisplayPosition - 1 && y < slot.yDisplayPosition + 16 + 1;
     }
 
+    @Override
     protected void mouseClicked(int x, int y, int button) {
         super.mouseClicked(x, y, button);
         if (button == 0 || button == 1) {
@@ -154,6 +156,7 @@ public abstract class GuiContainer extends GuiScreen {
 
     }
 
+    @Override
     protected void mouseMovedOrUp(int x, int y, int button) {
         if (button == 0) {
         }
@@ -175,16 +178,19 @@ public abstract class GuiContainer extends GuiScreen {
         }
     }
 
+    @Override
     public void onGuiClosed() {
         if (this.mc.thePlayer != null) {
             this.mc.playerController.func_20086_a(this.inventorySlots.windowId, this.mc.thePlayer);
         }
     }
 
+    @Override
     public boolean doesGuiPauseGame() {
         return false;
     }
 
+    @Override
     public void updateScreen() {
         super.updateScreen();
         if (!this.mc.thePlayer.isEntityAlive() || this.mc.thePlayer.isDead) {

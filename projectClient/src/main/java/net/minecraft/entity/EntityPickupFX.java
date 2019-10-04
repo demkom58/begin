@@ -21,6 +21,7 @@ public class EntityPickupFX extends EntityFX {
         this.field_676_r = var4;
     }
 
+    @Override
     public void renderParticle(Tessellator var1, float var2, float var3, float var4, float var5, float var6, float var7) {
         float var8 = ((float) this.field_678_p + var2) / (float) this.field_677_q;
         var8 = var8 * var8;
@@ -41,9 +42,10 @@ public class EntityPickupFX extends EntityFX {
         var23 = var23 - interpPosY;
         var25 = var25 - interpPosZ;
         GL11.glColor4f(var30, var30, var30, 1.0F);
-        RenderManager.instance.renderEntityWithPosYaw(this.field_675_a, (double) ((float) var21), (double) ((float) var23), (double) ((float) var25), this.field_675_a.rotationYaw, var2);
+        RenderManager.instance.renderEntityWithPosYaw(this.field_675_a, (float) var21, (float) var23, (float) var25, this.field_675_a.rotationYaw, var2);
     }
 
+    @Override
     public void onUpdate() {
         ++this.field_678_p;
         if (this.field_678_p == this.field_677_q) {
@@ -52,6 +54,7 @@ public class EntityPickupFX extends EntityFX {
 
     }
 
+    @Override
     public int getFXLayer() {
         return 3;
     }

@@ -53,13 +53,13 @@ public class ChunkProviderHell implements IChunkProvider {
             for (int var10 = 0; var10 < var4; ++var10) {
                 for (int var11 = 0; var11 < 16; ++var11) {
                     double var12 = 0.125D;
-                    double var14 = this.field_4163_o[((var9 + 0) * var8 + var10 + 0) * var7 + var11 + 0];
-                    double var16 = this.field_4163_o[((var9 + 0) * var8 + var10 + 1) * var7 + var11 + 0];
-                    double var18 = this.field_4163_o[((var9 + 1) * var8 + var10 + 0) * var7 + var11 + 0];
-                    double var20 = this.field_4163_o[((var9 + 1) * var8 + var10 + 1) * var7 + var11 + 0];
-                    double var22 = (this.field_4163_o[((var9 + 0) * var8 + var10 + 0) * var7 + var11 + 1] - var14) * var12;
-                    double var24 = (this.field_4163_o[((var9 + 0) * var8 + var10 + 1) * var7 + var11 + 1] - var16) * var12;
-                    double var26 = (this.field_4163_o[((var9 + 1) * var8 + var10 + 0) * var7 + var11 + 1] - var18) * var12;
+                    double var14 = this.field_4163_o[((var9) * var8 + var10) * var7 + var11];
+                    double var16 = this.field_4163_o[((var9) * var8 + var10 + 1) * var7 + var11];
+                    double var18 = this.field_4163_o[((var9 + 1) * var8 + var10) * var7 + var11];
+                    double var20 = this.field_4163_o[((var9 + 1) * var8 + var10 + 1) * var7 + var11];
+                    double var22 = (this.field_4163_o[((var9) * var8 + var10) * var7 + var11 + 1] - var14) * var12;
+                    double var24 = (this.field_4163_o[((var9) * var8 + var10 + 1) * var7 + var11 + 1] - var16) * var12;
+                    double var26 = (this.field_4163_o[((var9 + 1) * var8 + var10) * var7 + var11 + 1] - var18) * var12;
                     double var28 = (this.field_4163_o[((var9 + 1) * var8 + var10 + 1) * var7 + var11 + 1] - var20) * var12;
 
                     for (int var30 = 0; var30 < 8; ++var30) {
@@ -70,7 +70,7 @@ public class ChunkProviderHell implements IChunkProvider {
                         double var39 = (var20 - var16) * var31;
 
                         for (int var41 = 0; var41 < 4; ++var41) {
-                            int var42 = var41 + var9 * 4 << 11 | 0 + var10 * 4 << 7 | var11 * 8 + var30;
+                            int var42 = var41 + var9 * 4 << 11 | var10 * 4 << 7 | var11 * 8 + var30;
                             short var43 = 128;
                             double var44 = 0.25D;
                             double var46 = var33;
@@ -109,9 +109,9 @@ public class ChunkProviderHell implements IChunkProvider {
     public void func_4058_b(int var1, int var2, byte[] var3) {
         byte var4 = 64;
         double var5 = 0.03125D;
-        this.field_4162_p = this.field_4166_l.generateNoiseOctaves(this.field_4162_p, (double) (var1 * 16), (double) (var2 * 16), 0.0D, 16, 16, 1, var5, var5, 1.0D);
-        this.field_4161_q = this.field_4166_l.generateNoiseOctaves(this.field_4161_q, (double) (var1 * 16), 109.0134D, (double) (var2 * 16), 16, 1, 16, var5, 1.0D, var5);
-        this.field_4160_r = this.field_4165_m.generateNoiseOctaves(this.field_4160_r, (double) (var1 * 16), (double) (var2 * 16), 0.0D, 16, 16, 1, var5 * 2.0D, var5 * 2.0D, var5 * 2.0D);
+        this.field_4162_p = this.field_4166_l.generateNoiseOctaves(this.field_4162_p, var1 * 16, var2 * 16, 0.0D, 16, 16, 1, var5, var5, 1.0D);
+        this.field_4161_q = this.field_4166_l.generateNoiseOctaves(this.field_4161_q, var1 * 16, 109.0134D, var2 * 16, 16, 1, 16, var5, 1.0D, var5);
+        this.field_4160_r = this.field_4165_m.generateNoiseOctaves(this.field_4160_r, var1 * 16, var2 * 16, 0.0D, 16, 16, 1, var5 * 2.0D, var5 * 2.0D, var5 * 2.0D);
 
         for (int var7 = 0; var7 < 16; ++var7) {
             for (int var8 = 0; var8 < 16; ++var8) {
@@ -126,7 +126,7 @@ public class ChunkProviderHell implements IChunkProvider {
                     int var16 = (var8 * 16 + var7) * 128 + var15;
                     if (var15 >= 127 - this.hellRNG.nextInt(5)) {
                         var3[var16] = (byte) Block.BEDROCK.blockID;
-                    } else if (var15 <= 0 + this.hellRNG.nextInt(5)) {
+                    } else if (var15 <= this.hellRNG.nextInt(5)) {
                         var3[var16] = (byte) Block.BEDROCK.blockID;
                     } else {
                         byte var17 = var3[var16];
@@ -179,18 +179,19 @@ public class ChunkProviderHell implements IChunkProvider {
 
     }
 
+    @Override
     public Chunk prepareChunk(int x, int z) {
         return this.provideChunk(x, z);
     }
 
+    @Override
     public Chunk provideChunk(int x, int z) {
         this.hellRNG.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
         byte[] var3 = new byte['\u8000'];
         this.func_4059_a(x, z, var3);
         this.func_4058_b(x, z, var3);
         this.field_4159_s.func_867_a(this, this.worldObj, x, z, var3);
-        Chunk var4 = new Chunk(this.worldObj, var3, x, z);
-        return var4;
+        return new Chunk(this.worldObj, var3, x, z);
     }
 
     private double[] func_4057_a(double[] var1, int var2, int var3, int var4, int var5, int var6, int var7) {
@@ -200,20 +201,20 @@ public class ChunkProviderHell implements IChunkProvider {
 
         double var8 = 684.412D;
         double var10 = 2053.236D;
-        this.field_4172_f = this.field_4177_a.generateNoiseOctaves(this.field_4172_f, (double) var2, (double) var3, (double) var4, var5, 1, var7, 1.0D, 0.0D, 1.0D);
-        this.field_4171_g = this.field_4176_b.generateNoiseOctaves(this.field_4171_g, (double) var2, (double) var3, (double) var4, var5, 1, var7, 100.0D, 0.0D, 100.0D);
-        this.field_4175_c = this.field_4167_k.generateNoiseOctaves(this.field_4175_c, (double) var2, (double) var3, (double) var4, var5, var6, var7, var8 / 80.0D, var10 / 60.0D, var8 / 80.0D);
-        this.field_4174_d = this.field_4169_i.generateNoiseOctaves(this.field_4174_d, (double) var2, (double) var3, (double) var4, var5, var6, var7, var8, var10, var8);
-        this.field_4173_e = this.field_4168_j.generateNoiseOctaves(this.field_4173_e, (double) var2, (double) var3, (double) var4, var5, var6, var7, var8, var10, var8);
+        this.field_4172_f = this.field_4177_a.generateNoiseOctaves(this.field_4172_f, var2, var3, var4, var5, 1, var7, 1.0D, 0.0D, 1.0D);
+        this.field_4171_g = this.field_4176_b.generateNoiseOctaves(this.field_4171_g, var2, var3, var4, var5, 1, var7, 100.0D, 0.0D, 100.0D);
+        this.field_4175_c = this.field_4167_k.generateNoiseOctaves(this.field_4175_c, var2, var3, var4, var5, var6, var7, var8 / 80.0D, var10 / 60.0D, var8 / 80.0D);
+        this.field_4174_d = this.field_4169_i.generateNoiseOctaves(this.field_4174_d, var2, var3, var4, var5, var6, var7, var8, var10, var8);
+        this.field_4173_e = this.field_4168_j.generateNoiseOctaves(this.field_4173_e, var2, var3, var4, var5, var6, var7, var8, var10, var8);
         int var12 = 0;
         int var13 = 0;
         double[] var14 = new double[var6];
 
         for (int var15 = 0; var15 < var6; ++var15) {
             var14[var15] = Math.cos((double) var15 * 3.141592653589793D * 6.0D / (double) var6) * 2.0D;
-            double var16 = (double) var15;
+            double var16 = var15;
             if (var15 > var6 / 2) {
-                var16 = (double) (var6 - 1 - var15);
+                var16 = var6 - 1 - var15;
             }
 
             if (var16 < 4.0D) {
@@ -273,7 +274,7 @@ public class ChunkProviderHell implements IChunkProvider {
 
                     var24 = var24 - var26;
                     if (var23 > var6 - 4) {
-                        double var34 = (double) ((float) (var23 - (var6 - 4)) / 3.0F);
+                        double var34 = (float) (var23 - (var6 - 4)) / 3.0F;
                         var24 = var24 * (1.0D - var34) + -10.0D * var34;
                     }
 
@@ -299,10 +300,12 @@ public class ChunkProviderHell implements IChunkProvider {
         return var1;
     }
 
+    @Override
     public boolean chunkExists(int x, int z) {
         return true;
     }
 
+    @Override
     public void populate(IChunkProvider provider, int x, int z) {
         BlockSand.fallInstantly = true;
         int var4 = x * 16;
@@ -357,18 +360,22 @@ public class ChunkProviderHell implements IChunkProvider {
         BlockSand.fallInstantly = false;
     }
 
+    @Override
     public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
         return true;
     }
 
+    @Override
     public boolean unload100OldestChunks() {
         return false;
     }
 
+    @Override
     public boolean canSave() {
         return true;
     }
 
+    @Override
     public String makeString() {
         return "HellRandomLevelSource";
     }

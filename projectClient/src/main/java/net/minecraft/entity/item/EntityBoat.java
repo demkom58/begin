@@ -47,29 +47,36 @@ public class EntityBoat extends Entity {
         this.prevPosZ = var6;
     }
 
+    @Override
     protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public AxisAlignedBB getCollisionBox(Entity var1) {
         return var1.boundingBox;
     }
 
+    @Override
     public AxisAlignedBB getBoundingBox() {
         return this.boundingBox;
     }
 
+    @Override
     public boolean canBePushed() {
         return true;
     }
 
+    @Override
     public double getMountedYOffset() {
         return (double) this.height * 0.0D - 0.30000001192092896D;
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         if (!this.worldObj.multiplayerWorld && !this.isDead) {
             this.boatRockDirection = -this.boatRockDirection;
@@ -98,34 +105,39 @@ public class EntityBoat extends Entity {
         }
     }
 
+    @Override
     public void performHurtAnimation() {
         this.boatRockDirection = -this.boatRockDirection;
         this.boatTimeSinceHit = 10;
         this.boatCurrentDamage += this.boatCurrentDamage * 10;
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
 
+    @Override
     public void setPositionAndRotation2(double var1, double var3, double var5, float var7, float var8, int var9) {
         this.field_9393_e = var1;
         this.field_9392_f = var3;
         this.field_9391_g = var5;
-        this.field_9390_h = (double) var7;
-        this.field_9389_i = (double) var8;
+        this.field_9390_h = var7;
+        this.field_9389_i = var8;
         this.field_9394_d = var9 + 4;
         this.motionX = this.field_9388_j;
         this.motionY = this.field_9387_k;
         this.motionZ = this.field_9386_l;
     }
 
+    @Override
     public void setVelocity(double var1, double var3, double var5) {
         this.field_9388_j = this.motionX = var1;
         this.field_9387_k = this.motionY = var3;
         this.field_9386_l = this.motionZ = var5;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         if (this.boatTimeSinceHit > 0) {
@@ -143,7 +155,7 @@ public class EntityBoat extends Entity {
         double var2 = 0.0D;
 
         for (int var4 = 0; var4 < var1; ++var4) {
-            double var5 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double) (var4 + 0) / (double) var1 - 0.125D;
+            double var5 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double) (var4) / (double) var1 - 0.125D;
             double var7 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double) (var4 + 1) / (double) var1 - 0.125D;
             AxisAlignedBB var9 = AxisAlignedBB.getBoundingBoxFromPool(this.boundingBox.minX, var5, this.boundingBox.minZ, this.boundingBox.maxX, var7, this.boundingBox.maxZ);
             if (this.worldObj.isAABBInMaterial(var9, Material.WATER)) {
@@ -233,7 +245,7 @@ public class EntityBoat extends Entity {
                 double var10 = Math.sin((double) this.rotationYaw * 3.141592653589793D / 180.0D);
 
                 for (int var12 = 0; (double) var12 < 1.0D + var6 * 60.0D; ++var12) {
-                    double var13 = (double) (this.rand.nextFloat() * 2.0F - 1.0F);
+                    double var13 = this.rand.nextFloat() * 2.0F - 1.0F;
                     double var15 = (double) (this.rand.nextInt(2) * 2 - 1) * 0.7D;
                     if (this.rand.nextBoolean()) {
                         double var17 = this.posX - var8 * var13 * 0.8D + var10 * var15;
@@ -266,11 +278,11 @@ public class EntityBoat extends Entity {
             }
 
             this.rotationPitch = 0.0F;
-            double var29 = (double) this.rotationYaw;
+            double var29 = this.rotationYaw;
             double var32 = this.prevPosX - this.posX;
             double var34 = this.prevPosZ - this.posZ;
             if (var32 * var32 + var34 * var34 > 0.001D) {
-                var29 = (double) ((float) (Math.atan2(var34, var32) * 180.0D / 3.141592653589793D));
+                var29 = (float) (Math.atan2(var34, var32) * 180.0D / 3.141592653589793D);
             }
 
             double var14;
@@ -317,6 +329,7 @@ public class EntityBoat extends Entity {
         }
     }
 
+    @Override
     public void updateRiderPosition() {
         if (this.riddenByEntity != null) {
             double var1 = Math.cos((double) this.rotationYaw * 3.141592653589793D / 180.0D) * 0.4D;
@@ -325,16 +338,20 @@ public class EntityBoat extends Entity {
         }
     }
 
+    @Override
     protected void writeEntityToNBT(TagCompound var1) {
     }
 
+    @Override
     protected void readEntityFromNBT(TagCompound var1) {
     }
 
+    @Override
     public float getShadowSize() {
         return 0.0F;
     }
 
+    @Override
     public boolean interact(EntityPlayer var1) {
         if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != var1) {
             return true;

@@ -215,6 +215,7 @@ public class World implements IBlockAccess {
         this.func_27163_E();
     }
 
+    @Override
     public WorldChunkManager getWorldChunkManager() {
         return this.worldProvider.worldChunkMgr;
     }
@@ -320,6 +321,7 @@ public class World implements IBlockAccess {
         return this.chunkProvider.saveChunks(false, null);
     }
 
+    @Override
     public int getBlockId(int var1, int var2, int var3) {
         if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
             if (var2 < 0)
@@ -408,11 +410,13 @@ public class World implements IBlockAccess {
         return false;
     }
 
+    @Override
     public Material getBlockMaterial(int var1, int var2, int var3) {
         int var4 = this.getBlockId(var1, var2, var3);
         return var4 == 0 ? Material.AIR : Block.BLOCKS_LIST[var4].blockMaterial;
     }
 
+    @Override
     public int getBlockMetadata(int var1, int var2, int var3) {
         if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
             if (var2 < 0)
@@ -690,6 +694,7 @@ public class World implements IBlockAccess {
         }
     }
 
+    @Override
     public float getBrightness(int x, int y, int z, int var4) {
         int var5 = this.getBlockLightValue(x, y, z);
         if (var5 < var4) {
@@ -699,6 +704,7 @@ public class World implements IBlockAccess {
         return this.worldProvider.lightBrightnessTable[var5];
     }
 
+    @Override
     public float getLightBrightness(int var1, int var2, int var3) {
         return this.worldProvider.lightBrightnessTable[this.getBlockLightValue(var1, var2, var3)];
     }
@@ -1585,6 +1591,7 @@ public class World implements IBlockAccess {
         return this.chunkProvider.makeString();
     }
 
+    @Override
     public TileEntity getBlockTileEntity(int var1, int var2, int var3) {
         Chunk var4 = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
         return var4 != null ? var4.getChunkBlockTileEntity(var1 & 15, var2, var3 & 15) : null;
@@ -1625,11 +1632,13 @@ public class World implements IBlockAccess {
 
     }
 
+    @Override
     public boolean isBlockOpaqueCube(int var1, int var2, int var3) {
         Block var4 = Block.BLOCKS_LIST[this.getBlockId(var1, var2, var3)];
         return var4 != null && var4.isOpaqueCube();
     }
 
+    @Override
     public boolean isBlockNormalCube(int var1, int var2, int var3) {
         Block var4 = Block.BLOCKS_LIST[this.getBlockId(var1, var2, var3)];
         if (var4 == null) {
@@ -1655,15 +1664,13 @@ public class World implements IBlockAccess {
                 while (this.lightingToUpdate.size() > 0) {
                     --var1;
                     if (var1 <= 0) {
-                        boolean var2 = true;
-                        return var2;
+                        return true;
                     }
 
                     this.lightingToUpdate.remove(this.lightingToUpdate.size() - 1).func_4127_a(this);
                 }
 
-                boolean var6 = false;
-                return var6;
+                return false;
             } finally {
                 --this.lightingUpdatesCounter;
             }

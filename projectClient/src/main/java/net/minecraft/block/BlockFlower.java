@@ -15,6 +15,7 @@ public class BlockFlower extends Block {
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, var3 * 3.0F, 0.5F + var3);
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
         return super.canPlaceBlockAt(var1, var2, var3, var4) && this.canThisPlantGrowOnThisBlockID(var1.getBlockId(var2, var3 - 1, var4));
     }
@@ -23,11 +24,13 @@ public class BlockFlower extends Block {
         return var1 == Block.GRASS.blockID || var1 == Block.DIRT.blockID || var1 == Block.FARMLAND.blockID;
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         super.onNeighborBlockChange(var1, var2, var3, var4, var5);
         this.func_268_h(var1, var2, var3, var4);
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         this.func_268_h(var1, var2, var3, var4);
     }
@@ -40,22 +43,27 @@ public class BlockFlower extends Block {
 
     }
 
+    @Override
     public boolean canBlockStay(World var1, int var2, int var3, int var4) {
         return (var1.getFullBlockLightValue(var2, var3, var4) >= 8 || var1.canBlockSeeTheSky(var2, var3, var4)) && this.canThisPlantGrowOnThisBlockID(var1.getBlockId(var2, var3 - 1, var4));
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 1;
     }

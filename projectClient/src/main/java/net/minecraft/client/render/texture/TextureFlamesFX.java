@@ -10,6 +10,7 @@ public class TextureFlamesFX extends TextureFX {
         super(Block.FIRE.blockIndexInTexture + var1 * 16);
     }
 
+    @Override
     public void onTick() {
         for (int var1 = 0; var1 < 16; ++var1) {
             for (int var2 = 0; var2 < 20; ++var2) {
@@ -65,7 +66,7 @@ public class TextureFlamesFX extends TextureFX {
                 var7 = var11;
             }
 
-            this.imageData[var13 * 4 + 0] = (byte) var16;
+            this.imageData[var13 * 4] = (byte) var16;
             this.imageData[var13 * 4 + 1] = (byte) var17;
             this.imageData[var13 * 4 + 2] = (byte) var7;
             this.imageData[var13 * 4 + 3] = (byte) var8;

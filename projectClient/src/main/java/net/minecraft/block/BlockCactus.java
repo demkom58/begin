@@ -13,6 +13,7 @@ public class BlockCactus extends Block {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
         if (var1.isAirBlock(var2, var3 + 1, var4)) {
             int var6;
@@ -31,16 +32,19 @@ public class BlockCactus extends Block {
 
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         float var5 = 0.0625F;
-        return AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var5), (double) var3, (double) ((float) var4 + var5), (double) ((float) (var2 + 1) - var5), (double) ((float) (var3 + 1) - var5), (double) ((float) (var4 + 1) - var5));
+        return AxisAlignedBB.getBoundingBoxFromPool((float) var2 + var5, var3, (float) var4 + var5, (float) (var2 + 1) - var5, (float) (var3 + 1) - var5, (float) (var4 + 1) - var5);
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
         float var5 = 0.0625F;
-        return AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var5), (double) var3, (double) ((float) var4 + var5), (double) ((float) (var2 + 1) - var5), (double) (var3 + 1), (double) ((float) (var4 + 1) - var5));
+        return AxisAlignedBB.getBoundingBoxFromPool((float) var2 + var5, var3, (float) var4 + var5, (float) (var2 + 1) - var5, var3 + 1, (float) (var4 + 1) - var5);
     }
 
+    @Override
     public int getBlockTextureFromSide(int side) {
         if (side == 1) {
             return this.blockIndexInTexture - 1;
@@ -49,22 +53,27 @@ public class BlockCactus extends Block {
         }
     }
 
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public int getRenderType() {
         return 13;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return !super.canPlaceBlockAt(var1, var2, var3, var4) ? false : this.canBlockStay(var1, var2, var3, var4);
+        return super.canPlaceBlockAt(var1, var2, var3, var4) && this.canBlockStay(var1, var2, var3, var4);
     }
 
+    @Override
     public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
         if (!this.canBlockStay(var1, var2, var3, var4)) {
             this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
@@ -73,6 +82,7 @@ public class BlockCactus extends Block {
 
     }
 
+    @Override
     public boolean canBlockStay(World var1, int var2, int var3, int var4) {
         if (var1.getBlockMaterial(var2 - 1, var3, var4).isSolid()) {
             return false;
@@ -88,6 +98,7 @@ public class BlockCactus extends Block {
         }
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
         var5.attackEntityFrom(null, 1);
     }

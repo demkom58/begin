@@ -14,6 +14,7 @@ public class TextureWaterFlowFX extends TextureFX {
         this.tileSize = 2;
     }
 
+    @Override
     public void onTick() {
         ++this.field_1134_k;
 
@@ -73,7 +74,7 @@ public class TextureWaterFlowFX extends TextureFX {
                 var7 = var11;
             }
 
-            this.imageData[var15 * 4 + 0] = (byte) var18;
+            this.imageData[var15 * 4] = (byte) var18;
             this.imageData[var15 * 4 + 1] = (byte) var19;
             this.imageData[var15 * 4 + 2] = (byte) var7;
             this.imageData[var15 * 4 + 3] = (byte) var8;

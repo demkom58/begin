@@ -21,7 +21,7 @@ public class NetworkManager {
     public static int[] field_28144_e = new int[256];
     private final SocketAddress remoteSocketAddress;
     public int chunkDataSendCounter = 0;
-    private Object sendQueueLock = new Object();
+    private final Object sendQueueLock = new Object();
     private Socket networkSocket;
     private DataInputStream socketInputStream;
     private DataOutputStream socketOutputStream;
@@ -208,19 +208,19 @@ public class NetworkManager {
             try {
                 this.socketInputStream.close();
                 this.socketInputStream = null;
-            } catch (Throwable throwable) {
+            } catch (Throwable ignored) {
             }
 
             try {
                 this.socketOutputStream.close();
                 this.socketOutputStream = null;
-            } catch (Throwable throwable) {
+            } catch (Throwable ignored) {
             }
 
             try {
                 this.networkSocket.close();
                 this.networkSocket = null;
-            } catch (Throwable throwable) {
+            } catch (Throwable ignored) {
             }
 
         }

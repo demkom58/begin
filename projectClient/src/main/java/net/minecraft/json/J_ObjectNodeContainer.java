@@ -11,10 +11,12 @@ class J_ObjectNodeContainer implements J_NodeContainer {
         this.field_27296_a = var2;
     }
 
+    @Override
     public void func_27290_a(J_JsonNodeBuilder var1) {
         throw new RuntimeException("Coding failure in Argo:  Attempt to add a node to an object.");
     }
 
+    @Override
     public void func_27289_a(J_JsonFieldBuilder var1) {
         this.field_27296_a.func_27237_a(var1);
     }
