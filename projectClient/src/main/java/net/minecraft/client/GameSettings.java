@@ -30,7 +30,7 @@ public class GameSettings {
     public KeyBinding keyBindForward = new KeyBinding("key.forward", GLFW.GLFW_KEY_W);
     public KeyBinding keyBindLeft = new KeyBinding("key.left", GLFW.GLFW_KEY_A);
     public KeyBinding keyBindBack = new KeyBinding("key.back", GLFW.GLFW_KEY_S);
-    public KeyBinding keyBindRight = new KeyBinding("key.right", GLFW.GLFW_KEY_R);
+    public KeyBinding keyBindRight = new KeyBinding("key.right", GLFW.GLFW_KEY_D);
     public KeyBinding keyBindJump = new KeyBinding("key.jump", GLFW.GLFW_KEY_SPACE);
     public KeyBinding keyBindInventory = new KeyBinding("key.inventory", GLFW.GLFW_KEY_E);
     public KeyBinding keyBindDrop = new KeyBinding("key.drop", GLFW.GLFW_KEY_Q);
