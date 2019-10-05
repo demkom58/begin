@@ -137,7 +137,7 @@ public class BlockBed extends Block {
             return Block.PLANKS.blockIndexInTexture;
         } else {
             int var3 = getDirectionFromMetadata(var2);
-            int var4 = ModelBed.bedDirection[var3][var1];
+            int var4 = ModelBed.BED_DIRECTION[var3][var1];
             if (isBlockFootOfBed(var2)) {
                 if (var4 == 2) {
                     return this.blockIndexInTexture + 2 + 16;
