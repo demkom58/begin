@@ -1,8 +1,5 @@
 apply plugin: "application"
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
-
 String quasarVersion = '0.8.0'
 
 configurations {
