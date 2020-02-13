@@ -129,9 +129,9 @@ public class EntityWolf extends EntityAnimal {
                 this.setWolfSitting(true);
             }
         } else if (this.playerToAttack == null && !this.hasPath() && !this.isWolfTamed() && this.worldObj.rand.nextInt(100) == 0) {
-            List var1 = this.worldObj.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
+            List<Entity> var1 = this.worldObj.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
             if (!var1.isEmpty()) {
-                this.setTarget((Entity) var1.get(this.worldObj.rand.nextInt(var1.size())));
+                this.setTarget(var1.get(this.worldObj.rand.nextInt(var1.size())));
             }
         }
 

@@ -15,42 +15,47 @@ public class TexturedQuad {
         this.nVertices = var1.length;
     }
 
-    public TexturedQuad(PositionTextureVertex[] var1, int var2, int var3, int var4, int var5) {
-        this(var1);
-        float var6 = 0.0015625F;
-        float var7 = 0.003125F;
-        var1[0] = var1[0].setTexturePosition((float) var4 / 64.0F - var6, (float) var3 / 32.0F + var7);
-        var1[1] = var1[1].setTexturePosition((float) var2 / 64.0F + var6, (float) var3 / 32.0F + var7);
-        var1[2] = var1[2].setTexturePosition((float) var2 / 64.0F + var6, (float) var5 / 32.0F - var7);
-        var1[3] = var1[3].setTexturePosition((float) var4 / 64.0F - var6, (float) var5 / 32.0F - var7);
+    public TexturedQuad(PositionTextureVertex[] vertices, int l1, int r1, int l2, int r2) {
+        this(vertices);
+
+        vertices[0] = vertices[0].setTexturePosition((float) l2 / 64.0F, (float) r1 / 32.0F);
+        vertices[1] = vertices[1].setTexturePosition((float) l1 / 64.0F, (float) r1 / 32.0F);
+        vertices[2] = vertices[2].setTexturePosition((float) l1 / 64.0F, (float) r2 / 32.0F);
+        vertices[3] = vertices[3].setTexturePosition((float) l2 / 64.0F, (float) r2 / 32.0F);
     }
 
     public void flipFace() {
-        PositionTextureVertex[] var1 = new PositionTextureVertex[this.vertexPositions.length];
+        PositionTextureVertex[] vertices = new PositionTextureVertex[this.vertexPositions.length];
 
-        for (int var2 = 0; var2 < this.vertexPositions.length; ++var2) {
-            var1[var2] = this.vertexPositions[this.vertexPositions.length - var2 - 1];
-        }
+        for (int i = 0; i < this.vertexPositions.length; ++i)
+            vertices[i] = this.vertexPositions[this.vertexPositions.length - i - 1];
 
-        this.vertexPositions = var1;
+        this.vertexPositions = vertices;
     }
 
-    public void draw(Tessellator var1, float var2) {
+    public void draw(Tessellator tess, float delta) {
         Vec3D var3 = this.vertexPositions[1].vector3D.subtract(this.vertexPositions[0].vector3D);
         Vec3D var4 = this.vertexPositions[1].vector3D.subtract(this.vertexPositions[2].vector3D);
         Vec3D var5 = var4.crossProduct(var3).normalize();
-        var1.startDrawingQuads();
+
+        tess.startDrawingQuads();
         if (this.invertNormal) {
-            var1.setNormal(-((float) var5.xCoord), -((float) var5.yCoord), -((float) var5.zCoord));
+            tess.setNormal(-((float) var5.xCoord), -((float) var5.yCoord), -((float) var5.zCoord));
         } else {
-            var1.setNormal((float) var5.xCoord, (float) var5.yCoord, (float) var5.zCoord);
+            tess.setNormal((float) var5.xCoord, (float) var5.yCoord, (float) var5.zCoord);
         }
 
-        for (int var6 = 0; var6 < 4; ++var6) {
-            PositionTextureVertex var7 = this.vertexPositions[var6];
-            var1.addVertexWithUV((float) var7.vector3D.xCoord * var2, (float) var7.vector3D.yCoord * var2, (float) var7.vector3D.zCoord * var2, var7.texturePositionX, var7.texturePositionY);
+        for (int renderPass = 0; renderPass < 4; ++renderPass) {
+            PositionTextureVertex vertex = this.vertexPositions[renderPass];
+            tess.addVertexWithUV(
+                    (float) vertex.vector3D.xCoord * delta,
+                    (float) vertex.vector3D.yCoord * delta,
+                    (float) vertex.vector3D.zCoord * delta,
+                    vertex.texturePositionX,
+                    vertex.texturePositionY
+            );
         }
 
-        var1.draw();
+        tess.draw();
     }
 }

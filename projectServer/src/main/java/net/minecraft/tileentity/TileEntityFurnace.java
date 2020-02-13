@@ -17,14 +17,17 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
     public int furnaceCookTime = 0;
     private ItemStack[] furnaceItemStacks = new ItemStack[3];
 
+    @Override
     public int getSizeInventory() {
         return this.furnaceItemStacks.length;
     }
 
+    @Override
     public ItemStack getStackInSlot(int var1) {
         return this.furnaceItemStacks[var1];
     }
 
+    @Override
     public ItemStack decrStackSize(int var1, int var2) {
         if (this.furnaceItemStacks[var1] != null) {
             if (this.furnaceItemStacks[var1].stackSize <= var2) {
@@ -44,6 +47,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         }
     }
 
+    @Override
     public void setInventorySlotContents(int var1, ItemStack var2) {
         this.furnaceItemStacks[var1] = var2;
         if (var2 != null && var2.stackSize > this.getInventoryStackLimit()) {
@@ -52,10 +56,12 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
     }
 
+    @Override
     public String getInvName() {
         return "Furnace";
     }
 
+    @Override
     public void readFromNBT(TagCompound compound) {
         super.readFromNBT(compound);
         TagList var2 = compound.getTagList("Items");
@@ -74,6 +80,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         this.currentItemBurnTime = this.getItemBurnTime(this.furnaceItemStacks[1]);
     }
 
+    @Override
     public void writeToNBT(TagCompound compound) {
         super.writeToNBT(compound);
         compound.setShort("BurnTime", (short) this.furnaceBurnTime);
@@ -92,6 +99,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         compound.setTag("Items", var2);
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
@@ -100,6 +108,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         return this.furnaceBurnTime > 0;
     }
 
+    @Override
     public void updateEntity() {
         boolean var1 = this.furnaceBurnTime > 0;
         boolean var2 = false;
@@ -199,6 +208,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         }
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer var1) {
         if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this) {
             return false;

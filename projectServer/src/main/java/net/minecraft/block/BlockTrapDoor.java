@@ -25,19 +25,23 @@ public class BlockTrapDoor extends Block {
         return (var0 & 4) != 0;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         this.setBlockBoundsBasedOnState(world, x, y, z);
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         this.func_28039_c(blockAccess.getBlockMetadata(var2, var3, var4));
     }
@@ -65,10 +69,12 @@ public class BlockTrapDoor extends Block {
 
     }
 
+    @Override
     public void onBlockClicked(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         this.blockActivated(world, var2, var3, var4, entityPlayer);
     }
 
+    @Override
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         if (this.blockMaterial == Material.IRON) {
             return true;
@@ -89,6 +95,7 @@ public class BlockTrapDoor extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (!world.singleplayerWorld) {
             int var6 = world.getBlockMetadata(var2, var3, var4);
@@ -123,11 +130,13 @@ public class BlockTrapDoor extends Block {
         }
     }
 
+    @Override
     public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
         this.setBlockBoundsBasedOnState(world, var2, var3, var4);
         return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
     }
 
+    @Override
     public void onBlockPlaced(World world, int var2, int var3, int var4, int var5) {
         byte var6 = 0;
         if (var5 == 2) {
@@ -149,6 +158,7 @@ public class BlockTrapDoor extends Block {
         world.setBlockMetadataWithNotify(var2, var3, var4, var6);
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int var5) {
         if (var5 == 0) {
             return false;

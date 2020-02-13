@@ -132,13 +132,13 @@ public class BlockBed extends Block {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        if (var1 == 0) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (side == 0) {
             return Block.PLANKS.blockIndexInTexture;
         } else {
-            int var3 = getDirectionFromMetadata(var2);
-            int var4 = ModelBed.BED_DIRECTION[var3][var1];
-            if (isBlockFootOfBed(var2)) {
+            int var3 = getDirectionFromMetadata(metadata);
+            int var4 = ModelBed.BED_DIRECTION[var3][side];
+            if (isBlockFootOfBed(metadata)) {
                 if (var4 == 2) {
                     return this.blockIndexInTexture + 2 + 16;
                 } else {
@@ -168,7 +168,7 @@ public class BlockBed extends Block {
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
         this.setBounds();
     }
 
@@ -199,9 +199,9 @@ public class BlockBed extends Block {
     }
 
     @Override
-    public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float failChance) {
         if (!isBlockFootOfBed(var5)) {
-            super.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, var6);
+            super.dropBlockAsItemWithChance(world, x, y, z, var5, failChance);
         }
 
     }

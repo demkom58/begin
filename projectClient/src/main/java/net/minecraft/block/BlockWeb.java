@@ -14,8 +14,8 @@ public class BlockWeb extends Block {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
-        var5.isInWeb = true;
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+        entity.isInWeb = true;
     }
 
     @Override

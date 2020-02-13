@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import java.util.Random;
 
 public class WorldGenTrees extends WorldGenerator {
+    @Override
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
         int var6 = var2.nextInt(3) + 4;
         boolean var7 = true;

@@ -23,7 +23,7 @@ public class Pathfinder {
     }
 
     public PathEntity createEntityPathTo(Entity var1, int var2, int var3, int var4, float var5) {
-        return this.createEntityPathTo(var1, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), var5);
+        return this.createEntityPathTo(var1, (float) var2 + 0.5F, (float) var3 + 0.5F, (float) var4 + 0.5F, var5);
     }
 
     private PathEntity createEntityPathTo(Entity var1, double var2, double var4, double var6, float var8) {

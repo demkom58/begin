@@ -16,12 +16,14 @@ public class EntityCreeper extends EntityMob {
         this.texture = "/mob/creeper.png";
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) -1);
         this.dataWatcher.addObject(17, (byte) 0);
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
         if (this.dataWatcher.getWatchableObjectByte(17) == 1) {
@@ -30,11 +32,13 @@ public class EntityCreeper extends EntityMob {
 
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         this.dataWatcher.updateObject(17, (byte) (var1.getBoolean("powered") ? 1 : 0));
     }
 
+    @Override
     protected void func_28013_b(Entity var1, float var2) {
         if (!this.worldObj.singleplayerWorld) {
             if (this.timeSinceIgnited > 0) {
@@ -48,6 +52,7 @@ public class EntityCreeper extends EntityMob {
         }
     }
 
+    @Override
     public void onUpdate() {
         this.lastActiveTime = this.timeSinceIgnited;
         if (this.worldObj.singleplayerWorld) {
@@ -77,14 +82,17 @@ public class EntityCreeper extends EntityMob {
 
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.creeper";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.creeperdeath";
     }
 
+    @Override
     public void onDeath(Entity var1) {
         super.onDeath(var1);
         if (var1 instanceof EntitySkeleton) {
@@ -93,6 +101,7 @@ public class EntityCreeper extends EntityMob {
 
     }
 
+    @Override
     protected void attackEntity(Entity var1, float var2) {
         if (!this.worldObj.singleplayerWorld) {
             int var3 = this.getCreeperState();
@@ -129,6 +138,7 @@ public class EntityCreeper extends EntityMob {
         return this.dataWatcher.getWatchableObjectByte(17) == 1;
     }
 
+    @Override
     protected int getDropItemId() {
         return Item.GUNPOWDER.shiftedIndex;
     }
@@ -141,6 +151,7 @@ public class EntityCreeper extends EntityMob {
         this.dataWatcher.updateObject(16, (byte) var1);
     }
 
+    @Override
     public void onStruckByLightning(EntityLightningBolt var1) {
         super.onStruckByLightning(var1);
         this.dataWatcher.updateObject(17, (byte) 1);

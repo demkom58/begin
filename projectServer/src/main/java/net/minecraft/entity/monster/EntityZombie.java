@@ -13,6 +13,7 @@ public class EntityZombie extends EntityMob {
         this.attackStrength = 5;
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.worldObj.isDaytime()) {
             float var1 = this.getEntityBrightness(1.0F);
@@ -24,18 +25,22 @@ public class EntityZombie extends EntityMob {
         super.onLivingUpdate();
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.zombie";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.zombiehurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.zombiedeath";
     }
 
+    @Override
     protected int getDropItemId() {
         return Item.FEATHER.shiftedIndex;
     }

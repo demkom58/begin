@@ -11,6 +11,7 @@ public class BlockLadder extends Block {
         super(var1, var2, Material.CIRCUITS);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         int var5 = world.getBlockMetadata(x, y, z);
         float var6 = 0.125F;
@@ -33,14 +34,17 @@ public class BlockLadder extends Block {
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         if (world.isBlockNormalCube(var2 - 1, var3, var4)) {
             return true;
@@ -53,6 +57,7 @@ public class BlockLadder extends Block {
         }
     }
 
+    @Override
     public void onBlockPlaced(World world, int var2, int var3, int var4, int var5) {
         int var6 = world.getBlockMetadata(var2, var3, var4);
         if ((var6 == 0 || var5 == 2) && world.isBlockNormalCube(var2, var3, var4 + 1)) {
@@ -74,6 +79,7 @@ public class BlockLadder extends Block {
         world.setBlockMetadataWithNotify(var2, var3, var4, var6);
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         int var6 = world.getBlockMetadata(var2, var3, var4);
         boolean var7 = false;
@@ -101,6 +107,7 @@ public class BlockLadder extends Block {
         super.onNeighborBlockChange(world, var2, var3, var4, var5);
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 1;
     }

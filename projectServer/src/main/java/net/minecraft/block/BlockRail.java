@@ -36,19 +36,23 @@ public class BlockRail extends Block {
         return this.field_27034_a;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
         this.setBlockBoundsBasedOnState(world, var2, var3, var4);
         return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         int var5 = blockAccess.getBlockMetadata(var2, var3, var4);
         if (var5 >= 2 && var5 <= 5) {
@@ -59,6 +63,7 @@ public class BlockRail extends Block {
 
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (this.field_27034_a) {
             if (this.blockID == Block.RAIL_POWERED.blockID && (var2 & 8) == 0) {
@@ -71,18 +76,22 @@ public class BlockRail extends Block {
         return this.blockIndexInTexture;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 1;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return world.isBlockNormalCube(var2, var3 - 1, var4);
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         if (!world.singleplayerWorld) {
             this.func_4038_g(world, x, y, z, true);
@@ -90,6 +99,7 @@ public class BlockRail extends Block {
 
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (!world.singleplayerWorld) {
             int var6 = world.getBlockMetadata(var2, var3, var4);
@@ -252,6 +262,7 @@ public class BlockRail extends Block {
         return false;
     }
 
+    @Override
     public int getMobilityFlag() {
         return 0;
     }

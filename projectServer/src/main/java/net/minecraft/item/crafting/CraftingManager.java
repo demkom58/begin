@@ -81,7 +81,7 @@ public class CraftingManager {
         this.addRecipe(new ItemStack(Block.PISTON_STICKY_BASE, 1), "S", "P", 'S', Item.SLIMEBALL, 'P', Block.PISTON_BASE);
         this.addRecipe(new ItemStack(Item.BED, 1), "###", "XXX", '#', Block.CLOTH, 'X', Block.PLANKS);
 
-        Collections.sort(this.recipes, new RecipeSorter(this));
+        this.recipes.sort(new RecipeSorter(this));
         System.out.println(this.recipes.size() + " recipes");
     }
 
@@ -90,7 +90,7 @@ public class CraftingManager {
     }
 
     void addRecipe(ItemStack var1, Object... var2) {
-        String var3 = "";
+        StringBuilder var3 = new StringBuilder();
         int var4 = 0;
         int var5 = 0;
         int var6 = 0;
@@ -101,14 +101,14 @@ public class CraftingManager {
                 String var9 = var11[var8];
                 ++var6;
                 var5 = var9.length();
-                var3 = var3 + var9;
+                var3.append(var9);
             }
         } else {
             while (var2[var4] instanceof String) {
                 String var7 = (String) var2[var4++];
                 ++var6;
                 var5 = var7.length();
-                var3 = var3 + var7;
+                var3.append(var7);
             }
         }
 

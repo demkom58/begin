@@ -21,6 +21,7 @@ public class BlockFlowing extends BlockFluid {
         var1.markBlockNeedsUpdate(var2, var3, var4);
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         int var6 = this.func_301_g(world, x, y, z);
         byte var7 = 1;
@@ -259,6 +260,7 @@ public class BlockFlowing extends BlockFluid {
         }
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         super.onBlockAdded(world, x, y, z);
         if (world.getBlockId(x, y, z) == this.blockID) {

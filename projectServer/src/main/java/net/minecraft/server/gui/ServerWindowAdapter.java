@@ -13,6 +13,7 @@ final class ServerWindowAdapter extends WindowAdapter {
         this.mcServer = var1;
     }
 
+    @Override
     public void windowClosing(WindowEvent var1) {
         this.mcServer.initiateShutdown();
 

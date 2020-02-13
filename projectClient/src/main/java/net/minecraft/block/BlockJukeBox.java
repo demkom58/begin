@@ -19,43 +19,47 @@ public class BlockJukeBox extends BlockContainer {
     }
 
     @Override
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (var1.getBlockMetadata(var2, var3, var4) == 0) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        if (world.getBlockMetadata(x, y, z) == 0)
             return false;
-        } else {
-            this.func_28038_b_(var1, var2, var3, var4);
-            return true;
-        }
+
+        this.func_28038_b_(world, x, y, z);
+        return true;
     }
 
-    public void ejectRecord(World var1, int var2, int var3, int var4, int var5) {
-        if (!var1.multiplayerWorld) {
-            TileEntityRecordPlayer var6 = (TileEntityRecordPlayer) var1.getBlockTileEntity(var2, var3, var4);
-            var6.record = var5;
-            var6.onInventoryChanged();
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 1);
-        }
+    public void ejectRecord(World world, int x, int y, int z, int record) {
+        if (world.multiplayerWorld)
+            return;
+
+        TileEntityRecordPlayer recordPlayer = (TileEntityRecordPlayer) world.getBlockTileEntity(x, y, z);
+        recordPlayer.record = record;
+        recordPlayer.onInventoryChanged();
+        world.setBlockMetadataWithNotify(x, y, z, 1);
     }
 
-    public void func_28038_b_(World var1, int var2, int var3, int var4) {
-        if (!var1.multiplayerWorld) {
-            TileEntityRecordPlayer var5 = (TileEntityRecordPlayer) var1.getBlockTileEntity(var2, var3, var4);
-            int var6 = var5.record;
-            if (var6 != 0) {
-                var1.func_28106_e(1005, var2, var3, var4, 0);
-                var1.playRecord(null, var2, var3, var4);
-                var5.record = 0;
-                var5.onInventoryChanged();
-                var1.setBlockMetadataWithNotify(var2, var3, var4, 0);
-                float var8 = 0.7F;
-                double var9 = (double) (var1.rand.nextFloat() * var8) + (double) (1.0F - var8) * 0.5D;
-                double var11 = (double) (var1.rand.nextFloat() * var8) + (double) (1.0F - var8) * 0.2D + 0.6D;
-                double var13 = (double) (var1.rand.nextFloat() * var8) + (double) (1.0F - var8) * 0.5D;
-                EntityItem var15 = new EntityItem(var1, (double) var2 + var9, (double) var3 + var11, (double) var4 + var13, new ItemStack(var6, 1, 0));
-                var15.delayBeforeCanPickup = 10;
-                var1.entityJoinedWorld(var15);
-            }
-        }
+    public void func_28038_b_(World world, int x, int y, int z) {
+        if (world.multiplayerWorld)
+            return;
+
+        TileEntityRecordPlayer recordPlayer = (TileEntityRecordPlayer) world.getBlockTileEntity(x, y, z);
+        int record = recordPlayer.record;
+        if (record == 0)
+            return;
+
+        world.func_28106_e(1005, x, y, z, 0);
+        world.playRecord(null, x, y, z);
+        recordPlayer.record = 0;
+        recordPlayer.onInventoryChanged();
+        world.setBlockMetadataWithNotify(x, y, z, 0);
+
+        float dispersion = 0.7F;
+        double xRand = (double) (world.rand.nextFloat() * dispersion) + (double) (1.0F - dispersion) * 0.5D;
+        double yRand = (double) (world.rand.nextFloat() * dispersion) + (double) (1.0F - dispersion) * 0.2D + 0.6D;
+        double zRand = (double) (world.rand.nextFloat() * dispersion) + (double) (1.0F - dispersion) * 0.5D;
+
+        EntityItem item = new EntityItem(world, (double) x + xRand, (double) y + yRand, (double) z + zRand, new ItemStack(record, 1, 0));
+        item.delayBeforeCanPickup = 10;
+        world.entityJoinedWorld(item);
     }
 
     @Override
@@ -65,9 +69,9 @@ public class BlockJukeBox extends BlockContainer {
     }
 
     @Override
-    public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
-        if (!var1.multiplayerWorld) {
-            super.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, var6);
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float failChance) {
+        if (!world.multiplayerWorld) {
+            super.dropBlockAsItemWithChance(world, x, y, z, var5, failChance);
         }
     }
 

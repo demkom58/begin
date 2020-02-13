@@ -11,6 +11,7 @@ public class BlockLockedChest extends Block {
         this.blockIndexInTexture = 26;
     }
 
+    @Override
     public int getBlockTextureFromSide(int var1) {
         if (var1 == 1) {
             return this.blockIndexInTexture - 1;
@@ -21,10 +22,12 @@ public class BlockLockedChest extends Block {
         }
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return true;
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         world.setBlockWithNotify(x, y, z, 0);
     }

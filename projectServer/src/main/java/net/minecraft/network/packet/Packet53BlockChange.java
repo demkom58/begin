@@ -27,6 +27,7 @@ public class Packet53BlockChange extends Packet {
         this.metadata = var4.getBlockMetadata(var1, var2, var3);
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.xPosition = inputStream.readInt();
         this.yPosition = inputStream.read();
@@ -35,6 +36,7 @@ public class Packet53BlockChange extends Packet {
         this.metadata = inputStream.read();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.xPosition);
         outputStream.write(this.yPosition);
@@ -43,10 +45,12 @@ public class Packet53BlockChange extends Packet {
         outputStream.write(this.metadata);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleBlockChange(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 11;
     }

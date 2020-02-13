@@ -247,8 +247,8 @@ public class EntityPainting extends Entity {
     }
 
     @Override
-    public void moveEntity(double var1, double var3, double var5) {
-        if (!this.worldObj.multiplayerWorld && var1 * var1 + var3 * var3 + var5 * var5 > 0.0D) {
+    public void moveEntity(double x, double y, double z) {
+        if (!this.worldObj.multiplayerWorld && x * x + y * y + z * z > 0.0D) {
             this.setEntityDead();
             this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
         }

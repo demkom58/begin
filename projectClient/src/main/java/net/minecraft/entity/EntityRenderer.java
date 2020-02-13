@@ -191,8 +191,8 @@ public class EntityRenderer {
             EntityPlayer var2 = (EntityPlayer) this.mc.renderViewEntity;
             float var3 = var2.distanceWalkedModified - var2.prevDistanceWalkedModified;
             float var4 = -(var2.distanceWalkedModified + var3 * var1);
-            float var5 = var2.field_775_e + (var2.field_774_f - var2.field_775_e) * var1;
-            float var6 = var2.cameraPitch + (var2.field_9328_R - var2.cameraPitch) * var1;
+            float var5 = var2.prevCameraYaw + (var2.cameraYaw - var2.prevCameraYaw) * var1;
+            float var6 = var2.prevCameraPitch + (var2.cameraPitch - var2.prevCameraPitch) * var1;
             GL11.glTranslatef(MathHelper.sin(var4 * 3.1415927F) * var5 * 0.5F, -Math.abs(MathHelper.cos(var4 * 3.1415927F) * var5), 0.0F);
             GL11.glRotatef(MathHelper.sin(var4 * 3.1415927F) * var5 * 3.0F, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(Math.abs(MathHelper.cos(var4 * 3.1415927F - 0.2F) * var5) * 5.0F, 1.0F, 0.0F, 0.0F);

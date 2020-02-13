@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import java.util.Random;
 
 public class WorldGenReed extends WorldGenerator {
+    @Override
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
         for (int var6 = 0; var6 < 20; ++var6) {
             int var7 = var3 + var2.nextInt(4) - var2.nextInt(4);

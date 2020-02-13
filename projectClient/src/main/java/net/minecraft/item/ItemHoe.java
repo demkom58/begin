@@ -19,7 +19,7 @@ public class ItemHoe extends Item {
             return false;
         } else {
             Block var10 = Block.FARMLAND;
-            var3.playSoundEffect((float) var4 + 0.5F, (float) var5 + 0.5F, (float) var6 + 0.5F, var10.stepSound.func_1145_d(), (var10.stepSound.getVolume() + 1.0F) / 2.0F, var10.stepSound.getPitch() * 0.8F);
+            var3.playSoundEffect((float) var4 + 0.5F, (float) var5 + 0.5F, (float) var6 + 0.5F, var10.stepSound.getFormattedName(), (var10.stepSound.getVolume() + 1.0F) / 2.0F, var10.stepSound.getPitch() * 0.8F);
             if (var3.multiplayerWorld) {
                 return true;
             } else {

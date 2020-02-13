@@ -151,7 +151,7 @@ public class ServerConfigurationManager {
         if (var3 != null) {
             ChunkCoordinates var6 = EntityPlayer.func_25051_a(this.mcServer.getWorldServer(var1.dimension), var3);
             if (var6 != null) {
-                var4.setLocationAndAngles((double) ((float) var6.posX + 0.5F), (double) ((float) var6.posY + 0.1F), (double) ((float) var6.posZ + 0.5F), 0.0F, 0.0F);
+                var4.setLocationAndAngles((float) var6.posX + 0.5F, (float) var6.posY + 0.1F, (float) var6.posZ + 0.5F, 0.0F, 0.0F);
                 var4.setSpawnChunk(var3);
             } else {
                 var4.playerNetServerHandler.sendPacket(new Packet70Bed(0));

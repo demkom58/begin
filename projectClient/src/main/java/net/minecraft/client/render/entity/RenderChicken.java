@@ -21,24 +21,18 @@ public class RenderChicken extends RenderLiving {
         return (MathHelper.sin(var3) + 1.0F) * var4;
     }
 
-    // $FF: synthetic method
-    // $FF: bridge method
     @Override
-    protected float func_170_d(EntityLiving var1, float var2) {
-        return this.getWingRotation((EntityChicken) var1, var2);
+    protected float handleRotationFloat(EntityLiving entity, float value) {
+        return this.getWingRotation((EntityChicken) entity, value);
     }
 
-    // $FF: synthetic method
-    // $FF: bridge method
     @Override
-    public void doRenderLiving(EntityLiving var1, double var2, double var4, double var6, float var8, float var9) {
-        this.renderChicken((EntityChicken) var1, var2, var4, var6, var8, var9);
+    public void doRenderLiving(EntityLiving entity, double x, double y, double z, float yaw, float delta) {
+        this.renderChicken((EntityChicken) entity, x, y, z, yaw, delta);
     }
 
-    // $FF: synthetic method
-    // $FF: bridge method
     @Override
-    public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-        this.renderChicken((EntityChicken) var1, var2, var4, var6, var8, var9);
+    public void doRender(Entity entity, double x, double y, double z, float yaw, float delta) {
+        this.renderChicken((EntityChicken) entity, x, y, z, yaw, delta);
     }
 }

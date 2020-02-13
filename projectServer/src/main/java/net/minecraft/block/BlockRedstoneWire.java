@@ -37,22 +37,27 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         return this.blockIndexInTexture;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return world.isBlockNormalCube(var2, var3 - 1, var4);
     }
@@ -194,6 +199,7 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         super.onBlockAdded(world, x, y, z);
         if (!world.singleplayerWorld) {
@@ -231,6 +237,7 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public void onBlockRemoval(World world, int x, int y, int z) {
         super.onBlockRemoval(world, x, y, z);
         if (!world.singleplayerWorld) {
@@ -273,10 +280,11 @@ public class BlockRedstoneWire extends Block {
             return var5;
         } else {
             int var6 = var1.getBlockMetadata(var2, var3, var4);
-            return var6 > var5 ? var6 : var5;
+            return Math.max(var6, var5);
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (!world.singleplayerWorld) {
             int var6 = world.getBlockMetadata(var2, var3, var4);
@@ -292,14 +300,17 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return Item.REDSTONE.shiftedIndex;
     }
 
+    @Override
     public boolean isIndirectlyPoweringTo(World world, int var2, int var3, int var4, int var5) {
         return this.wiresProvidePower && this.isPoweringTo(world, var2, var3, var4, var5);
     }
 
+    @Override
     public boolean isPoweringTo(IBlockAccess blockAccess, int var2, int var3, int var4, int var5) {
         if (!this.wiresProvidePower) {
             return false;
@@ -344,6 +355,7 @@ public class BlockRedstoneWire extends Block {
         }
     }
 
+    @Override
     public boolean canProvidePower() {
         return this.wiresProvidePower;
     }

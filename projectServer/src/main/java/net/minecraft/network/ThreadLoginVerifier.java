@@ -19,6 +19,7 @@ class ThreadLoginVerifier extends Thread {
         this.loginPacket = var2;
     }
 
+    @Override
     public void run() {
         try {
             String var1 = NetLoginHandler.getServerId(this.loginHandler);

@@ -17,6 +17,7 @@ public class BlockRedstoneTorch extends BlockTorch {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         return var1 == 1 ? Block.REDSTONE_WIRE.getBlockTextureFromSideAndMetadata(var1, var2) : super.getBlockTextureFromSideAndMetadata(var1, var2);
     }
@@ -40,10 +41,12 @@ public class BlockRedstoneTorch extends BlockTorch {
         return false;
     }
 
+    @Override
     public int tickRate() {
         return 2;
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         if (world.getBlockMetadata(x, y, z) == 0) {
             super.onBlockAdded(world, x, y, z);
@@ -60,6 +63,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
     }
 
+    @Override
     public void onBlockRemoval(World world, int x, int y, int z) {
         if (this.torchActive) {
             world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
@@ -72,6 +76,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 
     }
 
+    @Override
     public boolean isPoweringTo(IBlockAccess blockAccess, int var2, int var3, int var4, int var5) {
         if (!this.torchActive) {
             return false;
@@ -106,6 +111,7 @@ public class BlockRedstoneTorch extends BlockTorch {
         }
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         boolean var6 = this.func_30003_g(world, x, y, z);
 
@@ -117,7 +123,7 @@ public class BlockRedstoneTorch extends BlockTorch {
             if (var6) {
                 world.setBlockAndMetadataWithNotify(x, y, z, Block.TORCH_REDSTONE_IDLE.blockID, world.getBlockMetadata(x, y, z));
                 if (this.checkForBurnout(world, x, y, z, true)) {
-                    world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
+                    world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
 
                     for (int var7 = 0; var7 < 5; ++var7) {
                         double var8 = (double) x + random.nextDouble() * 0.6D + 0.2D;
@@ -133,19 +139,23 @@ public class BlockRedstoneTorch extends BlockTorch {
 
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         super.onNeighborBlockChange(world, var2, var3, var4, var5);
         world.scheduleUpdateTick(var2, var3, var4, this.blockID, this.tickRate());
     }
 
+    @Override
     public boolean isIndirectlyPoweringTo(World world, int var2, int var3, int var4, int var5) {
         return var5 == 0 && this.isPoweringTo(world, var2, var3, var4, var5);
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return Block.TORCH_REDSTONE_ACTIVE.blockID;
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }

@@ -21,20 +21,24 @@ public class Packet40EntityMetadata extends Packet {
         this.field_21018_b = var2.getChangedObjects();
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.entityId = inputStream.readInt();
         this.field_21018_b = DataWatcher.readWatchableObjects(inputStream);
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.entityId);
         DataWatcher.writeObjectsInListToStream(this.field_21018_b, outputStream);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_21002_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 5;
     }

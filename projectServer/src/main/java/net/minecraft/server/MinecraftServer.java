@@ -157,7 +157,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
             try {
                 seed = Long.parseLong(levelSeed);
             } catch (NumberFormatException e) {
-                seed = (long) levelSeed.hashCode();
+                seed = levelSeed.hashCode();
             }
         }
 
@@ -423,6 +423,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         return new File(file);
     }
 
+    @Override
     public void log(String message) {
         LOGGER.info(message);
     }
@@ -431,6 +432,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
         LOGGER.warning(message);
     }
 
+    @Override
     public String getUsername() {
         return "CONSOLE";
     }

@@ -58,13 +58,13 @@ public class ChunkProviderSky implements IChunkProvider {
             for (int var11 = 0; var11 < var6; ++var11) {
                 for (int var12 = 0; var12 < 32; ++var12) {
                     double var13 = 0.25D;
-                    double var15 = this.field_28078_q[((var10 + 0) * var9 + var11 + 0) * var8 + var12 + 0];
-                    double var17 = this.field_28078_q[((var10 + 0) * var9 + var11 + 1) * var8 + var12 + 0];
-                    double var19 = this.field_28078_q[((var10 + 1) * var9 + var11 + 0) * var8 + var12 + 0];
-                    double var21 = this.field_28078_q[((var10 + 1) * var9 + var11 + 1) * var8 + var12 + 0];
-                    double var23 = (this.field_28078_q[((var10 + 0) * var9 + var11 + 0) * var8 + var12 + 1] - var15) * var13;
-                    double var25 = (this.field_28078_q[((var10 + 0) * var9 + var11 + 1) * var8 + var12 + 1] - var17) * var13;
-                    double var27 = (this.field_28078_q[((var10 + 1) * var9 + var11 + 0) * var8 + var12 + 1] - var19) * var13;
+                    double var15 = this.field_28078_q[((var10) * var9 + var11) * var8 + var12];
+                    double var17 = this.field_28078_q[((var10) * var9 + var11 + 1) * var8 + var12];
+                    double var19 = this.field_28078_q[((var10 + 1) * var9 + var11) * var8 + var12];
+                    double var21 = this.field_28078_q[((var10 + 1) * var9 + var11 + 1) * var8 + var12];
+                    double var23 = (this.field_28078_q[((var10) * var9 + var11) * var8 + var12 + 1] - var15) * var13;
+                    double var25 = (this.field_28078_q[((var10) * var9 + var11 + 1) * var8 + var12 + 1] - var17) * var13;
+                    double var27 = (this.field_28078_q[((var10 + 1) * var9 + var11) * var8 + var12 + 1] - var19) * var13;
                     double var29 = (this.field_28078_q[((var10 + 1) * var9 + var11 + 1) * var8 + var12 + 1] - var21) * var13;
 
                     for (int var31 = 0; var31 < 4; ++var31) {
@@ -75,7 +75,7 @@ public class ChunkProviderSky implements IChunkProvider {
                         double var40 = (var21 - var17) * var32;
 
                         for (int var42 = 0; var42 < 8; ++var42) {
-                            int var43 = var42 + var10 * 8 << 11 | 0 + var11 * 8 << 7 | var12 * 4 + var31;
+                            int var43 = var42 + var10 * 8 << 11 | var11 * 8 << 7 | var12 * 4 + var31;
                             short var44 = 128;
                             double var45 = 0.125D;
                             double var47 = var34;
@@ -109,9 +109,9 @@ public class ChunkProviderSky implements IChunkProvider {
 
     public void func_28069_a(int var1, int var2, byte[] var3, BiomeGenBase[] var4) {
         double var5 = 0.03125D;
-        this.field_28077_r = this.field_28081_n.generateNoiseOctaves(this.field_28077_r, (double) (var1 * 16), (double) (var2 * 16), 0.0D, 16, 16, 1, var5, var5, 1.0D);
-        this.field_28076_s = this.field_28081_n.generateNoiseOctaves(this.field_28076_s, (double) (var1 * 16), 109.0134D, (double) (var2 * 16), 16, 1, 16, var5, 1.0D, var5);
-        this.field_28075_t = this.field_28080_o.generateNoiseOctaves(this.field_28075_t, (double) (var1 * 16), (double) (var2 * 16), 0.0D, 16, 16, 1, var5 * 2.0D, var5 * 2.0D, var5 * 2.0D);
+        this.field_28077_r = this.field_28081_n.generateNoiseOctaves(this.field_28077_r, var1 * 16, var2 * 16, 0.0D, 16, 16, 1, var5, var5, 1.0D);
+        this.field_28076_s = this.field_28081_n.generateNoiseOctaves(this.field_28076_s, var1 * 16, 109.0134D, var2 * 16, 16, 1, 16, var5, 1.0D, var5);
+        this.field_28075_t = this.field_28080_o.generateNoiseOctaves(this.field_28075_t, var1 * 16, var2 * 16, 0.0D, 16, 16, 1, var5 * 2.0D, var5 * 2.0D, var5 * 2.0D);
 
         for (int var7 = 0; var7 < 16; ++var7) {
             for (int var8 = 0; var8 < 16; ++var8) {
@@ -154,10 +154,12 @@ public class ChunkProviderSky implements IChunkProvider {
 
     }
 
+    @Override
     public Chunk prepareChunk(int var1, int var2) {
         return this.provideChunk(var1, var2);
     }
 
+    @Override
     public Chunk provideChunk(int var1, int var2) {
         this.skyRNG.setSeed((long) var1 * 341873128712L + (long) var2 * 132897987541L);
         byte[] var3 = new byte['\u8000'];
@@ -183,9 +185,9 @@ public class ChunkProviderSky implements IChunkProvider {
         this.field_28088_g = this.field_28094_a.func_4103_a(this.field_28088_g, var2, var4, var5, var7, 1.121D, 1.121D, 0.5D);
         this.field_28087_h = this.field_28093_b.func_4103_a(this.field_28087_h, var2, var4, var5, var7, 200.0D, 200.0D, 0.5D);
         var8 = var8 * 2.0D;
-        this.field_28091_d = this.field_28082_m.generateNoiseOctaves(this.field_28091_d, (double) var2, (double) var3, (double) var4, var5, var6, var7, var8 / 80.0D, var10 / 160.0D, var8 / 80.0D);
-        this.field_28090_e = this.field_28084_k.generateNoiseOctaves(this.field_28090_e, (double) var2, (double) var3, (double) var4, var5, var6, var7, var8, var10, var8);
-        this.field_28089_f = this.field_28083_l.generateNoiseOctaves(this.field_28089_f, (double) var2, (double) var3, (double) var4, var5, var6, var7, var8, var10, var8);
+        this.field_28091_d = this.field_28082_m.generateNoiseOctaves(this.field_28091_d, var2, var3, var4, var5, var6, var7, var8 / 80.0D, var10 / 160.0D, var8 / 80.0D);
+        this.field_28090_e = this.field_28084_k.generateNoiseOctaves(this.field_28090_e, var2, var3, var4, var5, var6, var7, var8, var10, var8);
+        this.field_28089_f = this.field_28083_l.generateNoiseOctaves(this.field_28089_f, var2, var3, var4, var5, var6, var7, var8, var10, var8);
         int var14 = 0;
         int var15 = 0;
         int var16 = 16 / var5;
@@ -249,13 +251,13 @@ public class ChunkProviderSky implements IChunkProvider {
                     var34 = var34 - 8.0D;
                     byte var44 = 32;
                     if (var33 > var6 - var44) {
-                        double var45 = (double) ((float) (var33 - (var6 - var44)) / ((float) var44 - 1.0F));
+                        double var45 = (float) (var33 - (var6 - var44)) / ((float) var44 - 1.0F);
                         var34 = var34 * (1.0D - var45) + -30.0D * var45;
                     }
 
                     var44 = 8;
                     if (var33 < var44) {
-                        double var61 = (double) ((float) (var44 - var33) / ((float) var44 - 1.0F));
+                        double var61 = (float) (var44 - var33) / ((float) var44 - 1.0F);
                         var34 = var34 * (1.0D - var61) + -30.0D * var61;
                     }
 
@@ -268,10 +270,12 @@ public class ChunkProviderSky implements IChunkProvider {
         return var1;
     }
 
+    @Override
     public boolean chunkExists(int var1, int var2) {
         return true;
     }
 
+    @Override
     public void populate(IChunkProvider var1, int var2, int var3) {
         BlockSand.fallInstantly = true;
         int var4 = var2 * 16;
@@ -496,14 +500,17 @@ public class ChunkProviderSky implements IChunkProvider {
         BlockSand.fallInstantly = false;
     }
 
+    @Override
     public boolean saveChunks(boolean var1, IProgressUpdatable var2) {
         return true;
     }
 
+    @Override
     public boolean unload100OldestChunks() {
         return false;
     }
 
+    @Override
     public boolean canSave() {
         return true;
     }

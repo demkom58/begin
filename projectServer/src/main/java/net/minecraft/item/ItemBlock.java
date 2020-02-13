@@ -13,6 +13,7 @@ public class ItemBlock extends Item {
         this.setIconIndex(Block.BLOCKS_LIST[var1 + 256].getBlockTextureFromSide(2));
     }
 
+    @Override
     public boolean onItemUse(ItemStack var1, EntityPlayer var2, World var3, int var4, int var5, int var6, int var7) {
         if (var3.getBlockId(var4, var5, var6) == Block.SNOW.blockID) {
             var7 = 0;
@@ -51,7 +52,7 @@ public class ItemBlock extends Item {
             if (var3.setBlockAndMetadataWithNotify(var4, var5, var6, this.blockID, this.getMetadata(var1.getItemDamage()))) {
                 Block.BLOCKS_LIST[this.blockID].onBlockPlaced(var3, var4, var5, var6, var7);
                 Block.BLOCKS_LIST[this.blockID].onBlockPlacedBy(var3, var4, var5, var6, var2);
-                var3.playSoundEffect((double) ((float) var4 + 0.5F), (double) ((float) var5 + 0.5F), (double) ((float) var6 + 0.5F), var8.stepSound.func_737_c(), (var8.stepSound.getVolume() + 1.0F) / 2.0F, var8.stepSound.getPitch() * 0.8F);
+                var3.playSoundEffect((float) var4 + 0.5F, (float) var5 + 0.5F, (float) var6 + 0.5F, var8.stepSound.getFormattedName(), (var8.stepSound.getVolume() + 1.0F) / 2.0F, var8.stepSound.getPitch() * 0.8F);
                 --var1.stackSize;
             }
 
@@ -61,6 +62,7 @@ public class ItemBlock extends Item {
         }
     }
 
+    @Override
     public String getItemName() {
         return Block.BLOCKS_LIST[this.blockID].getBlockName();
     }

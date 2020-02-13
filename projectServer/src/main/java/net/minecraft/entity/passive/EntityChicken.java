@@ -22,6 +22,7 @@ public class EntityChicken extends EntityAnimal {
         this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
         this.field_393_af = this.field_391_b;
@@ -53,29 +54,36 @@ public class EntityChicken extends EntityAnimal {
 
     }
 
+    @Override
     protected void fall(float var1) {
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.chicken";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.chickenhurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.chickenhurt";
     }
 
+    @Override
     protected int getDropItemId() {
         return Item.FEATHER.shiftedIndex;
     }

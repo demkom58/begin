@@ -40,7 +40,7 @@ public abstract class BlockFluid extends Block {
     }
 
     @Override
-    public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
+    public int colorMultiplier(IBlockAccess blockAccess, int x, int y, int z) {
         return 16777215;
     }
 
@@ -82,26 +82,26 @@ public abstract class BlockFluid extends Block {
     }
 
     @Override
-    public boolean getIsBlockSolid(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        Material var6 = var1.getBlockMaterial(var2, var3, var4);
+    public boolean getIsBlockSolid(IBlockAccess blockAccess, int x, int y, int z, int var5) {
+        Material var6 = blockAccess.getBlockMaterial(x, y, z);
         if (var6 == this.blockMaterial) {
             return false;
         } else if (var6 == Material.ICE) {
             return false;
         } else {
-            return var5 == 1 || super.getIsBlockSolid(var1, var2, var3, var4, var5);
+            return var5 == 1 || super.getIsBlockSolid(blockAccess, x, y, z, var5);
         }
     }
 
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        Material var6 = var1.getBlockMaterial(var2, var3, var4);
+    public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        Material var6 = blockAccess.getBlockMaterial(x, y, z);
         if (var6 == this.blockMaterial) {
             return false;
         } else if (var6 == Material.ICE) {
             return false;
         } else {
-            return var5 == 1 || super.shouldSideBeRendered(var1, var2, var3, var4, var5);
+            return side == 1 || super.shouldSideBeRendered(blockAccess, x, y, z, side);
         }
     }
 
@@ -154,12 +154,12 @@ public abstract class BlockFluid extends Block {
                     var11 = this.getEffectiveFlowDecay(var1, var8, var3 - 1, var10);
                     if (var11 >= 0) {
                         int var12 = var11 - (var6 - 8);
-                        var5 = var5.addVector((var8 - var2) * var12, (0) * var12, (var10 - var4) * var12);
+                        var5 = var5.addVector((var8 - var2) * var12, 0, (var10 - var4) * var12);
                     }
                 }
             } else if (var11 >= 0) {
                 int var16 = var11 - var6;
-                var5 = var5.addVector((var8 - var2) * var16, (0) * var16, (var10 - var4) * var16);
+                var5 = var5.addVector((var8 - var2) * var16, 0, (var10 - var4) * var16);
             }
         }
 
@@ -207,11 +207,11 @@ public abstract class BlockFluid extends Block {
     }
 
     @Override
-    public void velocityToAddToEntity(World var1, int var2, int var3, int var4, Entity var5, Vec3D var6) {
-        Vec3D var7 = this.getFlowVector(var1, var2, var3, var4);
-        var6.xCoord += var7.xCoord;
-        var6.yCoord += var7.yCoord;
-        var6.zCoord += var7.zCoord;
+    public void velocityToAddToEntity(World world, int x, int y, int z, Entity entity, Vec3D velocity) {
+        Vec3D var7 = this.getFlowVector(world, x, y, z);
+        velocity.xCoord += var7.xCoord;
+        velocity.yCoord += var7.yCoord;
+        velocity.zCoord += var7.zCoord;
     }
 
     @Override

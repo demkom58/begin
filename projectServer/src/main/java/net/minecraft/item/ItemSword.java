@@ -14,24 +14,29 @@ public class ItemSword extends Item {
         this.weaponDamage = 4 + var2.getDamageVsEntity() * 2;
     }
 
+    @Override
     public float getStrVsBlock(ItemStack var1, Block var2) {
         return var2.blockID == Block.WEB.blockID ? 15.0F : 1.5F;
     }
 
+    @Override
     public boolean hitEntity(ItemStack var1, EntityLiving var2, EntityLiving var3) {
         var1.damageItem(1, var3);
         return true;
     }
 
+    @Override
     public boolean func_25007_a(ItemStack var1, int var2, int var3, int var4, int var5, EntityLiving var6) {
         var1.damageItem(2, var6);
         return true;
     }
 
+    @Override
     public int getDamageVsEntity(Entity var1) {
         return this.weaponDamage;
     }
 
+    @Override
     public boolean canHarvestBlock(Block var1) {
         return var1.blockID == Block.WEB.blockID;
     }

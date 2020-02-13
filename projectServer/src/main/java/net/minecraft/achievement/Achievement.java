@@ -65,12 +65,14 @@ public class Achievement extends StatBase {
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public StatBase func_27053_d() {
         return this.func_27061_c();
     }
 
     // $FF: synthetic method
     // $FF: bridge method
+    @Override
     public StatBase func_27052_e() {
         return this.func_27059_a();
     }

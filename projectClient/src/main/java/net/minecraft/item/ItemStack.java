@@ -175,37 +175,37 @@ public final class ItemStack {
 
     }
 
-    public int getDamageVsEntity(Entity var1) {
-        return Item.ITEMS_LIST[this.itemID].getDamageVsEntity(var1);
+    public int getDamageVsEntity(Entity entity) {
+        return Item.ITEMS_LIST[this.itemID].getDamageVsEntity(entity);
     }
 
-    public boolean canHarvestBlock(Block var1) {
-        return Item.ITEMS_LIST[this.itemID].canHarvestBlock(var1);
+    public boolean canHarvestBlock(Block block) {
+        return Item.ITEMS_LIST[this.itemID].canHarvestBlock(block);
     }
 
-    public void func_1097_a(EntityPlayer var1) {
+    public void onItemDestroyedByUse(EntityPlayer player) {
     }
 
-    public void useItemOnEntity(EntityLiving var1) {
-        Item.ITEMS_LIST[this.itemID].saddleEntity(this, var1);
+    public void useItemOnEntity(EntityLiving entity) {
+        Item.ITEMS_LIST[this.itemID].saddleEntity(this, entity);
     }
 
     public ItemStack copy() {
         return new ItemStack(this.itemID, this.stackSize, this.itemDamage);
     }
 
-    private boolean isItemStackEqual(ItemStack var1) {
-        if (this.stackSize != var1.stackSize) {
+    private boolean isItemStackEqual(ItemStack stack) {
+        if (this.stackSize != stack.stackSize)
             return false;
-        } else if (this.itemID != var1.itemID) {
+
+        if (this.itemID != stack.itemID)
             return false;
-        } else {
-            return this.itemDamage == var1.itemDamage;
-        }
+
+        return this.itemDamage == stack.itemDamage;
     }
 
-    public boolean isItemEqual(ItemStack var1) {
-        return this.itemID == var1.itemID && this.itemDamage == var1.itemDamage;
+    public boolean isItemEqual(ItemStack stack) {
+        return this.itemID == stack.itemID && this.itemDamage == stack.itemDamage;
     }
 
     public String getItemName() {

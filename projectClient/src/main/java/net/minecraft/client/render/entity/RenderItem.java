@@ -22,7 +22,7 @@ public class RenderItem extends Render {
 
     public RenderItem() {
         this.shadowSize = 0.15F;
-        this.field_194_c = 0.75F;
+        this.shadowOpaque = 0.75F;
     }
 
     public void doRenderItem(EntityItem var1, double var2, double var4, double var6, float var8, float var9) {
@@ -230,7 +230,7 @@ public class RenderItem extends Render {
     // $FF: synthetic method
     // $FF: bridge method
     @Override
-    public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-        this.doRenderItem((EntityItem) var1, var2, var4, var6, var8, var9);
+    public void doRender(Entity entity, double x, double y, double z, float yaw, float delta) {
+        this.doRenderItem((EntityItem) entity, x, y, z, yaw, delta);
     }
 }

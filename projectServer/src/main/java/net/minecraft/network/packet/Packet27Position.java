@@ -14,6 +14,7 @@ public class Packet27Position extends Packet {
     private float pitchRotation;
     private float yawRotation;
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.strafeMovement = inputStream.readFloat();
         this.fowardMovement = inputStream.readFloat();
@@ -23,6 +24,7 @@ public class Packet27Position extends Packet {
         this.isInJump = inputStream.readBoolean();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeFloat(this.strafeMovement);
         outputStream.writeFloat(this.fowardMovement);
@@ -32,10 +34,12 @@ public class Packet27Position extends Packet {
         outputStream.writeBoolean(this.isInJump);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleMovementTypePacket(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 18;
     }

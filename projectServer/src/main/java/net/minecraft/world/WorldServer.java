@@ -30,6 +30,7 @@ public class WorldServer extends World {
         this.mcServer = mcServer;
     }
 
+    @Override
     public void updateEntityWithOptionalForce(Entity entity, boolean chunk) {
         if (!this.mcServer.spawnPeacefulMobs && (entity instanceof EntityAnimal || entity instanceof EntityWaterMob)) {
             entity.setEntityDead();
@@ -45,6 +46,7 @@ public class WorldServer extends World {
         super.updateEntityWithOptionalForce(entity, chunk);
     }
 
+    @Override
     protected IChunkProvider createChunkProvider() {
         IChunkLoader var1 = this.worldFile.func_22092_a(this.worldProvider);
         this.chunkProviderServer = new ChunkProviderServer(this, var1, this.worldProvider.getChunkProvider());
@@ -64,6 +66,7 @@ public class WorldServer extends World {
         return tileEntities;
     }
 
+    @Override
     public boolean canMineBlock(EntityPlayer var1, int var2, int var3, int var4) {
         int var5 = (int) MathHelper.abs((float) (var2 - this.worldInfo.getSpawnX()));
         int var6 = (int) MathHelper.abs((float) (var4 - this.worldInfo.getSpawnZ()));
@@ -74,11 +77,13 @@ public class WorldServer extends World {
         return var6 > 16 || this.mcServer.configManager.isOp(var1.username);
     }
 
+    @Override
     protected void obtainEntitySkin(Entity entity) {
         super.obtainEntitySkin(entity);
         this.hash.addKey(entity.entityId, entity);
     }
 
+    @Override
     protected void releaseEntitySkin(Entity entity) {
         super.releaseEntitySkin(entity);
         this.hash.removeObject(entity.entityId);
@@ -88,6 +93,7 @@ public class WorldServer extends World {
         return (Entity) this.hash.lookup(var1);
     }
 
+    @Override
     public boolean addLightningBolt(Entity var1) {
         if (super.addLightningBolt(var1)) {
             this.mcServer.configManager.sendPacketToPlayersAroundPoint(var1.posX, var1.posY, var1.posZ, 512.0D, this.worldProvider.worldType, new Packet71Weather(var1));
@@ -97,11 +103,13 @@ public class WorldServer extends World {
         }
     }
 
+    @Override
     public void sendTrackedEntityStatusUpdatePacket(Entity var1, byte var2) {
         Packet38EntityStatus var3 = new Packet38EntityStatus(var1.entityId, var2);
         this.mcServer.getEntityTracker(this.worldProvider.worldType).sendPacketToTrackedPlayersAndTrackedEntity(var1, var3);
     }
 
+    @Override
     public Explosion newExplosion(Entity exploder, double x, double y, double z, float size, boolean flaming) {
         Explosion explosion = new Explosion(this, exploder, x, y, z, size);
         explosion.isFlaming = flaming;
@@ -111,15 +119,17 @@ public class WorldServer extends World {
         return explosion;
     }
 
+    @Override
     public void playNoteAt(int var1, int var2, int var3, int var4, int var5) {
         super.playNoteAt(var1, var2, var3, var4, var5);
-        this.mcServer.configManager.sendPacketToPlayersAroundPoint((double) var1, (double) var2, (double) var3, 64.0D, this.worldProvider.worldType, new Packet54PlayNoteBlock(var1, var2, var3, var4, var5));
+        this.mcServer.configManager.sendPacketToPlayersAroundPoint(var1, var2, var3, 64.0D, this.worldProvider.worldType, new Packet54PlayNoteBlock(var1, var2, var3, var4, var5));
     }
 
     public void func_30006_w() {
         this.worldFile.func_22093_e();
     }
 
+    @Override
     protected void updateWeather() {
         boolean var1 = this.func_27068_v();
         super.updateWeather();

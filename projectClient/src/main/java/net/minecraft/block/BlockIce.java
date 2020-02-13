@@ -20,16 +20,16 @@ public class BlockIce extends BlockBreakable {
     }
 
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        return super.shouldSideBeRendered(var1, var2, var3, var4, 1 - var5);
+    public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        return super.shouldSideBeRendered(blockAccess, x, y, z, 1 - side);
     }
 
     @Override
-    public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
-        super.harvestBlock(var1, var2, var3, var4, var5, var6);
-        Material var7 = var1.getBlockMaterial(var3, var4 - 1, var5);
-        if (var7.getIsSolid() || var7.getIsLiquid()) {
-            var1.setBlockWithNotify(var3, var4, var5, Block.WATER_MOVING.blockID);
+    public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int blockId) {
+        super.harvestBlock(world, player, x, y, z, blockId);
+        Material var7 = world.getBlockMaterial(x, y - 1, z);
+        if (var7.getIsSolid() || var7.isLiquid()) {
+            world.setBlockWithNotify(x, y, z, Block.WATER_MOVING.blockID);
         }
 
     }

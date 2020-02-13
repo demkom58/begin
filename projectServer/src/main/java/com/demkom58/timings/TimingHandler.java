@@ -74,6 +74,7 @@ class TimingHandler implements Timing {
         }
     }
 
+    @Override
     public Timing startTiming() {
         if (enabled && ++timingDepth == 1) {
             start = System.nanoTime();
@@ -83,6 +84,7 @@ class TimingHandler implements Timing {
         return this;
     }
 
+    @Override
     public void stopTiming() {
         if (enabled && --timingDepth == 0 && start != 0) {
             if (!MinecraftServer.SERVER.isPrimaryThread()) {

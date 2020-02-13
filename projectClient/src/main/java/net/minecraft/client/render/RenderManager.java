@@ -35,9 +35,9 @@ public class RenderManager {
     public float playerViewY;
     public float playerViewX;
     public GameSettings options;
-    public double field_1222_l;
-    public double field_1221_m;
-    public double field_1220_n;
+    public double viewerPosX;
+    public double viewerPosY;
+    public double viewerPosZ;
     private Map<Class<? extends Entity>, Render> entityRenderMap = new HashMap<>();
     private FontRenderer fontRenderer;
 
@@ -77,71 +77,74 @@ public class RenderManager {
 
     }
 
-    public Render getEntityClassRenderObject(Class var1) {
-        Render var2 = this.entityRenderMap.get(var1);
-        if (var2 == null && var1 != Entity.class) {
-            var2 = this.getEntityClassRenderObject(var1.getSuperclass());
-            this.entityRenderMap.put(var1, var2);
+    public Render getEntityClassRenderObject(Class<? extends Entity> clazz) {
+        Render render = this.entityRenderMap.get(clazz);
+
+        if (render == null && clazz != Entity.class) {
+            render = this.getEntityClassRenderObject((Class<? extends Entity>) clazz.getSuperclass());
+            this.entityRenderMap.put(clazz, render);
         }
 
-        return var2;
+        return render;
     }
 
-    public Render getEntityRenderObject(Entity var1) {
-        return this.getEntityClassRenderObject(var1.getClass());
+    public Render getEntityRenderObject(Entity entity) {
+        return this.getEntityClassRenderObject(entity.getClass());
     }
 
-    public void cacheActiveRenderInfo(World var1, RenderEngine var2, FontRenderer var3, EntityLiving var4, GameSettings var5, float var6) {
-        this.worldObj = var1;
-        this.renderEngine = var2;
-        this.options = var5;
-        this.livingPlayer = var4;
-        this.fontRenderer = var3;
-        if (var4.isPlayerSleeping()) {
-            int var7 = var1.getBlockId(MathHelper.floor(var4.posX), MathHelper.floor(var4.posY), MathHelper.floor(var4.posZ));
-            if (var7 == Block.BED.blockID) {
-                int var8 = var1.getBlockMetadata(MathHelper.floor(var4.posX), MathHelper.floor(var4.posY), MathHelper.floor(var4.posZ));
-                int var9 = var8 & 3;
+    public void cacheActiveRenderInfo(World world, RenderEngine renderEngine, FontRenderer fontRenderer, EntityLiving entity, GameSettings options, float delta) {
+        this.worldObj = world;
+        this.renderEngine = renderEngine;
+        this.options = options;
+        this.livingPlayer = entity;
+        this.fontRenderer = fontRenderer;
+        if (entity.isPlayerSleeping()) {
+            int blockId = world.getBlockId(MathHelper.floor(entity.posX), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ));
+            if (blockId == Block.BED.blockID) {
+                int metadata = world.getBlockMetadata(MathHelper.floor(entity.posX), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ));
+                int var9 = metadata & 3;
                 this.playerViewY = (float) (var9 * 90 + 180);
                 this.playerViewX = 0.0F;
             }
         } else {
-            this.playerViewY = var4.prevRotationYaw + (var4.rotationYaw - var4.prevRotationYaw) * var6;
-            this.playerViewX = var4.prevRotationPitch + (var4.rotationPitch - var4.prevRotationPitch) * var6;
+            this.playerViewY = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * delta;
+            this.playerViewX = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * delta;
         }
 
-        this.field_1222_l = var4.lastTickPosX + (var4.posX - var4.lastTickPosX) * (double) var6;
-        this.field_1221_m = var4.lastTickPosY + (var4.posY - var4.lastTickPosY) * (double) var6;
-        this.field_1220_n = var4.lastTickPosZ + (var4.posZ - var4.lastTickPosZ) * (double) var6;
+        this.viewerPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) delta;
+        this.viewerPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) delta;
+        this.viewerPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) delta;
     }
 
-    public void renderEntity(Entity var1, float var2) {
-        double var3 = var1.lastTickPosX + (var1.posX - var1.lastTickPosX) * (double) var2;
-        double var5 = var1.lastTickPosY + (var1.posY - var1.lastTickPosY) * (double) var2;
-        double var7 = var1.lastTickPosZ + (var1.posZ - var1.lastTickPosZ) * (double) var2;
-        float var9 = var1.prevRotationYaw + (var1.rotationYaw - var1.prevRotationYaw) * var2;
-        float var10 = var1.getEntityBrightness(var2);
-        GL11.glColor3f(var10, var10, var10);
-        this.renderEntityWithPosYaw(var1, var3 - renderPosX, var5 - renderPosY, var7 - renderPosZ, var9, var2);
+    public void renderEntity(Entity entity, float delta) {
+        double x = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) delta;
+        double y = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) delta;
+        double z = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) delta;
+        float yaw = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * delta;
+
+        float brightness = entity.getEntityBrightness(delta);
+        GL11.glColor3f(brightness, brightness, brightness);
+
+        this.renderEntityWithPosYaw(entity, x - renderPosX, y - renderPosY, z - renderPosZ, yaw, delta);
     }
 
-    public void renderEntityWithPosYaw(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-        Render var10 = this.getEntityRenderObject(var1);
-        if (var10 != null) {
-            var10.doRender(var1, var2, var4, var6, var8, var9);
-            var10.doRenderShadowAndFire(var1, var2, var4, var6, var8, var9);
+    public void renderEntityWithPosYaw(Entity entity, double x, double y, double z, float yaw, float delta) {
+        Render render = this.getEntityRenderObject(entity);
+        if (render != null) {
+            render.doRender(entity, x, y, z, yaw, delta);
+            render.doRenderShadowAndFire(entity, x, y, z, yaw, delta);
         }
 
     }
 
-    public void func_852_a(World var1) {
-        this.worldObj = var1;
+    public void setWorld(World world) {
+        this.worldObj = world;
     }
 
-    public double func_851_a(double var1, double var3, double var5) {
-        double var7 = var1 - this.field_1222_l;
-        double var9 = var3 - this.field_1221_m;
-        double var11 = var5 - this.field_1220_n;
+    public double getDistanceToCamera(double var1, double var3, double var5) {
+        double var7 = var1 - this.viewerPosX;
+        double var9 = var3 - this.viewerPosY;
+        double var11 = var5 - this.viewerPosZ;
         return var7 * var7 + var9 * var9 + var11 * var11;
     }
 

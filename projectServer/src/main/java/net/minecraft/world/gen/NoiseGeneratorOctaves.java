@@ -1,5 +1,6 @@
 package net.minecraft.world.gen;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class NoiseGeneratorOctaves extends NoiseGenerator {
@@ -32,9 +33,7 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
         if (var1 == null) {
             var1 = new double[var8 * var9 * var10];
         } else {
-            for (int var17 = 0; var17 < var1.length; ++var17) {
-                var1[var17] = 0.0D;
-            }
+            Arrays.fill(var1, 0.0D);
         }
 
         double var20 = 1.0D;
@@ -48,6 +47,6 @@ public class NoiseGeneratorOctaves extends NoiseGenerator {
     }
 
     public double[] func_4103_a(double[] var1, int var2, int var3, int var4, int var5, double var6, double var8, double var10) {
-        return this.generateNoiseOctaves(var1, (double) var2, 10.0D, (double) var3, var4, 1, var5, var6, 1.0D, var8);
+        return this.generateNoiseOctaves(var1, var2, 10.0D, var3, var4, 1, var5, var6, 1.0D, var8);
     }
 }

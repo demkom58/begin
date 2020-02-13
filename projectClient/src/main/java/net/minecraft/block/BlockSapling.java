@@ -29,12 +29,12 @@ public class BlockSapling extends BlockFlower {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        var2 = var2 & 3;
-        if (var2 == 1) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        metadata = metadata & 3;
+        if (metadata == 1) {
             return 63;
         } else {
-            return var2 == 2 ? 79 : super.getBlockTextureFromSideAndMetadata(var1, var2);
+            return metadata == 2 ? 79 : super.getBlockTextureFromSideAndMetadata(side, metadata);
         }
     }
 

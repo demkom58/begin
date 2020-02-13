@@ -18,8 +18,8 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        return var1 == 1 ? Block.REDSTONE_WIRE.getBlockTextureFromSideAndMetadata(var1, var2) : super.getBlockTextureFromSideAndMetadata(var1, var2);
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        return side == 1 ? Block.REDSTONE_WIRE.getBlockTextureFromSideAndMetadata(side, metadata) : super.getBlockTextureFromSideAndMetadata(side, metadata);
     }
 
     private boolean checkForBurnout(World var1, int var2, int var3, int var4, boolean var5) {
@@ -78,11 +78,11 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     @Override
-    public boolean isPoweringTo(IBlockAccess var1, int var2, int var3, int var4, int var5) {
+    public boolean isPoweringTo(IBlockAccess blockAccess, int x, int y, int z, int var5) {
         if (!this.torchActive) {
             return false;
         } else {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+            int var6 = blockAccess.getBlockMetadata(x, y, z);
             if (var6 == 5 && var5 == 1) {
                 return false;
             } else if (var6 == 3 && var5 == 3) {
@@ -147,8 +147,8 @@ public class BlockRedstoneTorch extends BlockTorch {
     }
 
     @Override
-    public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
-        return var5 == 0 && this.isPoweringTo(var1, var2, var3, var4, var5);
+    public boolean isIndirectlyPoweringTo(World world, int x, int y, int z, int var5) {
+        return var5 == 0 && this.isPoweringTo(world, x, y, z, var5);
     }
 
     @Override

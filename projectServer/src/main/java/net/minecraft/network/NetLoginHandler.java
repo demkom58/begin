@@ -64,6 +64,7 @@ public class NetLoginHandler extends NetHandler {
 
     }
 
+    @Override
     public void handleHandshake(Packet2Handshake var1) {
         if (this.mcServer.onlineMode) {
             this.serverId = Long.toHexString(rand.nextLong());
@@ -74,6 +75,7 @@ public class NetLoginHandler extends NetHandler {
 
     }
 
+    @Override
     public void handleLogin(Packet1Login var1) {
         this.username = var1.username;
         if (var1.protocolVersion != 14) {
@@ -116,11 +118,13 @@ public class NetLoginHandler extends NetHandler {
         this.finishedProcessing = true;
     }
 
+    @Override
     public void handleErrorMessage(String var1, Object[] var2) {
         logger.info(this.getUserAndIPString() + " lost connection");
         this.finishedProcessing = true;
     }
 
+    @Override
     public void registerPacket(Packet var1) {
         this.kickUser("Protocol error");
     }
@@ -129,6 +133,7 @@ public class NetLoginHandler extends NetHandler {
         return this.username != null ? this.username + " [" + this.netManager.getRemoteAddress().toString() + "]" : this.netManager.getRemoteAddress().toString();
     }
 
+    @Override
     public boolean isServerHandler() {
         return true;
     }

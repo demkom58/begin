@@ -27,6 +27,7 @@ public class Packet60Explosion extends Packet {
         this.destroyedBlockPositions = new HashSet<>(var8);
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.explosionX = inputStream.readDouble();
         this.explosionY = inputStream.readDouble();
@@ -47,6 +48,7 @@ public class Packet60Explosion extends Packet {
 
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeDouble(this.explosionX);
         outputStream.writeDouble(this.explosionY);
@@ -68,10 +70,12 @@ public class Packet60Explosion extends Packet {
 
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_12001_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 32 + this.destroyedBlockPositions.size() * 3;
     }

@@ -33,22 +33,22 @@ public class BlockNote extends BlockContainer {
     }
 
     @Override
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (var1.multiplayerWorld) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        if (world.multiplayerWorld) {
             return true;
         } else {
-            TileEntityNote var6 = (TileEntityNote) var1.getBlockTileEntity(var2, var3, var4);
+            TileEntityNote var6 = (TileEntityNote) world.getBlockTileEntity(x, y, z);
             var6.changePitch();
-            var6.triggerNote(var1, var2, var3, var4);
+            var6.triggerNote(world, x, y, z);
             return true;
         }
     }
 
     @Override
-    public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (!var1.multiplayerWorld) {
-            TileEntityNote var6 = (TileEntityNote) var1.getBlockTileEntity(var2, var3, var4);
-            var6.triggerNote(var1, var2, var3, var4);
+    public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
+        if (!world.multiplayerWorld) {
+            TileEntityNote var6 = (TileEntityNote) world.getBlockTileEntity(x, y, z);
+            var6.triggerNote(world, x, y, z);
         }
     }
 

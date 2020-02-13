@@ -42,28 +42,24 @@ public class RenderSquid extends RenderLiving {
     // $FF: synthetic method
     // $FF: bridge method
     @Override
-    protected float func_170_d(EntityLiving var1, float var2) {
-        return this.func_21006_b((EntitySquid) var1, var2);
+    protected float handleRotationFloat(EntityLiving entity, float value) {
+        return this.func_21006_b((EntitySquid) entity, value);
+    }
+
+    @Override
+    protected void rotateCorpse(EntityLiving entity, float var2, float var3, float var4) {
+        this.func_21007_a((EntitySquid) entity, var2, var3, var4);
+    }
+
+    @Override
+    public void doRenderLiving(EntityLiving entity, double x, double y, double z, float yaw, float delta) {
+        this.func_21008_a((EntitySquid) entity, x, y, z, yaw, delta);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
     @Override
-    protected void rotateCorpse(EntityLiving var1, float var2, float var3, float var4) {
-        this.func_21007_a((EntitySquid) var1, var2, var3, var4);
-    }
-
-    // $FF: synthetic method
-    // $FF: bridge method
-    @Override
-    public void doRenderLiving(EntityLiving var1, double var2, double var4, double var6, float var8, float var9) {
-        this.func_21008_a((EntitySquid) var1, var2, var4, var6, var8, var9);
-    }
-
-    // $FF: synthetic method
-    // $FF: bridge method
-    @Override
-    public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-        this.func_21008_a((EntitySquid) var1, var2, var4, var6, var8, var9);
+    public void doRender(Entity entity, double x, double y, double z, float yaw, float delta) {
+        this.func_21008_a((EntitySquid) entity, x, y, z, yaw, delta);
     }
 }

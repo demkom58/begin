@@ -24,7 +24,7 @@ public class EntityOtherPlayerMP extends EntityPlayer {
         }
 
         this.noClip = true;
-        this.field_22062_y = 0.25F;
+        this.renderOffsetY = 0.25F;
         this.renderDistanceWeight = 10.0D;
     }
 
@@ -50,7 +50,7 @@ public class EntityOtherPlayerMP extends EntityPlayer {
 
     @Override
     public void onUpdate() {
-        this.field_22062_y = 0.0F;
+        this.renderOffsetY = 0.0F;
         super.onUpdate();
         this.field_705_Q = this.field_704_R;
         double var1 = this.posX - this.prevPosX;
@@ -92,7 +92,7 @@ public class EntityOtherPlayerMP extends EntityPlayer {
             this.setRotation(this.rotationYaw, this.rotationPitch);
         }
 
-        this.field_775_e = this.field_774_f;
+        this.prevCameraYaw = this.cameraYaw;
         float var9 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         float var2 = (float) Math.atan(-this.motionY * 0.20000000298023224D) * 15.0F;
         if (var9 > 0.1F) {
@@ -107,8 +107,8 @@ public class EntityOtherPlayerMP extends EntityPlayer {
             var2 = 0.0F;
         }
 
-        this.field_774_f += (var9 - this.field_774_f) * 0.4F;
-        this.field_9328_R += (var2 - this.field_9328_R) * 0.8F;
+        this.cameraYaw += (var9 - this.cameraYaw) * 0.4F;
+        this.cameraPitch += (var2 - this.cameraPitch) * 0.8F;
     }
 
     @Override

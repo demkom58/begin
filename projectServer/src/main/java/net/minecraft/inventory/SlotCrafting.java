@@ -16,10 +16,12 @@ public class SlotCrafting extends Slot {
         this.craftMatrix = var2;
     }
 
+    @Override
     public boolean isItemValid(ItemStack var1) {
         return false;
     }
 
+    @Override
     public void onPickupFromSlot(ItemStack var1) {
         var1.func_28142_b(this.field_25004_e.worldObj, this.field_25004_e);
         if (var1.itemID == Block.WORKBENCH.blockID) {

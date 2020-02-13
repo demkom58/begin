@@ -33,6 +33,7 @@ public class EntityWolf extends EntityAnimal {
         this.health = 8;
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
@@ -40,10 +41,12 @@ public class EntityWolf extends EntityAnimal {
         this.dataWatcher.addObject(18, this.health);
     }
 
-    protected boolean func_25017_l() {
+    @Override
+    protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound compound) {
         super.writeEntityToNBT(compound);
         compound.setBoolean("Angry", this.getIsAngry());
@@ -56,6 +59,7 @@ public class EntityWolf extends EntityAnimal {
 
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         this.setIsAngry(var1.getBoolean("Angry"));
@@ -68,10 +72,12 @@ public class EntityWolf extends EntityAnimal {
 
     }
 
+    @Override
     protected boolean func_25020_s() {
         return !this.func_25030_y();
     }
 
+    @Override
     protected String getLivingSound() {
         if (this.getIsAngry()) {
             return "mob.wolf.growl";
@@ -82,22 +88,27 @@ public class EntityWolf extends EntityAnimal {
         }
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.wolf.hurt";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.wolf.death";
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.4F;
     }
 
+    @Override
     protected int getDropItemId() {
         return -1;
     }
 
+    @Override
     protected void updatePlayerActionState() {
         super.updatePlayerActionState();
         if (!this.hasAttacked && !this.getGotPath() && this.func_25030_y() && this.ridingEntity == null) {
@@ -127,6 +138,7 @@ public class EntityWolf extends EntityAnimal {
 
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
         this.field_25039_a = false;
@@ -154,6 +166,7 @@ public class EntityWolf extends EntityAnimal {
 
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         this.field_25044_c = this.field_25038_b;
@@ -167,7 +180,7 @@ public class EntityWolf extends EntityAnimal {
             this.numTicksToChaseTarget = 10;
         }
 
-        if (this.func_27008_Y()) {
+        if (this.isWet()) {
             this.isWet = true;
             this.field_25042_g = false;
             this.field_25041_h = 0.0F;
@@ -193,17 +206,19 @@ public class EntityWolf extends EntityAnimal {
                 for (int var3 = 0; var3 < var2; ++var3) {
                     float var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
                     float var5 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
-                    this.worldObj.spawnParticle("splash", this.posX + (double) var4, (double) (var1 + 0.8F), this.posZ + (double) var5, this.motionX, this.motionY, this.motionZ);
+                    this.worldObj.spawnParticle("splash", this.posX + (double) var4, var1 + 0.8F, this.posZ + (double) var5, this.motionX, this.motionY, this.motionZ);
                 }
             }
         }
 
     }
 
+    @Override
     public float getEyeHeight() {
         return this.height * 0.8F;
     }
 
+    @Override
     protected int func_25018_n_() {
         return this.getIsSitting() ? 20 : super.func_25018_n_();
     }
@@ -218,7 +233,7 @@ public class EntityWolf extends EntityAnimal {
             for (int var7 = 0; var7 <= 4; ++var7) {
                 for (int var8 = 0; var8 <= 4; ++var8) {
                     if ((var7 < 1 || var8 < 1 || var7 > 3 || var8 > 3) && this.worldObj.isBlockNormalCube(var4 + var7, var6 - 1, var5 + var8) && !this.worldObj.isBlockNormalCube(var4 + var7, var6, var5 + var8) && !this.worldObj.isBlockNormalCube(var4 + var7, var6 + 1, var5 + var8)) {
-                        this.setLocationAndAngles((double) ((float) (var4 + var7) + 0.5F), (double) var6, (double) ((float) (var5 + var8) + 0.5F), this.rotationYaw, this.rotationPitch);
+                        this.setLocationAndAngles((float) (var4 + var7) + 0.5F, var6, (float) (var5 + var8) + 0.5F, this.rotationYaw, this.rotationPitch);
                         return;
                     }
                 }
@@ -229,10 +244,12 @@ public class EntityWolf extends EntityAnimal {
 
     }
 
+    @Override
     protected boolean func_25026_u() {
         return this.getIsSitting() || this.field_25042_g;
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         this.setIsSitting(false);
         if (var1 != null && !(var1 instanceof EntityPlayer) && !(var1 instanceof EntityArrow)) {
@@ -275,10 +292,12 @@ public class EntityWolf extends EntityAnimal {
         }
     }
 
+    @Override
     protected Entity findPlayerToAttack() {
         return this.getIsAngry() ? this.worldObj.getClosestPlayerToEntity(this, 16.0D) : null;
     }
 
+    @Override
     protected void attackEntity(Entity var1, float var2) {
         if (var2 > 2.0F && var2 < 6.0F && this.rand.nextInt(10) == 0) {
             if (this.onGround) {
@@ -301,6 +320,7 @@ public class EntityWolf extends EntityAnimal {
 
     }
 
+    @Override
     public boolean interact(EntityPlayer var1) {
         ItemStack var2 = var1.inventory.getCurrentItem();
         if (!this.func_25030_y()) {
@@ -370,6 +390,7 @@ public class EntityWolf extends EntityAnimal {
 
     }
 
+    @Override
     public int getMaxSpawnedInChunk() {
         return 8;
     }

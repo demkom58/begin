@@ -23,29 +23,36 @@ public class BlockPressurePlate extends Block {
         this.setBlockBounds(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);
     }
 
+    @Override
     public int tickRate() {
         return 20;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return world.isBlockNormalCube(var2, var3 - 1, var4);
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         boolean var6 = false;
         if (!world.isBlockNormalCube(var2, var3 - 1, var4)) {
@@ -59,6 +66,7 @@ public class BlockPressurePlate extends Block {
 
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (!world.singleplayerWorld) {
             if (world.getBlockMetadata(x, y, z) != 0) {
@@ -67,6 +75,7 @@ public class BlockPressurePlate extends Block {
         }
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World world, int var2, int var3, int var4, Entity entity) {
         if (!world.singleplayerWorld) {
             if (world.getBlockMetadata(var2, var3, var4) != 1) {
@@ -81,15 +90,15 @@ public class BlockPressurePlate extends Block {
         float var7 = 0.125F;
         List<Entity> var8 = null;
         if (this.triggerMobType == EnumMobType.EVERYTHING) {
-            var8 = var1.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var7), (double) var3, (double) ((float) var4 + var7), (double) ((float) (var2 + 1) - var7), (double) var3 + 0.25D, (double) ((float) (var4 + 1) - var7)));
+            var8 = var1.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBoxFromPool((float) var2 + var7, var3, (float) var4 + var7, (float) (var2 + 1) - var7, (double) var3 + 0.25D, (float) (var4 + 1) - var7));
         }
 
         if (this.triggerMobType == EnumMobType.MOBS) {
-            var8 = var1.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var7), (double) var3, (double) ((float) var4 + var7), (double) ((float) (var2 + 1) - var7), (double) var3 + 0.25D, (double) ((float) (var4 + 1) - var7)));
+            var8 = var1.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBoxFromPool((float) var2 + var7, var3, (float) var4 + var7, (float) (var2 + 1) - var7, (double) var3 + 0.25D, (float) (var4 + 1) - var7));
         }
 
         if (this.triggerMobType == EnumMobType.PLAYERS) {
-            var8 = var1.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBoxFromPool((double) ((float) var2 + var7), (double) var3, (double) ((float) var4 + var7), (double) ((float) (var2 + 1) - var7), (double) var3 + 0.25D, (double) ((float) (var4 + 1) - var7)));
+            var8 = var1.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBoxFromPool((float) var2 + var7, var3, (float) var4 + var7, (float) (var2 + 1) - var7, (double) var3 + 0.25D, (float) (var4 + 1) - var7));
         }
 
         if (var8.size() > 0) {
@@ -118,6 +127,7 @@ public class BlockPressurePlate extends Block {
 
     }
 
+    @Override
     public void onBlockRemoval(World world, int x, int y, int z) {
         int var5 = world.getBlockMetadata(x, y, z);
         if (var5 > 0) {
@@ -128,6 +138,7 @@ public class BlockPressurePlate extends Block {
         super.onBlockRemoval(world, x, y, z);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         boolean var5 = blockAccess.getBlockMetadata(var2, var3, var4) == 1;
         float var6 = 0.0625F;
@@ -139,10 +150,12 @@ public class BlockPressurePlate extends Block {
 
     }
 
+    @Override
     public boolean isPoweringTo(IBlockAccess blockAccess, int var2, int var3, int var4, int var5) {
         return blockAccess.getBlockMetadata(var2, var3, var4) > 0;
     }
 
+    @Override
     public boolean isIndirectlyPoweringTo(World world, int var2, int var3, int var4, int var5) {
         if (world.getBlockMetadata(var2, var3, var4) == 0) {
             return false;
@@ -151,10 +164,12 @@ public class BlockPressurePlate extends Block {
         }
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public int getMobilityFlag() {
         return 1;
     }

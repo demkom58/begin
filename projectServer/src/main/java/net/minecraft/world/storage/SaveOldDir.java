@@ -15,6 +15,7 @@ public class SaveOldDir extends PlayerNBTManager {
         super(var1, var2, var3);
     }
 
+    @Override
     public IChunkLoader func_22092_a(WorldProvider var1) {
         File var2 = this.getWorldDir();
         if (var1 instanceof WorldProviderHell) {
@@ -26,11 +27,13 @@ public class SaveOldDir extends PlayerNBTManager {
         }
     }
 
+    @Override
     public void saveWorldInfoAndPlayer(WorldInfo var1, List<EntityPlayer> var2) {
         var1.setVersion(19132);
         super.saveWorldInfoAndPlayer(var1, var2);
     }
 
+    @Override
     public void func_22093_e() {
         RegionFileCache.clear();
     }

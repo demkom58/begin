@@ -15,6 +15,7 @@ public class Packet31RelEntityMove extends Packet30Entity {
         this.zPosition = var4;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         super.readPacketData(inputStream);
         this.xPosition = inputStream.readByte();
@@ -22,6 +23,7 @@ public class Packet31RelEntityMove extends Packet30Entity {
         this.zPosition = inputStream.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         super.writePacketData(outputStream);
         outputStream.writeByte(this.xPosition);
@@ -29,6 +31,7 @@ public class Packet31RelEntityMove extends Packet30Entity {
         outputStream.writeByte(this.zPosition);
     }
 
+    @Override
     public int getPacketSize() {
         return 7;
     }

@@ -13,10 +13,12 @@ public class BlockJukeBox extends BlockContainer {
         super(var1, var2, Material.WOOD);
     }
 
+    @Override
     public int getBlockTextureFromSide(int var1) {
         return this.blockIndexInTexture + (var1 == 1 ? 1 : 0);
     }
 
+    @Override
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         if (world.getBlockMetadata(var2, var3, var4) == 0) {
             return false;
@@ -56,17 +58,20 @@ public class BlockJukeBox extends BlockContainer {
         }
     }
 
+    @Override
     public void onBlockRemoval(World world, int x, int y, int z) {
         this.func_28035_b_(world, x, y, z);
         super.onBlockRemoval(world, x, y, z);
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float chance) {
         if (!world.singleplayerWorld) {
             super.dropBlockAsItemWithChance(world, x, y, z, var5, chance);
         }
     }
 
+    @Override
     protected TileEntity getBlockEntity() {
         return new TileEntityRecordPlayer();
     }

@@ -39,44 +39,44 @@ public class BlockTorch extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        if (var1.isBlockNormalCube(var2 - 1, var3, var4)) {
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        if (world.isBlockNormalCube(x - 1, y, z)) {
             return true;
-        } else if (var1.isBlockNormalCube(var2 + 1, var3, var4)) {
+        } else if (world.isBlockNormalCube(x + 1, y, z)) {
             return true;
-        } else if (var1.isBlockNormalCube(var2, var3, var4 - 1)) {
+        } else if (world.isBlockNormalCube(x, y, z - 1)) {
             return true;
-        } else if (var1.isBlockNormalCube(var2, var3, var4 + 1)) {
+        } else if (world.isBlockNormalCube(x, y, z + 1)) {
             return true;
         } else {
-            return this.func_31032_h(var1, var2, var3 - 1, var4);
+            return this.func_31032_h(world, x, y - 1, z);
         }
     }
 
     @Override
-    public void onBlockPlaced(World var1, int var2, int var3, int var4, int var5) {
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
-        if (var5 == 1 && this.func_31032_h(var1, var2, var3 - 1, var4)) {
+    public void onBlockPlaced(World world, int x, int y, int z, int side) {
+        int var6 = world.getBlockMetadata(x, y, z);
+        if (side == 1 && this.func_31032_h(world, x, y - 1, z)) {
             var6 = 5;
         }
 
-        if (var5 == 2 && var1.isBlockNormalCube(var2, var3, var4 + 1)) {
+        if (side == 2 && world.isBlockNormalCube(x, y, z + 1)) {
             var6 = 4;
         }
 
-        if (var5 == 3 && var1.isBlockNormalCube(var2, var3, var4 - 1)) {
+        if (side == 3 && world.isBlockNormalCube(x, y, z - 1)) {
             var6 = 3;
         }
 
-        if (var5 == 4 && var1.isBlockNormalCube(var2 + 1, var3, var4)) {
+        if (side == 4 && world.isBlockNormalCube(x + 1, y, z)) {
             var6 = 2;
         }
 
-        if (var5 == 5 && var1.isBlockNormalCube(var2 - 1, var3, var4)) {
+        if (side == 5 && world.isBlockNormalCube(x - 1, y, z)) {
             var6 = 1;
         }
 
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
+        world.setBlockMetadataWithNotify(x, y, z, var6);
     }
 
     @Override
@@ -149,8 +149,8 @@ public class BlockTorch extends Block {
     }
 
     @Override
-    public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
-        int var7 = var1.getBlockMetadata(var2, var3, var4) & 7;
+    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3D var5, Vec3D var6) {
+        int var7 = world.getBlockMetadata(x, y, z) & 7;
         float var8 = 0.15F;
         if (var7 == 1) {
             this.setBlockBounds(0.0F, 0.2F, 0.5F - var8, var8 * 2.0F, 0.8F, 0.5F + var8);
@@ -165,7 +165,7 @@ public class BlockTorch extends Block {
             this.setBlockBounds(0.5F - var8, 0.0F, 0.5F - var8, 0.5F + var8, 0.6F, 0.5F + var8);
         }
 
-        return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+        return super.collisionRayTrace(world, x, y, z, var5, var6);
     }
 
     @Override

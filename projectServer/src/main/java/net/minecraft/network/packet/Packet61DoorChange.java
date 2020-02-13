@@ -24,6 +24,7 @@ public class Packet61DoorChange extends Packet {
         this.field_28046_b = var5;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.field_28047_a = inputStream.readInt();
         this.field_28050_c = inputStream.readInt();
@@ -32,6 +33,7 @@ public class Packet61DoorChange extends Packet {
         this.field_28046_b = inputStream.readInt();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.field_28047_a);
         outputStream.writeInt(this.field_28050_c);
@@ -40,10 +42,12 @@ public class Packet61DoorChange extends Packet {
         outputStream.writeInt(this.field_28046_b);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_28002_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 20;
     }

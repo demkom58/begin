@@ -59,13 +59,13 @@ public class ChunkProviderGenerate implements IChunkProvider {
             for (int var12 = 0; var12 < var6; ++var12) {
                 for (int var13 = 0; var13 < 16; ++var13) {
                     double var14 = 0.125D;
-                    double var16 = this.terrain[((var11 + 0) * var10 + var12 + 0) * var9 + var13 + 0];
-                    double var18 = this.terrain[((var11 + 0) * var10 + var12 + 1) * var9 + var13 + 0];
-                    double var20 = this.terrain[((var11 + 1) * var10 + var12 + 0) * var9 + var13 + 0];
-                    double var22 = this.terrain[((var11 + 1) * var10 + var12 + 1) * var9 + var13 + 0];
-                    double var24 = (this.terrain[((var11 + 0) * var10 + var12 + 0) * var9 + var13 + 1] - var16) * var14;
-                    double var26 = (this.terrain[((var11 + 0) * var10 + var12 + 1) * var9 + var13 + 1] - var18) * var14;
-                    double var28 = (this.terrain[((var11 + 1) * var10 + var12 + 0) * var9 + var13 + 1] - var20) * var14;
+                    double var16 = this.terrain[((var11) * var10 + var12) * var9 + var13];
+                    double var18 = this.terrain[((var11) * var10 + var12 + 1) * var9 + var13];
+                    double var20 = this.terrain[((var11 + 1) * var10 + var12) * var9 + var13];
+                    double var22 = this.terrain[((var11 + 1) * var10 + var12 + 1) * var9 + var13];
+                    double var24 = (this.terrain[((var11) * var10 + var12) * var9 + var13 + 1] - var16) * var14;
+                    double var26 = (this.terrain[((var11) * var10 + var12 + 1) * var9 + var13 + 1] - var18) * var14;
+                    double var28 = (this.terrain[((var11 + 1) * var10 + var12) * var9 + var13 + 1] - var20) * var14;
                     double var30 = (this.terrain[((var11 + 1) * var10 + var12 + 1) * var9 + var13 + 1] - var22) * var14;
 
                     for (int var32 = 0; var32 < 8; ++var32) {
@@ -76,7 +76,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
                         double var41 = (var22 - var18) * var33;
 
                         for (int var43 = 0; var43 < 4; ++var43) {
-                            int var44 = var43 + var11 * 4 << 11 | 0 + var12 * 4 << 7 | var13 * 8 + var32;
+                            int var44 = var43 + var11 * 4 << 11 | var12 * 4 << 7 | var13 * 8 + var32;
                             short var45 = 128;
                             double var46 = 0.25D;
                             double var48 = var35;
@@ -120,9 +120,9 @@ public class ChunkProviderGenerate implements IChunkProvider {
     public void replaceBlocksForBiome(int var1, int var2, byte[] var3, BiomeGenBase[] genBases) {
         byte var5 = 64;
         double var6 = 0.03125D;
-        this.sandNoise = this.noiseGen4.generateNoiseOctaves(this.sandNoise, (double) (var1 * 16), (double) (var2 * 16), 0.0D, 16, 16, 1, var6, var6, 1.0D);
-        this.gravelNoise = this.noiseGen4.generateNoiseOctaves(this.gravelNoise, (double) (var1 * 16), 109.0134D, (double) (var2 * 16), 16, 1, 16, var6, 1.0D, var6);
-        this.stoneNoise = this.noiseGen5.generateNoiseOctaves(this.stoneNoise, (double) (var1 * 16), (double) (var2 * 16), 0.0D, 16, 16, 1, var6 * 2.0D, var6 * 2.0D, var6 * 2.0D);
+        this.sandNoise = this.noiseGen4.generateNoiseOctaves(this.sandNoise, var1 * 16, var2 * 16, 0.0D, 16, 16, 1, var6, var6, 1.0D);
+        this.gravelNoise = this.noiseGen4.generateNoiseOctaves(this.gravelNoise, var1 * 16, 109.0134D, var2 * 16, 16, 1, 16, var6, 1.0D, var6);
+        this.stoneNoise = this.noiseGen5.generateNoiseOctaves(this.stoneNoise, var1 * 16, var2 * 16, 0.0D, 16, 16, 1, var6 * 2.0D, var6 * 2.0D, var6 * 2.0D);
 
         for (int var8 = 0; var8 < 16; ++var8) {
             for (int var9 = 0; var9 < 16; ++var9) {
@@ -193,10 +193,12 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
     }
 
+    @Override
     public Chunk prepareChunk(int var1, int var2) {
         return this.provideChunk(var1, var2);
     }
 
+    @Override
     public Chunk provideChunk(int var1, int var2) {
         this.rand.setSeed((long) var1 * 341873128712L + (long) var2 * 132897987541L);
         byte[] var3 = new byte['\u8000'];
@@ -221,9 +223,9 @@ public class ChunkProviderGenerate implements IChunkProvider {
         double[] var13 = this.worldObj.getWorldChunkManager().humidity;
         this.field_4226_g = this.noiseGen6.func_4103_a(this.field_4226_g, var2, var4, x, z, 1.121D, 1.121D, 0.5D);
         this.field_4225_h = this.noiseGen7.func_4103_a(this.field_4225_h, var2, var4, x, z, 200.0D, 200.0D, 0.5D);
-        this.field_4229_d = this.noiseGen3.generateNoiseOctaves(this.field_4229_d, (double) var2, (double) var3, (double) var4, x, y, z, var8 / 80.0D, var10 / 160.0D, var8 / 80.0D);
-        this.field_4228_e = this.noiseGen1.generateNoiseOctaves(this.field_4228_e, (double) var2, (double) var3, (double) var4, x, y, z, var8, var10, var8);
-        this.field_4227_f = this.noiseGen2.generateNoiseOctaves(this.field_4227_f, (double) var2, (double) var3, (double) var4, x, y, z, var8, var10, var8);
+        this.field_4229_d = this.noiseGen3.generateNoiseOctaves(this.field_4229_d, var2, var3, var4, x, y, z, var8 / 80.0D, var10 / 160.0D, var8 / 80.0D);
+        this.field_4228_e = this.noiseGen1.generateNoiseOctaves(this.field_4228_e, var2, var3, var4, x, y, z, var8, var10, var8);
+        this.field_4227_f = this.noiseGen2.generateNoiseOctaves(this.field_4227_f, var2, var3, var4, x, y, z, var8, var10, var8);
         int var14 = 0;
         int var15 = 0;
         int var16 = 16 / x;
@@ -297,7 +299,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
                     var34 = var34 - var36;
                     if (var33 > y - 4) {
-                        double var44 = (double) ((float) (var33 - (y - 4)) / 3.0F);
+                        double var44 = (float) (var33 - (y - 4)) / 3.0F;
                         var34 = var34 * (1.0D - var44) + -10.0D * var44;
                     }
 
@@ -310,10 +312,12 @@ public class ChunkProviderGenerate implements IChunkProvider {
         return terrain;
     }
 
+    @Override
     public boolean chunkExists(int var1, int var2) {
         return true;
     }
 
+    @Override
     public void populate(IChunkProvider provider, int chunkX, int chunkZ) {
         BlockSand.fallInstantly = true;
         int x = chunkX * 16;
@@ -600,14 +604,17 @@ public class ChunkProviderGenerate implements IChunkProvider {
         BlockSand.fallInstantly = false;
     }
 
+    @Override
     public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdate) {
         return true;
     }
 
+    @Override
     public boolean unload100OldestChunks() {
         return false;
     }
 
+    @Override
     public boolean canSave() {
         return true;
     }

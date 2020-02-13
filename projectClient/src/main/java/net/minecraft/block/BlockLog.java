@@ -23,8 +23,8 @@ public class BlockLog extends Block {
     }
 
     @Override
-    public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
-        super.harvestBlock(var1, var2, var3, var4, var5, var6);
+    public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int blockId) {
+        super.harvestBlock(world, player, x, y, z, blockId);
     }
 
     @Override
@@ -50,15 +50,15 @@ public class BlockLog extends Block {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        if (var1 == 1) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (side == 1) {
             return 21;
-        } else if (var1 == 0) {
+        } else if (side == 0) {
             return 21;
-        } else if (var2 == 1) {
+        } else if (metadata == 1) {
             return 116;
         } else {
-            return var2 == 2 ? 117 : 20;
+            return metadata == 2 ? 117 : 20;
         }
     }
 

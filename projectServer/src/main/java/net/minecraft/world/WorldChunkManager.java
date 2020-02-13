@@ -42,8 +42,8 @@ public class WorldChunkManager {
             var1 = new double[var4 * var5];
         }
 
-        var1 = this.genOc1.func_4101_a(var1, (double) var2, (double) var3, var4, var5, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
-        this.field_4257_c = this.genOc3.func_4101_a(this.field_4257_c, (double) var2, (double) var3, var4, var5, 0.25D, 0.25D, 0.5882352941176471D);
+        var1 = this.genOc1.func_4101_a(var1, var2, var3, var4, var5, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
+        this.field_4257_c = this.genOc3.func_4101_a(this.field_4257_c, var2, var3, var4, var5, 0.25D, 0.25D, 0.5882352941176471D);
         int var6 = 0;
 
         for (int var7 = 0; var7 < var4; ++var7) {
@@ -73,9 +73,9 @@ public class WorldChunkManager {
         if (bases == null || bases.length < var4 * var5)
             bases = new BiomeGenBase[var4 * var5];
 
-        this.temperature = this.genOc1.func_4101_a(this.temperature, (double) x, (double) z, var4, var4, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
-        this.humidity = this.genOc2.func_4101_a(this.humidity, (double) x, (double) z, var4, var4, 0.05000000074505806D, 0.05000000074505806D, 0.3333333333333333D);
-        this.field_4257_c = this.genOc3.func_4101_a(this.field_4257_c, (double) x, (double) z, var4, var4, 0.25D, 0.25D, 0.5882352941176471D);
+        this.temperature = this.genOc1.func_4101_a(this.temperature, x, z, var4, var4, 0.02500000037252903D, 0.02500000037252903D, 0.25D);
+        this.humidity = this.genOc2.func_4101_a(this.humidity, x, z, var4, var4, 0.05000000074505806D, 0.05000000074505806D, 0.3333333333333333D);
+        this.field_4257_c = this.genOc3.func_4101_a(this.field_4257_c, x, z, var4, var4, 0.25D, 0.25D, 0.5882352941176471D);
         int var6 = 0;
 
         for (int var7 = 0; var7 < var4; ++var7) {

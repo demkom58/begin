@@ -49,6 +49,7 @@ public class GuiStatsComponent extends JComponent {
         this.repaint();
     }
 
+    @Override
     public void paint(Graphics var1) {
         var1.setColor(new Color(16777215));
         var1.fillRect(0, 0, 256, 192);

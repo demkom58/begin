@@ -24,14 +24,17 @@ public class BlockDispenser extends BlockContainer {
         this.blockIndexInTexture = 45;
     }
 
+    @Override
     public int tickRate() {
         return 4;
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return Block.DISPENSER.blockID;
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         super.onBlockAdded(world, x, y, z);
         this.setDispenserDefaultDirection(world, x, y, z);
@@ -64,6 +67,7 @@ public class BlockDispenser extends BlockContainer {
         }
     }
 
+    @Override
     public int getBlockTextureFromSide(int var1) {
         if (var1 == 1) {
             return this.blockIndexInTexture + 17;
@@ -74,6 +78,7 @@ public class BlockDispenser extends BlockContainer {
         }
     }
 
+    @Override
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         if (world.singleplayerWorld) {
             return true;
@@ -108,18 +113,18 @@ public class BlockDispenser extends BlockContainer {
         } else {
             if (var12.itemID == Item.ARROW.shiftedIndex) {
                 EntityArrow var19 = new EntityArrow(var1, var13, var15, var17);
-                var19.setArrowHeading((double) var9, 0.10000000149011612D, (double) var10, 1.1F, 6.0F);
+                var19.setArrowHeading(var9, 0.10000000149011612D, var10, 1.1F, 6.0F);
                 var19.field_28012_a = true;
                 var1.entityJoinedWorld(var19);
                 var1.func_28097_e(1002, var2, var3, var4, 0);
             } else if (var12.itemID == Item.EGG.shiftedIndex) {
                 EntityEgg var22 = new EntityEgg(var1, var13, var15, var17);
-                var22.func_20078_a((double) var9, 0.10000000149011612D, (double) var10, 1.1F, 6.0F);
+                var22.func_20078_a(var9, 0.10000000149011612D, var10, 1.1F, 6.0F);
                 var1.entityJoinedWorld(var22);
                 var1.func_28097_e(1002, var2, var3, var4, 0);
             } else if (var12.itemID == Item.SNOWBALL.shiftedIndex) {
                 EntitySnowball var23 = new EntitySnowball(var1, var13, var15, var17);
-                var23.func_6141_a((double) var9, 0.10000000149011612D, (double) var10, 1.1F, 6.0F);
+                var23.func_6141_a(var9, 0.10000000149011612D, var10, 1.1F, 6.0F);
                 var1.entityJoinedWorld(var23);
                 var1.func_28097_e(1002, var2, var3, var4, 0);
             } else {
@@ -140,6 +145,7 @@ public class BlockDispenser extends BlockContainer {
 
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower()) {
             boolean var6 = world.isBlockIndirectlyGettingPowered(var2, var3, var4) || world.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
@@ -150,6 +156,7 @@ public class BlockDispenser extends BlockContainer {
 
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z)) {
             this.dispenseItem(world, x, y, z, random);
@@ -157,10 +164,12 @@ public class BlockDispenser extends BlockContainer {
 
     }
 
+    @Override
     protected TileEntity getBlockEntity() {
         return new TileEntityDispenser();
     }
 
+    @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving) {
         int var6 = MathHelper.floor((double) (entityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         if (var6 == 0) {
@@ -181,6 +190,7 @@ public class BlockDispenser extends BlockContainer {
 
     }
 
+    @Override
     public void onBlockRemoval(World world, int x, int y, int z) {
         TileEntityDispenser var5 = (TileEntityDispenser) world.getBlockTileEntity(x, y, z);
 
@@ -198,11 +208,11 @@ public class BlockDispenser extends BlockContainer {
                     }
 
                     var7.stackSize -= var11;
-                    EntityItem var12 = new EntityItem(world, (double) ((float) x + var8), (double) ((float) y + var9), (double) ((float) z + var10), new ItemStack(var7.itemID, var11, var7.getItemDamage()));
+                    EntityItem var12 = new EntityItem(world, (float) x + var8, (float) y + var9, (float) z + var10, new ItemStack(var7.itemID, var11, var7.getItemDamage()));
                     float var13 = 0.05F;
-                    var12.motionX = (double) ((float) this.field_28032_a.nextGaussian() * var13);
-                    var12.motionY = (double) ((float) this.field_28032_a.nextGaussian() * var13 + 0.2F);
-                    var12.motionZ = (double) ((float) this.field_28032_a.nextGaussian() * var13);
+                    var12.motionX = (float) this.field_28032_a.nextGaussian() * var13;
+                    var12.motionY = (float) this.field_28032_a.nextGaussian() * var13 + 0.2F;
+                    var12.motionZ = (float) this.field_28032_a.nextGaussian() * var13;
                     world.entityJoinedWorld(var12);
                 }
             }

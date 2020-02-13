@@ -19,6 +19,7 @@ public class ItemDye extends Item {
         this.setMaxDamage(0);
     }
 
+    @Override
     public boolean onItemUse(ItemStack var1, EntityPlayer var2, World var3, int var4, int var5, int var6, int var7) {
         if (var1.getItemDamage() == 15) {
             int var8 = var3.getBlockId(var4, var5, var6);
@@ -83,6 +84,7 @@ public class ItemDye extends Item {
         return false;
     }
 
+    @Override
     public void saddleEntity(ItemStack var1, EntityLiving var2) {
         if (var2 instanceof EntitySheep) {
             EntitySheep var3 = (EntitySheep) var2;

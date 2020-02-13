@@ -11,6 +11,7 @@ public class BlockTallGrass extends BlockFlower {
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, 0.8F, 0.5F + var3);
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var2 == 1) {
             return this.blockIndexInTexture;
@@ -21,6 +22,7 @@ public class BlockTallGrass extends BlockFlower {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return random.nextInt(8) == 0 ? Item.SEEDS.shiftedIndex : -1;
     }

@@ -9,6 +9,7 @@ public class TileEntitySign extends TileEntity {
     public int lineBeingEdited = -1;
     private boolean isEditAble = true;
 
+    @Override
     public void writeToNBT(TagCompound compound) {
         super.writeToNBT(compound);
         compound.setString("Text1", this.signText[0]);
@@ -17,6 +18,7 @@ public class TileEntitySign extends TileEntity {
         compound.setString("Text4", this.signText[3]);
     }
 
+    @Override
     public void readFromNBT(TagCompound compound) {
         this.isEditAble = false;
         super.readFromNBT(compound);
@@ -30,6 +32,7 @@ public class TileEntitySign extends TileEntity {
 
     }
 
+    @Override
     public Packet getDescriptionPacket() {
         String[] var1 = new String[4];
 

@@ -37,6 +37,7 @@ public class Packet24MobSpawn extends Packet {
         this.metaData = var1.getDataWatcher();
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.entityId = inputStream.readInt();
         this.type = inputStream.readByte();
@@ -48,6 +49,7 @@ public class Packet24MobSpawn extends Packet {
         this.receivedMetadata = DataWatcher.readWatchableObjects(inputStream);
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.entityId);
         outputStream.writeByte(this.type);
@@ -59,10 +61,12 @@ public class Packet24MobSpawn extends Packet {
         this.metaData.writeWatchableObjects(outputStream);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleMobSpawn(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 20;
     }

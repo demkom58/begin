@@ -4,16 +4,24 @@ public class MathHelper {
     private static final float[] SIN_TABLE = new float[65536];
 
     static {
-        for (int var0 = 0; var0 < 65536; ++var0) {
-            SIN_TABLE[var0] = (float) Math.sin((double) var0 * 3.141592653589793D * 2.0D / 65536.0D);
-        }
+        double total = 65536;
+        for (int i = 0; i < total; ++i)
+            SIN_TABLE[i] = (float) Math.sin((double) i * Math.PI * 2.0D / total);
     }
 
     public static float sin(float radians) {
         return SIN_TABLE[(int) (radians * 10430.378F) & '\uffff'];
     }
 
+    public static float sin(double radians) {
+        return SIN_TABLE[(int) (radians * 10430.378F) & '\uffff'];
+    }
+
     public static float cos(float radians) {
+        return SIN_TABLE[(int) (radians * 10430.378F + 16384.0F) & '\uffff'];
+    }
+
+    public static float cos(double radians) {
         return SIN_TABLE[(int) (radians * 10430.378F + 16384.0F) & '\uffff'];
     }
 

@@ -19,6 +19,7 @@ public class BlockStep extends Block {
         this.setLightOpacity(255);
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var2 == 0) {
             return var1 <= 1 ? 6 : 5;
@@ -35,14 +36,17 @@ public class BlockStep extends Block {
         }
     }
 
+    @Override
     public int getBlockTextureFromSide(int var1) {
         return this.getBlockTextureFromSideAndMetadata(var1, 0);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return this.blockType;
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         if (this != Block.STAIR_SINGLE) {
             super.onBlockAdded(world, x, y, z);
@@ -60,18 +64,22 @@ public class BlockStep extends Block {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return Block.STAIR_SINGLE.blockID;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return this.blockType ? 2 : 1;
     }
 
+    @Override
     protected int damageDropped(int var1) {
         return var1;
     }
 
+    @Override
     public boolean isACube() {
         return this.blockType;
     }

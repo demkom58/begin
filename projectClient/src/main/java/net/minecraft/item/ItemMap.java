@@ -115,14 +115,14 @@ public class ItemMap extends ItemMapBase {
 
                                             } while (!var37);
 
-                                            if (var36 != 0 && Block.BLOCKS_LIST[var36].blockMaterial.getIsLiquid()) {
+                                            if (var36 != 0 && Block.BLOCKS_LIST[var36].blockMaterial.isLiquid()) {
                                                 int var38 = var35 - 1;
                                                 int var39 = 0;
 
                                                 do {
                                                     var39 = var27.getBlockID(var43 + var28, var38--, var34 + var29);
                                                     ++var30;
-                                                } while (var38 > 0 && var39 != 0 && Block.BLOCKS_LIST[var39].blockMaterial.getIsLiquid());
+                                                } while (var38 > 0 && var39 != 0 && Block.BLOCKS_LIST[var39].blockMaterial.isLiquid());
                                             }
                                         }
 

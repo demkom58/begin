@@ -13,7 +13,7 @@ import net.minecraft.util.Vec3D;
 import java.util.List;
 
 public abstract class EntityLiving extends Entity {
-    public int field_9099_av = 20;
+    public int heartsHalvesLife = 20;
     public float field_9098_aw;
     public float field_9096_ay;
     public float renderYawOffset = 0.0F;
@@ -28,8 +28,8 @@ public abstract class EntityLiving extends Entity {
     public float attackedAtYaw = 0.0F;
     public int deathTime = 0;
     public int attackTime = 0;
-    public float field_9102_aX;
-    public float field_9101_aY;
+    public float prevCameraPitch;
+    public float cameraPitch;
     public int field_9144_ba = -1;
     public float field_9143_bb = (float) (Math.random() * 0.8999999761581421D + 0.10000000149011612D);
     public float field_9142_bc;
@@ -48,14 +48,14 @@ public abstract class EntityLiving extends Entity {
     protected int scoreValue = 0;
     protected float field_9113_aM = 0.0F;
     protected boolean unused_flag = false;
-    protected int field_9140_bf;
-    protected double field_9139_bg;
-    protected double field_9138_bh;
-    protected double field_9137_bi;
-    protected double field_9136_bj;
-    protected double field_9135_bk;
-    protected int field_9133_bm = 0;
-    protected int age = 0;
+    protected int newPosRotationIncrements;
+    protected double newPosX;
+    protected double newPosY;
+    protected double newPosZ;
+    protected double newRotationYaw;
+    protected double newRotationPitch;
+    protected int naturalArmorRating = 0;
+    protected int entityAge = 0;
     protected float moveStrafing;
     protected float moveForward;
     protected float randomYawVelocity;
@@ -77,6 +77,7 @@ public abstract class EntityLiving extends Entity {
         this.stepHeight = 0.5F;
     }
 
+    @Override
     protected void entityInit() {
     }
 
@@ -84,14 +85,17 @@ public abstract class EntityLiving extends Entity {
         return this.worldObj.rayTraceBlocks(Vec3D.createVector(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ), Vec3D.createVector(var1.posX, var1.posY + (double) var1.getEyeHeight(), var1.posZ)) == null;
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
 
+    @Override
     public boolean canBePushed() {
         return !this.isDead;
     }
 
+    @Override
     public float getEyeHeight() {
         return this.height * 0.85F;
     }
@@ -108,6 +112,7 @@ public abstract class EntityLiving extends Entity {
 
     }
 
+    @Override
     public void onEntityUpdate() {
         this.prevSwingProgress = this.swingProgress;
         super.onEntityUpdate();
@@ -144,7 +149,7 @@ public abstract class EntityLiving extends Entity {
             this.air = this.maxAir;
         }
 
-        this.field_9102_aX = this.field_9101_aY;
+        this.prevCameraPitch = this.cameraPitch;
         if (this.attackTime > 0) {
             --this.attackTime;
         }
@@ -153,8 +158,8 @@ public abstract class EntityLiving extends Entity {
             --this.hurtTime;
         }
 
-        if (this.field_9083_ac > 0) {
-            --this.field_9083_ac;
+        if (this.heartsLife > 0) {
+            --this.heartsLife;
         }
 
         if (this.health <= 0) {
@@ -189,12 +194,14 @@ public abstract class EntityLiving extends Entity {
 
     }
 
+    @Override
     public void updateRidden() {
         super.updateRidden();
         this.field_9124_aB = this.field_9123_aC;
         this.field_9123_aC = 0.0F;
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         this.onLivingUpdate();
@@ -284,8 +291,9 @@ public abstract class EntityLiving extends Entity {
         this.field_9122_aD += var7;
     }
 
-    protected void setSize(float var1, float var2) {
-        super.setSize(var1, var2);
+    @Override
+    protected void setSize(float width, float height) {
+        super.setSize(width, height);
     }
 
     public void heal(int var1) {
@@ -295,32 +303,33 @@ public abstract class EntityLiving extends Entity {
                 this.health = 20;
             }
 
-            this.field_9083_ac = this.field_9099_av / 2;
+            this.heartsLife = this.heartsHalvesLife / 2;
         }
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         if (this.worldObj.singleplayerWorld) {
             return false;
         } else {
-            this.age = 0;
+            this.entityAge = 0;
             if (this.health <= 0) {
                 return false;
             } else {
                 this.field_9141_bd = 1.5F;
                 boolean var3 = true;
-                if ((float) this.field_9083_ac > (float) this.field_9099_av / 2.0F) {
-                    if (var2 <= this.field_9133_bm) {
+                if ((float) this.heartsLife > (float) this.heartsHalvesLife / 2.0F) {
+                    if (var2 <= this.naturalArmorRating) {
                         return false;
                     }
 
-                    this.damageEntity(var2 - this.field_9133_bm);
-                    this.field_9133_bm = var2;
+                    this.damageEntity(var2 - this.naturalArmorRating);
+                    this.naturalArmorRating = var2;
                     var3 = false;
                 } else {
-                    this.field_9133_bm = var2;
+                    this.naturalArmorRating = var2;
                     this.prevHealth = this.health;
-                    this.field_9083_ac = this.field_9099_av;
+                    this.heartsLife = this.heartsHalvesLife;
                     this.damageEntity(var2);
                     this.hurtTime = this.maxHurtTime = 10;
                 }
@@ -427,15 +436,16 @@ public abstract class EntityLiving extends Entity {
         return 0;
     }
 
+    @Override
     protected void fall(float var1) {
         super.fall(var1);
-        int var2 = (int) Math.ceil((double) (var1 - 3.0F));
+        int var2 = (int) Math.ceil(var1 - 3.0F);
         if (var2 > 0) {
             this.attackEntityFrom(null, var2);
             int var3 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.posY - 0.20000000298023224D - (double) this.yOffset), MathHelper.floor(this.posZ));
             if (var3 > 0) {
                 StepSound var4 = Block.BLOCKS_LIST[var3].stepSound;
-                this.worldObj.playSoundAtEntity(this, var4.func_737_c(), var4.getVolume() * 0.5F, var4.getPitch() * 0.75F);
+                this.worldObj.playSoundAtEntity(this, var4.getFormattedName(), var4.getVolume() * 0.5F, var4.getPitch() * 0.75F);
             }
         }
 
@@ -488,19 +498,19 @@ public abstract class EntityLiving extends Entity {
             if (this.isOnLadder()) {
                 float var13 = 0.15F;
                 if (this.motionX < (double) (-var13)) {
-                    this.motionX = (double) (-var13);
+                    this.motionX = -var13;
                 }
 
                 if (this.motionX > (double) var13) {
-                    this.motionX = (double) var13;
+                    this.motionX = var13;
                 }
 
                 if (this.motionZ < (double) (-var13)) {
-                    this.motionZ = (double) (-var13);
+                    this.motionZ = -var13;
                 }
 
                 if (this.motionZ > (double) var13) {
-                    this.motionZ = (double) var13;
+                    this.motionZ = var13;
                 }
 
                 this.fallDistance = 0.0F;
@@ -520,8 +530,8 @@ public abstract class EntityLiving extends Entity {
 
             this.motionY -= 0.08D;
             this.motionY *= 0.9800000190734863D;
-            this.motionX *= (double) var9;
-            this.motionZ *= (double) var9;
+            this.motionX *= var9;
+            this.motionZ *= var9;
         }
 
         this.field_9142_bc = this.field_9141_bd;
@@ -543,6 +553,7 @@ public abstract class EntityLiving extends Entity {
         return this.worldObj.getBlockId(var1, var2, var3) == Block.LADDER.blockID;
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("Health", (short) this.health);
         var1.setShort("HurtTime", (short) this.hurtTime);
@@ -550,6 +561,7 @@ public abstract class EntityLiving extends Entity {
         var1.setShort("AttackTime", (short) this.attackTime);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         this.health = var1.getShort("Health");
         if (!var1.hasKey("Health")) {
@@ -561,6 +573,7 @@ public abstract class EntityLiving extends Entity {
         this.attackTime = var1.getShort("AttackTime");
     }
 
+    @Override
     public boolean isEntityAlive() {
         return !this.isDead && this.health > 0;
     }
@@ -570,22 +583,22 @@ public abstract class EntityLiving extends Entity {
     }
 
     public void onLivingUpdate() {
-        if (this.field_9140_bf > 0) {
-            double var1 = this.posX + (this.field_9139_bg - this.posX) / (double) this.field_9140_bf;
-            double var3 = this.posY + (this.field_9138_bh - this.posY) / (double) this.field_9140_bf;
-            double var5 = this.posZ + (this.field_9137_bi - this.posZ) / (double) this.field_9140_bf;
+        if (this.newPosRotationIncrements > 0) {
+            double var1 = this.posX + (this.newPosX - this.posX) / (double) this.newPosRotationIncrements;
+            double var3 = this.posY + (this.newPosY - this.posY) / (double) this.newPosRotationIncrements;
+            double var5 = this.posZ + (this.newPosZ - this.posZ) / (double) this.newPosRotationIncrements;
 
             double var7;
-            for (var7 = this.field_9136_bj - (double) this.rotationYaw; var7 < -180.0D; var7 += 360.0D) {
+            for (var7 = this.newRotationYaw - (double) this.rotationYaw; var7 < -180.0D; var7 += 360.0D) {
             }
 
             while (var7 >= 180.0D) {
                 var7 -= 360.0D;
             }
 
-            this.rotationYaw = (float) ((double) this.rotationYaw + var7 / (double) this.field_9140_bf);
-            this.rotationPitch = (float) ((double) this.rotationPitch + (this.field_9135_bk - (double) this.rotationPitch) / (double) this.field_9140_bf);
-            --this.field_9140_bf;
+            this.rotationYaw = (float) ((double) this.rotationYaw + var7 / (double) this.newPosRotationIncrements);
+            this.rotationPitch = (float) ((double) this.rotationPitch + (this.newRotationPitch - (double) this.rotationPitch) / (double) this.newPosRotationIncrements);
+            --this.newPosRotationIncrements;
             this.setPosition(var1, var3, var5);
             this.setRotation(this.rotationYaw, this.rotationPitch);
             List<AxisAlignedBB> var9 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.getInsetBoundingBox(0.03125D, 0.0D, 0.03125D));
@@ -664,9 +677,9 @@ public abstract class EntityLiving extends Entity {
                 this.setEntityDead();
             }
 
-            if (this.age > 600 && this.rand.nextInt(800) == 0) {
+            if (this.entityAge > 600 && this.rand.nextInt(800) == 0) {
                 if (var8 < 1024.0D) {
-                    this.age = 0;
+                    this.entityAge = 0;
                 } else {
                     this.setEntityDead();
                 }
@@ -676,14 +689,14 @@ public abstract class EntityLiving extends Entity {
     }
 
     protected void updatePlayerActionState() {
-        ++this.age;
+        ++this.entityAge;
         EntityPlayer var1 = this.worldObj.getClosestPlayerToEntity(this, -1.0D);
         this.func_27013_Q();
         this.moveStrafing = 0.0F;
         this.moveForward = 0.0F;
         float var2 = 8.0F;
         if (this.rand.nextFloat() < 0.02F) {
-            var1 = this.worldObj.getClosestPlayerToEntity(this, (double) var2);
+            var1 = this.worldObj.getClosestPlayerToEntity(this, var2);
             if (var1 != null) {
                 this.currentTarget = var1;
                 this.numTicksToChaseTarget = 10 + this.rand.nextInt(20);
@@ -729,7 +742,7 @@ public abstract class EntityLiving extends Entity {
             var6 = (var1.boundingBox.minY + var1.boundingBox.maxY) / 2.0D - (this.posY + (double) this.getEyeHeight());
         }
 
-        double var14 = (double) MathHelper.sqrt(var4 * var4 + var8 * var8);
+        double var14 = MathHelper.sqrt(var4 * var4 + var8 * var8);
         float var12 = (float) (Math.atan2(var8, var4) * 180.0D / 3.1415927410125732D) - 90.0F;
         float var13 = (float) (-(Math.atan2(var6, var14) * 180.0D / 3.1415927410125732D));
         this.rotationPitch = -this.updateRotation(this.rotationPitch, var13, var3);
@@ -771,10 +784,12 @@ public abstract class EntityLiving extends Entity {
         return this.worldObj.checkIfAABBIsClear(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.worldObj.isAnyLiquid(this.boundingBox);
     }
 
+    @Override
     protected void kill() {
         this.attackEntityFrom(null, 4);
     }
 
+    @Override
     public Vec3D getLookVec() {
         return this.getLook(1.0F);
     }
@@ -785,7 +800,7 @@ public abstract class EntityLiving extends Entity {
             float var9 = MathHelper.sin(-this.rotationYaw * 0.017453292F - 3.1415927F);
             float var10 = -MathHelper.cos(-this.rotationPitch * 0.017453292F);
             float var11 = MathHelper.sin(-this.rotationPitch * 0.017453292F);
-            return Vec3D.createVector((double) (var9 * var10), (double) var11, (double) (var8 * var10));
+            return Vec3D.createVector(var9 * var10, var11, var8 * var10);
         } else {
             float var2 = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * var1;
             float var3 = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * var1;
@@ -793,7 +808,7 @@ public abstract class EntityLiving extends Entity {
             float var5 = MathHelper.sin(-var3 * 0.017453292F - 3.1415927F);
             float var6 = -MathHelper.cos(-var2 * 0.017453292F);
             float var7 = MathHelper.sin(-var2 * 0.017453292F);
-            return Vec3D.createVector((double) (var5 * var6), (double) var7, (double) (var4 * var6));
+            return Vec3D.createVector(var5 * var6, var7, var4 * var6);
         }
     }
 

@@ -69,6 +69,7 @@ public class Packet23VehicleSpawn extends Packet {
 
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.entityId = inputStream.readInt();
         this.type = inputStream.readByte();
@@ -84,6 +85,7 @@ public class Packet23VehicleSpawn extends Packet {
 
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.entityId);
         outputStream.writeByte(this.type);
@@ -99,10 +101,12 @@ public class Packet23VehicleSpawn extends Packet {
 
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleVehicleSpawn(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 21 + this.field_28041_i > 0 ? 6 : 0;
     }

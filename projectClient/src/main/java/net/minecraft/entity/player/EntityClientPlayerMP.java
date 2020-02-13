@@ -154,21 +154,21 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
     }
 
     @Override
-    public void setHealth(int var1) {
+    public void setHealth(int health) {
         if (this.field_21093_bH) {
-            super.setHealth(var1);
+            super.setHealth(health);
         } else {
-            this.health = var1;
+            this.health = health;
             this.field_21093_bH = true;
         }
 
     }
 
     @Override
-    public void addStat(StatBase var1, int var2) {
-        if (var1 != null) {
-            if (var1.field_27088_g) {
-                super.addStat(var1, var2);
+    public void addStat(StatBase statBase, int addition) {
+        if (statBase != null) {
+            if (statBase.field_27088_g) {
+                super.addStat(statBase, addition);
             }
 
         }

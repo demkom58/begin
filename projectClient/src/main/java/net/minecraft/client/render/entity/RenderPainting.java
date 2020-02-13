@@ -123,7 +123,7 @@ public class RenderPainting extends Render {
     // $FF: synthetic method
     // $FF: bridge method
     @Override
-    public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-        this.func_158_a((EntityPainting) var1, var2, var4, var6, var8, var9);
+    public void doRender(Entity entity, double x, double y, double z, float yaw, float delta) {
+        this.func_158_a((EntityPainting) entity, x, y, z, yaw, delta);
     }
 }

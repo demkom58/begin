@@ -14,30 +14,30 @@ public class BlockTallGrass extends BlockFlower {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        if (var2 == 1) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (metadata == 1) {
             return this.blockIndexInTexture;
-        } else if (var2 == 2) {
+        } else if (metadata == 2) {
             return this.blockIndexInTexture + 16 + 1;
         } else {
-            return var2 == 0 ? this.blockIndexInTexture + 16 : this.blockIndexInTexture;
+            return metadata == 0 ? this.blockIndexInTexture + 16 : this.blockIndexInTexture;
         }
     }
 
     @Override
-    public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public int colorMultiplier(IBlockAccess blockAccess, int x, int y, int z) {
+        int var5 = blockAccess.getBlockMetadata(x, y, z);
         if (var5 == 0) {
             return 16777215;
         } else {
-            long var6 = var2 * 3129871 + var4 * 6129781 + var3;
+            long var6 = x * 3129871 + z * 6129781 + y;
             var6 = var6 * var6 * 42317861L + var6 * 11L;
-            var2 = (int) ((long) var2 + (var6 >> 14 & 31L));
-            var3 = (int) ((long) var3 + (var6 >> 19 & 31L));
-            var4 = (int) ((long) var4 + (var6 >> 24 & 31L));
-            var1.getWorldChunkManager().func_4069_a(var2, var4, 1, 1);
-            double var8 = var1.getWorldChunkManager().temperature[0];
-            double var10 = var1.getWorldChunkManager().humidity[0];
+            x = (int) ((long) x + (var6 >> 14 & 31L));
+            y = (int) ((long) y + (var6 >> 19 & 31L));
+            z = (int) ((long) z + (var6 >> 24 & 31L));
+            blockAccess.getWorldChunkManager().func_4069_a(x, z, 1, 1);
+            double var8 = blockAccess.getWorldChunkManager().temperature[0];
+            double var10 = blockAccess.getWorldChunkManager().humidity[0];
             return ColorizerGrass.getGrassColor(var8, var10);
         }
     }

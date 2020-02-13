@@ -14,6 +14,7 @@ public class PlayerListBox extends JList implements IUpdatePlayerListBox {
         mcServer.addPlayerListBox(this);
     }
 
+    @Override
     public void update() {
         if (this.updateCounter++ % 20 == 0) {
             Vector<String> vec = new Vector<>();

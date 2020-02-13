@@ -135,7 +135,7 @@ public class EmptyChunk extends Chunk {
     }
 
     @Override
-    public void getEntitiesOfTypeWithinAAAB(Class var1, AxisAlignedBB var2, List var3) {
+    public void getEntitiesOfTypeWithinAAAB(Class type, AxisAlignedBB bb, List entities) {
     }
 
     @Override

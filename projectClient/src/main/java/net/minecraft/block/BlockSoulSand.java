@@ -17,8 +17,8 @@ public class BlockSoulSand extends Block {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
-        var5.motionX *= 0.4D;
-        var5.motionZ *= 0.4D;
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+        entity.motionX *= 0.4D;
+        entity.motionZ *= 0.4D;
     }
 }

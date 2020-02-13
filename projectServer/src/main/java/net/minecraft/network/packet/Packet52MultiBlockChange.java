@@ -41,6 +41,7 @@ public class Packet52MultiBlockChange extends Packet {
 
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.xPosition = inputStream.readInt();
         this.zPosition = inputStream.readInt();
@@ -57,6 +58,7 @@ public class Packet52MultiBlockChange extends Packet {
         inputStream.readFully(this.metadataArray);
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.xPosition);
         outputStream.writeInt(this.zPosition);
@@ -70,10 +72,12 @@ public class Packet52MultiBlockChange extends Packet {
         outputStream.write(this.metadataArray);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleMultiBlockChange(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 10 + this.size * 4;
     }

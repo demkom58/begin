@@ -66,10 +66,12 @@ public class SaveFormatOld implements ISaveFormat {
         return new PlayerNBTManager(this.field_22106_a, var1, var2);
     }
 
+    @Override
     public boolean isOldSaveType(String var1) {
         return false;
     }
 
+    @Override
     public boolean convertMapToMCRegion(String var1, IProgressUpdatable var2) {
         return false;
     }

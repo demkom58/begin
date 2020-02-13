@@ -14,6 +14,7 @@ public class ThreadCommandReader extends Thread {
         this.mcServer = var1;
     }
 
+    @Override
     public void run() {
         BufferedReader var1 = new BufferedReader(new InputStreamReader(System.in));
         String var2 = null;

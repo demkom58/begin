@@ -10,6 +10,7 @@ public class BlockBreakable extends Block {
         this.field_6084_a = var4;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }

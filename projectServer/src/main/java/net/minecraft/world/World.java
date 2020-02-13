@@ -18,8 +18,6 @@ import net.minecraft.world.chunk.*;
 import net.minecraft.world.gen.BiomeGenBase;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.MapStorage;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3D;
 
 import java.util.*;
 
@@ -158,6 +156,7 @@ public class World implements IBlockAccess {
         this.mapStorage.saveAllData();
     }
 
+    @Override
     public int getBlockId(int x, int y, int z) {
         if (x >= -32000000 && z >= -32000000 && x < 32000000 && z <= 32000000) {
             if (y < 0) {
@@ -247,11 +246,13 @@ public class World implements IBlockAccess {
         return false;
     }
 
+    @Override
     public Material getBlockMaterial(int x, int y, int z) {
         int id = this.getBlockId(x, y, z);
         return id == 0 ? Material.AIR : Block.BLOCKS_LIST[id].blockMaterial;
     }
 
+    @Override
     public int getBlockMetadata(int x, int y, int z) {
         if (x >= -32000000 && z >= -32000000 && x < 32000000 && z <= 32000000) {
             if (y < 0)
@@ -660,19 +661,19 @@ public class World implements IBlockAccess {
                     }
 
                     Vec3D var34 = Vec3D.createVector(var1.xCoord, var1.yCoord, var1.zCoord);
-                    m = (int) (var34.xCoord = (double) MathHelper.floor(var1.xCoord));
+                    m = (int) (var34.xCoord = MathHelper.floor(var1.xCoord));
                     if (var33 == 5) {
                         --m;
                         ++var34.xCoord;
                     }
 
-                    n = (int) (var34.yCoord = (double) MathHelper.floor(var1.yCoord));
+                    n = (int) (var34.yCoord = MathHelper.floor(var1.yCoord));
                     if (var33 == 1) {
                         --n;
                         ++var34.yCoord;
                     }
 
-                    i1 = (int) (var34.zCoord = (double) MathHelper.floor(var1.zCoord));
+                    i1 = (int) (var34.zCoord = MathHelper.floor(var1.zCoord));
                     if (var33 == 3) {
                         --i1;
                         ++var34.zCoord;
@@ -698,32 +699,24 @@ public class World implements IBlockAccess {
         }
     }
 
-    public void playSoundAtEntity(Entity entity, String var2, float var3, float var4) {
-        for (int i = 0; i < this.worldAccesses.size(); ++i) {
-            this.worldAccesses.get(i).playSound(var2, entity.posX, entity.posY - (double) entity.yOffset, entity.posZ, var3, var4);
-        }
-
+    public void playSoundAtEntity(Entity entity, String soundName, float volume, float pitch) {
+        for (int i = 0; i < this.worldAccesses.size(); ++i)
+            this.worldAccesses.get(i).playSound(soundName, entity.posX, entity.posY - (double) entity.yOffset, entity.posZ, volume, pitch);
     }
 
-    public void playSoundEffect(double var1, double var3, double var5, String var7, float var8, float var9) {
-        for (int var10 = 0; var10 < this.worldAccesses.size(); ++var10) {
-            this.worldAccesses.get(var10).playSound(var7, var1, var3, var5, var8, var9);
-        }
-
+    public void playSoundEffect(double x, double y, double z, String soundName, float volume, float pitch) {
+        for (int i = 0; i < this.worldAccesses.size(); ++i)
+            this.worldAccesses.get(i).playSound(soundName, x, y, z, volume, pitch);
     }
 
     public void playRecord(String var1, int var2, int var3, int var4) {
-        for (int var5 = 0; var5 < this.worldAccesses.size(); ++var5) {
-            this.worldAccesses.get(var5).playRecord(var1, var2, var3, var4);
-        }
-
+        for (int i = 0; i < this.worldAccesses.size(); ++i)
+            this.worldAccesses.get(i).playRecord(var1, var2, var3, var4);
     }
 
     public void spawnParticle(String var1, double var2, double var4, double var6, double var8, double var10, double var12) {
-        for (int var14 = 0; var14 < this.worldAccesses.size(); ++var14) {
-            this.worldAccesses.get(var14).spawnParticle(var1, var2, var4, var6, var8, var10, var12);
-        }
-
+        for (int i = 0; i < this.worldAccesses.size(); ++i)
+            this.worldAccesses.get(i).spawnParticle(var1, var2, var4, var6, var8, var10, var12);
     }
 
     public boolean addLightningBolt(Entity var1) {
@@ -1072,11 +1065,11 @@ public class World implements IBlockAccess {
                 entity.posZ = entity.lastTickPosZ;
             }
 
-            if (Double.isNaN((double) entity.rotationPitch) || Double.isInfinite((double) entity.rotationPitch)) {
+            if (Double.isNaN(entity.rotationPitch) || Double.isInfinite(entity.rotationPitch)) {
                 entity.rotationPitch = entity.prevRotationPitch;
             }
 
-            if (Double.isNaN((double) entity.rotationYaw) || Double.isInfinite((double) entity.rotationYaw)) {
+            if (Double.isNaN(entity.rotationYaw) || Double.isInfinite(entity.rotationYaw)) {
                 entity.rotationYaw = entity.prevRotationYaw;
             }
 
@@ -1229,7 +1222,7 @@ public class World implements IBlockAccess {
                 for (int var14 = var8; var14 < var9; ++var14) {
                     Block var15 = Block.BLOCKS_LIST[this.getBlockId(var12, var13, var14)];
                     if (var15 != null && var15.blockMaterial == var2) {
-                        double var16 = (double) ((float) (var13 + 1) - BlockFluid.setFluidHeight(this.getBlockMetadata(var12, var13, var14)));
+                        double var16 = (float) (var13 + 1) - BlockFluid.setFluidHeight(this.getBlockMetadata(var12, var13, var14));
                         if ((double) var7 >= var16) {
                             var10 = true;
                             var15.velocityToAddToEntity(this, var12, var13, var14, var3, var11);
@@ -1286,7 +1279,7 @@ public class World implements IBlockAccess {
                     Block var12 = Block.BLOCKS_LIST[this.getBlockId(var9, var10, var11)];
                     if (var12 != null && var12.blockMaterial == var2) {
                         int var13 = this.getBlockMetadata(var9, var10, var11);
-                        double var14 = (double) (var10 + 1);
+                        double var14 = var10 + 1;
                         if (var13 < 8) {
                             var14 = (double) (var10 + 1) - (double) var13 / 8.0D;
                         }
@@ -1371,6 +1364,7 @@ public class World implements IBlockAccess {
 
     }
 
+    @Override
     public TileEntity getBlockTileEntity(int x, int y, int z) {
         Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
         return chunk != null ? chunk.getChunkBlockTileEntity(x & 15, y, z & 15) : null;
@@ -1416,6 +1410,7 @@ public class World implements IBlockAccess {
         return var4 != null && var4.isOpaqueCube();
     }
 
+    @Override
     public boolean isBlockNormalCube(int x, int y, int z) {
         Block block = Block.BLOCKS_LIST[this.getBlockId(x, y, z)];
         if (block == null) {
@@ -1692,7 +1687,7 @@ public class World implements IBlockAccess {
                 int var27 = var15 + (var18 >> 8 & 15);
                 int var30 = this.getTopSolidOrLiquidBlock(var23, var27);
                 if (this.canLightningStrikeAt(var23, var30, var27)) {
-                    this.addLightningBolt(new EntityLightningBolt(this, (double) var23, (double) var30, (double) var27));
+                    this.addLightningBolt(new EntityLightningBolt(this, var23, var30, var27));
                     this.field_27075_F = 2;
                 }
             }

@@ -48,10 +48,10 @@ public class BlockTNT extends Block {
     }
 
     @Override
-    public void onBlockDestroyedByExplosion(World var1, int var2, int var3, int var4) {
-        EntityTNTPrimed var5 = new EntityTNTPrimed(var1, (float) var2 + 0.5F, (float) var3 + 0.5F, (float) var4 + 0.5F);
-        var5.fuse = var1.rand.nextInt(var5.fuse / 4) + var5.fuse / 8;
-        var1.entityJoinedWorld(var5);
+    public void onBlockDestroyedByExplosion(World world, int x, int y, int z) {
+        EntityTNTPrimed var5 = new EntityTNTPrimed(world, (float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
+        var5.fuse = world.rand.nextInt(var5.fuse / 4) + var5.fuse / 8;
+        world.entityJoinedWorld(var5);
     }
 
     @Override
@@ -69,16 +69,16 @@ public class BlockTNT extends Block {
     }
 
     @Override
-    public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (var5.getCurrentEquippedItem() != null && var5.getCurrentEquippedItem().itemID == Item.FLINT_AND_STEEL.shiftedIndex) {
-            var1.setBlockMetadata(var2, var3, var4, 1);
+    public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
+        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().itemID == Item.FLINT_AND_STEEL.shiftedIndex) {
+            world.setBlockMetadata(x, y, z, 1);
         }
 
-        super.onBlockClicked(var1, var2, var3, var4, var5);
+        super.onBlockClicked(world, x, y, z, player);
     }
 
     @Override
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        return super.blockActivated(var1, var2, var3, var4, var5);
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        return super.blockActivated(world, x, y, z, player);
     }
 }

@@ -14,22 +14,27 @@ public class BlockButton extends Block {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
+    @Override
     public int tickRate() {
         return 20;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int var5) {
         if (var5 == 2 && world.isBlockNormalCube(x, y, z + 1)) {
             return true;
@@ -42,6 +47,7 @@ public class BlockButton extends Block {
         }
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         if (world.isBlockNormalCube(var2 - 1, var3, var4)) {
             return true;
@@ -54,6 +60,7 @@ public class BlockButton extends Block {
         }
     }
 
+    @Override
     public void onBlockPlaced(World world, int var2, int var3, int var4, int var5) {
         int var6 = world.getBlockMetadata(var2, var3, var4);
         int var7 = var6 & 8;
@@ -85,6 +92,7 @@ public class BlockButton extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (this.func_322_g(world, var2, var3, var4)) {
             int var6 = world.getBlockMetadata(var2, var3, var4) & 7;
@@ -123,6 +131,7 @@ public class BlockButton extends Block {
         }
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         int var5 = blockAccess.getBlockMetadata(var2, var3, var4);
         int var6 = var5 & 7;
@@ -147,10 +156,12 @@ public class BlockButton extends Block {
 
     }
 
+    @Override
     public void onBlockClicked(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         this.blockActivated(world, var2, var3, var4, entityPlayer);
     }
 
+    @Override
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         int var6 = world.getBlockMetadata(var2, var3, var4);
         int var7 = var6 & 7;
@@ -179,6 +190,7 @@ public class BlockButton extends Block {
         }
     }
 
+    @Override
     public void onBlockRemoval(World world, int x, int y, int z) {
         int var5 = world.getBlockMetadata(x, y, z);
         if ((var5 & 8) > 0) {
@@ -200,10 +212,12 @@ public class BlockButton extends Block {
         super.onBlockRemoval(world, x, y, z);
     }
 
+    @Override
     public boolean isPoweringTo(IBlockAccess blockAccess, int var2, int var3, int var4, int var5) {
         return (blockAccess.getBlockMetadata(var2, var3, var4) & 8) > 0;
     }
 
+    @Override
     public boolean isIndirectlyPoweringTo(World world, int var2, int var3, int var4, int var5) {
         int var6 = world.getBlockMetadata(var2, var3, var4);
         if ((var6 & 8) == 0) {
@@ -224,10 +238,12 @@ public class BlockButton extends Block {
         }
     }
 
+    @Override
     public boolean canProvidePower() {
         return true;
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (!world.singleplayerWorld) {
             int var6 = world.getBlockMetadata(x, y, z);

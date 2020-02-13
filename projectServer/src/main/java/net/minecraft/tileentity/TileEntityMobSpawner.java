@@ -23,16 +23,17 @@ public class TileEntityMobSpawner extends TileEntity {
         return this.worldObj.getClosestPlayer((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D, 16.0D) != null;
     }
 
+    @Override
     public void updateEntity() {
         this.yaw2 = this.yaw;
         if (this.anyPlayerInRange()) {
-            double var1 = (double) ((float) this.xCoord + this.worldObj.rand.nextFloat());
-            double var3 = (double) ((float) this.yCoord + this.worldObj.rand.nextFloat());
-            double var5 = (double) ((float) this.zCoord + this.worldObj.rand.nextFloat());
+            double var1 = (float) this.xCoord + this.worldObj.rand.nextFloat();
+            double var3 = (float) this.yCoord + this.worldObj.rand.nextFloat();
+            double var5 = (float) this.zCoord + this.worldObj.rand.nextFloat();
             this.worldObj.spawnParticle("smoke", var1, var3, var5, 0.0D, 0.0D, 0.0D);
             this.worldObj.spawnParticle("flame", var1, var3, var5, 0.0D, 0.0D, 0.0D);
 
-            for (this.yaw += (double) (1000.0F / ((float) this.delay + 200.0F)); this.yaw > 360.0D; this.yaw2 -= 360.0D) {
+            for (this.yaw += 1000.0F / ((float) this.delay + 200.0F); this.yaw > 360.0D; this.yaw2 -= 360.0D) {
                 this.yaw -= 360.0D;
             }
 
@@ -54,7 +55,7 @@ public class TileEntityMobSpawner extends TileEntity {
                         return;
                     }
 
-                    int var10 = this.worldObj.getEntitiesWithinAABB(var9.getClass(), AxisAlignedBB.getBoundingBoxFromPool((double) this.xCoord, (double) this.yCoord, (double) this.zCoord, (double) (this.xCoord + 1), (double) (this.yCoord + 1), (double) (this.zCoord + 1)).expand(8.0D, 4.0D, 8.0D)).size();
+                    int var10 = this.worldObj.getEntitiesWithinAABB(var9.getClass(), AxisAlignedBB.getBoundingBoxFromPool(this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 1, this.zCoord + 1).expand(8.0D, 4.0D, 8.0D)).size();
                     if (var10 >= 6) {
                         this.updateDelay();
                         return;
@@ -62,7 +63,7 @@ public class TileEntityMobSpawner extends TileEntity {
 
                     if (var9 != null) {
                         double var11 = (double) this.xCoord + (this.worldObj.rand.nextDouble() - this.worldObj.rand.nextDouble()) * 4.0D;
-                        double var13 = (double) (this.yCoord + this.worldObj.rand.nextInt(3) - 1);
+                        double var13 = this.yCoord + this.worldObj.rand.nextInt(3) - 1;
                         double var15 = (double) this.zCoord + (this.worldObj.rand.nextDouble() - this.worldObj.rand.nextDouble()) * 4.0D;
                         var9.setLocationAndAngles(var11, var13, var15, this.worldObj.rand.nextFloat() * 360.0F, 0.0F);
                         if (var9.getCanSpawnHere()) {
@@ -91,12 +92,14 @@ public class TileEntityMobSpawner extends TileEntity {
         this.delay = 200 + this.worldObj.rand.nextInt(600);
     }
 
+    @Override
     public void readFromNBT(TagCompound compound) {
         super.readFromNBT(compound);
         this.mobID = compound.getString("EntityId");
         this.delay = compound.getShort("Delay");
     }
 
+    @Override
     public void writeToNBT(TagCompound compound) {
         super.writeToNBT(compound);
         compound.setString("EntityId", this.mobID);

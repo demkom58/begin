@@ -17,15 +17,18 @@ public class SaveConverterMcRegion extends SaveFormatOld {
         super(file);
     }
 
+    @Override
     public ISaveHandler func_22105_a(String var1, boolean var2) {
         return new SaveOldDir(this.field_22106_a, var1, var2);
     }
 
+    @Override
     public boolean isOldSaveType(String var1) {
         WorldInfo var2 = this.getWorldInfo(var1);
         return var2 != null && var2.getVersion() == 0;
     }
 
+    @Override
     public boolean convertMapToMCRegion(String var1, IProgressUpdatable progressUpdate) {
         progressUpdate.setLoadingProgress(0);
 

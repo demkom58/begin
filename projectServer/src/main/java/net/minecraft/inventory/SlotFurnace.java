@@ -13,10 +13,12 @@ public class SlotFurnace extends Slot {
         this.field_27007_d = var1;
     }
 
+    @Override
     public boolean isItemValid(ItemStack var1) {
         return false;
     }
 
+    @Override
     public void onPickupFromSlot(ItemStack var1) {
         var1.func_28142_b(this.field_27007_d.worldObj, this.field_27007_d);
         if (var1.itemID == Item.INGOT_IRON.shiftedIndex) {

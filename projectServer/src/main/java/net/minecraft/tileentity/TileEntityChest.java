@@ -9,14 +9,17 @@ import net.minecraft.nbt.TagList;
 public class TileEntityChest extends TileEntity implements IInventory {
     private ItemStack[] chestContents = new ItemStack[36];
 
+    @Override
     public int getSizeInventory() {
         return 27;
     }
 
+    @Override
     public ItemStack getStackInSlot(int var1) {
         return this.chestContents[var1];
     }
 
+    @Override
     public ItemStack decrStackSize(int var1, int var2) {
         if (this.chestContents[var1] != null) {
             if (this.chestContents[var1].stackSize <= var2) {
@@ -38,6 +41,7 @@ public class TileEntityChest extends TileEntity implements IInventory {
         }
     }
 
+    @Override
     public void setInventorySlotContents(int var1, ItemStack var2) {
         this.chestContents[var1] = var2;
         if (var2 != null && var2.stackSize > this.getInventoryStackLimit()) {
@@ -47,10 +51,12 @@ public class TileEntityChest extends TileEntity implements IInventory {
         this.onInventoryChanged();
     }
 
+    @Override
     public String getInvName() {
         return "Chest";
     }
 
+    @Override
     public void readFromNBT(TagCompound compound) {
         super.readFromNBT(compound);
         TagList var2 = compound.getTagList("Items");
@@ -66,6 +72,7 @@ public class TileEntityChest extends TileEntity implements IInventory {
 
     }
 
+    @Override
     public void writeToNBT(TagCompound compound) {
         super.writeToNBT(compound);
         TagList var2 = new TagList();
@@ -82,10 +89,12 @@ public class TileEntityChest extends TileEntity implements IInventory {
         compound.setTag("Items", var2);
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer var1) {
         if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this) {
             return false;

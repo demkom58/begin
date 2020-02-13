@@ -11,6 +11,7 @@ class ServerGuiFocusAdapter extends FocusAdapter {
         this.mcServerGui = var1;
     }
 
+    @Override
     public void focusGained(FocusEvent var1) {
     }
 }

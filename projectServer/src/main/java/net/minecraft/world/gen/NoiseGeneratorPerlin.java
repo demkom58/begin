@@ -122,9 +122,9 @@ public class NoiseGeneratorPerlin extends NoiseGenerator {
                     int var92 = var91 & 255;
                     var89 = var89 - (double) var91;
                     double var93 = var89 * var89 * var89 * (var89 * (var89 * 6.0D - 15.0D) + 10.0D);
-                    var64 = this.permutations[var34] + 0;
+                    var64 = this.permutations[var34];
                     var66 = this.permutations[var64] + var92;
-                    var21 = this.permutations[var34 + 1] + 0;
+                    var21 = this.permutations[var34 + 1];
                     var69 = this.permutations[var21] + var92;
                     var72 = this.lerp(var86, this.func_4102_a(this.permutations[var66], var83, var89), this.grad(this.permutations[var69], var83 - 1.0D, 0.0D, var89));
                     var76 = this.lerp(var86, this.grad(this.permutations[var66 + 1], var83, 0.0D, var89 - 1.0D), this.grad(this.permutations[var69 + 1], var83 - 1.0D, 0.0D, var89 - 1.0D));

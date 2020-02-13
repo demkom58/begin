@@ -9,10 +9,10 @@ public class Frustrum implements ICamera {
     private double zPosition;
 
     @Override
-    public void setPosition(double var1, double var3, double var5) {
-        this.xPosition = var1;
-        this.yPosition = var3;
-        this.zPosition = var5;
+    public void setPosition(double x, double y, double z) {
+        this.xPosition = x;
+        this.yPosition = y;
+        this.zPosition = z;
     }
 
     public boolean isBoxInFrustum(double var1, double var3, double var5, double var7, double var9, double var11) {

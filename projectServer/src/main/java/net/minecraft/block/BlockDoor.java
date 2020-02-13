@@ -28,6 +28,7 @@ public class BlockDoor extends Block {
         return (var0 & 4) != 0;
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var1 != 0 && var1 != 1) {
             int var3 = this.func_271_d(var2);
@@ -48,19 +49,23 @@ public class BlockDoor extends Block {
         }
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         this.setBlockBoundsBasedOnState(world, x, y, z);
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         this.func_273_b(this.func_271_d(blockAccess.getBlockMetadata(var2, var3, var4)));
     }
@@ -86,10 +91,12 @@ public class BlockDoor extends Block {
 
     }
 
+    @Override
     public void onBlockClicked(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         this.blockActivated(world, var2, var3, var4, entityPlayer);
     }
 
+    @Override
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         if (this.blockMaterial == Material.IRON) {
             return true;
@@ -135,6 +142,7 @@ public class BlockDoor extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         int var6 = world.getBlockMetadata(var2, var3, var4);
         if ((var6 & 8) != 0) {
@@ -172,6 +180,7 @@ public class BlockDoor extends Block {
 
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         if ((var1 & 8) != 0) {
             return 0;
@@ -180,6 +189,7 @@ public class BlockDoor extends Block {
         }
     }
 
+    @Override
     public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
         this.setBlockBoundsBasedOnState(world, var2, var3, var4);
         return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
@@ -189,6 +199,7 @@ public class BlockDoor extends Block {
         return (var1 & 4) == 0 ? var1 - 1 & 3 : var1 & 3;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         if (var3 >= 127) {
             return false;
@@ -197,6 +208,7 @@ public class BlockDoor extends Block {
         }
     }
 
+    @Override
     public int getMobilityFlag() {
         return 1;
     }

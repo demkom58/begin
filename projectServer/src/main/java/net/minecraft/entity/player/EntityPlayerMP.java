@@ -57,13 +57,14 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
             var7 += this.rand.nextInt(20) - 10;
         }
 
-        this.setLocationAndAngles((double) var6 + 0.5D, (double) var8, (double) var7 + 0.5D, 0.0F, 0.0F);
+        this.setLocationAndAngles((double) var6 + 0.5D, var8, (double) var7 + 0.5D, 0.0F, 0.0F);
         this.mcServer = var1;
         this.stepHeight = 0.0F;
         this.username = var3;
         this.yOffset = 0.0F;
     }
 
+    @Override
     public void setWorldHandler(World var1) {
         super.setWorldHandler(var1);
         this.itemInWorldManager = new ItemInWorldManager((WorldServer) var1);
@@ -74,18 +75,22 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.currentCraftingInventory.onCraftGuiOpened(this);
     }
 
+    @Override
     public ItemStack[] getInventory() {
         return this.playerInventory;
     }
 
+    @Override
     protected void resetHeight() {
         this.yOffset = 0.0F;
     }
 
+    @Override
     public float getEyeHeight() {
         return 1.62F;
     }
 
+    @Override
     public void onUpdate() {
         this.itemInWorldManager.func_328_a();
         --this.ticksOfInvuln;
@@ -105,10 +110,12 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         return var1 == 0 ? this.inventory.getCurrentItem() : this.inventory.armorInventory[var1 - 1];
     }
 
+    @Override
     public void onDeath(Entity var1) {
         this.inventory.dropAllItems();
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         if (this.ticksOfInvuln > 0) {
             return false;
@@ -130,10 +137,12 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         }
     }
 
+    @Override
     protected boolean isPVPEnabled() {
         return this.mcServer.pvpOn;
     }
 
+    @Override
     public void heal(int var1) {
         super.heal(var1);
     }
@@ -222,10 +231,12 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
     }
 
+    @Override
     public void onItemPickup(Entity var1, int var2) {
         if (!var1.isDead) {
             EntityTracker var3 = this.mcServer.getEntityTracker(this.dimension);
@@ -242,6 +253,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.currentCraftingInventory.updateCraftingMatrix();
     }
 
+    @Override
     public void swingItem() {
         if (!this.isSwinging) {
             this.swingProgressInt = -1;
@@ -255,6 +267,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     public void func_22068_s() {
     }
 
+    @Override
     public EnumBedStatus goToSleep(int var1, int var2, int var3) {
         EnumBedStatus var4 = super.goToSleep(var1, var2, var3);
         if (var4 == EnumBedStatus.OK) {
@@ -268,6 +281,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         return var4;
     }
 
+    @Override
     public void wakeUpPlayer(boolean var1, boolean var2, boolean var3) {
         if (this.isSleeping()) {
             EntityTracker var4 = this.mcServer.getEntityTracker(this.dimension);
@@ -281,12 +295,14 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
     }
 
+    @Override
     public void mountEntity(Entity var1) {
         super.mountEntity(var1);
         this.playerNetServerHandler.sendPacket(new Packet39AttachEntity(this, this.ridingEntity));
         this.playerNetServerHandler.teleportTo(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
     }
 
+    @Override
     protected void updateFallState(double var1, boolean var3) {
     }
 
@@ -298,6 +314,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.currentWindowId = this.currentWindowId % 100 + 1;
     }
 
+    @Override
     public void displayWorkbenchGUI(int var1, int var2, int var3) {
         this.getNextWidowId();
         this.playerNetServerHandler.sendPacket(new Packet100OpenWindow(this.currentWindowId, 1, "Crafting", 9));
@@ -306,6 +323,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.currentCraftingInventory.onCraftGuiOpened(this);
     }
 
+    @Override
     public void displayGUIChest(IInventory var1) {
         this.getNextWidowId();
         this.playerNetServerHandler.sendPacket(new Packet100OpenWindow(this.currentWindowId, 0, var1.getInvName(), var1.getSizeInventory()));
@@ -314,6 +332,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.currentCraftingInventory.onCraftGuiOpened(this);
     }
 
+    @Override
     public void displayGUIFurnace(TileEntityFurnace var1) {
         this.getNextWidowId();
         this.playerNetServerHandler.sendPacket(new Packet100OpenWindow(this.currentWindowId, 2, var1.getInvName(), var1.getSizeInventory()));
@@ -322,6 +341,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.currentCraftingInventory.onCraftGuiOpened(this);
     }
 
+    @Override
     public void displayGUIDispenser(TileEntityDispenser var1) {
         this.getNextWidowId();
         this.playerNetServerHandler.sendPacket(new Packet100OpenWindow(this.currentWindowId, 3, var1.getInvName(), var1.getSizeInventory()));
@@ -330,6 +350,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.currentCraftingInventory.onCraftGuiOpened(this);
     }
 
+    @Override
     public void updateCraftingInventorySlot(Container var1, int var2, ItemStack var3) {
         if (!(var1.getSlot(var2) instanceof SlotCrafting)) {
             if (!this.isChangingQuantityOnly) {
@@ -342,18 +363,22 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.updateCraftingInventory(var1, var1.func_28127_b());
     }
 
+    @Override
     public void updateCraftingInventory(Container var1, List<ItemStack> var2) {
         this.playerNetServerHandler.sendPacket(new Packet104WindowItems(var1.windowId, var2));
         this.playerNetServerHandler.sendPacket(new Packet103SetSlot(-1, -1, this.inventory.getItemStack()));
     }
 
+    @Override
     public void updateCraftingInventoryInfo(Container var1, int var2, int var3) {
         this.playerNetServerHandler.sendPacket(new Packet105UpdateProgressbar(var1.windowId, var2, var3));
     }
 
+    @Override
     public void onItemStackChanged(ItemStack var1) {
     }
 
+    @Override
     public void usePersonalCraftingInventory() {
         this.playerNetServerHandler.sendPacket(new Packet101CloseWindow(this.currentCraftingInventory.windowId));
         this.closeCraftingGui();
@@ -379,6 +404,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.rotationYaw = var6;
     }
 
+    @Override
     public void addStat(StatBase var1, int var2) {
         if (var1 != null) {
             if (!var1.field_27058_g) {
@@ -412,6 +438,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.lastHealth = -99999999;
     }
 
+    @Override
     public void func_22061_a(String var1) {
         StringTranslate var2 = StringTranslate.getInstance();
         String var3 = var2.translateKey(var1);

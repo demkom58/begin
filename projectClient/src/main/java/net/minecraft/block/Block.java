@@ -16,7 +16,7 @@ import net.minecraft.util.Vec3D;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Block {
@@ -197,9 +197,9 @@ public class Block {
         IS_BLOCK_CONTAINER[id] = false;
     }
 
-    protected Block(int var1, int var2, Material var3) {
-        this(var1, var3);
-        this.blockIndexInTexture = var2;
+    protected Block(int id, int blockIndexInTexture, Material material) {
+        this(id, material);
+        this.blockIndexInTexture = blockIndexInTexture;
     }
 
     protected Block disableNeighborNotifyOnMetadataChange() {
@@ -210,23 +210,23 @@ public class Block {
     protected void initializeBlock() {
     }
 
-    protected Block setStepSound(StepSound var1) {
-        this.stepSound = var1;
+    protected Block setStepSound(StepSound stepSound) {
+        this.stepSound = stepSound;
         return this;
     }
 
-    protected Block setLightOpacity(int var1) {
-        LIGHT_OPACITY[this.blockID] = var1;
+    protected Block setLightOpacity(int lightOpacity) {
+        LIGHT_OPACITY[this.blockID] = lightOpacity;
         return this;
     }
 
-    protected Block setLightValue(float var1) {
-        LIGHT_VALUE[this.blockID] = (int) (15.0F * var1);
+    protected Block setLightValue(float lightValue) {
+        LIGHT_VALUE[this.blockID] = (int) (15.0F * lightValue);
         return this;
     }
 
-    protected Block setResistance(float var1) {
-        this.blockResistance = var1 * 3.0F;
+    protected Block setResistance(float resistance) {
+        this.blockResistance = resistance * 3.0F;
         return this;
     }
 
@@ -247,17 +247,17 @@ public class Block {
         return this.blockHardness;
     }
 
-    protected Block setHardness(float var1) {
-        this.blockHardness = var1;
-        if (this.blockResistance < var1 * 5.0F) {
-            this.blockResistance = var1 * 5.0F;
+    protected Block setHardness(float hardness) {
+        this.blockHardness = hardness;
+        if (this.blockResistance < hardness * 5.0F) {
+            this.blockResistance = hardness * 5.0F;
         }
 
         return this;
     }
 
-    protected Block setTickOnLoad(boolean var1) {
-        TICK_ON_LOAD[this.blockID] = var1;
+    protected Block setTickOnLoad(boolean tick) {
+        TICK_ON_LOAD[this.blockID] = tick;
         return this;
     }
 
@@ -274,50 +274,48 @@ public class Block {
         return blockAccess.getBrightness(x, y, z, LIGHT_VALUE[this.blockID]);
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        if (var5 == 0 && this.minY > 0.0D) {
+    public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        if (side == 0 && this.minY > 0.0D) {
             return true;
-        } else if (var5 == 1 && this.maxY < 1.0D) {
+        } else if (side == 1 && this.maxY < 1.0D) {
             return true;
-        } else if (var5 == 2 && this.minZ > 0.0D) {
+        } else if (side == 2 && this.minZ > 0.0D) {
             return true;
-        } else if (var5 == 3 && this.maxZ < 1.0D) {
+        } else if (side == 3 && this.maxZ < 1.0D) {
             return true;
-        } else if (var5 == 4 && this.minX > 0.0D) {
+        } else if (side == 4 && this.minX > 0.0D) {
             return true;
-        } else if (var5 == 5 && this.maxX < 1.0D) {
+        } else if (side == 5 && this.maxX < 1.0D) {
             return true;
         } else {
-            return !var1.isBlockOpaqueCube(var2, var3, var4);
+            return !blockAccess.isBlockOpaqueCube(x, y, z);
         }
     }
 
-    public boolean getIsBlockSolid(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        return var1.getBlockMaterial(var2, var3, var4).isSolid();
+    public boolean getIsBlockSolid(IBlockAccess blockAccess, int x, int y, int z, int var5) {
+        return blockAccess.getBlockMaterial(x, y, z).isSolid();
     }
 
-    public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        return this.getBlockTextureFromSideAndMetadata(var5, var1.getBlockMetadata(var2, var3, var4));
+    public int getBlockTexture(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        return this.getBlockTextureFromSideAndMetadata(side, blockAccess.getBlockMetadata(x, y, z));
     }
 
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        return this.getBlockTextureFromSide(var1);
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        return this.getBlockTextureFromSide(side);
     }
 
     public int getBlockTextureFromSide(int side) {
         return this.blockIndexInTexture;
     }
 
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-        return AxisAlignedBB.getBoundingBoxFromPool((double) var2 + this.minX, (double) var3 + this.minY, (double) var4 + this.minZ, (double) var2 + this.maxX, (double) var3 + this.maxY, (double) var4 + this.maxZ);
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+        return AxisAlignedBB.getBoundingBoxFromPool((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
     }
 
-    public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList var6) {
-        AxisAlignedBB var7 = this.getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
-        if (var7 != null && var5.intersectsWith(var7)) {
-            var6.add(var7);
-        }
-
+    public void getCollidingBoundingBoxes(World world, int x, int y, int z, AxisAlignedBB bb, List<AxisAlignedBB> bbs) {
+        AxisAlignedBB poolBB = this.getCollisionBoundingBoxFromPool(world, x, y, z);
+        if (poolBB != null && bb.intersectsWith(poolBB))
+            bbs.add(poolBB);
     }
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
@@ -378,31 +376,30 @@ public class Block {
         this.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, 1.0F);
     }
 
-    public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
-        if (!var1.multiplayerWorld) {
-            int var7 = this.quantityDropped(var1.rand);
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float failChance) {
+        if (world.multiplayerWorld)
+            return;
 
-            for (int var8 = 0; var8 < var7; ++var8) {
-                if (var1.rand.nextFloat() <= var6) {
-                    int var9 = this.idDropped(var5, var1.rand);
-                    if (var9 > 0) {
-                        this.dropBlockAsItem_do(var1, var2, var3, var4, new ItemStack(var9, 1, this.damageDropped(var5)));
-                    }
+        int quantityDropped = this.quantityDropped(world.rand);
+        for (int i = 0; i < quantityDropped; ++i) {
+            if (world.rand.nextFloat() <= failChance) {
+                int var9 = this.idDropped(var5, world.rand);
+                if (var9 > 0) {
+                    this.dropBlockAsItem_do(world, x, y, z, new ItemStack(var9, 1, this.damageDropped(var5)));
                 }
             }
-
         }
     }
 
-    protected void dropBlockAsItem_do(World var1, int var2, int var3, int var4, ItemStack var5) {
-        if (!var1.multiplayerWorld) {
+    protected void dropBlockAsItem_do(World world, int x, int y, int z, ItemStack stack) {
+        if (!world.multiplayerWorld) {
             float var6 = 0.7F;
-            double var7 = (double) (var1.rand.nextFloat() * var6) + (double) (1.0F - var6) * 0.5D;
-            double var9 = (double) (var1.rand.nextFloat() * var6) + (double) (1.0F - var6) * 0.5D;
-            double var11 = (double) (var1.rand.nextFloat() * var6) + (double) (1.0F - var6) * 0.5D;
-            EntityItem var13 = new EntityItem(var1, (double) var2 + var7, (double) var3 + var9, (double) var4 + var11, var5);
+            double var7 = (double) (world.rand.nextFloat() * var6) + (double) (1.0F - var6) * 0.5D;
+            double var9 = (double) (world.rand.nextFloat() * var6) + (double) (1.0F - var6) * 0.5D;
+            double var11 = (double) (world.rand.nextFloat() * var6) + (double) (1.0F - var6) * 0.5D;
+            EntityItem var13 = new EntityItem(world, (double) x + var7, (double) y + var9, (double) z + var11, stack);
             var13.delayBeforeCanPickup = 10;
-            var1.entityJoinedWorld(var13);
+            world.entityJoinedWorld(var13);
         }
     }
 
@@ -414,165 +411,143 @@ public class Block {
         return this.blockResistance / 5.0F;
     }
 
-    public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
-        this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-        var5 = var5.addVector(-var2, -var3, -var4);
-        var6 = var6.addVector(-var2, -var3, -var4);
+    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3D var5, Vec3D var6) {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        var5 = var5.addVector(-x, -y, -z);
+        var6 = var6.addVector(-x, -y, -z);
         Vec3D var7 = var5.getIntermediateWithXValue(var6, this.minX);
         Vec3D var8 = var5.getIntermediateWithXValue(var6, this.maxX);
         Vec3D var9 = var5.getIntermediateWithYValue(var6, this.minY);
         Vec3D var10 = var5.getIntermediateWithYValue(var6, this.maxY);
         Vec3D var11 = var5.getIntermediateWithZValue(var6, this.minZ);
         Vec3D var12 = var5.getIntermediateWithZValue(var6, this.maxZ);
-        if (!this.isVecInsideYZBounds(var7)) {
+        if (!this.isVecInsideYZBounds(var7))
             var7 = null;
-        }
 
-        if (!this.isVecInsideYZBounds(var8)) {
+        if (!this.isVecInsideYZBounds(var8))
             var8 = null;
-        }
 
-        if (!this.isVecInsideXZBounds(var9)) {
+        if (!this.isVecInsideXZBounds(var9))
             var9 = null;
-        }
 
-        if (!this.isVecInsideXZBounds(var10)) {
+        if (!this.isVecInsideXZBounds(var10))
             var10 = null;
-        }
 
-        if (!this.isVecInsideXYBounds(var11)) {
+        if (!this.isVecInsideXYBounds(var11))
             var11 = null;
-        }
 
-        if (!this.isVecInsideXYBounds(var12)) {
+        if (!this.isVecInsideXYBounds(var12))
             var12 = null;
-        }
 
         Vec3D var13 = null;
-        if (var7 != null && (var13 == null || var5.distanceTo(var7) < var5.distanceTo(var13))) {
+        if (var7 != null && (var13 == null || var5.distanceTo(var7) < var5.distanceTo(var13)))
             var13 = var7;
-        }
 
-        if (var8 != null && (var13 == null || var5.distanceTo(var8) < var5.distanceTo(var13))) {
+        if (var8 != null && (var13 == null || var5.distanceTo(var8) < var5.distanceTo(var13)))
             var13 = var8;
-        }
 
-        if (var9 != null && (var13 == null || var5.distanceTo(var9) < var5.distanceTo(var13))) {
+        if (var9 != null && (var13 == null || var5.distanceTo(var9) < var5.distanceTo(var13)))
             var13 = var9;
-        }
 
-        if (var10 != null && (var13 == null || var5.distanceTo(var10) < var5.distanceTo(var13))) {
+        if (var10 != null && (var13 == null || var5.distanceTo(var10) < var5.distanceTo(var13)))
             var13 = var10;
-        }
 
-        if (var11 != null && (var13 == null || var5.distanceTo(var11) < var5.distanceTo(var13))) {
+        if (var11 != null && (var13 == null || var5.distanceTo(var11) < var5.distanceTo(var13)))
             var13 = var11;
-        }
 
-        if (var12 != null && (var13 == null || var5.distanceTo(var12) < var5.distanceTo(var13))) {
+        if (var12 != null && (var13 == null || var5.distanceTo(var12) < var5.distanceTo(var13)))
             var13 = var12;
-        }
 
-        if (var13 == null) {
+        if (var13 == null)
             return null;
-        } else {
-            byte var14 = -1;
-            if (var13 == var7) {
-                var14 = 4;
-            }
 
-            if (var13 == var8) {
-                var14 = 5;
-            }
+        byte var14 = -1;
+        if (var13 == var7)
+            var14 = 4;
 
-            if (var13 == var9) {
-                var14 = 0;
-            }
+        if (var13 == var8)
+            var14 = 5;
 
-            if (var13 == var10) {
-                var14 = 1;
-            }
+        if (var13 == var9)
+            var14 = 0;
 
-            if (var13 == var11) {
-                var14 = 2;
-            }
+        if (var13 == var10)
+            var14 = 1;
 
-            if (var13 == var12) {
-                var14 = 3;
-            }
+        if (var13 == var11)
+            var14 = 2;
 
-            return new MovingObjectPosition(var2, var3, var4, var14, var13.addVector(var2, var3, var4));
-        }
+        if (var13 == var12)
+            var14 = 3;
+
+        return new MovingObjectPosition(x, y, z, var14, var13.addVector(x, y, z));
     }
 
-    private boolean isVecInsideYZBounds(Vec3D var1) {
-        if (var1 == null) {
+    private boolean isVecInsideYZBounds(Vec3D vec) {
+        if (vec == null)
             return false;
-        } else {
-            return var1.yCoord >= this.minY && var1.yCoord <= this.maxY && var1.zCoord >= this.minZ && var1.zCoord <= this.maxZ;
-        }
+
+        return vec.yCoord >= this.minY && vec.yCoord <= this.maxY && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
     }
 
-    private boolean isVecInsideXZBounds(Vec3D var1) {
-        if (var1 == null) {
+    private boolean isVecInsideXZBounds(Vec3D vec) {
+        if (vec == null)
             return false;
-        } else {
-            return var1.xCoord >= this.minX && var1.xCoord <= this.maxX && var1.zCoord >= this.minZ && var1.zCoord <= this.maxZ;
-        }
+
+        return vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
     }
 
-    private boolean isVecInsideXYBounds(Vec3D var1) {
-        if (var1 == null) {
+    private boolean isVecInsideXYBounds(Vec3D vec) {
+        if (vec == null)
             return false;
-        } else {
-            return var1.xCoord >= this.minX && var1.xCoord <= this.maxX && var1.yCoord >= this.minY && var1.yCoord <= this.maxY;
-        }
+
+        return vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.yCoord >= this.minY && vec.yCoord <= this.maxY;
     }
 
-    public void onBlockDestroyedByExplosion(World var1, int var2, int var3, int var4) {
+    public void onBlockDestroyedByExplosion(World world, int x, int y, int z) {
     }
 
     public int getRenderBlockPass() {
         return 0;
     }
 
-    public boolean canPlaceBlockOnSide(World var1, int var2, int var3, int var4, int var5) {
-        return this.canPlaceBlockAt(var1, var2, var3, var4);
+    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int var5) {
+        return this.canPlaceBlockAt(world, x, y, z);
     }
 
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockId(var2, var3, var4);
-        return var5 == 0 || BLOCKS_LIST[var5].blockMaterial.getIsGroundCover();
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        int blockId = world.getBlockId(x, y, z);
+        return blockId == 0 || BLOCKS_LIST[blockId].blockMaterial.getIsGroundCover();
     }
 
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
         return false;
     }
 
-    public void onEntityWalking(World var1, int var2, int var3, int var4, Entity var5) {
+    public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
     }
 
-    public void onBlockPlaced(World var1, int var2, int var3, int var4, int var5) {
+    public void onBlockPlaced(World world, int x, int y, int z, int side) {
     }
 
-    public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
+    public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
     }
 
-    public void velocityToAddToEntity(World var1, int var2, int var3, int var4, Entity var5, Vec3D var6) {
+    public void velocityToAddToEntity(World world, int x, int y, int z, Entity entity, Vec3D velocity) {
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
     }
 
     public int getRenderColor(int var1) {
         return 16777215;
     }
 
-    public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
+    public int colorMultiplier(IBlockAccess blockAccess, int x, int y, int z) {
         return 16777215;
     }
 
-    public boolean isPoweringTo(IBlockAccess var1, int var2, int var3, int var4, int var5) {
+    public boolean isPoweringTo(IBlockAccess blockAccess, int x, int y, int z, int var5) {
         return false;
     }
 
@@ -580,26 +555,26 @@ public class Block {
         return false;
     }
 
-    public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
     }
 
-    public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
+    public boolean isIndirectlyPoweringTo(World world, int x, int y, int z, int var5) {
         return false;
     }
 
     public void setBlockBoundsForItemRender() {
     }
 
-    public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
-        var2.addStat(StatList.mineBlockStatArray[this.blockID], 1);
-        this.dropBlockAsItem(var1, var3, var4, var5, var6);
+    public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int blockId) {
+        player.addStat(StatList.mineBlockStatArray[this.blockID], 1);
+        this.dropBlockAsItem(world, x, y, z, blockId);
     }
 
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
+    public boolean canBlockStay(World world, int x, int y, int z) {
         return true;
     }
 
-    public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity) {
     }
 
     public String translateBlockName() {

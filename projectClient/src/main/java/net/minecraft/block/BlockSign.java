@@ -29,15 +29,15 @@ public class BlockSign extends BlockContainer {
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-        this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-        return super.getSelectedBoundingBoxFromPool(var1, var2, var3, var4);
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        return super.getSelectedBoundingBoxFromPool(world, x, y, z);
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
         if (!this.isFreestanding) {
-            int var5 = var1.getBlockMetadata(var2, var3, var4);
+            int var5 = blockAccess.getBlockMetadata(x, y, z);
             float var6 = 0.28125F;
             float var7 = 0.78125F;
             float var8 = 0.0F;

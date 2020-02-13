@@ -15,6 +15,7 @@ class ServerGuiCommandListener implements ActionListener {
         this.textField = var2;
     }
 
+    @Override
     public void actionPerformed(ActionEvent var1) {
         String var2 = this.textField.getText().trim();
         if (var2.length() > 0) {

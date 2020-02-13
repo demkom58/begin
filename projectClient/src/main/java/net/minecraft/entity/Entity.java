@@ -13,9 +13,9 @@ import net.minecraft.nbt.TagFloat;
 import net.minecraft.nbt.TagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DataWatcher;
-import net.minecraft.world.World;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3D;
+import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Random;
@@ -89,7 +89,7 @@ public abstract class Entity {
     private double entityRiderPitchDelta;
     private double entityRiderYawDelta;
 
-    public Entity(World var1) {
+    public Entity(World world) {
         this.entityId = nextEntityID++;
         this.renderDistanceWeight = 1.0D;
         this.preventEntitySpawning = false;
@@ -123,7 +123,7 @@ public abstract class Entity {
         this.dataWatcher = new DataWatcher();
         this.entityBrightness = 0.0F;
         this.addedToChunk = false;
-        this.worldObj = var1;
+        this.worldObj = world;
         this.setPosition(0.0D, 0.0D, 0.0D);
         this.dataWatcher.addObject(0, (byte) 0);
         this.entityInit();
@@ -135,12 +135,11 @@ public abstract class Entity {
         return this.dataWatcher;
     }
 
-    public boolean equals(Object var1) {
-        if (var1 instanceof Entity) {
-            return ((Entity) var1).entityId == this.entityId;
-        } else {
-            return false;
-        }
+    public boolean equals(Object obj) {
+        if (obj instanceof Entity)
+            return ((Entity) obj).entityId == this.entityId;
+
+        return false;
     }
 
     public int hashCode() {
@@ -148,42 +147,42 @@ public abstract class Entity {
     }
 
     protected void preparePlayerToSpawn() {
-        if (this.worldObj != null) {
-            while (this.posY > 0.0D) {
-                this.setPosition(this.posX, this.posY, this.posZ);
-                if (this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0) {
-                    break;
-                }
+        if (this.worldObj == null)
+            return;
 
-                ++this.posY;
-            }
+        while (this.posY > 0.0D) {
+            this.setPosition(this.posX, this.posY, this.posZ);
+            if (this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0)
+                break;
 
-            this.motionX = this.motionY = this.motionZ = 0.0D;
-            this.rotationPitch = 0.0F;
+            ++this.posY;
         }
+
+        this.motionX = this.motionY = this.motionZ = 0.0D;
+        this.rotationPitch = 0.0F;
     }
 
     public void setEntityDead() {
         this.isDead = true;
     }
 
-    protected void setSize(float var1, float var2) {
-        this.width = var1;
-        this.height = var2;
+    protected void setSize(float width, float height) {
+        this.width = width;
+        this.height = height;
     }
 
-    protected void setRotation(float var1, float var2) {
-        this.rotationYaw = var1 % 360.0F;
-        this.rotationPitch = var2 % 360.0F;
+    protected void setRotation(float yaw, float pitch) {
+        this.rotationYaw = yaw % 360.0F;
+        this.rotationPitch = pitch % 360.0F;
     }
 
-    public void setPosition(double var1, double var3, double var5) {
-        this.posX = var1;
-        this.posY = var3;
-        this.posZ = var5;
+    public void setPosition(double x, double y, double z) {
+        this.posX = x;
+        this.posY = y;
+        this.posZ = z;
         float var7 = this.width / 2.0F;
         float var8 = this.height;
-        this.boundingBox.setBounds(var1 - (double) var7, var3 - (double) this.yOffset + (double) this.ySize, var5 - (double) var7, var1 + (double) var7, var3 - (double) this.yOffset + (double) this.ySize + (double) var8, var5 + (double) var7);
+        this.boundingBox.setBounds(x - (double) var7, y - (double) this.yOffset + (double) this.ySize, z - (double) var7, x + (double) var7, y - (double) this.yOffset + (double) this.ySize + (double) var8, z + (double) var7);
     }
 
     public void func_346_d(float var1, float var2) {
@@ -304,245 +303,243 @@ public abstract class Entity {
         }
     }
 
-    public void moveEntity(double var1, double var3, double var5) {
+    public void moveEntity(double x, double y, double z) {
         if (this.noClip) {
-            this.boundingBox.offset(var1, var3, var5);
+            this.boundingBox.offset(x, y, z);
             this.posX = (this.boundingBox.minX + this.boundingBox.maxX) / 2.0D;
             this.posY = this.boundingBox.minY + (double) this.yOffset - (double) this.ySize;
             this.posZ = (this.boundingBox.minZ + this.boundingBox.maxZ) / 2.0D;
-        } else {
-            this.ySize *= 0.4F;
-            double var7 = this.posX;
-            double var9 = this.posZ;
-            if (this.isInWeb) {
-                this.isInWeb = false;
-                var1 *= 0.25D;
-                var3 *= 0.05000000074505806D;
-                var5 *= 0.25D;
-                this.motionX = 0.0D;
-                this.motionY = 0.0D;
-                this.motionZ = 0.0D;
-            }
+            return;
+        }
 
-            double var11 = var1;
-            double var13 = var3;
-            double var15 = var5;
-            AxisAlignedBB var17 = this.boundingBox.copy();
-            boolean var18 = this.onGround && this.isSneaking();
-            if (var18) {
-                double var19;
-                for (var19 = 0.05D; var1 != 0.0D && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.getOffsetBoundingBox(var1, -1.0D, 0.0D)).size() == 0; var11 = var1) {
-                    if (var1 < var19 && var1 >= -var19) {
-                        var1 = 0.0D;
-                    } else if (var1 > 0.0D) {
-                        var1 -= var19;
-                    } else {
-                        var1 += var19;
-                    }
-                }
+        this.ySize *= 0.4F;
+        double copyX = this.posX;
+        double copyZ = this.posZ;
+        if (this.isInWeb) {
+            this.isInWeb = false;
+            x *= 0.25D;
+            y *= 0.05000000074505806D;
+            z *= 0.25D;
+            this.motionX = 0.0D;
+            this.motionY = 0.0D;
+            this.motionZ = 0.0D;
+        }
 
-                for (; var5 != 0.0D && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.getOffsetBoundingBox(0.0D, -1.0D, var5)).size() == 0; var15 = var5) {
-                    if (var5 < var19 && var5 >= -var19) {
-                        var5 = 0.0D;
-                    } else if (var5 > 0.0D) {
-                        var5 -= var19;
-                    } else {
-                        var5 += var19;
-                    }
-                }
-            }
-
-            List var36 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(var1, var3, var5));
-
-            for (int var20 = 0; var20 < var36.size(); ++var20) {
-                var3 = ((AxisAlignedBB) var36.get(var20)).calculateYOffset(this.boundingBox, var3);
-            }
-
-            this.boundingBox.offset(0.0D, var3, 0.0D);
-            if (!this.field_9293_aM && var13 != var3) {
-                var5 = 0.0D;
-                var3 = 0.0D;
-                var1 = 0.0D;
-            }
-
-            boolean var38 = this.onGround || var13 != var3 && var13 < 0.0D;
-
-            for (int var21 = 0; var21 < var36.size(); ++var21) {
-                var1 = ((AxisAlignedBB) var36.get(var21)).calculateXOffset(this.boundingBox, var1);
-            }
-
-            this.boundingBox.offset(var1, 0.0D, 0.0D);
-            if (!this.field_9293_aM && var11 != var1) {
-                var5 = 0.0D;
-                var3 = 0.0D;
-                var1 = 0.0D;
-            }
-
-            for (int var39 = 0; var39 < var36.size(); ++var39) {
-                var5 = ((AxisAlignedBB) var36.get(var39)).calculateZOffset(this.boundingBox, var5);
-            }
-
-            this.boundingBox.offset(0.0D, 0.0D, var5);
-            if (!this.field_9293_aM && var15 != var5) {
-                var5 = 0.0D;
-                var3 = 0.0D;
-                var1 = 0.0D;
-            }
-
-            if (this.stepHeight > 0.0F && var38 && (var18 || this.ySize < 0.05F) && (var11 != var1 || var15 != var5)) {
-                double var40 = var1;
-                double var23 = var3;
-                double var25 = var5;
-                var1 = var11;
-                var3 = this.stepHeight;
-                var5 = var15;
-                AxisAlignedBB var27 = this.boundingBox.copy();
-                this.boundingBox.setBB(var17);
-                var36 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(var11, var3, var15));
-
-                for (int var28 = 0; var28 < var36.size(); ++var28) {
-                    var3 = ((AxisAlignedBB) var36.get(var28)).calculateYOffset(this.boundingBox, var3);
-                }
-
-                this.boundingBox.offset(0.0D, var3, 0.0D);
-                if (!this.field_9293_aM && var13 != var3) {
-                    var5 = 0.0D;
-                    var3 = 0.0D;
-                    var1 = 0.0D;
-                }
-
-                for (int var48 = 0; var48 < var36.size(); ++var48) {
-                    var1 = ((AxisAlignedBB) var36.get(var48)).calculateXOffset(this.boundingBox, var1);
-                }
-
-                this.boundingBox.offset(var1, 0.0D, 0.0D);
-                if (!this.field_9293_aM && var11 != var1) {
-                    var5 = 0.0D;
-                    var3 = 0.0D;
-                    var1 = 0.0D;
-                }
-
-                for (int var49 = 0; var49 < var36.size(); ++var49) {
-                    var5 = ((AxisAlignedBB) var36.get(var49)).calculateZOffset(this.boundingBox, var5);
-                }
-
-                this.boundingBox.offset(0.0D, 0.0D, var5);
-                if (!this.field_9293_aM && var15 != var5) {
-                    var5 = 0.0D;
-                    var3 = 0.0D;
-                    var1 = 0.0D;
-                }
-
-                if (!this.field_9293_aM && var13 != var3) {
-                    var5 = 0.0D;
-                    var3 = 0.0D;
-                    var1 = 0.0D;
+        double updX = x;
+        double updY = y;
+        double updZ = z;
+        AxisAlignedBB var17 = this.boundingBox.copy();
+        boolean var18 = this.onGround && this.isSneaking();
+        if (var18) {
+            double var19;
+            for (var19 = 0.05D; x != 0.0D && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.getOffsetBoundingBox(x, -1.0D, 0.0D)).size() == 0; updX = x) {
+                if (x < var19 && x >= -var19) {
+                    x = 0.0D;
+                } else if (x > 0.0D) {
+                    x -= var19;
                 } else {
-                    var3 = -this.stepHeight;
-
-                    for (int var50 = 0; var50 < var36.size(); ++var50) {
-                        var3 = ((AxisAlignedBB) var36.get(var50)).calculateYOffset(this.boundingBox, var3);
-                    }
-
-                    this.boundingBox.offset(0.0D, var3, 0.0D);
+                    x += var19;
                 }
+            }
 
-                if (var40 * var40 + var25 * var25 >= var1 * var1 + var5 * var5) {
-                    var1 = var40;
-                    var3 = var23;
-                    var5 = var25;
-                    this.boundingBox.setBB(var27);
+            for (; z != 0.0D && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.getOffsetBoundingBox(0.0D, -1.0D, z)).size() == 0; updZ = z) {
+                if (z < var19 && z >= -var19) {
+                    z = 0.0D;
+                } else if (z > 0.0D) {
+                    z -= var19;
                 } else {
-                    double var51 = this.boundingBox.minY - (double) ((int) this.boundingBox.minY);
-                    if (var51 > 0.0D) {
-                        this.ySize = (float) ((double) this.ySize + var51 + 0.01D);
-                    }
+                    z += var19;
                 }
             }
+        }
 
-            this.posX = (this.boundingBox.minX + this.boundingBox.maxX) / 2.0D;
-            this.posY = this.boundingBox.minY + (double) this.yOffset - (double) this.ySize;
-            this.posZ = (this.boundingBox.minZ + this.boundingBox.maxZ) / 2.0D;
-            this.isCollidedHorizontally = var11 != var1 || var15 != var5;
-            this.isCollidedVertically = var13 != var3;
-            this.onGround = var13 != var3 && var13 < 0.0D;
-            this.isCollided = this.isCollidedHorizontally || this.isCollidedVertically;
-            this.updateFallState(var3, this.onGround);
-            if (var11 != var1) {
-                this.motionX = 0.0D;
+        List<AxisAlignedBB> boundingBoxes = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(x, y, z));
+
+        for (int i = 0; i < boundingBoxes.size(); ++i)
+            y = boundingBoxes.get(i).calculateYOffset(this.boundingBox, y);
+
+        this.boundingBox.offset(0.0D, y, 0.0D);
+        if (!this.field_9293_aM && updY != y) {
+            z = 0.0D;
+            y = 0.0D;
+            x = 0.0D;
+        }
+
+        boolean var38 = this.onGround || updY != y && updY < 0.0D;
+
+        for (int i = 0; i < boundingBoxes.size(); ++i) {
+            x = boundingBoxes.get(i).calculateXOffset(this.boundingBox, x);
+        }
+
+        this.boundingBox.offset(x, 0.0D, 0.0D);
+        if (!this.field_9293_aM && updX != x) {
+            z = 0.0D;
+            y = 0.0D;
+            x = 0.0D;
+        }
+
+        for (int i = 0; i < boundingBoxes.size(); ++i) {
+            z = boundingBoxes.get(i).calculateZOffset(this.boundingBox, z);
+        }
+
+        this.boundingBox.offset(0.0D, 0.0D, z);
+        if (!this.field_9293_aM && updZ != z) {
+            z = 0.0D;
+            y = 0.0D;
+            x = 0.0D;
+        }
+
+        if (this.stepHeight > 0.0F && var38 && (var18 || this.ySize < 0.05F) && (updX != x || updZ != z)) {
+            double var40 = x;
+            double var23 = y;
+            double var25 = z;
+            x = updX;
+            y = this.stepHeight;
+            z = updZ;
+            AxisAlignedBB var27 = this.boundingBox.copy();
+            this.boundingBox.setBB(var17);
+            boundingBoxes = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(updX, y, updZ));
+
+            for (int i = 0; i < boundingBoxes.size(); ++i) {
+                y = boundingBoxes.get(i).calculateYOffset(this.boundingBox, y);
             }
 
-            if (var13 != var3) {
-                this.motionY = 0.0D;
+            this.boundingBox.offset(0.0D, y, 0.0D);
+            if (!this.field_9293_aM && updY != y) {
+                z = 0.0D;
+                y = 0.0D;
+                x = 0.0D;
             }
 
-            if (var15 != var5) {
-                this.motionZ = 0.0D;
+            for (int i = 0; i < boundingBoxes.size(); ++i) {
+                x = boundingBoxes.get(i).calculateXOffset(this.boundingBox, x);
             }
 
-            double var41 = this.posX - var7;
-            double var42 = this.posZ - var9;
-            if (this.canTriggerWalking() && !var18 && this.ridingEntity == null) {
-                this.distanceWalkedModified = (float) ((double) this.distanceWalkedModified + (double) MathHelper.sqrt(var41 * var41 + var42 * var42) * 0.6D);
-                int var43 = MathHelper.floor(this.posX);
-                int var26 = MathHelper.floor(this.posY - 0.20000000298023224D - (double) this.yOffset);
-                int var46 = MathHelper.floor(this.posZ);
-                int var52 = this.worldObj.getBlockId(var43, var26, var46);
-                if (this.worldObj.getBlockId(var43, var26 - 1, var46) == Block.FENCE.blockID) {
-                    var52 = this.worldObj.getBlockId(var43, var26 - 1, var46);
+            this.boundingBox.offset(x, 0.0D, 0.0D);
+            if (!this.field_9293_aM && updX != x) {
+                z = 0.0D;
+                y = 0.0D;
+                x = 0.0D;
+            }
+
+            for (int i = 0; i < boundingBoxes.size(); ++i) {
+                z = boundingBoxes.get(i).calculateZOffset(this.boundingBox, z);
+            }
+
+            this.boundingBox.offset(0.0D, 0.0D, z);
+            if (!this.field_9293_aM && updZ != z) {
+                z = 0.0D;
+                y = 0.0D;
+                x = 0.0D;
+            }
+
+            if (!this.field_9293_aM && updY != y) {
+                z = 0.0D;
+                y = 0.0D;
+                x = 0.0D;
+            } else {
+                y = -this.stepHeight;
+
+                for (int i = 0; i < boundingBoxes.size(); ++i) {
+                    y = boundingBoxes.get(i).calculateYOffset(this.boundingBox, y);
                 }
 
-                if (this.distanceWalkedModified > (float) this.nextStepDistance && var52 > 0) {
-                    ++this.nextStepDistance;
-                    StepSound var29 = Block.BLOCKS_LIST[var52].stepSound;
-                    if (this.worldObj.getBlockId(var43, var26 + 1, var46) == Block.SNOW.blockID) {
-                        var29 = Block.SNOW.stepSound;
-                        this.worldObj.playSoundAtEntity(this, var29.func_1145_d(), var29.getVolume() * 0.15F, var29.getPitch());
-                    } else if (!Block.BLOCKS_LIST[var52].blockMaterial.getIsLiquid()) {
-                        this.worldObj.playSoundAtEntity(this, var29.func_1145_d(), var29.getVolume() * 0.15F, var29.getPitch());
-                    }
-
-                    Block.BLOCKS_LIST[var52].onEntityWalking(this.worldObj, var43, var26, var46, this);
-                }
+                this.boundingBox.offset(0.0D, y, 0.0D);
             }
 
-            int var44 = MathHelper.floor(this.boundingBox.minX + 0.001D);
-            int var45 = MathHelper.floor(this.boundingBox.minY + 0.001D);
-            int var47 = MathHelper.floor(this.boundingBox.minZ + 0.001D);
-            int var53 = MathHelper.floor(this.boundingBox.maxX - 0.001D);
-            int var55 = MathHelper.floor(this.boundingBox.maxY - 0.001D);
-            int var30 = MathHelper.floor(this.boundingBox.maxZ - 0.001D);
-            if (this.worldObj.checkChunksExist(var44, var45, var47, var53, var55, var30)) {
-                for (int var31 = var44; var31 <= var53; ++var31) {
-                    for (int var32 = var45; var32 <= var55; ++var32) {
-                        for (int var33 = var47; var33 <= var30; ++var33) {
-                            int var34 = this.worldObj.getBlockId(var31, var32, var33);
-                            if (var34 > 0) {
-                                Block.BLOCKS_LIST[var34].onEntityCollidedWithBlock(this.worldObj, var31, var32, var33, this);
-                            }
+            if (var40 * var40 + var25 * var25 >= x * x + z * z) {
+                x = var40;
+                y = var23;
+                z = var25;
+                this.boundingBox.setBB(var27);
+            } else {
+                double var51 = this.boundingBox.minY - (double) ((int) this.boundingBox.minY);
+                if (var51 > 0.0D) {
+                    this.ySize = (float) ((double) this.ySize + var51 + 0.01D);
+                }
+            }
+        }
+
+        this.posX = (this.boundingBox.minX + this.boundingBox.maxX) / 2.0D;
+        this.posY = this.boundingBox.minY + (double) this.yOffset - (double) this.ySize;
+        this.posZ = (this.boundingBox.minZ + this.boundingBox.maxZ) / 2.0D;
+        this.isCollidedHorizontally = updX != x || updZ != z;
+        this.isCollidedVertically = updY != y;
+        this.onGround = updY != y && updY < 0.0D;
+        this.isCollided = this.isCollidedHorizontally || this.isCollidedVertically;
+        this.updateFallState(y, this.onGround);
+
+        if (updX != x)
+            this.motionX = 0.0D;
+
+        if (updY != y)
+            this.motionY = 0.0D;
+
+        if (updZ != z)
+            this.motionZ = 0.0D;
+
+        double var41 = this.posX - copyX;
+        double var42 = this.posZ - copyZ;
+        if (this.canTriggerWalking() && !var18 && this.ridingEntity == null) {
+            this.distanceWalkedModified = (float) ((double) this.distanceWalkedModified + (double) MathHelper.sqrt(var41 * var41 + var42 * var42) * 0.6D);
+            int blockX = MathHelper.floor(this.posX);
+            int blockY = MathHelper.floor(this.posY - 0.20000000298023224D - (double) this.yOffset);
+            int blockZ = MathHelper.floor(this.posZ);
+            int walkBlockId = this.worldObj.getBlockId(blockX, blockY, blockZ);
+
+            if (this.worldObj.getBlockId(blockX, blockY - 1, blockZ) == Block.FENCE.blockID)
+                walkBlockId = this.worldObj.getBlockId(blockX, blockY - 1, blockZ);
+
+            if (this.distanceWalkedModified > (float) this.nextStepDistance && walkBlockId > 0) {
+                ++this.nextStepDistance;
+                StepSound stepSound = Block.BLOCKS_LIST[walkBlockId].stepSound;
+                if (this.worldObj.getBlockId(blockX, blockY + 1, blockZ) == Block.SNOW.blockID) {
+                    stepSound = Block.SNOW.stepSound;
+                    this.worldObj.playSoundAtEntity(this, stepSound.getFormattedName(), stepSound.getVolume() * 0.15F, stepSound.getPitch());
+                } else if (!Block.BLOCKS_LIST[walkBlockId].blockMaterial.isLiquid()) {
+                    this.worldObj.playSoundAtEntity(this, stepSound.getFormattedName(), stepSound.getVolume() * 0.15F, stepSound.getPitch());
+                }
+
+                Block.BLOCKS_LIST[walkBlockId].onEntityWalking(this.worldObj, blockX, blockY, blockZ, this);
+            }
+        }
+
+        int minX = MathHelper.floor(this.boundingBox.minX + 0.001D);
+        int minY = MathHelper.floor(this.boundingBox.minY + 0.001D);
+        int minZ = MathHelper.floor(this.boundingBox.minZ + 0.001D);
+        int maxX = MathHelper.floor(this.boundingBox.maxX - 0.001D);
+        int maxY = MathHelper.floor(this.boundingBox.maxY - 0.001D);
+        int maxZ = MathHelper.floor(this.boundingBox.maxZ - 0.001D);
+
+        if (this.worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
+            for (int iX = minX; iX <= maxX; ++iX) {
+                for (int iY = minY; iY <= maxY; ++iY) {
+                    for (int iZ = minZ; iZ <= maxZ; ++iZ) {
+                        int blockId = this.worldObj.getBlockId(iX, iY, iZ);
+                        if (blockId > 0) {
+                            Block.BLOCKS_LIST[blockId].onEntityCollidedWithBlock(this.worldObj, iX, iY, iZ, this);
                         }
                     }
                 }
             }
+        }
 
-            boolean var56 = this.isWet();
-            if (this.worldObj.isBoundingBoxBurning(this.boundingBox.getInsetBoundingBox(0.001D, 0.001D, 0.001D))) {
-                this.dealFireDamage(1);
-                if (!var56) {
-                    ++this.fire;
-                    if (this.fire == 0) {
-                        this.fire = 300;
-                    }
+        boolean wet = this.isWet();
+        if (this.worldObj.isBoundingBoxBurning(this.boundingBox.getInsetBoundingBox(0.001D, 0.001D, 0.001D))) {
+            this.dealFireDamage(1);
+            if (!wet) {
+                ++this.fire;
+                if (this.fire == 0) {
+                    this.fire = 300;
                 }
-            } else if (this.fire <= 0) {
-                this.fire = -this.fireResistance;
             }
+        } else if (this.fire <= 0) {
+            this.fire = -this.fireResistance;
+        }
 
-            if (var56 && this.fire > 0) {
-                this.worldObj.playSoundAtEntity(this, "random.fizz", 0.7F, 1.6F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
-                this.fire = -this.fireResistance;
-            }
-
+        if (wet && this.fire > 0) {
+            this.worldObj.playSoundAtEntity(this, "random.fizz", 0.7F, 1.6F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
+            this.fire = -this.fireResistance;
         }
     }
 
@@ -598,13 +595,14 @@ public abstract class Entity {
         int var5 = MathHelper.floor((float) MathHelper.floor(var2));
         int var6 = MathHelper.floor(this.posZ);
         int var7 = this.worldObj.getBlockId(var4, var5, var6);
+
         if (var7 != 0 && Block.BLOCKS_LIST[var7].blockMaterial == var1) {
             float var8 = BlockFluid.getPercentAir(this.worldObj.getBlockMetadata(var4, var5, var6)) - 0.11111111F;
             float var9 = (float) (var5 + 1) - var8;
             return var2 < (double) var9;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     public float getEyeHeight() {
@@ -644,9 +642,9 @@ public abstract class Entity {
             }
 
             return var7;
-        } else {
-            return this.entityBrightness;
         }
+
+        return this.entityBrightness;
     }
 
     public void setWorld(World var1) {

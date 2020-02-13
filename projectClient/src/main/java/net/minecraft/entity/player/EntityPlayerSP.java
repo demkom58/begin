@@ -4,19 +4,19 @@ import net.minecraft.achievement.Achievement;
 import net.minecraft.achievement.AchievementList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Session;
-import net.minecraft.client.input.mouse.MouseFilter;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.input.keyboard.MovementInput;
+import net.minecraft.client.input.mouse.MouseFilter;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPickupFX;
-import net.minecraft.client.gui.*;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.stats.StatBase;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.world.World;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 
 public class EntityPlayerSP extends EntityPlayer {
     public MovementInput movementInput;
@@ -37,8 +37,8 @@ public class EntityPlayerSP extends EntityPlayer {
     }
 
     @Override
-    public void moveEntity(double var1, double var3, double var5) {
-        super.moveEntity(var1, var3, var5);
+    public void moveEntity(double x, double y, double z) {
+        super.moveEntity(x, y, z);
     }
 
     @Override
@@ -115,9 +115,9 @@ public class EntityPlayerSP extends EntityPlayer {
     }
 
     @Override
-    public void writeEntityToNBT(TagCompound var1) {
-        super.writeEntityToNBT(var1);
-        var1.setInteger("Score", this.score);
+    public void writeEntityToNBT(TagCompound compound) {
+        super.writeEntityToNBT(compound);
+        compound.setInteger("Score", this.score);
     }
 
     @Override
@@ -174,21 +174,21 @@ public class EntityPlayerSP extends EntityPlayer {
         return this.movementInput.sneak && !this.sleeping;
     }
 
-    public void setHealth(int var1) {
-        int var2 = this.health - var1;
-        if (var2 <= 0) {
-            this.health = var1;
-            if (var2 < 0) {
+    public void setHealth(int health) {
+        int newHealth = this.health - health;
+        if (newHealth <= 0) {
+            this.health = health;
+            if (newHealth < 0)
                 this.heartsLife = this.heartsHalvesLife / 2;
-            }
-        } else {
-            this.field_9346_af = var2;
-            this.prevHealth = this.health;
-            this.heartsLife = this.heartsHalvesLife;
-            this.damageEntity(var2);
-            this.hurtTime = this.maxHurtTime = 10;
+
+            return;
         }
 
+        this.naturalArmorRating = newHealth;
+        this.prevHealth = this.health;
+        this.heartsLife = this.heartsHalvesLife;
+        this.damageEntity(newHealth);
+        this.hurtTime = this.maxHurtTime = 10;
     }
 
     @Override
@@ -206,21 +206,21 @@ public class EntityPlayerSP extends EntityPlayer {
     }
 
     @Override
-    public void addStat(StatBase var1, int var2) {
-        if (var1 != null) {
-            if (var1.func_25067_a()) {
-                Achievement var3 = (Achievement) var1;
-                if (var3.parentAchievement == null || this.mc.statFileWriter.hasAchievementUnlocked(var3.parentAchievement)) {
-                    if (!this.mc.statFileWriter.hasAchievementUnlocked(var3)) {
-                        this.mc.guiAchievement.queueTakenAchievement(var3);
-                    }
+    public void addStat(StatBase statBase, int addition) {
+        if (statBase == null)
+            return;
 
-                    this.mc.statFileWriter.addStat(var1, var2);
+        if (statBase.func_25067_a()) {
+            Achievement var3 = (Achievement) statBase;
+            if (var3.parentAchievement == null || this.mc.statFileWriter.hasAchievementUnlocked(var3.parentAchievement)) {
+                if (!this.mc.statFileWriter.hasAchievementUnlocked(var3)) {
+                    this.mc.guiAchievement.queueTakenAchievement(var3);
                 }
-            } else {
-                this.mc.statFileWriter.addStat(var1, var2);
-            }
 
+                this.mc.statFileWriter.addStat(statBase, addition);
+            }
+        } else {
+            this.mc.statFileWriter.addStat(statBase, addition);
         }
     }
 

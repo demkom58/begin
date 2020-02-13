@@ -18,20 +18,24 @@ public class Packet38EntityStatus extends Packet {
         this.entityStatus = var2;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.entityId = inputStream.readInt();
         this.entityStatus = inputStream.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.entityId);
         outputStream.writeByte(this.entityStatus);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_9001_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 5;
     }

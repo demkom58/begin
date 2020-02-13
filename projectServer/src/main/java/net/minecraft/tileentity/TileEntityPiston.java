@@ -34,6 +34,7 @@ public class TileEntityPiston extends TileEntity {
         return this.storedBlockID;
     }
 
+    @Override
     public int func_31005_e() {
         return this.storedMetadata;
     }
@@ -68,7 +69,7 @@ public class TileEntityPiston extends TileEntity {
                 field_31013_m.addAll(var4);
 
                 for (Entity var6 : field_31013_m) {
-                    var6.moveEntity((double) (var2 * (float) PistonBlockTextures.field_31051_b[this.storedOrientation]), (double) (var2 * (float) PistonBlockTextures.field_31054_c[this.storedOrientation]), (double) (var2 * (float) PistonBlockTextures.field_31053_d[this.storedOrientation]));
+                    var6.moveEntity(var2 * (float) PistonBlockTextures.field_31051_b[this.storedOrientation], var2 * (float) PistonBlockTextures.field_31054_c[this.storedOrientation], var2 * (float) PistonBlockTextures.field_31053_d[this.storedOrientation]);
                 }
 
                 field_31013_m.clear();
@@ -89,6 +90,7 @@ public class TileEntityPiston extends TileEntity {
 
     }
 
+    @Override
     public void updateEntity() {
         this.lastProgress = this.progress;
         if (this.lastProgress >= 1.0F) {
@@ -112,6 +114,7 @@ public class TileEntityPiston extends TileEntity {
         }
     }
 
+    @Override
     public void readFromNBT(TagCompound compound) {
         super.readFromNBT(compound);
         this.storedBlockID = compound.getInteger("blockId");
@@ -121,6 +124,7 @@ public class TileEntityPiston extends TileEntity {
         this.isExtending = compound.getBoolean("extending");
     }
 
+    @Override
     public void writeToNBT(TagCompound compound) {
         super.writeToNBT(compound);
         compound.setInteger("blockId", this.storedBlockID);

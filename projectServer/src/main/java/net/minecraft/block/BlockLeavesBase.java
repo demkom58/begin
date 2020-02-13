@@ -10,6 +10,7 @@ public class BlockLeavesBase extends Block {
         this.graphicsLevel = var4;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }

@@ -35,9 +35,9 @@ public class BlockMushroom extends BlockFlower {
     }
 
     @Override
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        if (var3 >= 0 && var3 < 128) {
-            return var1.getFullBlockLightValue(var2, var3, var4) < 13 && this.canThisPlantGrowOnThisBlockID(var1.getBlockId(var2, var3 - 1, var4));
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        if (y >= 0 && y < 128) {
+            return world.getFullBlockLightValue(x, y, z) < 13 && this.canThisPlantGrowOnThisBlockID(world.getBlockId(x, y - 1, z));
         } else {
             return false;
         }

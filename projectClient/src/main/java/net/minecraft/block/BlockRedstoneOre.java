@@ -26,21 +26,21 @@ public class BlockRedstoneOre extends Block {
     }
 
     @Override
-    public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        this.func_320_h(var1, var2, var3, var4);
-        super.onBlockClicked(var1, var2, var3, var4, var5);
+    public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
+        this.func_320_h(world, x, y, z);
+        super.onBlockClicked(world, x, y, z, player);
     }
 
     @Override
-    public void onEntityWalking(World var1, int var2, int var3, int var4, Entity var5) {
-        this.func_320_h(var1, var2, var3, var4);
-        super.onEntityWalking(var1, var2, var3, var4, var5);
+    public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
+        this.func_320_h(world, x, y, z);
+        super.onEntityWalking(world, x, y, z, entity);
     }
 
     @Override
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        this.func_320_h(var1, var2, var3, var4);
-        return super.blockActivated(var1, var2, var3, var4, var5);
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        this.func_320_h(world, x, y, z);
+        return super.blockActivated(world, x, y, z, player);
     }
 
     private void func_320_h(World var1, int var2, int var3, int var4) {

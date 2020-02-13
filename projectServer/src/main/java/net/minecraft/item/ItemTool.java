@@ -20,6 +20,7 @@ public class ItemTool extends Item {
         this.damageVsEntity = var2 + var3.getDamageVsEntity();
     }
 
+    @Override
     public float getStrVsBlock(ItemStack var1, Block var2) {
         for (int var3 = 0; var3 < this.blocksEffectiveAgainst.length; ++var3) {
             if (this.blocksEffectiveAgainst[var3] == var2) {
@@ -30,16 +31,19 @@ public class ItemTool extends Item {
         return 1.0F;
     }
 
+    @Override
     public boolean hitEntity(ItemStack var1, EntityLiving var2, EntityLiving var3) {
         var1.damageItem(2, var3);
         return true;
     }
 
+    @Override
     public boolean func_25007_a(ItemStack var1, int var2, int var3, int var4, int var5, EntityLiving var6) {
         var1.damageItem(1, var6);
         return true;
     }
 
+    @Override
     public int getDamageVsEntity(Entity var1) {
         return this.damageVsEntity;
     }

@@ -103,7 +103,7 @@ public class GuiAchievement extends Gui {
                 var9 = var9 * var9;
                 var9 = var9 * var9;
                 int var5 = this.achievementWindowWidth - 160;
-                int var6 = 0 - (int) (var9 * 36.0D);
+                int var6 = -(int) (var9 * 36.0D);
                 int var7 = this.theGame.renderEngine.getTexture("/achievement/bg.png");
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 GL11.glEnable(GL11.GL_TEXTURE_2D);

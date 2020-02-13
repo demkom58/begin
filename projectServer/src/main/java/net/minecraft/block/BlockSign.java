@@ -23,10 +23,12 @@ public class BlockSign extends BlockContainer {
         this.setBlockBounds(0.5F - var4, 0.0F, 0.5F - var4, 0.5F + var4, var5, 0.5F + var4);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         if (!this.isFreestanding) {
             int var5 = blockAccess.getBlockMetadata(var2, var3, var4);
@@ -55,14 +57,17 @@ public class BlockSign extends BlockContainer {
         }
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     protected TileEntity getBlockEntity() {
         try {
@@ -72,10 +77,12 @@ public class BlockSign extends BlockContainer {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return Item.SIGN.shiftedIndex;
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         boolean var6 = false;
         if (this.isFreestanding) {

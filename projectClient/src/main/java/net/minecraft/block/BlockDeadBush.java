@@ -15,7 +15,7 @@ public class BlockDeadBush extends BlockFlower {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
         return this.blockIndexInTexture;
     }
 

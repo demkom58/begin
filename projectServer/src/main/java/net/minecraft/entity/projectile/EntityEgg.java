@@ -36,15 +36,15 @@ public class EntityEgg extends Entity {
         this.field_20083_aj = var2;
         this.setSize(0.25F, 0.25F);
         this.setLocationAndAngles(var2.posX, var2.posY + (double) var2.getEyeHeight(), var2.posZ, var2.rotationYaw, var2.rotationPitch);
-        this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
+        this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F;
         this.posY -= 0.10000000149011612D;
-        this.posZ -= (double) (MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F);
+        this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F;
         this.setPosition(this.posX, this.posY, this.posZ);
         this.yOffset = 0.0F;
         float var3 = 0.4F;
-        this.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var3);
-        this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var3);
-        this.motionY = (double) (-MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F) * var3);
+        this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var3;
+        this.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var3;
+        this.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F) * var3;
         this.func_20078_a(this.motionX, this.motionY, this.motionZ, 1.5F, 1.0F);
     }
 
@@ -56,6 +56,7 @@ public class EntityEgg extends Entity {
         this.yOffset = 0.0F;
     }
 
+    @Override
     protected void entityInit() {
     }
 
@@ -75,10 +76,11 @@ public class EntityEgg extends Entity {
         this.motionZ = var5;
         float var10 = MathHelper.sqrt(var1 * var1 + var5 * var5);
         this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(var1, var5) * 180.0D / 3.1415927410125732D);
-        this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, (double) var10) * 180.0D / 3.1415927410125732D);
+        this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, var10) * 180.0D / 3.1415927410125732D);
         this.field_20081_ak = 0;
     }
 
+    @Override
     public void onUpdate() {
         this.lastTickPosX = this.posX;
         this.lastTickPosY = this.posY;
@@ -100,9 +102,9 @@ public class EntityEgg extends Entity {
             }
 
             this.inGround = false;
-            this.motionX *= (double) (this.rand.nextFloat() * 0.2F);
-            this.motionY *= (double) (this.rand.nextFloat() * 0.2F);
-            this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
+            this.motionX *= this.rand.nextFloat() * 0.2F;
+            this.motionY *= this.rand.nextFloat() * 0.2F;
+            this.motionZ *= this.rand.nextFloat() * 0.2F;
             this.field_20081_ak = 0;
             this.field_20079_al = 0;
         } else {
@@ -127,7 +129,7 @@ public class EntityEgg extends Entity {
                 Entity var9 = var5.get(var8);
                 if (var9.canBeCollidedWith() && (var9 != this.field_20083_aj || this.field_20079_al >= 5)) {
                     float var10 = 0.3F;
-                    AxisAlignedBB var11 = var9.boundingBox.expand((double) var10, (double) var10, (double) var10);
+                    AxisAlignedBB var11 = var9.boundingBox.expand(var10, var10, var10);
                     MovingObjectPosition var12 = var11.func_706_a(var15, var2);
                     if (var12 != null) {
                         double var13 = var15.distanceTo(var12.hitVec);
@@ -174,7 +176,7 @@ public class EntityEgg extends Entity {
         float var20 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
-        for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var20) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+        for (this.rotationPitch = (float) (Math.atan2(this.motionY, var20) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
         }
 
         while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
@@ -202,13 +204,14 @@ public class EntityEgg extends Entity {
             var22 = 0.8F;
         }
 
-        this.motionX *= (double) var22;
-        this.motionY *= (double) var22;
-        this.motionZ *= (double) var22;
-        this.motionY -= (double) var24;
+        this.motionX *= var22;
+        this.motionY *= var22;
+        this.motionZ *= var22;
+        this.motionY -= var24;
         this.setPosition(this.posX, this.posY, this.posZ);
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("xTile", (short) this.xTile);
         var1.setShort("yTile", (short) this.yTile);
@@ -218,6 +221,7 @@ public class EntityEgg extends Entity {
         var1.setByte("inGround", (byte) (this.inGround ? 1 : 0));
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         this.xTile = var1.getShort("xTile");
         this.yTile = var1.getShort("yTile");
@@ -227,6 +231,7 @@ public class EntityEgg extends Entity {
         this.inGround = var1.getByte("inGround") == 1;
     }
 
+    @Override
     public void onCollideWithPlayer(EntityPlayer var1) {
         if (this.inGround && this.field_20083_aj == var1 && this.shake <= 0 && var1.inventory.addItemStackToInventory(new ItemStack(Item.ARROW, 1))) {
             this.worldObj.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);

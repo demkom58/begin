@@ -25,6 +25,7 @@ public class Packet17Sleep extends Packet {
         this.field_22041_a = var1.entityId;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.field_22041_a = inputStream.readInt();
         this.field_22042_e = inputStream.readByte();
@@ -33,6 +34,7 @@ public class Packet17Sleep extends Packet {
         this.field_22043_d = inputStream.readInt();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.field_22041_a);
         outputStream.writeByte(this.field_22042_e);
@@ -41,10 +43,12 @@ public class Packet17Sleep extends Packet {
         outputStream.writeInt(this.field_22043_d);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_22002_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 14;
     }

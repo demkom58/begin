@@ -15,10 +15,12 @@ public class Packet102WindowClick extends Packet {
     public ItemStack itemStack;
     public boolean field_27039_f;
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_20007_a(this);
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.window_Id = inputStream.readByte();
         this.inventorySlot = inputStream.readShort();
@@ -36,6 +38,7 @@ public class Packet102WindowClick extends Packet {
 
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeByte(this.window_Id);
         outputStream.writeShort(this.inventorySlot);
@@ -52,6 +55,7 @@ public class Packet102WindowClick extends Packet {
 
     }
 
+    @Override
     public int getPacketSize() {
         return 11;
     }

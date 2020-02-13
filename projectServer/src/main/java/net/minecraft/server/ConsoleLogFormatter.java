@@ -10,6 +10,7 @@ import java.util.logging.LogRecord;
 final class ConsoleLogFormatter extends Formatter {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    @Override
     public String format(LogRecord record) {
         StringBuilder builder = new StringBuilder();
         builder.append(this.dateFormat.format(record.getMillis()));
@@ -27,7 +28,7 @@ final class ConsoleLogFormatter extends Formatter {
         } else if (level == Level.SEVERE) {
             builder.append(" [SEVERE] ");
         } else if (level == Level.SEVERE) {
-            builder.append(" [" + level.getLocalizedName() + "] ");
+            builder.append(" [").append(level.getLocalizedName()).append("] ");
         }
 
         builder.append(record.getMessage());

@@ -79,10 +79,12 @@ public class ServerGUI extends JComponent implements ICommandListener {
         return var1;
     }
 
+    @Override
     public void log(String var1) {
         logger.info(var1);
     }
 
+    @Override
     public String getUsername() {
         return "CONSOLE";
     }

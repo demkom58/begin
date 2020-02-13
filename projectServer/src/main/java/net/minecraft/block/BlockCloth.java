@@ -15,6 +15,7 @@ public class BlockCloth extends Block {
         return ~var0 & 15;
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var2 == 0) {
             return this.blockIndexInTexture;
@@ -24,6 +25,7 @@ public class BlockCloth extends Block {
         }
     }
 
+    @Override
     protected int damageDropped(int var1) {
         return var1;
     }

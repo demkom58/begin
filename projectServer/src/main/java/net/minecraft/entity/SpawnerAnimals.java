@@ -100,7 +100,7 @@ public final class SpawnerAnimals {
                                             float var27 = (float) var22 + 0.5F;
                                             float var28 = (float) var23;
                                             float var29 = (float) var24 + 0.5F;
-                                            if (var0.getClosestPlayer((double) var27, (double) var28, (double) var29, 24.0D) == null) {
+                                            if (var0.getClosestPlayer(var27, var28, var29, 24.0D) == null) {
                                                 float var30 = var27 - (float) var36.posX;
                                                 float var31 = var28 - (float) var36.posY;
                                                 float var32 = var29 - (float) var36.posZ;
@@ -114,7 +114,7 @@ public final class SpawnerAnimals {
                                                         return var35;
                                                     }
 
-                                                    var46.setLocationAndAngles((double) var27, (double) var28, (double) var29, var0.rand.nextFloat() * 360.0F, 0.0F);
+                                                    var46.setLocationAndAngles(var27, var28, var29, var0.rand.nextFloat() * 360.0F, 0.0F);
                                                     if (var46.getCanSpawnHere()) {
                                                         ++var20;
                                                         var0.entityJoinedWorld(var46);
@@ -151,7 +151,7 @@ public final class SpawnerAnimals {
     private static void func_21166_a(EntityLiving var0, World var1, float var2, float var3, float var4) {
         if (var0 instanceof EntitySpider && var1.rand.nextInt(100) == 0) {
             EntitySkeleton var5 = new EntitySkeleton(var1);
-            var5.setLocationAndAngles((double) var2, (double) var3, (double) var4, var0.rotationYaw, 0.0F);
+            var5.setLocationAndAngles(var2, var3, var4, var0.rotationYaw, 0.0F);
             var1.entityJoinedWorld(var5);
             var5.mountEntity(var0);
         } else if (var0 instanceof EntitySheep) {
@@ -202,7 +202,7 @@ public final class SpawnerAnimals {
                             return var2;
                         }
 
-                        var17.setLocationAndAngles((double) var14, (double) var15, (double) var16, var0.rand.nextFloat() * 360.0F, 0.0F);
+                        var17.setLocationAndAngles(var14, var15, var16, var0.rand.nextFloat() * 360.0F, 0.0F);
                         if (var17.getCanSpawnHere()) {
                             PathEntity var18 = var3.createEntityPathTo(var17, var5, 32.0F);
                             if (var18 != null && var18.pathLength > 1) {
@@ -213,7 +213,7 @@ public final class SpawnerAnimals {
                                         var20 = new ChunkCoordinates(var9, var13 + 1, var10);
                                     }
 
-                                    var17.setLocationAndAngles((double) ((float) var20.posX + 0.5F), (double) var20.posY, (double) ((float) var20.posZ + 0.5F), 0.0F, 0.0F);
+                                    var17.setLocationAndAngles((float) var20.posX + 0.5F, var20.posY, (float) var20.posZ + 0.5F, 0.0F, 0.0F);
                                     var0.entityJoinedWorld(var17);
                                     func_21166_a(var17, var0, (float) var20.posX + 0.5F, (float) var20.posY, (float) var20.posZ + 0.5F);
                                     var5.wakeUpPlayer(true, false, false);

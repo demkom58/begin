@@ -11,6 +11,7 @@ public final class ThreadServerApplication extends Thread {
         this.mcServer = var2;
     }
 
+    @Override
     public void run() {
         this.mcServer.run();
     }

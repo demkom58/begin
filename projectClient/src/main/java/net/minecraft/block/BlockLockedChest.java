@@ -13,16 +13,16 @@ public class BlockLockedChest extends Block {
     }
 
     @Override
-    public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        if (var5 == 1) {
+    public int getBlockTexture(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        if (side == 1) {
             return this.blockIndexInTexture - 1;
-        } else if (var5 == 0) {
+        } else if (side == 0) {
             return this.blockIndexInTexture - 1;
         } else {
-            int var6 = var1.getBlockId(var2, var3, var4 - 1);
-            int var7 = var1.getBlockId(var2, var3, var4 + 1);
-            int var8 = var1.getBlockId(var2 - 1, var3, var4);
-            int var9 = var1.getBlockId(var2 + 1, var3, var4);
+            int var6 = blockAccess.getBlockId(x, y, z - 1);
+            int var7 = blockAccess.getBlockId(x, y, z + 1);
+            int var8 = blockAccess.getBlockId(x - 1, y, z);
+            int var9 = blockAccess.getBlockId(x + 1, y, z);
             byte var10 = 3;
             if (Block.OPAQUE_CUBE_LOOKUP[var6] && !Block.OPAQUE_CUBE_LOOKUP[var7]) {
                 var10 = 3;
@@ -40,7 +40,7 @@ public class BlockLockedChest extends Block {
                 var10 = 4;
             }
 
-            return var5 == var10 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture;
+            return side == var10 ? this.blockIndexInTexture + 1 : this.blockIndexInTexture;
         }
     }
 
@@ -56,7 +56,7 @@ public class BlockLockedChest extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         return true;
     }
 

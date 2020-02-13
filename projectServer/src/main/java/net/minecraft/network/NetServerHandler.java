@@ -63,10 +63,12 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         this.connectionClosed = true;
     }
 
+    @Override
     public void handleMovementTypePacket(Packet27Position packet) {
         this.playerEntity.setMovementType(packet.func_22031_c(), packet.func_22028_e(), packet.func_22032_g(), packet.func_22030_h(), packet.func_22029_d(), packet.func_22033_f());
     }
 
+    @Override
     public void handleFlying(Packet10Flying packet) {
         WorldServer worldServer = this.mcServer.getWorldServer(this.playerEntity.dimension);
         this.field_22003_h = true;
@@ -179,7 +181,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             float var21 = 0.0625F;
-            boolean var22 = worldServer.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.boundingBox.copy().getInsetBoundingBox((double) var21, (double) var21, (double) var21)).size() == 0;
+            boolean var22 = worldServer.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.boundingBox.copy().getInsetBoundingBox(var21, var21, var21)).size() == 0;
             this.playerEntity.moveEntity(var32, var15, var17);
             var32 = var5 - this.playerEntity.posX;
             var15 = var7 - this.playerEntity.posY;
@@ -198,13 +200,13 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             this.playerEntity.setPositionAndRotation(var5, var7, var9, var11, var12);
-            boolean var24 = worldServer.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.boundingBox.copy().getInsetBoundingBox((double) var21, (double) var21, (double) var21)).size() == 0;
+            boolean var24 = worldServer.getCollidingBoundingBoxes(this.playerEntity, this.playerEntity.boundingBox.copy().getInsetBoundingBox(var21, var21, var21)).size() == 0;
             if (var22 && (var23 || !var24) && !this.playerEntity.isSleeping()) {
                 this.teleportTo(this.lastPosX, this.lastPosY, this.lastPosZ, var11, var12);
                 return;
             }
 
-            AxisAlignedBB var25 = this.playerEntity.boundingBox.copy().expand((double) var21, (double) var21, (double) var21).addCoord(0.0D, -0.55D, 0.0D);
+            AxisAlignedBB var25 = this.playerEntity.boundingBox.copy().expand(var21, var21, var21).addCoord(0.0D, -0.55D, 0.0D);
             if (!this.mcServer.allowFlight && !worldServer.func_27069_b(var25)) {
                 if (var15 >= -0.03125D) {
                     ++this.playerInAirTime;
@@ -234,6 +236,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         this.playerEntity.playerNetServerHandler.sendPacket(new Packet13PlayerLookMove(var1, var3 + 1.6200000047683716D, var3, var5, var7, var8, false));
     }
 
+    @Override
     public void handleBlockDig(Packet14BlockDig var1) {
         WorldServer var2 = this.mcServer.getWorldServer(this.playerEntity.dimension);
         if (var1.status == 4) {
@@ -294,6 +297,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
     }
 
+    @Override
     public void handlePlace(Packet15Place var1) {
         WorldServer var2 = this.mcServer.getWorldServer(this.playerEntity.dimension);
         ItemStack var3 = this.playerEntity.inventory.getCurrentItem();
@@ -365,6 +369,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         var2.field_819_z = false;
     }
 
+    @Override
     public void handleErrorMessage(String var1, Object[] var2) {
         logger.info(this.playerEntity.username + " lost connection: " + var1);
         this.mcServer.configManager.sendPacketToAllPlayers(new Packet3Chat("\u00a7e" + this.playerEntity.username + " left the game."));
@@ -372,6 +377,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         this.connectionClosed = true;
     }
 
+    @Override
     public void registerPacket(Packet var1) {
         logger.warning(this.getClass() + " wasn't prepared to deal with a " + var1.getClass());
         this.kickPlayer("Protocol error, unexpected packet");
@@ -382,6 +388,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         this.field_22004_g = this.field_15_f;
     }
 
+    @Override
     public void handleBlockItemSwitch(Packet16BlockItemSwitch var1) {
         if (var1.id >= 0 && var1.id <= InventoryPlayer.func_25054_e()) {
             this.playerEntity.inventory.currentItem = var1.id;
@@ -390,6 +397,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
     }
 
+    @Override
     public void handleChat(Packet3Chat var1) {
         String var2 = var1.message;
         if (var2.length() > 100) {
@@ -444,6 +452,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     }
 
+    @Override
     public void handleArmAnimation(Packet18Animation var1) {
         if (var1.animate == 1) {
             this.playerEntity.swingItem();
@@ -451,6 +460,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     }
 
+    @Override
     public void func_21001_a(Packet19EntityAction var1) {
         if (var1.state == 1) {
             this.playerEntity.setSneaking(true);
@@ -463,6 +473,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     }
 
+    @Override
     public void handleKickDisconnect(Packet255KickDisconnect var1) {
         this.netManager.networkShutdown("disconnect.quitting");
     }
@@ -471,14 +482,17 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         return this.netManager.getNumChunkDataPackets();
     }
 
+    @Override
     public void log(String var1) {
         this.sendPacket(new Packet3Chat("\u00a77" + var1));
     }
 
+    @Override
     public String getUsername() {
         return this.playerEntity.username;
     }
 
+    @Override
     public void func_6006_a(Packet7UseEntity var1) {
         WorldServer var2 = this.mcServer.getWorldServer(this.playerEntity.dimension);
         Entity var3 = var2.func_6158_a(var1.targetEntity);
@@ -492,16 +506,19 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     }
 
+    @Override
     public void handleRespawnPacket(Packet9Respawn var1) {
         if (this.playerEntity.health <= 0) {
             this.playerEntity = this.mcServer.configManager.recreatePlayerEntity(this.playerEntity, 0);
         }
     }
 
+    @Override
     public void handleCraftingGuiClosedPacked(Packet101CloseWindow var1) {
         this.playerEntity.closeCraftingGui();
     }
 
+    @Override
     public void func_20007_a(Packet102WindowClick var1) {
         if (this.playerEntity.currentCraftingInventory.windowId == var1.window_Id && this.playerEntity.currentCraftingInventory.getCanCraft(this.playerEntity)) {
             ItemStack var2 = this.playerEntity.currentCraftingInventory.func_27085_a(var1.inventorySlot, var1.mouseClick, var1.field_27039_f, this.playerEntity);
@@ -527,6 +544,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     }
 
+    @Override
     public void func_20008_a(Packet106Transaction var1) {
         Short var2 = this.field_10_k.get(this.playerEntity.currentCraftingInventory.windowId);
         if (var2 != null && var1.shortWindowId == var2 && this.playerEntity.currentCraftingInventory.windowId == var1.windowId && !this.playerEntity.currentCraftingInventory.getCanCraft(this.playerEntity)) {
@@ -535,6 +553,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     }
 
+    @Override
     public void handleUpdateSign(Packet130UpdateSign var1) {
         WorldServer var2 = this.mcServer.getWorldServer(this.playerEntity.dimension);
         if (var2.blockExists(var1.xPosition, var1.yPosition, var1.zPosition)) {
@@ -555,6 +574,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     for (int var6 = 0; var6 < var1.signLines[var9].length(); ++var6) {
                         if (ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(var1.signLines[var9].charAt(var6)) < 0) {
                             var5 = false;
+                            break;
                         }
                     }
                 }
@@ -580,6 +600,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     }
 
+    @Override
     public boolean isServerHandler() {
         return true;
     }

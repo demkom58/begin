@@ -109,9 +109,9 @@ public class StatFileWriter {
         return builder.toString();
     }
 
-    public void addStat(StatBase statBase, int var2) {
-        this.addStatToMap(this.map2, statBase, var2);
-        this.addStatToMap(this.map1, statBase, var2);
+    public void addStat(StatBase statBase, int addition) {
+        this.addStatToMap(this.map2, statBase, addition);
+        this.addStatToMap(this.map1, statBase, addition);
         this.field_27189_c = true;
     }
 

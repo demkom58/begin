@@ -15,6 +15,7 @@ public class BlockPumpkin extends Block {
         this.blockType = var3;
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var1 == 1) {
             return this.blockIndexInTexture;
@@ -38,6 +39,7 @@ public class BlockPumpkin extends Block {
         }
     }
 
+    @Override
     public int getBlockTextureFromSide(int var1) {
         if (var1 == 1) {
             return this.blockIndexInTexture;
@@ -48,15 +50,18 @@ public class BlockPumpkin extends Block {
         }
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         super.onBlockAdded(world, x, y, z);
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         int var5 = world.getBlockId(var2, var3, var4);
         return (var5 == 0 || Block.BLOCKS_LIST[var5].blockMaterial.isGroundCover()) && world.isBlockNormalCube(var2, var3 - 1, var4);
     }
 
+    @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving) {
         int var6 = MathHelper.floor((double) (entityLiving.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, var6);

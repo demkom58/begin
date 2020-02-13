@@ -12,9 +12,11 @@ public class ConvertProgressUpdater implements IProgressUpdatable {
         this.lastTimeMillis = System.currentTimeMillis();
     }
 
+    @Override
     public void display(String var1) {
     }
 
+    @Override
     public void setLoadingProgress(int var1) {
         if (System.currentTimeMillis() - this.lastTimeMillis >= 1000L) {
             this.lastTimeMillis = System.currentTimeMillis();
@@ -23,6 +25,7 @@ public class ConvertProgressUpdater implements IProgressUpdatable {
 
     }
 
+    @Override
     public void displayLoadingString(String var1) {
     }
 }

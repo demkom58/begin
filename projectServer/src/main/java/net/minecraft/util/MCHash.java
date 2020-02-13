@@ -136,10 +136,6 @@ public class MCHash {
         ++this.versionStamp;
         MCHashEntry[] var1 = this.slots;
 
-        for (int var2 = 0; var2 < var1.length; ++var2) {
-            var1[var2] = null;
-        }
-
         this.count = 0;
     }
 

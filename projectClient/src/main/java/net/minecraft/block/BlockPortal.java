@@ -19,8 +19,8 @@ public class BlockPortal extends BlockBreakable {
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        if (var1.getBlockId(var2 - 1, var3, var4) != this.blockID && var1.getBlockId(var2 + 1, var3, var4) != this.blockID) {
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
+        if (blockAccess.getBlockId(x - 1, y, z) != this.blockID && blockAccess.getBlockId(x + 1, y, z) != this.blockID) {
             float var7 = 0.125F;
             float var8 = 0.5F;
             this.setBlockBounds(0.5F - var7, 0.0F, 0.5F - var8, 0.5F + var7, 1.0F, 0.5F + var8);
@@ -125,24 +125,24 @@ public class BlockPortal extends BlockBreakable {
     }
 
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        if (var1.getBlockId(var2, var3, var4) == this.blockID) {
+    public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        if (blockAccess.getBlockId(x, y, z) == this.blockID) {
             return false;
         } else {
-            boolean var6 = var1.getBlockId(var2 - 1, var3, var4) == this.blockID && var1.getBlockId(var2 - 2, var3, var4) != this.blockID;
-            boolean var7 = var1.getBlockId(var2 + 1, var3, var4) == this.blockID && var1.getBlockId(var2 + 2, var3, var4) != this.blockID;
-            boolean var8 = var1.getBlockId(var2, var3, var4 - 1) == this.blockID && var1.getBlockId(var2, var3, var4 - 2) != this.blockID;
-            boolean var9 = var1.getBlockId(var2, var3, var4 + 1) == this.blockID && var1.getBlockId(var2, var3, var4 + 2) != this.blockID;
+            boolean var6 = blockAccess.getBlockId(x - 1, y, z) == this.blockID && blockAccess.getBlockId(x - 2, y, z) != this.blockID;
+            boolean var7 = blockAccess.getBlockId(x + 1, y, z) == this.blockID && blockAccess.getBlockId(x + 2, y, z) != this.blockID;
+            boolean var8 = blockAccess.getBlockId(x, y, z - 1) == this.blockID && blockAccess.getBlockId(x, y, z - 2) != this.blockID;
+            boolean var9 = blockAccess.getBlockId(x, y, z + 1) == this.blockID && blockAccess.getBlockId(x, y, z + 2) != this.blockID;
             boolean var10 = var6 || var7;
             boolean var11 = var8 || var9;
-            if (var10 && var5 == 4) {
+            if (var10 && side == 4) {
                 return true;
-            } else if (var10 && var5 == 5) {
+            } else if (var10 && side == 5) {
                 return true;
-            } else if (var11 && var5 == 2) {
+            } else if (var11 && side == 2) {
                 return true;
             } else {
-                return var11 && var5 == 3;
+                return var11 && side == 3;
             }
         }
     }
@@ -158,9 +158,9 @@ public class BlockPortal extends BlockBreakable {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
-        if (var5.ridingEntity == null && var5.riddenByEntity == null) {
-            var5.setInPortal();
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+        if (entity.ridingEntity == null && entity.riddenByEntity == null) {
+            entity.setInPortal();
         }
 
     }

@@ -7,6 +7,7 @@ public class BlockSandStone extends Block {
         super(var1, 192, Material.ROCK);
     }
 
+    @Override
     public int getBlockTextureFromSide(int var1) {
         if (var1 == 1) {
             return this.blockIndexInTexture - 16;

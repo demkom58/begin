@@ -10,7 +10,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.util.MathHelper;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class BlockPistonBase extends Block {
     private boolean isSticky;
@@ -121,14 +121,14 @@ public class BlockPistonBase extends Block {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        int var3 = func_31044_d(var2);
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        int var3 = func_31044_d(metadata);
         if (var3 > 5) {
             return this.blockIndexInTexture;
-        } else if (var1 == var3) {
-            return !isPowered(var2) && this.minX <= 0.0D && this.minY <= 0.0D && this.minZ <= 0.0D && this.maxX >= 1.0D && this.maxY >= 1.0D && this.maxZ >= 1.0D ? this.blockIndexInTexture : 110;
+        } else if (side == var3) {
+            return !isPowered(metadata) && this.minX <= 0.0D && this.minY <= 0.0D && this.minZ <= 0.0D && this.maxX >= 1.0D && this.maxY >= 1.0D && this.maxZ >= 1.0D ? this.blockIndexInTexture : 110;
         } else {
-            return var1 == PistonBlockTextures.field_31057_a[var3] ? 109 : 108;
+            return side == PistonBlockTextures.field_31057_a[var3] ? 109 : 108;
         }
     }
 
@@ -143,16 +143,16 @@ public class BlockPistonBase extends Block {
     }
 
     @Override
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
         return false;
     }
 
     @Override
-    public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
-        int var6 = func_31039_c(var1, var2, var3, var4, (EntityPlayer) var5);
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
-        if (!var1.multiplayerWorld) {
-            this.func_31043_h(var1, var2, var3, var4);
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity) {
+        int var6 = func_31039_c(world, x, y, z, (EntityPlayer) entity);
+        world.setBlockMetadataWithNotify(x, y, z, var6);
+        if (!world.multiplayerWorld) {
+            this.func_31043_h(world, x, y, z);
         }
 
     }
@@ -284,8 +284,8 @@ public class BlockPistonBase extends Block {
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
+        int var5 = blockAccess.getBlockMetadata(x, y, z);
         if (isPowered(var5)) {
             switch (func_31044_d(var5)) {
                 case 0:
@@ -318,9 +318,9 @@ public class BlockPistonBase extends Block {
     }
 
     @Override
-    public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList var6) {
+    public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, List<AxisAlignedBB> bbs) {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+        super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
     }
 
     @Override

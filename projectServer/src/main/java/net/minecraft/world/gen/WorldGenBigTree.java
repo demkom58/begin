@@ -60,7 +60,7 @@ public class WorldGenBigTree extends WorldGenerator {
                     int[] var18 = new int[]{var15, var3 + this.field_747_n, var16};
                     if (this.func_427_a(var17, var18) == -1) {
                         int[] var19 = new int[]{this.basePos[0], this.basePos[1], this.basePos[2]};
-                        double var20 = Math.sqrt(Math.pow((double) Math.abs(this.basePos[0] - var17[0]), 2.0D) + Math.pow((double) Math.abs(this.basePos[2] - var17[2]), 2.0D));
+                        double var20 = Math.sqrt(Math.pow(Math.abs(this.basePos[0] - var17[0]), 2.0D) + Math.pow(Math.abs(this.basePos[2] - var17[2]), 2.0D));
                         double var22 = var20 * this.field_752_i;
                         if ((double) var17[1] - var22 > (double) var5) {
                             var19[1] = var5;
@@ -131,7 +131,7 @@ public class WorldGenBigTree extends WorldGenerator {
             } else if (Math.abs(var3) >= var2) {
                 var4 = 0.0F;
             } else {
-                var4 = (float) Math.sqrt(Math.pow((double) Math.abs(var2), 2.0D) - Math.pow((double) Math.abs(var3), 2.0D));
+                var4 = (float) Math.sqrt(Math.pow(Math.abs(var2), 2.0D) - Math.pow(Math.abs(var3), 2.0D));
             }
 
             var4 = var4 * 0.5F;
@@ -311,6 +311,7 @@ public class WorldGenBigTree extends WorldGenerator {
         }
     }
 
+    @Override
     public void func_420_a(double var1, double var3, double var5) {
         this.field_748_m = (int) (var1 * 12.0D);
         if (var1 > 0.5D) {
@@ -321,6 +322,7 @@ public class WorldGenBigTree extends WorldGenerator {
         this.field_750_k = var5;
     }
 
+    @Override
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
         this.worldObj = var1;
         long var6 = var2.nextLong();

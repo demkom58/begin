@@ -19,6 +19,7 @@ public class Packet33RelEntityMoveLook extends Packet30Entity {
         this.rotating = true;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         super.readPacketData(inputStream);
         this.xPosition = inputStream.readByte();
@@ -28,6 +29,7 @@ public class Packet33RelEntityMoveLook extends Packet30Entity {
         this.pitch = inputStream.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         super.writePacketData(outputStream);
         outputStream.writeByte(this.xPosition);
@@ -37,6 +39,7 @@ public class Packet33RelEntityMoveLook extends Packet30Entity {
         outputStream.writeByte(this.pitch);
     }
 
+    @Override
     public int getPacketSize() {
         return 9;
     }

@@ -15,22 +15,22 @@ public class BlockGrass extends Block {
     }
 
     @Override
-    public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        if (var5 == 1) {
+    public int getBlockTexture(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        if (side == 1) {
             return 0;
-        } else if (var5 == 0) {
+        } else if (side == 0) {
             return 2;
         } else {
-            Material var6 = var1.getBlockMaterial(var2, var3 + 1, var4);
+            Material var6 = blockAccess.getBlockMaterial(x, y + 1, z);
             return var6 != Material.SNOW && var6 != Material.BUILT_SNOW ? 3 : 68;
         }
     }
 
     @Override
-    public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
-        var1.getWorldChunkManager().func_4069_a(var2, var4, 1, 1);
-        double var5 = var1.getWorldChunkManager().temperature[0];
-        double var7 = var1.getWorldChunkManager().humidity[0];
+    public int colorMultiplier(IBlockAccess blockAccess, int x, int y, int z) {
+        blockAccess.getWorldChunkManager().func_4069_a(x, z, 1, 1);
+        double var5 = blockAccess.getWorldChunkManager().temperature[0];
+        double var7 = blockAccess.getWorldChunkManager().humidity[0];
         return ColorizerGrass.getGrassColor(var5, var7);
     }
 

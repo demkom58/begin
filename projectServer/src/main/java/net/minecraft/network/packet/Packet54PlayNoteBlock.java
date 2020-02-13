@@ -24,6 +24,7 @@ public class Packet54PlayNoteBlock extends Packet {
         this.pitch = var5;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.xLocation = inputStream.readInt();
         this.yLocation = inputStream.readShort();
@@ -32,6 +33,7 @@ public class Packet54PlayNoteBlock extends Packet {
         this.pitch = inputStream.read();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.xLocation);
         outputStream.writeShort(this.yLocation);
@@ -40,10 +42,12 @@ public class Packet54PlayNoteBlock extends Packet {
         outputStream.write(this.pitch);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_21004_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 12;
     }

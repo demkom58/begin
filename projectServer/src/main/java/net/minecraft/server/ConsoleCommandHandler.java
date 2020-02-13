@@ -196,7 +196,7 @@ public class ConsoleCommandHandler {
                     } else if ("set".equalsIgnoreCase(var36)) {
                         for (int var42 = 0; var42 < this.minecraftServer.worldServers.length; ++var42) {
                             WorldServer var44 = this.minecraftServer.worldServers[var42];
-                            var44.func_32005_b((long) var39);
+                            var44.func_32005_b(var39);
                         }
 
                         this.sendNoticeToOps(username, "Set time to " + var39);

@@ -32,16 +32,16 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     @Override
-    public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public int colorMultiplier(IBlockAccess blockAccess, int x, int y, int z) {
+        int var5 = blockAccess.getBlockMetadata(x, y, z);
         if ((var5 & 1) == 1) {
             return ColorizerFoliage.getFoliageColorPine();
         } else if ((var5 & 2) == 2) {
             return ColorizerFoliage.getFoliageColorBirch();
         } else {
-            var1.getWorldChunkManager().func_4069_a(var2, var4, 1, 1);
-            double var6 = var1.getWorldChunkManager().temperature[0];
-            double var8 = var1.getWorldChunkManager().humidity[0];
+            blockAccess.getWorldChunkManager().func_4069_a(x, z, 1, 1);
+            double var6 = blockAccess.getWorldChunkManager().temperature[0];
+            double var8 = blockAccess.getWorldChunkManager().humidity[0];
             return ColorizerFoliage.getFoliageColor(var6, var8);
         }
     }
@@ -158,12 +158,12 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     @Override
-    public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
-        if (!var1.multiplayerWorld && var2.getCurrentEquippedItem() != null && var2.getCurrentEquippedItem().itemID == Item.SHEARS.shiftedIndex) {
-            var2.addStat(StatList.mineBlockStatArray[this.blockID], 1);
-            this.dropBlockAsItem_do(var1, var3, var4, var5, new ItemStack(Block.LEAVES.blockID, 1, var6 & 3));
+    public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int blockId) {
+        if (!world.multiplayerWorld && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().itemID == Item.SHEARS.shiftedIndex) {
+            player.addStat(StatList.mineBlockStatArray[this.blockID], 1);
+            this.dropBlockAsItem_do(world, x, y, z, new ItemStack(Block.LEAVES.blockID, 1, blockId & 3));
         } else {
-            super.harvestBlock(var1, var2, var3, var4, var5, var6);
+            super.harvestBlock(world, player, x, y, z, blockId);
         }
 
     }
@@ -179,8 +179,8 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        return (var2 & 3) == 1 ? this.blockIndexInTexture + 80 : this.blockIndexInTexture;
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        return (metadata & 3) == 1 ? this.blockIndexInTexture + 80 : this.blockIndexInTexture;
     }
 
     public void setGraphicsLevel(boolean var1) {
@@ -189,7 +189,7 @@ public class BlockLeaves extends BlockLeavesBase {
     }
 
     @Override
-    public void onEntityWalking(World var1, int var2, int var3, int var4, Entity var5) {
-        super.onEntityWalking(var1, var2, var3, var4, var5);
+    public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
+        super.onEntityWalking(world, x, y, z, entity);
     }
 }

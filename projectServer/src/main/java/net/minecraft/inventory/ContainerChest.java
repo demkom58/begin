@@ -30,10 +30,12 @@ public class ContainerChest extends Container {
 
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer var1) {
         return this.field_20137_a.canInteractWith(var1);
     }
 
+    @Override
     public ItemStack func_27086_a(int var1) {
         ItemStack var2 = null;
         Slot var3 = this.inventorySlots.get(var1);

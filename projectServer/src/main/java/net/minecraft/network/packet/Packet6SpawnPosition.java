@@ -20,22 +20,26 @@ public class Packet6SpawnPosition extends Packet {
         this.zPosition = var3;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.xPosition = inputStream.readInt();
         this.yPosition = inputStream.readInt();
         this.zPosition = inputStream.readInt();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.xPosition);
         outputStream.writeInt(this.yPosition);
         outputStream.writeInt(this.zPosition);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleSpawnPosition(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 12;
     }

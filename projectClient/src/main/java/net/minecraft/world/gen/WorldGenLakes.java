@@ -54,7 +54,7 @@ public class WorldGenLakes extends WorldGenerator {
                     boolean var46 = !var6[(var35 * 16 + var39) * 8 + var10] && (var35 < 15 && var6[((var35 + 1) * 16 + var39) * 8 + var10] || var35 > 0 && var6[((var35 - 1) * 16 + var39) * 8 + var10] || var39 < 15 && var6[(var35 * 16 + var39 + 1) * 8 + var10] || var39 > 0 && var6[(var35 * 16 + (var39 - 1)) * 8 + var10] || var10 < 7 && var6[(var35 * 16 + var39) * 8 + var10 + 1] || var10 > 0 && var6[(var35 * 16 + var39) * 8 + (var10 - 1)]);
                     if (var46) {
                         Material var12 = var1.getBlockMaterial(var3 + var35, var4 + var10, var5 + var39);
-                        if (var10 >= 4 && var12.getIsLiquid()) {
+                        if (var10 >= 4 && var12.isLiquid()) {
                             return false;
                         }
 

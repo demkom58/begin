@@ -39,9 +39,9 @@ public class BlockCactus extends Block {
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
         float var5 = 0.0625F;
-        return AxisAlignedBB.getBoundingBoxFromPool((float) var2 + var5, var3, (float) var4 + var5, (float) (var2 + 1) - var5, var3 + 1, (float) (var4 + 1) - var5);
+        return AxisAlignedBB.getBoundingBoxFromPool((float) x + var5, y, (float) z + var5, (float) (x + 1) - var5, y + 1, (float) (z + 1) - var5);
     }
 
     @Override
@@ -69,8 +69,8 @@ public class BlockCactus extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return super.canPlaceBlockAt(var1, var2, var3, var4) && this.canBlockStay(var1, var2, var3, var4);
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        return super.canPlaceBlockAt(world, x, y, z) && this.canBlockStay(world, x, y, z);
     }
 
     @Override
@@ -83,23 +83,23 @@ public class BlockCactus extends Block {
     }
 
     @Override
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        if (var1.getBlockMaterial(var2 - 1, var3, var4).isSolid()) {
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        if (world.getBlockMaterial(x - 1, y, z).isSolid()) {
             return false;
-        } else if (var1.getBlockMaterial(var2 + 1, var3, var4).isSolid()) {
+        } else if (world.getBlockMaterial(x + 1, y, z).isSolid()) {
             return false;
-        } else if (var1.getBlockMaterial(var2, var3, var4 - 1).isSolid()) {
+        } else if (world.getBlockMaterial(x, y, z - 1).isSolid()) {
             return false;
-        } else if (var1.getBlockMaterial(var2, var3, var4 + 1).isSolid()) {
+        } else if (world.getBlockMaterial(x, y, z + 1).isSolid()) {
             return false;
         } else {
-            int var5 = var1.getBlockId(var2, var3 - 1, var4);
+            int var5 = world.getBlockId(x, y - 1, z);
             return var5 == Block.CACTUS.blockID || var5 == Block.SAND.blockID;
         }
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
-        var5.attackEntityFrom(null, 1);
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+        entity.attackEntityFrom(null, 1);
     }
 }

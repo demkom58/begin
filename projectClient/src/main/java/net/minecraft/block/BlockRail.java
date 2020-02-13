@@ -47,14 +47,14 @@ public class BlockRail extends Block {
     }
 
     @Override
-    public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
-        this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-        return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3D var5, Vec3D var6) {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        return super.collisionRayTrace(world, x, y, z, var5, var6);
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
+        int var5 = blockAccess.getBlockMetadata(x, y, z);
         if (var5 >= 2 && var5 <= 5) {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.625F, 1.0F);
         } else {
@@ -64,12 +64,12 @@ public class BlockRail extends Block {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
         if (this.isPowered) {
-            if (this.blockID == Block.RAIL_POWERED.blockID && (var2 & 8) == 0) {
+            if (this.blockID == Block.RAIL_POWERED.blockID && (metadata & 8) == 0) {
                 return this.blockIndexInTexture - 16;
             }
-        } else if (var2 >= 6) {
+        } else if (metadata >= 6) {
             return this.blockIndexInTexture - 16;
         }
 
@@ -92,8 +92,8 @@ public class BlockRail extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return var1.isBlockNormalCube(var2, var3 - 1, var4);
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        return world.isBlockNormalCube(x, y - 1, z);
     }
 
     @Override

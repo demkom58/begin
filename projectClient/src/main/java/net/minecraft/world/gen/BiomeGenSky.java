@@ -12,7 +12,7 @@ public class BiomeGenSky extends BiomeGenBase {
     }
 
     @Override
-    public int getSkyColorByTemp(float var1) {
+    public int getSkyColorByTemp(float temp) {
         return 12632319;
     }
 }

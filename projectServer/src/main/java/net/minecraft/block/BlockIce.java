@@ -13,6 +13,7 @@ public class BlockIce extends BlockBreakable {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public void harvestBlock(World world, EntityPlayer entityPlayer, int var3, int var4, int var5, int var6) {
         super.harvestBlock(world, entityPlayer, var3, var4, var5, var6);
         Material var7 = world.getBlockMaterial(var3, var4 - 1, var5);
@@ -22,10 +23,12 @@ public class BlockIce extends BlockBreakable {
 
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (world.getSavedLightValue(EnumSkyBlock.BLOCK, x, y, z) > 11 - Block.LIGHT_OPACITY[this.blockID]) {
             this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
@@ -34,6 +37,7 @@ public class BlockIce extends BlockBreakable {
 
     }
 
+    @Override
     public int getMobilityFlag() {
         return 0;
     }

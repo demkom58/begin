@@ -41,12 +41,12 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         return false;
     }
 
     @Override
-    public boolean canPlaceBlockOnSide(World var1, int var2, int var3, int var4, int var5) {
+    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int var5) {
         return false;
     }
 
@@ -66,9 +66,9 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     @Override
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (!var1.multiplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        if (!world.multiplayerWorld && world.getBlockTileEntity(x, y, z) == null) {
+            world.setBlockWithNotify(x, y, z, 0);
             return true;
         } else {
             return false;
@@ -81,11 +81,11 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     @Override
-    public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
-        if (!var1.multiplayerWorld) {
-            TileEntityPiston var7 = this.func_31034_c(var1, var2, var3, var4);
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float failChance) {
+        if (!world.multiplayerWorld) {
+            TileEntityPiston var7 = this.func_31034_c(world, x, y, z);
             if (var7 != null) {
-                Block.BLOCKS_LIST[var7.getStoredBlockID()].dropBlockAsItem(var1, var2, var3, var4, var7.getBlockMetadata());
+                Block.BLOCKS_LIST[var7.getStoredBlockID()].dropBlockAsItem(world, x, y, z, var7.getBlockMetadata());
             }
         }
     }
@@ -113,15 +113,15 @@ public class BlockPistonMoving extends BlockContainer {
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        TileEntityPiston var5 = this.func_31034_c(var1, var2, var3, var4);
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
+        TileEntityPiston var5 = this.func_31034_c(blockAccess, x, y, z);
         if (var5 != null) {
             Block var6 = Block.BLOCKS_LIST[var5.getStoredBlockID()];
             if (var6 == null || var6 == this) {
                 return;
             }
 
-            var6.setBlockBoundsBasedOnState(var1, var2, var3, var4);
+            var6.setBlockBoundsBasedOnState(blockAccess, x, y, z);
             float var7 = var5.func_31008_a(0.0F);
             if (var5.func_31015_b()) {
                 var7 = 1.0F - var7;

@@ -16,18 +16,22 @@ public class Packet255KickDisconnect extends Packet {
         this.reason = var1;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.reason = readString(inputStream, 100);
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         writeString(this.reason, outputStream);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleKickDisconnect(this);
     }
 
+    @Override
     public int getPacketSize() {
         return this.reason.length();
     }

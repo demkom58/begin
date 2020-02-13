@@ -19,6 +19,7 @@ public class ItemBucket extends Item {
         this.isFull = var2;
     }
 
+    @Override
     public ItemStack onItemRightClick(ItemStack var1, World var2, EntityPlayer var3) {
         float var4 = 1.0F;
         float var5 = var3.prevRotationPitch + (var3.rotationPitch - var3.prevRotationPitch) * var4;

@@ -20,22 +20,26 @@ public class Packet105UpdateProgressbar extends Packet {
         this.progressBarValue = var3;
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_20002_a(this);
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.windowId = inputStream.readByte();
         this.progressBar = inputStream.readShort();
         this.progressBarValue = inputStream.readShort();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeByte(this.windowId);
         outputStream.writeShort(this.progressBar);
         outputStream.writeShort(this.progressBarValue);
     }
 
+    @Override
     public int getPacketSize() {
         return 5;
     }

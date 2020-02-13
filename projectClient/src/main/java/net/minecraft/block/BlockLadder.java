@@ -35,8 +35,8 @@ public class BlockLadder extends Block {
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+        int var5 = world.getBlockMetadata(x, y, z);
         float var6 = 0.125F;
         if (var5 == 2) {
             this.setBlockBounds(0.0F, 0.0F, 1.0F - var6, 1.0F, 1.0F, 1.0F);
@@ -54,7 +54,7 @@ public class BlockLadder extends Block {
             this.setBlockBounds(0.0F, 0.0F, 0.0F, var6, 1.0F, 1.0F);
         }
 
-        return super.getSelectedBoundingBoxFromPool(var1, var2, var3, var4);
+        return super.getSelectedBoundingBoxFromPool(world, x, y, z);
     }
 
     @Override
@@ -73,38 +73,38 @@ public class BlockLadder extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        if (var1.isBlockNormalCube(var2 - 1, var3, var4)) {
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        if (world.isBlockNormalCube(x - 1, y, z)) {
             return true;
-        } else if (var1.isBlockNormalCube(var2 + 1, var3, var4)) {
+        } else if (world.isBlockNormalCube(x + 1, y, z)) {
             return true;
-        } else if (var1.isBlockNormalCube(var2, var3, var4 - 1)) {
+        } else if (world.isBlockNormalCube(x, y, z - 1)) {
             return true;
         } else {
-            return var1.isBlockNormalCube(var2, var3, var4 + 1);
+            return world.isBlockNormalCube(x, y, z + 1);
         }
     }
 
     @Override
-    public void onBlockPlaced(World var1, int var2, int var3, int var4, int var5) {
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
-        if ((var6 == 0 || var5 == 2) && var1.isBlockNormalCube(var2, var3, var4 + 1)) {
+    public void onBlockPlaced(World world, int x, int y, int z, int side) {
+        int var6 = world.getBlockMetadata(x, y, z);
+        if ((var6 == 0 || side == 2) && world.isBlockNormalCube(x, y, z + 1)) {
             var6 = 2;
         }
 
-        if ((var6 == 0 || var5 == 3) && var1.isBlockNormalCube(var2, var3, var4 - 1)) {
+        if ((var6 == 0 || side == 3) && world.isBlockNormalCube(x, y, z - 1)) {
             var6 = 3;
         }
 
-        if ((var6 == 0 || var5 == 4) && var1.isBlockNormalCube(var2 + 1, var3, var4)) {
+        if ((var6 == 0 || side == 4) && world.isBlockNormalCube(x + 1, y, z)) {
             var6 = 4;
         }
 
-        if ((var6 == 0 || var5 == 5) && var1.isBlockNormalCube(var2 - 1, var3, var4)) {
+        if ((var6 == 0 || side == 5) && world.isBlockNormalCube(x - 1, y, z)) {
             var6 = 5;
         }
 
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
+        world.setBlockMetadataWithNotify(x, y, z, var6);
     }
 
     @Override

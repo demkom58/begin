@@ -27,6 +27,7 @@ public class ChunkProviderServer implements IChunkProvider {
         this.serverChunkGenerator = chunkProvider;
     }
 
+    @Override
     public boolean chunkExists(int x, int z) {
         return this.id2ChunkMap.containsKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
     }
@@ -42,6 +43,7 @@ public class ChunkProviderServer implements IChunkProvider {
 
     }
 
+    @Override
     public Chunk prepareChunk(int x, int z) {
         int chunkXZ2Int = ChunkCoordIntPair.chunkXZ2Int(x, z);
         this.chunkCoords.remove(chunkXZ2Int);
@@ -83,6 +85,7 @@ public class ChunkProviderServer implements IChunkProvider {
         return chunk;
     }
 
+    @Override
     public Chunk provideChunk(int x, int z) {
         Chunk chunk = this.id2ChunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
         if (chunk == null) {
@@ -133,6 +136,7 @@ public class ChunkProviderServer implements IChunkProvider {
         }
     }
 
+    @Override
     public void populate(IChunkProvider chunkProvider, int x, int z) {
         Chunk chunk = this.provideChunk(x, z);
         if (!chunk.isTerrainPopulated) {
@@ -145,6 +149,7 @@ public class ChunkProviderServer implements IChunkProvider {
 
     }
 
+    @Override
     public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdate) {
         int saved = 0;
 
@@ -175,6 +180,7 @@ public class ChunkProviderServer implements IChunkProvider {
         return true;
     }
 
+    @Override
     public boolean unload100OldestChunks() {
         if (!this.world.levelSaving) {
             for (int i = 0; i < 100; ++i) {
@@ -198,6 +204,7 @@ public class ChunkProviderServer implements IChunkProvider {
         return this.serverChunkGenerator.unload100OldestChunks();
     }
 
+    @Override
     public boolean canSave() {
         return !this.world.levelSaving;
     }

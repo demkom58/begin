@@ -1,25 +1,25 @@
 package net.minecraft.block;
 
 public class StepSound {
-    public final String field_1029_a;
-    public final float field_1028_b;
-    public final float field_1030_c;
+    public final String name;
+    public final float volume;
+    public final float pitch;
 
-    public StepSound(String var1, float var2, float var3) {
-        this.field_1029_a = var1;
-        this.field_1028_b = var2;
-        this.field_1030_c = var3;
+    public StepSound(String name, float volume, float pitch) {
+        this.name = name;
+        this.volume = volume;
+        this.pitch = pitch;
     }
 
     public float getVolume() {
-        return this.field_1028_b;
+        return this.volume;
     }
 
     public float getPitch() {
-        return this.field_1030_c;
+        return this.pitch;
     }
 
-    public String func_737_c() {
-        return "step." + this.field_1029_a;
+    public String getFormattedName() {
+        return "step." + this.name;
     }
 }

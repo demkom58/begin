@@ -38,7 +38,7 @@ public class BlockRedstoneWire extends Block {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
         return this.blockIndexInTexture;
     }
 
@@ -63,13 +63,13 @@ public class BlockRedstoneWire extends Block {
     }
 
     @Override
-    public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
+    public int colorMultiplier(IBlockAccess blockAccess, int x, int y, int z) {
         return 8388608;
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return var1.isBlockNormalCube(var2, var3 - 1, var4);
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        return world.isBlockNormalCube(x, y - 1, z);
     }
 
     private void updateAndPropagateCurrentStrength(World var1, int var2, int var3, int var4) {
@@ -316,37 +316,37 @@ public class BlockRedstoneWire extends Block {
     }
 
     @Override
-    public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
-        return this.wiresProvidePower && this.isPoweringTo(var1, var2, var3, var4, var5);
+    public boolean isIndirectlyPoweringTo(World world, int x, int y, int z, int var5) {
+        return this.wiresProvidePower && this.isPoweringTo(world, x, y, z, var5);
     }
 
     @Override
-    public boolean isPoweringTo(IBlockAccess var1, int var2, int var3, int var4, int var5) {
+    public boolean isPoweringTo(IBlockAccess blockAccess, int x, int y, int z, int var5) {
         if (!this.wiresProvidePower) {
             return false;
-        } else if (var1.getBlockMetadata(var2, var3, var4) == 0) {
+        } else if (blockAccess.getBlockMetadata(x, y, z) == 0) {
             return false;
         } else if (var5 == 1) {
             return true;
         } else {
-            boolean var6 = isPowerProviderOrWire(var1, var2 - 1, var3, var4, 1) || !var1.isBlockNormalCube(var2 - 1, var3, var4) && isPowerProviderOrWire(var1, var2 - 1, var3 - 1, var4, -1);
-            boolean var7 = isPowerProviderOrWire(var1, var2 + 1, var3, var4, 3) || !var1.isBlockNormalCube(var2 + 1, var3, var4) && isPowerProviderOrWire(var1, var2 + 1, var3 - 1, var4, -1);
-            boolean var8 = isPowerProviderOrWire(var1, var2, var3, var4 - 1, 2) || !var1.isBlockNormalCube(var2, var3, var4 - 1) && isPowerProviderOrWire(var1, var2, var3 - 1, var4 - 1, -1);
-            boolean var9 = isPowerProviderOrWire(var1, var2, var3, var4 + 1, 0) || !var1.isBlockNormalCube(var2, var3, var4 + 1) && isPowerProviderOrWire(var1, var2, var3 - 1, var4 + 1, -1);
-            if (!var1.isBlockNormalCube(var2, var3 + 1, var4)) {
-                if (var1.isBlockNormalCube(var2 - 1, var3, var4) && isPowerProviderOrWire(var1, var2 - 1, var3 + 1, var4, -1)) {
+            boolean var6 = isPowerProviderOrWire(blockAccess, x - 1, y, z, 1) || !blockAccess.isBlockNormalCube(x - 1, y, z) && isPowerProviderOrWire(blockAccess, x - 1, y - 1, z, -1);
+            boolean var7 = isPowerProviderOrWire(blockAccess, x + 1, y, z, 3) || !blockAccess.isBlockNormalCube(x + 1, y, z) && isPowerProviderOrWire(blockAccess, x + 1, y - 1, z, -1);
+            boolean var8 = isPowerProviderOrWire(blockAccess, x, y, z - 1, 2) || !blockAccess.isBlockNormalCube(x, y, z - 1) && isPowerProviderOrWire(blockAccess, x, y - 1, z - 1, -1);
+            boolean var9 = isPowerProviderOrWire(blockAccess, x, y, z + 1, 0) || !blockAccess.isBlockNormalCube(x, y, z + 1) && isPowerProviderOrWire(blockAccess, x, y - 1, z + 1, -1);
+            if (!blockAccess.isBlockNormalCube(x, y + 1, z)) {
+                if (blockAccess.isBlockNormalCube(x - 1, y, z) && isPowerProviderOrWire(blockAccess, x - 1, y + 1, z, -1)) {
                     var6 = true;
                 }
 
-                if (var1.isBlockNormalCube(var2 + 1, var3, var4) && isPowerProviderOrWire(var1, var2 + 1, var3 + 1, var4, -1)) {
+                if (blockAccess.isBlockNormalCube(x + 1, y, z) && isPowerProviderOrWire(blockAccess, x + 1, y + 1, z, -1)) {
                     var7 = true;
                 }
 
-                if (var1.isBlockNormalCube(var2, var3, var4 - 1) && isPowerProviderOrWire(var1, var2, var3 + 1, var4 - 1, -1)) {
+                if (blockAccess.isBlockNormalCube(x, y, z - 1) && isPowerProviderOrWire(blockAccess, x, y + 1, z - 1, -1)) {
                     var8 = true;
                 }
 
-                if (var1.isBlockNormalCube(var2, var3, var4 + 1) && isPowerProviderOrWire(var1, var2, var3 + 1, var4 + 1, -1)) {
+                if (blockAccess.isBlockNormalCube(x, y, z + 1) && isPowerProviderOrWire(blockAccess, x, y + 1, z + 1, -1)) {
                     var9 = true;
                 }
             }

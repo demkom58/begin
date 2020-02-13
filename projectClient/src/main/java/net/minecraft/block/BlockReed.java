@@ -37,20 +37,20 @@ public class BlockReed extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockId(var2, var3 - 1, var4);
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        int var5 = world.getBlockId(x, y - 1, z);
         if (var5 == this.blockID) {
             return true;
         } else if (var5 != Block.GRASS.blockID && var5 != Block.DIRT.blockID) {
             return false;
-        } else if (var1.getBlockMaterial(var2 - 1, var3 - 1, var4) == Material.WATER) {
+        } else if (world.getBlockMaterial(x - 1, y - 1, z) == Material.WATER) {
             return true;
-        } else if (var1.getBlockMaterial(var2 + 1, var3 - 1, var4) == Material.WATER) {
+        } else if (world.getBlockMaterial(x + 1, y - 1, z) == Material.WATER) {
             return true;
-        } else if (var1.getBlockMaterial(var2, var3 - 1, var4 - 1) == Material.WATER) {
+        } else if (world.getBlockMaterial(x, y - 1, z - 1) == Material.WATER) {
             return true;
         } else {
-            return var1.getBlockMaterial(var2, var3 - 1, var4 + 1) == Material.WATER;
+            return world.getBlockMaterial(x, y - 1, z + 1) == Material.WATER;
         }
     }
 
@@ -68,8 +68,8 @@ public class BlockReed extends Block {
     }
 
     @Override
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        return this.canPlaceBlockAt(var1, var2, var3, var4);
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        return this.canPlaceBlockAt(world, x, y, z);
     }
 
     @Override

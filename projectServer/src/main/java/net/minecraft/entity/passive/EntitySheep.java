@@ -36,15 +36,18 @@ public class EntitySheep extends EntityAnimal {
         }
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         return super.attackEntityFrom(var1, var2);
     }
 
+    @Override
     protected void dropFewItems() {
         if (!this.func_21069_f_()) {
             this.entityDropItem(new ItemStack(Block.CLOTH.blockID, 1, this.getFleeceColor()), 0.0F);
@@ -52,10 +55,12 @@ public class EntitySheep extends EntityAnimal {
 
     }
 
+    @Override
     protected int getDropItemId() {
         return Block.CLOTH.blockID;
     }
 
+    @Override
     public boolean interact(EntityPlayer var1) {
         ItemStack var2 = var1.inventory.getCurrentItem();
         if (var2 != null && var2.itemID == Item.SHEARS.shiftedIndex && !this.func_21069_f_()) {
@@ -65,9 +70,9 @@ public class EntitySheep extends EntityAnimal {
 
                 for (int var4 = 0; var4 < var3; ++var4) {
                     EntityItem var5 = this.entityDropItem(new ItemStack(Block.CLOTH.blockID, 1, this.getFleeceColor()), 1.0F);
-                    var5.motionY += (double) (this.rand.nextFloat() * 0.05F);
-                    var5.motionX += (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
-                    var5.motionZ += (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
+                    var5.motionY += this.rand.nextFloat() * 0.05F;
+                    var5.motionX += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F;
+                    var5.motionZ += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F;
                 }
             }
 
@@ -77,26 +82,31 @@ public class EntitySheep extends EntityAnimal {
         return false;
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
         var1.setBoolean("Sheared", this.func_21069_f_());
         var1.setByte("Color", (byte) this.getFleeceColor());
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         this.setSheared(var1.getBoolean("Sheared"));
         this.setFleeceColor(var1.getByte("Color"));
     }
 
+    @Override
     protected String getLivingSound() {
         return "mob.sheep";
     }
 
+    @Override
     protected String getHurtSound() {
         return "mob.sheep";
     }
 
+    @Override
     protected String getDeathSound() {
         return "mob.sheep";
     }

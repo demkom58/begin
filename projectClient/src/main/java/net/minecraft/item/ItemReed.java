@@ -50,7 +50,7 @@ public class ItemReed extends Item {
                 if (var3.setBlockWithNotify(var4, var5, var6, this.field_320_a)) {
                     Block.BLOCKS_LIST[this.field_320_a].onBlockPlaced(var3, var4, var5, var6, var7);
                     Block.BLOCKS_LIST[this.field_320_a].onBlockPlacedBy(var3, var4, var5, var6, var2);
-                    var3.playSoundEffect((float) var4 + 0.5F, (float) var5 + 0.5F, (float) var6 + 0.5F, var8.stepSound.func_1145_d(), (var8.stepSound.getVolume() + 1.0F) / 2.0F, var8.stepSound.getPitch() * 0.8F);
+                    var3.playSoundEffect((float) var4 + 0.5F, (float) var5 + 0.5F, (float) var6 + 0.5F, var8.stepSound.getFormattedName(), (var8.stepSound.getVolume() + 1.0F) / 2.0F, var8.stepSound.getPitch() * 0.8F);
                     --var1.stackSize;
                 }
             }

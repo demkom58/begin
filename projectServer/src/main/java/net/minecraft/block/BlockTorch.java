@@ -14,14 +14,17 @@ public class BlockTorch extends Block {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
@@ -30,6 +33,7 @@ public class BlockTorch extends Block {
         return var1.isBlockNormalCube(var2, var3, var4) || var1.getBlockId(var2, var3, var4) == Block.FENCE.blockID;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         if (world.isBlockNormalCube(var2 - 1, var3, var4)) {
             return true;
@@ -44,6 +48,7 @@ public class BlockTorch extends Block {
         }
     }
 
+    @Override
     public void onBlockPlaced(World world, int var2, int var3, int var4, int var5) {
         int var6 = world.getBlockMetadata(var2, var3, var4);
         if (var5 == 1 && this.func_31028_g(world, var2, var3 - 1, var4)) {
@@ -69,6 +74,7 @@ public class BlockTorch extends Block {
         world.setBlockMetadataWithNotify(var2, var3, var4, var6);
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         super.updateTick(world, x, y, z, random);
         if (world.getBlockMetadata(x, y, z) == 0) {
@@ -77,6 +83,7 @@ public class BlockTorch extends Block {
 
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         if (world.isBlockNormalCube(x - 1, y, z)) {
             world.setBlockMetadataWithNotify(x, y, z, 1);
@@ -93,6 +100,7 @@ public class BlockTorch extends Block {
         this.dropTorchIfCantStay(world, x, y, z);
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (this.dropTorchIfCantStay(world, var2, var3, var4)) {
             int var6 = world.getBlockMetadata(var2, var3, var4);
@@ -135,6 +143,7 @@ public class BlockTorch extends Block {
         }
     }
 
+    @Override
     public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
         int var7 = world.getBlockMetadata(var2, var3, var4) & 7;
         float var8 = 0.15F;

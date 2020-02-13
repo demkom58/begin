@@ -20,13 +20,16 @@ public class BlockPistonMoving extends BlockContainer {
         return new TileEntityPiston(var0, var1, var2, var3, var4);
     }
 
+    @Override
     protected TileEntity getBlockEntity() {
         return null;
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
     }
 
+    @Override
     public void onBlockRemoval(World world, int x, int y, int z) {
         TileEntity var5 = world.getBlockTileEntity(x, y, z);
         if (var5 instanceof TileEntityPiston) {
@@ -37,22 +40,27 @@ public class BlockPistonMoving extends BlockContainer {
 
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int var5) {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         if (!world.singleplayerWorld && world.getBlockTileEntity(var2, var3, var4) == null) {
             world.setBlockWithNotify(var2, var3, var4, 0);
@@ -62,10 +70,12 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return 0;
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float chance) {
         if (!world.singleplayerWorld) {
             TileEntityPiston var7 = this.getTileEntityAtLocation(world, x, y, z);
@@ -75,12 +85,14 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (!world.singleplayerWorld && world.getBlockTileEntity(var2, var3, var4) == null) {
         }
 
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         TileEntityPiston var5 = this.getTileEntityAtLocation(world, x, y, z);
         if (var5 == null) {
@@ -95,6 +107,7 @@ public class BlockPistonMoving extends BlockContainer {
         }
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         TileEntityPiston var5 = this.getTileEntityAtLocation(blockAccess, var2, var3, var4);
         if (var5 != null) {
@@ -126,12 +139,12 @@ public class BlockPistonMoving extends BlockContainer {
             if (var8 == null) {
                 return null;
             } else {
-                var8.minX -= (double) ((float) PistonBlockTextures.field_31051_b[var7] * var6);
-                var8.maxX -= (double) ((float) PistonBlockTextures.field_31051_b[var7] * var6);
-                var8.minY -= (double) ((float) PistonBlockTextures.field_31054_c[var7] * var6);
-                var8.maxY -= (double) ((float) PistonBlockTextures.field_31054_c[var7] * var6);
-                var8.minZ -= (double) ((float) PistonBlockTextures.field_31053_d[var7] * var6);
-                var8.maxZ -= (double) ((float) PistonBlockTextures.field_31053_d[var7] * var6);
+                var8.minX -= (float) PistonBlockTextures.field_31051_b[var7] * var6;
+                var8.maxX -= (float) PistonBlockTextures.field_31051_b[var7] * var6;
+                var8.minY -= (float) PistonBlockTextures.field_31054_c[var7] * var6;
+                var8.maxY -= (float) PistonBlockTextures.field_31054_c[var7] * var6;
+                var8.minZ -= (float) PistonBlockTextures.field_31053_d[var7] * var6;
+                var8.maxZ -= (float) PistonBlockTextures.field_31053_d[var7] * var6;
                 return var8;
             }
         } else {

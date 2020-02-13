@@ -22,6 +22,7 @@ public class Packet131MapData extends Packet {
         this.field_28053_c = var3;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.field_28052_a = inputStream.readShort();
         this.field_28051_b = inputStream.readShort();
@@ -29,6 +30,7 @@ public class Packet131MapData extends Packet {
         inputStream.readFully(this.field_28053_c);
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeShort(this.field_28052_a);
         outputStream.writeShort(this.field_28051_b);
@@ -36,10 +38,12 @@ public class Packet131MapData extends Packet {
         outputStream.write(this.field_28053_c);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_28001_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 4 + this.field_28053_c.length;
     }

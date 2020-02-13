@@ -16,18 +16,22 @@ public class Packet29DestroyEntity extends Packet {
         this.entityId = var1;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.entityId = inputStream.readInt();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.entityId);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleDestroyEntity(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 4;
     }

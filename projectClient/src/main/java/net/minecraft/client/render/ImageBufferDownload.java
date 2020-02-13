@@ -31,6 +31,7 @@ public class ImageBufferDownload implements ImageBuffer {
                     int var7 = this.imageData[var5 + var6 * 64];
                     if ((var7 >> 24 & 255) < 128) {
                         var4 = true;
+                        break;
                     }
                 }
             }
@@ -41,6 +42,7 @@ public class ImageBufferDownload implements ImageBuffer {
                         int var11 = this.imageData[var9 + var10 * 64];
                         if ((var11 >> 24 & 255) < 128) {
                             var4 = true;
+                            break;
                         }
                     }
                 }

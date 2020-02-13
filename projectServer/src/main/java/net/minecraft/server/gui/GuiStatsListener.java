@@ -11,6 +11,7 @@ class GuiStatsListener implements ActionListener {
         this.statsComponent = var1;
     }
 
+    @Override
     public void actionPerformed(ActionEvent var1) {
         GuiStatsComponent.update(this.statsComponent);
     }

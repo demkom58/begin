@@ -2322,7 +2322,7 @@ public class RenderBlocks {
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y + 1, z, 1)) {
             float brightness = block.getBlockBrightness(this.blockAccess, x, y + 1, z);
-            if (block.maxY != 1.0D && !block.blockMaterial.getIsLiquid()) {
+            if (block.maxY != 1.0D && !block.blockMaterial.isLiquid()) {
                 brightness = blockBrightness;
             }
 
@@ -2449,7 +2449,7 @@ public class RenderBlocks {
 
         if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y + 1, z, 1)) {
             float incYBrightness = block.getBlockBrightness(this.blockAccess, x, y + 1, z);
-            if (block.maxY != 1.0D && !block.blockMaterial.getIsLiquid()) {
+            if (block.maxY != 1.0D && !block.blockMaterial.isLiquid()) {
                 incYBrightness = brightness;
             }
 

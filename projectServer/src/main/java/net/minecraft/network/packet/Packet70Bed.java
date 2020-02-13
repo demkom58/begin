@@ -17,18 +17,22 @@ public class Packet70Bed extends Packet {
         this.field_25015_b = var1;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.field_25015_b = inputStream.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeByte(this.field_25015_b);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_25001_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 1;
     }

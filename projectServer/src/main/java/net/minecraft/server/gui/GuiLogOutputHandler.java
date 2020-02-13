@@ -16,12 +16,15 @@ public class GuiLogOutputHandler extends Handler {
         this.field_1000_d = var1;
     }
 
+    @Override
     public void close() {
     }
 
+    @Override
     public void flush() {
     }
 
+    @Override
     public void publish(LogRecord var1) {
         int var2 = this.field_1000_d.getDocument().getLength();
         this.field_1000_d.append(this.field_999_a.format(var1));

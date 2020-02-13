@@ -211,10 +211,10 @@ public class ItemRenderer {
             GL11.glNormal3f(0.0F, 0.0F, -1.0F);
             var45.startDrawingQuads();
             byte var46 = 7;
-            var45.addVertexWithUV(0 - var46, 128 + var46, 0.0D, 0.0D, 1.0D);
+            var45.addVertexWithUV(-var46, 128 + var46, 0.0D, 0.0D, 1.0D);
             var45.addVertexWithUV(128 + var46, 128 + var46, 0.0D, 1.0D, 1.0D);
-            var45.addVertexWithUV(128 + var46, 0 - var46, 0.0D, 1.0D, 0.0D);
-            var45.addVertexWithUV(0 - var46, 0 - var46, 0.0D, 0.0D, 0.0D);
+            var45.addVertexWithUV(128 + var46, -var46, 0.0D, 1.0D, 0.0D);
+            var45.addVertexWithUV(-var46, -var46, 0.0D, 0.0D, 0.0D);
             var45.draw();
             MapData var47 = Item.MAP.func_28012_a(var5, this.mc.theWorld);
             this.field_28131_f.func_28157_a(this.mc.thePlayer, this.mc.renderEngine, var47);

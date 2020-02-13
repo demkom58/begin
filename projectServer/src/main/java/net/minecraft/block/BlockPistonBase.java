@@ -10,7 +10,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.util.MathHelper;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class BlockPistonBase extends Block {
     private boolean isSticky;
@@ -116,6 +116,7 @@ public class BlockPistonBase extends Block {
         }
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         int var3 = getOrientation(var2);
         if (var3 > 5) {
@@ -127,14 +128,17 @@ public class BlockPistonBase extends Block {
         }
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         return false;
     }
 
+    @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving) {
         int var6 = determineOrientation(world, x, y, z, (EntityPlayer) entityLiving);
         world.setBlockMetadataWithNotify(x, y, z, var6);
@@ -144,6 +148,7 @@ public class BlockPistonBase extends Block {
 
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (!world.singleplayerWorld && !this.ignoreUpdates) {
             this.updatePistonState(world, var2, var3, var4);
@@ -151,6 +156,7 @@ public class BlockPistonBase extends Block {
 
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         if (!world.singleplayerWorld && world.getBlockTileEntity(x, y, z) == null) {
             this.updatePistonState(world, x, y, z);
@@ -204,6 +210,7 @@ public class BlockPistonBase extends Block {
         }
     }
 
+    @Override
     public void playBlock(World world, int var2, int var3, int var4, int var5, int var6) {
         this.ignoreUpdates = true;
         if (var5 == 0) {
@@ -267,6 +274,7 @@ public class BlockPistonBase extends Block {
         this.ignoreUpdates = false;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         int var5 = blockAccess.getBlockMetadata(var2, var3, var4);
         if (isExtended(var5)) {
@@ -295,11 +303,13 @@ public class BlockPistonBase extends Block {
 
     }
 
-    public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList<AxisAlignedBB> var6) {
+    @Override
+    public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, List<AxisAlignedBB> bbs) {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+        super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }

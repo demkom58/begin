@@ -10,11 +10,11 @@ public class BlockFence extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        if (var1.getBlockId(var2, var3 - 1, var4) == this.blockID) {
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        if (world.getBlockId(x, y - 1, z) == this.blockID) {
             return true;
         } else {
-            return var1.getBlockMaterial(var2, var3 - 1, var4).isSolid() && super.canPlaceBlockAt(var1, var2, var3, var4);
+            return world.getBlockMaterial(x, y - 1, z).isSolid() && super.canPlaceBlockAt(world, x, y, z);
         }
     }
 

@@ -15,11 +15,13 @@ public abstract class BlockContainer extends Block {
         IS_BLOCK_CONTAINER[var1] = true;
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         super.onBlockAdded(world, x, y, z);
         world.setBlockTileEntity(x, y, z, this.getBlockEntity());
     }
 
+    @Override
     public void onBlockRemoval(World world, int x, int y, int z) {
         super.onBlockRemoval(world, x, y, z);
         world.removeBlockTileEntity(x, y, z);

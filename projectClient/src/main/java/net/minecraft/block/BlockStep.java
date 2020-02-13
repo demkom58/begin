@@ -21,19 +21,19 @@ public class BlockStep extends Block {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        if (var2 == 0) {
-            return var1 <= 1 ? 6 : 5;
-        } else if (var2 == 1) {
-            if (var1 == 0) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (metadata == 0) {
+            return side <= 1 ? 6 : 5;
+        } else if (metadata == 1) {
+            if (side == 0) {
                 return 208;
             } else {
-                return var1 == 1 ? 176 : 192;
+                return side == 1 ? 176 : 192;
             }
-        } else if (var2 == 2) {
+        } else if (metadata == 2) {
             return 4;
         } else {
-            return var2 == 3 ? 16 : 6;
+            return metadata == 3 ? 16 : 6;
         }
     }
 
@@ -86,19 +86,19 @@ public class BlockStep extends Block {
     }
 
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
+    public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
         if (this != Block.STAIR_SINGLE) {
-            super.shouldSideBeRendered(var1, var2, var3, var4, var5);
+            super.shouldSideBeRendered(blockAccess, x, y, z, side);
         }
 
-        if (var5 == 1) {
+        if (side == 1) {
             return true;
-        } else if (!super.shouldSideBeRendered(var1, var2, var3, var4, var5)) {
+        } else if (!super.shouldSideBeRendered(blockAccess, x, y, z, side)) {
             return false;
-        } else if (var5 == 0) {
+        } else if (side == 0) {
             return true;
         } else {
-            return var1.getBlockId(var2, var3, var4) != this.blockID;
+            return blockAccess.getBlockId(x, y, z) != this.blockID;
         }
     }
 }

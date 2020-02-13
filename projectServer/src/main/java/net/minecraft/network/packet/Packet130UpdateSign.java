@@ -24,6 +24,7 @@ public class Packet130UpdateSign extends Packet {
         this.signLines = var4;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.xPosition = inputStream.readInt();
         this.yPosition = inputStream.readShort();
@@ -36,6 +37,7 @@ public class Packet130UpdateSign extends Packet {
 
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.xPosition);
         outputStream.writeShort(this.yPosition);
@@ -47,10 +49,12 @@ public class Packet130UpdateSign extends Packet {
 
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleUpdateSign(this);
     }
 
+    @Override
     public int getPacketSize() {
         int var1 = 0;
 

@@ -16,19 +16,23 @@ public class WorldChunkManagerHell extends WorldChunkManager {
         this.field_4260_g = var4;
     }
 
+    @Override
     public BiomeGenBase getBiomeGenAtChunkCoord(ChunkCoordIntPair pair) {
         return this.biomeGenBase;
     }
 
+    @Override
     public BiomeGenBase getBiomeGenAt(int x, int z) {
         return this.biomeGenBase;
     }
 
+    @Override
     public BiomeGenBase[] getBiomeGensAt(int x, int z, int var3, int var4) {
         this.biomeGenBases = this.loadBlockGeneratorData(this.biomeGenBases, x, z, var3, var4);
         return this.biomeGenBases;
     }
 
+    @Override
     public double[] getTemperatures(double[] var1, int var2, int var3, int var4, int var5) {
         if (var1 == null || var1.length < var4 * var5)
             var1 = new double[var4 * var5];
@@ -37,6 +41,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
         return var1;
     }
 
+    @Override
     public BiomeGenBase[] loadBlockGeneratorData(BiomeGenBase[] bases, int x, int z, int var4, int var5) {
         if (bases == null || bases.length < var4 * var5)
             bases = new BiomeGenBase[var4 * var5];

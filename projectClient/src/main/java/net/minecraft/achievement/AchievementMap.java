@@ -7,8 +7,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class AchievementMap {
-    public static AchievementMap instance = new AchievementMap();
-    private Int2ObjectMap<String> guidMap = new Int2ObjectRBTreeMap<>();
+    public static final AchievementMap instance = new AchievementMap();
+    private final Int2ObjectMap<String> guidMap = new Int2ObjectRBTreeMap<>();
 
     private AchievementMap() {
         try {

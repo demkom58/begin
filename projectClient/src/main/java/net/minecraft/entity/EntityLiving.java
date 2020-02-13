@@ -7,10 +7,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.material.Material;
 import net.minecraft.nbt.TagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.World;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3D;
+import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -30,8 +30,8 @@ public abstract class EntityLiving extends Entity {
     public float attackedAtYaw = 0.0F;
     public int deathTime = 0;
     public int attackTime = 0;
+    public float prevCameraPitch;
     public float cameraPitch;
-    public float field_9328_R;
     public int field_9326_T = -1;
     public float field_9325_U = (float) (Math.random() * 0.8999999761581421D + 0.10000000149011612D);
     public float field_705_Q;
@@ -45,7 +45,7 @@ public abstract class EntityLiving extends Entity {
     protected String texture = "/mob/char.png";
     protected boolean field_9355_A = true;
     protected float field_9353_B = 0.0F;
-    protected String field_9351_C = null;
+    protected String entityType = null;
     protected float field_9349_D = 1.0F;
     protected int scoreValue = 0;
     protected float field_9345_F = 0.0F;
@@ -56,7 +56,7 @@ public abstract class EntityLiving extends Entity {
     protected double newPosZ;
     protected double newRotationYaw;
     protected double newRotationPitch;
-    protected int field_9346_af = 0;
+    protected int naturalArmorRating = 0;
     protected int entityAge = 0;
     protected float moveStrafing;
     protected float moveForward;
@@ -69,8 +69,8 @@ public abstract class EntityLiving extends Entity {
     private int livingSoundTime;
     private Entity currentTarget;
 
-    public EntityLiving(World var1) {
-        super(var1);
+    public EntityLiving(World world) {
+        super(world);
         this.preventEntitySpawning = true;
         this.field_9363_r = (float) (Math.random() + 1.0D) * 0.01F;
         this.setPosition(this.posX, this.posY, this.posZ);
@@ -156,7 +156,7 @@ public abstract class EntityLiving extends Entity {
             this.air = this.maxAir;
         }
 
-        this.cameraPitch = this.field_9328_R;
+        this.prevCameraPitch = this.cameraPitch;
         if (this.attackTime > 0) {
             --this.attackTime;
         }
@@ -310,8 +310,8 @@ public abstract class EntityLiving extends Entity {
     }
 
     @Override
-    protected void setSize(float var1, float var2) {
-        super.setSize(var1, var2);
+    protected void setSize(float width, float height) {
+        super.setSize(width, height);
     }
 
     public void heal(int var1) {
@@ -327,63 +327,61 @@ public abstract class EntityLiving extends Entity {
 
     @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
-        if (this.worldObj.multiplayerWorld) {
+        if (this.worldObj.multiplayerWorld)
             return false;
-        } else {
-            this.entityAge = 0;
-            if (this.health <= 0) {
+
+        this.entityAge = 0;
+        if (this.health <= 0)
+            return false;
+
+        this.field_704_R = 1.5F;
+        boolean var3 = true;
+        if ((float) this.heartsLife > (float) this.heartsHalvesLife / 2.0F) {
+            if (var2 <= this.naturalArmorRating) {
                 return false;
+            }
+
+            this.damageEntity(var2 - this.naturalArmorRating);
+            this.naturalArmorRating = var2;
+            var3 = false;
+        } else {
+            this.naturalArmorRating = var2;
+            this.prevHealth = this.health;
+            this.heartsLife = this.heartsHalvesLife;
+            this.damageEntity(var2);
+            this.hurtTime = this.maxHurtTime = 10;
+        }
+
+        this.attackedAtYaw = 0.0F;
+        if (var3) {
+            this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 2);
+            this.setBeenAttacked();
+            if (var1 != null) {
+                double var4 = var1.posX - this.posX;
+
+                double var6;
+                for (var6 = var1.posZ - this.posZ; var4 * var4 + var6 * var6 < 1.0E-4D; var6 = (Math.random() - Math.random()) * 0.01D) {
+                    var4 = (Math.random() - Math.random()) * 0.01D;
+                }
+
+                this.attackedAtYaw = (float) (Math.atan2(var6, var4) * 180.0D / 3.1415927410125732D) - this.rotationYaw;
+                this.knockBack(var1, var2, var4, var6);
             } else {
-                this.field_704_R = 1.5F;
-                boolean var3 = true;
-                if ((float) this.heartsLife > (float) this.heartsHalvesLife / 2.0F) {
-                    if (var2 <= this.field_9346_af) {
-                        return false;
-                    }
-
-                    this.damageEntity(var2 - this.field_9346_af);
-                    this.field_9346_af = var2;
-                    var3 = false;
-                } else {
-                    this.field_9346_af = var2;
-                    this.prevHealth = this.health;
-                    this.heartsLife = this.heartsHalvesLife;
-                    this.damageEntity(var2);
-                    this.hurtTime = this.maxHurtTime = 10;
-                }
-
-                this.attackedAtYaw = 0.0F;
-                if (var3) {
-                    this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 2);
-                    this.setBeenAttacked();
-                    if (var1 != null) {
-                        double var4 = var1.posX - this.posX;
-
-                        double var6;
-                        for (var6 = var1.posZ - this.posZ; var4 * var4 + var6 * var6 < 1.0E-4D; var6 = (Math.random() - Math.random()) * 0.01D) {
-                            var4 = (Math.random() - Math.random()) * 0.01D;
-                        }
-
-                        this.attackedAtYaw = (float) (Math.atan2(var6, var4) * 180.0D / 3.1415927410125732D) - this.rotationYaw;
-                        this.knockBack(var1, var2, var4, var6);
-                    } else {
-                        this.attackedAtYaw = (float) ((int) (Math.random() * 2.0D) * 180);
-                    }
-                }
-
-                if (this.health <= 0) {
-                    if (var3) {
-                        this.worldObj.playSoundAtEntity(this, this.getDeathSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-                    }
-
-                    this.onDeath(var1);
-                } else if (var3) {
-                    this.worldObj.playSoundAtEntity(this, this.getHurtSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-                }
-
-                return true;
+                this.attackedAtYaw = (float) ((int) (Math.random() * 2.0D) * 180);
             }
         }
+
+        if (this.health <= 0) {
+            if (var3) {
+                this.worldObj.playSoundAtEntity(this, this.getDeathSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            }
+
+            this.onDeath(var1);
+        } else if (var3) {
+            this.worldObj.playSoundAtEntity(this, this.getHurtSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+        }
+
+        return true;
     }
 
     @Override
@@ -469,7 +467,7 @@ public abstract class EntityLiving extends Entity {
             int var3 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.posY - 0.20000000298023224D - (double) this.yOffset), MathHelper.floor(this.posZ));
             if (var3 > 0) {
                 StepSound var4 = Block.BLOCKS_LIST[var3].stepSound;
-                this.worldObj.playSoundAtEntity(this, var4.func_1145_d(), var4.getVolume() * 0.5F, var4.getPitch() * 0.75F);
+                this.worldObj.playSoundAtEntity(this, var4.getFormattedName(), var4.getVolume() * 0.5F, var4.getPitch() * 0.75F);
             }
         }
 
@@ -813,13 +811,13 @@ public abstract class EntityLiving extends Entity {
         this.attackEntityFrom(null, 4);
     }
 
-    public float getSwingProgress(float var1) {
+    public float getSwingProgress(float delta) {
         float var2 = this.swingProgress - this.prevSwingProgress;
         if (var2 < 0.0F) {
             ++var2;
         }
 
-        return this.prevSwingProgress + var2 * var1;
+        return this.prevSwingProgress + var2 * delta;
     }
 
     public Vec3D getPosition(float var1) {

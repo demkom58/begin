@@ -32,11 +32,11 @@ public class BlockFarmland extends Block {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        if (var1 == 1 && var2 > 0) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (side == 1 && metadata > 0) {
             return this.blockIndexInTexture - 1;
         } else {
-            return var1 == 1 ? this.blockIndexInTexture : 2;
+            return side == 1 ? this.blockIndexInTexture : 2;
         }
     }
 
@@ -58,9 +58,9 @@ public class BlockFarmland extends Block {
     }
 
     @Override
-    public void onEntityWalking(World var1, int var2, int var3, int var4, Entity var5) {
-        if (var1.rand.nextInt(4) == 0) {
-            var1.setBlockWithNotify(var2, var3, var4, Block.DIRT.blockID);
+    public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
+        if (world.rand.nextInt(4) == 0) {
+            world.setBlockWithNotify(x, y, z, Block.DIRT.blockID);
         }
 
     }

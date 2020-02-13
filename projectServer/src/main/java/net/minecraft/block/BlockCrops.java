@@ -16,10 +16,12 @@ public class BlockCrops extends BlockFlower {
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, 0.25F, 0.5F + var3);
     }
 
+    @Override
     protected boolean canThisPlantGrowOnThisBlockID(int var1) {
         return var1 == Block.FARMLAND.blockID;
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         super.updateTick(world, x, y, z, random);
         if (world.getBlockLightValue(x, y + 1, z) >= 9) {
@@ -79,6 +81,7 @@ public class BlockCrops extends BlockFlower {
         return var5;
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var2 < 0) {
             var2 = 7;
@@ -87,6 +90,7 @@ public class BlockCrops extends BlockFlower {
         return this.blockIndexInTexture + var2;
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float chance) {
         super.dropBlockAsItemWithChance(world, x, y, z, var5, chance);
         if (!world.singleplayerWorld) {
@@ -96,7 +100,7 @@ public class BlockCrops extends BlockFlower {
                     float var9 = world.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
                     float var10 = world.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
                     float var11 = world.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
-                    EntityItem var12 = new EntityItem(world, (double) ((float) x + var9), (double) ((float) y + var10), (double) ((float) z + var11), new ItemStack(Item.SEEDS));
+                    EntityItem var12 = new EntityItem(world, (float) x + var9, (float) y + var10, (float) z + var11, new ItemStack(Item.SEEDS));
                     var12.delayBeforeCanPickup = 10;
                     world.entityJoinedWorld(var12);
                 }
@@ -105,10 +109,12 @@ public class BlockCrops extends BlockFlower {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return var1 == 7 ? Item.WHEAT.shiftedIndex : -1;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 1;
     }

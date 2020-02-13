@@ -79,14 +79,14 @@ public class BlockFurnace extends BlockContainer {
     }
 
     @Override
-    public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        if (var5 == 1) {
+    public int getBlockTexture(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        if (side == 1) {
             return this.blockIndexInTexture + 17;
-        } else if (var5 == 0) {
+        } else if (side == 0) {
             return this.blockIndexInTexture + 17;
         } else {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
-            if (var5 != var6) {
+            int var6 = blockAccess.getBlockMetadata(x, y, z);
+            if (side != var6) {
                 return this.blockIndexInTexture;
             } else {
                 return this.isActive ? this.blockIndexInTexture + 16 : this.blockIndexInTexture - 1;
@@ -132,12 +132,12 @@ public class BlockFurnace extends BlockContainer {
     }
 
     @Override
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (var1.multiplayerWorld) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        if (world.multiplayerWorld) {
             return true;
         } else {
-            TileEntityFurnace var6 = (TileEntityFurnace) var1.getBlockTileEntity(var2, var3, var4);
-            var5.displayGUIFurnace(var6);
+            TileEntityFurnace var6 = (TileEntityFurnace) world.getBlockTileEntity(x, y, z);
+            player.displayGUIFurnace(var6);
             return true;
         }
     }
@@ -148,22 +148,22 @@ public class BlockFurnace extends BlockContainer {
     }
 
     @Override
-    public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
-        int var6 = MathHelper.floor((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity) {
+        int var6 = MathHelper.floor((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         if (var6 == 0) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 2);
+            world.setBlockMetadataWithNotify(x, y, z, 2);
         }
 
         if (var6 == 1) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 5);
+            world.setBlockMetadataWithNotify(x, y, z, 5);
         }
 
         if (var6 == 2) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 3);
+            world.setBlockMetadataWithNotify(x, y, z, 3);
         }
 
         if (var6 == 3) {
-            var1.setBlockMetadataWithNotify(var2, var3, var4, 4);
+            world.setBlockMetadataWithNotify(x, y, z, 4);
         }
 
     }

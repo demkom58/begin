@@ -120,7 +120,7 @@ public class RegionFile {
                     this.debugln("READ", var1, var2, "invalid sector");
                     return null;
                 } else {
-                    this.dataFile.seek((long) (var4 * 4096));
+                    this.dataFile.seek(var4 * 4096);
                     int var6 = this.dataFile.readInt();
                     if (var6 > 4096 * var5) {
                         this.debugln("READ", var1, var2, "invalid length: " + var6 + " > 4096 * " + var5);
@@ -229,7 +229,7 @@ public class RegionFile {
 
     private void write(int var1, byte[] var2, int var3) throws IOException {
         this.debugln(" " + var1);
-        this.dataFile.seek((long) (var1 * 4096));
+        this.dataFile.seek(var1 * 4096);
         this.dataFile.writeInt(var3 + 1);
         this.dataFile.writeByte(2);
         this.dataFile.write(var2, 0, var3);
@@ -249,13 +249,13 @@ public class RegionFile {
 
     private void setOffset(int var1, int var2, int var3) throws IOException {
         this.offsets[var1 + var2 * 32] = var3;
-        this.dataFile.seek((long) ((var1 + var2 * 32) * 4));
+        this.dataFile.seek((var1 + var2 * 32) * 4);
         this.dataFile.writeInt(var3);
     }
 
     private void setChunkTimestamp(int var1, int var2, int var3) throws IOException {
         this.chunkTimestamps[var1 + var2 * 32] = var3;
-        this.dataFile.seek((long) (4096 + (var1 + var2 * 32) * 4));
+        this.dataFile.seek(4096 + (var1 + var2 * 32) * 4);
         this.dataFile.writeInt(var3);
     }
 

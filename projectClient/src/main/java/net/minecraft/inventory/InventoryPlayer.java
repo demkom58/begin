@@ -320,7 +320,7 @@ public class InventoryPlayer implements IInventory {
             if (this.armorInventory[var2] != null && this.armorInventory[var2].getItem() instanceof ItemArmor) {
                 this.armorInventory[var2].damageItem(var1, this.player);
                 if (this.armorInventory[var2].stackSize == 0) {
-                    this.armorInventory[var2].func_1097_a(this.player);
+                    this.armorInventory[var2].onItemDestroyedByUse(this.player);
                     this.armorInventory[var2] = null;
                 }
             }

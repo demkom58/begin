@@ -15,8 +15,8 @@ public class BlockCake extends Block {
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
+        int var5 = blockAccess.getBlockMetadata(x, y, z);
         float var6 = 0.0625F;
         float var7 = (float) (1 + var5 * 2) / 16.0F;
         float var8 = 0.5F;
@@ -40,22 +40,22 @@ public class BlockCake extends Block {
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4);
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+        int var5 = world.getBlockMetadata(x, y, z);
         float var6 = 0.0625F;
         float var7 = (float) (1 + var5 * 2) / 16.0F;
         float var8 = 0.5F;
-        return AxisAlignedBB.getBoundingBoxFromPool((float) var2 + var7, var3, (float) var4 + var6, (float) (var2 + 1) - var6, (float) var3 + var8, (float) (var4 + 1) - var6);
+        return AxisAlignedBB.getBoundingBoxFromPool((float) x + var7, y, (float) z + var6, (float) (x + 1) - var6, (float) y + var8, (float) (z + 1) - var6);
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        if (var1 == 1) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (side == 1) {
             return this.blockIndexInTexture;
-        } else if (var1 == 0) {
+        } else if (side == 0) {
             return this.blockIndexInTexture + 3;
         } else {
-            return var2 > 0 && var1 == 4 ? this.blockIndexInTexture + 2 : this.blockIndexInTexture + 1;
+            return metadata > 0 && side == 4 ? this.blockIndexInTexture + 2 : this.blockIndexInTexture + 1;
         }
     }
 
@@ -79,14 +79,14 @@ public class BlockCake extends Block {
     }
 
     @Override
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        this.eatCakeSlice(var1, var2, var3, var4, var5);
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        this.eatCakeSlice(world, x, y, z, player);
         return true;
     }
 
     @Override
-    public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        this.eatCakeSlice(var1, var2, var3, var4, var5);
+    public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
+        this.eatCakeSlice(world, x, y, z, player);
     }
 
     private void eatCakeSlice(World var1, int var2, int var3, int var4, EntityPlayer var5) {
@@ -104,8 +104,8 @@ public class BlockCake extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return super.canPlaceBlockAt(var1, var2, var3, var4) && this.canBlockStay(var1, var2, var3, var4);
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        return super.canPlaceBlockAt(world, x, y, z) && this.canBlockStay(world, x, y, z);
     }
 
     @Override
@@ -118,8 +118,8 @@ public class BlockCake extends Block {
     }
 
     @Override
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        return var1.getBlockMaterial(var2, var3 - 1, var4).isSolid();
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        return world.getBlockMaterial(x, y - 1, z).isSolid();
     }
 
     @Override

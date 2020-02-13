@@ -39,10 +39,12 @@ public class BlockFurnace extends BlockContainer {
         var1.setBlockTileEntity(var2, var3, var4, var6);
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return Block.FURNACE.blockID;
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         super.onBlockAdded(world, x, y, z);
         this.setDefaultDirection(world, x, y, z);
@@ -75,6 +77,7 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
+    @Override
     public int getBlockTextureFromSide(int var1) {
         if (var1 == 1) {
             return this.blockIndexInTexture + 17;
@@ -85,6 +88,7 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
+    @Override
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         if (world.singleplayerWorld) {
             return true;
@@ -95,10 +99,12 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
+    @Override
     protected TileEntity getBlockEntity() {
         return new TileEntityFurnace();
     }
 
+    @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving) {
         int var6 = MathHelper.floor((double) (entityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         if (var6 == 0) {
@@ -119,6 +125,7 @@ public class BlockFurnace extends BlockContainer {
 
     }
 
+    @Override
     public void onBlockRemoval(World world, int x, int y, int z) {
         if (!field_28034_c) {
             TileEntityFurnace var5 = (TileEntityFurnace) world.getBlockTileEntity(x, y, z);
@@ -137,11 +144,11 @@ public class BlockFurnace extends BlockContainer {
                         }
 
                         var7.stackSize -= var11;
-                        EntityItem var12 = new EntityItem(world, (double) ((float) x + var8), (double) ((float) y + var9), (double) ((float) z + var10), new ItemStack(var7.itemID, var11, var7.getItemDamage()));
+                        EntityItem var12 = new EntityItem(world, (float) x + var8, (float) y + var9, (float) z + var10, new ItemStack(var7.itemID, var11, var7.getItemDamage()));
                         float var13 = 0.05F;
-                        var12.motionX = (double) ((float) this.field_28033_a.nextGaussian() * var13);
-                        var12.motionY = (double) ((float) this.field_28033_a.nextGaussian() * var13 + 0.2F);
-                        var12.motionZ = (double) ((float) this.field_28033_a.nextGaussian() * var13);
+                        var12.motionX = (float) this.field_28033_a.nextGaussian() * var13;
+                        var12.motionY = (float) this.field_28033_a.nextGaussian() * var13 + 0.2F;
+                        var12.motionZ = (float) this.field_28033_a.nextGaussian() * var13;
                         world.entityJoinedWorld(var12);
                     }
                 }

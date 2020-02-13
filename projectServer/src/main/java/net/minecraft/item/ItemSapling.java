@@ -7,6 +7,7 @@ public class ItemSapling extends ItemBlock {
         this.setHasSubtypes(true);
     }
 
+    @Override
     public int getMetadata(int var1) {
         return var1;
     }

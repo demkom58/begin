@@ -19,20 +19,24 @@ public class Packet39AttachEntity extends Packet {
         this.vehicleEntityId = var2 != null ? var2.entityId : -1;
     }
 
+    @Override
     public int getPacketSize() {
         return 8;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.entityId = inputStream.readInt();
         this.vehicleEntityId = inputStream.readInt();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.entityId);
         outputStream.writeInt(this.vehicleEntityId);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_6003_a(this);
     }

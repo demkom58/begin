@@ -17,18 +17,22 @@ public class Packet10Flying extends Packet {
     public boolean moving;
     public boolean rotating;
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleFlying(this);
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.onGround = inputStream.read() != 0;
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.write(this.onGround ? 1 : 0);
     }
 
+    @Override
     public int getPacketSize() {
         return 1;
     }

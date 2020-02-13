@@ -21,98 +21,126 @@ public class EmptyChunk extends Chunk {
         this.neverSave = true;
     }
 
+    @Override
     public boolean isAtLocation(int x, int z) {
         return x == this.xPosition && z == this.zPosition;
     }
 
+    @Override
     public int getHeightValue(int x, int z) {
         return 0;
     }
 
+    @Override
     public void func_348_a() {
     }
 
+    @Override
     public void generateHeightMap() {
     }
 
+    @Override
     public void func_4053_c() {
     }
 
+    @Override
     public int getBlockID(int var1, int var2, int var3) {
         return 0;
     }
 
+    @Override
     public boolean setBlockIDWithMetadata(int var1, int var2, int var3, int var4, int var5) {
         return true;
     }
 
+    @Override
     public boolean setBlockID(int var1, int var2, int var3, int var4) {
         return true;
     }
 
+    @Override
     public int getBlockMetadata(int var1, int var2, int var3) {
         return 0;
     }
 
+    @Override
     public void setBlockMetadata(int var1, int var2, int var3, int var4) {
     }
 
+    @Override
     public int getSavedLightValue(EnumSkyBlock var1, int var2, int var3, int var4) {
         return 0;
     }
 
+    @Override
     public void setLightValue(EnumSkyBlock var1, int var2, int var3, int var4, int var5) {
     }
 
+    @Override
     public int getBlockLightValue(int var1, int var2, int var3, int var4) {
         return 0;
     }
 
+    @Override
     public void addEntity(Entity var1) {
     }
 
+    @Override
     public void removeEntity(Entity var1) {
     }
 
+    @Override
     public void removeEntityAtIndex(Entity var1, int var2) {
     }
 
+    @Override
     public boolean canBlockSeeTheSky(int var1, int var2, int var3) {
         return false;
     }
 
+    @Override
     public TileEntity getChunkBlockTileEntity(int var1, int var2, int var3) {
         return null;
     }
 
+    @Override
     public void addTileEntity(TileEntity var1) {
     }
 
+    @Override
     public void setChunkBlockTileEntity(int var1, int var2, int var3, TileEntity var4) {
     }
 
+    @Override
     public void removeChunkBlockTileEntity(int var1, int var2, int var3) {
     }
 
+    @Override
     public void onChunkLoad() {
     }
 
+    @Override
     public void onChunkUnload() {
     }
 
+    @Override
     public void setChunkModified() {
     }
 
+    @Override
     public void getEntitiesWithinAABBForEntity(Entity var1, AxisAlignedBB var2, List<Entity> var3) {
     }
 
+    @Override
     public void getEntitiesOfTypeWithinAAAB(Class var1, AxisAlignedBB var2, List<Entity> var3) {
     }
 
+    @Override
     public boolean needsSaving(boolean var1) {
         return false;
     }
 
+    @Override
     public int getChunkData(byte[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
         int var9 = var5 - var2;
         int var10 = var6 - var3;
@@ -123,10 +151,12 @@ public class EmptyChunk extends Chunk {
         return var13;
     }
 
+    @Override
     public Random func_334_a(long var1) {
         return new Random(this.worldObj.getRandomSeed() + (long) (this.xPosition * this.xPosition * 4987142) + (long) (this.xPosition * 5947611) + (long) (this.zPosition * this.zPosition) * 4392871L + (long) (this.zPosition * 389711) ^ var1);
     }
 
+    @Override
     public boolean func_21101_g() {
         return true;
     }

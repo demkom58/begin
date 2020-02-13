@@ -29,6 +29,7 @@ public class Packet5PlayerInventory extends Packet {
 
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.entityID = inputStream.readInt();
         this.slot = inputStream.readShort();
@@ -36,6 +37,7 @@ public class Packet5PlayerInventory extends Packet {
         this.itemDamage = inputStream.readShort();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.entityID);
         outputStream.writeShort(this.slot);
@@ -43,10 +45,12 @@ public class Packet5PlayerInventory extends Packet {
         outputStream.writeShort(this.itemDamage);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handlePlayerInventory(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 8;
     }

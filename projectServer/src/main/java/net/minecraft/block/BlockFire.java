@@ -16,6 +16,7 @@ public class BlockFire extends Block {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public void setFireBurnRates() {
         this.setBurnRate(Block.PLANKS.blockID, 5, 20);
         this.setBurnRate(Block.FENCE.blockID, 5, 20);
@@ -33,26 +34,32 @@ public class BlockFire extends Block {
         this.abilityToCatchFire[var1] = var3;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public int tickRate() {
         return 40;
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         boolean var6 = world.getBlockId(x, y - 1, z) == Block.BLOOD_STONE.blockID;
         if (!this.canPlaceBlockAt(world, x, y, z)) {
@@ -166,6 +173,7 @@ public class BlockFire extends Block {
         }
     }
 
+    @Override
     public boolean isCollidable() {
         return false;
     }
@@ -176,19 +184,22 @@ public class BlockFire extends Block {
 
     public int getChanceToEncourageFire(World var1, int var2, int var3, int var4, int var5) {
         int var6 = this.chanceToEncourageFire[var1.getBlockId(var2, var3, var4)];
-        return var6 > var5 ? var6 : var5;
+        return Math.max(var6, var5);
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return world.isBlockNormalCube(var2, var3 - 1, var4) || this.func_268_g(world, var2, var3, var4);
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (!world.isBlockNormalCube(var2, var3 - 1, var4) && !this.func_268_g(world, var2, var3, var4)) {
             world.setBlockWithNotify(var2, var3, var4, 0);
         }
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         if (world.getBlockId(x, y - 1, z) != Block.OBSIDIAN.blockID || !Block.PORTAL.tryToCreatePortal(world, x, y, z)) {
             if (!world.isBlockNormalCube(x, y - 1, z) && !this.func_268_g(world, x, y, z)) {

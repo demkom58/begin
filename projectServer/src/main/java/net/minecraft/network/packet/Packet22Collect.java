@@ -18,20 +18,24 @@ public class Packet22Collect extends Packet {
         this.collectorEntityId = var2;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.collectedEntityId = inputStream.readInt();
         this.collectorEntityId = inputStream.readInt();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.collectedEntityId);
         outputStream.writeInt(this.collectorEntityId);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleCollect(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 8;
     }

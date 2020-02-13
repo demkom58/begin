@@ -19,26 +19,30 @@ public class EntityTNTPrimed extends Entity {
         this(var1);
         this.setPosition(var2, var4, var6);
         float var8 = (float) (Math.random() * 3.1415927410125732D * 2.0D);
-        this.motionX = (double) (-MathHelper.sin(var8 * 3.1415927F / 180.0F) * 0.02F);
+        this.motionX = -MathHelper.sin(var8 * 3.1415927F / 180.0F) * 0.02F;
         this.motionY = 0.20000000298023224D;
-        this.motionZ = (double) (-MathHelper.cos(var8 * 3.1415927F / 180.0F) * 0.02F);
+        this.motionZ = -MathHelper.cos(var8 * 3.1415927F / 180.0F) * 0.02F;
         this.fuse = 80;
         this.prevPosX = var2;
         this.prevPosY = var4;
         this.prevPosZ = var6;
     }
 
+    @Override
     protected void entityInit() {
     }
 
-    protected boolean func_25017_l() {
+    @Override
+    protected boolean canTriggerWalking() {
         return false;
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
 
+    @Override
     public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
@@ -72,10 +76,12 @@ public class EntityTNTPrimed extends Entity {
         this.worldObj.createExplosion(null, this.posX, this.posY, this.posZ, var1);
     }
 
+    @Override
     protected void writeEntityToNBT(TagCompound var1) {
         var1.setByte("Fuse", (byte) this.fuse);
     }
 
+    @Override
     protected void readEntityFromNBT(TagCompound var1) {
         this.fuse = var1.getByte("Fuse");
     }

@@ -12,14 +12,17 @@ public class BlockSnowBlock extends Block {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return Item.SNOWBALL.shiftedIndex;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 4;
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (world.getSavedLightValue(EnumSkyBlock.BLOCK, x, y, z) > 11) {
             this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));

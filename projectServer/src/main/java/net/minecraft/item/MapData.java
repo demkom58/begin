@@ -24,6 +24,7 @@ public class MapData extends MapDataBase {
         super(var1);
     }
 
+    @Override
     public void func_28148_a(TagCompound compound) {
         this.dimension = compound.getByte("dimension");
         this.xCenter = compound.getInteger("xCenter");
@@ -62,6 +63,7 @@ public class MapData extends MapDataBase {
 
     }
 
+    @Override
     public void func_28147_b(TagCompound compound) {
         compound.setByte("dimension", this.dimension);
         compound.setInteger("xCenter", this.xCenter);

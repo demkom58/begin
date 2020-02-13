@@ -5,7 +5,7 @@ import net.minecraft.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.util.AxisAlignedBB;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BlockPistonExtension extends Block {
@@ -21,6 +21,7 @@ public class BlockPistonExtension extends Block {
         return var0 & 7;
     }
 
+    @Override
     public void onBlockRemoval(World world, int x, int y, int z) {
         super.onBlockRemoval(world, x, y, z);
         int var5 = world.getBlockMetadata(x, y, z);
@@ -39,6 +40,7 @@ public class BlockPistonExtension extends Block {
 
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         int var3 = func_31045_b(var2);
         if (var1 == var3) {
@@ -52,69 +54,76 @@ public class BlockPistonExtension extends Block {
         }
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int var5) {
         return false;
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
-    public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, ArrayList<AxisAlignedBB> var6) {
+    @Override
+    public void getCollidingBoundingBoxes(World var1, int var2, int var3, int var4, AxisAlignedBB var5, List<AxisAlignedBB> bbs) {
         int var7 = var1.getBlockMetadata(var2, var3, var4);
         switch (func_31045_b(var7)) {
             case 0:
                 this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
                 this.setBlockBounds(0.375F, 0.25F, 0.375F, 0.625F, 1.0F, 0.625F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
                 break;
             case 1:
                 this.setBlockBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
                 this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 0.75F, 0.625F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
                 break;
             case 2:
                 this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
                 this.setBlockBounds(0.25F, 0.375F, 0.25F, 0.75F, 0.625F, 1.0F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
                 break;
             case 3:
                 this.setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
                 this.setBlockBounds(0.25F, 0.375F, 0.0F, 0.75F, 0.625F, 0.75F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
                 break;
             case 4:
                 this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
                 this.setBlockBounds(0.375F, 0.25F, 0.25F, 0.625F, 0.75F, 1.0F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
                 break;
             case 5:
                 this.setBlockBounds(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
                 this.setBlockBounds(0.0F, 0.375F, 0.25F, 0.75F, 0.625F, 0.75F);
-                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
+                super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, bbs);
         }
 
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         int var5 = blockAccess.getBlockMetadata(var2, var3, var4);
         switch (func_31045_b(var5)) {
@@ -139,6 +148,7 @@ public class BlockPistonExtension extends Block {
 
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         int var6 = func_31045_b(world.getBlockMetadata(var2, var3, var4));
         int var7 = world.getBlockId(var2 - PistonBlockTextures.field_31051_b[var6], var3 - PistonBlockTextures.field_31054_c[var6], var4 - PistonBlockTextures.field_31053_d[var6]);

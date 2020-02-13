@@ -9,9 +9,11 @@ public class EntityFlying extends EntityLiving {
         super(var1);
     }
 
+    @Override
     protected void fall(float var1) {
     }
 
+    @Override
     public void moveEntityWithHeading(float var1, float var2) {
         if (this.isInWater()) {
             this.moveFlying(var1, var2, 0.02F);
@@ -47,9 +49,9 @@ public class EntityFlying extends EntityLiving {
             }
 
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
-            this.motionX *= (double) var3;
-            this.motionY *= (double) var3;
-            this.motionZ *= (double) var3;
+            this.motionX *= var3;
+            this.motionY *= var3;
+            this.motionZ *= var3;
         }
 
         this.field_9142_bc = this.field_9141_bd;
@@ -64,6 +66,7 @@ public class EntityFlying extends EntityLiving {
         this.field_386_ba += this.field_9141_bd;
     }
 
+    @Override
     public boolean isOnLadder() {
         return false;
     }

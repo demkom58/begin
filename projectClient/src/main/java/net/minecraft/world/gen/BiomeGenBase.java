@@ -25,7 +25,7 @@ public class BiomeGenBase {
     public static final BiomeGenBase TUNDRA = new BiomeGenBase().setColor(5762041).setBiomeName("Tundra").setEnableSnow().func_4124_a(12899129);
     public static final BiomeGenBase HELL = new BiomeGenHell().setColor(16711680).setBiomeName("Hell").setDisableRain();
     public static final BiomeGenBase SKY = new BiomeGenSky().setColor(8421631).setBiomeName("Sky").setDisableRain();
-    private static BiomeGenBase[] biomeLookupTable = new BiomeGenBase[4096];
+    private static final BiomeGenBase[] biomeLookupTable = new BiomeGenBase[4096];
 
     static {
         generateBiomeLookup();
@@ -134,17 +134,15 @@ public class BiomeGenBase {
         return this;
     }
 
-    public int getSkyColorByTemp(float var1) {
-        var1 = var1 / 3.0F;
-        if (var1 < -1.0F) {
-            var1 = -1.0F;
-        }
+    public int getSkyColorByTemp(float temp) {
+        temp = temp / 3.0F;
+        if (temp < -1.0F)
+            temp = -1.0F;
 
-        if (var1 > 1.0F) {
-            var1 = 1.0F;
-        }
+        if (temp > 1.0F)
+            temp = 1.0F;
 
-        return Color.getHSBColor(0.62222224F - var1 * 0.05F, 0.5F + var1 * 0.1F, 1.0F).getRGB();
+        return Color.getHSBColor(0.62222224F - temp * 0.05F, 0.5F + temp * 0.1F, 1.0F).getRGB();
     }
 
     public List<SpawnListEntry> getSpawnableList(EnumCreatureType type) {

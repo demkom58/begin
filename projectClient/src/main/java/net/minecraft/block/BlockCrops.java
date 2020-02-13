@@ -82,12 +82,12 @@ public class BlockCrops extends BlockFlower {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        if (var2 < 0) {
-            var2 = 7;
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (metadata < 0) {
+            metadata = 7;
         }
 
-        return this.blockIndexInTexture + var2;
+        return this.blockIndexInTexture + metadata;
     }
 
     @Override
@@ -96,18 +96,18 @@ public class BlockCrops extends BlockFlower {
     }
 
     @Override
-    public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
-        super.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, var6);
-        if (!var1.multiplayerWorld) {
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float failChance) {
+        super.dropBlockAsItemWithChance(world, x, y, z, var5, failChance);
+        if (!world.multiplayerWorld) {
             for (int var7 = 0; var7 < 3; ++var7) {
-                if (var1.rand.nextInt(15) <= var5) {
+                if (world.rand.nextInt(15) <= var5) {
                     float var8 = 0.7F;
-                    float var9 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
-                    float var10 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
-                    float var11 = var1.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
-                    EntityItem var12 = new EntityItem(var1, (float) var2 + var9, (float) var3 + var10, (float) var4 + var11, new ItemStack(Item.SEEDS));
+                    float var9 = world.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
+                    float var10 = world.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
+                    float var11 = world.rand.nextFloat() * var8 + (1.0F - var8) * 0.5F;
+                    EntityItem var12 = new EntityItem(world, (float) x + var9, (float) y + var10, (float) z + var11, new ItemStack(Item.SEEDS));
                     var12.delayBeforeCanPickup = 10;
-                    var1.entityJoinedWorld(var12);
+                    world.entityJoinedWorld(var12);
                 }
             }
 

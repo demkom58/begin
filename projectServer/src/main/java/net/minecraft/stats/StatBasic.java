@@ -9,6 +9,7 @@ public class StatBasic extends StatBase {
         super(var1, var2);
     }
 
+    @Override
     public StatBase func_27053_d() {
         super.func_27053_d();
         StatList.field_25122_b.add(this);

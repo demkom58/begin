@@ -40,10 +40,12 @@ public class ContainerWorkbench extends Container {
         this.onCraftMatrixChanged(this.craftMatrix);
     }
 
+    @Override
     public void onCraftMatrixChanged(IInventory var1) {
         this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix));
     }
 
+    @Override
     public void onCraftGuiClosed(EntityPlayer var1) {
         super.onCraftGuiClosed(var1);
         if (!this.field_20150_c.singleplayerWorld) {
@@ -57,6 +59,7 @@ public class ContainerWorkbench extends Container {
         }
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer var1) {
         if (this.field_20150_c.getBlockId(this.field_20149_h, this.field_20148_i, this.field_20147_j) != Block.WORKBENCH.blockID) {
             return false;
@@ -65,6 +68,7 @@ public class ContainerWorkbench extends Container {
         }
     }
 
+    @Override
     public ItemStack func_27086_a(int var1) {
         ItemStack var2 = null;
         Slot var3 = this.inventorySlots.get(var1);

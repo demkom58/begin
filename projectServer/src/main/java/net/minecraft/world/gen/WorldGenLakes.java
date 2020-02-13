@@ -14,6 +14,7 @@ public class WorldGenLakes extends WorldGenerator {
         this.field_15005_a = var1;
     }
 
+    @Override
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
         var3 = var3 - 8;
 

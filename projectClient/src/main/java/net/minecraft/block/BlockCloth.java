@@ -16,12 +16,12 @@ public class BlockCloth extends Block {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        if (var2 == 0) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (metadata == 0) {
             return this.blockIndexInTexture;
         } else {
-            var2 = ~(var2 & 15);
-            return 113 + ((var2 & 8) >> 3) + (var2 & 7) * 16;
+            metadata = ~(metadata & 15);
+            return 113 + ((metadata & 8) >> 3) + (metadata & 7) * 16;
         }
     }
 

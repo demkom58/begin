@@ -18,20 +18,24 @@ public class Packet200Statistic extends Packet {
         this.field_27040_b = var2;
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_27001_a(this);
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.field_27041_a = inputStream.readInt();
         this.field_27040_b = inputStream.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.field_27041_a);
         outputStream.writeByte(this.field_27040_b);
     }
 
+    @Override
     public int getPacketSize() {
         return 6;
     }

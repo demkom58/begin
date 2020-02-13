@@ -72,7 +72,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.currentCraftingInventory = this.personalCraftingInventory;
         this.yOffset = 1.62F;
         ChunkCoordinates var2 = var1.getSpawnPoint();
-        this.setLocationAndAngles((double) var2.posX + 0.5D, (double) (var2.posY + 1), (double) var2.posZ + 0.5D, 0.0F, 0.0F);
+        this.setLocationAndAngles((double) var2.posX + 0.5D, var2.posY + 1, (double) var2.posZ + 0.5D, 0.0F, 0.0F);
         this.health = 20;
         this.entityType = "humanoid";
         this.field_9117_aI = 180.0F;
@@ -94,11 +94,13 @@ public abstract class EntityPlayer extends EntityLiving {
         }
     }
 
+    @Override
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(16, (byte) 0);
     }
 
+    @Override
     public void onUpdate() {
         if (this.isSleeping()) {
             ++this.sleepTimer;
@@ -167,6 +169,7 @@ public abstract class EntityPlayer extends EntityLiving {
 
     }
 
+    @Override
     protected boolean isMovementBlocked() {
         return this.health <= 0 || this.isSleeping();
     }
@@ -175,6 +178,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.currentCraftingInventory = this.personalCraftingInventory;
     }
 
+    @Override
     public void updateRidden() {
         double var1 = this.posX;
         double var3 = this.posY;
@@ -185,6 +189,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.func_27015_h(this.posX - var1, this.posY - var3, this.posZ - var5);
     }
 
+    @Override
     protected void updatePlayerActionState() {
         if (this.isSwinging) {
             ++this.swingProgressInt;
@@ -199,6 +204,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.swingProgress = (float) this.swingProgressInt / 8.0F;
     }
 
+    @Override
     public void onLivingUpdate() {
         if (this.worldObj.difficultySetting == 0 && this.health < 20 && this.ticksExisted % 20 * 12 == 0) {
             this.heal(1);
@@ -222,7 +228,7 @@ public abstract class EntityPlayer extends EntityLiving {
         }
 
         this.field_9149_ap += (var1 - this.field_9149_ap) * 0.4F;
-        this.field_9101_aY += (var2 - this.field_9101_aY) * 0.8F;
+        this.cameraPitch += (var2 - this.cameraPitch) * 0.8F;
         if (this.health > 0) {
             List<Entity> var3 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(1.0D, 0.0D, 1.0D));
             if (var3 != null) {
@@ -241,6 +247,7 @@ public abstract class EntityPlayer extends EntityLiving {
         var1.onCollideWithPlayer(this);
     }
 
+    @Override
     public void onDeath(Entity var1) {
         super.onDeath(var1);
         this.setSize(0.2F, 0.2F);
@@ -252,8 +259,8 @@ public abstract class EntityPlayer extends EntityLiving {
 
         this.inventory.dropAllItems();
         if (var1 != null) {
-            this.motionX = (double) (-MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * 3.1415927F / 180.0F) * 0.1F);
-            this.motionZ = (double) (-MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * 3.1415927F / 180.0F) * 0.1F);
+            this.motionX = -MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * 3.1415927F / 180.0F) * 0.1F;
+            this.motionZ = -MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * 3.1415927F / 180.0F) * 0.1F;
         } else {
             this.motionX = this.motionZ = 0.0D;
         }
@@ -262,6 +269,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.addStat(StatList.field_25098_u, 1);
     }
 
+    @Override
     public void addToPlayerScore(Entity var1, int var2) {
         this.score += var2;
         if (var1 instanceof EntityPlayer) {
@@ -288,20 +296,20 @@ public abstract class EntityPlayer extends EntityLiving {
             if (var2) {
                 float var5 = this.rand.nextFloat() * 0.5F;
                 float var6 = this.rand.nextFloat() * 3.1415927F * 2.0F;
-                var3.motionX = (double) (-MathHelper.sin(var6) * var5);
-                var3.motionZ = (double) (MathHelper.cos(var6) * var5);
+                var3.motionX = -MathHelper.sin(var6) * var5;
+                var3.motionZ = MathHelper.cos(var6) * var5;
                 var3.motionY = 0.20000000298023224D;
             } else {
                 var4 = 0.3F;
-                var3.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var4);
-                var3.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var4);
-                var3.motionY = (double) (-MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F) * var4 + 0.1F);
+                var3.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var4;
+                var3.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var4;
+                var3.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F) * var4 + 0.1F;
                 var4 = 0.02F;
                 float var10 = this.rand.nextFloat() * 3.1415927F * 2.0F;
                 var4 = var4 * this.rand.nextFloat();
-                var3.motionX += Math.cos((double) var10) * (double) var4;
-                var3.motionY += (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
-                var3.motionZ += Math.sin((double) var10) * (double) var4;
+                var3.motionX += Math.cos(var10) * (double) var4;
+                var3.motionY += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F;
+                var3.motionZ += Math.sin(var10) * (double) var4;
             }
 
             this.joinEntityItemWithWorld(var3);
@@ -330,6 +338,7 @@ public abstract class EntityPlayer extends EntityLiving {
         return this.inventory.canHarvestBlock(var1);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
         TagList var2 = var1.getTagList("Inventory");
@@ -348,6 +357,7 @@ public abstract class EntityPlayer extends EntityLiving {
 
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
         var1.setTag("Inventory", this.inventory.writeToNBT(new TagList()));
@@ -371,6 +381,7 @@ public abstract class EntityPlayer extends EntityLiving {
     public void onItemPickup(Entity var1, int var2) {
     }
 
+    @Override
     public float getEyeHeight() {
         return 0.12F;
     }
@@ -379,8 +390,9 @@ public abstract class EntityPlayer extends EntityLiving {
         this.yOffset = 1.62F;
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
-        this.age = 0;
+        this.entityAge = 0;
         if (this.health <= 0) {
             return false;
         } else {
@@ -446,6 +458,7 @@ public abstract class EntityPlayer extends EntityLiving {
         }
     }
 
+    @Override
     protected void damageEntity(int var1) {
         int var2 = 25 - this.inventory.getTotalArmorValue();
         int var3 = var1 * var2 + this.damageRemainder;
@@ -486,8 +499,9 @@ public abstract class EntityPlayer extends EntityLiving {
         this.inventory.setInventorySlotContents(this.inventory.currentItem, null);
     }
 
+    @Override
     public double getYOffset() {
-        return (double) (this.yOffset - 0.5F);
+        return this.yOffset - 0.5F;
     }
 
     public void swingItem() {
@@ -526,6 +540,7 @@ public abstract class EntityPlayer extends EntityLiving {
     public void onItemStackChanged(ItemStack var1) {
     }
 
+    @Override
     public void setEntityDead() {
         super.setEntityDead();
         this.personalCraftingInventory.onCraftGuiClosed(this);
@@ -535,6 +550,7 @@ public abstract class EntityPlayer extends EntityLiving {
 
     }
 
+    @Override
     public boolean isEntityInsideOpaqueBlock() {
         return !this.sleeping && super.isEntityInsideOpaqueBlock();
     }
@@ -580,9 +596,9 @@ public abstract class EntityPlayer extends EntityLiving {
             }
 
             this.func_22059_e(var5);
-            this.setPosition((double) ((float) var1 + var6), (double) ((float) var2 + 0.9375F), (double) ((float) var3 + var7));
+            this.setPosition((float) var1 + var6, (float) var2 + 0.9375F, (float) var3 + var7);
         } else {
-            this.setPosition((double) ((float) var1 + 0.5F), (double) ((float) var2 + 0.9375F), (double) ((float) var3 + 0.5F));
+            this.setPosition((float) var1 + 0.5F, (float) var2 + 0.9375F, (float) var3 + 0.5F);
         }
 
         this.sleeping = true;
@@ -627,7 +643,7 @@ public abstract class EntityPlayer extends EntityLiving {
                 var5 = new ChunkCoordinates(var4.posX, var4.posY + 1, var4.posZ);
             }
 
-            this.setPosition((double) ((float) var5.posX + 0.5F), (double) ((float) var5.posY + this.yOffset + 0.1F), (double) ((float) var5.posZ + 0.5F));
+            this.setPosition((float) var5.posX + 0.5F, (float) var5.posY + this.yOffset + 0.1F, (float) var5.posZ + 0.5F);
         }
 
         this.sleeping = false;
@@ -651,6 +667,7 @@ public abstract class EntityPlayer extends EntityLiving {
         return this.worldObj.getBlockId(this.playerLocation.posX, this.playerLocation.posY, this.playerLocation.posZ) == Block.BED.blockID;
     }
 
+    @Override
     public boolean isSleeping() {
         return this.sleeping;
     }
@@ -682,11 +699,13 @@ public abstract class EntityPlayer extends EntityLiving {
     public void addStat(StatBase var1, int var2) {
     }
 
+    @Override
     protected void jump() {
         super.jump();
         this.addStat(StatList.field_25106_q, 1);
     }
 
+    @Override
     public void moveEntityWithHeading(float var1, float var2) {
         double var3 = this.posX;
         double var5 = this.posY;
@@ -747,6 +766,7 @@ public abstract class EntityPlayer extends EntityLiving {
 
     }
 
+    @Override
     protected void fall(float var1) {
         if (var1 >= 2.0F) {
             this.addStat(StatList.field_25111_m, (int) Math.round((double) var1 * 100.0D));
@@ -755,6 +775,7 @@ public abstract class EntityPlayer extends EntityLiving {
         super.fall(var1);
     }
 
+    @Override
     public void func_27010_a(EntityLiving var1) {
         if (var1 instanceof EntityMob) {
             this.func_27017_a(AchievementList.killEnemy);
@@ -762,6 +783,7 @@ public abstract class EntityPlayer extends EntityLiving {
 
     }
 
+    @Override
     public void setInPortal() {
         if (this.timeUntilPortal > 0) {
             this.timeUntilPortal = 10;

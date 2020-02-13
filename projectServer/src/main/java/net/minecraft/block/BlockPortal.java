@@ -13,10 +13,12 @@ public class BlockPortal extends BlockBreakable {
         super(var1, var2, Material.PORTAL, false);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         if (blockAccess.getBlockId(var2 - 1, var3, var4) != this.blockID && blockAccess.getBlockId(var2 + 1, var3, var4) != this.blockID) {
             float var7 = 0.125F;
@@ -30,10 +32,12 @@ public class BlockPortal extends BlockBreakable {
 
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
@@ -86,6 +90,7 @@ public class BlockPortal extends BlockBreakable {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         byte var6 = 0;
         byte var7 = 1;
@@ -119,10 +124,12 @@ public class BlockPortal extends BlockBreakable {
         }
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return 0;
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World world, int var2, int var3, int var4, Entity entity) {
         if (entity.ridingEntity == null && entity.riddenByEntity == null) {
             entity.setInPortal();

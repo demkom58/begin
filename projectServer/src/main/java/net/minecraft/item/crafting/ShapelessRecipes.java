@@ -15,10 +15,12 @@ public class ShapelessRecipes implements IRecipe {
         this.recipe = recipe;
     }
 
+    @Override
     public ItemStack getRecipeOutput() {
         return this.craftingResult;
     }
 
+    @Override
     public boolean matches(InventoryCrafting inventoryCrafting) {
         List<ItemStack> var2 = new ArrayList<>(this.recipe);
 
@@ -47,10 +49,12 @@ public class ShapelessRecipes implements IRecipe {
     }
 
 
+    @Override
     public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
         return this.craftingResult.copy();
     }
 
+    @Override
     public int getRecipeSize() {
         return this.recipe.size();
     }

@@ -9,6 +9,7 @@ public class ItemMapBase extends Item {
         super(var1);
     }
 
+    @Override
     public boolean func_28019_b() {
         return true;
     }

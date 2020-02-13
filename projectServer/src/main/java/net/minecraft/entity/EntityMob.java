@@ -14,15 +14,17 @@ public class EntityMob extends EntityCreature implements IMob {
         this.health = 20;
     }
 
+    @Override
     public void onLivingUpdate() {
         float var1 = this.getEntityBrightness(1.0F);
         if (var1 > 0.5F) {
-            this.age += 2;
+            this.entityAge += 2;
         }
 
         super.onLivingUpdate();
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         if (!this.worldObj.singleplayerWorld && this.worldObj.difficultySetting == 0) {
@@ -31,11 +33,13 @@ public class EntityMob extends EntityCreature implements IMob {
 
     }
 
+    @Override
     protected Entity findPlayerToAttack() {
         EntityPlayer var1 = this.worldObj.getClosestPlayerToEntity(this, 16.0D);
         return var1 != null && this.canEntityBeSeen(var1) ? var1 : null;
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         if (super.attackEntityFrom(var1, var2)) {
             if (this.riddenByEntity != var1 && this.ridingEntity != var1) {
@@ -52,6 +56,7 @@ public class EntityMob extends EntityCreature implements IMob {
         }
     }
 
+    @Override
     protected void attackEntity(Entity var1, float var2) {
         if (this.attackTime <= 0 && var2 < 2.0F && var1.boundingBox.maxY > this.boundingBox.minY && var1.boundingBox.minY < this.boundingBox.maxY) {
             this.attackTime = 20;
@@ -60,18 +65,22 @@ public class EntityMob extends EntityCreature implements IMob {
 
     }
 
+    @Override
     protected float getBlockPathWeight(int var1, int var2, int var3) {
         return 0.5F - this.worldObj.getLightBrightness(var1, var2, var3);
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         super.writeEntityToNBT(var1);
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         super.readEntityFromNBT(var1);
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         int var1 = MathHelper.floor(this.posX);
         int var2 = MathHelper.floor(this.boundingBox.minY);

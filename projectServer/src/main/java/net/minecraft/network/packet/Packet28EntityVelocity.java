@@ -52,6 +52,7 @@ public class Packet28EntityVelocity extends Packet {
         this.motionZ = (int) (var6 * 8000.0D);
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.entityId = inputStream.readInt();
         this.motionX = inputStream.readShort();
@@ -59,6 +60,7 @@ public class Packet28EntityVelocity extends Packet {
         this.motionZ = inputStream.readShort();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.entityId);
         outputStream.writeShort(this.motionX);
@@ -66,10 +68,12 @@ public class Packet28EntityVelocity extends Packet {
         outputStream.writeShort(this.motionZ);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_6002_a(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 10;
     }

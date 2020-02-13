@@ -16,6 +16,7 @@ public class BlockReed extends Block {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (world.isAirBlock(x, y + 1, z)) {
             int var6;
@@ -35,6 +36,7 @@ public class BlockReed extends Block {
 
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         int var5 = world.getBlockId(var2, var3 - 1, var4);
         if (var5 == this.blockID) {
@@ -52,6 +54,7 @@ public class BlockReed extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         this.checkBlockCoordValid(world, var2, var3, var4);
     }
@@ -64,22 +67,27 @@ public class BlockReed extends Block {
 
     }
 
+    @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
         return this.canPlaceBlockAt(world, x, y, z);
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return Item.REEDS.shiftedIndex;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }

@@ -12,6 +12,7 @@ public class BlockMushroom extends BlockFlower {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (random.nextInt(100) == 0) {
             int var6 = x + random.nextInt(3) - 1;
@@ -28,10 +29,12 @@ public class BlockMushroom extends BlockFlower {
 
     }
 
+    @Override
     protected boolean canThisPlantGrowOnThisBlockID(int var1) {
         return Block.OPAQUE_CUBE_LOOKUP[var1];
     }
 
+    @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
         if (y >= 0 && y < 128) {
             return world.getBlockLightValueNoChecks(x, y, z) < 13 && this.canThisPlantGrowOnThisBlockID(world.getBlockId(x, y - 1, z));

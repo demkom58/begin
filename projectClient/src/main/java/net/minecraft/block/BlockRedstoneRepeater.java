@@ -27,13 +27,13 @@ public class BlockRedstoneRepeater extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return var1.isBlockNormalCube(var2, var3 - 1, var4) && super.canPlaceBlockAt(var1, var2, var3, var4);
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        return world.isBlockNormalCube(x, y - 1, z) && super.canPlaceBlockAt(world, x, y, z);
     }
 
     @Override
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        return var1.isBlockNormalCube(var2, var3 - 1, var4) && super.canBlockStay(var1, var2, var3, var4);
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        return world.isBlockNormalCube(x, y - 1, z) && super.canBlockStay(world, x, y, z);
     }
 
     @Override
@@ -53,10 +53,10 @@ public class BlockRedstoneRepeater extends Block {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        if (var1 == 0) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (side == 0) {
             return this.isRepeaterPowered ? 99 : 115;
-        } else if (var1 == 1) {
+        } else if (side == 1) {
             return this.isRepeaterPowered ? 147 : 131;
         } else {
             return 5;
@@ -64,8 +64,8 @@ public class BlockRedstoneRepeater extends Block {
     }
 
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        return var5 != 0 && var5 != 1;
+    public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        return side != 0 && side != 1;
     }
 
     @Override
@@ -79,16 +79,16 @@ public class BlockRedstoneRepeater extends Block {
     }
 
     @Override
-    public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
-        return this.isPoweringTo(var1, var2, var3, var4, var5);
+    public boolean isIndirectlyPoweringTo(World world, int x, int y, int z, int var5) {
+        return this.isPoweringTo(world, x, y, z, var5);
     }
 
     @Override
-    public boolean isPoweringTo(IBlockAccess var1, int var2, int var3, int var4, int var5) {
+    public boolean isPoweringTo(IBlockAccess blockAccess, int x, int y, int z, int var5) {
         if (!this.isRepeaterPowered) {
             return false;
         } else {
-            int var6 = var1.getBlockMetadata(var2, var3, var4) & 3;
+            int var6 = blockAccess.getBlockMetadata(x, y, z) & 3;
             if (var6 == 0 && var5 == 3) {
                 return true;
             } else if (var6 == 1 && var5 == 4) {
@@ -136,11 +136,11 @@ public class BlockRedstoneRepeater extends Block {
     }
 
     @Override
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        int var6 = world.getBlockMetadata(x, y, z);
         int var7 = (var6 & 12) >> 2;
         var7 = var7 + 1 << 2 & 12;
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var7 | var6 & 3);
+        world.setBlockMetadataWithNotify(x, y, z, var7 | var6 & 3);
         return true;
     }
 
@@ -150,12 +150,12 @@ public class BlockRedstoneRepeater extends Block {
     }
 
     @Override
-    public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
-        int var6 = ((MathHelper.floor((double) (var5.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
-        boolean var7 = this.func_22022_g(var1, var2, var3, var4, var6);
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity) {
+        int var6 = ((MathHelper.floor((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
+        world.setBlockMetadataWithNotify(x, y, z, var6);
+        boolean var7 = this.func_22022_g(world, x, y, z, var6);
         if (var7) {
-            var1.scheduleBlockUpdate(var2, var3, var4, this.blockID, 1);
+            world.scheduleBlockUpdate(x, y, z, this.blockID, 1);
         }
 
     }

@@ -259,12 +259,12 @@ public class Block {
     }
 
     public void setBlockBounds(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
-        this.minX = (double) minX;
-        this.minY = (double) minY;
-        this.minZ = (double) minZ;
-        this.maxX = (double) maxX;
-        this.maxY = (double) maxY;
-        this.maxZ = (double) maxZ;
+        this.minX = minX;
+        this.minY = minY;
+        this.minZ = minZ;
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.maxZ = maxZ;
     }
 
     public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int var5) {
@@ -382,8 +382,8 @@ public class Block {
 
     public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
         this.setBlockBoundsBasedOnState(world, var2, var3, var4);
-        var5 = var5.addVector((double) (-var2), (double) (-var3), (double) (-var4));
-        var6 = var6.addVector((double) (-var2), (double) (-var3), (double) (-var4));
+        var5 = var5.addVector(-var2, -var3, -var4);
+        var6 = var6.addVector(-var2, -var3, -var4);
         Vec3D var7 = var5.getIntermediateWithXValue(var6, this.minX);
         Vec3D var8 = var5.getIntermediateWithXValue(var6, this.maxX);
         Vec3D var9 = var5.getIntermediateWithYValue(var6, this.minY);
@@ -467,7 +467,7 @@ public class Block {
                 var14 = 3;
             }
 
-            return new MovingObjectPosition(var2, var3, var4, var14, var13.addVector((double) var2, (double) var3, (double) var4));
+            return new MovingObjectPosition(var2, var3, var4, var14, var13.addVector(var2, var3, var4));
         }
     }
 

@@ -41,15 +41,17 @@ public class EntityFireball extends Entity {
         var3 = var3 + this.rand.nextGaussian() * 0.4D;
         var5 = var5 + this.rand.nextGaussian() * 0.4D;
         var7 = var7 + this.rand.nextGaussian() * 0.4D;
-        double var9 = (double) MathHelper.sqrt(var3 * var3 + var5 * var5 + var7 * var7);
+        double var9 = MathHelper.sqrt(var3 * var3 + var5 * var5 + var7 * var7);
         this.field_9199_b = var3 / var9 * 0.1D;
         this.field_9198_c = var5 / var9 * 0.1D;
         this.field_9196_d = var7 / var9 * 0.1D;
     }
 
+    @Override
     protected void entityInit() {
     }
 
+    @Override
     public void onUpdate() {
         super.onUpdate();
         this.fire = 10;
@@ -69,9 +71,9 @@ public class EntityFireball extends Entity {
             }
 
             this.inGround = false;
-            this.motionX *= (double) (this.rand.nextFloat() * 0.2F);
-            this.motionY *= (double) (this.rand.nextFloat() * 0.2F);
-            this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
+            this.motionX *= this.rand.nextFloat() * 0.2F;
+            this.motionY *= this.rand.nextFloat() * 0.2F;
+            this.motionZ *= this.rand.nextFloat() * 0.2F;
             this.field_9190_an = 0;
             this.ticksInAir = 0;
         } else {
@@ -95,7 +97,7 @@ public class EntityFireball extends Entity {
             Entity var9 = var5.get(var8);
             if (var9.canBeCollidedWith() && (var9 != this.owner || this.ticksInAir >= 25)) {
                 float var10 = 0.3F;
-                AxisAlignedBB var11 = var9.boundingBox.expand((double) var10, (double) var10, (double) var10);
+                AxisAlignedBB var11 = var9.boundingBox.expand(var10, var10, var10);
                 MovingObjectPosition var12 = var11.func_706_a(var15, var2);
                 if (var12 != null) {
                     double var13 = var15.distanceTo(var12.hitVec);
@@ -128,7 +130,7 @@ public class EntityFireball extends Entity {
         float var18 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
 
-        for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) var18) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+        for (this.rotationPitch = (float) (Math.atan2(this.motionY, var18) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
         }
 
         while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
@@ -158,13 +160,14 @@ public class EntityFireball extends Entity {
         this.motionX += this.field_9199_b;
         this.motionY += this.field_9198_c;
         this.motionZ += this.field_9196_d;
-        this.motionX *= (double) var19;
-        this.motionY *= (double) var19;
-        this.motionZ *= (double) var19;
+        this.motionX *= var19;
+        this.motionY *= var19;
+        this.motionZ *= var19;
         this.worldObj.spawnParticle("smoke", this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
         this.setPosition(this.posX, this.posY, this.posZ);
     }
 
+    @Override
     public void writeEntityToNBT(TagCompound var1) {
         var1.setShort("xTile", (short) this.xTile);
         var1.setShort("yTile", (short) this.yTile);
@@ -174,6 +177,7 @@ public class EntityFireball extends Entity {
         var1.setByte("inGround", (byte) (this.inGround ? 1 : 0));
     }
 
+    @Override
     public void readEntityFromNBT(TagCompound var1) {
         this.xTile = var1.getShort("xTile");
         this.yTile = var1.getShort("yTile");
@@ -183,10 +187,12 @@ public class EntityFireball extends Entity {
         this.inGround = var1.getByte("inGround") == 1;
     }
 
+    @Override
     public boolean canBeCollidedWith() {
         return true;
     }
 
+    @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         this.setBeenAttacked();
         if (var1 != null) {

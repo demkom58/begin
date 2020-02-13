@@ -20,22 +20,26 @@ public class Packet106Transaction extends Packet {
         this.field_20035_c = var3;
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_20008_a(this);
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.windowId = inputStream.readByte();
         this.shortWindowId = inputStream.readShort();
         this.field_20035_c = inputStream.readByte() != 0;
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeByte(this.windowId);
         outputStream.writeShort(this.shortWindowId);
         outputStream.writeByte(this.field_20035_c ? 1 : 0);
     }
 
+    @Override
     public int getPacketSize() {
         return 4;
     }

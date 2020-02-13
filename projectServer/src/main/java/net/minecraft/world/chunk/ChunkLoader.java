@@ -137,6 +137,7 @@ public class ChunkLoader implements IChunkLoader {
         return !var6.exists() && !this.createIfNecessary ? null : var6;
     }
 
+    @Override
     public Chunk loadChunk(World world, int x, int z) throws IOException {
         File file = this.chunkFileForXZ(x, z);
         if (file != null && file.exists()) {
@@ -171,6 +172,7 @@ public class ChunkLoader implements IChunkLoader {
         return null;
     }
 
+    @Override
     public void saveChunk(World world, Chunk chunk) throws IOException {
         world.checkSessionLock();
         File fileFile = this.chunkFileForXZ(chunk.xPosition, chunk.zPosition);
@@ -201,12 +203,15 @@ public class ChunkLoader implements IChunkLoader {
 
     }
 
+    @Override
     public void func_661_a() {
     }
 
+    @Override
     public void saveExtraData() {
     }
 
+    @Override
     public void saveExtraChunkData(World world, Chunk chunk) throws IOException {
     }
 }

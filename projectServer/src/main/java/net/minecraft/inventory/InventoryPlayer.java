@@ -140,6 +140,7 @@ public class InventoryPlayer implements IInventory {
         }
     }
 
+    @Override
     public ItemStack decrStackSize(int var1, int var2) {
         ItemStack[] var3 = this.mainInventory;
         if (var1 >= this.mainInventory.length) {
@@ -165,6 +166,7 @@ public class InventoryPlayer implements IInventory {
         }
     }
 
+    @Override
     public void setInventorySlotContents(int var1, ItemStack var2) {
         ItemStack[] var3 = this.mainInventory;
         if (var1 >= var3.length) {
@@ -227,10 +229,12 @@ public class InventoryPlayer implements IInventory {
 
     }
 
+    @Override
     public int getSizeInventory() {
         return this.mainInventory.length + 4;
     }
 
+    @Override
     public ItemStack getStackInSlot(int var1) {
         ItemStack[] var2 = this.mainInventory;
         if (var1 >= var2.length) {
@@ -241,10 +245,12 @@ public class InventoryPlayer implements IInventory {
         return var2[var1];
     }
 
+    @Override
     public String getInvName() {
         return "Inventory";
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
@@ -317,6 +323,7 @@ public class InventoryPlayer implements IInventory {
 
     }
 
+    @Override
     public void onInventoryChanged() {
         this.inventoryChanged = true;
     }
@@ -330,6 +337,7 @@ public class InventoryPlayer implements IInventory {
         this.player.onItemStackChanged(var1);
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer var1) {
         if (this.player.isDead) {
             return false;

@@ -4,9 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.material.Material;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3D;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.util.Vec3D;
 
 public class BlockTrapDoor extends Block {
     protected BlockTrapDoor(int var1, Material var2) {
@@ -41,9 +41,9 @@ public class BlockTrapDoor extends Block {
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-        this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-        return super.getSelectedBoundingBoxFromPool(var1, var2, var3, var4);
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        return super.getSelectedBoundingBoxFromPool(world, x, y, z);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class BlockTrapDoor extends Block {
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        this.setBlockBoundsForBlockRender(var1.getBlockMetadata(var2, var3, var4));
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
+        this.setBlockBoundsForBlockRender(blockAccess.getBlockMetadata(x, y, z));
     }
 
     @Override
@@ -87,20 +87,19 @@ public class BlockTrapDoor extends Block {
     }
 
     @Override
-    public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        this.blockActivated(var1, var2, var3, var4, var5);
+    public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
+        this.blockActivated(world, x, y, z, player);
     }
 
     @Override
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (this.blockMaterial == Material.IRON) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        if (this.blockMaterial == Material.IRON)
             return true;
-        } else {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
-            var1.setBlockMetadataWithNotify(var2, var3, var4, var6 ^ 4);
-            var1.func_28107_a(var5, 1003, var2, var3, var4, 0);
-            return true;
-        }
+
+        int metadata = world.getBlockMetadata(x, y, z);
+        world.setBlockMetadataWithNotify(x, y, z, metadata ^ 4);
+        world.playEffects(player, 1003, x, y, z, 0);
+        return true;
     }
 
     public void onPoweredBlockChange(World var1, int var2, int var3, int var4, boolean var5) {
@@ -108,7 +107,7 @@ public class BlockTrapDoor extends Block {
         boolean var7 = (var6 & 4) > 0;
         if (var7 != var5) {
             var1.setBlockMetadataWithNotify(var2, var3, var4, var6 ^ 4);
-            var1.func_28107_a(null, 1003, var2, var3, var4, 0);
+            var1.playEffects(null, 1003, var2, var3, var4, 0);
         }
     }
 
@@ -148,57 +147,57 @@ public class BlockTrapDoor extends Block {
     }
 
     @Override
-    public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
-        this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-        return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3D var5, Vec3D var6) {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        return super.collisionRayTrace(world, x, y, z, var5, var6);
     }
 
     @Override
-    public void onBlockPlaced(World var1, int var2, int var3, int var4, int var5) {
+    public void onBlockPlaced(World world, int x, int y, int z, int side) {
         byte var6 = 0;
-        if (var5 == 2) {
+        if (side == 2) {
             var6 = 0;
         }
 
-        if (var5 == 3) {
+        if (side == 3) {
             var6 = 1;
         }
 
-        if (var5 == 4) {
+        if (side == 4) {
             var6 = 2;
         }
 
-        if (var5 == 5) {
+        if (side == 5) {
             var6 = 3;
         }
 
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
+        world.setBlockMetadataWithNotify(x, y, z, var6);
     }
 
     @Override
-    public boolean canPlaceBlockOnSide(World var1, int var2, int var3, int var4, int var5) {
+    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int var5) {
         if (var5 == 0) {
             return false;
         } else if (var5 == 1) {
             return false;
         } else {
             if (var5 == 2) {
-                ++var4;
+                ++z;
             }
 
             if (var5 == 3) {
-                --var4;
+                --z;
             }
 
             if (var5 == 4) {
-                ++var2;
+                ++x;
             }
 
             if (var5 == 5) {
-                --var2;
+                --x;
             }
 
-            return var1.isBlockNormalCube(var2, var3, var4);
+            return world.isBlockNormalCube(x, y, z);
         }
     }
 }

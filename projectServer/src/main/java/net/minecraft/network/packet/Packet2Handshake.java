@@ -16,18 +16,22 @@ public class Packet2Handshake extends Packet {
         this.username = var1;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.username = readString(inputStream, 32);
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         writeString(this.username, outputStream);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleHandshake(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 4 + this.username.length() + 4;
     }

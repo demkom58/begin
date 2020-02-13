@@ -55,6 +55,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
         return this.worldDir;
     }
 
+    @Override
     public void func_22091_b() {
         try {
             File var1 = new File(this.worldDir, "session.lock");
@@ -73,6 +74,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
         }
     }
 
+    @Override
     public IChunkLoader func_22092_a(WorldProvider var1) {
         if (var1 instanceof WorldProviderHell) {
             File var2 = new File(this.worldDir, "DIM-1");
@@ -83,6 +85,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
         }
     }
 
+    @Override
     public WorldInfo loadWorldInfo() {
         File var1 = new File(this.worldDir, "level.dat");
         if (var1.exists()) {
@@ -109,6 +112,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
         return null;
     }
 
+    @Override
     public void saveWorldInfoAndPlayer(WorldInfo var1, List<EntityPlayer> var2) {
         TagCompound var3 = var1.getNBTTagCompoundWithPlayer(var2);
         TagCompound var4 = new TagCompound();
@@ -138,6 +142,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
 
     }
 
+    @Override
     public void func_22094_a(WorldInfo var1) {
         TagCompound var2 = var1.getNBTTagCompound();
         TagCompound var3 = new TagCompound();
@@ -167,6 +172,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
 
     }
 
+    @Override
     public void writePlayerData(EntityPlayer var1) {
         try {
             TagCompound var2 = new TagCompound();
@@ -185,6 +191,7 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
 
     }
 
+    @Override
     public void readPlayerData(EntityPlayer var1) {
         TagCompound var2 = this.getPlayerData(var1.username);
         if (var2 != null) {
@@ -206,13 +213,16 @@ public class PlayerNBTManager implements IPlayerFileData, ISaveHandler {
         return null;
     }
 
+    @Override
     public IPlayerFileData func_22090_d() {
         return this;
     }
 
+    @Override
     public void func_22093_e() {
     }
 
+    @Override
     public File func_28111_b(String var1) {
         return new File(this.field_28112_d, var1 + ".dat");
     }

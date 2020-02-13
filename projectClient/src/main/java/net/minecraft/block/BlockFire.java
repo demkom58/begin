@@ -193,8 +193,8 @@ public class BlockFire extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return var1.isBlockNormalCube(var2, var3 - 1, var4) || this.func_263_h(var1, var2, var3, var4);
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        return world.isBlockNormalCube(x, y - 1, z) || this.func_263_h(world, x, y, z);
     }
 
     @Override

@@ -27,10 +27,12 @@ public class ChunkProvider implements IChunkProvider {
         this.chunkGenerator = chunkProvider;
     }
 
+    @Override
     public boolean chunkExists(int var1, int var2) {
         return this.cord2ChunkMap.containsKey(ChunkCoordIntPair.chunkXZ2Int(var1, var2));
     }
 
+    @Override
     public Chunk prepareChunk(int x, int z) {
         int chunkXZ2Int = ChunkCoordIntPair.chunkXZ2Int(x, z);
         this.chunksCords.remove(chunkXZ2Int);
@@ -72,6 +74,7 @@ public class ChunkProvider implements IChunkProvider {
         return chunk;
     }
 
+    @Override
     public Chunk provideChunk(int x, int z) {
         Chunk chunk = this.cord2ChunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
         return chunk == null ? this.prepareChunk(x, z) : chunk;
@@ -118,6 +121,7 @@ public class ChunkProvider implements IChunkProvider {
         }
     }
 
+    @Override
     public void populate(IChunkProvider chunkProvider, int x, int z) {
         Chunk chunk = this.provideChunk(x, z);
         if (!chunk.isTerrainPopulated) {
@@ -130,6 +134,7 @@ public class ChunkProvider implements IChunkProvider {
 
     }
 
+    @Override
     public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdate) {
         int var3 = 0;
 
@@ -159,6 +164,7 @@ public class ChunkProvider implements IChunkProvider {
         return true;
     }
 
+    @Override
     public boolean unload100OldestChunks() {
         for (int i = 0; i < 100; ++i) {
             if (!this.chunksCords.isEmpty()) {
@@ -182,6 +188,7 @@ public class ChunkProvider implements IChunkProvider {
         return this.chunkGenerator.unload100OldestChunks();
     }
 
+    @Override
     public boolean canSave() {
         return true;
     }

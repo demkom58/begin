@@ -40,7 +40,7 @@ public class PlayerControllerMP extends PlayerController {
         if (equippedItem != null) {
             equippedItem.onDestroyBlock(blockId, x, y, z, this.mc.thePlayer);
             if (equippedItem.stackSize == 0) {
-                equippedItem.func_1097_a(this.mc.thePlayer);
+                equippedItem.onItemDestroyedByUse(this.mc.thePlayer);
                 this.mc.thePlayer.destroyCurrentEquippedItem();
             }
         }
@@ -102,7 +102,7 @@ public class PlayerControllerMP extends PlayerController {
             this.curBlockDamageMP += block.blockStrength(this.mc.thePlayer);
             if (this.field_9441_h % 4.0F == 0.0F && block != null) {
                 this.mc.soundManager.playSound(
-                        block.stepSound.func_1145_d(),
+                        block.stepSound.getFormattedName(),
                         (float) x + 0.5F,
                         (float) y + 0.5F,
                         (float) z + 0.5F,

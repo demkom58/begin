@@ -12,6 +12,7 @@ public class BlockGrass extends Block {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (!world.singleplayerWorld) {
             if (world.getBlockLightValue(x, y + 1, z) < 4 && Block.LIGHT_OPACITY[world.getBlockId(x, y + 1, z)] > 2) {
@@ -33,6 +34,7 @@ public class BlockGrass extends Block {
         }
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return Block.DIRT.idDropped(0, random);
     }

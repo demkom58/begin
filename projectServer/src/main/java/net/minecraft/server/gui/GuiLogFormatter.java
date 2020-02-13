@@ -14,6 +14,7 @@ class GuiLogFormatter extends Formatter {
         this.outputHandler = var1;
     }
 
+    @Override
     public String format(LogRecord var1) {
         StringBuilder var2 = new StringBuilder();
         Level var3 = var1.getLevel();
@@ -30,7 +31,7 @@ class GuiLogFormatter extends Formatter {
         } else if (var3 == Level.SEVERE) {
             var2.append("[SEVERE] ");
         } else if (var3 == Level.SEVERE) {
-            var2.append("[" + var3.getLocalizedName() + "] ");
+            var2.append("[").append(var3.getLocalizedName()).append("] ");
         }
 
         var2.append(var1.getMessage());

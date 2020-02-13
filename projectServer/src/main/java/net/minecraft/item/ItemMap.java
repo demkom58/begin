@@ -198,6 +198,7 @@ public class ItemMap extends ItemMapBase {
         }
     }
 
+    @Override
     public void func_28018_a(ItemStack var1, World var2, Entity var3, int var4, boolean var5) {
         if (!var2.singleplayerWorld) {
             MapData var6 = this.func_28023_a(var1, var2);
@@ -213,6 +214,7 @@ public class ItemMap extends ItemMapBase {
         }
     }
 
+    @Override
     public void func_28020_c(ItemStack var1, World var2, EntityPlayer var3) {
         var1.setItemDamage(var2.getUniqueDataId("map"));
         String var4 = "map_" + var1.getItemDamage();
@@ -225,6 +227,7 @@ public class ItemMap extends ItemMapBase {
         var5.func_28146_a();
     }
 
+    @Override
     public Packet func_28022_b(ItemStack var1, World var2, EntityPlayer var3) {
         byte[] var4 = this.func_28023_a(var1, var2).func_28154_a(var1, var2, var3);
         return var4 == null ? null : new Packet131MapData((short) Item.MAP.shiftedIndex, (short) var1.getItemDamage(), var4);

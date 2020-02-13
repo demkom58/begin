@@ -12,6 +12,7 @@ public class BlockSapling extends BlockFlower {
         this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, var3 * 2.0F, 0.5F + var3);
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (!world.singleplayerWorld) {
             super.updateTick(world, x, y, z, random);
@@ -27,6 +28,7 @@ public class BlockSapling extends BlockFlower {
         }
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         var2 = var2 & 3;
         if (var2 == 1) {
@@ -57,6 +59,7 @@ public class BlockSapling extends BlockFlower {
 
     }
 
+    @Override
     protected int damageDropped(int var1) {
         return var1 & 3;
     }

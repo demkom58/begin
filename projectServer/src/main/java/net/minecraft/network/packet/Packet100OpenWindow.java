@@ -22,10 +22,12 @@ public class Packet100OpenWindow extends Packet {
         this.slotsCount = var4;
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.func_20004_a(this);
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.windowId = inputStream.readByte();
         this.inventoryType = inputStream.readByte();
@@ -33,6 +35,7 @@ public class Packet100OpenWindow extends Packet {
         this.slotsCount = inputStream.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeByte(this.windowId);
         outputStream.writeByte(this.inventoryType);
@@ -40,6 +43,7 @@ public class Packet100OpenWindow extends Packet {
         outputStream.writeByte(this.slotsCount);
     }
 
+    @Override
     public int getPacketSize() {
         return 3 + this.windowTitle.length();
     }

@@ -6,9 +6,9 @@ import net.minecraft.block.EnumSkyBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.NibbleArray;
 import net.minecraft.world.World;
-import net.minecraft.util.MathHelper;
 
 import java.util.*;
 
@@ -507,44 +507,39 @@ public class Chunk {
 
     }
 
-    public void getEntitiesOfTypeWithinAAAB(Class var1, AxisAlignedBB var2, List var3) {
-        int var4 = MathHelper.floor((var2.minY - 2.0D) / 16.0D);
-        int var5 = MathHelper.floor((var2.maxY + 2.0D) / 16.0D);
-        if (var4 < 0) {
+    public void getEntitiesOfTypeWithinAAAB(Class<? extends Entity> type, AxisAlignedBB bb, List<Entity> entities) {
+        int var4 = MathHelper.floor((bb.minY - 2.0D) / 16.0D);
+        int var5 = MathHelper.floor((bb.maxY + 2.0D) / 16.0D);
+
+        if (var4 < 0)
             var4 = 0;
-        }
 
-        if (var5 >= this.entities.length) {
+        if (var5 >= this.entities.length)
             var5 = this.entities.length - 1;
-        }
 
-        for (int var6 = var4; var6 <= var5; ++var6) {
-            List<Entity> var7 = this.entities[var6];
+        for (int i = var4; i <= var5; ++i) {
+            List<Entity> var7 = this.entities[i];
 
             for (int var8 = 0; var8 < var7.size(); ++var8) {
-                Entity var9 = var7.get(var8);
-                if (var1.isAssignableFrom(var9.getClass()) && var9.boundingBox.intersectsWith(var2)) {
-                    var3.add(var9);
-                }
+                Entity entity = var7.get(var8);
+                if (type.isAssignableFrom(entity.getClass()) && entity.boundingBox.intersectsWith(bb))
+                    entities.add(entity);
             }
         }
 
     }
 
     public boolean needsSaving(boolean var1) {
-        if (this.neverSave) {
+        if (this.neverSave)
             return false;
-        } else {
-            if (var1) {
-                if (this.hasEntities && this.worldObj.getWorldTime() != this.lastSaveTime) {
-                    return true;
-                }
-            } else if (this.hasEntities && this.worldObj.getWorldTime() >= this.lastSaveTime + 600L) {
-                return true;
-            }
 
-            return this.isModified;
-        }
+        if (var1) {
+            if (this.hasEntities && this.worldObj.getWorldTime() != this.lastSaveTime)
+                return true;
+        } else if (this.hasEntities && this.worldObj.getWorldTime() >= this.lastSaveTime + 600L)
+            return true;
+
+        return this.isModified;
     }
 
     public int setChunkData(byte[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {

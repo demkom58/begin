@@ -20,6 +20,7 @@ public class BlockLeaves extends BlockLeavesBase {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public void onBlockRemoval(World world, int x, int y, int z) {
         byte var5 = 1;
         int var6 = var5 + 1;
@@ -39,6 +40,7 @@ public class BlockLeaves extends BlockLeavesBase {
 
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (!world.singleplayerWorld) {
             int var6 = world.getBlockMetadata(x, y, z);
@@ -119,14 +121,17 @@ public class BlockLeaves extends BlockLeavesBase {
         var1.setBlockWithNotify(var2, var3, var4, 0);
     }
 
+    @Override
     public int quantityDropped(Random random) {
         return random.nextInt(20) == 0 ? 1 : 0;
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return Block.SAPLING.blockID;
     }
 
+    @Override
     public void harvestBlock(World world, EntityPlayer entityPlayer, int var3, int var4, int var5, int var6) {
         if (!world.singleplayerWorld && entityPlayer.getCurrentEquippedItem() != null && entityPlayer.getCurrentEquippedItem().itemID == Item.SHEARS.shiftedIndex) {
             entityPlayer.addStat(StatList.mineBlockStatArray[this.blockID], 1);
@@ -137,18 +142,22 @@ public class BlockLeaves extends BlockLeavesBase {
 
     }
 
+    @Override
     protected int damageDropped(int var1) {
         return var1 & 3;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return !this.graphicsLevel;
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         return (var2 & 3) == 1 ? this.blockIndexInTexture + 80 : this.blockIndexInTexture;
     }
 
+    @Override
     public void onEntityWalking(World world, int var2, int var3, int var4, Entity entity) {
         super.onEntityWalking(world, var2, var3, var4, entity);
     }

@@ -22,22 +22,26 @@ public class Packet50PreChunk extends Packet {
         this.mode = mode;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.xPosition = inputStream.readInt();
         this.yPosition = inputStream.readInt();
         this.mode = inputStream.read() != 0;
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.xPosition);
         outputStream.writeInt(this.yPosition);
         outputStream.write(this.mode ? 1 : 0);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handlePreChunk(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 9;
     }

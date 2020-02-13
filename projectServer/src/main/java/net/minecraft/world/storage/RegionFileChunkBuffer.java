@@ -14,6 +14,7 @@ class RegionFileChunkBuffer extends ByteArrayOutputStream {
         this.z = z;
     }
 
+    @Override
     public void close() {
         this.regionFile.write(this.x, this.z, this.buf, this.count);
     }

@@ -29,6 +29,7 @@ public class ContainerFurnace extends Container {
 
     }
 
+    @Override
     public void onCraftGuiOpened(ICrafting var1) {
         super.onCraftGuiOpened(var1);
         var1.updateCraftingInventoryInfo(this, 0, this.furnace.furnaceCookTime);
@@ -36,6 +37,7 @@ public class ContainerFurnace extends Container {
         var1.updateCraftingInventoryInfo(this, 2, this.furnace.currentItemBurnTime);
     }
 
+    @Override
     public void updateCraftingMatrix() {
         super.updateCraftingMatrix();
 
@@ -59,10 +61,12 @@ public class ContainerFurnace extends Container {
         this.lastItemBurnTime = this.furnace.currentItemBurnTime;
     }
 
+    @Override
     public boolean canInteractWith(EntityPlayer var1) {
         return this.furnace.canInteractWith(var1);
     }
 
+    @Override
     public ItemStack func_27086_a(int var1) {
         ItemStack var2 = null;
         Slot var3 = this.inventorySlots.get(var1);

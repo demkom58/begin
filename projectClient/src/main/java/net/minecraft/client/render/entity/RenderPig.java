@@ -18,7 +18,7 @@ public class RenderPig extends RenderLiving {
     // $FF: synthetic method
     // $FF: bridge method
     @Override
-    protected boolean shouldRenderPass(EntityLiving var1, int var2, float var3) {
-        return this.renderSaddledPig((EntityPig) var1, var2, var3);
+    protected boolean shouldRenderPass(EntityLiving entity, int var2, float var3) {
+        return this.renderSaddledPig((EntityPig) entity, var2, var3);
     }
 }

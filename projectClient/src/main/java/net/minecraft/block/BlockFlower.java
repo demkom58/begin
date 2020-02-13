@@ -16,8 +16,8 @@ public class BlockFlower extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        return super.canPlaceBlockAt(var1, var2, var3, var4) && this.canThisPlantGrowOnThisBlockID(var1.getBlockId(var2, var3 - 1, var4));
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        return super.canPlaceBlockAt(world, x, y, z) && this.canThisPlantGrowOnThisBlockID(world.getBlockId(x, y - 1, z));
     }
 
     protected boolean canThisPlantGrowOnThisBlockID(int var1) {
@@ -44,8 +44,8 @@ public class BlockFlower extends Block {
     }
 
     @Override
-    public boolean canBlockStay(World var1, int var2, int var3, int var4) {
-        return (var1.getFullBlockLightValue(var2, var3, var4) >= 8 || var1.canBlockSeeTheSky(var2, var3, var4)) && this.canThisPlantGrowOnThisBlockID(var1.getBlockId(var2, var3 - 1, var4));
+    public boolean canBlockStay(World world, int x, int y, int z) {
+        return (world.getFullBlockLightValue(x, y, z) >= 8 || world.canBlockSeeTheSky(x, y, z)) && this.canThisPlantGrowOnThisBlockID(world.getBlockId(x, y - 1, z));
     }
 
     @Override

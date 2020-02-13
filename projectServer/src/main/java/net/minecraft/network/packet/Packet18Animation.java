@@ -19,20 +19,24 @@ public class Packet18Animation extends Packet {
         this.animate = var2;
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.entityId = inputStream.readInt();
         this.animate = inputStream.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.entityId);
         outputStream.writeByte(this.animate);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handleArmAnimation(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 5;
     }

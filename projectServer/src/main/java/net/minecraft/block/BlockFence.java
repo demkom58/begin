@@ -9,6 +9,7 @@ public class BlockFence extends Block {
         super(var1, var2, Material.WOOD);
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         if (world.getBlockId(var2, var3 - 1, var4) == this.blockID) {
             return true;
@@ -17,14 +18,17 @@ public class BlockFence extends Block {
         }
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        return AxisAlignedBB.getBoundingBoxFromPool((double) x, (double) y, (double) z, (double) (x + 1), (double) ((float) y + 1.5F), (double) (z + 1));
+        return AxisAlignedBB.getBoundingBoxFromPool(x, y, z, x + 1, (float) y + 1.5F, z + 1);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }

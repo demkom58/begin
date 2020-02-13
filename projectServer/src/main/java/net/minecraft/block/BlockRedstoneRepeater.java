@@ -21,18 +21,22 @@ public class BlockRedstoneRepeater extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return world.isBlockNormalCube(var2, var3 - 1, var4) && super.canPlaceBlockAt(world, var2, var3, var4);
     }
 
+    @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
         return world.isBlockNormalCube(x, y - 1, z) && super.canBlockStay(world, x, y, z);
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         int var6 = world.getBlockMetadata(x, y, z);
         boolean var7 = this.func_22012_g(world, x, y, z, var6);
@@ -48,6 +52,7 @@ public class BlockRedstoneRepeater extends Block {
 
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var1 == 0) {
             return this.field_22015_c ? 99 : 115;
@@ -58,14 +63,17 @@ public class BlockRedstoneRepeater extends Block {
         }
     }
 
+    @Override
     public int getBlockTextureFromSide(int var1) {
         return this.getBlockTextureFromSideAndMetadata(var1, 0);
     }
 
+    @Override
     public boolean isIndirectlyPoweringTo(World world, int var2, int var3, int var4, int var5) {
         return this.isPoweringTo(world, var2, var3, var4, var5);
     }
 
+    @Override
     public boolean isPoweringTo(IBlockAccess blockAccess, int var2, int var3, int var4, int var5) {
         if (!this.field_22015_c) {
             return false;
@@ -83,6 +91,7 @@ public class BlockRedstoneRepeater extends Block {
         }
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (!this.canBlockStay(world, var2, var3, var4)) {
             this.dropBlockAsItem(world, var2, var3, var4, world.getBlockMetadata(var2, var3, var4));
@@ -116,6 +125,7 @@ public class BlockRedstoneRepeater extends Block {
         }
     }
 
+    @Override
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         int var6 = world.getBlockMetadata(var2, var3, var4);
         int var7 = (var6 & 12) >> 2;
@@ -124,10 +134,12 @@ public class BlockRedstoneRepeater extends Block {
         return true;
     }
 
+    @Override
     public boolean canProvidePower() {
         return false;
     }
 
+    @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving) {
         int var6 = ((MathHelper.floor((double) (entityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3) + 2) % 4;
         world.setBlockMetadataWithNotify(x, y, z, var6);
@@ -138,6 +150,7 @@ public class BlockRedstoneRepeater extends Block {
 
     }
 
+    @Override
     public void onBlockAdded(World world, int x, int y, int z) {
         world.notifyBlocksOfNeighborChange(x + 1, y, z, this.blockID);
         world.notifyBlocksOfNeighborChange(x - 1, y, z, this.blockID);
@@ -147,10 +160,12 @@ public class BlockRedstoneRepeater extends Block {
         world.notifyBlocksOfNeighborChange(x, y + 1, z, this.blockID);
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return Item.REDSTONE_REPEATER.shiftedIndex;
     }

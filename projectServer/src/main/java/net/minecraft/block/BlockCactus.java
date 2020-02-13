@@ -13,6 +13,7 @@ public class BlockCactus extends Block {
         this.setTickOnLoad(true);
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random random) {
         if (world.isAirBlock(x, y + 1, z)) {
             int var6;
@@ -32,11 +33,13 @@ public class BlockCactus extends Block {
 
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         float var5 = 0.0625F;
-        return AxisAlignedBB.getBoundingBoxFromPool((double) ((float) x + var5), (double) y, (double) ((float) z + var5), (double) ((float) (x + 1) - var5), (double) ((float) (y + 1) - var5), (double) ((float) (z + 1) - var5));
+        return AxisAlignedBB.getBoundingBoxFromPool((float) x + var5, y, (float) z + var5, (float) (x + 1) - var5, (float) (y + 1) - var5, (float) (z + 1) - var5);
     }
 
+    @Override
     public int getBlockTextureFromSide(int var1) {
         if (var1 == 1) {
             return this.blockIndexInTexture - 1;
@@ -45,18 +48,22 @@ public class BlockCactus extends Block {
         }
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int var2, int var3, int var4) {
         return super.canPlaceBlockAt(world, var2, var3, var4) && this.canBlockStay(world, var2, var3, var4);
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         if (!this.canBlockStay(world, var2, var3, var4)) {
             this.dropBlockAsItem(world, var2, var3, var4, world.getBlockMetadata(var2, var3, var4));
@@ -65,6 +72,7 @@ public class BlockCactus extends Block {
 
     }
 
+    @Override
     public boolean canBlockStay(World world, int x, int y, int z) {
         if (world.getBlockMaterial(x - 1, y, z).isSolid()) {
             return false;
@@ -80,6 +88,7 @@ public class BlockCactus extends Block {
         }
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World world, int var2, int var3, int var4, Entity entity) {
         entity.attackEntityFrom(null, 1);
     }

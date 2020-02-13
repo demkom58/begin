@@ -22,11 +22,11 @@ public class BlockWorkbench extends Block {
     }
 
     @Override
-    public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-        if (var1.multiplayerWorld) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        if (world.multiplayerWorld) {
             return true;
         } else {
-            var5.displayWorkbenchGUI(var2, var3, var4);
+            player.displayWorkbenchGUI(x, y, z);
             return true;
         }
     }

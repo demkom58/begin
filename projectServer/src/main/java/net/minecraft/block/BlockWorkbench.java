@@ -10,6 +10,7 @@ public class BlockWorkbench extends Block {
         this.blockIndexInTexture = 59;
     }
 
+    @Override
     public int getBlockTextureFromSide(int var1) {
         if (var1 == 1) {
             return this.blockIndexInTexture - 16;
@@ -20,6 +21,7 @@ public class BlockWorkbench extends Block {
         }
     }
 
+    @Override
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         if (world.singleplayerWorld) {
             return true;

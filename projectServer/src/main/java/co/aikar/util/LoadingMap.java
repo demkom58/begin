@@ -250,11 +250,13 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
         return res;
     }
 
+    @Override
     public V put(K key, V value) {return backingMap.put(key, value);}
 
     @Override
     public V remove(Object key) {return backingMap.remove(key);}
 
+    @Override
     public void putAll(Map<? extends K, ? extends V> m) {backingMap.putAll(m);}
 
     @Override
@@ -277,6 +279,7 @@ public class LoadingMap <K,V> extends AbstractMap<K, V> {
         return backingMap.entrySet();
     }
 
+    @Override
     public LoadingMap<K, V> clone() {
         return new LoadingMap<>(backingMap, loader);
     }

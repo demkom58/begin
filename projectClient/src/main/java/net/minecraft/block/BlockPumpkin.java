@@ -16,10 +16,10 @@ public class BlockPumpkin extends Block {
     }
 
     @Override
-    public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-        if (var1 == 1) {
+    public int getBlockTextureFromSideAndMetadata(int side, int metadata) {
+        if (side == 1) {
             return this.blockIndexInTexture;
-        } else if (var1 == 0) {
+        } else if (side == 0) {
             return this.blockIndexInTexture;
         } else {
             int var3 = this.blockIndexInTexture + 1 + 16;
@@ -27,14 +27,14 @@ public class BlockPumpkin extends Block {
                 ++var3;
             }
 
-            if (var2 == 2 && var1 == 2) {
+            if (metadata == 2 && side == 2) {
                 return var3;
-            } else if (var2 == 3 && var1 == 5) {
+            } else if (metadata == 3 && side == 5) {
                 return var3;
-            } else if (var2 == 0 && var1 == 3) {
+            } else if (metadata == 0 && side == 3) {
                 return var3;
             } else {
-                return var2 == 1 && var1 == 4 ? var3 : this.blockIndexInTexture + 16;
+                return metadata == 1 && side == 4 ? var3 : this.blockIndexInTexture + 16;
             }
         }
     }
@@ -56,14 +56,14 @@ public class BlockPumpkin extends Block {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockId(var2, var3, var4);
-        return (var5 == 0 || Block.BLOCKS_LIST[var5].blockMaterial.getIsGroundCover()) && var1.isBlockNormalCube(var2, var3 - 1, var4);
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        int var5 = world.getBlockId(x, y, z);
+        return (var5 == 0 || Block.BLOCKS_LIST[var5].blockMaterial.getIsGroundCover()) && world.isBlockNormalCube(x, y - 1, z);
     }
 
     @Override
-    public void onBlockPlacedBy(World var1, int var2, int var3, int var4, EntityLiving var5) {
-        int var6 = MathHelper.floor((double) (var5.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
-        var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity) {
+        int var6 = MathHelper.floor((double) (entity.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
+        world.setBlockMetadataWithNotify(x, y, z, var6);
     }
 }

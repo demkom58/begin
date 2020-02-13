@@ -66,6 +66,7 @@ public class BlockBed extends Block {
         return null;
     }
 
+    @Override
     public boolean blockActivated(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
         if (world.singleplayerWorld) {
             return true;
@@ -97,7 +98,7 @@ public class BlockBed extends Block {
                 var11 = (var11 + (double) var4 + 0.5D) / 2.0D;
             }
 
-            world.newExplosion(null, (double) ((float) var2 + 0.5F), (double) ((float) var3 + 0.5F), (double) ((float) var4 + 0.5F), 5.0F, true);
+            world.newExplosion(null, (float) var2 + 0.5F, (float) var3 + 0.5F, (float) var4 + 0.5F, 5.0F, true);
             return true;
         } else {
             if (func_22018_f(var6)) {
@@ -134,6 +135,7 @@ public class BlockBed extends Block {
         }
     }
 
+    @Override
     public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
         if (var1 == 0) {
             return Block.PLANKS.blockIndexInTexture;
@@ -154,18 +156,22 @@ public class BlockBed extends Block {
         }
     }
 
+    @Override
     public boolean isACube() {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
+    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {
         this.setBounds();
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int var2, int var3, int var4, int var5) {
         int var6 = world.getBlockMetadata(var2, var3, var4);
         int var7 = func_22019_c(var6);
@@ -182,6 +188,7 @@ public class BlockBed extends Block {
 
     }
 
+    @Override
     public int idDropped(int var1, Random random) {
         return func_22020_d(var1) ? 0 : Item.BED.shiftedIndex;
     }
@@ -190,6 +197,7 @@ public class BlockBed extends Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5625F, 1.0F);
     }
 
+    @Override
     public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float chance) {
         if (!func_22020_d(var5)) {
             super.dropBlockAsItemWithChance(world, x, y, z, var5, chance);
@@ -197,6 +205,7 @@ public class BlockBed extends Block {
 
     }
 
+    @Override
     public int getMobilityFlag() {
         return 1;
     }

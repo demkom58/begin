@@ -31,21 +31,21 @@ public class RenderWolf extends RenderLiving {
     // $FF: synthetic method
     // $FF: bridge method
     @Override
-    protected float func_170_d(EntityLiving var1, float var2) {
-        return this.func_25004_a((EntityWolf) var1, var2);
+    protected float handleRotationFloat(EntityLiving entity, float value) {
+        return this.func_25004_a((EntityWolf) entity, value);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
     @Override
-    public void doRenderLiving(EntityLiving var1, double var2, double var4, double var6, float var8, float var9) {
-        this.renderWolf((EntityWolf) var1, var2, var4, var6, var8, var9);
+    public void doRenderLiving(EntityLiving entity, double x, double y, double z, float yaw, float delta) {
+        this.renderWolf((EntityWolf) entity, x, y, z, yaw, delta);
     }
 
     // $FF: synthetic method
     // $FF: bridge method
     @Override
-    public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-        this.renderWolf((EntityWolf) var1, var2, var4, var6, var8, var9);
+    public void doRender(Entity entity, double x, double y, double z, float yaw, float delta) {
+        this.renderWolf((EntityWolf) entity, x, y, z, yaw, delta);
     }
 }

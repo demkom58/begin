@@ -184,7 +184,7 @@ public class RenderGlobal implements IWorldAccess {
         this.prevSortX = -9999.0D;
         this.prevSortY = -9999.0D;
         this.prevSortZ = -9999.0D;
-        RenderManager.instance.func_852_a(world);
+        RenderManager.instance.setWorld(world);
         this.worldObj = world;
         this.globalRenderBlocks = new RenderBlocks(world);
         if (world != null) {
@@ -1008,6 +1008,7 @@ public class RenderGlobal implements IWorldAccess {
                 for (int var16 = 0; var16 < var4 && !var15; ++var16) {
                     if (var14 == var6[var16]) {
                         var15 = true;
+                        break;
                     }
                 }
 

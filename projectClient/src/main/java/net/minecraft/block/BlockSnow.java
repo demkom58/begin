@@ -36,16 +36,16 @@ public class BlockSnow extends Block {
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockMetadata(var2, var3, var4) & 7;
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
+        int var5 = blockAccess.getBlockMetadata(x, y, z) & 7;
         float var6 = (float) (2 * (1 + var5)) / 16.0F;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, var6, 1.0F);
     }
 
     @Override
-    public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
-        int var5 = var1.getBlockId(var2, var3 - 1, var4);
-        return (var5 != 0 && Block.BLOCKS_LIST[var5].isOpaqueCube()) && var1.getBlockMaterial(var2, var3 - 1, var4).getIsSolid();
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        int var5 = world.getBlockId(x, y - 1, z);
+        return (var5 != 0 && Block.BLOCKS_LIST[var5].isOpaqueCube()) && world.getBlockMaterial(x, y - 1, z).getIsSolid();
     }
 
     @Override
@@ -64,17 +64,17 @@ public class BlockSnow extends Block {
     }
 
     @Override
-    public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
+    public void harvestBlock(World world, EntityPlayer player, int x, int y, int z, int blockId) {
         int var7 = Item.SNOWBALL.shiftedIndex;
         float var8 = 0.7F;
-        double var9 = (double) (var1.rand.nextFloat() * var8) + (double) (1.0F - var8) * 0.5D;
-        double var11 = (double) (var1.rand.nextFloat() * var8) + (double) (1.0F - var8) * 0.5D;
-        double var13 = (double) (var1.rand.nextFloat() * var8) + (double) (1.0F - var8) * 0.5D;
-        EntityItem var15 = new EntityItem(var1, (double) var3 + var9, (double) var4 + var11, (double) var5 + var13, new ItemStack(var7, 1, 0));
+        double var9 = (double) (world.rand.nextFloat() * var8) + (double) (1.0F - var8) * 0.5D;
+        double var11 = (double) (world.rand.nextFloat() * var8) + (double) (1.0F - var8) * 0.5D;
+        double var13 = (double) (world.rand.nextFloat() * var8) + (double) (1.0F - var8) * 0.5D;
+        EntityItem var15 = new EntityItem(world, (double) x + var9, (double) y + var11, (double) z + var13, new ItemStack(var7, 1, 0));
         var15.delayBeforeCanPickup = 10;
-        var1.entityJoinedWorld(var15);
-        var1.setBlockWithNotify(var3, var4, var5, 0);
-        var2.addStat(StatList.mineBlockStatArray[this.blockID], 1);
+        world.entityJoinedWorld(var15);
+        world.setBlockWithNotify(x, y, z, 0);
+        player.addStat(StatList.mineBlockStatArray[this.blockID], 1);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class BlockSnow extends Block {
     }
 
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
-        return var5 == 1 || super.shouldSideBeRendered(var1, var2, var3, var4, var5);
+    public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
+        return side == 1 || super.shouldSideBeRendered(blockAccess, x, y, z, side);
     }
 }

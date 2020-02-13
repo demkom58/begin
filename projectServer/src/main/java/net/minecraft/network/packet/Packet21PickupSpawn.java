@@ -36,6 +36,7 @@ public class Packet21PickupSpawn extends Packet {
         this.roll = (byte) ((int) (var1.motionZ * 128.0D));
     }
 
+    @Override
     public void readPacketData(DataInputStream inputStream) throws IOException {
         this.entityId = inputStream.readInt();
         this.itemID = inputStream.readShort();
@@ -49,6 +50,7 @@ public class Packet21PickupSpawn extends Packet {
         this.roll = inputStream.readByte();
     }
 
+    @Override
     public void writePacketData(DataOutputStream outputStream) throws IOException {
         outputStream.writeInt(this.entityId);
         outputStream.writeShort(this.itemID);
@@ -62,10 +64,12 @@ public class Packet21PickupSpawn extends Packet {
         outputStream.writeByte(this.roll);
     }
 
+    @Override
     public void processPacket(NetHandler netHandler) {
         netHandler.handlePickupSpawn(this);
     }
 
+    @Override
     public int getPacketSize() {
         return 24;
     }
