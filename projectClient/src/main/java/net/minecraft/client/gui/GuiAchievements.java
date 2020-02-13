@@ -233,8 +233,8 @@ public class GuiAchievements extends GuiScreen {
                     var18 = -16777216;
                 }
 
-                this.func_27100_a(var14, var16, var15, var18);
-                this.func_27099_b(var16, var15, var17, var18);
+                this.drawHorizontalLine(var14, var16, var15, var18);
+                this.drawVerticalLine(var16, var15, var17, var18);
             }
         }
 

@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 public class Gui {
     protected float zLevel = 0.0F;
 
-    protected void func_27100_a(int var1, int var2, int var3, int color) {
+    protected void drawHorizontalLine(int var1, int var2, int var3, int color) {
         if (var2 < var1) {
             int var5 = var1;
             var1 = var2;
@@ -17,7 +17,7 @@ public class Gui {
         this.drawRect(var1, var3, var2 + 1, var3 + 1, color);
     }
 
-    protected void func_27099_b(int var1, int var2, int var3, int color) {
+    protected void drawVerticalLine(int var1, int var2, int var3, int color) {
         if (var3 < var2) {
             int var5 = var2;
             var2 = var3;

@@ -14,6 +14,9 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.input.keyboard.CraftKeyboard;
 import net.minecraft.client.input.keyboard.MovementInputFromOptions;
 import net.minecraft.client.input.mouse.MouseHelper;
+import net.minecraft.client.loading.ClientLoadGui;
+import net.minecraft.client.loading.ClientLoadThread;
+import net.minecraft.client.loading.LoadingModel;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.RenderBlocks;
 import net.minecraft.client.render.texture.*;
@@ -110,7 +113,7 @@ public final class Minecraft implements Runnable {
     public StatFileWriter statFileWriter;
     public TexturePackList texturePackList;
     private ISaveFormat saveLoader;
-    private ThreadDownloadResources downloadResourcesThread;
+    private ClientLoadThread clientLoadThread;
 
     /**
      * Dynamic textures
@@ -175,20 +178,16 @@ public final class Minecraft implements Runnable {
                 .build();
         this.window.show();
 
-        this.mouse = new Mouse(window);
-        this.mouse.setScrollCallback(this::onScroll);
-        this.mouse.setButtonCallback(this::onMouseButton);
-
-        this.keyboard = new CraftKeyboard(window);
-        this.keyboard.setCharCallback(this::onChar);
-        this.keyboard.setKeyCallback(this::onKey);
-
         this.mcDataDir = getMinecraftDir();
         this.saveLoader = new SaveConverterMcRegion(new File(this.mcDataDir, "saves"));
         this.gameSettings = new GameSettings(this, this.mcDataDir);
         this.texturePackList = new TexturePackList(this, this.mcDataDir);
         this.renderEngine = new RenderEngine(this.texturePackList, this.gameSettings);
         this.fontRenderer = new FontRenderer(this.gameSettings, "/font/default.png", this.renderEngine);
+
+        this.mouse = new Mouse(window);
+        this.keyboard = new CraftKeyboard(window);
+        this.mouseHelper = new MouseHelper(window, mouse);
 
         ColorizerWater.setWaterBuffer(this.renderEngine.loadTexture("/misc/watercolor.png"));
         ColorizerGrass.setGrassBuffer(this.renderEngine.loadTexture("/misc/grasscolor.png"));
@@ -198,15 +197,10 @@ public final class Minecraft implements Runnable {
         RenderManager.instance.itemRenderer = new ItemRenderer(this);
         this.statFileWriter = new StatFileWriter(this.session, this.mcDataDir);
 
-        final StringTranslate translate = StringTranslate.getInstance();
         AchievementList.openInventory.setStatStringFormatter(s -> {
-            // TODO: update on lang change
             String name = KeySource.KEYBOARD.getKeyInfo(this.gameSettings.keyBindInventory.keyCode).getName();
-            return String.format(s, translate.translateKey(name));
+            return String.format(s, StringTranslate.getInstance().translateKey(name));
         });
-
-        this.loadScreen();
-        this.mouseHelper = new MouseHelper(window, mouse);
 
         this.window.setPhase("Pre startup");
         GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -222,7 +216,9 @@ public final class Minecraft implements Runnable {
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         this.window.setPhase("Startup");
         this.glCapabilities = new OpenGlCapsChecker();
+
         this.soundManager.setSettings(this.gameSettings);
+
         this.renderEngine.registerTextureFX(this.textureLavaFX);
         this.renderEngine.registerTextureFX(this.textureWaterFX);
         this.renderEngine.registerTextureFX(new TexturePortalFX());
@@ -233,18 +229,30 @@ public final class Minecraft implements Runnable {
         this.renderEngine.registerTextureFX(new TextureFlamesFX(0));
         this.renderEngine.registerTextureFX(new TextureFlamesFX(1));
         this.renderGlobal = new RenderGlobal(this, this.renderEngine);
+
         GL11.glViewport(0, 0, this.window.getWidth(), this.window.getHeight());
         this.effectRenderer = new EffectRenderer(this.theWorld, this.renderEngine);
+        this.clientLoadThread = new ClientLoadThread(this.mcDataDir, this);
 
-        try {
-            this.downloadResourcesThread = new ThreadDownloadResources(this.mcDataDir, this);
-            this.downloadResourcesThread.start();
-            this.downloadResourcesThread.join();
-        } catch (Exception ignored) {
-        }
+        final LoadingModel loadingModel = new LoadingModel(clientLoadThread.countLoadUnits());
+        final ClientLoadGui clientLoadGui = new ClientLoadGui(window, gameSettings, renderEngine, fontRenderer, loadingModel);
+        clientLoadThread.setup(loadingModel);
 
         this.window.setPhase("Post startup");
         this.window.logOnGlError();
+
+        try {
+            this.clientLoadThread.start();
+            while (!loadingModel.isDone())
+                clientLoadGui.update();
+        } catch (Exception ignored) {
+        }
+
+        this.mouse.setScrollCallback(this::onScroll);
+        this.mouse.setButtonCallback(this::onMouseButton);
+
+        this.keyboard.setCharCallback(this::onChar);
+        this.keyboard.setKeyCallback(this::onKey);
 
         this.ingameGUI = new GuiIngame(this);
 
@@ -359,13 +367,13 @@ public final class Minecraft implements Runnable {
             --this.leftClickCounter;
 
         if (this.currentScreen == null) {
-            if (button == 0 && (float) (this.ticksRan - this.mouseTicksRan) >= this.timer.ticksPerSecond / 4.0F && this.inGameHasFocus) {
-                this.clickMouse(0);
+            if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT && (float) (this.ticksRan - this.mouseTicksRan) >= this.timer.ticksPerSecond / 4.0F && this.inGameHasFocus) {
+                this.clickMouse(GLFW.GLFW_MOUSE_BUTTON_LEFT);
                 this.mouseTicksRan = this.ticksRan;
             }
 
-            if (button == 1 && (float) (this.ticksRan - this.mouseTicksRan) >= this.timer.ticksPerSecond / 4.0F && this.inGameHasFocus) {
-                this.clickMouse(1);
+            if (button == GLFW.GLFW_MOUSE_BUTTON_RIGHT && (float) (this.ticksRan - this.mouseTicksRan) >= this.timer.ticksPerSecond / 4.0F && this.inGameHasFocus) {
+                this.clickMouse(GLFW.GLFW_MOUSE_BUTTON_RIGHT);
                 this.mouseTicksRan = this.ticksRan;
             }
         } else this.currentScreen.handleMouseInput(windowPointer, button, action, mods);
@@ -421,53 +429,6 @@ public final class Minecraft implements Runnable {
         this.serverPort = serverPort;
     }
 
-    private void loadScreen() {
-        final Window window = this.window;
-        final ScaledResolution res = new ScaledResolution(this.gameSettings, window.getWidth(), window.getHeight());
-
-        GL11.glClear(16640);
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
-        GL11.glLoadIdentity();
-        GL11.glOrtho(0.0D, res.width, res.height, 0.0D, 1000.0D, 3000.0D);
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-        GL11.glLoadIdentity();
-        GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
-        GL11.glViewport(0, 0, window.getWidth(), window.getHeight());
-        GL11.glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
-        Tessellator tess = Tessellator.INSTANCE;
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glDisable(GL11.GL_FOG);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/title/mojang.png"));
-        tess.startDrawingQuads();
-        tess.setColorOpaque_I(16777215);
-        tess.addVertexWithUV(0.0D, window.getHeight(), 0.0D, 0.0D, 0.0D);
-        tess.addVertexWithUV(window.getWidth(), window.getHeight(), 0.0D, 0.0D, 0.0D);
-        tess.addVertexWithUV(window.getWidth(), 0.0D, 0.0D, 0.0D, 0.0D);
-        tess.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
-        tess.draw();
-        short var3 = 256;
-        short var4 = 256;
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        tess.setColorOpaque_I(16777215);
-        this.drawTess((res.getScaledWidth() - var3) / 2, (res.getScaledHeight() - var4) / 2, 0, 0, var3, var4);
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glDisable(GL11.GL_FOG);
-        GL11.glEnable(GL11.GL_ALPHA_TEST);
-        GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
-    }
-
-    public void drawTess(int x, int y, int u, int v, int var5, int var6) {
-        float uMul = 0.00390625F;
-        float vMul = 0.00390625F;
-        Tessellator tess = Tessellator.INSTANCE;
-        tess.startDrawingQuads();
-        tess.addVertexWithUV(x, y + var6, 0.0D, (float) (u) * uMul, (float) (v + var6) * vMul);
-        tess.addVertexWithUV(x + var5, y + var6, 0.0D, (float) (u + var5) * uMul, (float) (v + var6) * vMul);
-        tess.addVertexWithUV(x + var5, y, 0.0D, (float) (u + var5) * uMul, (float) (v) * vMul);
-        tess.addVertexWithUV(x, y, 0.0D, (float) (u) * uMul, (float) (v) * vMul);
-        tess.draw();
-    }
 
     public ISaveFormat getSaveLoader() {
         return this.saveLoader;
@@ -516,8 +477,8 @@ public final class Minecraft implements Runnable {
             this.statFileWriter.syncStats();
 
             try {
-                if (this.downloadResourcesThread != null) {
-                    this.downloadResourcesThread.closeMinecraft();
+                if (this.clientLoadThread != null) {
+                    this.clientLoadThread.closeMinecraft();
                 }
             } catch (Exception ignored) {
             }
@@ -749,8 +710,8 @@ public final class Minecraft implements Runnable {
             else
                 tess.setColorOpaque_I(-16777216 + var14 * 256);
 
-            long var16 = frameTimes[i] / 200000L;
-            long var18 = tickTimes[i] / 200000L;
+            long var16 = frameTimes[i] / 200_000L;
+            long var18 = tickTimes[i] / 200_000L;
             tess.addVertex((float) i + 0.5F, (float) ((long) displayHeight - var16) + 0.5F, 0.0D);
             tess.addVertex((float) i + 0.5F, (float) displayHeight + 0.5F, 0.0D);
             tess.setColorOpaque_I(-16777216 + var14 * 65536 + var14 * 256 + var14);
@@ -1016,7 +977,7 @@ public final class Minecraft implements Runnable {
         System.out.println("FORCING RELOAD!");
         this.soundManager = new SoundManager();
         this.soundManager.setSettings(this.gameSettings);
-        this.downloadResourcesThread.reloadResources();
+        this.clientLoadThread.reloadResources();
     }
 
     public boolean isMultiplayerWorld() {

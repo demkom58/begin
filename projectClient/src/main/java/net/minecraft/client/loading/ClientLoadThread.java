@@ -1,18 +1,23 @@
-package net.minecraft.client.render;
+package net.minecraft.client.loading;
 
 import net.minecraft.client.Minecraft;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Objects;
 
-public class ThreadDownloadResources extends Thread {
+public class ClientLoadThread extends Thread {
     public File resourcesFolder;
+
     private Minecraft mc;
     private boolean closing = false;
+    private LoadingModel loadingModel;
 
-    public ThreadDownloadResources(File root, Minecraft mc) {
+    private int loadUnits = -1;
+
+    public ClientLoadThread(File root, Minecraft mc) {
         this.mc = mc;
-        this.setName("Resource download thread");
+        this.setName("Client Load Thread");
         this.setDaemon(true);
         this.resourcesFolder = new File(root, "resources/");
 
@@ -20,9 +25,20 @@ public class ThreadDownloadResources extends Thread {
             throw new RuntimeException("The working directory could not be created: " + this.resourcesFolder);
     }
 
+    public void setup(LoadingModel loadingModel) {
+        this.loadingModel = loadingModel;
+    }
+
+    public int countLoadUnits() {
+        if (loadUnits == -1)
+            loadUnits = countLoadResource(this.resourcesFolder, "");
+
+        return loadUnits;
+    }
+
     @Override
     public void run() {
-/*        try {
+      /*try {
             URL var1 = new URL("http://s3.amazonaws.com/MinecraftResources/");
             DocumentBuilderFactory var2 = DocumentBuilderFactory.newInstance();
             DocumentBuilder var3 = var2.newDocumentBuilder();
@@ -49,7 +65,9 @@ public class ThreadDownloadResources extends Thread {
             this.loadResource(this.resourcesFolder, "");
             e.printStackTrace();
         }*/
+
         this.loadResource(this.resourcesFolder, "");
+        loadingModel.setDone(true);
     }
 
     public void reloadResources() {
@@ -57,7 +75,7 @@ public class ThreadDownloadResources extends Thread {
     }
 
     private void loadResource(File resourceFolder, String resource) {
-        File[] files = resourceFolder.listFiles();
+        File[] files = Objects.requireNonNull(resourceFolder.listFiles());
 
         for (int i = 0; i < files.length; ++i) {
             if (files[i].isDirectory()) {
@@ -71,9 +89,29 @@ public class ThreadDownloadResources extends Thread {
                 System.out.println("Failed to add " + resource + files[i].getName());
                 e.printStackTrace();
             }
+
+            loadingModel.addLoadUnits(1);
+            loadingModel.setTitle("Loading \"" + resource + files[i].getName() + "\"");
         }
 
     }
+
+    private int countLoadResource(File resourceFolder, String resource) {
+        int loadUnits = 0;
+        File[] files = Objects.requireNonNull(resourceFolder.listFiles());
+
+        for (int i = 0; i < files.length; ++i) {
+            if (files[i].isDirectory()) {
+                loadUnits += this.countLoadResource(files[i], resource + files[i].getName() + "/");
+                continue;
+            }
+
+            loadUnits++;
+        }
+
+        return loadUnits;
+    }
+
 
     private void downloadAndInstallResource(URL var1, String var2, long var3, int var5) {
         try {
