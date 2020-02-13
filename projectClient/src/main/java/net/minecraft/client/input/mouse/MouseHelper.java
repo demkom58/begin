@@ -36,6 +36,12 @@ public class MouseHelper {
         GLFW.glfwSetInputMode(window.getPointer(), GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
     }
 
+    public void setCursorInCenter() {
+        final double centerX = this.window.getWidth() / 2D;
+        final double centerY = this.window.getHeight() / 2D;
+        this.mouse.setCursorPosition(centerX, centerY);
+    }
+
     public void mouseXYChange() {
         double newX = mouse.getX();
         double newY = mouse.getY();

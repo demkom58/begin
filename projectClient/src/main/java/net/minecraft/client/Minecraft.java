@@ -786,6 +786,7 @@ public final class Minecraft implements Runnable {
 
         this.inGameHasFocus = false;
         this.mouseHelper.ungrabMouseCursor();
+        this.mouseHelper.setCursorInCenter();
     }
 
     public void displayInGameMenu() {
