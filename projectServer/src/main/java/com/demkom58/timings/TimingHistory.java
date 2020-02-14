@@ -4,9 +4,8 @@ import co.aikar.util.LoadingMap;
 import co.aikar.util.MRUMapCache;
 import com.google.common.base.Function;
 import com.google.common.collect.Sets;
-import net.minecraft.material.Material;
-import net.minecraft.world.WorldServer;
-import net.minecraft.server.MinecraftServer;
+import net.potion.material.Material;
+import net.potion.server.PotionServer;
 
 import java.lang.management.ManagementFactory;
 import java.util.HashMap;
@@ -14,9 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static co.aikar.util.JSONUtil.*;
 import static com.demkom58.timings.TimingsManager.FULL_SERVER_TICK;
 import static com.demkom58.timings.TimingsManager.MINUTE_REPORTS;
-import static co.aikar.util.JSONUtil.*;
 
 @SuppressWarnings({"SuppressionAnnotation", "Convert2Lambda", "Anonymous2MethodRef"})
 public class TimingHistory {
@@ -27,12 +26,7 @@ public class TimingHistory {
     public static long tileEntityTicks;
     public static long activatedEntityTicks;
     private static int worldIdPool = 1;
-    static Map<String, Integer> worldMap = LoadingMap.newHashMap(new Function<>() {
-        @Override
-        public Integer apply(String input) {
-            return worldIdPool++;
-        }
-    });
+    static Map<String, Integer> worldMap = LoadingMap.newHashMap((in) -> worldIdPool++);
     private final long endTime;
     private final long startTime;
     private final long totalTicks;
@@ -68,23 +62,13 @@ public class TimingHistory {
 
         // Information about all loaded chunks/entities
         // noinspection unchecked
-        this.worlds = toObjectMapper(MinecraftServer.SERVER.worldServers, new Function<>() {
-            @Override
-            public JSONPair apply(WorldServer world) {
-                return pair(worldMap.get(world.getWorldInfo().getLevelName()), "");
-            }
-        });
+        this.worlds = toObjectMapper(PotionServer.SERVER.worldServers, world -> pair(worldMap.get(world.getWorldInfo().getLevelName()), ""));
     }
 
     static class RegionData {
         final RegionId regionId;
         @SuppressWarnings("Guava")
-        static Function<RegionId, RegionData> LOADER = new Function<>() {
-            @Override
-            public RegionData apply(RegionId id) {
-                return new RegionData(id);
-            }
-        };
+        static Function<RegionId, RegionData> LOADER = RegionData::new;
 
         RegionData(RegionId id) {
             this.regionId = id;
@@ -160,22 +144,14 @@ public class TimingHistory {
                 pair("tk", totalTicks),
                 pair("tm", totalTime),
                 pair("w", worlds),
-                pair("h", toArrayMapper(entries, new Function<>() {
-                    @Override
-                    public Object apply(TimingHistoryEntry entry) {
-                        TimingData record = entry.data;
-                        if (!record.hasData()) {
-                            return null;
-                        }
-                        return entry.export();
-                    }
+                pair("h", toArrayMapper(entries, entry -> {
+                    TimingData record = entry.data;
+                    if (!record.hasData())
+                        return null;
+
+                    return entry.export();
                 })),
-                pair("mp", toArrayMapper(minuteReports, new Function<>() {
-                    @Override
-                    public Object apply(MinuteReport input) {
-                        return input.export();
-                    }
-                }))
+                pair("mp", toArrayMapper(minuteReports, MinuteReport::export))
         );
     }
 

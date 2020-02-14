@@ -1,6 +1,7 @@
 package com.demkom58.timings;
 
-import net.minecraft.server.MinecraftServer;
+import net.potion.server.PotionServer;
+
 import java.util.logging.Logger;
 
 
@@ -17,7 +18,7 @@ public class TimingsCommand {
     }
 
     public boolean execute(String[] args) {
-        final Logger logger = MinecraftServer.LOGGER;
+        final Logger logger = PotionServer.LOGGER;
 
         if (args.length < 1) {
             logger.warning("Usage: " + usageMessage);

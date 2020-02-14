@@ -1,9 +1,9 @@
 package com.demkom58.timings;
 
 import com.google.common.collect.Sets;
-import net.minecraft.entity.Entity;
-import net.minecraft.material.Material;
-import net.minecraft.server.MinecraftServer;
+import net.potion.entity.Entity;
+import net.potion.material.Material;
+import net.potion.server.PotionServer;
 import org.json.simple.JSONValue;
 
 import java.io.ByteArrayOutputStream;
@@ -53,7 +53,7 @@ class TimingsExport extends Thread {
         if (!report) return;
         report = false;
 
-        final Logger logger = MinecraftServer.LOGGER;
+        final Logger logger = PotionServer.LOGGER;
         long now = System.currentTimeMillis();
         final long lastReportDiff = now - lastReport;
         if (lastReportDiff < REPORT_DIFF) {
@@ -70,7 +70,7 @@ class TimingsExport extends Thread {
         Map parent = createObject(
             // Get some basic system details about the server
             pair("version", "Beta 1.7"),
-            pair("maxplayers", MinecraftServer.SERVER.configManager.maxPlayers),
+            pair("maxplayers", PotionServer.SERVER.configManager.maxPlayers),
             pair("start", TimingsManager.timingStart / 1000),
             pair("end", System.currentTimeMillis() / 1000),
             pair("sampletime", (System.currentTimeMillis() - TimingsManager.timingStart) / 1000)
@@ -79,7 +79,7 @@ class TimingsExport extends Thread {
             appendObjectData(parent,
                 pair("server", "Begin Server"),
                 pair("motd", "Begin Server Motd"),
-                pair("online-mode", MinecraftServer.SERVER.onlineMode),
+                pair("online-mode", PotionServer.SERVER.onlineMode),
                 pair("icon", "no icon")
             );
         }
@@ -207,26 +207,26 @@ class TimingsExport extends Thread {
             response = getResponse(con);
 
             if (con.getResponseCode() != 302) {
-                MinecraftServer.LOGGER.warning("Upload Error: " + con.getResponseCode() + ": " + con.getResponseMessage());
-                MinecraftServer.LOGGER.warning("Check your logs for more information");
+                PotionServer.LOGGER.warning("Upload Error: " + con.getResponseCode() + ": " + con.getResponseMessage());
+                PotionServer.LOGGER.warning("Check your logs for more information");
                 if (response != null) {
-                    MinecraftServer.LOGGER.log(Level.SEVERE, response);
+                    PotionServer.LOGGER.log(Level.SEVERE, response);
                 }
                 return;
             }
 
             timingsURL = con.getHeaderField("Location");
-            MinecraftServer.LOGGER.info("View Timings Report: " + timingsURL);
+            PotionServer.LOGGER.info("View Timings Report: " + timingsURL);
 
             if (response != null && !response.isEmpty()) {
-                MinecraftServer.LOGGER.log(Level.INFO, "Timing Response: " + response);
+                PotionServer.LOGGER.log(Level.INFO, "Timing Response: " + response);
             }
         } catch (IOException ex) {
-            MinecraftServer.LOGGER.warning("Error uploading timings, check your logs for more information");
+            PotionServer.LOGGER.warning("Error uploading timings, check your logs for more information");
             if (response != null) {
-                MinecraftServer.LOGGER.log(Level.SEVERE, response);
+                PotionServer.LOGGER.log(Level.SEVERE, response);
             }
-            MinecraftServer.LOGGER.log(Level.SEVERE, "Could not paste timings", ex);
+            PotionServer.LOGGER.log(Level.SEVERE, "Could not paste timings", ex);
         }
     }
 
@@ -244,8 +244,8 @@ class TimingsExport extends Thread {
             return bos.toString();
 
         } catch (IOException ex) {
-            MinecraftServer.LOGGER.log(Level.WARNING, "Error uploading timings, check your logs for more information");
-            MinecraftServer.LOGGER.log(Level.WARNING, con.getResponseMessage(), ex);
+            PotionServer.LOGGER.log(Level.WARNING, "Error uploading timings, check your logs for more information");
+            PotionServer.LOGGER.log(Level.WARNING, con.getResponseMessage(), ex);
             return null;
         } finally {
             if (is != null) {

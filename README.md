@@ -2,7 +2,7 @@
 
 **Client**
 ```
-Main class: net.minecraft.client.Minecraft
+Main class: net.potion.client.PotionClient
 VM options: -Djava.library.path=bin\natives
 Working dir: Begin\jars
 
@@ -11,7 +11,7 @@ Working dir: Begin\jars
 
 **Server**
 ```
-Main class: net.minecraft.server.MinecraftServer
+Main class: net.potion.server.PotionServer
 Working dir: Begin\jars
 
 * Include provided libraries

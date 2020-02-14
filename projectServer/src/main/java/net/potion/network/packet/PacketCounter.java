@@ -1,0 +1,14 @@
+package net.potion.network.packet;
+
+class PacketCounter {
+    private int totalPackets;
+    private long totalBytes;
+
+    public PacketCounter() {
+    }
+
+    public void addPacket(int var1) {
+        ++this.totalPackets;
+        this.totalBytes += var1;
+    }
+}

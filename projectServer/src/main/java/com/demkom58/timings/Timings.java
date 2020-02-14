@@ -1,7 +1,7 @@
 package com.demkom58.timings;
 
 import com.google.common.collect.EvictingQueue;
-import net.minecraft.server.MinecraftServer;
+import net.potion.server.PotionServer;
 
 import java.util.Queue;
 import java.util.logging.Level;
@@ -129,7 +129,7 @@ public final class Timings {
         Queue<TimingHistory> oldQueue = TimingsManager.HISTORY;
         int frames = (getHistoryLength() / getHistoryInterval());
         if (length > maxLength) {
-            MinecraftServer.LOGGER.log(Level.WARNING, "Timings Length too high. Requested " + length + ", max is " + maxLength + ". To get longer history, you must increase your interval. Set Interval to " + Math.ceil(length / MAX_HISTORY_FRAMES) + " to achieve this length.");
+            PotionServer.LOGGER.log(Level.WARNING, "Timings Length too high. Requested " + length + ", max is " + maxLength + ". To get longer history, you must increase your interval. Set Interval to " + Math.ceil(length / MAX_HISTORY_FRAMES) + " to achieve this length.");
         }
         TimingsManager.HISTORY = EvictingQueue.create(frames);
         TimingsManager.HISTORY.addAll(oldQueue);

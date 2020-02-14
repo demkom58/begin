@@ -1,0 +1,164 @@
+package net.potion.block;
+
+import net.potion.entity.player.EntityPlayer;
+import net.potion.material.Material;
+import net.potion.tileentity.TileEntity;
+import net.potion.tileentity.TileEntityPiston;
+import net.potion.util.AxisAlignedBB;
+import net.potion.world.IBlockAccess;
+import net.potion.world.World;
+
+import java.util.Random;
+
+public class BlockPistonMoving extends BlockContainer {
+    public BlockPistonMoving(int var1) {
+        super(var1, Material.PISTON);
+        this.setHardness(-1.0F);
+    }
+
+    public static TileEntity func_31036_a(int var0, int var1, int var2, boolean var3, boolean var4) {
+        return new TileEntityPiston(var0, var1, var2, var3, var4);
+    }
+
+    @Override
+    protected TileEntity getBlockEntity() {
+        return null;
+    }
+
+    @Override
+    public void onBlockAdded(World var1, int var2, int var3, int var4) {
+    }
+
+    @Override
+    public void onBlockRemoval(World var1, int var2, int var3, int var4) {
+        TileEntity var5 = var1.getBlockTileEntity(var2, var3, var4);
+        if (var5 instanceof TileEntityPiston) {
+            ((TileEntityPiston) var5).func_31011_l();
+        } else {
+            super.onBlockRemoval(var1, var2, var3, var4);
+        }
+
+    }
+
+    @Override
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        return false;
+    }
+
+    @Override
+    public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int var5) {
+        return false;
+    }
+
+    @Override
+    public int getRenderType() {
+        return -1;
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+
+    @Override
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        if (!world.multiplayerWorld && world.getBlockTileEntity(x, y, z) == null) {
+            world.setBlockWithNotify(x, y, z, 0);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int idDropped(int var1, Random var2) {
+        return 0;
+    }
+
+    @Override
+    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int var5, float failChance) {
+        if (!world.multiplayerWorld) {
+            TileEntityPiston var7 = this.func_31034_c(world, x, y, z);
+            if (var7 != null) {
+                Block.BLOCKS_LIST[var7.getStoredBlockID()].dropBlockAsItem(world, x, y, z, var7.getBlockMetadata());
+            }
+        }
+    }
+
+    @Override
+    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
+        if (!var1.multiplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
+        }
+
+    }
+
+    @Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
+        TileEntityPiston var5 = this.func_31034_c(var1, var2, var3, var4);
+        if (var5 == null) {
+            return null;
+        } else {
+            float var6 = var5.func_31008_a(0.0F);
+            if (var5.func_31015_b()) {
+                var6 = 1.0F - var6;
+            }
+
+            return this.func_31035_a(var1, var2, var3, var4, var5.getStoredBlockID(), var6, var5.func_31009_d());
+        }
+    }
+
+    @Override
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z) {
+        TileEntityPiston var5 = this.func_31034_c(blockAccess, x, y, z);
+        if (var5 != null) {
+            Block var6 = Block.BLOCKS_LIST[var5.getStoredBlockID()];
+            if (var6 == null || var6 == this) {
+                return;
+            }
+
+            var6.setBlockBoundsBasedOnState(blockAccess, x, y, z);
+            float var7 = var5.func_31008_a(0.0F);
+            if (var5.func_31015_b()) {
+                var7 = 1.0F - var7;
+            }
+
+            int var8 = var5.func_31009_d();
+            this.minX = var6.minX - (double) ((float) PistonBlockTextures.field_31056_b[var8] * var7);
+            this.minY = var6.minY - (double) ((float) PistonBlockTextures.field_31059_c[var8] * var7);
+            this.minZ = var6.minZ - (double) ((float) PistonBlockTextures.field_31058_d[var8] * var7);
+            this.maxX = var6.maxX - (double) ((float) PistonBlockTextures.field_31056_b[var8] * var7);
+            this.maxY = var6.maxY - (double) ((float) PistonBlockTextures.field_31059_c[var8] * var7);
+            this.maxZ = var6.maxZ - (double) ((float) PistonBlockTextures.field_31058_d[var8] * var7);
+        }
+
+    }
+
+    public AxisAlignedBB func_31035_a(World var1, int var2, int var3, int var4, int var5, float var6, int var7) {
+        if (var5 != 0 && var5 != this.blockID) {
+            AxisAlignedBB var8 = Block.BLOCKS_LIST[var5].getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
+            if (var8 == null) {
+                return null;
+            } else {
+                var8.minX -= (float) PistonBlockTextures.field_31056_b[var7] * var6;
+                var8.maxX -= (float) PistonBlockTextures.field_31056_b[var7] * var6;
+                var8.minY -= (float) PistonBlockTextures.field_31059_c[var7] * var6;
+                var8.maxY -= (float) PistonBlockTextures.field_31059_c[var7] * var6;
+                var8.minZ -= (float) PistonBlockTextures.field_31058_d[var7] * var6;
+                var8.maxZ -= (float) PistonBlockTextures.field_31058_d[var7] * var6;
+                return var8;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    private TileEntityPiston func_31034_c(IBlockAccess var1, int var2, int var3, int var4) {
+        TileEntity var5 = var1.getBlockTileEntity(var2, var3, var4);
+        return var5 instanceof TileEntityPiston ? (TileEntityPiston) var5 : null;
+    }
+}

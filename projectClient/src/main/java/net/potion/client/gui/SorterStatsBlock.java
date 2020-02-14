@@ -1,0 +1,57 @@
+package net.potion.client.gui;
+
+import net.potion.stats.StatBase;
+import net.potion.stats.StatCrafting;
+import net.potion.stats.StatList;
+
+import java.util.Comparator;
+
+class SorterStatsBlock implements Comparator<StatCrafting> {
+    private final GuiStats guiStats;
+    private final GuiSlotStatsBlock statsBlock;
+
+    SorterStatsBlock(GuiSlotStatsBlock statsBlock, GuiStats guiStats) {
+        this.statsBlock = statsBlock;
+        this.guiStats = guiStats;
+    }
+
+    public int func_27297_a(StatCrafting var1, StatCrafting var2) {
+        int var3 = var1.func_25072_b();
+        int var4 = var2.func_25072_b();
+        StatBase var5 = null;
+        StatBase var6 = null;
+        if (this.statsBlock.field_27271_e == 2) {
+            var5 = StatList.mineBlockStatArray[var3];
+            var6 = StatList.mineBlockStatArray[var4];
+        } else if (this.statsBlock.field_27271_e == 0) {
+            var5 = StatList.field_25158_z[var3];
+            var6 = StatList.field_25158_z[var4];
+        } else if (this.statsBlock.field_27271_e == 1) {
+            var5 = StatList.field_25172_A[var3];
+            var6 = StatList.field_25172_A[var4];
+        }
+
+        if (var5 != null || var6 != null) {
+            if (var5 == null) {
+                return 1;
+            }
+
+            if (var6 == null) {
+                return -1;
+            }
+
+            int var7 = GuiStats.func_27142_c(this.statsBlock.field_27274_a).writeStat(var5);
+            int var8 = GuiStats.func_27142_c(this.statsBlock.field_27274_a).writeStat(var6);
+            if (var7 != var8) {
+                return (var7 - var8) * this.statsBlock.field_27270_f;
+            }
+        }
+
+        return var3 - var4;
+    }
+
+    @Override
+    public int compare(StatCrafting var1, StatCrafting var2) {
+        return this.func_27297_a(var1, var2);
+    }
+}

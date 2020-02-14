@@ -1,0 +1,364 @@
+package net.potion.inventory;
+
+import net.potion.block.Block;
+import net.potion.entity.Entity;
+import net.potion.entity.player.EntityPlayer;
+import net.potion.item.ItemArmor;
+import net.potion.item.ItemStack;
+import net.potion.nbt.TagCompound;
+import net.potion.nbt.TagList;
+
+public class InventoryPlayer implements IInventory {
+    public ItemStack[] mainInventory = new ItemStack[36];
+    public ItemStack[] armorInventory = new ItemStack[4];
+    public int currentItem = 0;
+    public EntityPlayer player;
+    public boolean inventoryChanged = false;
+    private ItemStack itemStack;
+
+    public InventoryPlayer(EntityPlayer var1) {
+        this.player = var1;
+    }
+
+    public static int func_25054_e() {
+        return 9;
+    }
+
+    public ItemStack getCurrentItem() {
+        return this.currentItem < 9 && this.currentItem >= 0 ? this.mainInventory[this.currentItem] : null;
+    }
+
+    private int getInventorySlotContainItem(int var1) {
+        for (int var2 = 0; var2 < this.mainInventory.length; ++var2) {
+            if (this.mainInventory[var2] != null && this.mainInventory[var2].itemID == var1) {
+                return var2;
+            }
+        }
+
+        return -1;
+    }
+
+    private int func_21082_c(ItemStack var1) {
+        for (int var2 = 0; var2 < this.mainInventory.length; ++var2) {
+            if (this.mainInventory[var2] != null && this.mainInventory[var2].itemID == var1.itemID && this.mainInventory[var2].func_21132_c() && this.mainInventory[var2].stackSize < this.mainInventory[var2].getMaxStackSize() && this.mainInventory[var2].stackSize < this.getInventoryStackLimit() && (!this.mainInventory[var2].getHasSubtypes() || this.mainInventory[var2].getItemDamage() == var1.getItemDamage())) {
+                return var2;
+            }
+        }
+
+        return -1;
+    }
+
+    private int getFirstEmptyStack() {
+        for (int var1 = 0; var1 < this.mainInventory.length; ++var1) {
+            if (this.mainInventory[var1] == null) {
+                return var1;
+            }
+        }
+
+        return -1;
+    }
+
+    private int func_21083_d(ItemStack var1) {
+        int var2 = var1.itemID;
+        int var3 = var1.stackSize;
+        int var4 = this.func_21082_c(var1);
+        if (var4 < 0) {
+            var4 = this.getFirstEmptyStack();
+        }
+
+        if (var4 < 0) {
+            return var3;
+        } else {
+            if (this.mainInventory[var4] == null) {
+                this.mainInventory[var4] = new ItemStack(var2, 0, var1.getItemDamage());
+            }
+
+            int var5 = var3;
+            if (var3 > this.mainInventory[var4].getMaxStackSize() - this.mainInventory[var4].stackSize) {
+                var5 = this.mainInventory[var4].getMaxStackSize() - this.mainInventory[var4].stackSize;
+            }
+
+            if (var5 > this.getInventoryStackLimit() - this.mainInventory[var4].stackSize) {
+                var5 = this.getInventoryStackLimit() - this.mainInventory[var4].stackSize;
+            }
+
+            if (var5 == 0) {
+                return var3;
+            } else {
+                var3 = var3 - var5;
+                this.mainInventory[var4].stackSize += var5;
+                this.mainInventory[var4].animationsToGo = 5;
+                return var3;
+            }
+        }
+    }
+
+    public void decrementAnimations() {
+        for (int var1 = 0; var1 < this.mainInventory.length; ++var1) {
+            if (this.mainInventory[var1] != null) {
+                this.mainInventory[var1].func_28143_a(this.player.worldObj, this.player, var1, this.currentItem == var1);
+            }
+        }
+
+    }
+
+    public boolean consumeInventoryItem(int var1) {
+        int var2 = this.getInventorySlotContainItem(var1);
+        if (var2 < 0) {
+            return false;
+        } else {
+            if (--this.mainInventory[var2].stackSize <= 0) {
+                this.mainInventory[var2] = null;
+            }
+
+            return true;
+        }
+    }
+
+    public boolean addItemStackToInventory(ItemStack var1) {
+        if (var1.isItemDamaged()) {
+            int var3 = this.getFirstEmptyStack();
+            if (var3 >= 0) {
+                this.mainInventory[var3] = ItemStack.func_20117_a(var1);
+                this.mainInventory[var3].animationsToGo = 5;
+                var1.stackSize = 0;
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            int var2;
+            while (true) {
+                var2 = var1.stackSize;
+                var1.stackSize = this.func_21083_d(var1);
+                if (var1.stackSize <= 0 || var1.stackSize >= var2) {
+                    break;
+                }
+            }
+
+            return var1.stackSize < var2;
+        }
+    }
+
+    @Override
+    public ItemStack decrStackSize(int var1, int var2) {
+        ItemStack[] var3 = this.mainInventory;
+        if (var1 >= this.mainInventory.length) {
+            var3 = this.armorInventory;
+            var1 -= this.mainInventory.length;
+        }
+
+        if (var3[var1] != null) {
+            if (var3[var1].stackSize <= var2) {
+                ItemStack var5 = var3[var1];
+                var3[var1] = null;
+                return var5;
+            } else {
+                ItemStack var4 = var3[var1].splitStack(var2);
+                if (var3[var1].stackSize == 0) {
+                    var3[var1] = null;
+                }
+
+                return var4;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void setInventorySlotContents(int var1, ItemStack var2) {
+        ItemStack[] var3 = this.mainInventory;
+        if (var1 >= var3.length) {
+            var1 -= var3.length;
+            var3 = this.armorInventory;
+        }
+
+        var3[var1] = var2;
+    }
+
+    public float getStrVsBlock(Block var1) {
+        float var2 = 1.0F;
+        if (this.mainInventory[this.currentItem] != null) {
+            var2 *= this.mainInventory[this.currentItem].getStrVsBlock(var1);
+        }
+
+        return var2;
+    }
+
+    public TagList writeToNBT(TagList var1) {
+        for (int var2 = 0; var2 < this.mainInventory.length; ++var2) {
+            if (this.mainInventory[var2] != null) {
+                TagCompound var3 = new TagCompound();
+                var3.setByte("Slot", (byte) var2);
+                this.mainInventory[var2].writeToNBT(var3);
+                var1.setTag(var3);
+            }
+        }
+
+        for (int var4 = 0; var4 < this.armorInventory.length; ++var4) {
+            if (this.armorInventory[var4] != null) {
+                TagCompound var5 = new TagCompound();
+                var5.setByte("Slot", (byte) (var4 + 100));
+                this.armorInventory[var4].writeToNBT(var5);
+                var1.setTag(var5);
+            }
+        }
+
+        return var1;
+    }
+
+    public void readFromNBT(TagList var1) {
+        this.mainInventory = new ItemStack[36];
+        this.armorInventory = new ItemStack[4];
+
+        for (int var2 = 0; var2 < var1.tagCount(); ++var2) {
+            TagCompound var3 = (TagCompound) var1.tagAt(var2);
+            int var4 = var3.getByte("Slot") & 255;
+            ItemStack var5 = new ItemStack(var3);
+            if (var5.getItem() != null) {
+                if (var4 >= 0 && var4 < this.mainInventory.length) {
+                    this.mainInventory[var4] = var5;
+                }
+
+                if (var4 >= 100 && var4 < this.armorInventory.length + 100) {
+                    this.armorInventory[var4 - 100] = var5;
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return this.mainInventory.length + 4;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int var1) {
+        ItemStack[] var2 = this.mainInventory;
+        if (var1 >= var2.length) {
+            var1 -= var2.length;
+            var2 = this.armorInventory;
+        }
+
+        return var2[var1];
+    }
+
+    @Override
+    public String getInvName() {
+        return "Inventory";
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 64;
+    }
+
+    public int getDamageVsEntity(Entity var1) {
+        ItemStack var2 = this.getStackInSlot(this.currentItem);
+        return var2 != null ? var2.getDamageVsEntity(var1) : 1;
+    }
+
+    public boolean canHarvestBlock(Block var1) {
+        if (var1.blockMaterial.isHarvestable()) {
+            return true;
+        } else {
+            ItemStack var2 = this.getStackInSlot(this.currentItem);
+            return var2 != null && var2.canHarvestBlock(var1);
+        }
+    }
+
+    public int getTotalArmorValue() {
+        int var1 = 0;
+        int var2 = 0;
+        int var3 = 0;
+
+        for (int var4 = 0; var4 < this.armorInventory.length; ++var4) {
+            if (this.armorInventory[var4] != null && this.armorInventory[var4].getItem() instanceof ItemArmor) {
+                int var5 = this.armorInventory[var4].getMaxDamage();
+                int var6 = this.armorInventory[var4].getItemDamageForDisplay();
+                int var7 = var5 - var6;
+                var2 += var7;
+                var3 += var5;
+                int var8 = ((ItemArmor) this.armorInventory[var4].getItem()).damageReduceAmount;
+                var1 += var8;
+            }
+        }
+
+        if (var3 == 0) {
+            return 0;
+        } else {
+            return (var1 - 1) * var2 / var3 + 1;
+        }
+    }
+
+    public void damageArmor(int var1) {
+        for (int var2 = 0; var2 < this.armorInventory.length; ++var2) {
+            if (this.armorInventory[var2] != null && this.armorInventory[var2].getItem() instanceof ItemArmor) {
+                this.armorInventory[var2].damageItem(var1, this.player);
+                if (this.armorInventory[var2].stackSize == 0) {
+                    this.armorInventory[var2].func_577_a(this.player);
+                    this.armorInventory[var2] = null;
+                }
+            }
+        }
+
+    }
+
+    public void dropAllItems() {
+        for (int var1 = 0; var1 < this.mainInventory.length; ++var1) {
+            if (this.mainInventory[var1] != null) {
+                this.player.dropPlayerItemWithRandomChoice(this.mainInventory[var1], true);
+                this.mainInventory[var1] = null;
+            }
+        }
+
+        for (int var2 = 0; var2 < this.armorInventory.length; ++var2) {
+            if (this.armorInventory[var2] != null) {
+                this.player.dropPlayerItemWithRandomChoice(this.armorInventory[var2], true);
+                this.armorInventory[var2] = null;
+            }
+        }
+
+    }
+
+    @Override
+    public void onInventoryChanged() {
+        this.inventoryChanged = true;
+    }
+
+    public ItemStack getItemStack() {
+        return this.itemStack;
+    }
+
+    public void setItemStack(ItemStack var1) {
+        this.itemStack = var1;
+        this.player.onItemStackChanged(var1);
+    }
+
+    @Override
+    public boolean canInteractWith(EntityPlayer var1) {
+        if (this.player.isDead) {
+            return false;
+        } else {
+            return var1.getDistanceSqToEntity(this.player) <= 64.0D;
+        }
+    }
+
+    public boolean func_28010_c(ItemStack var1) {
+        for (int var2 = 0; var2 < this.armorInventory.length; ++var2) {
+            if (this.armorInventory[var2] != null && this.armorInventory[var2].func_28144_c(var1)) {
+                return true;
+            }
+        }
+
+        for (int var3 = 0; var3 < this.mainInventory.length; ++var3) {
+            if (this.mainInventory[var3] != null && this.mainInventory[var3].func_28144_c(var1)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
