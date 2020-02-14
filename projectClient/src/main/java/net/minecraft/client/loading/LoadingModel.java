@@ -45,8 +45,12 @@ public class LoadingModel extends Gui {
         this.done = done;
     }
 
-    public int getPercent() {
-        return (int) (((float)loadUnits) / totalLoadUnits * 100f);
+    public float getPercent(float scale) {
+        return (loadUnits / ((float) totalLoadUnits) * scale);
+    }
+
+    public float getPercent() {
+        return getPercent(100);
     }
 
 }
