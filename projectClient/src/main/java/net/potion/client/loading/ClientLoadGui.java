@@ -98,9 +98,9 @@ public class ClientLoadGui extends Gui {
     }
 
     private void drawProgressBar(ScaledResolution res) {
-        int progressWidth = (int) loadingModel.getPercent(res.getScaledWidth());
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-        GL11.glColor3f(0.36f, 0.42f, 0.87f);
+        int progressWidth = (int) loadingModel.getPercent(res.getScaledWidth());
         int x = 0, y = res.getScaledHeight() - 15, height = 10;
 
         final Tessellator tess = Tessellator.INSTANCE;
@@ -111,6 +111,8 @@ public class ClientLoadGui extends Gui {
         tess.addVertex(x + progressWidth, y + height, 0);
         tess.addVertex(x, y + height, 0);
         tess.draw();
+
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
 
 }
