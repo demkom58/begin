@@ -63,7 +63,7 @@ public class ClientLoadGui extends Gui {
     }
 
     private void drawText(ScaledResolution res) {
-        final String percent = "%" + String.format("%.1f", loadingModel.getPercent());
+        final String percent = String.format("%.1f", loadingModel.getPercent()) + "%";
         drawString(fontRenderer, percent,
                 (res.getScaledWidth() - fontRenderer.getStringWidth(percent)) / 2,
                 res.getScaledHeight() - 45,
