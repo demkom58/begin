@@ -471,7 +471,7 @@ public final class PotionClient implements Runnable {
 
     }
 
-    public void shutdownPotionApplet() {
+    public void destroy() {
         try {
             this.statFileWriter.func_27175_b();
             this.statFileWriter.syncStats();
@@ -618,7 +618,7 @@ public final class PotionClient implements Runnable {
             throwable.printStackTrace();
             this.onCrash(new UnexpectedThrowable("Unexpected error", throwable));
         } finally {
-            this.shutdownPotionApplet();
+            this.destroy();
         }
 
     }

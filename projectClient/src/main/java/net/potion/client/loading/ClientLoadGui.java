@@ -31,7 +31,7 @@ public class ClientLoadGui extends Gui {
     public void update() {
         if (window.isCloseRequested()) {
             client.dispose();
-            client.shutdownPotionApplet();
+            client.destroy();
             return;
         }
 
@@ -52,12 +52,17 @@ public class ClientLoadGui extends Gui {
 
         this.drawLogo(res);
         this.drawProgressBar(res);
+        this.drawText(res);
 
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_FOG);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
 
+        window.update();
+    }
+
+    private void drawText(ScaledResolution res) {
         final String percent = "%" + String.format("%.1f", loadingModel.getPercent());
         drawString(fontRenderer, percent,
                 (res.getScaledWidth() - fontRenderer.getStringWidth(percent)) / 2,
@@ -71,11 +76,9 @@ public class ClientLoadGui extends Gui {
                 res.getScaledHeight() - 30,
                 0x323E96
         );
-
-        window.update();
     }
 
-    public void drawLogo(ScaledResolution res) {
+    private void drawLogo(ScaledResolution res) {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/title/potion_logo.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -94,7 +97,7 @@ public class ClientLoadGui extends Gui {
         tess.draw();
     }
 
-    public void drawProgressBar(ScaledResolution res) {
+    private void drawProgressBar(ScaledResolution res) {
         int progressWidth = (int) loadingModel.getPercent(res.getScaledWidth());
 
         GL11.glColor3f(0.36f, 0.42f, 0.87f);
