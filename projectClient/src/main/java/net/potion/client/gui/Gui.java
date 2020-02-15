@@ -62,7 +62,7 @@ public class Gui {
         GL11.glDisable(GL11.GL_BLEND);
     }
 
-    protected void drawGradientRect(int var1, int var2, int var3, int var4, int startColor, int endColor) {
+    protected void drawGradientRect(int x1, int y1, int x2, int y2, int startColor, int endColor) {
         float sa = (float) (startColor >> 24 & 255) / 255.0F;
         float sr = (float) (startColor >> 16 & 255) / 255.0F;
         float sg = (float) (startColor >> 8 & 255) / 255.0F;
@@ -81,11 +81,11 @@ public class Gui {
         Tessellator tess = Tessellator.INSTANCE;
         tess.startDrawingQuads();
         tess.setColorRGBA_F(sr, sg, sb, sa);
-        tess.addVertex(var3, var2, 0.0D);
-        tess.addVertex(var1, var2, 0.0D);
+        tess.addVertex(x2, y1, 0.0D);
+        tess.addVertex(x1, y1, 0.0D);
         tess.setColorRGBA_F(er, eg, eb, ea);
-        tess.addVertex(var1, var4, 0.0D);
-        tess.addVertex(var3, var4, 0.0D);
+        tess.addVertex(x1, y2, 0.0D);
+        tess.addVertex(x2, y2, 0.0D);
         tess.draw();
         GL11.glShadeModel(GL11.GL_FLAT);
         GL11.glDisable(GL11.GL_BLEND);

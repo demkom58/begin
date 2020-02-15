@@ -104,25 +104,30 @@ public class GuiMainMenu extends GuiScreen {
     public void drawScreen(int var1, int var2, float var3) {
         this.drawDefaultBackground();
         Tessellator tess = Tessellator.INSTANCE;
-        short var5 = 274;
-        int var6 = this.width / 2 - var5 / 2;
-        byte var7 = 30;
+
+        short width = 274;
+        int paddingLeft = (this.width - width) / 2;
+        byte size = 30;
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.potion.renderEngine.getTexture("/title/mclogo.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.drawTexturedModalRect(var6, var7, 0, 0, 155, 44);
-        this.drawTexturedModalRect(var6 + 155, var7, 0, 45, 155, 44);
-        tess.setColorOpaque_I(16777215);
+        this.drawTexturedModalRect(paddingLeft, size, 0, 0, 155, 44);
+        this.drawTexturedModalRect(paddingLeft + 155, size, 0, 45, 155, 44);
+        tess.setColorOpaque_I(0xFFFFFF);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) (this.width / 2 + 90), 70.0F, 0.0F);
         GL11.glRotatef(-20.0F, 0.0F, 0.0F, 1.0F);
-        float var8 = 1.8F - MathHelper.abs(MathHelper.sin((float) (System.currentTimeMillis() % 1000L) / 1000.0F * 3.1415927F * 2.0F) * 0.1F);
-        var8 = var8 * 100.0F / (float) (this.fontRenderer.getStringWidth(this.splashText) + 32);
-        GL11.glScalef(var8, var8, var8);
+
+        float splashScale = 1.8F - MathHelper.abs(MathHelper.sin((float) (System.currentTimeMillis() % 1000L) / 1000.0F * 3.1415927F * 2.0F) * 0.1F);
+        splashScale *= 100.0F / (float) (this.fontRenderer.getStringWidth(this.splashText) + 32);
+
+        GL11.glScalef(splashScale, splashScale, splashScale);
         this.drawCenteredString(this.fontRenderer, this.splashText, 0, -8, 0xFFFF00);
         GL11.glPopMatrix();
+
         this.drawString(this.fontRenderer, "Potion in-dev 0.0.1", 2, 2, 0x505050);
-        String var9 = "Copyright Mojang AB. Do not distribute.";
-        this.drawString(this.fontRenderer, var9, this.width - this.fontRenderer.getStringWidth(var9) - 2, this.height - 10, 0xFFFFFF);
+        String copyright = "Copyright - Pulsar";
+        this.drawString(this.fontRenderer, copyright, this.width - this.fontRenderer.getStringWidth(copyright) - 2, this.height - 10, 0xFFFFFF);
+
         super.drawScreen(var1, var2, var3);
     }
 }
