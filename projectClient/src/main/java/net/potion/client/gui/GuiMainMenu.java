@@ -118,11 +118,11 @@ public class GuiMainMenu extends GuiScreen {
         float var8 = 1.8F - MathHelper.abs(MathHelper.sin((float) (System.currentTimeMillis() % 1000L) / 1000.0F * 3.1415927F * 2.0F) * 0.1F);
         var8 = var8 * 100.0F / (float) (this.fontRenderer.getStringWidth(this.splashText) + 32);
         GL11.glScalef(var8, var8, var8);
-        this.drawCenteredString(this.fontRenderer, this.splashText, 0, -8, 16776960);
+        this.drawCenteredString(this.fontRenderer, this.splashText, 0, -8, 0xFFFF00);
         GL11.glPopMatrix();
-        this.drawString(this.fontRenderer, "Potion in-dev 0.0.1", 2, 2, 5263440);
+        this.drawString(this.fontRenderer, "Potion in-dev 0.0.1", 2, 2, 0x505050);
         String var9 = "Copyright Mojang AB. Do not distribute.";
-        this.drawString(this.fontRenderer, var9, this.width - this.fontRenderer.getStringWidth(var9) - 2, this.height - 10, 16777215);
+        this.drawString(this.fontRenderer, var9, this.width - this.fontRenderer.getStringWidth(var9) - 2, this.height - 10, 0xFFFFFF);
         super.drawScreen(var1, var2, var3);
     }
 }

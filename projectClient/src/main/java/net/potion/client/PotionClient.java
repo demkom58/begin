@@ -235,7 +235,7 @@ public final class PotionClient implements Runnable {
         this.clientLoadThread = new ClientLoadThread(this.dataDir, this);
 
         final LoadingModel loadingModel = new LoadingModel(clientLoadThread.countLoadUnits());
-        final ClientLoadGui clientLoadGui = new ClientLoadGui(window, gameSettings, renderEngine, fontRenderer, loadingModel);
+        final ClientLoadGui clientLoadGui = new ClientLoadGui(this, window, gameSettings, renderEngine, fontRenderer, loadingModel);
         clientLoadThread.setup(loadingModel);
 
         this.window.setPhase("Post startup");

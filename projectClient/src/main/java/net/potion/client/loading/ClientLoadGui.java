@@ -3,6 +3,7 @@ package net.potion.client.loading;
 import net.hypnosis.monitor.Window;
 import net.hypnosis.render.Tessellator;
 import net.potion.client.GameSettings;
+import net.potion.client.PotionClient;
 import net.potion.client.gui.Gui;
 import net.potion.client.render.FontRenderer;
 import net.potion.client.render.RenderEngine;
@@ -10,13 +11,16 @@ import net.potion.client.render.ScaledResolution;
 import org.lwjgl.opengl.GL11;
 
 public class ClientLoadGui extends Gui {
+    private final PotionClient client;
     private final Window window;
     private final GameSettings gameSettings;
     private final RenderEngine renderEngine;
     private final FontRenderer fontRenderer;
     private final LoadingModel loadingModel;
 
-    public ClientLoadGui(Window window, GameSettings gameSettings, RenderEngine renderEngine, FontRenderer fontRenderer, LoadingModel loadingModel) {
+    public ClientLoadGui(PotionClient client, Window window, GameSettings gameSettings,
+                         RenderEngine renderEngine, FontRenderer fontRenderer, LoadingModel loadingModel) {
+        this.client = client;
         this.window = window;
         this.gameSettings = gameSettings;
         this.renderEngine = renderEngine;
@@ -25,8 +29,11 @@ public class ClientLoadGui extends Gui {
     }
 
     public void update() {
-        if (window.isCloseRequested())
-            System.exit(0);
+        if (window.isCloseRequested()) {
+            client.dispose();
+            client.shutdownPotionApplet();
+            return;
+        }
 
         final ScaledResolution res = new ScaledResolution(gameSettings, window.getWidth(), window.getHeight());
 
@@ -69,23 +76,20 @@ public class ClientLoadGui extends Gui {
     }
 
     public void drawLogo(ScaledResolution res) {
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/title/mojang.png"));
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/title/potion_logo.png"));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        final short width = 256;
-        final short height = 256;
+        final float width = 256 * 1.3f, height = 128 * 1.3f;
+        final int x = (int) ((res.getScaledWidth() - width) / 2),
+                y = (int) ((res.getScaledHeight() - height) / 2);
 
-        int x = (res.getScaledWidth() - width) / 2, y = (res.getScaledHeight() - height) / 2, u = 0, v = 0;
-
-        float uMul = 0.00390625F;
-        float vMul = 0.00390625F;
         Tessellator tess = Tessellator.INSTANCE;
         tess.setColorOpaque_I(0xFFFFFF);
         tess.startDrawingQuads();
-        tess.addVertexWithUV(x, y + height, 0.0D, (float) (u) * uMul, (float) (v + height) * vMul);
-        tess.addVertexWithUV(x + width, y + height, 0.0D, (float) (u + width) * uMul, (float) (v + height) * vMul);
-        tess.addVertexWithUV(x + width, y, 0.0D, (float) (u + width) * uMul, (float) (v) * vMul);
-        tess.addVertexWithUV(x, y, 0.0D, (float) (u) * uMul, (float) (v) * vMul);
+        tess.addVertexWithUV(x, y + height, 0.0D, 0, 1);
+        tess.addVertexWithUV(x + width, y + height, 0.0D, 1, 1);
+        tess.addVertexWithUV(x + width, y, 0.0D, 1, 0);
+        tess.addVertexWithUV(x, y, 0.0D, 0, 0);
 
         tess.draw();
     }
@@ -98,6 +102,7 @@ public class ClientLoadGui extends Gui {
 
         final Tessellator tess = Tessellator.INSTANCE;
         tess.startDrawingQuads();
+        tess.setColorOpaque(36, 42, 87);
         tess.addVertex(x, y, 0);
         tess.addVertex(x + progressWidth, y, 0);
         tess.addVertex(x + progressWidth, y + height, 0);
