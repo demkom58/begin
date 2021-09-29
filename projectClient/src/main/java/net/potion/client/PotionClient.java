@@ -438,13 +438,11 @@ public final class PotionClient implements Runnable {
         if (this.currentScreen instanceof GuiUnused)
             return;
 
-        if (this.currentScreen != null) {
+        if (this.currentScreen != null)
             this.currentScreen.onGuiClosed();
-        }
 
-        if (guiScreen instanceof GuiMainMenu) {
+        if (guiScreen instanceof GuiMainMenu)
             this.statFileWriter.func_27175_b();
-        }
 
         this.statFileWriter.syncStats();
         if (guiScreen == null && this.theWorld == null) {
@@ -453,9 +451,8 @@ public final class PotionClient implements Runnable {
             guiScreen = new GuiGameOver();
         }
 
-        if (guiScreen instanceof GuiMainMenu) {
+        if (guiScreen instanceof GuiMainMenu)
             this.ingameGUI.clearChatMessages();
-        }
 
         this.currentScreen = guiScreen;
         if (guiScreen != null) {
@@ -465,10 +462,7 @@ public final class PotionClient implements Runnable {
             int height = scaledResolution.getScaledHeight();
             guiScreen.setWorldAndResolution(this, width, height);
             this.skipRenderWorld = false;
-        } else {
-            this.setIngameFocus();
-        }
-
+        } else this.setIngameFocus();
     }
 
     public void destroy() {
@@ -477,9 +471,8 @@ public final class PotionClient implements Runnable {
             this.statFileWriter.syncStats();
 
             try {
-                if (this.clientLoadThread != null) {
+                if (this.clientLoadThread != null)
                     this.clientLoadThread.closePotion();
-                }
             } catch (Exception ignored) {
             }
 
@@ -501,9 +494,8 @@ public final class PotionClient implements Runnable {
             }
 
             window.destroy();
-            if (!this.hasCrashed) {
+            if (!this.hasCrashed)
                 System.exit(0);
-            }
         }
 
         System.gc();
@@ -651,10 +643,11 @@ public final class PotionClient implements Runnable {
         if (this.prevFrameTime == -1L)
             this.prevFrameTime = System.nanoTime();
 
-        long var5 = System.nanoTime();
+        long nanoTime = System.nanoTime();
         tickTimes[numRecordedFrameTimes & frameTimes.length - 1] = delta;
-        frameTimes[numRecordedFrameTimes++ & frameTimes.length - 1] = var5 - this.prevFrameTime;
-        this.prevFrameTime = var5;
+        frameTimes[numRecordedFrameTimes++ & frameTimes.length - 1] = nanoTime - this.prevFrameTime;
+        this.prevFrameTime = nanoTime;
+
         GL11.glClear(256);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
@@ -668,29 +661,29 @@ public final class PotionClient implements Runnable {
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
         GL11.glLineWidth(1.0F);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
+
         Tessellator tess = Tessellator.INSTANCE;
         tess.startDrawing(GL11.GL_QUADS);
         int var8 = (int) (var3 / 200000L);
-        tess.setColorOpaque_I(536870912);
+        tess.setColorOpaque_I(0x20000000);
         tess.addVertex(0.0D, displayHeight - var8, 0.0D);
         tess.addVertex(0.0D, displayHeight, 0.0D);
         tess.addVertex(frameTimes.length, displayHeight, 0.0D);
         tess.addVertex(frameTimes.length, displayHeight - var8, 0.0D);
-        tess.setColorOpaque_I(538968064);
+        tess.setColorOpaque_I(0x20200000);
         tess.addVertex(0.0D, displayHeight - var8 * 2, 0.0D);
         tess.addVertex(0.0D, displayHeight - var8, 0.0D);
         tess.addVertex(frameTimes.length, displayHeight - var8, 0.0D);
         tess.addVertex(frameTimes.length, displayHeight - var8 * 2, 0.0D);
         tess.draw();
-        long var9 = 0L;
 
-        for (long frameTime : frameTimes) {
-            var9 += frameTime;
-        }
+        long totalTime = 0L;
+        for (long frameTime : frameTimes)
+            totalTime += frameTime;
 
-        int var20 = (int) (var9 / 200000L / (long) frameTimes.length);
+        int var20 = (int) (totalTime / 200000L / (long) frameTimes.length);
         tess.startDrawing(GL11.GL_QUADS);
-        tess.setColorOpaque_I(541065216);
+        tess.setColorOpaque_I(0x20400000);
         tess.addVertex(0.0D, displayHeight - var20, 0.0D);
         tess.addVertex(0.0D, displayHeight, 0.0D);
         tess.addVertex(frameTimes.length, displayHeight, 0.0D);
@@ -698,25 +691,25 @@ public final class PotionClient implements Runnable {
         tess.draw();
         tess.startDrawing(GL11.GL_LINES);
 
-        for (int i = 0; i < frameTimes.length; ++i) {
-            int var13 = (i - numRecordedFrameTimes & frameTimes.length - 1) * 255 / frameTimes.length;
+        for (int frame = 0; frame < frameTimes.length; ++frame) {
+            int var13 = (frame - numRecordedFrameTimes & frameTimes.length - 1) * 255 / frameTimes.length;
             int var14 = var13 * var13 / 255;
             var14 = var14 * var14 / 255;
             int var15 = var14 * var14 / 255;
             var15 = var15 * var15 / 255;
 
-            if (frameTimes[i] > var3)
+            if (frameTimes[frame] > var3)
                 tess.setColorOpaque_I(-16777216 + var14 * 65536);
             else
                 tess.setColorOpaque_I(-16777216 + var14 * 256);
 
-            long var16 = frameTimes[i] / 200_000L;
-            long var18 = tickTimes[i] / 200_000L;
-            tess.addVertex((float) i + 0.5F, (float) ((long) displayHeight - var16) + 0.5F, 0.0D);
-            tess.addVertex((float) i + 0.5F, (float) displayHeight + 0.5F, 0.0D);
+            long var16 = frameTimes[frame] / 200_000L;
+            long var18 = tickTimes[frame] / 200_000L;
+            tess.addVertex((float) frame + 0.5F, (float) ((long) displayHeight - var16) + 0.5F, 0.0D);
+            tess.addVertex((float) frame + 0.5F, (float) displayHeight + 0.5F, 0.0D);
             tess.setColorOpaque_I(-16777216 + var14 * 65536 + var14 * 256 + var14);
-            tess.addVertex((float) i + 0.5F, (float) ((long) displayHeight - var16) + 0.5F, 0.0D);
-            tess.addVertex((float) i + 0.5F, (float) ((long) displayHeight - (var16 - var18)) + 0.5F, 0.0D);
+            tess.addVertex((float) frame + 0.5F, (float) ((long) displayHeight - var16) + 0.5F, 0.0D);
+            tess.addVertex((float) frame + 0.5F, (float) ((long) displayHeight - (var16 - var18)) + 0.5F, 0.0D);
         }
 
         tess.draw();
@@ -785,8 +778,8 @@ public final class PotionClient implements Runnable {
      * Calls on mouse click.
      *
      * @param buttonId - id of mouse button.
-     *                 0 = Left Click
-     *                 1 = Right Click
+     *   0 = Left Click
+     *   1 = Right Click
      */
     private void clickMouse(int buttonId) {
         if (buttonId == 0 && this.leftClickCounter > 0)
