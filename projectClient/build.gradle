@@ -1,28 +1,24 @@
-apply plugin: "application"
+apply plugin: 'java'
+apply plugin: 'application'
 
-mainClassName = "net.minecraft.client.Minecraft"
+application.mainClassName = "net.minecraft.client.Minecraft"
 
-repositories {
-	mavenCentral()
-	maven { url 'https://jitpack.io' }
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-}
-
-project.ext.lwjglVersion = "3.2.4-SNAPSHOT"
-project.ext.jomlVersion = "1.9.17"
+project.ext.lwjglVersion = "3.3.0-SNAPSHOT"
+project.ext.jomlVersion = "1.10.2"
 project.ext.lwjglNatives = "natives-windows"
 
 dependencies {
 	implementation project(":projectCommon")
 
-    compile group: 'org.jetbrains', name: 'annotations', version: '17.0.0'
-    compile group: 'com.github.cliftonlabs', name: 'json-simple', version: '3.1.0'
+    implementation group: 'org.jetbrains', name: 'annotations', version: '22.0.0'
+    implementation group: 'com.github.cliftonlabs', name: 'json-simple', version: '4.0.0'
+    implementation group: 'com.google.guava', name: 'guava', version: '31.0.1-jre'
 
-    implementation "org.lwjgl:lwjgl:${lwjglVersion}"
-    implementation "org.lwjgl:lwjgl-glfw:${lwjglVersion}"
-    implementation "org.lwjgl:lwjgl-openal:${lwjglVersion}"
-    implementation "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
-    implementation "org.lwjgl:lwjgl-stb:${lwjglVersion}"
+    implementation group: 'org.lwjgl', name: 'lwjgl', version: "${lwjglVersion}"
+    implementation group: 'org.lwjgl', name: 'lwjgl-glfw', version: "${lwjglVersion}"
+    implementation group: 'org.lwjgl', name: 'lwjgl-openal', version: "${lwjglVersion}"
+    implementation group: 'org.lwjgl', name: 'lwjgl-opengl', version: "${lwjglVersion}"
+    implementation group: 'org.lwjgl', name: 'lwjgl-stb', version: "${lwjglVersion}"
 
-    implementation "org.joml:joml:${jomlVersion}"
+    implementation group: 'org.joml', name: 'joml', version: "${jomlVersion}"
 }
