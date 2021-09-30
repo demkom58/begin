@@ -9,7 +9,7 @@ public class Timer {
     private double lastHRTime;
     private long lastSyncSysClock;
     private long lastSyncHRClock;
-    private long field_28132_i;
+    private long accumulated;
     private double timeSyncAdjustment = 1.0D;
 
     public Timer(float ticksPerSecond) {
@@ -19,32 +19,31 @@ public class Timer {
     }
 
     public void updateTimer() {
-        long var1 = System.currentTimeMillis();
-        long var3 = var1 - this.lastSyncSysClock;
-        long var5 = System.nanoTime() / 1_000_000L;
-        double var7 = (double) var5 / 1_000.0D;
-        if (var3 > 1000L) {
-            this.lastHRTime = var7;
-        } else if (var3 < 0L) {
-            this.lastHRTime = var7;
+        long nowSys = System.currentTimeMillis();
+        long diff = nowSys - this.lastSyncSysClock;
+        long nowHR = System.nanoTime() / 1_000_000L;
+
+        double nowHRSec = (double) nowHR / 1_000.0D;
+        if (diff < 0L || diff > 1000L) {
+            this.lastHRTime = nowHRSec;
         } else {
-            this.field_28132_i += var3;
-            if (this.field_28132_i > 1_000L) {
-                long var9 = var5 - this.lastSyncHRClock;
-                double var11 = (double) this.field_28132_i / (double) var9;
+            this.accumulated += diff;
+            if (this.accumulated > 1_000L) {
+                long var9 = nowHR - this.lastSyncHRClock;
+                double var11 = (double) this.accumulated / (double) var9;
                 this.timeSyncAdjustment += (var11 - this.timeSyncAdjustment) * 0.20000000298023224D;
-                this.lastSyncHRClock = var5;
-                this.field_28132_i = 0L;
+                this.lastSyncHRClock = nowHR;
+                this.accumulated = 0L;
             }
 
-            if (this.field_28132_i < 0L) {
-                this.lastSyncHRClock = var5;
+            if (this.accumulated < 0L) {
+                this.lastSyncHRClock = nowHR;
             }
         }
 
-        this.lastSyncSysClock = var1;
-        double var13 = (var7 - this.lastHRTime) * this.timeSyncAdjustment;
-        this.lastHRTime = var7;
+        this.lastSyncSysClock = nowSys;
+        double var13 = (nowHRSec - this.lastHRTime) * this.timeSyncAdjustment;
+        this.lastHRTime = nowHRSec;
         if (var13 < 0.0D) {
             var13 = 0.0D;
         }
