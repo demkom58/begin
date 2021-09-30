@@ -19,8 +19,6 @@ public class GuiButton extends Gui {
     }
 
     public GuiButton(int id, int x, int y, int width, int height, String text) {
-        this.width = 200;
-        this.height = 20;
         this.enabled = true;
         this.enabled2 = true;
         this.id = id;
