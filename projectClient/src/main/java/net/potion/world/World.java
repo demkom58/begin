@@ -1534,11 +1534,11 @@ public class World implements IBlockAccess {
         return null;
     }
 
-    public String func_687_d() {
+    public String entitiesStatistic() {
         return "All: " + this.loadedEntityList.size();
     }
 
-    public String func_21119_g() {
+    public String chunkStatistic() {
         return this.chunkProvider.makeString();
     }
 

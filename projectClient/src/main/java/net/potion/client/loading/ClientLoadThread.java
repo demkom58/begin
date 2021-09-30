@@ -68,6 +68,7 @@ public class ClientLoadThread extends Thread {
 
         this.loadResource(this.resourcesFolder, "");
         loadingModel.setDone(true);
+        System.out.println("Resources loading done");
     }
 
     public void reloadResources() {

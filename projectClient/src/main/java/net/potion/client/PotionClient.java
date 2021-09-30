@@ -149,7 +149,7 @@ public final class PotionClient implements Runnable {
     private String serverName;
     private int serverPort;
 
-    private Timer timer = new Timer(20.0F);
+    private final Timer timer = new Timer(20.0F);
 
     /**
      * Arguments of game
@@ -238,8 +238,11 @@ public final class PotionClient implements Runnable {
         final ClientLoadGui clientLoadGui = new ClientLoadGui(this, window, gameSettings, renderEngine, fontRenderer, loadingModel);
         clientLoadThread.setup(loadingModel);
 
-        this.window.setPhase("Post startup");
-        this.window.logOnGlError();
+        this.mouse.setScrollCallback(this::onScroll);
+        this.mouse.setButtonCallback(this::onMouseButton);
+
+        this.keyboard.setCharCallback(this::onChar);
+        this.keyboard.setKeyCallback(this::onKey);
 
         try {
             this.clientLoadThread.start();
@@ -248,13 +251,11 @@ public final class PotionClient implements Runnable {
         } catch (Exception ignored) {
         }
 
-        this.mouse.setScrollCallback(this::onScroll);
-        this.mouse.setButtonCallback(this::onMouseButton);
-
-        this.keyboard.setCharCallback(this::onChar);
-        this.keyboard.setKeyCallback(this::onKey);
+        this.window.setPhase("Post startup");
+        this.window.logOnGlError();
 
         this.ingameGUI = new GuiIngame(this);
+        System.out.println("Loading done");
 
         if (this.serverName != null)
             this.displayGuiScreen(new GuiConnecting(this, this.serverName, this.serverPort));
@@ -880,8 +881,7 @@ public final class PotionClient implements Runnable {
         this.entityRenderer.getMouseOver(1.0F);
         if (this.thePlayer != null) {
             IChunkProvider provider = this.theWorld.getIChunkProvider();
-            if (provider instanceof ChunkProviderLoadOrGenerate) {
-                ChunkProviderLoadOrGenerate currentChunkOver = (ChunkProviderLoadOrGenerate) provider;
+            if (provider instanceof ChunkProviderLoadOrGenerate currentChunkOver) {
                 int chunkX = MathHelper.floor((float) ((int) this.thePlayer.posX)) >> 4;
                 int chunkY = MathHelper.floor((float) ((int) this.thePlayer.posZ)) >> 4;
                 currentChunkOver.setCurrentChunkOver(chunkX, chunkY);
@@ -951,11 +951,12 @@ public final class PotionClient implements Runnable {
                 this.theWorld.tick();
             }
 
-            if (!this.isGamePaused && this.theWorld != null) {
+            if (!this.isGamePaused && this.theWorld != null && this.thePlayer != null) {
                 this.theWorld.randomDisplayUpdates(
                         MathHelper.floor(this.thePlayer.posX),
                         MathHelper.floor(this.thePlayer.posY),
-                        MathHelper.floor(this.thePlayer.posZ));
+                        MathHelper.floor(this.thePlayer.posZ)
+                );
             }
 
             if (!this.isGamePaused)
@@ -1187,11 +1188,11 @@ public final class PotionClient implements Runnable {
     }
 
     public String func_21002_o() {
-        return this.theWorld.func_21119_g();
+        return this.theWorld.chunkStatistic();
     }
 
     public String func_6245_o() {
-        return "P: " + this.effectRenderer.getStatistics() + ". T: " + this.theWorld.func_687_d();
+        return "P: " + this.effectRenderer.getStatistics() + ". T: " + this.theWorld.entitiesStatistic();
     }
 
     public void respawn(boolean var1, int var2) {
@@ -1217,8 +1218,7 @@ public final class PotionClient implements Runnable {
         }
 
         IChunkProvider chunkProvider = this.theWorld.getIChunkProvider();
-        if (chunkProvider instanceof ChunkProviderLoadOrGenerate) {
-            ChunkProviderLoadOrGenerate loadOrGenerate = (ChunkProviderLoadOrGenerate) chunkProvider;
+        if (chunkProvider instanceof ChunkProviderLoadOrGenerate loadOrGenerate) {
             loadOrGenerate.setCurrentChunkOver(var4.x >> 4, var4.z >> 4);
         }
 
