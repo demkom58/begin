@@ -3,6 +3,7 @@ package net.potion.block;
 import net.potion.entity.Entity;
 import net.potion.material.Material;
 import net.potion.util.AxisAlignedBB;
+import net.potion.util.MathHelper;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
 import org.joml.Vector3d;
@@ -164,12 +165,11 @@ public abstract class BlockFluid extends Block {
             }
 
             if (var14) {
-                var5 = new Vector3d(var5).normalize().add(0.0D, -6.0D, 0.0D);
+                var5 = MathHelper.normalizeOrZero(var5).add(0.0D, -6.0D, 0.0D);
             }
         }
 
-        var5 = new Vector3d(var5).normalize();
-        return var5;
+        return MathHelper.normalizeOrZero(var5);
     }
 
     @Override

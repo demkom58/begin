@@ -1,6 +1,7 @@
 package net.potion.client.render.texture;
 
 import net.hypnosis.render.Tessellator;
+import net.potion.util.MathHelper;
 import org.joml.Vector3d;
 
 public class TexturedQuad {
@@ -35,7 +36,7 @@ public class TexturedQuad {
     public void draw(Tessellator tess, float delta) {
         Vector3d var3 = new Vector3d(this.vertexPositions[1].vec).sub(this.vertexPositions[0].vec);
         Vector3d var4 = new Vector3d(this.vertexPositions[1].vec).sub(this.vertexPositions[2].vec);
-        Vector3d var5 = new Vector3d(var4).cross(var3).normalize();
+        Vector3d var5 = MathHelper.normalizeOrZero(new Vector3d(var4).cross(var3));
 
         tess.startDrawingQuads();
         if (this.invertNormal) {

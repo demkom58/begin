@@ -1410,7 +1410,7 @@ public class World implements IBlockAccess {
         }
 
         if (vec.length() > 0.0D) {
-            vec = new Vector3d(vec).normalize();
+            vec = MathHelper.normalizeOrZero(new Vector3d(vec));
             double var19 = 0.014D;
             entity.motionX += vec.x * var19;
             entity.motionY += vec.y * var19;

@@ -42,7 +42,7 @@ public class RenderMinecart extends Render {
             var6 += var18.z - var14;
             Vector3d var22 = new Vector3d(var21).add(-var20.x, -var20.y, -var20.z);
             if (var22.length() != 0.0D) {
-                var22 = new Vector3d(var22).normalize();
+                var22 = MathHelper.normalizeOrZero(new Vector3d(var22));
                 var8 = (float) (Math.atan2(var22.z, var22.x) * 180.0D / 3.141592653589793D);
                 var19 = (float) (Math.atan(var22.y) * 73.0D);
             }

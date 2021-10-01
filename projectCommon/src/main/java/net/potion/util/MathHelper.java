@@ -111,4 +111,13 @@ public class MathHelper {
                 : null;
     }
 
+    public static Vector3d normalizeOrZero(Vector3d vec) {
+        return normalizeOrZero(vec, 1.0E-4D);
+    }
+
+    public static Vector3d normalizeOrZero(Vector3d vec, double minValue) {
+        double d = MathHelper.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+        return d < minValue ? vec.set(0) : vec.div(d);
+    }
+
 }
