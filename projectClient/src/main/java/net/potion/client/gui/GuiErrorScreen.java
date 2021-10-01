@@ -25,7 +25,7 @@ public class GuiErrorScreen extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, "Out of memory!", this.width / 2, this.height / 4 - 60 + 20, 16777215);
         this.drawString(this.fontRenderer, "Potion has run out of memory.", this.width / 2 - 140, this.height / 4 - 60 + 60, 10526880);
@@ -35,6 +35,6 @@ public class GuiErrorScreen extends GuiScreen {
         this.drawString(this.fontRenderer, "downloading the game and playing it offline.", this.width / 2 - 140, this.height / 4 - 60 + 60 + 45, 10526880);
         this.drawString(this.fontRenderer, "To prevent level corruption, the current game has quit.", this.width / 2 - 140, this.height / 4 - 60 + 60 + 63, 10526880);
         this.drawString(this.fontRenderer, "Please restart the game.", this.width / 2 - 140, this.height / 4 - 60 + 60 + 81, 10526880);
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 }

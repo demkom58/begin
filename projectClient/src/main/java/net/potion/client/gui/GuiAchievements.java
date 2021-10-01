@@ -67,7 +67,7 @@ public class GuiAchievements extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         if (potion.mouse.isButtonPressed(0)) {
             int var4 = (this.width - this.field_27121_a) / 2;
             int var5 = (this.height - this.field_27119_i) / 2;
@@ -107,7 +107,7 @@ public class GuiAchievements extends GuiScreen {
         }
 
         this.drawDefaultBackground();
-        this.func_27109_b(var1, var2, var3);
+        this.func_27109_b(var1, var2, partialTicks);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         this.func_27110_k();

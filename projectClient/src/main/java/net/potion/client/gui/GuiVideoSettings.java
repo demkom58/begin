@@ -32,10 +32,23 @@ public class GuiVideoSettings extends GuiScreen {
         int var2 = 0;
 
         for (EnumOption option : options) {
-            if (!option.getFloatType()) {
-                this.buttons.add(new GuiSmallButton(option.ordinal(), this.width / 2 - 155 + var2 % 2 * 160, this.height / 6 + 24 * (var2 >> 1), option, this.gameSettings.getKeyBinding(option)));
+            if (option.getFloatType()) {
+                this.buttons.add(new GuiSlider(
+                        option.ordinal(),
+                        this.width / 2 - 155 + var2 % 2 * 160,
+                        this.height / 6 + 24 * (var2 >> 1),
+                        option,
+                        this.gameSettings.getKeyBinding(option),
+                        this.gameSettings.getOptionFloatValue(option)
+                ));
             } else {
-                this.buttons.add(new GuiSlider(option.ordinal(), this.width / 2 - 155 + var2 % 2 * 160, this.height / 6 + 24 * (var2 >> 1), option, this.gameSettings.getKeyBinding(option), this.gameSettings.getOptionFloatValue(option)));
+                this.buttons.add(new GuiSmallButton(
+                        option.ordinal(),
+                        this.width / 2 - 155 + var2 % 2 * 160,
+                        this.height / 6 + 24 * (var2 >> 1),
+                        option,
+                        this.gameSettings.getKeyBinding(option)
+                ));
             }
 
             ++var2;
@@ -66,9 +79,9 @@ public class GuiVideoSettings extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, this.titleText, this.width / 2, 20, 16777215);
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 }

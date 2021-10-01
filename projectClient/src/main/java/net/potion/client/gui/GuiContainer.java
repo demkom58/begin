@@ -29,11 +29,11 @@ public abstract class GuiContainer extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         this.drawDefaultBackground();
         int var4 = (this.width - this.xSize) / 2;
         int var5 = (this.height - this.ySize) / 2;
-        this.drawGuiContainerBackgroundLayer(var3);
+        this.drawGuiContainerBackgroundLayer(partialTicks);
         GL11.glPushMatrix();
         GL11.glRotatef(120.0F, 1.0F, 0.0F, 0.0F);
         RenderHelper.enableStandardItemLighting();
@@ -83,7 +83,7 @@ public abstract class GuiContainer extends GuiScreen {
         }
 
         GL11.glPopMatrix();
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
     }

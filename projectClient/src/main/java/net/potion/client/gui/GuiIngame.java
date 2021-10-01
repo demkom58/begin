@@ -40,7 +40,7 @@ public class GuiIngame extends Gui {
         this.potion = potion;
     }
 
-    public void renderGameOverlay(float var1, boolean var2, int var3, int var4) {
+    public void renderGameOverlay(float partialTicks, boolean var2, int var3, int var4) {
         Window window = this.potion.window;
         ScaledResolution var5 = new ScaledResolution(this.potion.gameSettings, window.getWidth(), window.getHeight());
         int var6 = var5.getScaledWidth();
@@ -49,7 +49,7 @@ public class GuiIngame extends Gui {
         this.potion.entityRenderer.func_905_b();
         GL11.glEnable(GL11.GL_BLEND);
         if (PotionClient.isFancyGraphicsEnabled()) {
-            this.renderVignette(this.potion.thePlayer.getEntityBrightness(var1), var6, var7);
+            this.renderVignette(this.potion.thePlayer.getEntityBrightness(partialTicks), var6, var7);
         }
 
         ItemStack var9 = this.potion.thePlayer.inventory.armorItemInSlot(3);
@@ -57,7 +57,7 @@ public class GuiIngame extends Gui {
             this.renderPumpkinBlur(var6, var7);
         }
 
-        float var10 = this.potion.thePlayer.prevTimeInPortal + (this.potion.thePlayer.timeInPortal - this.potion.thePlayer.prevTimeInPortal) * var1;
+        float var10 = this.potion.thePlayer.prevTimeInPortal + (this.potion.thePlayer.timeInPortal - this.potion.thePlayer.prevTimeInPortal) * partialTicks;
         if (var10 > 0.0F) {
             this.renderPortalOverlay(var10, var6, var7);
         }
@@ -155,7 +155,7 @@ public class GuiIngame extends Gui {
         for (int i = 0; i < 9; ++i) {
             int var30 = var6 / 2 - 90 + i * 20 + 2;
             int var35 = var7 - 16 - 3;
-            this.renderInventorySlot(i, var30, var35, var1);
+            this.renderInventorySlot(i, var30, var35, partialTicks);
         }
 
         RenderHelper.disableStandardItemLighting();
@@ -208,7 +208,7 @@ public class GuiIngame extends Gui {
         }
 
         if (this.recordPlayingUpFor > 0) {
-            float var27 = (float) this.recordPlayingUpFor - var1;
+            float var27 = (float) this.recordPlayingUpFor - partialTicks;
             int var32 = (int) (var27 * 256.0F / 20.0F);
             if (var32 > 255) {
                 var32 = 255;

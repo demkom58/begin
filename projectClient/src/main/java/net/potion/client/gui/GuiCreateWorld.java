@@ -126,7 +126,7 @@ public class GuiCreateWorld extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         StringTranslate translate = StringTranslate.getInstance();
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, translate.translateKey("selectWorld.create"), this.width / 2, this.height / 4 - 60 + 20, 16777215);
@@ -136,7 +136,7 @@ public class GuiCreateWorld extends GuiScreen {
         this.drawString(this.fontRenderer, translate.translateKey("selectWorld.seedInfo"), this.width / 2 - 100, 140, 10526880);
         this.textboxWorldName.drawTextBox();
         this.textboxSeed.drawTextBox();
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 
     @Override

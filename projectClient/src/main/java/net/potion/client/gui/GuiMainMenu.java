@@ -101,7 +101,7 @@ public class GuiMainMenu extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         this.drawDefaultBackground();
         Tessellator tess = Tessellator.INSTANCE;
 
@@ -128,6 +128,6 @@ public class GuiMainMenu extends GuiScreen {
         String copyright = "Copyright - Pulsar";
         this.drawString(this.fontRenderer, copyright, this.width - this.fontRenderer.getStringWidth(copyright) - 2, this.height - 10, 0xFFFFFF);
 
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 }

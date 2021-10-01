@@ -5,62 +5,62 @@ import org.lwjgl.opengl.GL11;
 import java.nio.IntBuffer;
 
 public class RenderList {
-    private int field_1242_a;
-    private int field_1241_b;
-    private int field_1240_c;
-    private float field_1239_d;
-    private float field_1238_e;
-    private float field_1237_f;
-    private IntBuffer field_1236_g = GLAllocation.createDirectIntBuffer(65536);
-    private boolean field_1235_h = false;
-    private boolean field_1234_i = false;
+    private int renderChunkX;
+    private int renderChunkY;
+    private int renderChunkZ;
+    private float cameraX;
+    private float cameraY;
+    private float cameraZ;
+    private IntBuffer glList = GLAllocation.createDirectIntBuffer(65536);
+    private boolean valid = false;
+    private boolean bufferFlipped = false;
 
-    public void func_861_a(int var1, int var2, int var3, double var4, double var6, double var8) {
-        this.field_1235_h = true;
-        this.field_1236_g.clear();
-        this.field_1242_a = var1;
-        this.field_1241_b = var2;
-        this.field_1240_c = var3;
-        this.field_1239_d = (float) var4;
-        this.field_1238_e = (float) var6;
-        this.field_1237_f = (float) var8;
+    public void setupRenderList(int renderChunkX, int renderChunkY, int renderChunkZ, double cameraX, double cameraY, double cameraZ) {
+        this.valid = true;
+        this.glList.clear();
+        this.renderChunkX = renderChunkX;
+        this.renderChunkY = renderChunkY;
+        this.renderChunkZ = renderChunkZ;
+        this.cameraX = (float) cameraX;
+        this.cameraY = (float) cameraY;
+        this.cameraZ = (float) cameraZ;
     }
 
-    public boolean func_862_a(int var1, int var2, int var3) {
-        if (!this.field_1235_h) {
-            return false;
-        } else {
-            return var1 == this.field_1242_a && var2 == this.field_1241_b && var3 == this.field_1240_c;
-        }
+    public boolean rendersChunk(int chunkX, int chunkY, int chunkZ) {
+        return this.valid && chunkX == this.renderChunkX && chunkY == this.renderChunkY && chunkZ == this.renderChunkZ;
     }
 
-    public void func_858_a(int var1) {
-        this.field_1236_g.put(var1);
-        if (this.field_1236_g.remaining() == 0) {
-            this.func_860_a();
+    public void addGLRenderList(int var1) {
+        this.glList.put(var1);
+        if (this.glList.remaining() == 0) {
+            this.callLists();
         }
 
     }
 
-    public void func_860_a() {
-        if (this.field_1235_h) {
-            if (!this.field_1234_i) {
-                this.field_1236_g.flip();
-                this.field_1234_i = true;
+    public void callLists() {
+        if (this.valid) {
+            if (!this.bufferFlipped) {
+                this.glList.flip();
+                this.bufferFlipped = true;
             }
 
-            if (this.field_1236_g.remaining() > 0) {
+            if (this.glList.remaining() > 0) {
                 GL11.glPushMatrix();
-                GL11.glTranslatef((float) this.field_1242_a - this.field_1239_d, (float) this.field_1241_b - this.field_1238_e, (float) this.field_1240_c - this.field_1237_f);
-                GL11.glCallLists(this.field_1236_g);
+                GL11.glTranslatef(
+                        (float) this.renderChunkX - this.cameraX,
+                        (float) this.renderChunkY - this.cameraY,
+                        (float) this.renderChunkZ - this.cameraZ
+                );
+                GL11.glCallLists(this.glList);
                 GL11.glPopMatrix();
             }
 
         }
     }
 
-    public void func_859_b() {
-        this.field_1235_h = false;
-        this.field_1234_i = false;
+    public void resetList() {
+        this.valid = false;
+        this.bufferFlipped = false;
     }
 }

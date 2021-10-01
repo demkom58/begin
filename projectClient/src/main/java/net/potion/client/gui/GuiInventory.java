@@ -28,8 +28,8 @@ public class GuiInventory extends GuiContainer {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
-        super.drawScreen(var1, var2, var3);
+    public void drawScreen(int var1, int var2, float partialTicks) {
+        super.drawScreen(var1, var2, partialTicks);
         this.xSize_lo = (float) var1;
         this.ySize_lo = (float) var2;
     }

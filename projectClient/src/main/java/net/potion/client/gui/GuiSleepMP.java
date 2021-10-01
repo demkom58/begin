@@ -36,8 +36,8 @@ public class GuiSleepMP extends GuiChat {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
-        super.drawScreen(var1, var2, var3);
+    public void drawScreen(int var1, int var2, float partialTicks) {
+        super.drawScreen(var1, var2, partialTicks);
     }
 
     @Override

@@ -65,9 +65,9 @@ public class GuiOptions extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 }

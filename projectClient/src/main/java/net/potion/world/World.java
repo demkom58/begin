@@ -56,7 +56,7 @@ public class World implements IBlockAccess {
     private TreeSet<NextTickListEntry> scheduledTickTreeSet;
     private Set<NextTickListEntry> scheduledTickSet;
     private List<TileEntity> field_30900_E;
-    private long field_1019_F;
+    private long cloudColor;
     private long lockTimestamp;
     private boolean allPlayersSleeping;
     private ArrayList<AxisAlignedBB> collidingBoundingBoxes;
@@ -79,7 +79,7 @@ public class World implements IBlockAccess {
         this.field_30900_E = new ArrayList<>();
         this.playerEntities = new ArrayList<>();
         this.weatherEffects = new ArrayList<>();
-        this.field_1019_F = 16777215L;
+        this.cloudColor = 0xFFFFFF;
         this.skylightSubtracted = 0;
         this.distHashCounter = new Random().nextInt();
         this.DIST_HASH_MAGIC = 1013904223;
@@ -120,7 +120,7 @@ public class World implements IBlockAccess {
         this.field_30900_E = new ArrayList<>();
         this.playerEntities = new ArrayList<>();
         this.weatherEffects = new ArrayList<>();
-        this.field_1019_F = 16777215L;
+        this.cloudColor = 0xFFFFFF;
         this.skylightSubtracted = 0;
         this.distHashCounter = (new Random()).nextInt();
         this.DIST_HASH_MAGIC = 1013904223;
@@ -166,7 +166,7 @@ public class World implements IBlockAccess {
         this.field_30900_E = new ArrayList<>();
         this.playerEntities = new ArrayList<>();
         this.weatherEffects = new ArrayList<>();
-        this.field_1019_F = 16777215L;
+        this.cloudColor = 0xFFFFFF;
         this.skylightSubtracted = 0;
         this.distHashCounter = new Random().nextInt();
         this.DIST_HASH_MAGIC = 1013904223;
@@ -1063,8 +1063,8 @@ public class World implements IBlockAccess {
         return this.worldProvider.calculateCelestialAngle(this.worldInfo.getWorldTime(), var1);
     }
 
-    public Vector3d func_628_d(float var1) {
-        float celAngle = this.getCelestialAngle(var1);
+    public Vector3d cloudColor(float partialTicks) {
+        float celAngle = this.getCelestialAngle(partialTicks);
         float celCos = MathHelper.cos(celAngle * Math.PI * 2.0F) * 2.0F + 0.5F;
 
         if (celCos < 0.0F)
@@ -1073,11 +1073,11 @@ public class World implements IBlockAccess {
         if (celCos > 1.0F)
             celCos = 1.0F;
 
-        float r = (float) (this.field_1019_F >> 16 & 255L) / 255.0F;
-        float g = (float) (this.field_1019_F >> 8 & 255L) / 255.0F;
-        float b = (float) (this.field_1019_F & 255L) / 255.0F;
+        float r = (float) (this.cloudColor >> 16 & 255L) / 255.0F;
+        float g = (float) (this.cloudColor >> 8 & 255L) / 255.0F;
+        float b = (float) (this.cloudColor & 255L) / 255.0F;
 
-        float rainStrength = this.getRainStrength(var1);
+        float rainStrength = this.getRainStrength(partialTicks);
         if (rainStrength > 0.0F) {
             float var8 = (r * 0.3F + g * 0.59F + b * 0.11F) * 0.6F;
             float var9 = 1.0F - rainStrength * 0.95F;
@@ -1090,7 +1090,7 @@ public class World implements IBlockAccess {
         g *= celCos * 0.9F + 0.1F;
         b *= celCos * 0.85F + 0.15F;
 
-        float var14 = this.func_27166_f(var1);
+        float var14 = this.func_27166_f(partialTicks);
         if (var14 > 0.0F) {
             float var15 = (r * 0.3F + g * 0.59F + b * 0.11F) * 0.2F;
             float var10 = 1.0F - var14 * 0.95F;

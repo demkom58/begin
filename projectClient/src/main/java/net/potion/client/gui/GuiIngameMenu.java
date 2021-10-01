@@ -62,17 +62,17 @@ public class GuiIngameMenu extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         this.drawDefaultBackground();
         boolean var4 = !this.potion.theWorld.func_650_a(this.updateCounter2++);
         if (var4 || this.updateCounter < 20) {
-            float var5 = ((float) (this.updateCounter % 10) + var3) / 10.0F;
+            float var5 = ((float) (this.updateCounter % 10) + partialTicks) / 10.0F;
             var5 = MathHelper.sin(var5 * 3.1415927F * 2.0F) * 0.2F + 0.8F;
             int var6 = (int) (255.0F * var5);
             this.drawString(this.fontRenderer, "Saving level..", 8, this.height - 16, var6 << 16 | var6 << 8 | var6);
         }
 
         this.drawCenteredString(this.fontRenderer, "Game menu", this.width / 2, 40, 16777215);
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 }

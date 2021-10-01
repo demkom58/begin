@@ -43,10 +43,10 @@ public class GuiDownloadTerrain extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         this.drawBackground(0);
         StringTranslate translate = StringTranslate.getInstance();
         this.drawCenteredString(this.fontRenderer, translate.translateKey("multiplayer.downloadingTerrain"), this.width / 2, this.height / 2 - 50, 16777215);
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 }

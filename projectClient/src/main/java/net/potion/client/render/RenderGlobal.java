@@ -399,12 +399,12 @@ public class RenderGlobal implements IWorldAccess {
 
     }
 
-    public int sortAndRender(EntityLiving var1, int var2, double var3) {
-        for (int var5 = 0; var5 < 10; ++var5) {
+    public int sortAndRender(EntityLiving entity, int zeroAll, double partialTicks) {
+        for (int i = 0; i < 10; ++i) {
             this.worldRenderersCheckIndex = (this.worldRenderersCheckIndex + 1) % this.worldRenderers.length;
-            WorldRenderer var6 = this.worldRenderers[this.worldRenderersCheckIndex];
-            if (var6.needsUpdate && !this.worldRenderersToUpdate.contains(var6)) {
-                this.worldRenderersToUpdate.add(var6);
+            WorldRenderer renderer = this.worldRenderers[this.worldRenderersCheckIndex];
+            if (renderer.needsUpdate && !this.worldRenderersToUpdate.contains(renderer)) {
+                this.worldRenderersToUpdate.add(renderer);
             }
         }
 
@@ -412,7 +412,7 @@ public class RenderGlobal implements IWorldAccess {
             this.loadRenderers();
         }
 
-        if (var2 == 0) {
+        if (zeroAll == 0) {
             this.renderersLoaded = 0;
             this.renderersBeingClipped = 0;
             this.renderersBeingOccluded = 0;
@@ -420,38 +420,44 @@ public class RenderGlobal implements IWorldAccess {
             this.renderersSkippingRenderPass = 0;
         }
 
-        double var33 = var1.lastTickPosX + (var1.posX - var1.lastTickPosX) * var3;
-        double var7 = var1.lastTickPosY + (var1.posY - var1.lastTickPosY) * var3;
-        double var9 = var1.lastTickPosZ + (var1.posZ - var1.lastTickPosZ) * var3;
-        double var11 = var1.posX - this.prevSortX;
-        double var13 = var1.posY - this.prevSortY;
-        double var15 = var1.posZ - this.prevSortZ;
-        if (var11 * var11 + var13 * var13 + var15 * var15 > 16.0D) {
-            this.prevSortX = var1.posX;
-            this.prevSortY = var1.posY;
-            this.prevSortZ = var1.posZ;
-            this.markRenderersForNewPosition(MathHelper.floor(var1.posX), MathHelper.floor(var1.posY), MathHelper.floor(var1.posZ));
-            Arrays.sort(this.sortedWorldRenderers, new EntitySorter(var1));
+        double dX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double dY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double dZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
+
+        double difX = entity.posX - this.prevSortX;
+        double difY = entity.posY - this.prevSortY;
+        double difZ = entity.posZ - this.prevSortZ;
+
+        if (difX * difX + difY * difY + difZ * difZ > 16.0D) {
+            this.prevSortX = entity.posX;
+            this.prevSortY = entity.posY;
+            this.prevSortZ = entity.posZ;
+            this.markRenderersForNewPosition(
+                    MathHelper.floor(entity.posX),
+                    MathHelper.floor(entity.posY),
+                    MathHelper.floor(entity.posZ)
+            );
+            Arrays.sort(this.sortedWorldRenderers, new EntitySorter(entity));
         }
 
         RenderHelper.disableStandardItemLighting();
         int var17 = 0;
-        if (this.occlusionEnabled && this.potion.gameSettings.advancedOpengl && !this.potion.gameSettings.anaglyph && var2 == 0) {
-            int var18 = 0;
-            int var19 = 16;
-            this.checkOcclusionQueryResult(var18, var19);
+        if (this.occlusionEnabled && this.potion.gameSettings.advancedOpengl && !this.potion.gameSettings.anaglyph && zeroAll == 0) {
+            int begin = 0;
+            int end = 16;
+            this.checkOcclusionQueryResult(begin, end);
 
-            for (int var20 = var18; var20 < var19; ++var20) {
+            for (int var20 = begin; var20 < end; ++var20) {
                 this.sortedWorldRenderers[var20].isVisible = true;
             }
 
-            var17 = var17 + this.renderSortedRenderers(var18, var19, var2, var3);
+            var17 += this.renderSortedRenderers(begin, end, zeroAll, partialTicks);
 
             do {
-                var18 = var19;
-                var19 *= 2;
-                if (var19 > this.sortedWorldRenderers.length) {
-                    var19 = this.sortedWorldRenderers.length;
+                begin = end;
+                end *= 2;
+                if (end > this.sortedWorldRenderers.length) {
+                    end = this.sortedWorldRenderers.length;
                 }
 
                 GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -460,13 +466,13 @@ public class RenderGlobal implements IWorldAccess {
                 GL11.glDisable(GL11.GL_FOG);
                 GL11.glColorMask(false, false, false, false);
                 GL11.glDepthMask(false);
-                this.checkOcclusionQueryResult(var18, var19);
+                this.checkOcclusionQueryResult(begin, end);
                 GL11.glPushMatrix();
                 float var36 = 0.0F;
                 float var21 = 0.0F;
                 float var22 = 0.0F;
 
-                for (int var23 = var18; var23 < var19; ++var23) {
+                for (int var23 = begin; var23 < end; ++var23) {
                     if (this.sortedWorldRenderers[var23].skipAllRenderPasses()) {
                         this.sortedWorldRenderers[var23].isInFrustum = false;
                     } else {
@@ -475,13 +481,13 @@ public class RenderGlobal implements IWorldAccess {
                         }
 
                         if (this.sortedWorldRenderers[var23].isInFrustum && !this.sortedWorldRenderers[var23].isWaitingOnOcclusionQuery) {
-                            float var24 = MathHelper.sqrt(this.sortedWorldRenderers[var23].distanceToEntitySquared(var1));
+                            float var24 = MathHelper.sqrt(this.sortedWorldRenderers[var23].distanceToEntitySquared(entity));
                             int var25 = (int) (1.0F + var24 / 128.0F);
                             if (this.cloudOffsetX % var25 == var23 % var25) {
                                 WorldRenderer var26 = this.sortedWorldRenderers[var23];
-                                float var27 = (float) ((double) var26.posXMinus - var33);
-                                float var28 = (float) ((double) var26.posYMinus - var7);
-                                float var29 = (float) ((double) var26.posZMinus - var9);
+                                float var27 = (float) ((double) var26.posXMinus - dX);
+                                float var28 = (float) ((double) var26.posYMinus - dY);
+                                float var29 = (float) ((double) var26.posZMinus - dZ);
                                 float var30 = var27 - var36;
                                 float var31 = var28 - var21;
                                 float var32 = var29 - var22;
@@ -516,10 +522,10 @@ public class RenderGlobal implements IWorldAccess {
                 GL11.glEnable(GL11.GL_TEXTURE_2D);
                 GL11.glEnable(GL11.GL_ALPHA_TEST);
                 GL11.glEnable(GL11.GL_FOG);
-                var17 += this.renderSortedRenderers(var18, var19, var2, var3);
-            } while (var19 < this.sortedWorldRenderers.length);
+                var17 += this.renderSortedRenderers(begin, end, zeroAll, partialTicks);
+            } while (end < this.sortedWorldRenderers.length);
         } else {
-            var17 = var17 + this.renderSortedRenderers(0, this.sortedWorldRenderers.length, var2, var3);
+            var17 += this.renderSortedRenderers(0, this.sortedWorldRenderers.length, zeroAll, partialTicks);
         }
 
         return var17;
@@ -543,14 +549,14 @@ public class RenderGlobal implements IWorldAccess {
 
     }
 
-    private int renderSortedRenderers(int begin, int end, int var3, double var4) {
+    private int renderSortedRenderers(int begin, int end, int zeroAll, double partialTicks) {
         this.glRenderLists.clear();
         int var6 = 0;
 
         for (int i = begin; i < end; ++i) {
-            if (var3 == 0) {
+            if (zeroAll == 0) {
                 ++this.renderersLoaded;
-                if (this.sortedWorldRenderers[i].skipRenderPass[var3]) {
+                if (this.sortedWorldRenderers[i].skipRenderPass[zeroAll]) {
                     ++this.renderersSkippingRenderPass;
                 } else if (!this.sortedWorldRenderers[i].isInFrustum) {
                     ++this.renderersBeingClipped;
@@ -561,8 +567,8 @@ public class RenderGlobal implements IWorldAccess {
                 }
             }
 
-            if (!this.sortedWorldRenderers[i].skipRenderPass[var3] && this.sortedWorldRenderers[i].isInFrustum && (!this.occlusionEnabled || this.sortedWorldRenderers[i].isVisible)) {
-                int var8 = this.sortedWorldRenderers[i].getGLCallListForPass(var3);
+            if (!this.sortedWorldRenderers[i].skipRenderPass[zeroAll] && this.sortedWorldRenderers[i].isInFrustum && (!this.occlusionEnabled || this.sortedWorldRenderers[i].isVisible)) {
+                int var8 = this.sortedWorldRenderers[i].getGLCallListForPass(zeroAll);
                 if (var8 >= 0) {
                     this.glRenderLists.add(this.sortedWorldRenderers[i]);
                     ++var6;
@@ -571,40 +577,40 @@ public class RenderGlobal implements IWorldAccess {
         }
 
         EntityLiving entity = this.potion.renderViewEntity;
-        double var20 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * var4;
-        double var10 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * var4;
-        double var12 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * var4;
+        double dX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+        double dY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+        double dZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
         int var14 = 0;
 
         for (int var15 = 0; var15 < this.allRenderLists.length; ++var15) {
-            this.allRenderLists[var15].func_859_b();
+            this.allRenderLists[var15].resetList();
         }
 
         for (int var21 = 0; var21 < this.glRenderLists.size(); ++var21) {
-            WorldRenderer var16 = this.glRenderLists.get(var21);
+            WorldRenderer renderer = this.glRenderLists.get(var21);
             int var17 = -1;
 
             for (int var18 = 0; var18 < var14; ++var18) {
-                if (this.allRenderLists[var18].func_862_a(var16.posXMinus, var16.posYMinus, var16.posZMinus)) {
+                if (this.allRenderLists[var18].rendersChunk(renderer.posXMinus, renderer.posYMinus, renderer.posZMinus)) {
                     var17 = var18;
                 }
             }
 
             if (var17 < 0) {
                 var17 = var14++;
-                this.allRenderLists[var17].func_861_a(var16.posXMinus, var16.posYMinus, var16.posZMinus, var20, var10, var12);
+                this.allRenderLists[var17].setupRenderList(renderer.posXMinus, renderer.posYMinus, renderer.posZMinus, dX, dY, dZ);
             }
 
-            this.allRenderLists[var17].func_858_a(var16.getGLCallListForPass(var3));
+            this.allRenderLists[var17].addGLRenderList(renderer.getGLCallListForPass(zeroAll));
         }
 
-        this.renderAllRenderLists(var3, var4);
+        this.renderAllRenderLists(zeroAll, partialTicks);
         return var6;
     }
 
     public void renderAllRenderLists(int var1, double var2) {
         for (int i = 0; i < this.allRenderLists.length; ++i) {
-            this.allRenderLists[i].func_860_a();
+            this.allRenderLists[i].callLists();
         }
     }
 
@@ -731,111 +737,124 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glDepthMask(true);
     }
 
-    public void renderClouds(float var1) {
+    public void renderClouds(float partialTicks) {
         if (this.potion.theWorld.worldProvider.isNether)
             return;
 
         if (this.potion.gameSettings.fancyGraphics) {
-            this.renderCloudsFancy(var1);
-        } else {
-            GL11.glDisable(GL11.GL_CULL_FACE);
-            float var2 = (float) (this.potion.renderViewEntity.lastTickPosY + (this.potion.renderViewEntity.posY - this.potion.renderViewEntity.lastTickPosY) * (double) var1);
-            byte var3 = 32;
-            int var4 = 256 / var3;
-            Tessellator tess = Tessellator.INSTANCE;
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/environment/clouds.png"));
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-            Vector3d vec = this.worldObj.func_628_d(var1);
-
-            float xCoord = (float) vec.x;
-            float yCoord = (float) vec.y;
-            float zCoord = (float) vec.z;
-            if (this.potion.gameSettings.anaglyph) {
-                float tempX = (xCoord * 30.0F + yCoord * 59.0F + zCoord * 11.0F) / 100.0F;
-                float tempY = (xCoord * 30.0F + yCoord * 70.0F) / 100.0F;
-                float tempZ = (xCoord * 30.0F + zCoord * 70.0F) / 100.0F;
-                xCoord = tempX;
-                yCoord = tempY;
-                zCoord = tempZ;
-            }
-
-            float var22 = 4.8828125E-4F;
-            double var23 = this.potion.renderViewEntity.prevPosX + (this.potion.renderViewEntity.posX - this.potion.renderViewEntity.prevPosX) * (double) var1 + (double) (((float) this.cloudOffsetX + var1) * 0.03F);
-            double var13 = this.potion.renderViewEntity.prevPosZ + (this.potion.renderViewEntity.posZ - this.potion.renderViewEntity.prevPosZ) * (double) var1;
-            int var15 = MathHelper.floor(var23 / 2048.0D);
-            int var16 = MathHelper.floor(var13 / 2048.0D);
-            var23 = var23 - (double) (var15 * GL11.GL_EXP);
-            var13 = var13 - (double) (var16 * GL11.GL_EXP);
-            float var17 = this.worldObj.worldProvider.getCloudHeight() - var2 + 0.33F;
-            float var18 = (float) (var23 * (double) var22);
-            float var19 = (float) (var13 * (double) var22);
-            tess.startDrawingQuads();
-            tess.setColorRGBA_F(xCoord, yCoord, zCoord, 0.8F);
-
-            for (int var20 = -var3 * var4; var20 < var3 * var4; var20 += var3) {
-                for (int var21 = -var3 * var4; var21 < var3 * var4; var21 += var3) {
-                    tess.addVertexWithUV(var20, var17, var21 + var3, (float) (var20) * var22 + var18, (float) (var21 + var3) * var22 + var19);
-                    tess.addVertexWithUV(var20 + var3, var17, var21 + var3, (float) (var20 + var3) * var22 + var18, (float) (var21 + var3) * var22 + var19);
-                    tess.addVertexWithUV(var20 + var3, var17, var21, (float) (var20 + var3) * var22 + var18, (float) (var21) * var22 + var19);
-                    tess.addVertexWithUV(var20, var17, var21, (float) (var20) * var22 + var18, (float) (var21) * var22 + var19);
-                }
-            }
-
-            tess.draw();
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GL11.glDisable(GL11.GL_BLEND);
-            GL11.glEnable(GL11.GL_CULL_FACE);
+            this.renderCloudsFancy(partialTicks);
+            return;
         }
+
+        GL11.glDisable(GL11.GL_CULL_FACE);
+
+        final EntityLiving rve = this.potion.renderViewEntity;
+        float dY = (float) (rve.lastTickPosY + (rve.posY - rve.lastTickPosY) * (double) partialTicks);
+        byte vol = 32;
+        int hg = 256 / vol;
+        Tessellator tess = Tessellator.INSTANCE;
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/environment/clouds.png"));
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+        Vector3d vec = this.worldObj.cloudColor(partialTicks);
+        float r = (float) vec.x;
+        float g = (float) vec.y;
+        float b = (float) vec.z;
+
+        if (this.potion.gameSettings.anaglyph) {
+            float tempR = (r * 30.0F + g * 59.0F + b * 11.0F) / 100.0F;
+            float tempG = (r * 30.0F + g * 70.0F) / 100.0F;
+            float tempB = (r * 30.0F + b * 70.0F) / 100.0F;
+            r = tempR;
+            g = tempG;
+            b = tempB;
+        }
+
+        float m = 4.8828125E-4F;
+        double dX = rve.prevPosX + (rve.posX - rve.prevPosX) * (double) partialTicks + (double) (((float) this.cloudOffsetX + partialTicks) * 0.03F);
+        double dZ = rve.prevPosZ + (rve.posZ - rve.prevPosZ) * (double) partialTicks;
+
+        int dX2048 = MathHelper.floor(dX / 2048.0D);
+        int dZ2048 = MathHelper.floor(dZ / 2048.0D);
+
+        dX = dX - (double) (dX2048 * GL11.GL_EXP);
+        dZ = dZ - (double) (dZ2048 * GL11.GL_EXP);
+        float spY = this.worldObj.worldProvider.getCloudHeight() - dY + 0.33F;
+        float spX = (float) (dX * (double) m);
+        float spZ = (float) (dZ * (double) m);
+        tess.startDrawingQuads();
+        tess.setColorRGBA_F(r, g, b, 0.8F);
+
+        for (int u = -vol * hg; u < vol * hg; u += vol) {
+            for (int v = -vol * hg; v < vol * hg; v += vol) {
+                tess.addVertexWithUV(u, spY, v + vol, u * m + spX, (v + vol) * m + spZ);
+                tess.addVertexWithUV(u + vol, spY, v + vol, (u + vol) * m + spX, (v + vol) * m + spZ);
+                tess.addVertexWithUV(u + vol, spY, v, (u + vol) * m + spX, v * m + spZ);
+                tess.addVertexWithUV(u, spY, v, u * m + spX, v * m + spZ);
+            }
+        }
+
+        tess.draw();
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_CULL_FACE);
     }
 
     public boolean func_27307_a(double var1, double var3, double var5, float var7) {
         return false;
     }
 
-    public void renderCloudsFancy(float var1) {
+    public void renderCloudsFancy(float partialTicks) {
         GL11.glDisable(GL11.GL_CULL_FACE);
-        float var2 = (float) (this.potion.renderViewEntity.lastTickPosY + (this.potion.renderViewEntity.posY - this.potion.renderViewEntity.lastTickPosY) * (double) var1);
-        Tessellator tess = Tessellator.INSTANCE;
-        float var4 = 12.0F;
-        float var5 = 4.0F;
-        double var6 = (this.potion.renderViewEntity.prevPosX + (this.potion.renderViewEntity.posX - this.potion.renderViewEntity.prevPosX) * (double) var1 + (double) (((float) this.cloudOffsetX + var1) * 0.03F)) / (double) var4;
-        double var8 = (this.potion.renderViewEntity.prevPosZ + (this.potion.renderViewEntity.posZ - this.potion.renderViewEntity.prevPosZ) * (double) var1) / (double) var4 + 0.33000001311302185D;
-        float var10 = this.worldObj.worldProvider.getCloudHeight() - var2 + 0.33F;
-        int var11 = MathHelper.floor(var6 / 2048.0D);
-        int var12 = MathHelper.floor(var8 / 2048.0D);
-        var6 = var6 - (double) (var11 * GL11.GL_EXP);
-        var8 = var8 - (double) (var12 * GL11.GL_EXP);
+
+        final EntityLiving rve = this.potion.renderViewEntity;
+        float dY = (float) (rve.lastTickPosY + (rve.posY - rve.lastTickPosY) * (double) partialTicks);
+
+        Tessellator t = Tessellator.INSTANCE;
+        float vol = 12.0F;
+        float cloudHeight = 4.0F;
+
+        double dX = (rve.prevPosX + (rve.posX - rve.prevPosX) * (double) partialTicks + (double) (((float) this.cloudOffsetX + partialTicks) * 0.03F)) / (double) vol;
+        double dZ = (rve.prevPosZ + (rve.posZ - rve.prevPosZ) * (double) partialTicks) / (double) vol + 0.33000001311302185D;
+        float cpy = this.worldObj.worldProvider.getCloudHeight() - dY + 0.33F;
+
+        int dX2048 = MathHelper.floor(dX / 2048.0D);
+        int dZ2048 = MathHelper.floor(dZ / 2048.0D);
+
+        dX = dX - (double) (dX2048 * GL11.GL_EXP);
+        dZ = dZ - (double) (dZ2048 * GL11.GL_EXP);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/environment/clouds.png"));
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        Vector3d vec = this.worldObj.func_628_d(var1);
-        float xCoord = (float) vec.x;
-        float yCoord = (float) vec.y;
-        float zCoord = (float) vec.z;
+
+        Vector3d color = this.worldObj.cloudColor(partialTicks);
+        float r = (float) color.x;
+        float g = (float) color.y;
+        float b = (float) color.z;
         if (this.potion.gameSettings.anaglyph) {
-            float tempX = (xCoord * 30.0F + yCoord * 59.0F + zCoord * 11.0F) / 100.0F;
-            float tempY = (xCoord * 30.0F + yCoord * 70.0F) / 100.0F;
-            float tempZ = (xCoord * 30.0F + zCoord * 70.0F) / 100.0F;
-            xCoord = tempX;
-            yCoord = tempY;
-            zCoord = tempZ;
+            float tempR = (r * 30.0F + g * 59.0F + b * 11.0F) / 100.0F;
+            float tempG = (r * 30.0F + g * 70.0F) / 100.0F;
+            float tempB = (r * 30.0F + b * 70.0F) / 100.0F;
+            r = tempR;
+            g = tempG;
+            b = tempB;
         }
 
-        float var35 = (float) (var6 * 0.0D);
-        float var37 = (float) (var8 * 0.0D);
-        float var39 = 0.00390625F;
-        var35 = (float) MathHelper.floor(var6) * var39;
-        var37 = (float) MathHelper.floor(var8) * var39;
-        float var20 = (float) (var6 - (double) MathHelper.floor(var6));
-        float var21 = (float) (var8 - (double) MathHelper.floor(var8));
-        byte var22 = 8;
-        byte var23 = 3;
-        float var24 = 9.765625E-4F;
-        GL11.glScalef(var4, 1.0F, var4);
+        float m = 0.00390625F;
+        float dXm = (float) MathHelper.floor(dX) * m;
+        float dZm = (float) MathHelper.floor(dZ) * m;
+        float lDx = (float) (dX - (double) MathHelper.floor(dX));
+        float lDz = (float) (dZ - (double) MathHelper.floor(dZ));
 
-        for (int var25 = 0; var25 < 2; ++var25) {
-            if (var25 == 0) {
+        byte m1 = 8;
+        byte size = 3;
+        float m3 = 9.765625E-4F;
+
+        GL11.glScalef(vol, 1.0F, vol);
+
+        for (int i = 0; i < 2; ++i) {
+            if (i == 0) {
                 GL11.glColorMask(false, false, false, false);
             } else if (this.potion.gameSettings.anaglyph) {
                 if (EntityRenderer.anaglyphField == 0) {
@@ -847,78 +866,92 @@ public class RenderGlobal implements IWorldAccess {
                 GL11.glColorMask(true, true, true, true);
             }
 
-            for (int var26 = -var23 + 1; var26 <= var23; ++var26) {
-                for (int var27 = -var23 + 1; var27 <= var23; ++var27) {
-                    tess.startDrawingQuads();
-                    float var28 = (float) (var26 * var22);
-                    float var29 = (float) (var27 * var22);
-                    float var30 = var28 - var20;
-                    float var31 = var29 - var21;
-                    if (var10 > -var5 - 1.0F) {
-                        tess.setColorRGBA_F(xCoord * 0.7F, yCoord * 0.7F, zCoord * 0.7F, 0.8F);
-                        tess.setNormal(0.0F, -1.0F, 0.0F);
-                        tess.addVertexWithUV(var30 + 0.0F, var10 + 0.0F, var31 + (float) var22, (var28 + 0.0F) * var39 + var35, (var29 + (float) var22) * var39 + var37);
-                        tess.addVertexWithUV(var30 + (float) var22, var10 + 0.0F, var31 + (float) var22, (var28 + (float) var22) * var39 + var35, (var29 + (float) var22) * var39 + var37);
-                        tess.addVertexWithUV(var30 + (float) var22, var10 + 0.0F, var31 + 0.0F, (var28 + (float) var22) * var39 + var35, (var29 + 0.0F) * var39 + var37);
-                        tess.addVertexWithUV(var30 + 0.0F, var10 + 0.0F, var31 + 0.0F, (var28 + 0.0F) * var39 + var35, (var29 + 0.0F) * var39 + var37);
+            for (int u = -size + 1; u <= size; ++u) {
+                for (int v = -size + 1; v <= size; ++v) {
+                    t.startDrawingQuads();
+                    float um1 = u * m1;
+                    float vm1 = v * m1;
+                    float x = um1 - lDx;
+                    float z = vm1 - lDz;
+
+                    // downside of cloud
+                    if (cpy > -cloudHeight - 1.0F) {
+                        t.setColorRGBA_F(r * 0.7F, g * 0.7F, b * 0.7F, 0.8F);
+                        t.setNormal(0.0F, -1.0F, 0.0F);
+                        t.addVertexWithUV(x, cpy, z + m1, um1 * m + dXm, (vm1 + m1) * m + dZm);
+                        t.addVertexWithUV(x + m1, cpy, z + m1, (um1 + m1) * m + dXm, (vm1 + m1) * m + dZm);
+                        t.addVertexWithUV(x + m1, cpy, z, (um1 + m1) * m + dXm, vm1 * m + dZm);
+                        t.addVertexWithUV(x, cpy, z, um1 * m + dXm, vm1 * m + dZm);
                     }
 
-                    if (var10 <= var5 + 1.0F) {
-                        tess.setColorRGBA_F(xCoord, yCoord, zCoord, 0.8F);
-                        tess.setNormal(0.0F, 1.0F, 0.0F);
-                        tess.addVertexWithUV(var30 + 0.0F, var10 + var5 - var24, var31 + (float) var22, (var28 + 0.0F) * var39 + var35, (var29 + (float) var22) * var39 + var37);
-                        tess.addVertexWithUV(var30 + (float) var22, var10 + var5 - var24, var31 + (float) var22, (var28 + (float) var22) * var39 + var35, (var29 + (float) var22) * var39 + var37);
-                        tess.addVertexWithUV(var30 + (float) var22, var10 + var5 - var24, var31 + 0.0F, (var28 + (float) var22) * var39 + var35, (var29 + 0.0F) * var39 + var37);
-                        tess.addVertexWithUV(var30 + 0.0F, var10 + var5 - var24, var31 + 0.0F, (var28 + 0.0F) * var39 + var35, (var29 + 0.0F) * var39 + var37);
+                    // top of cloud
+                    if (cpy <= cloudHeight + 1.0F) {
+                        t.setColorRGBA_F(r, g, b, 0.8F);
+                        t.setNormal(0.0F, 1.0F, 0.0F);
+                        final float y1 = cpy + cloudHeight - m3;
+                        t.addVertexWithUV(x, y1, z + m1, um1 * m + dXm, (vm1 + m1) * m + dZm);
+                        t.addVertexWithUV(x + m1, y1, z + m1, (um1 + m1) * m + dXm, (vm1 + m1) * m + dZm);
+                        t.addVertexWithUV(x + m1, y1, z, (um1 + m1) * m + dXm, vm1 * m + dZm);
+                        t.addVertexWithUV(x, y1, z, um1 * m + dXm, vm1 * m + dZm);
                     }
 
-                    tess.setColorRGBA_F(xCoord * 0.9F, yCoord * 0.9F, zCoord * 0.9F, 0.8F);
-                    if (var26 > -1) {
-                        tess.setNormal(-1.0F, 0.0F, 0.0F);
+                    // x- side of cloud
+                    t.setColorRGBA_F(r * 0.9F, g * 0.9F, b * 0.9F, 0.8F);
+                    if (u > -1) {
+                        t.setNormal(-1.0F, 0.0F, 0.0F);
 
-                        for (int var32 = 0; var32 < var22; ++var32) {
-                            tess.addVertexWithUV(var30 + (float) var32 + 0.0F, var10 + 0.0F, var31 + (float) var22, (var28 + (float) var32 + 0.5F) * var39 + var35, (var29 + (float) var22) * var39 + var37);
-                            tess.addVertexWithUV(var30 + (float) var32 + 0.0F, var10 + var5, var31 + (float) var22, (var28 + (float) var32 + 0.5F) * var39 + var35, (var29 + (float) var22) * var39 + var37);
-                            tess.addVertexWithUV(var30 + (float) var32 + 0.0F, var10 + var5, var31 + 0.0F, (var28 + (float) var32 + 0.5F) * var39 + var35, (var29 + 0.0F) * var39 + var37);
-                            tess.addVertexWithUV(var30 + (float) var32 + 0.0F, var10 + 0.0F, var31 + 0.0F, (var28 + (float) var32 + 0.5F) * var39 + var35, (var29 + 0.0F) * var39 + var37);
+                        for (int s = 0; s < m1; ++s) {
+                            final float u1 = (um1 + s + 0.5F) * m + dXm;
+                            final float x1 = x + s;
+                            t.addVertexWithUV(x1, cpy, z + m1, u1, (vm1 + m1) * m + dZm);
+                            t.addVertexWithUV(x1, cpy + cloudHeight, z + m1, u1, (vm1 + m1) * m + dZm);
+                            t.addVertexWithUV(x1, cpy + cloudHeight, z, u1, vm1 * m + dZm);
+                            t.addVertexWithUV(x1, cpy, z, u1, vm1 * m + dZm);
                         }
                     }
 
-                    if (var26 <= 1) {
-                        tess.setNormal(1.0F, 0.0F, 0.0F);
+                    // x+ side of cloud
+                    if (u <= 1) {
+                        t.setNormal(1.0F, 0.0F, 0.0F);
 
-                        for (int var40 = 0; var40 < var22; ++var40) {
-                            tess.addVertexWithUV(var30 + (float) var40 + 1.0F - var24, var10 + 0.0F, var31 + (float) var22, (var28 + (float) var40 + 0.5F) * var39 + var35, (var29 + (float) var22) * var39 + var37);
-                            tess.addVertexWithUV(var30 + (float) var40 + 1.0F - var24, var10 + var5, var31 + (float) var22, (var28 + (float) var40 + 0.5F) * var39 + var35, (var29 + (float) var22) * var39 + var37);
-                            tess.addVertexWithUV(var30 + (float) var40 + 1.0F - var24, var10 + var5, var31 + 0.0F, (var28 + (float) var40 + 0.5F) * var39 + var35, (var29 + 0.0F) * var39 + var37);
-                            tess.addVertexWithUV(var30 + (float) var40 + 1.0F - var24, var10 + 0.0F, var31 + 0.0F, (var28 + (float) var40 + 0.5F) * var39 + var35, (var29 + 0.0F) * var39 + var37);
+                        for (int s = 0; s < m1; ++s) {
+                            final float u1 = (um1 + s + 0.5F) * m + dXm;
+                            final float x1 = x + s + 1.0F - m3;
+                            t.addVertexWithUV(x1, cpy, z + m1, u1, (vm1 + m1) * m + dZm);
+                            t.addVertexWithUV(x1, cpy + cloudHeight, z + m1, u1, (vm1 + m1) * m + dZm);
+                            t.addVertexWithUV(x1, cpy + cloudHeight, z, u1, vm1 * m + dZm);
+                            t.addVertexWithUV(x1, cpy, z, u1, vm1 * m + dZm);
                         }
                     }
 
-                    tess.setColorRGBA_F(xCoord * 0.8F, yCoord * 0.8F, zCoord * 0.8F, 0.8F);
-                    if (var27 > -1) {
-                        tess.setNormal(0.0F, 0.0F, -1.0F);
+                    // z- side of cloud
+                    t.setColorRGBA_F(r * 0.8F, g * 0.8F, b * 0.8F, 0.8F);
+                    if (v > -1) {
+                        t.setNormal(0.0F, 0.0F, -1.0F);
 
-                        for (int var41 = 0; var41 < var22; ++var41) {
-                            tess.addVertexWithUV(var30 + 0.0F, var10 + var5, var31 + (float) var41 + 0.0F, (var28 + 0.0F) * var39 + var35, (var29 + (float) var41 + 0.5F) * var39 + var37);
-                            tess.addVertexWithUV(var30 + (float) var22, var10 + var5, var31 + (float) var41 + 0.0F, (var28 + (float) var22) * var39 + var35, (var29 + (float) var41 + 0.5F) * var39 + var37);
-                            tess.addVertexWithUV(var30 + (float) var22, var10 + 0.0F, var31 + (float) var41 + 0.0F, (var28 + (float) var22) * var39 + var35, (var29 + (float) var41 + 0.5F) * var39 + var37);
-                            tess.addVertexWithUV(var30 + 0.0F, var10 + 0.0F, var31 + (float) var41 + 0.0F, (var28 + 0.0F) * var39 + var35, (var29 + (float) var41 + 0.5F) * var39 + var37);
+                        for (int s = 0; s < m1; ++s) {
+                            final float v1 = (vm1 + s + 0.5F) * m + dZm;
+                            t.addVertexWithUV(x, cpy + cloudHeight, z + s, um1 * m + dXm, v1);
+                            t.addVertexWithUV(x + m1, cpy + cloudHeight, z + s, (um1 + m1) * m + dXm, v1);
+                            t.addVertexWithUV(x + m1, cpy, z + s, (um1 + m1) * m + dXm, v1);
+                            t.addVertexWithUV(x, cpy, z + s, um1 * m + dXm, v1);
                         }
                     }
 
-                    if (var27 <= 1) {
-                        tess.setNormal(0.0F, 0.0F, 1.0F);
+                    // z+ side of cloud
+                    if (v <= 1) {
+                        t.setNormal(0.0F, 0.0F, 1.0F);
 
-                        for (int var42 = 0; var42 < var22; ++var42) {
-                            tess.addVertexWithUV(var30 + 0.0F, var10 + var5, var31 + (float) var42 + 1.0F - var24, (var28 + 0.0F) * var39 + var35, (var29 + (float) var42 + 0.5F) * var39 + var37);
-                            tess.addVertexWithUV(var30 + (float) var22, var10 + var5, var31 + (float) var42 + 1.0F - var24, (var28 + (float) var22) * var39 + var35, (var29 + (float) var42 + 0.5F) * var39 + var37);
-                            tess.addVertexWithUV(var30 + (float) var22, var10 + 0.0F, var31 + (float) var42 + 1.0F - var24, (var28 + (float) var22) * var39 + var35, (var29 + (float) var42 + 0.5F) * var39 + var37);
-                            tess.addVertexWithUV(var30 + 0.0F, var10 + 0.0F, var31 + (float) var42 + 1.0F - var24, (var28 + 0.0F) * var39 + var35, (var29 + (float) var42 + 0.5F) * var39 + var37);
+                        for (int s = 0; s < m1; ++s) {
+                            final float v1 = (vm1 + s + 0.5F) * m + dZm;
+                            t.addVertexWithUV(x, cpy + cloudHeight, z + s + 1.0F - m3, um1 * m + dXm, v1);
+                            t.addVertexWithUV(x + m1, cpy + cloudHeight, z + s + 1.0F - m3, (um1 + m1) * m + dXm, v1);
+                            t.addVertexWithUV(x + m1, cpy, z + s + 1.0F - m3, (um1 + m1) * m + dXm, v1);
+                            t.addVertexWithUV(x, cpy, z + s + 1.0F - m3, um1 * m + dXm, v1);
                         }
                     }
 
-                    tess.draw();
+                    t.draw();
                 }
             }
         }
@@ -933,16 +966,16 @@ public class RenderGlobal implements IWorldAccess {
         RenderSorter var5 = new RenderSorter(entity);
         WorldRenderer[] var6 = new WorldRenderer[var4];
         ArrayList<WorldRenderer> var7 = null;
-        int var8 = this.worldRenderersToUpdate.size();
+        int rendersToUpdateSize = this.worldRenderersToUpdate.size();
         int var9 = 0;
 
         label169:
-        for (int var10 = 0; var10 < var8; ++var10) {
-            WorldRenderer var11 = this.worldRenderersToUpdate.get(var10);
+        for (int i = 0; i < rendersToUpdateSize; ++i) {
+            WorldRenderer renderer = this.worldRenderersToUpdate.get(i);
             if (!var2) {
-                if (var11.distanceToEntitySquared(entity) > 256.0F) {
+                if (renderer.distanceToEntitySquared(entity) > 256.0F) {
                     int var12;
-                    for (var12 = 0; var12 < var4 && (var6[var12] == null || var5.doCompare(var6[var12], var11) <= 0); ++var12) {
+                    for (var12 = 0; var12 < var4 && (var6[var12] == null || var5.doCompare(var6[var12], renderer) <= 0); ++var12) {
                     }
 
                     --var12;
@@ -955,14 +988,14 @@ public class RenderGlobal implements IWorldAccess {
                     while (true) {
                         --var13;
                         if (var13 == 0) {
-                            var6[var12] = var11;
+                            var6[var12] = renderer;
                             continue label169;
                         }
 
                         var6[var13 - 1] = var6[var13];
                     }
                 }
-            } else if (!var11.isInFrustum) {
+            } else if (!renderer.isInFrustum) {
                 continue;
             }
 
@@ -971,8 +1004,8 @@ public class RenderGlobal implements IWorldAccess {
             }
 
             ++var9;
-            var7.add(var11);
-            this.worldRenderersToUpdate.set(var10, null);
+            var7.add(renderer);
+            this.worldRenderersToUpdate.set(i, null);
         }
 
         if (var7 != null) {
@@ -1032,7 +1065,7 @@ public class RenderGlobal implements IWorldAccess {
         while (true) {
             --var25;
             if (var25 < var28) {
-                return var8 == var9 + var22;
+                return rendersToUpdateSize == var9 + var22;
             }
 
             this.worldRenderersToUpdate.remove(var25);

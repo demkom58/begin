@@ -58,8 +58,8 @@ public class GuiTexturePacks extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
-        this.guiTexturePackSlot.drawScreen(var1, var2, var3);
+    public void drawScreen(int var1, int var2, float partialTicks) {
+        this.guiTexturePackSlot.drawScreen(var1, var2, partialTicks);
         if (this.field_6454_o <= 0) {
             this.potion.texturePackList.updateAvaliableTexturePacks();
             this.field_6454_o += 20;
@@ -68,7 +68,7 @@ public class GuiTexturePacks extends GuiScreen {
         StringTranslate var4 = StringTranslate.getInstance();
         this.drawCenteredString(this.fontRenderer, var4.translateKey("texturePack.title"), this.width / 2, 16, 16777215);
         this.drawCenteredString(this.fontRenderer, var4.translateKey("texturePack.folderInfo"), this.width / 2 - 77, this.height - 26, 8421504);
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 
     @Override

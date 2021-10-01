@@ -59,7 +59,7 @@ public class GuiControls extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);
         int var4 = this.func_20080_j();
@@ -68,6 +68,6 @@ public class GuiControls extends GuiScreen {
             this.drawString(this.fontRenderer, this.options.getKeyBindingDescription(i), var4 + i % 2 * 160 + 70 + 6, this.height / 6 + 24 * (i >> 1) + 7, -1);
         }
 
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 }

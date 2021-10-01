@@ -172,10 +172,10 @@ public class GuiStats extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
-        this.field_27155_p.drawScreen(var1, var2, var3);
+    public void drawScreen(int var1, int var2, float partialTicks) {
+        this.field_27155_p.drawScreen(var1, var2, partialTicks);
         this.drawCenteredString(this.fontRenderer, this.field_27154_i, this.width / 2, 20, 16777215);
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 
     private void func_27138_c(int var1, int var2, int var3) {

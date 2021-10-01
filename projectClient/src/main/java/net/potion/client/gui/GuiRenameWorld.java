@@ -72,12 +72,12 @@ public class GuiRenameWorld extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         StringTranslate translate = StringTranslate.getInstance();
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, translate.translateKey("selectWorld.renameTitle"), this.width / 2, this.height / 4 - 60 + 20, 16777215);
         this.drawString(this.fontRenderer, translate.translateKey("selectWorld.enterName"), this.width / 2 - 100, 47, 10526880);
         this.renameField.drawTextBox();
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 }

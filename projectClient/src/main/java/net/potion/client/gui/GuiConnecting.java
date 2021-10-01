@@ -80,7 +80,7 @@ public class GuiConnecting extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         this.drawDefaultBackground();
         StringTranslate var4 = StringTranslate.getInstance();
         if (this.clientHandler == null) {
@@ -91,6 +91,6 @@ public class GuiConnecting extends GuiScreen {
             this.drawCenteredString(this.fontRenderer, this.clientHandler.field_1209_a, this.width / 2, this.height / 2 - 10, 16777215);
         }
 
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 }

@@ -36,7 +36,7 @@ public class GuiScreen extends Gui {
         return null;
     }
 
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         for (GuiButton guiButton : this.buttons) {
             guiButton.drawButton(this.potion, var1, var2);
         }

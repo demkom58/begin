@@ -9,9 +9,8 @@ import org.lwjgl.opengl.GL13;
 import java.nio.*;
 
 public class Tessellator {
-    public static final Tessellator INSTANCE = new Tessellator(2097152);
     private static boolean convertQuadsToTriangles = true;
-    private static boolean tryVBO = false;
+    private static boolean tryVBO = true;
     /**
      * The byte buffer used for GL allocation.
      */
@@ -98,7 +97,7 @@ public class Tessellator {
     /**
      * The static instance of the Tessellator.
      */
-    public static final Tessellator instance = new Tessellator(2097152);
+    public static final Tessellator INSTANCE = new Tessellator(2097152);
     /**
      * Whether this tessellator is currently in draw mode.
      */

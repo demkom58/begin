@@ -185,9 +185,9 @@ public class GuiSelectWorld extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
-        this.worldSlotContainer.drawScreen(var1, var2, var3);
+    public void drawScreen(int var1, int var2, float partialTicks) {
+        this.worldSlotContainer.drawScreen(var1, var2, partialTicks);
         this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 20, 16777215);
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 }

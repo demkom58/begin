@@ -95,7 +95,7 @@ public class GuiMultiplayer extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int var1, int var2, float var3) {
+    public void drawScreen(int var1, int var2, float partialTicks) {
         StringTranslate translate = StringTranslate.getInstance();
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRenderer, translate.translateKey("multiplayer.title"), this.width / 2, this.height / 4 - 60 + 20, 16777215);
@@ -103,6 +103,6 @@ public class GuiMultiplayer extends GuiScreen {
         this.drawString(this.fontRenderer, translate.translateKey("multiplayer.info2"), this.width / 2 - 140, this.height / 4 - 60 + 60 + 9, 10526880);
         this.drawString(this.fontRenderer, translate.translateKey("multiplayer.ipinfo"), this.width / 2 - 140, this.height / 4 - 60 + 60 + 36, 10526880);
         this.addressField.drawTextBox();
-        super.drawScreen(var1, var2, var3);
+        super.drawScreen(var1, var2, partialTicks);
     }
 }
