@@ -8,9 +8,9 @@ public class PathEntity {
     private final PathPoint[] points;
     private int pathIndex;
 
-    public PathEntity(PathPoint[] var1) {
-        this.points = var1;
-        this.pathLength = var1.length;
+    public PathEntity(PathPoint[] points) {
+        this.points = points;
+        this.pathLength = points.length;
     }
 
     public void incrementPathIndex() {
@@ -21,14 +21,14 @@ public class PathEntity {
         return this.pathIndex >= this.points.length;
     }
 
-    public PathPoint func_22328_c() {
+    public PathPoint getTargetPoint() {
         return this.pathLength > 0 ? this.points[this.pathLength - 1] : null;
     }
 
-    public Vector3d getPosition(Entity var1) {
-        double var2 = (double) this.points[this.pathIndex].xCoord + (double) ((int) (var1.width + 1.0F)) * 0.5D;
-        double var4 = this.points[this.pathIndex].yCoord;
-        double var6 = (double) this.points[this.pathIndex].zCoord + (double) ((int) (var1.width + 1.0F)) * 0.5D;
-        return new Vector3d(var2, var4, var6);
+    public Vector3d getPosition(Entity entity) {
+        double x = (double) this.points[this.pathIndex].xCoord + (double) ((int) (entity.width + 1.0F)) * 0.5D;
+        double y = this.points[this.pathIndex].yCoord;
+        double z = (double) this.points[this.pathIndex].zCoord + (double) ((int) (entity.width + 1.0F)) * 0.5D;
+        return new Vector3d(x, y, z);
     }
 }

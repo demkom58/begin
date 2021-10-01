@@ -211,7 +211,7 @@ public final class SpawnerAnimals {
                         if (var17.getCanSpawnHere()) {
                             PathEntity var18 = var3.createEntityPathTo(var17, var5, 32.0F);
                             if (var18 != null && var18.pathLength > 1) {
-                                PathPoint var19 = var18.func_22328_c();
+                                PathPoint var19 = var18.getTargetPoint();
                                 if (Math.abs((double) var19.xCoord - var5.posX) < 1.5D && Math.abs((double) var19.zCoord - var5.posZ) < 1.5D && Math.abs((double) var19.yCoord - var5.posY) < 1.5D) {
                                     ChunkCoordinates var20 = BlockBed.getNearestEmptyChunkCoordinates(var0, MathHelper.floor(var5.posX), MathHelper.floor(var5.posY), MathHelper.floor(var5.posZ), 1);
                                     if (var20 == null) {
