@@ -8,7 +8,8 @@ import net.potion.util.IProgressUpdatable;
 import net.potion.world.WorldServer;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChunkProviderServer implements IChunkProvider {
     public boolean chunkLoadOverride = false;

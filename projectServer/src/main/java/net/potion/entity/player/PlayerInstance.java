@@ -1,10 +1,10 @@
 package net.potion.entity.player;
 
-import net.potion.world.chunk.ChunkCoordIntPair;
 import net.potion.block.Block;
 import net.potion.network.packet.*;
 import net.potion.tileentity.TileEntity;
 import net.potion.world.WorldServer;
+import net.potion.world.chunk.ChunkCoordIntPair;
 
 import java.util.ArrayList;
 import java.util.List;

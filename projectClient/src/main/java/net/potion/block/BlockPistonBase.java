@@ -6,9 +6,9 @@ import net.potion.material.Material;
 import net.potion.tileentity.TileEntity;
 import net.potion.tileentity.TileEntityPiston;
 import net.potion.util.AxisAlignedBB;
+import net.potion.util.MathHelper;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
-import net.potion.util.MathHelper;
 
 import java.util.List;
 

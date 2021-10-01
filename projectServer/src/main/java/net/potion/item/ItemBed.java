@@ -1,10 +1,10 @@
 package net.potion.item;
 
-import net.potion.entity.player.EntityPlayer;
 import net.potion.block.Block;
 import net.potion.block.BlockBed;
-import net.potion.world.World;
+import net.potion.entity.player.EntityPlayer;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class ItemBed extends Item {
     public ItemBed(int var1) {

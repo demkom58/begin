@@ -1,11 +1,11 @@
 package net.potion.item;
 
+import net.potion.block.Block;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityLiving;
 import net.potion.entity.player.EntityPlayer;
-import net.potion.stats.StatList;
-import net.potion.block.Block;
 import net.potion.nbt.TagCompound;
+import net.potion.stats.StatList;
 import net.potion.world.World;
 
 public final class ItemStack {

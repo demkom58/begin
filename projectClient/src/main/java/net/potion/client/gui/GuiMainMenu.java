@@ -1,9 +1,9 @@
 package net.potion.client.gui;
 
 import net.hypnosis.render.Tessellator;
+import net.potion.util.MathHelper;
 import net.potion.util.StringTranslate;
 import org.lwjgl.opengl.GL11;
-import net.potion.util.MathHelper;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -1,7 +1,7 @@
 package net.potion.network.packet;
 
-import net.potion.world.chunk.ChunkPosition;
 import net.potion.network.NetHandler;
+import net.potion.world.chunk.ChunkPosition;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

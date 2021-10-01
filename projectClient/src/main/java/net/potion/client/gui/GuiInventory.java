@@ -1,8 +1,8 @@
 package net.potion.client.gui;
 
+import net.potion.achievement.AchievementList;
 import net.potion.client.render.RenderHelper;
 import net.potion.client.render.RenderManager;
-import net.potion.achievement.AchievementList;
 import net.potion.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;

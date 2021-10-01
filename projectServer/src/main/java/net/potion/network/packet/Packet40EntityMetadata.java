@@ -1,7 +1,7 @@
 package net.potion.network.packet;
 
-import net.potion.util.DataWatcher;
 import net.potion.network.NetHandler;
+import net.potion.util.DataWatcher;
 import net.potion.util.WatchableObject;
 
 import java.io.DataInputStream;

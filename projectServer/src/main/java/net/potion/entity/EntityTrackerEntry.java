@@ -1,6 +1,5 @@
 package net.potion.entity;
 
-import net.potion.util.DataWatcher;
 import net.potion.block.Block;
 import net.potion.entity.item.EntityBoat;
 import net.potion.entity.item.EntityItem;
@@ -13,6 +12,7 @@ import net.potion.entity.projectile.EntityFireball;
 import net.potion.entity.projectile.EntitySnowball;
 import net.potion.item.ItemStack;
 import net.potion.network.packet.*;
+import net.potion.util.DataWatcher;
 import net.potion.util.MathHelper;
 
 import java.util.HashSet;

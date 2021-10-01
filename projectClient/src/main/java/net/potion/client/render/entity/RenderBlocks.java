@@ -6,9 +6,9 @@ import net.potion.client.PotionClient;
 import net.potion.entity.EntityRenderer;
 import net.potion.material.Material;
 import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
+import org.joml.Vector3d;
 import org.lwjgl.opengl.GL11;
 
 public class RenderBlocks {
@@ -696,65 +696,65 @@ public class RenderBlocks {
         float var18 = ((float) var15 + 15.99F) / 256.0F;
         float var19 = (float) var16 / 256.0F;
         float var20 = ((float) var16 + 15.99F) / 256.0F;
-        Vec3D[] var21 = new Vec3D[8];
+        Vector3d[] var21 = new Vector3d[8];
         float var22 = 0.0625F;
         float var23 = 0.0625F;
         float var24 = 0.625F;
-        var21[0] = Vec3D.createVector(-var22, 0.0D, -var23);
-        var21[1] = Vec3D.createVector(var22, 0.0D, -var23);
-        var21[2] = Vec3D.createVector(var22, 0.0D, var23);
-        var21[3] = Vec3D.createVector(-var22, 0.0D, var23);
-        var21[4] = Vec3D.createVector(-var22, var24, -var23);
-        var21[5] = Vec3D.createVector(var22, var24, -var23);
-        var21[6] = Vec3D.createVector(var22, var24, var23);
-        var21[7] = Vec3D.createVector(-var22, var24, var23);
+        var21[0] = new Vector3d(-var22, 0.0D, -var23);
+        var21[1] = new Vector3d(var22, 0.0D, -var23);
+        var21[2] = new Vector3d(var22, 0.0D, var23);
+        var21[3] = new Vector3d(-var22, 0.0D, var23);
+        var21[4] = new Vector3d(-var22, var24, -var23);
+        var21[5] = new Vector3d(var22, var24, -var23);
+        var21[6] = new Vector3d(var22, var24, var23);
+        var21[7] = new Vector3d(-var22, var24, var23);
 
         for (int var25 = 0; var25 < 8; ++var25) {
             if (var7) {
-                var21[var25].zCoord -= 0.0625D;
-                var21[var25].rotateAroundX(0.69813174F);
+                var21[var25].z -= 0.0625D;
+                var21[var25].rotateX(0.69813174F);
             } else {
-                var21[var25].zCoord += 0.0625D;
-                var21[var25].rotateAroundX(-0.69813174F);
+                var21[var25].z += 0.0625D;
+                var21[var25].rotateX(-0.69813174F);
             }
 
             if (var6 == 6) {
-                var21[var25].rotateAroundY(1.5707964F);
+                var21[var25].rotateY(1.5707964F);
             }
 
             if (var6 < 5) {
-                var21[var25].yCoord -= 0.375D;
-                var21[var25].rotateAroundX(1.5707964F);
+                var21[var25].y -= 0.375D;
+                var21[var25].rotateX(1.5707964F);
                 if (var6 == 4) {
-                    var21[var25].rotateAroundY(0.0F);
+                    var21[var25].rotateY(0.0F);
                 }
 
                 if (var6 == 3) {
-                    var21[var25].rotateAroundY(3.1415927F);
+                    var21[var25].rotateY(3.1415927F);
                 }
 
                 if (var6 == 2) {
-                    var21[var25].rotateAroundY(1.5707964F);
+                    var21[var25].rotateY(1.5707964F);
                 }
 
                 if (var6 == 1) {
-                    var21[var25].rotateAroundY(-1.5707964F);
+                    var21[var25].rotateY(-1.5707964F);
                 }
 
-                var21[var25].xCoord += (double) x + 0.5D;
-                var21[var25].yCoord += (float) y + 0.5F;
-                var21[var25].zCoord += (double) z + 0.5D;
+                var21[var25].x += (double) x + 0.5D;
+                var21[var25].y += (float) y + 0.5F;
+                var21[var25].z += (double) z + 0.5D;
             } else {
-                var21[var25].xCoord += (double) x + 0.5D;
-                var21[var25].yCoord += (float) y + 0.125F;
-                var21[var25].zCoord += (double) z + 0.5D;
+                var21[var25].x += (double) x + 0.5D;
+                var21[var25].y += (float) y + 0.125F;
+                var21[var25].z += (double) z + 0.5D;
             }
         }
 
-        Vec3D var30 = null;
-        Vec3D var26 = null;
-        Vec3D var27 = null;
-        Vec3D var28 = null;
+        Vector3d var30 = null;
+        Vector3d var26 = null;
+        Vector3d var27 = null;
+        Vector3d var28 = null;
 
         for (int var29 = 0; var29 < 6; ++var29) {
             if (var29 == 0) {
@@ -801,10 +801,10 @@ public class RenderBlocks {
                 var28 = var21[4];
             }
 
-            tess.addVertexWithUV(var30.xCoord, var30.yCoord, var30.zCoord, var17, var20);
-            tess.addVertexWithUV(var26.xCoord, var26.yCoord, var26.zCoord, var18, var20);
-            tess.addVertexWithUV(var27.xCoord, var27.yCoord, var27.zCoord, var18, var19);
-            tess.addVertexWithUV(var28.xCoord, var28.yCoord, var28.zCoord, var17, var19);
+            tess.addVertexWithUV(var30.x, var30.y, var30.z, var17, var20);
+            tess.addVertexWithUV(var26.x, var26.y, var26.z, var18, var20);
+            tess.addVertexWithUV(var27.x, var27.y, var27.z, var18, var19);
+            tess.addVertexWithUV(var28.x, var28.y, var28.z, var17, var19);
         }
 
         return true;

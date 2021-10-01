@@ -1,8 +1,8 @@
 package net.potion.server.gui;
 
-import net.potion.server.PotionServer;
-import net.potion.server.ICommandListener;
 import net.potion.entity.player.PlayerListBox;
+import net.potion.server.ICommandListener;
+import net.potion.server.PotionServer;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;

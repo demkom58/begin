@@ -1,10 +1,10 @@
 package net.potion.item;
 
+import net.potion.block.Block;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.tileentity.TileEntitySign;
-import net.potion.block.Block;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class ItemSign extends Item {
     public ItemSign(int var1) {

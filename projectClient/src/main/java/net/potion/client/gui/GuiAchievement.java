@@ -1,11 +1,11 @@
 package net.potion.client.gui;
 
 import net.hypnosis.monitor.Window;
+import net.potion.achievement.Achievement;
 import net.potion.client.PotionClient;
 import net.potion.client.render.RenderHelper;
-import net.potion.client.render.entity.RenderItem;
 import net.potion.client.render.ScaledResolution;
-import net.potion.achievement.Achievement;
+import net.potion.client.render.entity.RenderItem;
 import net.potion.stats.StatCollector;
 import org.lwjgl.opengl.ARBVertexBlend;
 import org.lwjgl.opengl.GL11;

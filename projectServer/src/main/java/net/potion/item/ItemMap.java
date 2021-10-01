@@ -6,9 +6,9 @@ import net.potion.entity.player.EntityPlayer;
 import net.potion.material.MapColor;
 import net.potion.network.packet.Packet;
 import net.potion.network.packet.Packet131MapData;
+import net.potion.util.MathHelper;
 import net.potion.world.World;
 import net.potion.world.chunk.Chunk;
-import net.potion.util.MathHelper;
 
 public class ItemMap extends ItemMapBase {
     protected ItemMap(int var1) {

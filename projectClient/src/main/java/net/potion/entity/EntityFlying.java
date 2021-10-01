@@ -1,8 +1,8 @@
 package net.potion.entity;
 
 import net.potion.block.Block;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class EntityFlying extends EntityLiving {
     public EntityFlying(World var1) {

@@ -1,7 +1,7 @@
 package net.potion.client.render;
 
-import org.lwjgl.opengl.GL11;
 import net.potion.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
 

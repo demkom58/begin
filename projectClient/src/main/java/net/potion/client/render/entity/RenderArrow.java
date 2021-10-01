@@ -1,11 +1,11 @@
 package net.potion.client.render.entity;
 
-import net.potion.client.render.Render;
 import net.hypnosis.render.Tessellator;
+import net.potion.client.render.Render;
 import net.potion.entity.Entity;
 import net.potion.entity.projectile.EntityArrow;
-import org.lwjgl.opengl.GL11;
 import net.potion.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
 public class RenderArrow extends Render {

@@ -1,14 +1,14 @@
 package net.potion.client.gui;
 
-import net.potion.client.render.RenderHelper;
-import net.potion.client.render.entity.RenderItem;
 import net.potion.achievement.Achievement;
 import net.potion.achievement.AchievementList;
 import net.potion.block.Block;
+import net.potion.client.render.RenderHelper;
+import net.potion.client.render.entity.RenderItem;
 import net.potion.stats.StatCollector;
 import net.potion.stats.StatFileWriter;
-import org.lwjgl.opengl.GL11;
 import net.potion.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
 import java.util.Random;

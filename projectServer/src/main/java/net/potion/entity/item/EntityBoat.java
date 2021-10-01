@@ -1,14 +1,14 @@
 package net.potion.entity.item;
 
-import net.potion.material.Material;
 import net.potion.block.Block;
 import net.potion.entity.Entity;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.item.Item;
+import net.potion.material.Material;
 import net.potion.nbt.TagCompound;
 import net.potion.util.AxisAlignedBB;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 import java.util.List;
 

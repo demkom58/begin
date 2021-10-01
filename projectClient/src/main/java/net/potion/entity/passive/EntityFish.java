@@ -1,18 +1,18 @@
 package net.potion.entity.passive;
 
 import net.potion.entity.Entity;
-import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.item.EntityItem;
+import net.potion.entity.player.EntityPlayer;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;
 import net.potion.material.Material;
 import net.potion.nbt.TagCompound;
 import net.potion.stats.StatList;
 import net.potion.util.AxisAlignedBB;
+import net.potion.util.MathHelper;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.World;
-import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
 
 import java.util.List;
 
@@ -205,13 +205,13 @@ public class EntityFish extends Entity {
                 ++this.ticksInAir;
             }
 
-            Vec3D var20 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-            Vec3D var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+            Vector3d var20 = new Vector3d(this.posX, this.posY, this.posZ);
+            Vector3d var2 = new Vector3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
             MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var20, var2);
-            var20 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-            var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+            var20 = new Vector3d(this.posX, this.posY, this.posZ);
+            var2 = new Vector3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
             if (var3 != null) {
-                var2 = Vec3D.createVector(var3.hitVec.xCoord, var3.hitVec.yCoord, var3.hitVec.zCoord);
+                var2 = new Vector3d(var3.hitVec.x, var3.hitVec.y, var3.hitVec.z);
             }
 
             Entity var4 = null;
@@ -225,7 +225,7 @@ public class EntityFish extends Entity {
                     AxisAlignedBB var11 = var9.boundingBox.expand(var10, var10, var10);
                     MovingObjectPosition var12 = var11.func_706_a(var20, var2);
                     if (var12 != null) {
-                        double var13 = var20.distanceTo(var12.hitVec);
+                        double var13 = var20.distance(var12.hitVec);
                         if (var13 < var6 || var6 == 0.0D) {
                             var4 = var9;
                             var6 = var13;

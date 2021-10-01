@@ -1,8 +1,8 @@
 package net.potion.item;
 
-import net.potion.entity.player.EntityPlayer;
 import net.potion.block.Block;
 import net.potion.block.BlockJukeBox;
+import net.potion.entity.player.EntityPlayer;
 import net.potion.world.World;
 
 public class ItemRecord extends Item {

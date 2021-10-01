@@ -1,10 +1,10 @@
 package net.potion.block;
 
 import net.potion.material.Material;
+import net.potion.util.AxisAlignedBB;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.World;
-import net.potion.util.AxisAlignedBB;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
 
 import java.util.Random;
 
@@ -144,7 +144,7 @@ public class BlockTorch extends Block {
     }
 
     @Override
-    public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
+    public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vector3d var5, Vector3d var6) {
         int var7 = world.getBlockMetadata(var2, var3, var4) & 7;
         float var8 = 0.15F;
         if (var7 == 1) {

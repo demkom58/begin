@@ -1,8 +1,8 @@
 package net.potion.inventory;
 
-import net.potion.item.crafting.CraftingManager;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.item.ItemStack;
+import net.potion.item.crafting.CraftingManager;
 
 public class ContainerPlayer extends Container {
     public InventoryCrafting craftMatrix;

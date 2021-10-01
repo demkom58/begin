@@ -1,8 +1,8 @@
 package net.potion.item;
 
+import net.potion.block.Block;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityLiving;
-import net.potion.block.Block;
 
 public class ItemSword extends Item {
     private int weaponDamage;

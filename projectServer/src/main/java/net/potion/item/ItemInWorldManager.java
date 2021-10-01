@@ -1,8 +1,8 @@
 package net.potion.item;
 
+import net.potion.block.Block;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.player.EntityPlayerMP;
-import net.potion.block.Block;
 import net.potion.network.packet.Packet53BlockChange;
 import net.potion.world.World;
 import net.potion.world.WorldServer;

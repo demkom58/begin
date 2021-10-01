@@ -13,15 +13,22 @@ import net.potion.item.ItemRecord;
 import net.potion.item.ItemStack;
 import net.potion.tileentity.TileEntity;
 import net.potion.tileentity.TileEntityRenderer;
-import net.potion.util.*;
+import net.potion.util.AxisAlignedBB;
+import net.potion.util.EnumMovingObjectType;
+import net.potion.util.MathHelper;
+import net.potion.util.MovingObjectPosition;
 import net.potion.world.IWorldAccess;
 import net.potion.world.World;
 import net.potion.world.WorldRenderer;
+import org.joml.Vector3d;
 import org.lwjgl.opengl.ARBOcclusionQuery;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.IntBuffer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class RenderGlobal implements IWorldAccess {
     public List<TileEntity> tileEntities = new ArrayList();
@@ -260,7 +267,7 @@ public class RenderGlobal implements IWorldAccess {
         this.renderEntitiesStartupCounter = 2;
     }
 
-    public void renderEntities(Vec3D vec, ICamera camera, float delta) {
+    public void renderEntities(Vector3d vec, ICamera camera, float delta) {
         if (this.renderEntitiesStartupCounter > 0) {
             --this.renderEntitiesStartupCounter;
         } else {
@@ -282,14 +289,14 @@ public class RenderGlobal implements IWorldAccess {
             for (int var6 = 0; var6 < this.worldObj.weatherEffects.size(); ++var6) {
                 Entity var7 = this.worldObj.weatherEffects.get(var6);
                 ++this.countEntitiesRendered;
-                if (var7.isInRangeToRenderVec3D(vec)) {
+                if (var7.isInRangeToRenderVector3d(vec)) {
                     RenderManager.instance.renderEntity(var7, delta);
                 }
             }
 
             for (int var9 = 0; var9 < var5.size(); ++var9) {
                 Entity entity = (Entity) var5.get(var9);
-                if (entity.isInRangeToRenderVec3D(vec)
+                if (entity.isInRangeToRenderVector3d(vec)
                         && (entity.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(entity.boundingBox))
                         && (entity != this.potion.renderViewEntity || this.potion.gameSettings.thirdPersonView || this.potion.renderViewEntity.isPlayerSleeping())) {
                     int var8 = MathHelper.floor(entity.posY);
@@ -610,10 +617,10 @@ public class RenderGlobal implements IWorldAccess {
             return;
 
         GL11.glDisable(GL11.GL_TEXTURE_2D);
-        Vec3D vec = this.worldObj.func_4079_a(this.potion.renderViewEntity, var1);
-        float x = (float) vec.xCoord;
-        float y = (float) vec.yCoord;
-        float z = (float) vec.zCoord;
+        Vector3d vec = this.worldObj.func_4079_a(this.potion.renderViewEntity, var1);
+        float x = (float) vec.x;
+        float y = (float) vec.y;
+        float z = (float) vec.z;
         if (this.potion.gameSettings.anaglyph) {
             float tempX = (x * 30.0F + y * 59.0F + z * 11.0F) / 100.0F;
             float tempY = (x * 30.0F + y * 70.0F) / 100.0F;
@@ -739,11 +746,11 @@ public class RenderGlobal implements IWorldAccess {
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/environment/clouds.png"));
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-            Vec3D vec = this.worldObj.func_628_d(var1);
+            Vector3d vec = this.worldObj.func_628_d(var1);
 
-            float xCoord = (float) vec.xCoord;
-            float yCoord = (float) vec.yCoord;
-            float zCoord = (float) vec.zCoord;
+            float xCoord = (float) vec.x;
+            float yCoord = (float) vec.y;
+            float zCoord = (float) vec.z;
             if (this.potion.gameSettings.anaglyph) {
                 float tempX = (xCoord * 30.0F + yCoord * 59.0F + zCoord * 11.0F) / 100.0F;
                 float tempY = (xCoord * 30.0F + yCoord * 70.0F) / 100.0F;
@@ -802,10 +809,10 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/environment/clouds.png"));
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        Vec3D vec = this.worldObj.func_628_d(var1);
-        float xCoord = (float) vec.xCoord;
-        float yCoord = (float) vec.yCoord;
-        float zCoord = (float) vec.zCoord;
+        Vector3d vec = this.worldObj.func_628_d(var1);
+        float xCoord = (float) vec.x;
+        float yCoord = (float) vec.y;
+        float zCoord = (float) vec.z;
         if (this.potion.gameSettings.anaglyph) {
             float tempX = (xCoord * 30.0F + yCoord * 59.0F + zCoord * 11.0F) / 100.0F;
             float tempY = (xCoord * 30.0F + yCoord * 70.0F) / 100.0F;

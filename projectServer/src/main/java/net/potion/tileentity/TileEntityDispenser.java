@@ -1,7 +1,7 @@
 package net.potion.tileentity;
 
-import net.potion.inventory.IInventory;
 import net.potion.entity.player.EntityPlayer;
+import net.potion.inventory.IInventory;
 import net.potion.item.ItemStack;
 import net.potion.nbt.TagCompound;
 import net.potion.nbt.TagList;

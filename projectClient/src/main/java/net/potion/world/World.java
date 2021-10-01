@@ -18,6 +18,7 @@ import net.potion.world.chunk.*;
 import net.potion.world.gen.BiomeGenBase;
 import net.potion.world.storage.ISaveHandler;
 import net.potion.world.storage.MapStorage;
+import org.joml.Vector3d;
 
 import java.util.*;
 
@@ -713,28 +714,28 @@ public class World implements IBlockAccess {
         return this.skylightSubtracted < 4;
     }
 
-    public MovingObjectPosition rayTraceBlocks(Vec3D var1, Vec3D var2) {
+    public MovingObjectPosition rayTraceBlocks(Vector3d var1, Vector3d var2) {
         return this.rayTraceBlocks(var1, var2, false, false);
     }
 
-    public MovingObjectPosition rayTraceBlocks(Vec3D var1, Vec3D var2, boolean var3) {
+    public MovingObjectPosition rayTraceBlocks(Vector3d var1, Vector3d var2, boolean var3) {
         return this.rayTraceBlocks(var1, var2, var3, false);
     }
 
-    public MovingObjectPosition rayTraceBlocks(Vec3D vec1, Vec3D vec2, boolean paramBoolean, boolean paramBoolean2) {
-        if (Double.isNaN(vec1.xCoord) || Double.isNaN(vec1.yCoord) || Double.isNaN(vec1.zCoord))
+    public MovingObjectPosition rayTraceBlocks(Vector3d vec1, Vector3d vec2, boolean paramBoolean, boolean paramBoolean2) {
+        if (Double.isNaN(vec1.x) || Double.isNaN(vec1.y) || Double.isNaN(vec1.z))
             return null;
 
-        if (Double.isNaN(vec2.xCoord) || Double.isNaN(vec2.yCoord) || Double.isNaN(vec2.zCoord))
+        if (Double.isNaN(vec2.x) || Double.isNaN(vec2.y) || Double.isNaN(vec2.z))
             return null;
 
-        int x2 = MathHelper.floor(vec2.xCoord);
-        int y2 = MathHelper.floor(vec2.yCoord);
-        int z2 = MathHelper.floor(vec2.zCoord);
+        int x2 = MathHelper.floor(vec2.x);
+        int y2 = MathHelper.floor(vec2.y);
+        int z2 = MathHelper.floor(vec2.z);
 
-        int x1 = MathHelper.floor(vec1.xCoord);
-        int y1 = MathHelper.floor(vec1.yCoord);
-        int z1 = MathHelper.floor(vec1.zCoord);
+        int x1 = MathHelper.floor(vec1.x);
+        int y1 = MathHelper.floor(vec1.y);
+        int z1 = MathHelper.floor(vec1.z);
 
         int blockId = this.getBlockId(x1, y1, z1);
         int blockMetadata = this.getBlockMetadata(x1, y1, z1);
@@ -753,7 +754,7 @@ public class World implements IBlockAccess {
         blockId = 200;
 
         while (blockId-- >= 0) {
-            if (Double.isNaN(vec1.xCoord) || Double.isNaN(vec1.yCoord) || Double.isNaN(vec1.zCoord))
+            if (Double.isNaN(vec1.x) || Double.isNaN(vec1.y) || Double.isNaN(vec1.z))
                 return null;
 
             if (x1 == x2 && y1 == y2 && z1 == z2)
@@ -789,18 +790,18 @@ public class World implements IBlockAccess {
             double var21 = 999.0D;
             double var23 = 999.0D;
             double var25 = 999.0D;
-            double difX = vec2.xCoord - vec1.xCoord;
-            double difY = vec2.yCoord - vec1.yCoord;
-            double difZ = vec2.zCoord - vec1.zCoord;
+            double difX = vec2.x - vec1.x;
+            double difY = vec2.y - vec1.y;
+            double difZ = vec2.z - vec1.z;
 
             if (blockMetadata != 0)
-                var21 = (d1 - vec1.xCoord) / difX;
+                var21 = (d1 - vec1.x) / difX;
 
             if (i4 != 0)
-                var23 = (d2 - vec1.yCoord) / difY;
+                var23 = (d2 - vec1.y) / difY;
 
             if (i5 != 0)
-                var25 = (d3 - vec1.zCoord) / difZ;
+                var25 = (d3 - vec1.z) / difZ;
 
 
             byte var33 = 0;
@@ -810,46 +811,46 @@ public class World implements IBlockAccess {
                 } else var33 = 5;
 
 
-                vec1.xCoord = d1;
-                vec1.yCoord += difY * var21;
-                vec1.zCoord += difZ * var21;
+                vec1.x = d1;
+                vec1.y += difY * var21;
+                vec1.z += difZ * var21;
             } else if (var23 < var25) {
                 if (y2 > y1) {
                     var33 = 0;
                 } else var33 = 1;
 
 
-                vec1.xCoord += difX * var23;
-                vec1.yCoord = d2;
-                vec1.zCoord += difZ * var23;
+                vec1.x += difX * var23;
+                vec1.y = d2;
+                vec1.z += difZ * var23;
             } else {
                 if (z2 > z1) {
                     var33 = 2;
                 } else var33 = 3;
 
 
-                vec1.xCoord += difX * var25;
-                vec1.yCoord += difY * var25;
-                vec1.zCoord = d3;
+                vec1.x += difX * var25;
+                vec1.y += difY * var25;
+                vec1.z = d3;
             }
 
-            Vec3D var34 = Vec3D.createVector(vec1.xCoord, vec1.yCoord, vec1.zCoord);
-            x1 = (int) (var34.xCoord = MathHelper.floor(vec1.xCoord));
+            Vector3d var34 = new Vector3d(vec1.x, vec1.y, vec1.z);
+            x1 = (int) (var34.x = MathHelper.floor(vec1.x));
             if (var33 == 5) {
                 --x1;
-                ++var34.xCoord;
+                ++var34.x;
             }
 
-            y1 = (int) (var34.yCoord = MathHelper.floor(vec1.yCoord));
+            y1 = (int) (var34.y = MathHelper.floor(vec1.y));
             if (var33 == 1) {
                 --y1;
-                ++var34.yCoord;
+                ++var34.y;
             }
 
-            z1 = (int) (var34.zCoord = MathHelper.floor(vec1.zCoord));
+            z1 = (int) (var34.z = MathHelper.floor(vec1.z));
             if (var33 == 3) {
                 --z1;
-                ++var34.zCoord;
+                ++var34.z;
             }
 
             int blockId1 = this.getBlockId(x1, y1, z1);
@@ -1005,7 +1006,7 @@ public class World implements IBlockAccess {
         return (int) (var3 * 11.0F);
     }
 
-    public Vec3D func_4079_a(Entity entity, float angle) {
+    public Vector3d func_4079_a(Entity entity, float angle) {
         float celAngle = this.getCelestialAngle(angle);
         float celCos = MathHelper.cos(celAngle * Math.PI * 2.0F) * 2.0F + 0.5F;
 
@@ -1055,14 +1056,14 @@ public class World implements IBlockAccess {
             b *= (1.0F - var21) + 1.0F * var21;
         }
 
-        return Vec3D.createVector(r, g, b);
+        return new Vector3d(r, g, b);
     }
 
     public float getCelestialAngle(float var1) {
         return this.worldProvider.calculateCelestialAngle(this.worldInfo.getWorldTime(), var1);
     }
 
-    public Vec3D func_628_d(float var1) {
+    public Vector3d func_628_d(float var1) {
         float celAngle = this.getCelestialAngle(var1);
         float celCos = MathHelper.cos(celAngle * Math.PI * 2.0F) * 2.0F + 0.5F;
 
@@ -1098,10 +1099,10 @@ public class World implements IBlockAccess {
             b *= var10 + var15 * (1.0F - var10);
         }
 
-        return Vec3D.createVector(r, g, b);
+        return new Vector3d(r, g, b);
     }
 
-    public Vec3D getFogColor(float var1) {
+    public Vector3d getFogColor(float var1) {
         float celestialAngle = this.getCelestialAngle(var1);
         return this.worldProvider.func_4096_a(celestialAngle, var1);
     }
@@ -1391,7 +1392,7 @@ public class World implements IBlockAccess {
             return false;
 
         boolean handled = false;
-        Vec3D vec = Vec3D.createVector(0.0D, 0.0D, 0.0D);
+        Vector3d vec = new Vector3d(0.0D, 0.0D, 0.0D);
 
         for (int x = minX; x < maxX; ++x) {
             for (int y = minY; y < maxY; ++y) {
@@ -1408,12 +1409,12 @@ public class World implements IBlockAccess {
             }
         }
 
-        if (vec.lengthVector() > 0.0D) {
-            vec = vec.normalize();
+        if (vec.length() > 0.0D) {
+            vec = new Vector3d(vec).normalize();
             double var19 = 0.014D;
-            entity.motionX += vec.xCoord * var19;
-            entity.motionY += vec.yCoord * var19;
-            entity.motionZ += vec.zCoord * var19;
+            entity.motionX += vec.x * var19;
+            entity.motionY += vec.y * var19;
+            entity.motionZ += vec.z * var19;
         }
 
         return handled;
@@ -1480,7 +1481,7 @@ public class World implements IBlockAccess {
         return explosion;
     }
 
-    public float func_675_a(Vec3D var1, AxisAlignedBB var2) {
+    public float func_675_a(Vector3d var1, AxisAlignedBB var2) {
         double var3 = 1.0D / ((var2.maxX - var2.minX) * 2.0D + 1.0D);
         double var5 = 1.0D / ((var2.maxY - var2.minY) * 2.0D + 1.0D);
         double var7 = 1.0D / ((var2.maxZ - var2.minZ) * 2.0D + 1.0D);
@@ -1493,7 +1494,7 @@ public class World implements IBlockAccess {
                     double var14 = var2.minX + (var2.maxX - var2.minX) * (double) var11;
                     double var16 = var2.minY + (var2.maxY - var2.minY) * (double) var12;
                     double var18 = var2.minZ + (var2.maxZ - var2.minZ) * (double) var13;
-                    if (this.rayTraceBlocks(Vec3D.createVector(var14, var16, var18), var1) == null)
+                    if (this.rayTraceBlocks(new Vector3d(var14, var16, var18), var1) == null)
                         ++var9;
 
                     ++var10;

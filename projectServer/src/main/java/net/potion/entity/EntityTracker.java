@@ -1,6 +1,5 @@
 package net.potion.entity;
 
-import net.potion.util.Hash;
 import net.potion.entity.item.EntityBoat;
 import net.potion.entity.item.EntityItem;
 import net.potion.entity.passive.EntityFish;
@@ -12,6 +11,7 @@ import net.potion.entity.projectile.EntityFireball;
 import net.potion.entity.projectile.EntitySnowball;
 import net.potion.network.packet.Packet;
 import net.potion.server.PotionServer;
+import net.potion.util.Hash;
 
 import java.util.ArrayList;
 import java.util.HashSet;

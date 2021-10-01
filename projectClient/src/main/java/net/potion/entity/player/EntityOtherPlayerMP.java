@@ -2,8 +2,8 @@ package net.potion.entity.player;
 
 import net.potion.entity.Entity;
 import net.potion.item.ItemStack;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class EntityOtherPlayerMP extends EntityPlayer {
     float field_20924_a = 0.0F;

@@ -1,8 +1,8 @@
 package net.potion.item;
 
+import net.potion.block.BlockRail;
 import net.potion.entity.EntityMinecart;
 import net.potion.entity.player.EntityPlayer;
-import net.potion.block.BlockRail;
 import net.potion.world.World;
 
 public class ItemMinecart extends Item {

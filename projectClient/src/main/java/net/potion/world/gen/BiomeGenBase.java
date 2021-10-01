@@ -1,7 +1,7 @@
 package net.potion.world.gen;
 
 import net.potion.block.Block;
-import net.potion.entity.*;
+import net.potion.entity.EnumCreatureType;
 import net.potion.entity.monster.*;
 import net.potion.entity.passive.*;
 import net.potion.util.SpawnListEntry;

@@ -1,9 +1,9 @@
 package net.potion.server;
 
 import com.demkom58.timings.PotionTimings;
-import net.potion.entity.player.IPlayerFileData;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.player.EntityPlayerMP;
+import net.potion.entity.player.IPlayerFileData;
 import net.potion.entity.player.PlayerManager;
 import net.potion.item.ItemInWorldManager;
 import net.potion.network.NetLoginHandler;

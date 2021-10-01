@@ -2,8 +2,8 @@ package net.potion.entity.monster;
 
 import net.potion.entity.EntityMob;
 import net.potion.item.Item;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class EntityZombie extends EntityMob {
     public EntityZombie(World var1) {

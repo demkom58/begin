@@ -522,7 +522,6 @@ public final class PotionClient implements Runnable {
                 try {
                     this.soundManager.tick();
                     AxisAlignedBB.clearBoundingBoxPool();
-                    Vec3D.initialize();
 
                     if (window.isCloseRequested())
                         this.shutdown();
@@ -626,7 +625,6 @@ public final class PotionClient implements Runnable {
         try {
             System.gc();
             AxisAlignedBB.resetPool();
-            Vec3D.resetPool();
         } catch (Throwable ignored) {
         }
 

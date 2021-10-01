@@ -5,8 +5,8 @@ import net.potion.block.BlockCloth;
 import net.potion.block.BlockCrops;
 import net.potion.block.BlockSapling;
 import net.potion.entity.EntityLiving;
-import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.passive.EntitySheep;
+import net.potion.entity.player.EntityPlayer;
 import net.potion.world.World;
 
 public class ItemDye extends Item {

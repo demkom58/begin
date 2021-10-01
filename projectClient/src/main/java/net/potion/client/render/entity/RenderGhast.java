@@ -1,8 +1,8 @@
 package net.potion.client.render.entity;
 
 import net.potion.client.model.ModelGhast;
-import net.potion.entity.monster.EntityGhast;
 import net.potion.entity.EntityLiving;
+import net.potion.entity.monster.EntityGhast;
 import org.lwjgl.opengl.GL11;
 
 public class RenderGhast extends RenderLiving {

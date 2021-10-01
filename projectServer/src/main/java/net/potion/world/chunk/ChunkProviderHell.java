@@ -1,8 +1,8 @@
 package net.potion.world.chunk;
 
-import net.potion.util.IProgressUpdatable;
 import net.potion.block.Block;
 import net.potion.block.BlockSand;
+import net.potion.util.IProgressUpdatable;
 import net.potion.world.World;
 import net.potion.world.gen.*;
 

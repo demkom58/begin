@@ -1,7 +1,7 @@
 package net.potion.block;
 
-import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.EntityTNTPrimed;
+import net.potion.entity.player.EntityPlayer;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;
 import net.potion.material.Material;

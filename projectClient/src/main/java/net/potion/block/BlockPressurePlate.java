@@ -2,8 +2,8 @@ package net.potion.block;
 
 import net.potion.entity.Entity;
 import net.potion.entity.EntityLiving;
-import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.EnumMobType;
+import net.potion.entity.player.EntityPlayer;
 import net.potion.material.Material;
 import net.potion.util.AxisAlignedBB;
 import net.potion.world.IBlockAccess;

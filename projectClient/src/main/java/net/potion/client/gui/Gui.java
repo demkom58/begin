@@ -1,7 +1,7 @@
 package net.potion.client.gui;
 
-import net.potion.client.render.FontRenderer;
 import net.hypnosis.render.Tessellator;
+import net.potion.client.render.FontRenderer;
 import org.lwjgl.opengl.GL11;
 
 public class Gui {

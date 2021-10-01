@@ -4,10 +4,10 @@ import net.potion.entity.Entity;
 import net.potion.entity.EntityLiving;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.util.AxisAlignedBB;
+import net.potion.util.MathHelper;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
-import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
 
 import java.util.List;
 import java.util.Random;
@@ -113,7 +113,7 @@ public class BlockStairs extends Block {
     }
 
     @Override
-    public void velocityToAddToEntity(World world, int var2, int var3, int var4, Entity entity, Vec3D vec) {
+    public void velocityToAddToEntity(World world, int var2, int var3, int var4, Entity entity, Vector3d vec) {
         this.modelBlock.velocityToAddToEntity(world, var2, var3, var4, entity, vec);
     }
 

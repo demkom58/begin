@@ -1,7 +1,7 @@
 package net.potion.entity.ai;
 
 import net.potion.entity.Entity;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
 
 public class PathEntity {
     public final int pathLength;
@@ -25,10 +25,10 @@ public class PathEntity {
         return this.pathLength > 0 ? this.points[this.pathLength - 1] : null;
     }
 
-    public Vec3D getPosition(Entity var1) {
+    public Vector3d getPosition(Entity var1) {
         double var2 = (double) this.points[this.pathIndex].xCoord + (double) ((int) (var1.width + 1.0F)) * 0.5D;
         double var4 = this.points[this.pathIndex].yCoord;
         double var6 = (double) this.points[this.pathIndex].zCoord + (double) ((int) (var1.width + 1.0F)) * 0.5D;
-        return Vec3D.createVector(var2, var4, var6);
+        return new Vector3d(var2, var4, var6);
     }
 }

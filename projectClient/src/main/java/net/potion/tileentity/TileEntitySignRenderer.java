@@ -1,8 +1,8 @@
 package net.potion.tileentity;
 
 import net.potion.block.Block;
-import net.potion.client.render.FontRenderer;
 import net.potion.client.model.SignModel;
+import net.potion.client.render.FontRenderer;
 import org.lwjgl.opengl.GL11;
 
 public class TileEntitySignRenderer extends TileEntitySpecialRenderer {

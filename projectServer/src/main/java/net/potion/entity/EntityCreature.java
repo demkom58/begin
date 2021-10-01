@@ -1,9 +1,9 @@
 package net.potion.entity;
 
 import net.potion.entity.ai.PathEntity;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
+import net.potion.world.World;
+import org.joml.Vector3d;
 
 public class EntityCreature extends EntityLiving {
     protected Entity playerToAttack;
@@ -51,10 +51,10 @@ public class EntityCreature extends EntityLiving {
         boolean var4 = this.handleLavaMovement();
         this.rotationPitch = 0.0F;
         if (this.pathToEntity != null && this.rand.nextInt(100) != 0) {
-            Vec3D var5 = this.pathToEntity.getPosition(this);
+            Vector3d var5 = this.pathToEntity.getPosition(this);
             double var6 = this.width * 2.0F;
 
-            while (var5 != null && var5.squareDistanceTo(this.posX, var5.yCoord, this.posZ) < var6 * var6) {
+            while (var5 != null && var5.distanceSquared(this.posX, var5.y, this.posZ) < var6 * var6) {
                 this.pathToEntity.incrementPathIndex();
                 if (this.pathToEntity.isFinished()) {
                     var5 = null;
@@ -66,9 +66,9 @@ public class EntityCreature extends EntityLiving {
 
             this.isJumping = false;
             if (var5 != null) {
-                double var8 = var5.xCoord - this.posX;
-                double var10 = var5.zCoord - this.posZ;
-                double var12 = var5.yCoord - (double) var21;
+                double var8 = var5.x - this.posX;
+                double var10 = var5.z - this.posZ;
+                double var12 = var5.y - (double) var21;
                 float var14 = (float) (Math.atan2(var10, var8) * 180.0D / 3.1415927410125732D) - 90.0F;
                 float var15 = var14 - this.rotationYaw;
 

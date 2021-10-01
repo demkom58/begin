@@ -5,7 +5,10 @@ import net.potion.inventory.InventoryCrafting;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CraftingManager {
     private static final CraftingManager instance = new CraftingManager();

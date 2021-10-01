@@ -1,8 +1,8 @@
 package net.potion.entity;
 
 import net.potion.material.Material;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class EntityBubbleFX extends EntityFX {
     public EntityBubbleFX(World var1, double var2, double var4, double var6, double var8, double var10, double var12) {

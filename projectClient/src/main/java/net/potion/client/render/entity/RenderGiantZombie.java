@@ -1,8 +1,8 @@
 package net.potion.client.render.entity;
 
 import net.potion.client.model.ModelBase;
-import net.potion.entity.monster.EntityGiantZombie;
 import net.potion.entity.EntityLiving;
+import net.potion.entity.monster.EntityGiantZombie;
 import org.lwjgl.opengl.GL11;
 
 public class RenderGiantZombie extends RenderLiving {

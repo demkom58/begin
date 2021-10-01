@@ -1,7 +1,7 @@
 package net.potion.world.storage;
 
-import net.potion.nbt.TagCompound;
 import net.potion.nbt.CompressedStreamTools;
+import net.potion.nbt.TagCompound;
 import net.potion.world.World;
 import net.potion.world.WorldInfo;
 import net.potion.world.chunk.Chunk;

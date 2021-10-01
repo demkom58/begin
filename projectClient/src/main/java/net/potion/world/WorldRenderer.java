@@ -1,8 +1,8 @@
 package net.potion.world;
 
+import net.hypnosis.render.Tessellator;
 import net.potion.block.Block;
 import net.potion.client.render.ICamera;
-import net.hypnosis.render.Tessellator;
 import net.potion.client.render.entity.RenderBlocks;
 import net.potion.client.render.entity.RenderItem;
 import net.potion.entity.Entity;

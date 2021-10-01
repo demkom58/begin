@@ -1,18 +1,17 @@
 package net.potion.client.render.texture;
 
 import net.hypnosis.render.Tessellator;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
 
 public class TexturedQuad {
     public PositionTextureVertex[] vertexPositions;
     public int nVertices;
     private boolean invertNormal;
 
-    public TexturedQuad(PositionTextureVertex[] var1) {
-        this.nVertices = 0;
+    public TexturedQuad(PositionTextureVertex[] vertices) {
         this.invertNormal = false;
-        this.vertexPositions = var1;
-        this.nVertices = var1.length;
+        this.vertexPositions = vertices;
+        this.nVertices = vertices.length;
     }
 
     public TexturedQuad(PositionTextureVertex[] vertices, int l1, int r1, int l2, int r2) {
@@ -34,25 +33,25 @@ public class TexturedQuad {
     }
 
     public void draw(Tessellator tess, float delta) {
-        Vec3D var3 = this.vertexPositions[1].vector3D.subtract(this.vertexPositions[0].vector3D);
-        Vec3D var4 = this.vertexPositions[1].vector3D.subtract(this.vertexPositions[2].vector3D);
-        Vec3D var5 = var4.crossProduct(var3).normalize();
+        Vector3d var3 = new Vector3d(this.vertexPositions[1].vec).sub(this.vertexPositions[0].vec);
+        Vector3d var4 = new Vector3d(this.vertexPositions[1].vec).sub(this.vertexPositions[2].vec);
+        Vector3d var5 = new Vector3d(var4).cross(var3).normalize();
 
         tess.startDrawingQuads();
         if (this.invertNormal) {
-            tess.setNormal(-((float) var5.xCoord), -((float) var5.yCoord), -((float) var5.zCoord));
+            tess.setNormal(-((float) var5.x), -((float) var5.y), -((float) var5.z));
         } else {
-            tess.setNormal((float) var5.xCoord, (float) var5.yCoord, (float) var5.zCoord);
+            tess.setNormal((float) var5.x, (float) var5.y, (float) var5.z);
         }
 
         for (int renderPass = 0; renderPass < 4; ++renderPass) {
             PositionTextureVertex vertex = this.vertexPositions[renderPass];
             tess.addVertexWithUV(
-                    (float) vertex.vector3D.xCoord * delta,
-                    (float) vertex.vector3D.yCoord * delta,
-                    (float) vertex.vector3D.zCoord * delta,
-                    vertex.texturePositionX,
-                    vertex.texturePositionY
+                    (float) vertex.vec.x * delta,
+                    (float) vertex.vec.y * delta,
+                    (float) vertex.vec.z * delta,
+                    vertex.ux,
+                    vertex.uv
             );
         }
 

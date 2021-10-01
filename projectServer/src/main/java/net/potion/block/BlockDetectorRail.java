@@ -2,9 +2,9 @@ package net.potion.block;
 
 import net.potion.entity.Entity;
 import net.potion.entity.EntityMinecart;
+import net.potion.util.AxisAlignedBB;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
-import net.potion.util.AxisAlignedBB;
 
 import java.util.List;
 import java.util.Random;

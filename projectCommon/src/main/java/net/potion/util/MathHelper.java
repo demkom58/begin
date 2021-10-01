@@ -1,5 +1,7 @@
 package net.potion.util;
 
+import org.joml.Vector3d;
+
 public class MathHelper {
     private static final float[] SIN_TABLE = new float[65536];
 
@@ -66,4 +68,47 @@ public class MathHelper {
     public static boolean stringNullOrLengthZero(String var0) {
         return var0 == null || var0.length() == 0;
     }
+
+    public static Vector3d getIntermediateWithXValue(Vector3d vec1, Vector3d vec2, double var2) {
+        double difX = vec2.x - vec1.x;
+        double difY = vec2.y - vec1.y;
+        double difZ = vec2.z - vec1.z;
+
+        if (difX * difX < 1.0000000116860974E-7D)
+            return null;
+
+        double var10 = (var2 - vec1.x) / difX;
+        return var10 >= 0.0D && var10 <= 1.0D
+                ? new Vector3d(vec1.x + difX * var10, vec1.y + difY * var10, vec1.z + difZ * var10)
+                : null;
+    }
+
+    public static Vector3d getIntermediateWithYValue(Vector3d vec1, Vector3d vec2, double var2) {
+        double difX = vec2.x - vec1.x;
+        double difY = vec2.y - vec1.y;
+        double difZ = vec2.z - vec1.z;
+
+        if (difY * difY < 1.0000000116860974E-7D)
+            return null;
+
+        double var10 = (var2 - vec1.y) / difY;
+        return var10 >= 0.0D && var10 <= 1.0D
+                ? new Vector3d(vec1.x + difX * var10, vec1.y + difY * var10, vec1.z + difZ * var10)
+                : null;
+    }
+
+    public static Vector3d getIntermediateWithZValue(Vector3d vec1, Vector3d vec2, double var2) {
+        double difX = vec2.x - vec1.x;
+        double difY = vec2.y - vec1.y;
+        double difZ = vec2.z - vec1.z;
+
+        if (difZ * difZ < 1.0000000116860974E-7D)
+            return null;
+
+        double var10 = (var2 - vec1.z) / difZ;
+        return var10 >= 0.0D && var10 <= 1.0D
+                ? new Vector3d(vec1.x + difX * var10, vec1.y + difY * var10, vec1.z + difZ * var10)
+                : null;
+    }
+
 }

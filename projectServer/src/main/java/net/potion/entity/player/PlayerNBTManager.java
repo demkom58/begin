@@ -1,7 +1,7 @@
 package net.potion.entity.player;
 
-import net.potion.nbt.TagCompound;
 import net.potion.nbt.CompressedStreamTools;
+import net.potion.nbt.TagCompound;
 import net.potion.util.PotionException;
 import net.potion.world.WorldInfo;
 import net.potion.world.WorldProvider;

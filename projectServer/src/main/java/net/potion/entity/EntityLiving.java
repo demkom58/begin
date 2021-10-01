@@ -1,14 +1,14 @@
 package net.potion.entity;
 
-import net.potion.material.Material;
-import net.potion.block.StepSound;
 import net.potion.block.Block;
+import net.potion.block.StepSound;
 import net.potion.entity.player.EntityPlayer;
+import net.potion.material.Material;
 import net.potion.nbt.TagCompound;
 import net.potion.util.AxisAlignedBB;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
+import net.potion.world.World;
+import org.joml.Vector3d;
 
 import java.util.List;
 
@@ -82,7 +82,7 @@ public abstract class EntityLiving extends Entity {
     }
 
     public boolean canEntityBeSeen(Entity var1) {
-        return this.worldObj.rayTraceBlocks(Vec3D.createVector(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ), Vec3D.createVector(var1.posX, var1.posY + (double) var1.getEyeHeight(), var1.posZ)) == null;
+        return this.worldObj.rayTraceBlocks(new Vector3d(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ), new Vector3d(var1.posX, var1.posY + (double) var1.getEyeHeight(), var1.posZ)) == null;
     }
 
     @Override
@@ -790,17 +790,17 @@ public abstract class EntityLiving extends Entity {
     }
 
     @Override
-    public Vec3D getLookVec() {
+    public Vector3d getLookVec() {
         return this.getLook(1.0F);
     }
 
-    public Vec3D getLook(float var1) {
+    public Vector3d getLook(float var1) {
         if (var1 == 1.0F) {
             float var8 = MathHelper.cos(-this.rotationYaw * 0.017453292F - 3.1415927F);
             float var9 = MathHelper.sin(-this.rotationYaw * 0.017453292F - 3.1415927F);
             float var10 = -MathHelper.cos(-this.rotationPitch * 0.017453292F);
             float var11 = MathHelper.sin(-this.rotationPitch * 0.017453292F);
-            return Vec3D.createVector(var9 * var10, var11, var8 * var10);
+            return new Vector3d(var9 * var10, var11, var8 * var10);
         } else {
             float var2 = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * var1;
             float var3 = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * var1;
@@ -808,7 +808,7 @@ public abstract class EntityLiving extends Entity {
             float var5 = MathHelper.sin(-var3 * 0.017453292F - 3.1415927F);
             float var6 = -MathHelper.cos(-var2 * 0.017453292F);
             float var7 = MathHelper.sin(-var2 * 0.017453292F);
-            return Vec3D.createVector(var5 * var6, var7, var4 * var6);
+            return new Vector3d(var5 * var6, var7, var4 * var6);
         }
     }
 

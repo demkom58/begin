@@ -1,9 +1,9 @@
 package net.potion.world.chunk;
 
-import net.potion.world.IBlockAccess;
-import net.potion.material.Material;
 import net.potion.block.Block;
+import net.potion.material.Material;
 import net.potion.tileentity.TileEntity;
+import net.potion.world.IBlockAccess;
 import net.potion.world.World;
 
 public class ChunkCache implements IBlockAccess {

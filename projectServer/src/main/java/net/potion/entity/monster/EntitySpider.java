@@ -4,8 +4,8 @@ import net.potion.entity.Entity;
 import net.potion.entity.EntityMob;
 import net.potion.item.Item;
 import net.potion.nbt.TagCompound;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class EntitySpider extends EntityMob {
     public EntitySpider(World var1) {

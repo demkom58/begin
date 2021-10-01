@@ -1,13 +1,13 @@
 package net.potion.entity.passive;
 
-import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.EntityWaterMob;
+import net.potion.entity.player.EntityPlayer;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;
 import net.potion.material.Material;
 import net.potion.nbt.TagCompound;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class EntitySquid extends EntityWaterMob {
     public float field_21089_a = 0.0F;

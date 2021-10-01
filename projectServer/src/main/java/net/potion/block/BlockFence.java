@@ -1,8 +1,8 @@
 package net.potion.block;
 
 import net.potion.material.Material;
-import net.potion.world.World;
 import net.potion.util.AxisAlignedBB;
+import net.potion.world.World;
 
 public class BlockFence extends Block {
     public BlockFence(int var1, int var2) {

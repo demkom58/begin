@@ -1,7 +1,7 @@
 package net.potion.item.crafting;
 
-import net.potion.inventory.InventoryCrafting;
 import net.potion.block.Block;
+import net.potion.inventory.InventoryCrafting;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;
 

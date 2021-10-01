@@ -1,16 +1,16 @@
 package net.potion.client.render.entity;
 
+import net.hypnosis.render.Tessellator;
 import net.potion.block.Block;
 import net.potion.client.render.FontRenderer;
 import net.potion.client.render.Render;
 import net.potion.client.render.RenderEngine;
-import net.hypnosis.render.Tessellator;
 import net.potion.entity.Entity;
 import net.potion.entity.item.EntityItem;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;
-import org.lwjgl.opengl.GL11;
 import net.potion.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
 import java.util.Random;

@@ -1,7 +1,7 @@
 package net.potion.client.render.entity;
 
-import net.potion.client.model.ModelBiped;
 import net.potion.block.Block;
+import net.potion.client.model.ModelBiped;
 import net.potion.entity.EntityLiving;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;

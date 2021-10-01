@@ -1,7 +1,7 @@
 package net.potion.item;
 
-import net.potion.entity.projectile.EntityArrow;
 import net.potion.entity.player.EntityPlayer;
+import net.potion.entity.projectile.EntityArrow;
 import net.potion.world.World;
 
 public class ItemBow extends Item {

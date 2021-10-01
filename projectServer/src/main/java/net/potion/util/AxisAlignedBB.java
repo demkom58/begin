@@ -1,5 +1,7 @@
 package net.potion.util;
 
+import org.joml.Vector3d;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -207,10 +209,10 @@ public class AxisAlignedBB {
         return this;
     }
 
-    public boolean isVecInXYZ(Vec3D vec) {
-        if (vec.xCoord > this.minX && vec.xCoord < this.maxX) {
-            if (vec.yCoord > this.minY && vec.yCoord < this.maxY) {
-                return vec.zCoord > this.minZ && vec.zCoord < this.maxZ;
+    public boolean isVecInXYZ(Vector3d vec) {
+        if (vec.x > this.minX && vec.x < this.maxX) {
+            if (vec.y > this.minY && vec.y < this.maxY) {
+                return vec.z > this.minZ && vec.z < this.maxZ;
             }
 
             return false;
@@ -242,14 +244,14 @@ public class AxisAlignedBB {
         return getBoundingBoxFromPool(this.minX, this.minY, this.minZ, this.maxX, this.maxY, this.maxZ);
     }
 
-    public MovingObjectPosition func_706_a(Vec3D vec1, Vec3D vec2) {
-        Vec3D var3 = vec1.getIntermediateWithXValue(vec2, this.minX);
-        Vec3D var4 = vec1.getIntermediateWithXValue(vec2, this.maxX);
-        Vec3D var5 = vec1.getIntermediateWithYValue(vec2, this.minY);
+    public MovingObjectPosition func_706_a(Vector3d vec1, Vector3d vec2) {
+        Vector3d var3 = MathHelper.getIntermediateWithXValue(vec1, vec2, this.minX);
+        Vector3d var4 = MathHelper.getIntermediateWithXValue(vec1, vec2, this.maxX);
+        Vector3d var5 = MathHelper.getIntermediateWithYValue(vec1, vec2, this.minY);
 
-        Vec3D var6 = vec1.getIntermediateWithYValue(vec2, this.maxY);
-        Vec3D var7 = vec1.getIntermediateWithZValue(vec2, this.minZ);
-        Vec3D var8 = vec1.getIntermediateWithZValue(vec2, this.maxZ);
+        Vector3d var6 = MathHelper.getIntermediateWithYValue(vec1, vec2, this.maxY);
+        Vector3d var7 = MathHelper.getIntermediateWithZValue(vec1, vec2, this.minZ);
+        Vector3d var8 = MathHelper.getIntermediateWithZValue(vec1, vec2, this.maxZ);
 
         if (!this.isVecInYZ(var3)) {
             var3 = null;
@@ -275,28 +277,28 @@ public class AxisAlignedBB {
             var8 = null;
         }
 
-        Vec3D var9 = null;
-        if (var3 != null && (var9 == null || vec1.squareDistanceTo(var3) < vec1.squareDistanceTo(var9))) {
+        Vector3d var9 = null;
+        if (var3 != null && (var9 == null || vec1.distanceSquared(var3) < vec1.distanceSquared(var9))) {
             var9 = var3;
         }
 
-        if (var4 != null && (var9 == null || vec1.squareDistanceTo(var4) < vec1.squareDistanceTo(var9))) {
+        if (var4 != null && (var9 == null || vec1.distanceSquared(var4) < vec1.distanceSquared(var9))) {
             var9 = var4;
         }
 
-        if (var5 != null && (var9 == null || vec1.squareDistanceTo(var5) < vec1.squareDistanceTo(var9))) {
+        if (var5 != null && (var9 == null || vec1.distanceSquared(var5) < vec1.distanceSquared(var9))) {
             var9 = var5;
         }
 
-        if (var6 != null && (var9 == null || vec1.squareDistanceTo(var6) < vec1.squareDistanceTo(var9))) {
+        if (var6 != null && (var9 == null || vec1.distanceSquared(var6) < vec1.distanceSquared(var9))) {
             var9 = var6;
         }
 
-        if (var7 != null && (var9 == null || vec1.squareDistanceTo(var7) < vec1.squareDistanceTo(var9))) {
+        if (var7 != null && (var9 == null || vec1.distanceSquared(var7) < vec1.distanceSquared(var9))) {
             var9 = var7;
         }
 
-        if (var8 != null && (var9 == null || vec1.squareDistanceTo(var8) < vec1.squareDistanceTo(var9))) {
+        if (var8 != null && (var9 == null || vec1.distanceSquared(var8) < vec1.distanceSquared(var9))) {
             var9 = var8;
         }
 
@@ -332,25 +334,25 @@ public class AxisAlignedBB {
         }
     }
 
-    private boolean isVecInYZ(Vec3D vec) {
+    private boolean isVecInYZ(Vector3d vec) {
         if (vec == null)
             return false;
 
-        return vec.yCoord >= this.minY && vec.yCoord <= this.maxY && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
+        return vec.y >= this.minY && vec.y <= this.maxY && vec.z >= this.minZ && vec.z <= this.maxZ;
     }
 
-    private boolean isVecInXZ(Vec3D vec) {
+    private boolean isVecInXZ(Vector3d vec) {
         if (vec == null)
             return false;
 
-        return vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
+        return vec.x >= this.minX && vec.x <= this.maxX && vec.z >= this.minZ && vec.z <= this.maxZ;
     }
 
-    private boolean isVecInXY(Vec3D vec) {
+    private boolean isVecInXY(Vector3d vec) {
         if (vec == null)
             return false;
 
-        return vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.yCoord >= this.minY && vec.yCoord <= this.maxY;
+        return vec.x >= this.minX && vec.x <= this.maxX && vec.y >= this.minY && vec.y <= this.maxY;
     }
 
     public void setBB(AxisAlignedBB axis) {

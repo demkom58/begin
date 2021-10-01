@@ -1,8 +1,8 @@
 package net.potion.world;
 
+import net.potion.block.Block;
 import net.potion.world.chunk.ChunkProviderGenerate;
 import net.potion.world.chunk.IChunkProvider;
-import net.potion.block.Block;
 
 public abstract class WorldProvider {
     public World worldObj;

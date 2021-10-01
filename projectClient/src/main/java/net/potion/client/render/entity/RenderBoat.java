@@ -5,8 +5,8 @@ import net.potion.client.model.ModelBoat;
 import net.potion.client.render.Render;
 import net.potion.entity.Entity;
 import net.potion.entity.item.EntityBoat;
-import org.lwjgl.opengl.GL11;
 import net.potion.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 
 public class RenderBoat extends Render {
     protected ModelBase modelBoat;

@@ -1,11 +1,11 @@
 package net.potion.tileentity;
 
+import net.hypnosis.render.Tessellator;
 import net.potion.block.Block;
 import net.potion.block.BlockPistonBase;
 import net.potion.client.PotionClient;
-import net.hypnosis.render.Tessellator;
-import net.potion.client.render.entity.RenderBlocks;
 import net.potion.client.render.RenderHelper;
+import net.potion.client.render.entity.RenderBlocks;
 import net.potion.world.World;
 import org.lwjgl.opengl.GL11;
 

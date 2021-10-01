@@ -1,14 +1,14 @@
 package net.potion.entity.monster;
 
 import net.potion.entity.Entity;
-import net.potion.entity.projectile.EntityFireball;
 import net.potion.entity.EntityFlying;
 import net.potion.entity.IMob;
+import net.potion.entity.projectile.EntityFireball;
 import net.potion.item.Item;
 import net.potion.util.AxisAlignedBB;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
+import net.potion.world.World;
+import org.joml.Vector3d;
 
 public class EntityGhast extends EntityFlying implements IMob {
     public int courseChangeCooldown = 0;
@@ -98,10 +98,10 @@ public class EntityGhast extends EntityFlying implements IMob {
                     this.worldObj.playSoundAtEntity(this, "mob.ghast.fireball", this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
                     EntityFireball var17 = new EntityFireball(this.worldObj, this, var11, var13, var15);
                     double var18 = 4.0D;
-                    Vec3D var20 = this.getLook(1.0F);
-                    var17.posX = this.posX + var20.xCoord * var18;
+                    Vector3d var20 = this.getLook(1.0F);
+                    var17.posX = this.posX + var20.x * var18;
                     var17.posY = this.posY + (double) (this.height / 2.0F) + 0.5D;
-                    var17.posZ = this.posZ + var20.zCoord * var18;
+                    var17.posZ = this.posZ + var20.z * var18;
                     this.worldObj.entityJoinedWorld(var17);
                     this.attackCounter = -40;
                 }

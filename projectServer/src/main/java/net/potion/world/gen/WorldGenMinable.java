@@ -1,8 +1,8 @@
 package net.potion.world.gen;
 
-import net.potion.world.World;
 import net.potion.block.Block;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 import java.util.Random;
 

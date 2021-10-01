@@ -1,12 +1,12 @@
 package net.potion.world.chunk;
 
-import net.potion.nbt.CompressedStreamTools;
-import net.potion.util.NibbleArray;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityList;
+import net.potion.nbt.CompressedStreamTools;
 import net.potion.nbt.TagCompound;
 import net.potion.nbt.TagList;
 import net.potion.tileentity.TileEntity;
+import net.potion.util.NibbleArray;
 import net.potion.world.World;
 import net.potion.world.WorldInfo;
 

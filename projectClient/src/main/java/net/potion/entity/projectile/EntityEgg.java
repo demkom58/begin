@@ -8,10 +8,10 @@ import net.potion.item.Item;
 import net.potion.item.ItemStack;
 import net.potion.nbt.TagCompound;
 import net.potion.util.AxisAlignedBB;
+import net.potion.util.MathHelper;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.World;
-import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
 
 import java.util.List;
 
@@ -88,14 +88,14 @@ public class EntityEgg extends Entity {
     }
 
     @Override
-    public void setVelocity(double var1, double var3, double var5) {
-        this.motionX = var1;
-        this.motionY = var3;
-        this.motionZ = var5;
+    public void setVelocity(double x, double y, double z) {
+        this.motionX = x;
+        this.motionY = y;
+        this.motionZ = z;
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
-            float var7 = MathHelper.sqrt(var1 * var1 + var5 * var5);
-            this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(var1, var5) * 180.0D / 3.1415927410125732D);
-            this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, var7) * 180.0D / 3.1415927410125732D);
+            float var7 = MathHelper.sqrt(x * x + z * z);
+            this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(x, z) * 180.0D / 3.1415927410125732D);
+            this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(y, var7) * 180.0D / 3.1415927410125732D);
         }
 
     }
@@ -131,30 +131,32 @@ public class EntityEgg extends Entity {
             ++this.field_20049_i;
         }
 
-        Vec3D var15 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-        Vec3D var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+        Vector3d var15 = new Vector3d(this.posX, this.posY, this.posZ);
+        Vector3d var2 = new Vector3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
         MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
-        var15 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-        var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+        var15 = new Vector3d(this.posX, this.posY, this.posZ);
+        var2 = new Vector3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
         if (var3 != null) {
-            var2 = Vec3D.createVector(var3.hitVec.xCoord, var3.hitVec.yCoord, var3.hitVec.zCoord);
+            var2 = new Vector3d(var3.hitVec.x, var3.hitVec.y, var3.hitVec.z);
         }
 
         if (!this.worldObj.multiplayerWorld) {
             Entity var4 = null;
-            List var5 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+            List<Entity> entities = this.worldObj.getEntitiesWithinAABBExcludingEntity(this,
+                    this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D)
+            );
             double var6 = 0.0D;
 
-            for (int var8 = 0; var8 < var5.size(); ++var8) {
-                Entity var9 = (Entity) var5.get(var8);
-                if (var9.canBeCollidedWith() && (var9 != this.field_20051_g || this.field_20049_i >= 5)) {
+            for (int i = 0; i < entities.size(); ++i) {
+                Entity entity = entities.get(i);
+                if (entity.canBeCollidedWith() && (entity != this.field_20051_g || this.field_20049_i >= 5)) {
                     float var10 = 0.3F;
-                    AxisAlignedBB var11 = var9.boundingBox.expand(var10, var10, var10);
-                    MovingObjectPosition var12 = var11.func_706_a(var15, var2);
-                    if (var12 != null) {
-                        double var13 = var15.distanceTo(var12.hitVec);
+                    AxisAlignedBB var11 = entity.boundingBox.expand(var10, var10, var10);
+                    MovingObjectPosition mop = var11.func_706_a(var15, var2);
+                    if (mop != null) {
+                        double var13 = var15.distance(mop.hitVec);
                         if (var13 < var6 || var6 == 0.0D) {
-                            var4 = var9;
+                            var4 = entity;
                             var6 = var13;
                         }
                     }

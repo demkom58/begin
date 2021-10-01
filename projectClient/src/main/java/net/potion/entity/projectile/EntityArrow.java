@@ -8,10 +8,10 @@ import net.potion.item.Item;
 import net.potion.item.ItemStack;
 import net.potion.nbt.TagCompound;
 import net.potion.util.AxisAlignedBB;
+import net.potion.util.MathHelper;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.World;
-import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
 
 import java.util.List;
 
@@ -111,7 +111,7 @@ public class EntityArrow extends Entity {
         if (var15 > 0) {
             Block.BLOCKS_LIST[var15].setBlockBoundsBasedOnState(this.worldObj, this.xTile, this.yTile, this.zTile);
             AxisAlignedBB var2 = Block.BLOCKS_LIST[var15].getCollisionBoundingBoxFromPool(this.worldObj, this.xTile, this.yTile, this.zTile);
-            if (var2 != null && var2.isVecInXYZ(Vec3D.createVector(this.posX, this.posY, this.posZ))) {
+            if (var2 != null && var2.isVecInXYZ(new Vector3d(this.posX, this.posY, this.posZ))) {
                 this.inGround = true;
             }
         }
@@ -139,13 +139,13 @@ public class EntityArrow extends Entity {
             }
         } else {
             ++this.ticksInAir;
-            Vec3D var16 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-            Vec3D var19 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+            Vector3d var16 = new Vector3d(this.posX, this.posY, this.posZ);
+            Vector3d var19 = new Vector3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
             MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var16, var19, false, true);
-            var16 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-            var19 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+            var16 = new Vector3d(this.posX, this.posY, this.posZ);
+            var19 = new Vector3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
             if (var3 != null) {
-                var19 = Vec3D.createVector(var3.hitVec.xCoord, var3.hitVec.yCoord, var3.hitVec.zCoord);
+                var19 = new Vector3d(var3.hitVec.x, var3.hitVec.y, var3.hitVec.z);
             }
 
             Entity var4 = null;
@@ -159,7 +159,7 @@ public class EntityArrow extends Entity {
                     AxisAlignedBB var11 = var9.boundingBox.expand(var10, var10, var10);
                     MovingObjectPosition var12 = var11.func_706_a(var16, var19);
                     if (var12 != null) {
-                        double var13 = var16.distanceTo(var12.hitVec);
+                        double var13 = var16.distance(var12.hitVec);
                         if (var13 < var6 || var6 == 0.0D) {
                             var4 = var9;
                             var6 = var13;
@@ -191,9 +191,9 @@ public class EntityArrow extends Entity {
                     this.zTile = var3.blockZ;
                     this.inTile = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
                     this.field_28019_h = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
-                    this.motionX = (float) (var3.hitVec.xCoord - this.posX);
-                    this.motionY = (float) (var3.hitVec.yCoord - this.posY);
-                    this.motionZ = (float) (var3.hitVec.zCoord - this.posZ);
+                    this.motionX = (float) (var3.hitVec.x - this.posX);
+                    this.motionY = (float) (var3.hitVec.y - this.posY);
+                    this.motionZ = (float) (var3.hitVec.z - this.posZ);
                     float var22 = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
                     this.posX -= this.motionX / (double) var22 * 0.05000000074505806D;
                     this.posY -= this.motionY / (double) var22 * 0.05000000074505806D;

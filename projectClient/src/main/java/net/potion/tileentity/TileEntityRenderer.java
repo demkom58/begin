@@ -1,8 +1,8 @@
 package net.potion.tileentity;
 
-import net.potion.entity.EntityLiving;
 import net.potion.client.render.FontRenderer;
 import net.potion.client.render.RenderEngine;
+import net.potion.entity.EntityLiving;
 import net.potion.world.World;
 import org.lwjgl.opengl.GL11;
 

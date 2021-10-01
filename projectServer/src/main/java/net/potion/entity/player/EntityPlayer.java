@@ -4,7 +4,10 @@ import net.potion.achievement.AchievementList;
 import net.potion.block.Block;
 import net.potion.block.BlockBed;
 import net.potion.block.EnumBedStatus;
-import net.potion.entity.*;
+import net.potion.entity.Entity;
+import net.potion.entity.EntityLiving;
+import net.potion.entity.EntityMinecart;
+import net.potion.entity.EntityMob;
 import net.potion.entity.item.EntityBoat;
 import net.potion.entity.item.EntityItem;
 import net.potion.entity.monster.EntityCreeper;
@@ -28,10 +31,10 @@ import net.potion.tileentity.TileEntityDispenser;
 import net.potion.tileentity.TileEntityFurnace;
 import net.potion.tileentity.TileEntitySign;
 import net.potion.util.AxisAlignedBB;
+import net.potion.util.MathHelper;
 import net.potion.world.World;
 import net.potion.world.chunk.ChunkCoordinates;
 import net.potion.world.chunk.IChunkProvider;
-import net.potion.util.MathHelper;
 
 import java.util.List;
 

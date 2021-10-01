@@ -1,10 +1,10 @@
 package net.potion.network;
 
-import net.potion.world.chunk.ChunkCoordinates;
 import net.potion.entity.player.EntityPlayerMP;
 import net.potion.network.packet.*;
 import net.potion.server.PotionServer;
 import net.potion.world.WorldServer;
+import net.potion.world.chunk.ChunkCoordinates;
 
 import java.io.IOException;
 import java.net.Socket;

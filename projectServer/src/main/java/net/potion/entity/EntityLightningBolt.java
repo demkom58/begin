@@ -3,8 +3,8 @@ package net.potion.entity;
 import net.potion.block.Block;
 import net.potion.nbt.TagCompound;
 import net.potion.util.AxisAlignedBB;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 import java.util.List;
 

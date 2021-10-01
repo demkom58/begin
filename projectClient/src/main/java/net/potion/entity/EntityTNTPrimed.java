@@ -1,8 +1,8 @@
 package net.potion.entity;
 
 import net.potion.nbt.TagCompound;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class EntityTNTPrimed extends Entity {
     public int fuse;

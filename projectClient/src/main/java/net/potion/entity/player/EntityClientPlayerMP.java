@@ -1,14 +1,14 @@
 package net.potion.entity.player;
 
-import net.potion.client.Session;
 import net.potion.client.PotionClient;
+import net.potion.client.Session;
 import net.potion.entity.Entity;
 import net.potion.entity.item.EntityItem;
 import net.potion.network.NetClientHandler;
 import net.potion.network.packet.*;
 import net.potion.stats.StatBase;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class EntityClientPlayerMP extends EntityPlayerSP {
     public NetClientHandler sendQueue;

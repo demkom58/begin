@@ -1,7 +1,7 @@
 package net.potion.world.storage;
 
-import net.potion.nbt.TagCompound;
 import net.potion.nbt.CompressedStreamTools;
+import net.potion.nbt.TagCompound;
 import net.potion.util.IProgressUpdatable;
 import net.potion.world.WorldInfo;
 

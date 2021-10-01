@@ -1,9 +1,9 @@
 package net.potion.inventory;
 
-import net.potion.item.crafting.CraftingManager;
 import net.potion.block.Block;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.item.ItemStack;
+import net.potion.item.crafting.CraftingManager;
 import net.potion.world.World;
 
 public class ContainerWorkbench extends Container {

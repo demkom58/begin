@@ -1,10 +1,10 @@
 package net.potion.world.storage;
 
 import net.potion.item.MapDataBase;
+import net.potion.nbt.CompressedStreamTools;
 import net.potion.nbt.Tag;
 import net.potion.nbt.TagCompound;
 import net.potion.nbt.TagShort;
-import net.potion.nbt.CompressedStreamTools;
 
 import java.io.*;
 import java.util.ArrayList;

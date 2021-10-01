@@ -1,9 +1,9 @@
 package net.potion.client.render.item;
 
+import net.hypnosis.render.Tessellator;
 import net.potion.client.GameSettings;
 import net.potion.client.render.FontRenderer;
 import net.potion.client.render.RenderEngine;
-import net.hypnosis.render.Tessellator;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.item.MapCoord;
 import net.potion.item.MapData;

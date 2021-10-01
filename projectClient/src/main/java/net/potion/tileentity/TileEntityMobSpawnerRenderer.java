@@ -1,8 +1,8 @@
 package net.potion.tileentity;
 
+import net.potion.client.render.RenderManager;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityList;
-import net.potion.client.render.RenderManager;
 import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;

@@ -1,13 +1,13 @@
 package net.potion.entity.monster;
 
 import net.potion.entity.EntityLiving;
-import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.IMob;
+import net.potion.entity.player.EntityPlayer;
 import net.potion.item.Item;
 import net.potion.nbt.TagCompound;
+import net.potion.util.MathHelper;
 import net.potion.world.World;
 import net.potion.world.chunk.Chunk;
-import net.potion.util.MathHelper;
 
 public class EntitySlime extends EntityLiving implements IMob {
     public float field_768_a;

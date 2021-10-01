@@ -2,8 +2,8 @@ package net.potion.client.render.entity;
 
 import net.potion.client.model.ModelBase;
 import net.potion.entity.Entity;
-import net.potion.entity.passive.EntityChicken;
 import net.potion.entity.EntityLiving;
+import net.potion.entity.passive.EntityChicken;
 import net.potion.util.MathHelper;
 
 public class RenderChicken extends RenderLiving {

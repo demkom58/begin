@@ -1,9 +1,10 @@
 package net.potion.util;
 
 import net.potion.block.Block;
-import net.potion.world.chunk.ChunkPosition;
 import net.potion.entity.Entity;
 import net.potion.world.World;
+import net.potion.world.chunk.ChunkPosition;
+import org.joml.Vector3d;
 
 import java.util.*;
 
@@ -81,7 +82,7 @@ public class Explosion {
                 AxisAlignedBB.getBoundingBoxFromPool(var29, var31, var7, var30, var33, var35)
         );
 
-        Vec3D var37 = Vec3D.createVector(this.explosionX, this.explosionY, this.explosionZ);
+        Vector3d var37 = new Vector3d(this.explosionX, this.explosionY, this.explosionZ);
 
         for (Entity entity : inCollision) {
             double distance = entity.getDistance(this.explosionX, this.explosionY, this.explosionZ) / (double) this.explosionSize;
@@ -145,7 +146,7 @@ public class Explosion {
                 var15 = var15 * var23;
                 var17 = var17 * var23;
                 var19 = var19 * var23;
-                this.worldObj.spawnParticle("explode", (var9 + this.explosionX * 1.0D) / 2.0D, (var11 + this.explosionY * 1.0D) / 2.0D, (var13 + this.explosionZ * 1.0D) / 2.0D, var15, var17, var19);
+                this.worldObj.spawnParticle("explode", (var9 + this.explosionX) / 2.0D, (var11 + this.explosionY) / 2.0D, (var13 + this.explosionZ * 1.0D) / 2.0D, var15, var17, var19);
                 this.worldObj.spawnParticle("smoke", var9, var11, var13, var15, var17, var19);
             }
 

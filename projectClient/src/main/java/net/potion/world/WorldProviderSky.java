@@ -1,11 +1,11 @@
 package net.potion.world;
 
-import net.potion.world.gen.BiomeGenBase;
 import net.potion.block.Block;
+import net.potion.util.MathHelper;
 import net.potion.world.chunk.ChunkProviderSky;
 import net.potion.world.chunk.IChunkProvider;
-import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
+import net.potion.world.gen.BiomeGenBase;
+import org.joml.Vector3d;
 
 public class WorldProviderSky extends WorldProvider {
     @Override
@@ -30,7 +30,7 @@ public class WorldProviderSky extends WorldProvider {
     }
 
     @Override
-    public Vec3D func_4096_a(float var1, float var2) {
+    public Vector3d func_4096_a(float var1, float var2) {
         int var3 = 8421536;
         float var4 = MathHelper.cos(var1 * 3.1415927F * 2.0F) * 2.0F + 0.5F;
         if (var4 < 0.0F) {
@@ -47,7 +47,7 @@ public class WorldProviderSky extends WorldProvider {
         var5 = var5 * (var4 * 0.94F + 0.06F);
         var6 = var6 * (var4 * 0.94F + 0.06F);
         var7 = var7 * (var4 * 0.91F + 0.09F);
-        return Vec3D.createVector(var5, var6, var7);
+        return new Vector3d(var5, var6, var7);
     }
 
     @Override

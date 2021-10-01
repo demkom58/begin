@@ -14,8 +14,8 @@ import net.potion.nbt.TagList;
 import net.potion.util.AxisAlignedBB;
 import net.potion.util.DataWatcher;
 import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
 import net.potion.world.World;
+import org.joml.Vector3d;
 
 import java.util.List;
 import java.util.Random;
@@ -764,10 +764,10 @@ public abstract class Entity {
     public void addToPlayerScore(Entity var1, int var2) {
     }
 
-    public boolean isInRangeToRenderVec3D(Vec3D var1) {
-        double var2 = this.posX - var1.xCoord;
-        double var4 = this.posY - var1.yCoord;
-        double var6 = this.posZ - var1.zCoord;
+    public boolean isInRangeToRenderVector3d(Vector3d var1) {
+        double var2 = this.posX - var1.x;
+        double var4 = this.posY - var1.y;
+        double var6 = this.posZ - var1.z;
         double var8 = var2 * var2 + var4 * var4 + var6 * var6;
         return this.isInRangeToRenderDist(var8);
     }
@@ -1030,7 +1030,7 @@ public abstract class Entity {
         return 0.1F;
     }
 
-    public Vec3D getLookVec() {
+    public Vector3d getLookVec() {
         return null;
     }
 

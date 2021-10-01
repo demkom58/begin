@@ -1,7 +1,7 @@
 package net.potion.world.gen;
 
-import net.potion.world.chunk.IChunkProvider;
 import net.potion.world.World;
+import net.potion.world.chunk.IChunkProvider;
 
 import java.util.Random;
 

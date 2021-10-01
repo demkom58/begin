@@ -1,6 +1,6 @@
 package net.potion.block;
 
-import net.potion.world.*;
+import net.potion.world.World;
 import net.potion.world.gen.*;
 
 import java.util.Random;

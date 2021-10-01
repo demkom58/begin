@@ -1,10 +1,10 @@
 package net.potion.entity;
 
-import net.potion.block.BlockFluid;
 import net.hypnosis.render.Tessellator;
+import net.potion.block.BlockFluid;
 import net.potion.material.Material;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class EntityRainFX extends EntityFX {
     public EntityRainFX(World var1, double var2, double var4, double var6) {

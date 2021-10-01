@@ -77,7 +77,7 @@ public class Explosion {
         int var7 = MathHelper.floor(this.explosionZ - (double) this.explosionSize - 1.0D);
         int var35 = MathHelper.floor(this.explosionZ + (double) this.explosionSize + 1.0D);
         List<Entity> var9 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, AxisAlignedBB.getBoundingBoxFromPool(var29, var31, var7, var30, var33, var35));
-        Vec3D var37 = Vec3D.createVector(this.explosionX, this.explosionY, this.explosionZ);
+        Vector3d var37 = new Vector3d(this.explosionX, this.explosionY, this.explosionZ);
 
         for (int var11 = 0; var11 < var9.size(); ++var11) {
             Entity var39 = var9.get(var11);

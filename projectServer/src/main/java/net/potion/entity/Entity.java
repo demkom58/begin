@@ -16,8 +16,8 @@ import net.potion.nbt.TagList;
 import net.potion.util.AxisAlignedBB;
 import net.potion.util.DataWatcher;
 import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
 import net.potion.world.World;
+import org.joml.Vector3d;
 
 import java.util.List;
 import java.util.Random;
@@ -945,7 +945,7 @@ public abstract class Entity {
         }
     }
 
-    public Vec3D getLookVec() {
+    public Vector3d getLookVec() {
         return null;
     }
 

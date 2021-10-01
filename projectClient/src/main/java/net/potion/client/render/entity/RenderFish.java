@@ -1,12 +1,12 @@
 package net.potion.client.render.entity;
 
-import net.potion.client.render.Render;
 import net.hypnosis.render.Tessellator;
+import net.potion.client.render.Render;
 import net.potion.entity.Entity;
 import net.potion.entity.passive.EntityFish;
-import org.lwjgl.opengl.GL11;
 import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
 public class RenderFish extends Render {
@@ -43,14 +43,14 @@ public class RenderFish extends Render {
             double var23 = MathHelper.cos(var20);
             float var25 = var1.angler.getSwingProgress(var9);
             float var26 = MathHelper.sin(MathHelper.sqrt(var25) * 3.1415927F);
-            Vec3D var27 = Vec3D.createVector(-0.5D, 0.03D, 0.8D);
-            var27.rotateAroundX(-(var1.angler.prevRotationPitch + (var1.angler.rotationPitch - var1.angler.prevRotationPitch) * var9) * 3.1415927F / 180.0F);
-            var27.rotateAroundY(-(var1.angler.prevRotationYaw + (var1.angler.rotationYaw - var1.angler.prevRotationYaw) * var9) * 3.1415927F / 180.0F);
-            var27.rotateAroundY(var26 * 0.5F);
-            var27.rotateAroundX(-var26 * 0.7F);
-            double var28 = var1.angler.prevPosX + (var1.angler.posX - var1.angler.prevPosX) * (double) var9 + var27.xCoord;
-            double var30 = var1.angler.prevPosY + (var1.angler.posY - var1.angler.prevPosY) * (double) var9 + var27.yCoord;
-            double var32 = var1.angler.prevPosZ + (var1.angler.posZ - var1.angler.prevPosZ) * (double) var9 + var27.zCoord;
+            Vector3d var27 = new Vector3d(-0.5D, 0.03D, 0.8D);
+            var27.rotateX(-(var1.angler.prevRotationPitch + (var1.angler.rotationPitch - var1.angler.prevRotationPitch) * var9) * 3.1415927F / 180.0F);
+            var27.rotateY(-(var1.angler.prevRotationYaw + (var1.angler.rotationYaw - var1.angler.prevRotationYaw) * var9) * 3.1415927F / 180.0F);
+            var27.rotateY(var26 * 0.5F);
+            var27.rotateX(-var26 * 0.7F);
+            double var28 = var1.angler.prevPosX + (var1.angler.posX - var1.angler.prevPosX) * (double) var9 + var27.x;
+            double var30 = var1.angler.prevPosY + (var1.angler.posY - var1.angler.prevPosY) * (double) var9 + var27.y;
+            double var32 = var1.angler.prevPosZ + (var1.angler.posZ - var1.angler.prevPosZ) * (double) var9 + var27.z;
             if (this.renderManager.options.thirdPersonView) {
                 var20 = (var1.angler.prevRenderYawOffset + (var1.angler.renderYawOffset - var1.angler.prevRenderYawOffset) * var9) * 3.1415927F / 180.0F;
                 var21 = MathHelper.sin(var20);

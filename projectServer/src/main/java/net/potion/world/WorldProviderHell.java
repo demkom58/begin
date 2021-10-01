@@ -1,8 +1,8 @@
 package net.potion.world;
 
+import net.potion.block.Block;
 import net.potion.world.chunk.ChunkProviderHell;
 import net.potion.world.chunk.IChunkProvider;
-import net.potion.block.Block;
 import net.potion.world.gen.BiomeGenBase;
 
 public class WorldProviderHell extends WorldProvider {

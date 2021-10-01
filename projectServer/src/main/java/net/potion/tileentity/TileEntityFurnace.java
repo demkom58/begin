@@ -1,13 +1,13 @@
 package net.potion.tileentity;
 
-import net.potion.item.crafting.FurnaceRecipes;
-import net.potion.inventory.IInventory;
-import net.potion.material.Material;
 import net.potion.block.Block;
 import net.potion.block.BlockFurnace;
 import net.potion.entity.player.EntityPlayer;
+import net.potion.inventory.IInventory;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;
+import net.potion.item.crafting.FurnaceRecipes;
+import net.potion.material.Material;
 import net.potion.nbt.TagCompound;
 import net.potion.nbt.TagList;
 

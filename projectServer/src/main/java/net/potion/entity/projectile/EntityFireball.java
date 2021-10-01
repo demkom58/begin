@@ -1,13 +1,13 @@
 package net.potion.entity.projectile;
 
-import net.potion.util.MovingObjectPosition;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityLiving;
 import net.potion.nbt.TagCompound;
 import net.potion.util.AxisAlignedBB;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
+import net.potion.util.MovingObjectPosition;
+import net.potion.world.World;
+import org.joml.Vector3d;
 
 import java.util.List;
 
@@ -80,13 +80,13 @@ public class EntityFireball extends Entity {
             ++this.ticksInAir;
         }
 
-        Vec3D var15 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-        Vec3D var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+        Vector3d var15 = new Vector3d(this.posX, this.posY, this.posZ);
+        Vector3d var2 = new Vector3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
         MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
-        var15 = Vec3D.createVector(this.posX, this.posY, this.posZ);
-        var2 = Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+        var15 = new Vector3d(this.posX, this.posY, this.posZ);
+        var2 = new Vector3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
         if (var3 != null) {
-            var2 = Vec3D.createVector(var3.hitVec.xCoord, var3.hitVec.yCoord, var3.hitVec.zCoord);
+            var2 = new Vector3d(var3.hitVec.x, var3.hitVec.y, var3.hitVec.z);
         }
 
         Entity var4 = null;
@@ -100,7 +100,7 @@ public class EntityFireball extends Entity {
                 AxisAlignedBB var11 = var9.boundingBox.expand(var10, var10, var10);
                 MovingObjectPosition var12 = var11.func_706_a(var15, var2);
                 if (var12 != null) {
-                    double var13 = var15.distanceTo(var12.hitVec);
+                    double var13 = var15.distance(var12.hitVec);
                     if (var13 < var6 || var6 == 0.0D) {
                         var4 = var9;
                         var6 = var13;
@@ -196,11 +196,11 @@ public class EntityFireball extends Entity {
     public boolean attackEntityFrom(Entity var1, int var2) {
         this.setBeenAttacked();
         if (var1 != null) {
-            Vec3D var3 = var1.getLookVec();
+            Vector3d var3 = var1.getLookVec();
             if (var3 != null) {
-                this.motionX = var3.xCoord;
-                this.motionY = var3.yCoord;
-                this.motionZ = var3.zCoord;
+                this.motionX = var3.x;
+                this.motionY = var3.y;
+                this.motionZ = var3.z;
                 this.field_9199_b = this.motionX * 0.1D;
                 this.field_9198_c = this.motionY * 0.1D;
                 this.field_9196_d = this.motionZ * 0.1D;

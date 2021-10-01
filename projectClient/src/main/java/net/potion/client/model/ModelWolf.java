@@ -2,8 +2,8 @@ package net.potion.client.model;
 
 import net.potion.entity.EntityLiving;
 import net.potion.entity.passive.EntityWolf;
-import org.lwjgl.opengl.GL11;
 import net.potion.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 
 public class ModelWolf extends ModelBase {
     public ModelRenderer wolfHeadMain;

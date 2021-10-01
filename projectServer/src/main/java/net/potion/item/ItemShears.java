@@ -1,7 +1,7 @@
 package net.potion.item;
 
-import net.potion.entity.EntityLiving;
 import net.potion.block.Block;
+import net.potion.entity.EntityLiving;
 
 public class ItemShears extends Item {
     public ItemShears(int var1) {

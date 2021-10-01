@@ -1,7 +1,7 @@
 package net.potion.inventory;
 
-import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.ICrafting;
+import net.potion.entity.player.EntityPlayer;
 import net.potion.item.ItemStack;
 
 import java.util.ArrayList;

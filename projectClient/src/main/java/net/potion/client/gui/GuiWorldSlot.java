@@ -1,9 +1,9 @@
 package net.potion.client.gui;
 
-import net.potion.client.render.FontRenderer;
 import net.hypnosis.render.Tessellator;
-import net.potion.world.storage.SaveFormatData;
+import net.potion.client.render.FontRenderer;
 import net.potion.util.MathHelper;
+import net.potion.world.storage.SaveFormatData;
 
 import java.util.Date;
 

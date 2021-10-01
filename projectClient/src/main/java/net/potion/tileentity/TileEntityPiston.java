@@ -1,8 +1,8 @@
 package net.potion.tileentity;
 
 import net.potion.block.Block;
-import net.potion.entity.Entity;
 import net.potion.block.PistonBlockTextures;
+import net.potion.entity.Entity;
 import net.potion.nbt.TagCompound;
 import net.potion.util.AxisAlignedBB;
 

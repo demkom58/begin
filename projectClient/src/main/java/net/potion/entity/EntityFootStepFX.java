@@ -1,10 +1,10 @@
 package net.potion.entity;
 
-import net.potion.client.render.RenderEngine;
 import net.hypnosis.render.Tessellator;
+import net.potion.client.render.RenderEngine;
+import net.potion.util.MathHelper;
 import net.potion.world.World;
 import org.lwjgl.opengl.GL11;
-import net.potion.util.MathHelper;
 
 public class EntityFootStepFX extends EntityFX {
     private int field_27018_a = 0;

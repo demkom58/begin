@@ -1,9 +1,9 @@
 package net.potion.client.gui;
 
+import net.hypnosis.render.Tessellator;
 import net.potion.client.PotionClient;
 import net.potion.client.render.FontRenderer;
 import net.potion.client.render.RenderHelper;
-import net.hypnosis.render.Tessellator;
 import net.potion.client.render.entity.RenderItem;
 import net.potion.item.Item;
 import net.potion.stats.StatCollector;

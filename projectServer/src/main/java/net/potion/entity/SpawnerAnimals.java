@@ -1,7 +1,5 @@
 package net.potion.entity;
 
-import net.potion.material.Material;
-import net.potion.util.SpawnListEntry;
 import net.potion.block.BlockBed;
 import net.potion.entity.ai.PathEntity;
 import net.potion.entity.ai.PathPoint;
@@ -11,12 +9,14 @@ import net.potion.entity.monster.EntitySpider;
 import net.potion.entity.monster.EntityZombie;
 import net.potion.entity.passive.EntitySheep;
 import net.potion.entity.player.EntityPlayer;
+import net.potion.material.Material;
+import net.potion.util.MathHelper;
+import net.potion.util.SpawnListEntry;
 import net.potion.world.World;
 import net.potion.world.chunk.ChunkCoordIntPair;
 import net.potion.world.chunk.ChunkCoordinates;
 import net.potion.world.chunk.ChunkPosition;
 import net.potion.world.gen.BiomeGenBase;
-import net.potion.util.MathHelper;
 
 import java.util.HashSet;
 import java.util.List;

@@ -1,6 +1,8 @@
 package net.potion.entity.passive;
 
-import net.potion.entity.*;
+import net.potion.entity.Entity;
+import net.potion.entity.EntityAnimal;
+import net.potion.entity.EntityLiving;
 import net.potion.entity.ai.PathEntity;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.projectile.EntityArrow;
@@ -9,8 +11,8 @@ import net.potion.item.ItemFood;
 import net.potion.item.ItemStack;
 import net.potion.nbt.TagCompound;
 import net.potion.util.AxisAlignedBB;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 import java.util.List;
 

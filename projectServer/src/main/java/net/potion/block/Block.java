@@ -1,9 +1,9 @@
 package net.potion.block;
 
 import net.potion.entity.Entity;
+import net.potion.entity.EntityLiving;
 import net.potion.entity.EnumMobType;
 import net.potion.entity.item.EntityItem;
-import net.potion.entity.EntityLiving;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.item.*;
 import net.potion.material.Material;
@@ -11,10 +11,11 @@ import net.potion.stats.StatCollector;
 import net.potion.stats.StatList;
 import net.potion.tileentity.TileEntitySign;
 import net.potion.util.AxisAlignedBB;
+import net.potion.util.MathHelper;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
 
 import java.util.List;
 import java.util.Random;
@@ -380,16 +381,16 @@ public class Block {
         return this.blockResistance / 5.0F;
     }
 
-    public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
+    public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vector3d var5, Vector3d var6) {
         this.setBlockBoundsBasedOnState(world, var2, var3, var4);
-        var5 = var5.addVector(-var2, -var3, -var4);
-        var6 = var6.addVector(-var2, -var3, -var4);
-        Vec3D var7 = var5.getIntermediateWithXValue(var6, this.minX);
-        Vec3D var8 = var5.getIntermediateWithXValue(var6, this.maxX);
-        Vec3D var9 = var5.getIntermediateWithYValue(var6, this.minY);
-        Vec3D var10 = var5.getIntermediateWithYValue(var6, this.maxY);
-        Vec3D var11 = var5.getIntermediateWithZValue(var6, this.minZ);
-        Vec3D var12 = var5.getIntermediateWithZValue(var6, this.maxZ);
+        var5 = new Vector3d(var5).add(-var2, -var3, -var4);
+        var6 = new Vector3d(var6).add(-var2, -var3, -var4);
+        Vector3d var7 = MathHelper.getIntermediateWithXValue(var5, var6, this.minX);
+        Vector3d var8 = MathHelper.getIntermediateWithXValue(var5, var6, this.maxX);
+        Vector3d var9 = MathHelper.getIntermediateWithYValue(var5, var6, this.minY);
+        Vector3d var10 = MathHelper.getIntermediateWithYValue(var5, var6, this.maxY);
+        Vector3d var11 = MathHelper.getIntermediateWithZValue(var5, var6, this.minZ);
+        Vector3d var12 = MathHelper.getIntermediateWithZValue(var5, var6, this.maxZ);
         if (!this.isVecInsideYZBounds(var7)) {
             var7 = null;
         }
@@ -414,28 +415,28 @@ public class Block {
             var12 = null;
         }
 
-        Vec3D var13 = null;
-        if (var7 != null && (var13 == null || var5.distanceTo(var7) < var5.distanceTo(var13))) {
+        Vector3d var13 = null;
+        if (var7 != null && (var13 == null || var5.distance(var7) < var5.distance(var13))) {
             var13 = var7;
         }
 
-        if (var8 != null && (var13 == null || var5.distanceTo(var8) < var5.distanceTo(var13))) {
+        if (var8 != null && (var13 == null || var5.distance(var8) < var5.distance(var13))) {
             var13 = var8;
         }
 
-        if (var9 != null && (var13 == null || var5.distanceTo(var9) < var5.distanceTo(var13))) {
+        if (var9 != null && (var13 == null || var5.distance(var9) < var5.distance(var13))) {
             var13 = var9;
         }
 
-        if (var10 != null && (var13 == null || var5.distanceTo(var10) < var5.distanceTo(var13))) {
+        if (var10 != null && (var13 == null || var5.distance(var10) < var5.distance(var13))) {
             var13 = var10;
         }
 
-        if (var11 != null && (var13 == null || var5.distanceTo(var11) < var5.distanceTo(var13))) {
+        if (var11 != null && (var13 == null || var5.distance(var11) < var5.distance(var13))) {
             var13 = var11;
         }
 
-        if (var12 != null && (var13 == null || var5.distanceTo(var12) < var5.distanceTo(var13))) {
+        if (var12 != null && (var13 == null || var5.distance(var12) < var5.distance(var13))) {
             var13 = var12;
         }
 
@@ -467,31 +468,31 @@ public class Block {
                 var14 = 3;
             }
 
-            return new MovingObjectPosition(var2, var3, var4, var14, var13.addVector(var2, var3, var4));
+            return new MovingObjectPosition(var2, var3, var4, var14, new Vector3d(var13).add(var2, var3, var4));
         }
     }
 
-    private boolean isVecInsideYZBounds(Vec3D vec) {
+    private boolean isVecInsideYZBounds(Vector3d vec) {
         if (vec == null) {
             return false;
         } else {
-            return vec.yCoord >= this.minY && vec.yCoord <= this.maxY && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
+            return vec.y >= this.minY && vec.y <= this.maxY && vec.z >= this.minZ && vec.z <= this.maxZ;
         }
     }
 
-    private boolean isVecInsideXZBounds(Vec3D vec) {
+    private boolean isVecInsideXZBounds(Vector3d vec) {
         if (vec == null) {
             return false;
         } else {
-            return vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.zCoord >= this.minZ && vec.zCoord <= this.maxZ;
+            return vec.x >= this.minX && vec.x <= this.maxX && vec.z >= this.minZ && vec.z <= this.maxZ;
         }
     }
 
-    private boolean isVecInsideXYBounds(Vec3D vec) {
+    private boolean isVecInsideXYBounds(Vector3d vec) {
         if (vec == null) {
             return false;
         } else {
-            return vec.xCoord >= this.minX && vec.xCoord <= this.maxX && vec.yCoord >= this.minY && vec.yCoord <= this.maxY;
+            return vec.x >= this.minX && vec.x <= this.maxX && vec.y >= this.minY && vec.y <= this.maxY;
         }
     }
 
@@ -520,7 +521,7 @@ public class Block {
     public void onBlockClicked(World world, int var2, int var3, int var4, EntityPlayer entityPlayer) {
     }
 
-    public void velocityToAddToEntity(World world, int var2, int var3, int var4, Entity entity, Vec3D vec) {
+    public void velocityToAddToEntity(World world, int var2, int var3, int var4, Entity entity, Vector3d vec) {
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int var2, int var3, int var4) {

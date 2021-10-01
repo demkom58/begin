@@ -1,14 +1,14 @@
 package net.potion.client.render.entity;
 
+import net.potion.block.Block;
 import net.potion.client.model.ModelBase;
 import net.potion.client.model.ModelMinecart;
-import net.potion.block.Block;
 import net.potion.client.render.Render;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityMinecart;
-import org.lwjgl.opengl.GL11;
 import net.potion.util.MathHelper;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
+import org.lwjgl.opengl.GL11;
 
 public class RenderMinecart extends Render {
     protected ModelBase modelMinecart;
@@ -24,11 +24,11 @@ public class RenderMinecart extends Render {
         double var12 = var1.lastTickPosY + (var1.posY - var1.lastTickPosY) * (double) var9;
         double var14 = var1.lastTickPosZ + (var1.posZ - var1.lastTickPosZ) * (double) var9;
         double var16 = 0.30000001192092896D;
-        Vec3D var18 = var1.func_514_g(var10, var12, var14);
+        Vector3d var18 = var1.func_514_g(var10, var12, var14);
         float var19 = var1.prevRotationPitch + (var1.rotationPitch - var1.prevRotationPitch) * var9;
         if (var18 != null) {
-            Vec3D var20 = var1.func_515_a(var10, var12, var14, var16);
-            Vec3D var21 = var1.func_515_a(var10, var12, var14, -var16);
+            Vector3d var20 = var1.func_515_a(var10, var12, var14, var16);
+            Vector3d var21 = var1.func_515_a(var10, var12, var14, -var16);
             if (var20 == null) {
                 var20 = var18;
             }
@@ -37,14 +37,14 @@ public class RenderMinecart extends Render {
                 var21 = var18;
             }
 
-            var2 += var18.xCoord - var10;
-            var4 += (var20.yCoord + var21.yCoord) / 2.0D - var12;
-            var6 += var18.zCoord - var14;
-            Vec3D var22 = var21.addVector(-var20.xCoord, -var20.yCoord, -var20.zCoord);
-            if (var22.lengthVector() != 0.0D) {
-                var22 = var22.normalize();
-                var8 = (float) (Math.atan2(var22.zCoord, var22.xCoord) * 180.0D / 3.141592653589793D);
-                var19 = (float) (Math.atan(var22.yCoord) * 73.0D);
+            var2 += var18.x - var10;
+            var4 += (var20.y + var21.y) / 2.0D - var12;
+            var6 += var18.z - var14;
+            Vector3d var22 = new Vector3d(var21).add(-var20.x, -var20.y, -var20.z);
+            if (var22.length() != 0.0D) {
+                var22 = new Vector3d(var22).normalize();
+                var8 = (float) (Math.atan2(var22.z, var22.x) * 180.0D / 3.141592653589793D);
+                var19 = (float) (Math.atan(var22.y) * 73.0D);
             }
         }
 

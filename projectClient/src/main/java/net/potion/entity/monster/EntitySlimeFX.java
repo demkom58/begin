@@ -1,7 +1,7 @@
 package net.potion.entity.monster;
 
-import net.potion.block.Block;
 import net.hypnosis.render.Tessellator;
+import net.potion.block.Block;
 import net.potion.entity.EntityFX;
 import net.potion.item.Item;
 import net.potion.world.World;

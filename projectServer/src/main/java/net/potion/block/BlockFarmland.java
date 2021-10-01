@@ -2,8 +2,8 @@ package net.potion.block;
 
 import net.potion.entity.Entity;
 import net.potion.material.Material;
-import net.potion.world.World;
 import net.potion.util.AxisAlignedBB;
+import net.potion.world.World;
 
 import java.util.Random;
 

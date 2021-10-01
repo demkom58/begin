@@ -1,10 +1,10 @@
 package net.potion.entity;
 
-import net.potion.client.render.RenderManager;
 import net.hypnosis.render.Tessellator;
+import net.potion.client.render.RenderManager;
+import net.potion.util.MathHelper;
 import net.potion.world.World;
 import org.lwjgl.opengl.GL11;
-import net.potion.util.MathHelper;
 
 public class EntityPickupFX extends EntityFX {
     private Entity field_675_a;

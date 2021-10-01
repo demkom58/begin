@@ -5,7 +5,7 @@ import net.potion.material.Material;
 import net.potion.util.AxisAlignedBB;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
 
 import java.util.Random;
 
@@ -27,7 +27,7 @@ public abstract class BlockFluid extends Block {
     }
 
     public static double func_293_a(IBlockAccess var0, int var1, int var2, int var3, Material var4) {
-        Vec3D var5 = null;
+        Vector3d var5 = null;
         if (var4 == Material.WATER) {
             var5 = ((BlockFluid) Block.WATER_MOVING).getFlowVector(var0, var1, var2, var3);
         }
@@ -36,7 +36,7 @@ public abstract class BlockFluid extends Block {
             var5 = ((BlockFluid) Block.LAVA_MOVING).getFlowVector(var0, var1, var2, var3);
         }
 
-        return var5.xCoord == 0.0D && var5.zCoord == 0.0D ? -1000.0D : Math.atan2(var5.zCoord, var5.xCoord) - 1.5707963267948966D;
+        return var5.x == 0.0D && var5.z == 0.0D ? -1000.0D : Math.atan2(var5.z, var5.x) - 1.5707963267948966D;
     }
 
     @Override
@@ -125,8 +125,8 @@ public abstract class BlockFluid extends Block {
         return 0;
     }
 
-    private Vec3D getFlowVector(IBlockAccess var1, int var2, int var3, int var4) {
-        Vec3D var5 = Vec3D.createVector(0.0D, 0.0D, 0.0D);
+    private Vector3d getFlowVector(IBlockAccess var1, int var2, int var3, int var4) {
+        Vector3d var5 = new Vector3d(0.0D, 0.0D, 0.0D);
         int var6 = this.getEffectiveFlowDecay(var1, var2, var3, var4);
 
         for (int var7 = 0; var7 < 4; ++var7) {
@@ -154,12 +154,12 @@ public abstract class BlockFluid extends Block {
                     var11 = this.getEffectiveFlowDecay(var1, var8, var3 - 1, var10);
                     if (var11 >= 0) {
                         int var12 = var11 - (var6 - 8);
-                        var5 = var5.addVector((var8 - var2) * var12, 0, (var10 - var4) * var12);
+                        var5 = var5.add((var8 - var2) * var12, 0, (var10 - var4) * var12);
                     }
                 }
             } else if (var11 >= 0) {
                 int var16 = var11 - var6;
-                var5 = var5.addVector((var8 - var2) * var16, 0, (var10 - var4) * var16);
+                var5 = var5.add((var8 - var2) * var16, 0, (var10 - var4) * var16);
             }
         }
 
@@ -198,20 +198,20 @@ public abstract class BlockFluid extends Block {
             }
 
             if (var14) {
-                var5 = var5.normalize().addVector(0.0D, -6.0D, 0.0D);
+                var5 = new Vector3d(var5).normalize().add(0.0D, -6.0D, 0.0D);
             }
         }
 
-        var5 = var5.normalize();
+        var5 = new Vector3d(var5).normalize();
         return var5;
     }
 
     @Override
-    public void velocityToAddToEntity(World world, int x, int y, int z, Entity entity, Vec3D velocity) {
-        Vec3D var7 = this.getFlowVector(world, x, y, z);
-        velocity.xCoord += var7.xCoord;
-        velocity.yCoord += var7.yCoord;
-        velocity.zCoord += var7.zCoord;
+    public void velocityToAddToEntity(World world, int x, int y, int z, Entity entity, Vector3d velocity) {
+        Vector3d var7 = this.getFlowVector(world, x, y, z);
+        velocity.x += var7.x;
+        velocity.y += var7.y;
+        velocity.z += var7.z;
     }
 
     @Override

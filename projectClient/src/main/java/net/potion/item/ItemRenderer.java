@@ -3,15 +3,17 @@ package net.potion.item;
 import net.hypnosis.render.Tessellator;
 import net.potion.block.Block;
 import net.potion.client.PotionClient;
-import net.potion.client.render.*;
+import net.potion.client.render.Render;
+import net.potion.client.render.RenderHelper;
+import net.potion.client.render.RenderManager;
 import net.potion.client.render.entity.RenderBlocks;
 import net.potion.client.render.entity.RenderPlayer;
 import net.potion.client.render.item.MapItemRenderer;
 import net.potion.entity.EntityLiving;
 import net.potion.entity.player.EntityPlayerSP;
 import net.potion.material.Material;
-import org.lwjgl.opengl.GL11;
 import net.potion.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
 public class ItemRenderer {

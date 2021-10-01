@@ -6,7 +6,7 @@ import net.potion.util.AxisAlignedBB;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
 
 public class BlockTrapDoor extends Block {
     protected BlockTrapDoor(int var1, Material var2) {
@@ -131,7 +131,7 @@ public class BlockTrapDoor extends Block {
     }
 
     @Override
-    public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vec3D var5, Vec3D var6) {
+    public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, Vector3d var5, Vector3d var6) {
         this.setBlockBoundsBasedOnState(world, var2, var3, var4);
         return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
     }

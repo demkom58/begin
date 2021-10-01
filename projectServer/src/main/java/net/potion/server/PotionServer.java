@@ -19,7 +19,7 @@ import net.potion.world.chunk.ChunkCoordinates;
 import net.potion.world.storage.ISaveFormat;
 import net.potion.world.storage.SaveConverterRegion;
 import net.potion.world.storage.SaveOldDir;
-import net.potion.util.Vec3D;
+import org.joml.Vector3d;
 
 import java.awt.*;
 import java.io.File;
@@ -346,7 +346,7 @@ public class PotionServer implements Runnable, ICommandListener {
     private void doTick() {
         TimingsManager.FULL_SERVER_TICK.startTiming();
         AxisAlignedBB.clearBoundingBoxPool();
-        Vec3D.initialize();
+        Vector3d.initialize();
         ++this.deathTime;
 
 

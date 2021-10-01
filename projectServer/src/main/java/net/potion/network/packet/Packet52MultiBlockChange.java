@@ -1,8 +1,8 @@
 package net.potion.network.packet;
 
-import net.potion.world.chunk.Chunk;
 import net.potion.network.NetHandler;
 import net.potion.world.World;
+import net.potion.world.chunk.Chunk;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

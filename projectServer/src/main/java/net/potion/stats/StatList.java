@@ -2,15 +2,18 @@ package net.potion.stats;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectRBTreeMap;
-import net.potion.item.crafting.IRecipe;
 import net.potion.achievement.AchievementList;
 import net.potion.block.Block;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;
 import net.potion.item.crafting.CraftingManager;
 import net.potion.item.crafting.FurnaceRecipes;
+import net.potion.item.crafting.IRecipe;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class StatList {
     public static List<StatBase> field_25123_a = new ArrayList<>();

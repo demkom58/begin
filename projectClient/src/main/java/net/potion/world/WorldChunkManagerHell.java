@@ -1,7 +1,7 @@
 package net.potion.world;
 
-import net.potion.world.gen.BiomeGenBase;
 import net.potion.world.chunk.ChunkCoordIntPair;
+import net.potion.world.gen.BiomeGenBase;
 
 import java.util.Arrays;
 

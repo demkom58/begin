@@ -1,11 +1,11 @@
 package net.potion.block;
 
 import net.potion.entity.Entity;
-import net.potion.world.IBlockAccess;
 import net.potion.material.Material;
-import net.potion.world.World;
 import net.potion.util.AxisAlignedBB;
-import net.potion.util.Vec3D;
+import net.potion.world.IBlockAccess;
+import net.potion.world.World;
+import org.joml.Vector3d;
 
 import java.util.Random;
 
@@ -91,8 +91,8 @@ public abstract class BlockFluid extends Block {
         return 0;
     }
 
-    private Vec3D func_298_c(IBlockAccess var1, int var2, int var3, int var4) {
-        Vec3D var5 = Vec3D.createVector(0.0D, 0.0D, 0.0D);
+    private Vector3d func_298_c(IBlockAccess var1, int var2, int var3, int var4) {
+        Vector3d var5 = new Vector3d(0.0D, 0.0D, 0.0D);
         int var6 = this.func_303_b(var1, var2, var3, var4);
 
         for (int var7 = 0; var7 < 4; ++var7) {
@@ -120,12 +120,12 @@ public abstract class BlockFluid extends Block {
                     var11 = this.func_303_b(var1, var8, var3 - 1, var10);
                     if (var11 >= 0) {
                         int var12 = var11 - (var6 - 8);
-                        var5 = var5.addVector((var8 - var2) * var12, (0) * var12, (var10 - var4) * var12);
+                        var5 = new Vector3d(var5).add((var8 - var2) * var12, (0) * var12, (var10 - var4) * var12);
                     }
                 }
             } else if (var11 >= 0) {
                 int var16 = var11 - var6;
-                var5 = var5.addVector((var8 - var2) * var16, (0) * var16, (var10 - var4) * var16);
+                var5 = new Vector3d(var5).add((var8 - var2) * var16, (0) * var16, (var10 - var4) * var16);
             }
         }
 
@@ -164,20 +164,20 @@ public abstract class BlockFluid extends Block {
             }
 
             if (var14) {
-                var5 = var5.normalize().addVector(0.0D, -6.0D, 0.0D);
+                var5 = new Vector3d(var5).normalize().add(0.0D, -6.0D, 0.0D);
             }
         }
 
-        var5 = var5.normalize();
+        var5 = new Vector3d(var5).normalize();
         return var5;
     }
 
     @Override
-    public void velocityToAddToEntity(World world, int var2, int var3, int var4, Entity entity, Vec3D vec) {
-        Vec3D var7 = this.func_298_c(world, var2, var3, var4);
-        vec.xCoord += var7.xCoord;
-        vec.yCoord += var7.yCoord;
-        vec.zCoord += var7.zCoord;
+    public void velocityToAddToEntity(World world, int var2, int var3, int var4, Entity entity, Vector3d vec) {
+        Vector3d var7 = this.func_298_c(world, var2, var3, var4);
+        vec.x += var7.x;
+        vec.y += var7.y;
+        vec.z += var7.z;
     }
 
     @Override

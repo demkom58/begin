@@ -1,7 +1,7 @@
 package net.potion.client.render.entity;
 
-import net.potion.client.render.Render;
 import net.hypnosis.render.Tessellator;
+import net.potion.client.render.Render;
 import net.potion.entity.Entity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;

@@ -1,14 +1,14 @@
 package net.potion.block;
 
-import net.potion.entity.item.EntityItem;
 import net.potion.entity.EntityLiving;
+import net.potion.entity.item.EntityItem;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.item.ItemStack;
 import net.potion.material.Material;
 import net.potion.tileentity.TileEntity;
 import net.potion.tileentity.TileEntityFurnace;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 import java.util.Random;
 

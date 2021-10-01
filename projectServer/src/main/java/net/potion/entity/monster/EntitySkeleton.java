@@ -6,8 +6,8 @@ import net.potion.entity.projectile.EntityArrow;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;
 import net.potion.nbt.TagCompound;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class EntitySkeleton extends EntityMob {
     private static final ItemStack defaultHeldItem = new ItemStack(Item.BOW, 1);

@@ -1,8 +1,8 @@
 package net.potion.entity;
 
 import net.hypnosis.render.Tessellator;
-import net.potion.world.World;
 import net.potion.util.MathHelper;
+import net.potion.world.World;
 
 public class EntityNoteFX extends EntityFX {
     float field_21065_a;
