@@ -381,7 +381,7 @@ public final class Matrix4f {
 
     public boolean invert() {
         float f = this.determinantAndAdjugate();
-        if (Math.abs(f) > 1.0E-6F) {
+        if (Math.abs(f) > MathConstants.EPSILON) {
             this.multiply(f);
             return true;
         } else {

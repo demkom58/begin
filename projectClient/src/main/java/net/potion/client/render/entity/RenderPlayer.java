@@ -1,6 +1,7 @@
 package net.potion.client.render.entity;
 
 import net.hypnosis.render.Tessellator;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.potion.client.PotionClient;
 import net.potion.client.model.ModelBiped;
@@ -163,8 +164,8 @@ public class RenderPlayer extends RenderLiving {
             double var26 = player.prevChasingPosY + (player.chasingPosY - player.prevChasingPosY) * (double) delta - (player.prevPosY + (player.posY - player.prevPosY) * (double) delta);
             double var8 = player.prevChasingPosZ + (player.chasingPosZ - player.prevChasingPosZ) * (double) delta - (player.prevPosZ + (player.posZ - player.prevPosZ) * (double) delta);
             float var10 = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * delta;
-            double var11 = MathHelper.sin(var10 * 3.1415927F / 180.0F);
-            double var13 = -MathHelper.cos(var10 * 3.1415927F / 180.0F);
+            double var11 = MathHelper.sin(var10 * MathConstants.PI / 180.0F);
+            double var13 = -MathHelper.cos(var10 * MathConstants.PI / 180.0F);
             float var15 = (float) var26 * 10.0F;
 
             if (var15 < -6.0F)

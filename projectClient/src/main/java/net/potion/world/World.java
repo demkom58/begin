@@ -1,5 +1,6 @@
 package net.potion.world;
 
+import net.hypnosis.util.math.MathConstants;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.block.Block;
 import net.potion.block.BlockFluid;
@@ -989,7 +990,7 @@ public class World implements IBlockAccess {
 
     public int calculateSkylightSubtracted(float var1) {
         float var2 = this.getCelestialAngle(var1);
-        float var3 = 1.0F - (MathHelper.cos(var2 * 3.1415927F * 2.0F) * 2.0F + 0.5F);
+        float var3 = 1.0F - (MathHelper.cos(var2 * MathConstants.PI * 2.0F) * 2.0F + 0.5F);
 
         if (var3 < 0.0F)
             var3 = 0.0F;
@@ -1123,7 +1124,7 @@ public class World implements IBlockAccess {
 
     public float getStarBrightness(float var1) {
         float celAngle = this.getCelestialAngle(var1);
-        float celCos = 1.0F - (MathHelper.cos(celAngle * 3.1415927F * 2.0F) * 2.0F + 0.75F);
+        float celCos = 1.0F - (MathHelper.cos(celAngle * MathConstants.PI * 2.0F) * 2.0F + 0.75F);
 
         if (celCos < 0.0F)
             celCos = 0.0F;

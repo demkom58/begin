@@ -60,7 +60,7 @@ public class EntitySkeleton extends EntityMob {
                 this.attackTime = 30;
             }
 
-            this.rotationYaw = (float) (Math.atan2(var5, var3) * 180.0D / 3.1415927410125732D) - 90.0F;
+            this.rotationYaw = (float) (Math.atan2(var5, var3) * 180.0D / Math.PI) - 90.0F;
             this.hasAttacked = true;
         }
 

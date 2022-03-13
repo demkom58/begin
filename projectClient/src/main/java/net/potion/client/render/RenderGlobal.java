@@ -1,6 +1,7 @@
 package net.potion.client.render;
 
 import net.hypnosis.render.Tessellator;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.potion.client.PotionClient;
 import net.potion.client.render.entity.RenderBlocks;
@@ -161,7 +162,7 @@ public class RenderGlobal implements IWorldAccess {
                 double var26 = Math.atan2(Math.sqrt(var4 * var4 + var8 * var8), var6);
                 double var28 = Math.sin(var26);
                 double var30 = Math.cos(var26);
-                double var32 = rand.nextDouble() * 3.141592653589793D * 2.0D;
+                double var32 = rand.nextDouble() * Math.PI * 2.0D;
                 double var34 = Math.sin(var32);
                 double var36 = Math.cos(var32);
 
@@ -683,7 +684,7 @@ public class RenderGlobal implements IWorldAccess {
             tess.setColorRGBA_F(var18[0], var18[1], var18[2], 0.0F);
 
             for (int var28 = 0; var28 <= var26; ++var28) {
-                float var29 = (float) var28 * 3.1415927F * 2.0F / (float) var26;
+                float var29 = (float) var28 * MathConstants.PI * 2.0F / (float) var26;
                 float var15 = MathHelper.sin(var29);
                 float var16 = MathHelper.cos(var29);
                 tess.addVertex(var15 * 120.0F, var16 * 120.0F, -var16 * 40.0F * var18[3]);

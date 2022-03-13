@@ -1,5 +1,6 @@
 package net.potion.entity;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.nbt.TagCompound;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
@@ -18,10 +19,10 @@ public class EntityTNTPrimed extends Entity {
     public EntityTNTPrimed(World var1, double var2, double var4, double var6) {
         this(var1);
         this.setPosition(var2, var4, var6);
-        float var8 = (float) (Math.random() * 3.1415927410125732D * 2.0D);
-        this.motionX = -MathHelper.sin(var8 * 3.1415927F / 180.0F) * 0.02F;
+        float var8 = (float) (Math.random() * Math.PI * 2.0D);
+        this.motionX = -MathHelper.sin(var8 * MathConstants.PI / 180.0F) * 0.02F;
         this.motionY = 0.20000000298023224D;
-        this.motionZ = -MathHelper.cos(var8 * 3.1415927F / 180.0F) * 0.02F;
+        this.motionZ = -MathHelper.cos(var8 * MathConstants.PI / 180.0F) * 0.02F;
         this.fuse = 80;
         this.prevPosX = var2;
         this.prevPosY = var4;

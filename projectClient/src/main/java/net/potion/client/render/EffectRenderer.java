@@ -1,6 +1,7 @@
 package net.potion.client.render;
 
 import net.hypnosis.render.Tessellator;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityDiggingFX;
@@ -55,11 +56,11 @@ public class EffectRenderer {
     }
 
     public void renderParticles(Entity var1, float var2) {
-        float var3 = MathHelper.cos(var1.rotationYaw * 3.1415927F / 180.0F);
-        float var4 = MathHelper.sin(var1.rotationYaw * 3.1415927F / 180.0F);
-        float var5 = -var4 * MathHelper.sin(var1.rotationPitch * 3.1415927F / 180.0F);
-        float var6 = var3 * MathHelper.sin(var1.rotationPitch * 3.1415927F / 180.0F);
-        float var7 = MathHelper.cos(var1.rotationPitch * 3.1415927F / 180.0F);
+        float var3 = MathHelper.cos(var1.rotationYaw * MathConstants.PI / 180.0F);
+        float var4 = MathHelper.sin(var1.rotationYaw * MathConstants.PI / 180.0F);
+        float var5 = -var4 * MathHelper.sin(var1.rotationPitch * MathConstants.PI / 180.0F);
+        float var6 = var3 * MathHelper.sin(var1.rotationPitch * MathConstants.PI / 180.0F);
+        float var7 = MathHelper.cos(var1.rotationPitch * MathConstants.PI / 180.0F);
         EntityFX.interpPosX = var1.lastTickPosX + (var1.posX - var1.lastTickPosX) * (double) var2;
         EntityFX.interpPosY = var1.lastTickPosY + (var1.posY - var1.lastTickPosY) * (double) var2;
         EntityFX.interpPosZ = var1.lastTickPosZ + (var1.posZ - var1.lastTickPosZ) * (double) var2;

@@ -1,5 +1,6 @@
 package net.potion.entity.monster;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityFlying;
 import net.potion.entity.IMob;
@@ -87,7 +88,7 @@ public class EntityGhast extends EntityFlying implements IMob {
             double var11 = this.targetedEntity.posX - this.posX;
             double var13 = this.targetedEntity.boundingBox.minY + (double) (this.targetedEntity.height / 2.0F) - (this.posY + (double) (this.height / 2.0F));
             double var15 = this.targetedEntity.posZ - this.posZ;
-            this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(var11, var15)) * 180.0F / 3.1415927F;
+            this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(var11, var15)) * 180.0F / MathConstants.PI;
             if (this.canEntityBeSeen(this.targetedEntity)) {
                 if (this.attackCounter == 10) {
                     this.worldObj.playSoundAtEntity(this, "mob.ghast.charge", this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
@@ -109,7 +110,7 @@ public class EntityGhast extends EntityFlying implements IMob {
                 --this.attackCounter;
             }
         } else {
-            this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(this.motionX, this.motionZ)) * 180.0F / 3.1415927F;
+            this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(this.motionX, this.motionZ)) * 180.0F / MathConstants.PI;
             if (this.attackCounter > 0) {
                 --this.attackCounter;
             }

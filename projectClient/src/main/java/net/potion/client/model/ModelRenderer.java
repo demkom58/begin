@@ -1,6 +1,7 @@
 package net.potion.client.model;
 
 import net.hypnosis.render.Tessellator;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.client.render.GLAllocation;
 import net.potion.client.render.texture.PositionTextureVertex;
 import net.potion.client.render.texture.TexturedQuad;
@@ -118,13 +119,13 @@ public class ModelRenderer {
         GL11.glPushMatrix();
         GL11.glTranslatef(this.rotationPointX * delta, this.rotationPointY * delta, this.rotationPointZ * delta);
         if (this.rotateAngleZ != 0.0F)
-            GL11.glRotatef(this.rotateAngleZ * 57.295776F, 0.0F, 0.0F, 1.0F);
+            GL11.glRotatef(this.rotateAngleZ * MathConstants.DEGREES_PER_RADIAN, 0.0F, 0.0F, 1.0F);
 
         if (this.rotateAngleY != 0.0F)
-            GL11.glRotatef(this.rotateAngleY * 57.295776F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(this.rotateAngleY * MathConstants.DEGREES_PER_RADIAN, 0.0F, 1.0F, 0.0F);
 
         if (this.rotateAngleX != 0.0F)
-            GL11.glRotatef(this.rotateAngleX * 57.295776F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(this.rotateAngleX * MathConstants.DEGREES_PER_RADIAN, 1.0F, 0.0F, 0.0F);
 
         GL11.glCallList(this.displayList);
         GL11.glPopMatrix();
@@ -140,13 +141,13 @@ public class ModelRenderer {
         GL11.glPushMatrix();
         GL11.glTranslatef(this.rotationPointX * delta, this.rotationPointY * delta, this.rotationPointZ * delta);
         if (this.rotateAngleY != 0.0F)
-            GL11.glRotatef(this.rotateAngleY * 57.295776F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(this.rotateAngleY * MathConstants.DEGREES_PER_RADIAN, 0.0F, 1.0F, 0.0F);
 
         if (this.rotateAngleX != 0.0F)
-            GL11.glRotatef(this.rotateAngleX * 57.295776F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(this.rotateAngleX * MathConstants.DEGREES_PER_RADIAN, 1.0F, 0.0F, 0.0F);
 
         if (this.rotateAngleZ != 0.0F)
-            GL11.glRotatef(this.rotateAngleZ * 57.295776F, 0.0F, 0.0F, 1.0F);
+            GL11.glRotatef(this.rotateAngleZ * MathConstants.DEGREES_PER_RADIAN, 0.0F, 0.0F, 1.0F);
 
         GL11.glCallList(this.displayList);
         GL11.glPopMatrix();
@@ -167,13 +168,13 @@ public class ModelRenderer {
 
         GL11.glTranslatef(this.rotationPointX * delta, this.rotationPointY * delta, this.rotationPointZ * delta);
         if (this.rotateAngleZ != 0.0F)
-            GL11.glRotatef(this.rotateAngleZ * 57.295776F, 0.0F, 0.0F, 1.0F);
+            GL11.glRotatef(this.rotateAngleZ * MathConstants.DEGREES_PER_RADIAN, 0.0F, 0.0F, 1.0F);
 
         if (this.rotateAngleY != 0.0F)
-            GL11.glRotatef(this.rotateAngleY * 57.295776F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(this.rotateAngleY * MathConstants.DEGREES_PER_RADIAN, 0.0F, 1.0F, 0.0F);
 
         if (this.rotateAngleX != 0.0F)
-            GL11.glRotatef(this.rotateAngleX * 57.295776F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(this.rotateAngleX * MathConstants.DEGREES_PER_RADIAN, 1.0F, 0.0F, 0.0F);
 
     }
 

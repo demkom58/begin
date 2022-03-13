@@ -1,5 +1,6 @@
 package net.potion.entity;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.potion.block.StepSound;
 import net.potion.entity.player.EntityPlayer;
@@ -73,7 +74,7 @@ public abstract class EntityLiving extends Entity {
         this.field_9096_ay = (float) (Math.random() + 1.0D) * 0.01F;
         this.setPosition(this.posX, this.posY, this.posZ);
         this.field_9098_aw = (float) Math.random() * 12398.0F;
-        this.rotationYaw = (float) (Math.random() * 3.1415927410125732D * 2.0D);
+        this.rotationYaw = (float) (Math.random() * Math.PI * 2.0D);
         this.stepHeight = 0.5F;
     }
 
@@ -215,7 +216,7 @@ public abstract class EntityLiving extends Entity {
         if (var5 > 0.05F) {
             var8 = 1.0F;
             var7 = var5 * 3.0F;
-            var6 = (float) Math.atan2(var3, var1) * 180.0F / 3.1415927F - 90.0F;
+            var6 = (float) Math.atan2(var3, var1) * 180.0F / MathConstants.PI - 90.0F;
         }
 
         if (this.swingProgress > 0.0F) {
@@ -346,7 +347,7 @@ public abstract class EntityLiving extends Entity {
                             var4 = (Math.random() - Math.random()) * 0.01D;
                         }
 
-                        this.attackedAtYaw = (float) (Math.atan2(var6, var4) * 180.0D / 3.1415927410125732D) - this.rotationYaw;
+                        this.attackedAtYaw = (float) (Math.atan2(var6, var4) * 180.0D / Math.PI) - this.rotationYaw;
                         this.knockBack(var1, var2, var4, var6);
                     } else {
                         this.attackedAtYaw = (float) ((int) (Math.random() * 2.0D) * 180);
@@ -743,8 +744,8 @@ public abstract class EntityLiving extends Entity {
         }
 
         double var14 = MathHelper.sqrt(var4 * var4 + var8 * var8);
-        float var12 = (float) (Math.atan2(var8, var4) * 180.0D / 3.1415927410125732D) - 90.0F;
-        float var13 = (float) (-(Math.atan2(var6, var14) * 180.0D / 3.1415927410125732D));
+        float var12 = (float) (Math.atan2(var8, var4) * 180.0D / Math.PI) - 90.0F;
+        float var13 = (float) (-(Math.atan2(var6, var14) * 180.0D / Math.PI));
         this.rotationPitch = -this.updateRotation(this.rotationPitch, var13, var3);
         this.rotationYaw = this.updateRotation(this.rotationYaw, var12, var2);
     }
@@ -796,18 +797,18 @@ public abstract class EntityLiving extends Entity {
 
     public Vec3d getLook(float var1) {
         if (var1 == 1.0F) {
-            float var8 = MathHelper.cos(-this.rotationYaw * 0.017453292F - 3.1415927F);
-            float var9 = MathHelper.sin(-this.rotationYaw * 0.017453292F - 3.1415927F);
-            float var10 = -MathHelper.cos(-this.rotationPitch * 0.017453292F);
-            float var11 = MathHelper.sin(-this.rotationPitch * 0.017453292F);
+            float var8 = MathHelper.cos(-this.rotationYaw * MathConstants.RADIANS_PER_DEGREE - MathConstants.PI);
+            float var9 = MathHelper.sin(-this.rotationYaw * MathConstants.RADIANS_PER_DEGREE - MathConstants.PI);
+            float var10 = -MathHelper.cos(-this.rotationPitch * MathConstants.RADIANS_PER_DEGREE);
+            float var11 = MathHelper.sin(-this.rotationPitch * MathConstants.RADIANS_PER_DEGREE);
             return new Vec3d(var9 * var10, var11, var8 * var10);
         } else {
             float var2 = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * var1;
             float var3 = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * var1;
-            float var4 = MathHelper.cos(-var3 * 0.017453292F - 3.1415927F);
-            float var5 = MathHelper.sin(-var3 * 0.017453292F - 3.1415927F);
-            float var6 = -MathHelper.cos(-var2 * 0.017453292F);
-            float var7 = MathHelper.sin(-var2 * 0.017453292F);
+            float var4 = MathHelper.cos(-var3 * MathConstants.RADIANS_PER_DEGREE - MathConstants.PI);
+            float var5 = MathHelper.sin(-var3 * MathConstants.RADIANS_PER_DEGREE - MathConstants.PI);
+            float var6 = -MathHelper.cos(-var2 * MathConstants.RADIANS_PER_DEGREE);
+            float var7 = MathHelper.sin(-var2 * MathConstants.RADIANS_PER_DEGREE);
             return new Vec3d(var5 * var6, var7, var4 * var6);
         }
     }

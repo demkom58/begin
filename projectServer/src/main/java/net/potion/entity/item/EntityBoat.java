@@ -211,8 +211,8 @@ public class EntityBoat extends Entity {
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
             double var6 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
             if (var6 > 0.15D) {
-                double var8 = Math.cos((double) this.rotationYaw * 3.141592653589793D / 180.0D);
-                double var10 = Math.sin((double) this.rotationYaw * 3.141592653589793D / 180.0D);
+                double var8 = Math.cos((double) this.rotationYaw * Math.PI / 180.0D);
+                double var10 = Math.sin((double) this.rotationYaw * Math.PI / 180.0D);
 
                 for (int var12 = 0; (double) var12 < 1.0D + var6 * 60.0D; ++var12) {
                     double var13 = this.rand.nextFloat() * 2.0F - 1.0F;
@@ -252,7 +252,7 @@ public class EntityBoat extends Entity {
             double var32 = this.prevPosX - this.posX;
             double var34 = this.prevPosZ - this.posZ;
             if (var32 * var32 + var34 * var34 > 0.001D) {
-                var29 = (float) (Math.atan2(var34, var32) * 180.0D / 3.141592653589793D);
+                var29 = (float) (Math.atan2(var34, var32) * 180.0D / Math.PI);
             }
 
             double var14;
@@ -302,8 +302,8 @@ public class EntityBoat extends Entity {
     @Override
     public void updateRiderPosition() {
         if (this.riddenByEntity != null) {
-            double var1 = Math.cos((double) this.rotationYaw * 3.141592653589793D / 180.0D) * 0.4D;
-            double var3 = Math.sin((double) this.rotationYaw * 3.141592653589793D / 180.0D) * 0.4D;
+            double var1 = Math.cos((double) this.rotationYaw * Math.PI / 180.0D) * 0.4D;
+            double var3 = Math.sin((double) this.rotationYaw * Math.PI / 180.0D) * 0.4D;
             this.riddenByEntity.setPosition(this.posX + var1, this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset(), this.posZ + var3);
         }
     }

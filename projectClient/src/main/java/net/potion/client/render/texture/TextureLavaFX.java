@@ -1,5 +1,6 @@
 package net.potion.client.render.texture;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.hypnosis.util.math.MathHelper;
 
@@ -18,8 +19,8 @@ public class TextureLavaFX extends TextureFX {
         for (int var1 = 0; var1 < 16; ++var1) {
             for (int var2 = 0; var2 < 16; ++var2) {
                 float var3 = 0.0F;
-                int var4 = (int) (MathHelper.sin((float) var2 * 3.1415927F * 2.0F / 16.0F) * 1.2F);
-                int var5 = (int) (MathHelper.sin((float) var1 * 3.1415927F * 2.0F / 16.0F) * 1.2F);
+                int var4 = (int) (MathHelper.sin((float) var2 * MathConstants.PI * 2.0F / 16.0F) * 1.2F);
+                int var5 = (int) (MathHelper.sin((float) var1 * MathConstants.PI * 2.0F / 16.0F) * 1.2F);
 
                 for (int var6 = var1 - 1; var6 <= var1 + 1; ++var6) {
                     for (int var7 = var2 - 1; var7 <= var2 + 1; ++var7) {

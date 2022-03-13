@@ -1,6 +1,7 @@
 package net.potion.client.render.entity;
 
 import net.hypnosis.render.Tessellator;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.potion.client.render.FontRenderer;
 import net.potion.client.render.Render;
@@ -30,7 +31,7 @@ public class RenderItem extends Render {
         ItemStack var10 = var1.item;
         GL11.glPushMatrix();
         float var11 = MathHelper.sin(((float) var1.age + var9) / 10.0F + var1.field_804_d) * 0.1F + 0.1F;
-        float var12 = (((float) var1.age + var9) / 20.0F + var1.field_804_d) * 57.295776F;
+        float var12 = (((float) var1.age + var9) / 20.0F + var1.field_804_d) * MathConstants.DEGREES_PER_RADIAN;
         byte var13 = 1;
         if (var1.item.stackSize > 1) {
             var13 = 2;

@@ -1,5 +1,6 @@
 package net.potion.world;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.chunk.ChunkProviderSky;
@@ -32,7 +33,7 @@ public class WorldProviderSky extends WorldProvider {
     @Override
     public Vec3d func_4096_a(float var1, float var2) {
         int var3 = 8421536;
-        float var4 = MathHelper.cos(var1 * 3.1415927F * 2.0F) * 2.0F + 0.5F;
+        float var4 = MathHelper.cos(var1 * MathConstants.PI * 2.0F) * 2.0F + 0.5F;
         if (var4 < 0.0F) {
             var4 = 0.0F;
         }

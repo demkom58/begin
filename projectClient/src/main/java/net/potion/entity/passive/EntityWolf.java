@@ -1,5 +1,6 @@
 package net.potion.entity.passive;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityAnimal;
 import net.potion.entity.EntityLiving;
@@ -210,7 +211,7 @@ public class EntityWolf extends EntityAnimal {
 
             if (this.timeWolfIsShaking > 0.4F) {
                 float var1 = (float) this.boundingBox.minY;
-                int var2 = (int) (MathHelper.sin((this.timeWolfIsShaking - 0.4F) * 3.1415927F) * 7.0F);
+                int var2 = (int) (MathHelper.sin((this.timeWolfIsShaking - 0.4F) * MathConstants.PI) * 7.0F);
 
                 for (int var3 = 0; var3 < var2; ++var3) {
                     float var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
@@ -238,11 +239,11 @@ public class EntityWolf extends EntityAnimal {
             var3 = 1.0F;
         }
 
-        return MathHelper.sin(var3 * 3.1415927F) * MathHelper.sin(var3 * 3.1415927F * 11.0F) * 0.15F * 3.1415927F;
+        return MathHelper.sin(var3 * MathConstants.PI) * MathHelper.sin(var3 * MathConstants.PI * 11.0F) * 0.15F * MathConstants.PI;
     }
 
     public float getInterestedAngle(float var1) {
-        return (this.field_25054_c + (this.field_25048_b - this.field_25054_c) * var1) * 0.15F * 3.1415927F;
+        return (this.field_25054_c + (this.field_25048_b - this.field_25054_c) * var1) * 0.15F * MathConstants.PI;
     }
 
     @Override
@@ -442,7 +443,7 @@ public class EntityWolf extends EntityAnimal {
         if (this.isWolfAngry()) {
             return 1.5393804F;
         } else {
-            return this.isWolfTamed() ? (0.55F - (float) (20 - this.dataWatcher.getWatchableObjectInt(18)) * 0.02F) * 3.1415927F : 0.62831855F;
+            return this.isWolfTamed() ? (0.55F - (float) (20 - this.dataWatcher.getWatchableObjectInt(18)) * 0.02F) * MathConstants.PI : 0.62831855F;
         }
     }
 

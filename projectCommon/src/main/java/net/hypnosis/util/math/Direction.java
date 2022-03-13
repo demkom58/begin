@@ -53,8 +53,8 @@ public enum Direction {
     }
 
     public static Direction[] getEntityFacingOrder(Rotatable rotatable) {
-        float f = rotatable.getPitch(1.0F) * 0.017453292F;
-        float g = -rotatable.getYaw(1.0F) * 0.017453292F;
+        float f = rotatable.getPitch(1.0F) * MathConstants.RADIANS_PER_DEGREE;
+        float g = -rotatable.getYaw(1.0F) * MathConstants.RADIANS_PER_DEGREE;
         float h = MathHelper.sin(f);
         float i = MathHelper.cos(f);
         float j = MathHelper.sin(g);
@@ -343,7 +343,7 @@ public enum Direction {
     }
 
     public boolean pointsTo(float yaw) {
-        float f = yaw * 0.017453292F;
+        float f = yaw * MathConstants.RADIANS_PER_DEGREE;
         float g = -MathHelper.sin(f);
         float h = MathHelper.cos(f);
         return (float) this.vector.getX() * g + (float) this.vector.getZ() * h > 0.0F;

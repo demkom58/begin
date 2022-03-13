@@ -1,5 +1,6 @@
 package net.potion.entity.monster;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.entity.EntityLiving;
 import net.potion.entity.IMob;
 import net.potion.entity.player.EntityPlayer;
@@ -61,7 +62,7 @@ public class EntitySlime extends EntityLiving implements IMob {
             int var2 = this.getSlimeSize();
 
             for (int var3 = 0; var3 < var2 * 8; ++var3) {
-                float var4 = this.rand.nextFloat() * 3.1415927F * 2.0F;
+                float var4 = this.rand.nextFloat() * MathConstants.PI * 2.0F;
                 float var5 = this.rand.nextFloat() * 0.5F + 0.5F;
                 float var6 = MathHelper.sin(var4) * (float) var2 * 0.5F * var5;
                 float var7 = MathHelper.cos(var4) * (float) var2 * 0.5F * var5;

@@ -1,6 +1,7 @@
 package net.potion.client.render.entity;
 
 import net.hypnosis.render.Tessellator;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.*;
 import net.potion.client.PotionClient;
 import net.potion.entity.EntityRenderer;
@@ -710,26 +711,26 @@ public class RenderBlocks {
             }
 
             if (var6 == 6) {
-                vec.rotateY(1.5707964F);
+                vec.rotateY(MathConstants.PI / 2f);
             }
 
             if (var6 < 5) {
                 yv -= 0.375D;
-                vec.rotateX(1.5707964F);
+                vec.rotateX(MathConstants.PI / 2f);
                 if (var6 == 4) {
                     vec.rotateY(0.0F);
                 }
 
                 if (var6 == 3) {
-                    vec.rotateY(3.1415927F);
+                    vec.rotateY(MathConstants.PI);
                 }
 
                 if (var6 == 2) {
-                    vec.rotateY(1.5707964F);
+                    vec.rotateY(MathConstants.PI / 2f);
                 }
 
                 if (var6 == 1) {
-                    vec.rotateY(-1.5707964F);
+                    vec.rotateY(MathConstants.PI / -2f);
                 }
 
                 xv += (double) x + 0.5D;

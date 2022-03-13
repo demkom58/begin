@@ -64,7 +64,7 @@ public abstract class WorldProvider {
             --var5;
         }
 
-        float var7 = 1.0F - (float) ((Math.cos((double) var5 * 3.141592653589793D) + 1.0D) / 2.0D);
+        float var7 = 1.0F - (float) ((Math.cos((double) var5 * Math.PI) + 1.0D) / 2.0D);
         var5 = var5 + (var7 - var5) / 3.0F;
         return var5;
     }

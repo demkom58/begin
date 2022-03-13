@@ -1,6 +1,7 @@
 package net.potion.entity;
 
 import net.hypnosis.entity.Rotatable;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.potion.block.BlockFluid;
 import net.potion.block.StepSound;
@@ -240,8 +241,8 @@ public abstract class Entity implements Rotatable {
     }
 
     protected final Vec3d getRotationVector(float pitch, float yaw) {
-        float p = pitch * 0.017453292F;
-        float y = -yaw * 0.017453292F;
+        float p = pitch * MathConstants.RADIANS_PER_DEGREE;
+        float y = -yaw * MathConstants.RADIANS_PER_DEGREE;
 
         float cYaw = MathHelper.cos(y);
         float sYaw = MathHelper.sin(y);
@@ -699,8 +700,8 @@ public abstract class Entity implements Rotatable {
             var4 = var3 / var4;
             var1 = var1 * var4;
             var2 = var2 * var4;
-            float var5 = MathHelper.sin(this.rotationYaw * 3.1415927F / 180.0F);
-            float var6 = MathHelper.cos(this.rotationYaw * 3.1415927F / 180.0F);
+            float var5 = MathHelper.sin(this.rotationYaw * MathConstants.PI / 180.0F);
+            float var6 = MathHelper.cos(this.rotationYaw * MathConstants.PI / 180.0F);
             this.motionX += var1 * var6 - var2 * var5;
             this.motionZ += var2 * var6 + var1 * var5;
         }

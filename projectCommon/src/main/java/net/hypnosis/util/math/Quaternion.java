@@ -17,7 +17,7 @@ public final class Quaternion {
 
     public Quaternion(Vec3f axis, float rotationAngle, boolean degrees) {
         if (degrees) {
-            rotationAngle *= 0.017453292F;
+            rotationAngle *= MathConstants.RADIANS_PER_DEGREE;
         }
 
         float f = sin(rotationAngle / 2.0F);
@@ -29,9 +29,9 @@ public final class Quaternion {
 
     public Quaternion(float x, float y, float z, boolean degrees) {
         if (degrees) {
-            x *= 0.017453292F;
-            y *= 0.017453292F;
-            z *= 0.017453292F;
+            x *= MathConstants.RADIANS_PER_DEGREE;
+            y *= MathConstants.RADIANS_PER_DEGREE;
+            z *= MathConstants.RADIANS_PER_DEGREE;
         }
 
         float f = sin(0.5F * x);
@@ -216,7 +216,7 @@ public final class Quaternion {
 
     public void normalize() {
         float f = this.getX() * this.getX() + this.getY() * this.getY() + this.getZ() * this.getZ() + this.getW() * this.getW();
-        if (f > 1.0E-6F) {
+        if (f > MathConstants.EPSILON) {
             float g = MathHelper.fastInverseSqrt(f);
             this.x *= g;
             this.y *= g;

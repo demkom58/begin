@@ -1,5 +1,6 @@
 package net.potion.world;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.chunk.ChunkProviderGenerate;
@@ -66,18 +67,18 @@ public abstract class WorldProvider {
             --var5;
         }
 
-        float var7 = 1.0F - (float) ((Math.cos((double) var5 * 3.141592653589793D) + 1.0D) / 2.0D);
+        float var7 = 1.0F - (float) ((Math.cos((double) var5 * Math.PI) + 1.0D) / 2.0D);
         var5 = var5 + (var7 - var5) / 3.0F;
         return var5;
     }
 
     public float[] calcSunriseSunsetColors(float var1, float var2) {
         float var3 = 0.4F;
-        float var4 = MathHelper.cos(var1 * 3.1415927F * 2.0F) - 0.0F;
+        float var4 = MathHelper.cos(var1 * MathConstants.PI * 2.0F) - 0.0F;
         float var5 = -0.0F;
         if (var4 >= var5 - var3 && var4 <= var5 + var3) {
             float var6 = (var4 - var5) / var3 * 0.5F + 0.5F;
-            float var7 = 1.0F - (1.0F - MathHelper.sin(var6 * 3.1415927F)) * 0.99F;
+            float var7 = 1.0F - (1.0F - MathHelper.sin(var6 * MathConstants.PI)) * 0.99F;
             var7 = var7 * var7;
             this.colorsSunriseSunset[0] = var6 * 0.3F + 0.7F;
             this.colorsSunriseSunset[1] = var6 * var6 * 0.7F + 0.2F;

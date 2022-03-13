@@ -15,7 +15,7 @@ public class EntityItem extends Entity {
     public ItemStack item;
     public int age = 0;
     public int delayBeforeCanPickup;
-    public float field_432_ae = (float) (Math.random() * 3.141592653589793D * 2.0D);
+    public float field_432_ae = (float) (Math.random() * Math.PI * 2.0D);
     private int ticks;
     private int health = 5;
 

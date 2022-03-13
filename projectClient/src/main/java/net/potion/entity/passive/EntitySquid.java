@@ -1,5 +1,6 @@
 package net.potion.entity.passive;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.entity.EntityWaterMob;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.item.Item;
@@ -103,9 +104,9 @@ public class EntitySquid extends EntityWaterMob {
         }
 
         if (this.isInWater()) {
-            if (this.field_21085_g < 3.1415927F) {
-                float var1 = this.field_21085_g / 3.1415927F;
-                this.field_21083_i = MathHelper.sin(var1 * var1 * 3.1415927F) * 3.1415927F * 0.25F;
+            if (this.field_21085_g < MathConstants.PI) {
+                float var1 = this.field_21085_g / MathConstants.PI;
+                this.field_21083_i = MathHelper.sin(var1 * var1 * MathConstants.PI) * MathConstants.PI * 0.25F;
                 if ((double) var1 > 0.75D) {
                     this.randomMotionSpeed = 1.0F;
                     this.field_21079_m = 1.0F;
@@ -125,12 +126,12 @@ public class EntitySquid extends EntityWaterMob {
             }
 
             float var2 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-            this.renderYawOffset += (-((float) Math.atan2(this.motionX, this.motionZ)) * 180.0F / 3.1415927F - this.renderYawOffset) * 0.1F;
+            this.renderYawOffset += (-((float) Math.atan2(this.motionX, this.motionZ)) * 180.0F / MathConstants.PI - this.renderYawOffset) * 0.1F;
             this.rotationYaw = this.renderYawOffset;
-            this.field_21087_c += 3.1415927F * this.field_21079_m * 1.5F;
-            this.field_21089_a += (-((float) Math.atan2(var2, this.motionY)) * 180.0F / 3.1415927F - this.field_21089_a) * 0.1F;
+            this.field_21087_c += MathConstants.PI * this.field_21079_m * 1.5F;
+            this.field_21089_a += (-((float) Math.atan2(var2, this.motionY)) * 180.0F / MathConstants.PI - this.field_21089_a) * 0.1F;
         } else {
-            this.field_21083_i = MathHelper.abs(MathHelper.sin(this.field_21085_g)) * 3.1415927F * 0.25F;
+            this.field_21083_i = MathHelper.abs(MathHelper.sin(this.field_21085_g)) * MathConstants.PI * 0.25F;
             if (!this.isMultiplayerEntity) {
                 this.motionX = 0.0D;
                 this.motionY -= 0.08D;
@@ -151,7 +152,7 @@ public class EntitySquid extends EntityWaterMob {
     @Override
     protected void updatePlayerActionState() {
         if (this.rand.nextInt(50) == 0 || !this.inWater || this.randomMotionVecX == 0.0F && this.randomMotionVecY == 0.0F && this.randomMotionVecZ == 0.0F) {
-            float var1 = this.rand.nextFloat() * 3.1415927F * 2.0F;
+            float var1 = this.rand.nextFloat() * MathConstants.PI * 2.0F;
             this.randomMotionVecX = MathHelper.cos(var1) * 0.2F;
             this.randomMotionVecY = -0.1F + this.rand.nextFloat() * 0.2F;
             this.randomMotionVecZ = MathHelper.sin(var1) * 0.2F;

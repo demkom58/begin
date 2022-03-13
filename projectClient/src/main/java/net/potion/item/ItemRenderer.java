@@ -1,6 +1,7 @@
 package net.potion.item;
 
 import net.hypnosis.render.Tessellator;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.potion.client.PotionClient;
 import net.potion.client.render.Render;
@@ -160,9 +161,9 @@ public class ItemRenderer {
             GL11.glPushMatrix();
             float var16 = 0.8F;
             float var23 = var3.getSwingProgress(var1);
-            float var31 = MathHelper.sin(var23 * 3.1415927F);
-            float var40 = MathHelper.sin(MathHelper.sqrt(var23) * 3.1415927F);
-            GL11.glTranslatef(-var40 * 0.4F, MathHelper.sin(MathHelper.sqrt(var23) * 3.1415927F * 2.0F) * 0.2F, -var31 * 0.2F);
+            float var31 = MathHelper.sin(var23 * MathConstants.PI);
+            float var40 = MathHelper.sin(MathHelper.sqrt(var23) * MathConstants.PI);
+            GL11.glTranslatef(-var40 * 0.4F, MathHelper.sin(MathHelper.sqrt(var23) * MathConstants.PI * 2.0F) * 0.2F, -var31 * 0.2F);
             var23 = 1.0F - var4 / 45.0F + 0.1F;
             if (var23 < 0.0F) {
                 var23 = 0.0F;
@@ -172,7 +173,7 @@ public class ItemRenderer {
                 var23 = 1.0F;
             }
 
-            var23 = -MathHelper.cos(var23 * 3.1415927F) * 0.5F + 0.5F;
+            var23 = -MathHelper.cos(var23 * MathConstants.PI) * 0.5F + 0.5F;
             GL11.glTranslatef(0.0F, 0.0F * var16 - (1.0F - var2) * 1.2F - var23 * 0.5F + 0.04F, -0.9F * var16);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(var23 * -85.0F, 0.0F, 0.0F, 1.0F);
@@ -196,8 +197,8 @@ public class ItemRenderer {
             }
 
             var31 = var3.getSwingProgress(var1);
-            var40 = MathHelper.sin(var31 * var31 * 3.1415927F);
-            float var44 = MathHelper.sin(MathHelper.sqrt(var31) * 3.1415927F);
+            var40 = MathHelper.sin(var31 * var31 * MathConstants.PI);
+            float var44 = MathHelper.sin(MathHelper.sqrt(var31) * MathConstants.PI);
             GL11.glRotatef(-var40 * 20.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-var44 * 20.0F, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(-var44 * 80.0F, 1.0F, 0.0F, 0.0F);
@@ -225,15 +226,15 @@ public class ItemRenderer {
             GL11.glPushMatrix();
             float var14 = 0.8F;
             float var17 = var3.getSwingProgress(var1);
-            float var26 = MathHelper.sin(var17 * 3.1415927F);
-            float var35 = MathHelper.sin(MathHelper.sqrt(var17) * 3.1415927F);
-            GL11.glTranslatef(-var35 * 0.4F, MathHelper.sin(MathHelper.sqrt(var17) * 3.1415927F * 2.0F) * 0.2F, -var26 * 0.2F);
+            float var26 = MathHelper.sin(var17 * MathConstants.PI);
+            float var35 = MathHelper.sin(MathHelper.sqrt(var17) * MathConstants.PI);
+            GL11.glTranslatef(-var35 * 0.4F, MathHelper.sin(MathHelper.sqrt(var17) * MathConstants.PI * 2.0F) * 0.2F, -var26 * 0.2F);
             GL11.glTranslatef(0.7F * var14, -0.65F * var14 - (1.0F - var2) * 0.6F, -0.9F * var14);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(GL15.GL_RESCALE_NORMAL);
             var17 = var3.getSwingProgress(var1);
-            var26 = MathHelper.sin(var17 * var17 * 3.1415927F);
-            var35 = MathHelper.sin(MathHelper.sqrt(var17) * 3.1415927F);
+            var26 = MathHelper.sin(var17 * var17 * MathConstants.PI);
+            var35 = MathHelper.sin(MathHelper.sqrt(var17) * MathConstants.PI);
             GL11.glRotatef(-var26 * 20.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-var35 * 20.0F, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(-var35 * 80.0F, 1.0F, 0.0F, 0.0F);
@@ -249,15 +250,15 @@ public class ItemRenderer {
             GL11.glPushMatrix();
             float var15 = 0.8F;
             float var20 = var3.getSwingProgress(var1);
-            float var28 = MathHelper.sin(var20 * 3.1415927F);
-            float var37 = MathHelper.sin(MathHelper.sqrt(var20) * 3.1415927F);
-            GL11.glTranslatef(-var37 * 0.3F, MathHelper.sin(MathHelper.sqrt(var20) * 3.1415927F * 2.0F) * 0.4F, -var28 * 0.4F);
+            float var28 = MathHelper.sin(var20 * MathConstants.PI);
+            float var37 = MathHelper.sin(MathHelper.sqrt(var20) * MathConstants.PI);
+            GL11.glTranslatef(-var37 * 0.3F, MathHelper.sin(MathHelper.sqrt(var20) * MathConstants.PI * 2.0F) * 0.4F, -var28 * 0.4F);
             GL11.glTranslatef(0.8F * var15, -0.75F * var15 - (1.0F - var2) * 0.6F, -0.9F * var15);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(GL15.GL_RESCALE_NORMAL);
             var20 = var3.getSwingProgress(var1);
-            var28 = MathHelper.sin(var20 * var20 * 3.1415927F);
-            var37 = MathHelper.sin(MathHelper.sqrt(var20) * 3.1415927F);
+            var28 = MathHelper.sin(var20 * var20 * MathConstants.PI);
+            var37 = MathHelper.sin(MathHelper.sqrt(var20) * MathConstants.PI);
             GL11.glRotatef(var37 * 70.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-var28 * 20.0F, 0.0F, 0.0F, 1.0F);
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.potion.renderEngine.getTextureForDownloadableImage(this.potion.thePlayer.skinUrl, this.potion.thePlayer.getEntityTexture()));

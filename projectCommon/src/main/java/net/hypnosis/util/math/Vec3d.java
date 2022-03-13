@@ -233,10 +233,10 @@ public class Vec3d {
     }
 
     public static Vec3d fromPolar(float pitch, float yaw) {
-        float f = MathHelper.cos(-yaw * 0.017453292F - 3.1415927F);
-        float g = MathHelper.sin(-yaw * 0.017453292F - 3.1415927F);
-        float h = -MathHelper.cos(-pitch * 0.017453292F);
-        float i = MathHelper.sin(-pitch * 0.017453292F);
+        float f = MathHelper.cos(-yaw * MathConstants.RADIANS_PER_DEGREE - MathConstants.PI);
+        float g = MathHelper.sin(-yaw * MathConstants.RADIANS_PER_DEGREE - MathConstants.PI);
+        float h = -MathHelper.cos(-pitch * MathConstants.RADIANS_PER_DEGREE);
+        float i = MathHelper.sin(-pitch * MathConstants.RADIANS_PER_DEGREE);
         return new Vec3d(g * h, i, f * h);
     }
 

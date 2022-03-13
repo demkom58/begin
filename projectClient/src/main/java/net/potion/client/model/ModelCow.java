@@ -1,5 +1,7 @@
 package net.potion.client.model;
 
+import net.hypnosis.util.math.MathConstants;
+
 public class ModelCow extends ModelQuadruped {
     ModelRenderer udders;
     ModelRenderer horn1;
@@ -19,7 +21,7 @@ public class ModelCow extends ModelQuadruped {
         this.udders = new ModelRenderer(52, 0);
         this.udders.addBox(-2.0F, -3.0F, 0.0F, 4, 6, 2, 0.0F);
         this.udders.setRotationPoint(0.0F, 14.0F, 6.0F);
-        this.udders.rotateAngleX = 1.5707964F;
+        this.udders.rotateAngleX = MathConstants.PI / 2f;
         this.body = new ModelRenderer(18, 4);
         this.body.addBox(-6.0F, -10.0F, -7.0F, 12, 18, 10, 0.0F);
         this.body.setRotationPoint(0.0F, 5.0F, 2.0F);

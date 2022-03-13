@@ -1,5 +1,6 @@
 package net.potion.world.gen;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
@@ -17,7 +18,7 @@ public class WorldGenMinable extends WorldGenerator {
 
     @Override
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
-        float var6 = var2.nextFloat() * 3.1415927F;
+        float var6 = var2.nextFloat() * MathConstants.PI;
         double var7 = (float) (var3 + 8) + MathHelper.sin(var6) * (float) this.numberOfBlocks / 8.0F;
         double var9 = (float) (var3 + 8) - MathHelper.sin(var6) * (float) this.numberOfBlocks / 8.0F;
         double var11 = (float) (var5 + 8) + MathHelper.cos(var6) * (float) this.numberOfBlocks / 8.0F;
@@ -30,8 +31,8 @@ public class WorldGenMinable extends WorldGenerator {
             double var22 = var15 + (var17 - var15) * (double) var19 / (double) this.numberOfBlocks;
             double var24 = var11 + (var13 - var11) * (double) var19 / (double) this.numberOfBlocks;
             double var26 = var2.nextDouble() * (double) this.numberOfBlocks / 16.0D;
-            double var28 = (double) (MathHelper.sin((float) var19 * 3.1415927F / (float) this.numberOfBlocks) + 1.0F) * var26 + 1.0D;
-            double var30 = (double) (MathHelper.sin((float) var19 * 3.1415927F / (float) this.numberOfBlocks) + 1.0F) * var26 + 1.0D;
+            double var28 = (double) (MathHelper.sin((float) var19 * MathConstants.PI / (float) this.numberOfBlocks) + 1.0F) * var26 + 1.0D;
+            double var30 = (double) (MathHelper.sin((float) var19 * MathConstants.PI / (float) this.numberOfBlocks) + 1.0F) * var26 + 1.0D;
             int var32 = MathHelper.floor(var20 - var28 / 2.0D);
             int var33 = MathHelper.floor(var22 - var30 / 2.0D);
             int var34 = MathHelper.floor(var24 - var28 / 2.0D);

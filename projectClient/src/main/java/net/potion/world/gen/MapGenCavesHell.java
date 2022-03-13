@@ -1,5 +1,6 @@
 package net.potion.world.gen;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
@@ -31,7 +32,7 @@ public class MapGenCavesHell extends MapGenBase {
         int var25 = var23.nextInt(var14 / 2) + var14 / 4;
 
         for (boolean var26 = var23.nextInt(6) == 0; var13 < var14; ++var13) {
-            double var27 = 1.5D + (double) (MathHelper.sin((float) var13 * 3.1415927F / (float) var14) * var10 * 1.0F);
+            double var27 = 1.5D + (double) (MathHelper.sin((float) var13 * MathConstants.PI / (float) var14) * var10 * 1.0F);
             double var29 = var27 * var15;
             float var31 = MathHelper.cos(var12);
             float var32 = MathHelper.sin(var12);
@@ -51,8 +52,8 @@ public class MapGenCavesHell extends MapGenBase {
             var22 = var22 + (var23.nextFloat() - var23.nextFloat()) * var23.nextFloat() * 2.0F;
             var21 = var21 + (var23.nextFloat() - var23.nextFloat()) * var23.nextFloat() * 4.0F;
             if (!var54 && var13 == var25 && var10 > 1.0F) {
-                this.func_4128_a(var1, var2, var3, var4, var6, var8, var23.nextFloat() * 0.5F + 0.5F, var11 - 1.5707964F, var12 / 3.0F, var13, var14, 1.0D);
-                this.func_4128_a(var1, var2, var3, var4, var6, var8, var23.nextFloat() * 0.5F + 0.5F, var11 + 1.5707964F, var12 / 3.0F, var13, var14, 1.0D);
+                this.func_4128_a(var1, var2, var3, var4, var6, var8, var23.nextFloat() * 0.5F + 0.5F, var11 - MathConstants.PI / 2f, var12 / 3.0F, var13, var14, 1.0D);
+                this.func_4128_a(var1, var2, var3, var4, var6, var8, var23.nextFloat() * 0.5F + 0.5F, var11 + MathConstants.PI / 2f, var12 / 3.0F, var13, var14, 1.0D);
                 return;
             }
 
@@ -165,7 +166,7 @@ public class MapGenCavesHell extends MapGenBase {
             }
 
             for (int var16 = 0; var16 < var15; ++var16) {
-                float var17 = this.rand.nextFloat() * 3.1415927F * 2.0F;
+                float var17 = this.rand.nextFloat() * MathConstants.PI * 2.0F;
                 float var18 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
                 float var19 = this.rand.nextFloat() * 2.0F + this.rand.nextFloat();
                 this.func_4128_a(var4, var5, var6, var9, var11, var13, var19 * 2.0F, var17, var18, 0, 0, 0.5D);

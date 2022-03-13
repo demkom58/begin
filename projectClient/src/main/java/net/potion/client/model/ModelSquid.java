@@ -12,14 +12,14 @@ public class ModelSquid extends ModelBase {
 
         for (int var2 = 0; var2 < this.squidTentacles.length; ++var2) {
             this.squidTentacles[var2] = new ModelRenderer(48, 0);
-            double var3 = (double) var2 * 3.141592653589793D * 2.0D / (double) this.squidTentacles.length;
+            double var3 = (double) var2 * Math.PI * 2.0D / (double) this.squidTentacles.length;
             float var5 = (float) Math.cos(var3) * 5.0F;
             float var6 = (float) Math.sin(var3) * 5.0F;
             this.squidTentacles[var2].addBox(-1.0F, 0.0F, -1.0F, 2, 18, 2);
             this.squidTentacles[var2].rotationPointX = var5;
             this.squidTentacles[var2].rotationPointZ = var6;
             this.squidTentacles[var2].rotationPointY = (float) (31 + var1);
-            var3 = (double) var2 * 3.141592653589793D * -2.0D / (double) this.squidTentacles.length + 1.5707963267948966D;
+            var3 = (double) var2 * Math.PI * -2.0D / (double) this.squidTentacles.length + 1.5707963267948966D;
             this.squidTentacles[var2].rotateAngleY = (float) var3;
         }
 

@@ -100,8 +100,8 @@ public final class Matrix3f {
 
     private static Pair<Float, Float> method_22848(float f, float g) {
         float h = (float)Math.hypot(f, g);
-        float i = h > 1.0E-6F ? g : 0.0F;
-        float j = Math.abs(f) + Math.max(h, 1.0E-6F);
+        float i = h > MathConstants.EPSILON ? g : 0.0F;
+        float j = Math.abs(f) + Math.max(h, MathConstants.EPSILON);
         float k;
         if (f < 0.0F) {
             k = i;
@@ -123,7 +123,7 @@ public final class Matrix3f {
         float f;
         float g;
         float h;
-        if (matrix.a01 * matrix.a01 + matrix.a10 * matrix.a10 > 1.0E-6F) {
+        if (matrix.a01 * matrix.a01 + matrix.a10 * matrix.a10 > MathConstants.EPSILON) {
             Vec2f pair = getSinAndCosOfRotation(matrix.a00, 0.5F * (matrix.a01 + matrix.a10), matrix.a11);
             float first = pair.first();
             float second = pair.second();
@@ -145,7 +145,7 @@ public final class Matrix3f {
             matrix.load(matrix3f);
         }
 
-        if (matrix.a02 * matrix.a02 + matrix.a20 * matrix.a20 > 1.0E-6F) {
+        if (matrix.a02 * matrix.a02 + matrix.a20 * matrix.a20 > MathConstants.EPSILON) {
             Vec2f pair = getSinAndCosOfRotation(matrix.a00, 0.5F * (matrix.a02 + matrix.a20), matrix.a22);
             float first = -(Float)pair.first();
             float second = pair.second();
@@ -166,7 +166,7 @@ public final class Matrix3f {
             matrix.load(matrix3f);
         }
 
-        if (matrix.a12 * matrix.a12 + matrix.a21 * matrix.a21 > 1.0E-6F) {
+        if (matrix.a12 * matrix.a12 + matrix.a21 * matrix.a21 > MathConstants.EPSILON) {
             Vec2f pair = getSinAndCosOfRotation(matrix.a11, 0.5F * (matrix.a12 + matrix.a21), matrix.a22);
             float first = pair.first();
             float second = pair.second();
@@ -503,7 +503,7 @@ public final class Matrix3f {
 
     public boolean invert() {
         float f = this.determinantAndAdjugate();
-        if (Math.abs(f) > 1.0E-6F) {
+        if (Math.abs(f) > MathConstants.EPSILON) {
             this.multiply(f);
             return true;
         } else {

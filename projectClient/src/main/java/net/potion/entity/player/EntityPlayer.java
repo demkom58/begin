@@ -1,5 +1,6 @@
 package net.potion.entity.player;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.achievement.AchievementList;
 import net.potion.block.Block;
 import net.potion.block.BlockBed;
@@ -280,8 +281,8 @@ public abstract class EntityPlayer extends EntityLiving {
 
         this.inventory.dropAllItems();
         if (var1 != null) {
-            this.motionX = -MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * 3.1415927F / 180.0F) * 0.1F;
-            this.motionZ = -MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * 3.1415927F / 180.0F) * 0.1F;
+            this.motionX = -MathHelper.cos((this.attackedAtYaw + this.rotationYaw) * MathConstants.PI / 180.0F) * 0.1F;
+            this.motionZ = -MathHelper.sin((this.attackedAtYaw + this.rotationYaw) * MathConstants.PI / 180.0F) * 0.1F;
         } else {
             this.motionX = this.motionZ = 0.0D;
         }
@@ -318,17 +319,17 @@ public abstract class EntityPlayer extends EntityLiving {
         float var4 = 0.1F;
         if (var2) {
             float var5 = this.rand.nextFloat() * 0.5F;
-            float var6 = this.rand.nextFloat() * 3.1415927F * 2.0F;
+            float var6 = this.rand.nextFloat() * MathConstants.PI * 2.0F;
             item.motionX = -MathHelper.sin(var6) * var5;
             item.motionZ = MathHelper.cos(var6) * var5;
             item.motionY = 0.20000000298023224D;
         } else {
             var4 = 0.3F;
-            item.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var4;
-            item.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var4;
-            item.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F) * var4 + 0.1F;
+            item.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * MathConstants.PI) * MathHelper.cos(this.rotationPitch / 180.0F * MathConstants.PI) * var4;
+            item.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * MathConstants.PI) * MathHelper.cos(this.rotationPitch / 180.0F * MathConstants.PI) * var4;
+            item.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * MathConstants.PI) * var4 + 0.1F;
             var4 = 0.02F;
-            float var10 = this.rand.nextFloat() * 3.1415927F * 2.0F;
+            float var10 = this.rand.nextFloat() * MathConstants.PI * 2.0F;
             var4 = var4 * this.rand.nextFloat();
             item.motionX += Math.cos(var10) * (double) var4;
             item.motionY += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F;

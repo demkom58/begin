@@ -4,6 +4,7 @@ import net.hypnosis.input.mouse.Mouse;
 import net.hypnosis.monitor.Window;
 import net.hypnosis.render.GLU;
 import net.hypnosis.render.Tessellator;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.potion.client.PotionClient;
 import net.potion.client.input.mouse.MouseFilter;
@@ -178,7 +179,7 @@ public class EntityRenderer {
 
         if (var3 >= 0.0F) {
             var3 = var3 / (float) var2.maxHurtTime;
-            var3 = MathHelper.sin(var3 * var3 * var3 * var3 * 3.1415927F);
+            var3 = MathHelper.sin(var3 * var3 * var3 * var3 * MathConstants.PI);
             float var7 = var2.attackedAtYaw;
             GL11.glRotatef(-var7, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-var3 * 14.0F, 0.0F, 0.0F, 1.0F);
@@ -193,9 +194,9 @@ public class EntityRenderer {
             float var4 = -(var2.distanceWalkedModified + var3 * var1);
             float var5 = var2.prevCameraYaw + (var2.cameraYaw - var2.prevCameraYaw) * var1;
             float var6 = var2.prevCameraPitch + (var2.cameraPitch - var2.prevCameraPitch) * var1;
-            GL11.glTranslatef(MathHelper.sin(var4 * 3.1415927F) * var5 * 0.5F, -Math.abs(MathHelper.cos(var4 * 3.1415927F) * var5), 0.0F);
-            GL11.glRotatef(MathHelper.sin(var4 * 3.1415927F) * var5 * 3.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glRotatef(Math.abs(MathHelper.cos(var4 * 3.1415927F - 0.2F) * var5) * 5.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glTranslatef(MathHelper.sin(var4 * MathConstants.PI) * var5 * 0.5F, -Math.abs(MathHelper.cos(var4 * MathConstants.PI) * var5), 0.0F);
+            GL11.glRotatef(MathHelper.sin(var4 * MathConstants.PI) * var5 * 3.0F, 0.0F, 0.0F, 1.0F);
+            GL11.glRotatef(Math.abs(MathHelper.cos(var4 * MathConstants.PI - 0.2F) * var5) * 5.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(var6, 1.0F, 0.0F, 0.0F);
         }
     }
@@ -232,9 +233,9 @@ public class EntityRenderer {
             } else {
                 float var32 = var2.rotationYaw;
                 float var33 = var2.rotationPitch;
-                double var14 = (double) (-MathHelper.sin(var32 / 180.0F * 3.1415927F) * MathHelper.cos(var33 / 180.0F * 3.1415927F)) * var30;
-                double var16 = (double) (MathHelper.cos(var32 / 180.0F * 3.1415927F) * MathHelper.cos(var33 / 180.0F * 3.1415927F)) * var30;
-                double var18 = (double) (-MathHelper.sin(var33 / 180.0F * 3.1415927F)) * var30;
+                double var14 = (double) (-MathHelper.sin(var32 / 180.0F * MathConstants.PI) * MathHelper.cos(var33 / 180.0F * MathConstants.PI)) * var30;
+                double var16 = (double) (MathHelper.cos(var32 / 180.0F * MathConstants.PI) * MathHelper.cos(var33 / 180.0F * MathConstants.PI)) * var30;
+                double var18 = (double) (-MathHelper.sin(var33 / 180.0F * MathConstants.PI)) * var30;
 
                 for (int var20 = 0; var20 < 8; ++var20) {
                     float var21 = (float) ((var20 & 1) * 2 - 1);

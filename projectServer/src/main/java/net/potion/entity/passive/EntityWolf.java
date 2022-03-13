@@ -1,5 +1,6 @@
 package net.potion.entity.passive;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityAnimal;
 import net.potion.entity.EntityLiving;
@@ -201,7 +202,7 @@ public class EntityWolf extends EntityAnimal {
 
             if (this.field_25041_h > 0.4F) {
                 float var1 = (float) this.boundingBox.minY;
-                int var2 = (int) (MathHelper.sin((this.field_25041_h - 0.4F) * 3.1415927F) * 7.0F);
+                int var2 = (int) (MathHelper.sin((this.field_25041_h - 0.4F) * MathConstants.PI) * 7.0F);
 
                 for (int var3 = 0; var3 < var2; ++var3) {
                     float var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;

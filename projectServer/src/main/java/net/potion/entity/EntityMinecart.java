@@ -457,7 +457,7 @@ public class EntityMinecart extends Entity implements IInventory {
             double var49 = this.prevPosX - this.posX;
             double var50 = this.prevPosZ - this.posZ;
             if (var49 * var49 + var50 * var50 > 0.001D) {
-                this.rotationYaw = (float) (Math.atan2(var50, var49) * 180.0D / 3.141592653589793D);
+                this.rotationYaw = (float) (Math.atan2(var50, var49) * 180.0D / Math.PI);
                 if (this.field_469_aj) {
                     this.rotationYaw += 180.0F;
                 }

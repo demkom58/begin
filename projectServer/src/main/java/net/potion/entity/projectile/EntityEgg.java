@@ -1,5 +1,6 @@
 package net.potion.entity.projectile;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityLiving;
 import net.potion.entity.passive.EntityChicken;
@@ -36,15 +37,15 @@ public class EntityEgg extends Entity {
         this.field_20083_aj = var2;
         this.setSize(0.25F, 0.25F);
         this.setLocationAndAngles(var2.posX, var2.posY + (double) var2.getEyeHeight(), var2.posZ, var2.rotationYaw, var2.rotationPitch);
-        this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F;
+        this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * MathConstants.PI) * 0.16F;
         this.posY -= 0.10000000149011612D;
-        this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * 0.16F;
+        this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * MathConstants.PI) * 0.16F;
         this.setPosition(this.posX, this.posY, this.posZ);
         this.yOffset = 0.0F;
         float var3 = 0.4F;
-        this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var3;
-        this.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * 3.1415927F) * MathHelper.cos(this.rotationPitch / 180.0F * 3.1415927F) * var3;
-        this.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * 3.1415927F) * var3;
+        this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * MathConstants.PI) * MathHelper.cos(this.rotationPitch / 180.0F * MathConstants.PI) * var3;
+        this.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * MathConstants.PI) * MathHelper.cos(this.rotationPitch / 180.0F * MathConstants.PI) * var3;
+        this.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * MathConstants.PI) * var3;
         this.func_20078_a(this.motionX, this.motionY, this.motionZ, 1.5F, 1.0F);
     }
 
@@ -75,8 +76,8 @@ public class EntityEgg extends Entity {
         this.motionY = var3;
         this.motionZ = var5;
         float var10 = MathHelper.sqrt(var1 * var1 + var5 * var5);
-        this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(var1, var5) * 180.0D / 3.1415927410125732D);
-        this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, var10) * 180.0D / 3.1415927410125732D);
+        this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(var1, var5) * 180.0D / Math.PI);
+        this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(var3, var10) * 180.0D / Math.PI);
         this.field_20081_ak = 0;
     }
 
@@ -174,9 +175,9 @@ public class EntityEgg extends Entity {
         this.posY += this.motionY;
         this.posZ += this.motionZ;
         float var20 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-        this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.1415927410125732D);
+        this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 
-        for (this.rotationPitch = (float) (Math.atan2(this.motionY, var20) * 180.0D / 3.1415927410125732D); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+        for (this.rotationPitch = (float) (Math.atan2(this.motionY, var20) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
         }
 
         while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {

@@ -1,5 +1,6 @@
 package net.potion.client.gui;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.stats.StatCollector;
 import net.potion.stats.StatList;
 import net.hypnosis.util.math.MathHelper;
@@ -67,7 +68,7 @@ public class GuiIngameMenu extends GuiScreen {
         boolean var4 = !this.potion.theWorld.func_650_a(this.updateCounter2++);
         if (var4 || this.updateCounter < 20) {
             float var5 = ((float) (this.updateCounter % 10) + partialTicks) / 10.0F;
-            var5 = MathHelper.sin(var5 * 3.1415927F * 2.0F) * 0.2F + 0.8F;
+            var5 = MathHelper.sin(var5 * MathConstants.PI * 2.0F) * 0.2F + 0.8F;
             int var6 = (int) (255.0F * var5);
             this.drawString(this.fontRenderer, "Saving level..", 8, this.height - 16, var6 << 16 | var6 << 8 | var6);
         }

@@ -224,7 +224,7 @@ public class GuiAchievements extends GuiScreen {
                 int var18 = 0;
                 boolean var19 = this.statFileWriter.hasAchievementUnlocked(achievement);
                 boolean var20 = this.statFileWriter.func_27181_b(achievement);
-                int var52 = Math.sin((double) (System.currentTimeMillis() % 600L) / 600.0D * 3.141592653589793D * 2.0D) > 0.6D ? 255 : 130;
+                int var52 = Math.sin((double) (System.currentTimeMillis() % 600L) / 600.0D * Math.PI * 2.0D) > 0.6D ? 255 : 130;
                 if (var19) {
                     var18 = -9408400;
                 } else if (var20) {
@@ -257,7 +257,7 @@ public class GuiAchievements extends GuiScreen {
                     float var41 = 1.0F;
                     GL11.glColor4f(var41, var41, var41, 1.0F);
                 } else if (this.statFileWriter.func_27181_b(var34)) {
-                    float var42 = Math.sin((double) (System.currentTimeMillis() % 600L) / 600.0D * 3.141592653589793D * 2.0D) < 0.6D ? 0.6F : 0.8F;
+                    float var42 = Math.sin((double) (System.currentTimeMillis() % 600L) / 600.0D * Math.PI * 2.0D) < 0.6D ? 0.6F : 0.8F;
                     GL11.glColor4f(var42, var42, var42, 1.0F);
                 } else {
                     float var43 = 0.3F;

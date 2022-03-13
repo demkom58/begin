@@ -1,5 +1,6 @@
 package net.potion.entity;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.entity.ai.PathEntity;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
@@ -69,7 +70,7 @@ public class EntityCreature extends EntityLiving {
                 double var8 = var5.x - this.posX;
                 double var10 = var5.z - this.posZ;
                 double var12 = var5.y - (double) var21;
-                float var14 = (float) (Math.atan2(var10, var8) * 180.0D / 3.1415927410125732D) - 90.0F;
+                float var14 = (float) (Math.atan2(var10, var8) * 180.0D / Math.PI) - 90.0F;
                 float var15 = var14 - this.rotationYaw;
 
                 for (this.moveForward = this.moveSpeed; var15 < -180.0F; var15 += 360.0F) {
@@ -92,8 +93,8 @@ public class EntityCreature extends EntityLiving {
                     double var16 = this.playerToAttack.posX - this.posX;
                     double var18 = this.playerToAttack.posZ - this.posZ;
                     float var20 = this.rotationYaw;
-                    this.rotationYaw = (float) (Math.atan2(var18, var16) * 180.0D / 3.1415927410125732D) - 90.0F;
-                    var15 = (var20 - this.rotationYaw + 90.0F) * 3.1415927F / 180.0F;
+                    this.rotationYaw = (float) (Math.atan2(var18, var16) * 180.0D / Math.PI) - 90.0F;
+                    var15 = (var20 - this.rotationYaw + 90.0F) * MathConstants.PI / 180.0F;
                     this.moveStrafing = -MathHelper.sin(var15) * this.moveForward * 1.0F;
                     this.moveForward = MathHelper.cos(var15) * this.moveForward * 1.0F;
                 }
