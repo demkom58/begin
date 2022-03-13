@@ -1,19 +1,18 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-application.mainClassName = "net.minecraft.client.Minecraft"
+application.mainClassName = "net.potion.client.Starter"
 
-project.ext.lwjglVersion = "3.3.0-SNAPSHOT"
-project.ext.lwjglNatives = "natives-windows"
+project.ext.lwjglVersion = "3.2.2"
+project.ext.lwjglNatives = "natives-linux"
 
 dependencies {
 	implementation project(":projectCommon")
 
-    implementation group: 'com.github.cliftonlabs', name: 'json-simple', version: '4.0.0'
-
-    implementation group: 'org.lwjgl', name: 'lwjgl', version: "${lwjglVersion}"
-    implementation group: 'org.lwjgl', name: 'lwjgl-glfw', version: "${lwjglVersion}"
-    implementation group: 'org.lwjgl', name: 'lwjgl-openal', version: "${lwjglVersion}"
-    implementation group: 'org.lwjgl', name: 'lwjgl-opengl', version: "${lwjglVersion}"
-    implementation group: 'org.lwjgl', name: 'lwjgl-stb', version: "${lwjglVersion}"
+    implementation fileTree(dir: "$rootDir/jars/libraries/", includes: ['*.jar'])
+//    implementation group: 'org.lwjgl', name: 'lwjgl', version: "${lwjglVersion}"
+//    implementation group: 'org.lwjgl', name: 'lwjgl-glfw', version: "${lwjglVersion}"
+//    implementation group: 'org.lwjgl', name: 'lwjgl-openal', version: "${lwjglVersion}"
+//    implementation group: 'org.lwjgl', name: 'lwjgl-opengl', version: "${lwjglVersion}"
+//    implementation group: 'org.lwjgl', name: 'lwjgl-stb', version: "${lwjglVersion}"
 }
