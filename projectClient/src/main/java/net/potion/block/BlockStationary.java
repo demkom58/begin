@@ -57,6 +57,6 @@ public class BlockStationary extends BlockFluid {
     }
 
     private boolean func_301_k(World var1, int var2, int var3, int var4) {
-        return var1.getBlockMaterial(var2, var3, var4).getBurning();
+        return var1.getBlockMaterial(var2, var3, var4).isBurning();
     }
 }

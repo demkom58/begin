@@ -1416,7 +1416,7 @@ public class World implements IBlockAccess {
         if (block == null) {
             return false;
         } else {
-            return block.blockMaterial.getIsOpaque() && block.isACube();
+            return block.blockMaterial.isTranslucent() && block.isACube();
         }
     }
 

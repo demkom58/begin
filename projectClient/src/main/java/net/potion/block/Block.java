@@ -194,7 +194,7 @@ public class Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         OPAQUE_CUBE_LOOKUP[id] = this.isOpaqueCube();
         LIGHT_OPACITY[id] = this.isOpaqueCube() ? 255 : 0;
-        CAN_BLOCK_GRASS[id] = !material.getCanBlockGrass();
+        CAN_BLOCK_GRASS[id] = !material.canBlockGrass();
         IS_BLOCK_CONTAINER[id] = false;
     }
 
@@ -518,7 +518,7 @@ public class Block {
 
     public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         int blockId = world.getBlockId(x, y, z);
-        return blockId == 0 || BLOCKS_LIST[blockId].blockMaterial.getIsGroundCover();
+        return blockId == 0 || BLOCKS_LIST[blockId].blockMaterial.isGroundCover();
     }
 
     public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {

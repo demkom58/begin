@@ -1594,7 +1594,7 @@ public class World implements IBlockAccess {
         if (block == null)
             return false;
 
-        return block.blockMaterial.getIsTranslucent() && block.renderAsNormalBlock();
+        return block.blockMaterial.isTranslucent() && block.renderAsNormalBlock();
     }
 
     public void saveWorldIndirectly(IProgressUpdatable progressUpdatable) {

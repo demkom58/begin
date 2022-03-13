@@ -58,7 +58,7 @@ public class BlockPumpkin extends Block {
     @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         int var5 = world.getBlockId(x, y, z);
-        return (var5 == 0 || Block.BLOCKS_LIST[var5].blockMaterial.getIsGroundCover()) && world.isBlockNormalCube(x, y - 1, z);
+        return (var5 == 0 || Block.BLOCKS_LIST[var5].blockMaterial.isGroundCover()) && world.isBlockNormalCube(x, y - 1, z);
     }
 
     @Override

@@ -195,7 +195,7 @@ public class Block {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         OPAQUE_CUBE_LOOKUP[id] = this.isOpaqueCube();
         LIGHT_OPACITY[id] = this.isOpaqueCube() ? 255 : 0;
-        CAN_BLOCK_GRASS[id] = !material.getCanBlockGrass();
+        CAN_BLOCK_GRASS[id] = !material.canBlockGrass();
         IS_BLOCK_CONTAINER[id] = false;
     }
 

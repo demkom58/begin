@@ -1,8 +1,9 @@
 package net.potion.material;
 
-public class MaterialLogic extends Material {
-    public MaterialLogic(MapColor var1) {
-        super(var1);
+public class MaterialTransparent extends Material {
+    public MaterialTransparent(MapColor color) {
+        super(color);
+        this.setGroundCover();
     }
 
     @Override
@@ -11,7 +12,7 @@ public class MaterialLogic extends Material {
     }
 
     @Override
-    public boolean getCanBlockGrass() {
+    public boolean canBlockGrass() {
         return false;
     }
 

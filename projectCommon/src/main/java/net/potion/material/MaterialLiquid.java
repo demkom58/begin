@@ -1,8 +1,8 @@
 package net.potion.material;
 
 public class MaterialLiquid extends Material {
-    public MaterialLiquid(MapColor var1) {
-        super(var1);
+    public MaterialLiquid(MapColor color) {
+        super(color);
         this.setGroundCover();
         this.setNoPushMobility();
     }
