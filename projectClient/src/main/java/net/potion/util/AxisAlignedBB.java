@@ -278,8 +278,9 @@ public class AxisAlignedBB {
         }
 
         Vec3d var9 = null;
-        if (var3 != null && (var9 == null || vec1.squaredDistanceTo(var3) < vec1.squaredDistanceTo(var9)))
+        if (var3 != null) {
             var9 = var3;
+        }
 
         if (var4 != null && (var9 == null || vec1.squaredDistanceTo(var4) < vec1.squaredDistanceTo(var9)))
             var9 = var4;
