@@ -2,6 +2,7 @@ package net.potion.entity;
 
 import com.demkom58.timings.PotionTimings;
 import com.demkom58.timings.Timing;
+import net.hypnosis.entity.Rotatable;
 import net.potion.block.Block;
 import net.potion.block.BlockFluid;
 import net.potion.block.StepSound;
@@ -21,8 +22,11 @@ import net.hypnosis.util.math.Vec3d;
 
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
-public abstract class Entity {
+public abstract class Entity implements Rotatable {
+    private static final Logger LOGGER = Logger.getLogger(Entity.class.getName());
+
     public Timing tickTimer = PotionTimings.getEntityTimings(this);
     private static int nextEntityID = 0;
     public final AxisAlignedBB boundingBox;
@@ -153,9 +157,81 @@ public abstract class Entity {
         this.height = height;
     }
 
-    protected void setRotation(float yaw, float pitch) {
-        this.rotationYaw = yaw % 360.0F;
-        this.rotationPitch = pitch % 360.0F;
+    @Override
+    public double getX() {
+        return posX;
+    }
+
+    @Override
+    public double getY() {
+        return posY;
+    }
+
+    @Override
+    public double getZ() {
+        return posZ;
+    }
+
+    @Override
+    public void setRotation(float yaw, float pitch) {
+        setYaw(yaw % 360.0F);
+        setPitch(pitch % 360.0F);
+    }
+
+    @Override
+    public float getYaw() {
+        return rotationYaw;
+    }
+
+    @Override
+    public void setYaw(float yaw) {
+        if (!Float.isFinite(yaw)) {
+            LOGGER.severe("Invalid entity rotation: " + yaw + ", discarding.");
+        } else {
+            this.rotationYaw = yaw;
+        }
+    }
+
+    @Override
+    public float getPitch() {
+        return rotationPitch;
+    }
+
+    @Override
+    public void setPitch(float pitch) {
+        if (!Float.isFinite(pitch)) {
+            LOGGER.severe("Invalid entity rotation: " + pitch + ", discarding.");
+        } else {
+            this.rotationPitch = pitch;
+        }
+    }
+
+    @Override
+    public final Vec3d getRotationVec(float tickDelta) {
+        return this.getRotationVector(this.getPitch(tickDelta), this.getYaw(tickDelta));
+    }
+
+    @Override
+    public float getPitch(float tickDelta) {
+        return tickDelta == 1.0F ? this.getPitch() : MathHelper.lerp(tickDelta, this.prevRotationPitch, this.getPitch());
+    }
+
+    @Override
+    public float getYaw(float tickDelta) {
+        return tickDelta == 1.0F ? this.getYaw() : MathHelper.lerp(tickDelta, this.prevRotationYaw, this.getYaw());
+    }
+
+    protected final Vec3d getRotationVector(float pitch, float yaw) {
+        float p = pitch * 0.017453292F;
+        float y = -yaw * 0.017453292F;
+
+        float cYaw = MathHelper.cos(y);
+        float sYaw = MathHelper.sin(y);
+
+        float cosPitch = MathHelper.cos(p);
+        float sinPitch = MathHelper.sin(p);
+
+        return new Vec3d(sYaw * cosPitch, -sinPitch, cYaw * cosPitch);
     }
 
     public void setPosition(double x, double y, double z) {
