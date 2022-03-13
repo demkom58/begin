@@ -7,7 +7,7 @@ import net.potion.entity.item.EntityItem;
 import net.potion.network.NetClientHandler;
 import net.potion.network.packet.*;
 import net.potion.stats.StatBase;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityClientPlayerMP extends EntityPlayerSP {

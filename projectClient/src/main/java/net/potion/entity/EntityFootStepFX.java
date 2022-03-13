@@ -2,7 +2,7 @@ package net.potion.entity;
 
 import net.hypnosis.render.Tessellator;
 import net.potion.client.render.RenderEngine;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import org.lwjgl.opengl.GL11;
 

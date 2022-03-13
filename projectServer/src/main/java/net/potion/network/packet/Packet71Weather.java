@@ -3,7 +3,7 @@ package net.potion.network.packet;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityLightningBolt;
 import net.potion.network.NetHandler;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

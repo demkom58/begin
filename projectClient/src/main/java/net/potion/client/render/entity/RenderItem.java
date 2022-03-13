@@ -9,7 +9,7 @@ import net.potion.entity.Entity;
 import net.potion.entity.item.EntityItem;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 

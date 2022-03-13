@@ -13,7 +13,7 @@ import net.potion.inventory.InventoryPlayer;
 import net.potion.item.ItemStack;
 import net.potion.material.Material;
 import net.potion.util.CommonUtil;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.StringTranslate;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;

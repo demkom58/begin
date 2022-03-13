@@ -7,7 +7,7 @@ import net.potion.client.model.ModelBiped;
 import net.potion.client.render.entity.RenderBlocks;
 import net.potion.entity.Entity;
 import net.potion.util.AxisAlignedBB;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import org.lwjgl.opengl.GL11;
 

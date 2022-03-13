@@ -4,7 +4,7 @@ import net.potion.block.Block;
 import net.potion.world.chunk.ChunkProviderHell;
 import net.potion.world.chunk.IChunkProvider;
 import net.potion.world.gen.BiomeGenBase;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 public class WorldProviderHell extends WorldProvider {
     @Override
@@ -17,8 +17,8 @@ public class WorldProviderHell extends WorldProvider {
     }
 
     @Override
-    public Vector3d func_4096_a(float var1, float var2) {
-        return new Vector3d(0.20000000298023224D, 0.029999999329447746D, 0.029999999329447746D);
+    public Vec3d func_4096_a(float var1, float var2) {
+        return new Vec3d(0.20000000298023224D, 0.029999999329447746D, 0.029999999329447746D);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package net.potion.world;
 
+import net.hypnosis.util.math.MathHelper;
 import net.potion.block.Block;
 import net.potion.block.BlockFluid;
 import net.potion.block.EnumSkyBlock;
@@ -18,7 +19,7 @@ import net.potion.world.chunk.*;
 import net.potion.world.gen.BiomeGenBase;
 import net.potion.world.storage.ISaveHandler;
 import net.potion.world.storage.MapStorage;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 import java.util.*;
 
@@ -51,22 +52,22 @@ public class World implements IBlockAccess {
     protected List<IWorldAccess> worldAccesses;
     protected IChunkProvider chunkProvider;
     protected WorldInfo worldInfo;
-    private List<MetadataChunkBlock> lightingToUpdate;
-    private List<Entity> unloadedEntityList;
-    private TreeSet<NextTickListEntry> scheduledTickTreeSet;
-    private Set<NextTickListEntry> scheduledTickSet;
-    private List<TileEntity> field_30900_E;
-    private long cloudColor;
+    private final List<MetadataChunkBlock> lightingToUpdate;
+    private final List<Entity> unloadedEntityList;
+    private final TreeSet<NextTickListEntry> scheduledTickTreeSet;
+    private final Set<NextTickListEntry> scheduledTickSet;
+    private final List<TileEntity> field_30900_E;
+    private final long cloudColor;
     private long lockTimestamp;
     private boolean allPlayersSleeping;
-    private ArrayList<AxisAlignedBB> collidingBoundingBoxes;
+    private final ArrayList<AxisAlignedBB> collidingBoundingBoxes;
     private boolean field_31055_L;
     private int lightingUpdatesCounter;
     private boolean spawnHostileMobs;
     private boolean spawnPeacefulMobs;
-    private Set<ChunkCoordIntPair> activeChunkSet;
+    private final Set<ChunkCoordIntPair> activeChunkSet;
     private int soundCounter;
-    private List<Entity> entities;
+    private final List<Entity> entities;
 
     public World(ISaveHandler saveHandler, String levelName, WorldProvider var3, long var4) {
         this.scheduledUpdatesAreImmediate = false;
@@ -714,15 +715,15 @@ public class World implements IBlockAccess {
         return this.skylightSubtracted < 4;
     }
 
-    public MovingObjectPosition rayTraceBlocks(Vector3d var1, Vector3d var2) {
+    public MovingObjectPosition rayTraceBlocks(Vec3d var1, Vec3d var2) {
         return this.rayTraceBlocks(var1, var2, false, false);
     }
 
-    public MovingObjectPosition rayTraceBlocks(Vector3d var1, Vector3d var2, boolean var3) {
+    public MovingObjectPosition rayTraceBlocks(Vec3d var1, Vec3d var2, boolean var3) {
         return this.rayTraceBlocks(var1, var2, var3, false);
     }
 
-    public MovingObjectPosition rayTraceBlocks(Vector3d vec1, Vector3d vec2, boolean paramBoolean, boolean paramBoolean2) {
+    public MovingObjectPosition rayTraceBlocks(Vec3d vec1, Vec3d vec2, boolean paramBoolean, boolean paramBoolean2) {
         if (Double.isNaN(vec1.x) || Double.isNaN(vec1.y) || Double.isNaN(vec1.z))
             return null;
 
@@ -790,67 +791,70 @@ public class World implements IBlockAccess {
             double var21 = 999.0D;
             double var23 = 999.0D;
             double var25 = 999.0D;
-            double difX = vec2.x - vec1.x;
-            double difY = vec2.y - vec1.y;
-            double difZ = vec2.z - vec1.z;
+
+
+            double x = vec1.x;
+            double y = vec1.y;
+            double z = vec1.z;
+
+            double difX = vec2.x - x;
+            double difY = vec2.y - y;
+            double difZ = vec2.z - z;
 
             if (blockMetadata != 0)
-                var21 = (d1 - vec1.x) / difX;
+                var21 = (d1 - x) / difX;
 
             if (i4 != 0)
-                var23 = (d2 - vec1.y) / difY;
+                var23 = (d2 - y) / difY;
 
             if (i5 != 0)
-                var25 = (d3 - vec1.z) / difZ;
+                var25 = (d3 - z) / difZ;
 
 
             byte var33 = 0;
+
             if (var21 < var23 && var21 < var25) {
                 if (x2 > x1) {
                     var33 = 4;
                 } else var33 = 5;
 
 
-                vec1.x = d1;
-                vec1.y += difY * var21;
-                vec1.z += difZ * var21;
+                x = d1;
+                y += difY * var21;
+                z += difZ * var21;
             } else if (var23 < var25) {
                 if (y2 > y1) {
                     var33 = 0;
                 } else var33 = 1;
 
 
-                vec1.x += difX * var23;
-                vec1.y = d2;
-                vec1.z += difZ * var23;
+                x += difX * var23;
+                y = d2;
+                z += difZ * var23;
             } else {
                 if (z2 > z1) {
                     var33 = 2;
                 } else var33 = 3;
 
 
-                vec1.x += difX * var25;
-                vec1.y += difY * var25;
-                vec1.z = d3;
+                x += difX * var25;
+                y += difY * var25;
+                z = d3;
             }
 
-            Vector3d var34 = new Vector3d(vec1.x, vec1.y, vec1.z);
-            x1 = (int) (var34.x = MathHelper.floor(vec1.x));
+            x1 = MathHelper.floor(x);
             if (var33 == 5) {
                 --x1;
-                ++var34.x;
             }
 
-            y1 = (int) (var34.y = MathHelper.floor(vec1.y));
+            y1 = MathHelper.floor(y);
             if (var33 == 1) {
                 --y1;
-                ++var34.y;
             }
 
-            z1 = (int) (var34.z = MathHelper.floor(vec1.z));
+            z1 = MathHelper.floor(z);
             if (var33 == 3) {
                 --z1;
-                ++var34.z;
             }
 
             int blockId1 = this.getBlockId(x1, y1, z1);
@@ -868,7 +872,6 @@ public class World implements IBlockAccess {
         }
 
         return null;
-
     }
 
     public void playSoundAtEntity(Entity entity, String soundName, float volume, float pitch) {
@@ -899,10 +902,7 @@ public class World implements IBlockAccess {
     public boolean entityJoinedWorld(Entity entity) {
         int chunkX = MathHelper.floor(entity.posX / 16.0D);
         int chunkZ = MathHelper.floor(entity.posZ / 16.0D);
-        boolean isPlayer = false;
-
-        if (entity instanceof EntityPlayer)
-            isPlayer = true;
+        boolean isPlayer = entity instanceof EntityPlayer;
 
         if (!isPlayer && !this.chunkExists(chunkX, chunkZ))
             return false;
@@ -940,7 +940,6 @@ public class World implements IBlockAccess {
             this.playerEntities.remove(entity);
             this.updateAllPlayersSleepingFlag();
         }
-
     }
 
     public void addWorldAccess(IWorldAccess worldAccess) {
@@ -1006,7 +1005,7 @@ public class World implements IBlockAccess {
         return (int) (var3 * 11.0F);
     }
 
-    public Vector3d func_4079_a(Entity entity, float angle) {
+    public Vec3d func_4079_a(Entity entity, float angle) {
         float celAngle = this.getCelestialAngle(angle);
         float celCos = MathHelper.cos(celAngle * Math.PI * 2.0F) * 2.0F + 0.5F;
 
@@ -1056,14 +1055,14 @@ public class World implements IBlockAccess {
             b *= (1.0F - var21) + 1.0F * var21;
         }
 
-        return new Vector3d(r, g, b);
+        return new Vec3d(r, g, b);
     }
 
     public float getCelestialAngle(float var1) {
         return this.worldProvider.calculateCelestialAngle(this.worldInfo.getWorldTime(), var1);
     }
 
-    public Vector3d cloudColor(float partialTicks) {
+    public Vec3d cloudColor(float partialTicks) {
         float celAngle = this.getCelestialAngle(partialTicks);
         float celCos = MathHelper.cos(celAngle * Math.PI * 2.0F) * 2.0F + 0.5F;
 
@@ -1099,10 +1098,10 @@ public class World implements IBlockAccess {
             b *= var10 + var15 * (1.0F - var10);
         }
 
-        return new Vector3d(r, g, b);
+        return new Vec3d(r, g, b);
     }
 
-    public Vector3d getFogColor(float var1) {
+    public Vec3d getFogColor(float var1) {
         float celestialAngle = this.getCelestialAngle(var1);
         return this.worldProvider.func_4096_a(celestialAngle, var1);
     }
@@ -1392,7 +1391,7 @@ public class World implements IBlockAccess {
             return false;
 
         boolean handled = false;
-        Vector3d vec = new Vector3d(0.0D, 0.0D, 0.0D);
+        Vec3d vec = new Vec3d(0.0D, 0.0D, 0.0D);
 
         for (int x = minX; x < maxX; ++x) {
             for (int y = minY; y < maxY; ++y) {
@@ -1402,7 +1401,7 @@ public class World implements IBlockAccess {
                         double percentAir = (float) (y + 1) - BlockFluid.getPercentAir(this.getBlockMetadata(x, y, z));
                         if ((double) maxY >= percentAir) {
                             handled = true;
-                            block.velocityToAddToEntity(this, x, y, z, entity, vec);
+                            vec = block.velocityToAddToEntity(this, x, y, z, entity, vec);
                         }
                     }
                 }
@@ -1410,7 +1409,7 @@ public class World implements IBlockAccess {
         }
 
         if (vec.length() > 0.0D) {
-            vec = MathHelper.normalizeOrZero(new Vector3d(vec));
+            vec = MathHelper.normalizeOrZero(vec);
             double var19 = 0.014D;
             entity.motionX += vec.x * var19;
             entity.motionY += vec.y * var19;
@@ -1481,7 +1480,7 @@ public class World implements IBlockAccess {
         return explosion;
     }
 
-    public float func_675_a(Vector3d var1, AxisAlignedBB var2) {
+    public float func_675_a(Vec3d var1, AxisAlignedBB var2) {
         double var3 = 1.0D / ((var2.maxX - var2.minX) * 2.0D + 1.0D);
         double var5 = 1.0D / ((var2.maxY - var2.minY) * 2.0D + 1.0D);
         double var7 = 1.0D / ((var2.maxZ - var2.minZ) * 2.0D + 1.0D);
@@ -1494,7 +1493,7 @@ public class World implements IBlockAccess {
                     double var14 = var2.minX + (var2.maxX - var2.minX) * (double) var11;
                     double var16 = var2.minY + (var2.maxY - var2.minY) * (double) var12;
                     double var18 = var2.minZ + (var2.maxZ - var2.minZ) * (double) var13;
-                    if (this.rayTraceBlocks(new Vector3d(var14, var16, var18), var1) == null)
+                    if (this.rayTraceBlocks(new Vec3d(var14, var16, var18), var1) == null)
                         ++var9;
 
                     ++var10;

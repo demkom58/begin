@@ -31,7 +31,7 @@ import net.potion.tileentity.TileEntityDispenser;
 import net.potion.tileentity.TileEntityFurnace;
 import net.potion.tileentity.TileEntitySign;
 import net.potion.util.AxisAlignedBB;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import net.potion.world.chunk.ChunkCoordinates;
 import net.potion.world.chunk.IChunkProvider;

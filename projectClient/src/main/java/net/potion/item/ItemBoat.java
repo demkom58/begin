@@ -4,10 +4,10 @@ import net.potion.block.Block;
 import net.potion.entity.item.EntityBoat;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.util.EnumMovingObjectType;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.World;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 public class ItemBoat extends Item {
     public ItemBoat(int var1) {
@@ -23,7 +23,7 @@ public class ItemBoat extends Item {
         double var7 = var3.prevPosX + (var3.posX - var3.prevPosX) * (double) var4;
         double var9 = var3.prevPosY + (var3.posY - var3.prevPosY) * (double) var4 + 1.62D - (double) var3.yOffset;
         double var11 = var3.prevPosZ + (var3.posZ - var3.prevPosZ) * (double) var4;
-        Vector3d var13 = new Vector3d(var7, var9, var11);
+        Vec3d var13 = new Vec3d(var7, var9, var11);
         float var14 = MathHelper.cos(-var6 * 0.017453292F - 3.1415927F);
         float var15 = MathHelper.sin(-var6 * 0.017453292F - 3.1415927F);
         float var16 = -MathHelper.cos(-var5 * 0.017453292F);
@@ -31,7 +31,7 @@ public class ItemBoat extends Item {
         float var18 = var15 * var16;
         float var20 = var14 * var16;
         double var21 = 5.0D;
-        Vector3d var23 = new Vector3d(var13).add((double) var18 * var21, (double) var17 * var21, (double) var20 * var21);
+        Vec3d var23 = new Vec3d(var13).add((double) var18 * var21, (double) var17 * var21, (double) var20 * var21);
         MovingObjectPosition var24 = var2.rayTraceBlocks(var13, var23, true);
         if (var24 == null) {
             return var1;

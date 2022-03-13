@@ -2,7 +2,7 @@ package net.potion.block;
 
 import net.potion.entity.EntityLiving;
 import net.potion.material.Material;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class BlockPumpkin extends Block {

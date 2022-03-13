@@ -5,7 +5,7 @@ import net.potion.client.render.Render;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityPainting;
 import net.potion.entity.EnumArt;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 

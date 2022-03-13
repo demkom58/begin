@@ -7,7 +7,7 @@ import net.potion.item.ItemStack;
 import net.potion.material.Material;
 import net.potion.tileentity.TileEntity;
 import net.potion.tileentity.TileEntityFurnace;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
 

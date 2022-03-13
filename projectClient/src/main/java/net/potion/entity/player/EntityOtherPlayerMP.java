@@ -2,7 +2,7 @@ package net.potion.entity.player;
 
 import net.potion.entity.Entity;
 import net.potion.item.ItemStack;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityOtherPlayerMP extends EntityPlayer {

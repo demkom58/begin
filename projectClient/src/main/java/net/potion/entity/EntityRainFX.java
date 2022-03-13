@@ -3,7 +3,7 @@ package net.potion.entity;
 import net.hypnosis.render.Tessellator;
 import net.potion.block.BlockFluid;
 import net.potion.material.Material;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityRainFX extends EntityFX {

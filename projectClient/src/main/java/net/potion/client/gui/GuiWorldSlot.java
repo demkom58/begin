@@ -2,7 +2,7 @@ package net.potion.client.gui;
 
 import net.hypnosis.render.Tessellator;
 import net.potion.client.render.FontRenderer;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.storage.SaveFormatData;
 
 import java.util.Date;

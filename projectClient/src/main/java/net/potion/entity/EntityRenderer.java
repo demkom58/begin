@@ -13,13 +13,13 @@ import net.potion.entity.player.PlayerControllerTest;
 import net.potion.item.ItemRenderer;
 import net.potion.material.Material;
 import net.potion.util.AxisAlignedBB;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.World;
 import net.potion.world.chunk.ChunkProviderLoadOrGenerate;
 import net.potion.world.chunk.IChunkProvider;
 import net.potion.world.gen.BiomeGenBase;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 import org.lwjgl.opengl.ARBVertexBlend;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
@@ -101,9 +101,9 @@ public class EntityRenderer {
                 double var2 = this.potion.playerController.getBlockReachDistance();
                 this.potion.objectMouseOver = this.potion.renderViewEntity.rayTrace(var2, partialTicks);
                 double var4 = var2;
-                Vector3d var6 = this.potion.renderViewEntity.getPosition(partialTicks);
+                Vec3d var6 = this.potion.renderViewEntity.getPosition(partialTicks);
                 if (this.potion.objectMouseOver != null) {
-                    var4 = this.potion.objectMouseOver.hitVec.distance(var6);
+                    var4 = this.potion.objectMouseOver.hitVec.distanceTo(var6);
                 }
 
                 if (this.potion.playerController instanceof PlayerControllerTest) {
@@ -117,8 +117,8 @@ public class EntityRenderer {
                     var2 = var4;
                 }
 
-                Vector3d var7 = this.potion.renderViewEntity.getLook(partialTicks);
-                Vector3d var8 = new Vector3d(var6).add(var7.x * var2, var7.y * var2, var7.z * var2);
+                Vec3d var7 = this.potion.renderViewEntity.getLook(partialTicks);
+                Vec3d var8 = new Vec3d(var6).add(var7.x * var2, var7.y * var2, var7.z * var2);
                 this.pointedEntity = null;
                 float var9 = 1.0F;
                 List var10 = this.potion.theWorld.getEntitiesWithinAABBExcludingEntity(this.potion.renderViewEntity, this.potion.renderViewEntity.boundingBox.addCoord(var7.x * var2, var7.y * var2, var7.z * var2).expand(var9, var9, var9));
@@ -136,7 +136,7 @@ public class EntityRenderer {
                                 var11 = 0.0D;
                             }
                         } else if (var17 != null) {
-                            double var18 = var6.distance(var17.hitVec);
+                            double var18 = var6.distanceTo(var17.hitVec);
                             if (var18 < var11 || var11 == 0.0D) {
                                 this.pointedEntity = var14;
                                 var11 = var18;
@@ -243,9 +243,9 @@ public class EntityRenderer {
                     var21 = var21 * 0.1F;
                     var22 = var22 * 0.1F;
                     var23 = var23 * 0.1F;
-                    MovingObjectPosition var24 = this.potion.theWorld.rayTraceBlocks(new Vector3d(var4 + (double) var21, var6 + (double) var22, var8 + (double) var23), new Vector3d(var4 - var14 + (double) var21 + (double) var23, var6 - var18 + (double) var22, var8 - var16 + (double) var23));
+                    MovingObjectPosition var24 = this.potion.theWorld.rayTraceBlocks(new Vec3d(var4 + (double) var21, var6 + (double) var22, var8 + (double) var23), new Vec3d(var4 - var14 + (double) var21 + (double) var23, var6 - var18 + (double) var22, var8 - var16 + (double) var23));
                     if (var24 != null) {
-                        double var25 = var24.hitVec.distance(new Vector3d(var4, var6, var8));
+                        double var25 = var24.hitVec.distanceTo(new Vec3d(var4, var6, var8));
                         if (var25 < var30) {
                             var30 = var25;
                         }
@@ -806,11 +806,11 @@ public class EntityRenderer {
         EntityLiving var3 = this.potion.renderViewEntity;
         float var4 = 1.0F / (float) (4 - this.potion.gameSettings.renderDistance);
         var4 = 1.0F - (float) Math.pow(var4, 0.25D);
-        Vector3d var5 = var2.func_4079_a(this.potion.renderViewEntity, var1);
+        Vec3d var5 = var2.func_4079_a(this.potion.renderViewEntity, var1);
         float var6 = (float) var5.x;
         float var7 = (float) var5.y;
         float var8 = (float) var5.z;
-        Vector3d var9 = var2.getFogColor(var1);
+        Vec3d var9 = var2.getFogColor(var1);
         this.fogColorRed = (float) var9.x;
         this.fogColorGreen = (float) var9.y;
         this.fogColorBlue = (float) var9.z;
@@ -835,7 +835,7 @@ public class EntityRenderer {
         }
 
         if (this.cloudFog) {
-            Vector3d var19 = var2.cloudColor(var1);
+            Vec3d var19 = var2.cloudColor(var1);
             this.fogColorRed = (float) var19.x;
             this.fogColorGreen = (float) var19.y;
             this.fogColorBlue = (float) var19.z;

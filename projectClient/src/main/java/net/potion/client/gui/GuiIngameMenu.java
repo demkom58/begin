@@ -2,7 +2,7 @@ package net.potion.client.gui;
 
 import net.potion.stats.StatCollector;
 import net.potion.stats.StatList;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 public class GuiIngameMenu extends GuiScreen {
     private int updateCounter2 = 0;

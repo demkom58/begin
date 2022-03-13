@@ -1,6 +1,6 @@
 package net.potion.client.render;
 
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;

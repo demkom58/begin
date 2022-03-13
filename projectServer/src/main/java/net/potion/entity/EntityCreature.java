@@ -1,9 +1,9 @@
 package net.potion.entity;
 
 import net.potion.entity.ai.PathEntity;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 public class EntityCreature extends EntityLiving {
     protected Entity playerToAttack;
@@ -51,10 +51,10 @@ public class EntityCreature extends EntityLiving {
         boolean var4 = this.handleLavaMovement();
         this.rotationPitch = 0.0F;
         if (this.pathToEntity != null && this.rand.nextInt(100) != 0) {
-            Vector3d var5 = this.pathToEntity.getPosition(this);
+            Vec3d var5 = this.pathToEntity.getPosition(this);
             double var6 = this.width * 2.0F;
 
-            while (var5 != null && var5.distanceSquared(this.posX, var5.y, this.posZ) < var6 * var6) {
+            while (var5 != null && var5.squaredDistanceTo(this.posX, var5.y, this.posZ) < var6 * var6) {
                 this.pathToEntity.incrementPathIndex();
                 if (this.pathToEntity.isFinished()) {
                     var5 = null;

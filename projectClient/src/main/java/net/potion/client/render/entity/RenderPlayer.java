@@ -12,7 +12,7 @@ import net.potion.entity.player.EntityPlayerSP;
 import net.potion.item.Item;
 import net.potion.item.ItemArmor;
 import net.potion.item.ItemStack;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class RenderPlayer extends RenderLiving {

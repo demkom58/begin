@@ -7,7 +7,7 @@ import net.potion.util.AxisAlignedBB;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 import java.util.Random;
 
@@ -198,7 +198,7 @@ public class BlockDoor extends Block {
     }
 
     @Override
-    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vector3d var5, Vector3d var6) {
+    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3d var5, Vec3d var6) {
         this.setBlockBoundsBasedOnState(world, x, y, z);
         return super.collisionRayTrace(world, x, y, z, var5, var6);
     }

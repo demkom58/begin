@@ -1,7 +1,7 @@
 package net.potion.client.render.texture;
 
 import net.potion.block.Block;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 public class TextureLavaFlowFX extends TextureFX {
     protected float[] field_1143_g = new float[256];

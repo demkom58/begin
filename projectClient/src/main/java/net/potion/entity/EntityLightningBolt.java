@@ -3,9 +3,9 @@ package net.potion.entity;
 import net.potion.block.Block;
 import net.potion.nbt.TagCompound;
 import net.potion.util.AxisAlignedBB;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 import java.util.List;
 
@@ -94,7 +94,7 @@ public class EntityLightningBolt extends EntityWeatherEffect {
     }
 
     @Override
-    public boolean isInRangeToRenderVector3d(Vector3d var1) {
+    public boolean isInRangeToRenderVector3d(Vec3d var1) {
         return this.field_27028_b >= 0;
     }
 }

@@ -1,7 +1,7 @@
 package net.potion.world.storage;
 
 import net.potion.util.IProgressUpdatable;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.WorldInfo;
 import net.potion.world.chunk.ChunkFile;
 import net.potion.world.chunk.ChunkFilePattern;

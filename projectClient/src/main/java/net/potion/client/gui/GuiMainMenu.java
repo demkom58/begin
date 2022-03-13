@@ -1,7 +1,7 @@
 package net.potion.client.gui;
 
 import net.hypnosis.render.Tessellator;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.StringTranslate;
 import org.lwjgl.opengl.GL11;
 

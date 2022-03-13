@@ -3,10 +3,10 @@ package net.potion.block;
 import net.potion.entity.Entity;
 import net.potion.material.Material;
 import net.potion.util.AxisAlignedBB;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 import java.util.Random;
 
@@ -28,7 +28,7 @@ public abstract class BlockFluid extends Block {
     }
 
     public static double func_293_a(IBlockAccess var0, int var1, int var2, int var3, Material var4) {
-        Vector3d var5 = null;
+        Vec3d var5 = null;
         if (var4 == Material.WATER) {
             var5 = ((BlockFluid) Block.WATER_MOVING).getFlowVector(var0, var1, var2, var3);
         }
@@ -126,8 +126,8 @@ public abstract class BlockFluid extends Block {
         return 0;
     }
 
-    private Vector3d getFlowVector(IBlockAccess var1, int var2, int var3, int var4) {
-        Vector3d var5 = new Vector3d(0.0D, 0.0D, 0.0D);
+    private Vec3d getFlowVector(IBlockAccess var1, int var2, int var3, int var4) {
+        Vec3d var5 = new Vec3d(0.0D, 0.0D, 0.0D);
         int var6 = this.getEffectiveFlowDecay(var1, var2, var3, var4);
 
         for (int var7 = 0; var7 < 4; ++var7) {
@@ -207,11 +207,9 @@ public abstract class BlockFluid extends Block {
     }
 
     @Override
-    public void velocityToAddToEntity(World world, int x, int y, int z, Entity entity, Vector3d velocity) {
-        Vector3d var7 = this.getFlowVector(world, x, y, z);
-        velocity.x += var7.x;
-        velocity.y += var7.y;
-        velocity.z += var7.z;
+    public Vec3d velocityToAddToEntity(World world, int x, int y, int z, Entity entity, Vec3d velocity) {
+        Vec3d flowVector = this.getFlowVector(world, x, y, z);
+        return velocity.add(flowVector);
     }
 
     @Override

@@ -14,7 +14,7 @@ import net.potion.tileentity.TileEntity;
 import net.potion.tileentity.TileEntitySign;
 import net.potion.util.AxisAlignedBB;
 import net.potion.util.ChatAllowedCharacters;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.WorldServer;
 import net.potion.world.chunk.ChunkCoordinates;
 

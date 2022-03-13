@@ -4,7 +4,7 @@ import net.potion.client.model.ModelBase;
 import net.potion.client.model.ModelCreeper;
 import net.potion.entity.EntityLiving;
 import net.potion.entity.monster.EntityCreeper;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.ARBVertexBlend;
 import org.lwjgl.opengl.GL11;
 

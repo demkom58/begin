@@ -8,6 +8,7 @@ import net.hypnosis.render.gl.Api;
 import net.hypnosis.render.gl.ContextApi;
 import net.hypnosis.render.gl.OpenGL;
 import net.hypnosis.render.gl.Profile;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.achievement.AchievementList;
 import net.potion.block.Block;
 import net.potion.client.gui.*;

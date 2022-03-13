@@ -5,7 +5,7 @@ import net.potion.block.BlockDoor;
 import net.potion.entity.Entity;
 import net.potion.material.Material;
 import net.potion.util.Hash;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.IBlockAccess;
 
 public class Pathfinder {

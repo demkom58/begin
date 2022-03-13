@@ -10,7 +10,7 @@ import net.potion.entity.monster.EntityZombie;
 import net.potion.entity.passive.EntitySheep;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.material.Material;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.SpawnListEntry;
 import net.potion.world.World;
 import net.potion.world.chunk.ChunkCoordIntPair;

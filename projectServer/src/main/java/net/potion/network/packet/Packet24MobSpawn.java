@@ -4,7 +4,7 @@ import net.potion.entity.EntityList;
 import net.potion.entity.EntityLiving;
 import net.potion.network.NetHandler;
 import net.potion.util.DataWatcher;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.WatchableObject;
 
 import java.io.DataInputStream;

@@ -7,10 +7,10 @@ import net.potion.item.Item;
 import net.potion.item.ItemStack;
 import net.potion.nbt.TagCompound;
 import net.potion.util.AxisAlignedBB;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.World;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 import java.util.List;
 
@@ -110,13 +110,13 @@ public class EntitySnowball extends Entity {
             ++this.ticksInAir;
         }
 
-        Vector3d var15 = new Vector3d(this.posX, this.posY, this.posZ);
-        Vector3d var2 = new Vector3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+        Vec3d var15 = new Vec3d(this.posX, this.posY, this.posZ);
+        Vec3d var2 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
         MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
-        var15 = new Vector3d(this.posX, this.posY, this.posZ);
-        var2 = new Vector3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+        var15 = new Vec3d(this.posX, this.posY, this.posZ);
+        var2 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
         if (var3 != null) {
-            var2 = new Vector3d(var3.hitVec.x, var3.hitVec.y, var3.hitVec.z);
+            var2 = new Vec3d(var3.hitVec.x, var3.hitVec.y, var3.hitVec.z);
         }
 
         if (!this.worldObj.singleplayerWorld) {
@@ -131,7 +131,7 @@ public class EntitySnowball extends Entity {
                     AxisAlignedBB var11 = entity.boundingBox.expand(var10, var10, var10);
                     MovingObjectPosition var12 = var11.func_706_a(var15, var2);
                     if (var12 != null) {
-                        double var13 = var15.distance(var12.hitVec);
+                        double var13 = var15.distanceTo(var12.hitVec);
                         if (var13 < var6 || var6 == 0.0D) {
                             var4 = entity;
                             var6 = var13;

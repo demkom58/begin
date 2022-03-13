@@ -16,7 +16,7 @@ import net.potion.entity.projectile.EntityFireball;
 import net.potion.entity.projectile.EntitySnowball;
 import net.potion.item.Item;
 import net.potion.item.ItemRenderer;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import org.lwjgl.opengl.GL11;
 

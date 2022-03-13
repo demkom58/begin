@@ -1,7 +1,7 @@
 package net.potion.client.render.texture;
 
 import net.potion.block.Block;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 import java.util.Random;
 

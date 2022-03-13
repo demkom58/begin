@@ -15,7 +15,7 @@ import net.potion.stats.StatBase;
 import net.potion.tileentity.TileEntityDispenser;
 import net.potion.tileentity.TileEntityFurnace;
 import net.potion.tileentity.TileEntitySign;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityPlayerSP extends EntityPlayer {

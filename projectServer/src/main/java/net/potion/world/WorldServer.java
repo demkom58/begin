@@ -9,7 +9,7 @@ import net.potion.server.PotionServer;
 import net.potion.tileentity.TileEntity;
 import net.potion.util.Explosion;
 import net.potion.util.Hash;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.chunk.ChunkProviderServer;
 import net.potion.world.chunk.IChunkLoader;
 import net.potion.world.chunk.IChunkProvider;

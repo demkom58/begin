@@ -4,7 +4,7 @@ import net.potion.block.Block;
 import net.potion.entity.Entity;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.material.MapColor;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import net.potion.world.chunk.Chunk;
 

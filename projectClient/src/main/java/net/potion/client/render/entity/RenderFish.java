@@ -4,8 +4,8 @@ import net.hypnosis.render.Tessellator;
 import net.potion.client.render.Render;
 import net.potion.entity.Entity;
 import net.potion.entity.passive.EntityFish;
-import net.potion.util.MathHelper;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.MathHelper;
+import net.hypnosis.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
@@ -43,7 +43,7 @@ public class RenderFish extends Render {
             double var23 = MathHelper.cos(var20);
             float var25 = var1.angler.getSwingProgress(var9);
             float var26 = MathHelper.sin(MathHelper.sqrt(var25) * 3.1415927F);
-            Vector3d var27 = new Vector3d(-0.5D, 0.03D, 0.8D);
+            Vec3d var27 = new Vec3d(-0.5D, 0.03D, 0.8D);
             var27.rotateX(-(var1.angler.prevRotationPitch + (var1.angler.rotationPitch - var1.angler.prevRotationPitch) * var9) * 3.1415927F / 180.0F);
             var27.rotateY(-(var1.angler.prevRotationYaw + (var1.angler.rotationYaw - var1.angler.prevRotationYaw) * var9) * 3.1415927F / 180.0F);
             var27.rotateY(var26 * 0.5F);

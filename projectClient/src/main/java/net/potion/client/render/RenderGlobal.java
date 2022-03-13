@@ -15,12 +15,12 @@ import net.potion.tileentity.TileEntity;
 import net.potion.tileentity.TileEntityRenderer;
 import net.potion.util.AxisAlignedBB;
 import net.potion.util.EnumMovingObjectType;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.IWorldAccess;
 import net.potion.world.World;
 import net.potion.world.WorldRenderer;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 import org.lwjgl.opengl.ARBOcclusionQuery;
 import org.lwjgl.opengl.GL11;
 
@@ -276,7 +276,7 @@ public class RenderGlobal implements IWorldAccess {
         this.renderEntitiesStartupCounter = 2;
     }
 
-    public void renderEntities(Vector3d vec, ICamera camera, float delta) {
+    public void renderEntities(Vec3d vec, ICamera camera, float delta) {
         if (this.renderEntitiesStartupCounter > 0) {
             --this.renderEntitiesStartupCounter;
         } else {
@@ -632,7 +632,7 @@ public class RenderGlobal implements IWorldAccess {
             return;
 
         GL11.glDisable(GL11.GL_TEXTURE_2D);
-        Vector3d vec = this.worldObj.func_4079_a(this.potion.renderViewEntity, var1);
+        Vec3d vec = this.worldObj.func_4079_a(this.potion.renderViewEntity, var1);
         float x = (float) vec.x;
         float y = (float) vec.y;
         float z = (float) vec.z;
@@ -766,7 +766,7 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-        Vector3d vec = this.worldObj.cloudColor(partialTicks);
+        Vec3d vec = this.worldObj.cloudColor(partialTicks);
         float r = (float) vec.x;
         float g = (float) vec.y;
         float b = (float) vec.z;
@@ -837,7 +837,7 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-        Vector3d color = this.worldObj.cloudColor(partialTicks);
+        Vec3d color = this.worldObj.cloudColor(partialTicks);
         float r = (float) color.x;
         float g = (float) color.y;
         float b = (float) color.z;

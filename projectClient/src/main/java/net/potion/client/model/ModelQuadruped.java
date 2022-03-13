@@ -1,6 +1,6 @@
 package net.potion.client.model;
 
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 public class ModelQuadruped extends ModelBase {
     public ModelRenderer head = new ModelRenderer(0, 0);

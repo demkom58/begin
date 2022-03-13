@@ -1,6 +1,6 @@
 package net.potion.client.model;
 
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 public class ModelSpider extends ModelBase {
     public ModelRenderer spiderHead;

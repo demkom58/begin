@@ -10,9 +10,9 @@ import net.potion.item.ItemStack;
 import net.potion.nbt.TagCompound;
 import net.potion.nbt.TagList;
 import net.potion.util.AxisAlignedBB;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 import java.util.List;
 
@@ -236,7 +236,7 @@ public class EntityMinecart extends Entity implements IInventory {
             double var7 = 0.0078125D;
             int var9 = this.worldObj.getBlockId(var1, var2, var3);
             if (BlockRail.isRailBlock(var9)) {
-                Vector3d var10 = this.func_514_g(this.posX, this.posY, this.posZ);
+                Vec3d var10 = this.func_514_g(this.posX, this.posY, this.posZ);
                 int var11 = this.worldObj.getBlockMetadata(var1, var2, var3);
                 this.posY = var2;
                 boolean var12 = false;
@@ -377,7 +377,7 @@ public class EntityMinecart extends Entity implements IInventory {
                     this.motionZ *= 0.9599999785423279D;
                 }
 
-                Vector3d var62 = this.func_514_g(this.posX, this.posY, this.posZ);
+                Vec3d var62 = this.func_514_g(this.posX, this.posY, this.posZ);
                 if (var62 != null && var10 != null) {
                     double var40 = (var10.y - var62.y) * 0.05D;
                     var23 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
@@ -513,7 +513,7 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
-    public Vector3d func_515_a(double var1, double var3, double var5, double var7) {
+    public Vec3d func_515_a(double var1, double var3, double var5, double var7) {
         int var9 = MathHelper.floor(var1);
         int var10 = MathHelper.floor(var3);
         int var11 = MathHelper.floor(var5);
@@ -553,7 +553,7 @@ public class EntityMinecart extends Entity implements IInventory {
         }
     }
 
-    public Vector3d func_514_g(double var1, double var3, double var5) {
+    public Vec3d func_514_g(double var1, double var3, double var5) {
         int var7 = MathHelper.floor(var1);
         int var8 = MathHelper.floor(var3);
         int var9 = MathHelper.floor(var5);
@@ -607,7 +607,7 @@ public class EntityMinecart extends Entity implements IInventory {
                 var3 += 0.5D;
             }
 
-            return new Vector3d(var1, var3, var5);
+            return new Vec3d(var1, var3, var5);
         } else {
             return null;
         }

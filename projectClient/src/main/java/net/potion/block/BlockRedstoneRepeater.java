@@ -4,7 +4,7 @@ import net.potion.entity.EntityLiving;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.item.Item;
 import net.potion.material.Material;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.IBlockAccess;
 import net.potion.world.World;
 

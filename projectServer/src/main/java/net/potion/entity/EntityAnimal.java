@@ -2,7 +2,7 @@ package net.potion.entity;
 
 import net.potion.block.Block;
 import net.potion.nbt.TagCompound;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public abstract class EntityAnimal extends EntityCreature implements IAnimals {

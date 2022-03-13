@@ -13,7 +13,7 @@ import net.potion.entity.projectile.EntitySnowball;
 import net.potion.item.ItemStack;
 import net.potion.network.packet.*;
 import net.potion.util.DataWatcher;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 import java.util.HashSet;
 import java.util.List;

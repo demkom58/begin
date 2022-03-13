@@ -12,7 +12,7 @@ import net.potion.client.render.item.MapItemRenderer;
 import net.potion.entity.EntityLiving;
 import net.potion.entity.player.EntityPlayerSP;
 import net.potion.material.Material;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 

@@ -5,7 +5,7 @@ import net.potion.block.Block;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityDiggingFX;
 import net.potion.entity.EntityFX;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import org.lwjgl.opengl.GL11;
 

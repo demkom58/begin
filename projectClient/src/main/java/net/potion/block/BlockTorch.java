@@ -4,7 +4,7 @@ import net.potion.material.Material;
 import net.potion.util.AxisAlignedBB;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.World;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 import java.util.Random;
 
@@ -149,7 +149,7 @@ public class BlockTorch extends Block {
     }
 
     @Override
-    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vector3d var5, Vector3d var6) {
+    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3d var5, Vec3d var6) {
         int var7 = world.getBlockMetadata(x, y, z) & 7;
         float var8 = 0.15F;
         if (var7 == 1) {

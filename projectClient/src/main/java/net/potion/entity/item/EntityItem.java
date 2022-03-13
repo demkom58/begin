@@ -8,7 +8,7 @@ import net.potion.item.Item;
 import net.potion.item.ItemStack;
 import net.potion.material.Material;
 import net.potion.nbt.TagCompound;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityItem extends Entity {

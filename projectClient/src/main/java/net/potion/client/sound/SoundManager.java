@@ -5,7 +5,7 @@ import net.hypnosis.audio.SoundSystem;
 import net.hypnosis.audio.Source;
 import net.potion.client.GameSettings;
 import net.potion.entity.EntityLiving;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 import java.io.File;
 import java.util.Random;

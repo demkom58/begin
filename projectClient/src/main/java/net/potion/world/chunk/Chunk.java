@@ -6,7 +6,7 @@ import net.potion.block.EnumSkyBlock;
 import net.potion.entity.Entity;
 import net.potion.tileentity.TileEntity;
 import net.potion.util.AxisAlignedBB;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.NibbleArray;
 import net.potion.world.World;
 

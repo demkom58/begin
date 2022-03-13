@@ -25,7 +25,7 @@ import net.potion.tileentity.TileEntityDispenser;
 import net.potion.tileentity.TileEntityFurnace;
 import net.potion.tileentity.TileEntitySign;
 import net.potion.util.Explosion;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.WorldClient;
 import net.potion.world.chunk.Chunk;
 import net.potion.world.chunk.ChunkCoordinates;

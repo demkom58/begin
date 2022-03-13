@@ -7,7 +7,7 @@ import net.potion.client.render.RenderHelper;
 import net.potion.client.render.entity.RenderItem;
 import net.potion.stats.StatCollector;
 import net.potion.stats.StatFileWriter;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 

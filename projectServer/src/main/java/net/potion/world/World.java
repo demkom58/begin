@@ -1,6 +1,7 @@
 package net.potion.world;
 
 import com.demkom58.timings.WorldTimingsHandler;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.block.Block;
 import net.potion.block.BlockFluid;
 import net.potion.block.EnumSkyBlock;
@@ -18,7 +19,7 @@ import net.potion.world.chunk.*;
 import net.potion.world.gen.BiomeGenBase;
 import net.potion.world.storage.ISaveHandler;
 import net.potion.world.storage.MapStorage;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 import java.util.*;
 
@@ -538,166 +539,163 @@ public class World implements IBlockAccess {
         return this.skylightSubtracted < 4;
     }
 
-    public MovingObjectPosition rayTraceBlocks(Vector3d var1, Vector3d var2) {
+    public MovingObjectPosition rayTraceBlocks(Vec3d var1, Vec3d var2) {
         return this.rayTraceBlocks(var1, var2, false, false);
     }
 
-    public MovingObjectPosition rayTraceBlocks(Vector3d var1, Vector3d var2, boolean var3) {
+    public MovingObjectPosition rayTraceBlocks(Vec3d var1, Vec3d var2, boolean var3) {
         return this.rayTraceBlocks(var1, var2, var3, false);
     }
 
-    public MovingObjectPosition rayTraceBlocks(Vector3d var1, Vector3d var2, boolean paramBoolean, boolean paramBoolean2) {
-        if (!Double.isNaN(var1.x) && !Double.isNaN(var1.y) && !Double.isNaN(var1.z)) {
-            if (!Double.isNaN(var2.x) && !Double.isNaN(var2.y) && !Double.isNaN(var2.z)) {
-                int i = MathHelper.floor(var2.x);
-                int j = MathHelper.floor(var2.y);
-                int k = MathHelper.floor(var2.z);
-
-                int m = MathHelper.floor(var1.x);
-                int n = MathHelper.floor(var1.y);
-                int i1 = MathHelper.floor(var1.z);
-
-                int i2 = this.getBlockId(m, n, i1);
-                int i3 = this.getBlockMetadata(m, n, i1);
-                Block localBlock1 = Block.BLOCKS_LIST[i2];
-                if ((!paramBoolean2 || localBlock1 == null || localBlock1.getCollisionBoundingBoxFromPool(this, m, n, i1) != null) && i2 > 0 && localBlock1.canCollideCheck(i3, paramBoolean)) {
-                    MovingObjectPosition localMovingObjectPosition1 = localBlock1.collisionRayTrace(this, m, n, i1, var1, var2);
-                    if (localMovingObjectPosition1 != null) {
-                        return localMovingObjectPosition1;
-                    }
-                }
-
-                i2 = 200;
-
-                while (i2-- >= 0) {
-                    if (Double.isNaN(var1.x) || Double.isNaN(var1.y) || Double.isNaN(var1.z)) {
-                        return null;
-                    }
-
-                    if (m == i && n == j && i1 == k) {
-                        return null;
-                    }
-
-                    i3 = 1;
-                    int i4 = 1;
-                    int i5 = 1;
-
-                    double d1 = 999.0D;
-                    double d2 = 999.0D;
-                    double d3 = 999.0D;
-
-                    if (i > m) {
-                        d1 = m + 1.0D;
-                    } else if (i < m) {
-                        d1 = m + 0.0D;
-                    } else {
-                        i3 = 0;
-                    }
-
-                    if (j > n) {
-                        d2 = n + 1.0D;
-                    } else if (j < n) {
-                        d2 = n + 0.0D;
-                    } else {
-                        i4 = 0;
-                    }
-
-                    if (k > i1) {
-                        d3 = i1 + 1.0D;
-                    } else if (k < i1) {
-                        d3 = i1 + 0.0D;
-                    } else {
-                        i5 = 0;
-                    }
-
-                    double var21 = 999.0D;
-                    double var23 = 999.0D;
-                    double var25 = 999.0D;
-                    double var27 = var2.x - var1.x;
-                    double var29 = var2.y - var1.y;
-                    double var31 = var2.z - var1.z;
-                    if (i3 != 0) {
-                        var21 = (d1 - var1.x) / var27;
-                    }
-
-                    if (i4 != 0) {
-                        var23 = (d2 - var1.y) / var29;
-                    }
-
-                    if (i5 != 0) {
-                        var25 = (d3 - var1.z) / var31;
-                    }
-
-                    byte var33 = 0;
-                    if (var21 < var23 && var21 < var25) {
-                        if (i > m) {
-                            var33 = 4;
-                        } else {
-                            var33 = 5;
-                        }
-
-                        var1.x = d1;
-                        var1.y += var29 * var21;
-                        var1.z += var31 * var21;
-                    } else if (var23 < var25) {
-                        if (j > n) {
-                            var33 = 0;
-                        } else {
-                            var33 = 1;
-                        }
-
-                        var1.x += var27 * var23;
-                        var1.y = d2;
-                        var1.z += var31 * var23;
-                    } else {
-                        if (k > i1) {
-                            var33 = 2;
-                        } else {
-                            var33 = 3;
-                        }
-
-                        var1.x += var27 * var25;
-                        var1.y += var29 * var25;
-                        var1.z = d3;
-                    }
-
-                    Vector3d var34 = new Vector3d(var1.x, var1.y, var1.z);
-                    m = (int) (var34.x = MathHelper.floor(var1.x));
-                    if (var33 == 5) {
-                        --m;
-                        ++var34.x;
-                    }
-
-                    n = (int) (var34.y = MathHelper.floor(var1.y));
-                    if (var33 == 1) {
-                        --n;
-                        ++var34.y;
-                    }
-
-                    i1 = (int) (var34.z = MathHelper.floor(var1.z));
-                    if (var33 == 3) {
-                        --i1;
-                        ++var34.z;
-                    }
-
-                    int var35 = this.getBlockId(m, n, i1);
-                    int var36 = this.getBlockMetadata(m, n, i1);
-                    Block block = Block.BLOCKS_LIST[var35];
-                    if ((!paramBoolean2 || block == null || block.getCollisionBoundingBoxFromPool(this, m, n, i1) != null) && var35 > 0 && block.canCollideCheck(var36, paramBoolean)) {
-                        MovingObjectPosition position = block.collisionRayTrace(this, m, n, i1, var1, var2);
-                        if (position != null) {
-                            return position;
-                        }
-                    }
-                }
-
-                return null;
-            } else {
-                return null;
-            }
-        } else {
+    public MovingObjectPosition rayTraceBlocks(Vec3d vec1, Vec3d vec2, boolean paramBoolean, boolean paramBoolean2) {
+        if (Double.isNaN(vec1.x) || Double.isNaN(vec1.y) || Double.isNaN(vec1.z))
             return null;
+
+        if (Double.isNaN(vec2.x) || Double.isNaN(vec2.y) || Double.isNaN(vec2.z))
+            return null;
+
+        int x2 = MathHelper.floor(vec2.x);
+        int y2 = MathHelper.floor(vec2.y);
+        int z2 = MathHelper.floor(vec2.z);
+
+        int x1 = MathHelper.floor(vec1.x);
+        int y1 = MathHelper.floor(vec1.y);
+        int z1 = MathHelper.floor(vec1.z);
+
+        int blockId = this.getBlockId(x1, y1, z1);
+        int blockMetadata = this.getBlockMetadata(x1, y1, z1);
+
+        Block localBlock1 = Block.BLOCKS_LIST[blockId];
+        if ((!paramBoolean2
+                || localBlock1 == null
+                || localBlock1.getCollisionBoundingBoxFromPool(this, x1, y1, z1) != null)
+                && blockId > 0
+                && localBlock1.canCollideCheck(blockMetadata, paramBoolean)) {
+            MovingObjectPosition pos = localBlock1.collisionRayTrace(this, x1, y1, z1, vec1, vec2);
+            if (pos != null)
+                return pos;
         }
+
+        blockId = 200;
+
+        while (blockId-- >= 0) {
+            if (Double.isNaN(vec1.x) || Double.isNaN(vec1.y) || Double.isNaN(vec1.z))
+                return null;
+
+            if (x1 == x2 && y1 == y2 && z1 == z2)
+                return null;
+
+            blockMetadata = 1;
+            int i4 = 1;
+            int i5 = 1;
+
+            double d1 = 999.0D;
+            double d2 = 999.0D;
+            double d3 = 999.0D;
+
+            if (x2 > x1) {
+                d1 = x1 + 1.0D;
+            } else if (x2 < x1) {
+                d1 = x1 + 0.0D;
+            } else blockMetadata = 0;
+
+
+            if (y2 > y1) {
+                d2 = y1 + 1.0D;
+            } else if (y2 < y1) {
+                d2 = y1 + 0.0D;
+            } else i4 = 0;
+
+            if (z2 > z1) {
+                d3 = z1 + 1.0D;
+            } else if (z2 < z1) {
+                d3 = z1 + 0.0D;
+            } else i5 = 0;
+
+            double var21 = 999.0D;
+            double var23 = 999.0D;
+            double var25 = 999.0D;
+
+
+            double x = vec1.x;
+            double y = vec1.y;
+            double z = vec1.z;
+
+            double difX = vec2.x - x;
+            double difY = vec2.y - y;
+            double difZ = vec2.z - z;
+
+            if (blockMetadata != 0)
+                var21 = (d1 - x) / difX;
+
+            if (i4 != 0)
+                var23 = (d2 - y) / difY;
+
+            if (i5 != 0)
+                var25 = (d3 - z) / difZ;
+
+
+            byte var33 = 0;
+
+            if (var21 < var23 && var21 < var25) {
+                if (x2 > x1) {
+                    var33 = 4;
+                } else var33 = 5;
+
+
+                x = d1;
+                y += difY * var21;
+                z += difZ * var21;
+            } else if (var23 < var25) {
+                if (y2 > y1) {
+                    var33 = 0;
+                } else var33 = 1;
+
+
+                x += difX * var23;
+                y = d2;
+                z += difZ * var23;
+            } else {
+                if (z2 > z1) {
+                    var33 = 2;
+                } else var33 = 3;
+
+
+                x += difX * var25;
+                y += difY * var25;
+                z = d3;
+            }
+
+            x1 = MathHelper.floor(x);
+            if (var33 == 5) {
+                --x1;
+            }
+
+            y1 = MathHelper.floor(y);
+            if (var33 == 1) {
+                --y1;
+            }
+
+            z1 = MathHelper.floor(z);
+            if (var33 == 3) {
+                --z1;
+            }
+
+            int blockId1 = this.getBlockId(x1, y1, z1);
+            int blockMetadata1 = this.getBlockMetadata(x1, y1, z1);
+            Block block = Block.BLOCKS_LIST[blockId1];
+            if ((!paramBoolean2
+                    || block == null
+                    || block.getCollisionBoundingBoxFromPool(this, x1, y1, z1) != null)
+                    && blockId1 > 0
+                    && block.canCollideCheck(blockMetadata1, paramBoolean)) {
+                MovingObjectPosition pos = block.collisionRayTrace(this, x1, y1, z1, vec1, vec2);
+                if (pos != null)
+                    return pos;
+            }
+        }
+
+        return null;
     }
 
     public void playSoundAtEntity(Entity entity, String soundName, float volume, float pitch) {
@@ -1216,7 +1214,7 @@ public class World implements IBlockAccess {
         }
 
         boolean var10 = false;
-        Vector3d var11 = new Vector3d(0.0D, 0.0D, 0.0D);
+        Vec3d var11 = new Vec3d(0.0D, 0.0D, 0.0D);
 
         for (int var12 = var4; var12 < var5; ++var12) {
             for (int var13 = var6; var13 < var7; ++var13) {
@@ -1226,7 +1224,7 @@ public class World implements IBlockAccess {
                         double var16 = (float) (var13 + 1) - BlockFluid.setFluidHeight(this.getBlockMetadata(var12, var13, var14));
                         if ((double) var7 >= var16) {
                             var10 = true;
-                            var15.velocityToAddToEntity(this, var12, var13, var14, var3, var11);
+                            var11 = var15.velocityToAddToEntity(this, var12, var13, var14, var3, var11);
                         }
                     }
                 }
@@ -1234,7 +1232,7 @@ public class World implements IBlockAccess {
         }
 
         if (var11.length() > 0.0D) {
-            var11 = MathHelper.normalizeOrZero(new Vector3d(var11));
+            var11 = MathHelper.normalizeOrZero(new Vec3d(var11));
             double var19 = 0.014D;
             var3.motionX += var11.x * var19;
             var3.motionY += var11.y * var19;
@@ -1308,7 +1306,7 @@ public class World implements IBlockAccess {
         return explosion;
     }
 
-    public float func_494_a(Vector3d Vector3d, AxisAlignedBB axis) {
+    public float func_494_a(Vec3d Vector3d, AxisAlignedBB axis) {
         double var3 = 1.0D / ((axis.maxX - axis.minX) * 2.0D + 1.0D);
         double var5 = 1.0D / ((axis.maxY - axis.minY) * 2.0D + 1.0D);
         double var7 = 1.0D / ((axis.maxZ - axis.minZ) * 2.0D + 1.0D);
@@ -1321,7 +1319,7 @@ public class World implements IBlockAccess {
                     double var14 = axis.minX + (axis.maxX - axis.minX) * (double) var11;
                     double var16 = axis.minY + (axis.maxY - axis.minY) * (double) var12;
                     double var18 = axis.minZ + (axis.maxZ - axis.minZ) * (double) var13;
-                    if (this.rayTraceBlocks(new Vector3d(var14, var16, var18), Vector3d) == null) {
+                    if (this.rayTraceBlocks(new Vec3d(var14, var16, var18), Vector3d) == null) {
                         ++var9;
                     }
 

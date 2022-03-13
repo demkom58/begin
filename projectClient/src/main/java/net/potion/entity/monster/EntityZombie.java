@@ -2,7 +2,7 @@ package net.potion.entity.monster;
 
 import net.potion.entity.EntityMob;
 import net.potion.item.Item;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityZombie extends EntityMob {

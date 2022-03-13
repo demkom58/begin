@@ -1,6 +1,6 @@
 package net.potion.entity.ai;
 
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 public class PathPoint {
     public final int xCoord;

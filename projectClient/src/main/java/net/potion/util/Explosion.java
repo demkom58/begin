@@ -1,10 +1,11 @@
 package net.potion.util;
 
+import net.hypnosis.util.math.MathHelper;
 import net.potion.block.Block;
 import net.potion.entity.Entity;
 import net.potion.world.World;
 import net.potion.world.chunk.ChunkPosition;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.Vec3d;
 
 import java.util.*;
 
@@ -82,7 +83,7 @@ public class Explosion {
                 AxisAlignedBB.getBoundingBoxFromPool(var29, var31, var7, var30, var33, var35)
         );
 
-        Vector3d var37 = new Vector3d(this.explosionX, this.explosionY, this.explosionZ);
+        Vec3d var37 = new Vec3d(this.explosionX, this.explosionY, this.explosionZ);
 
         for (Entity entity : inCollision) {
             double distance = entity.getDistance(this.explosionX, this.explosionY, this.explosionZ) / (double) this.explosionSize;

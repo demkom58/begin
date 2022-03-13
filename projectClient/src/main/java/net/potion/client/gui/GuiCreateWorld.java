@@ -2,7 +2,7 @@ package net.potion.client.gui;
 
 import net.potion.entity.player.PlayerControllerSP;
 import net.potion.util.ChatAllowedCharacters;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.StringTranslate;
 import net.potion.world.storage.ISaveFormat;
 

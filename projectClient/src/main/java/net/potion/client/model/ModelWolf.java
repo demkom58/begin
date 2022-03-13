@@ -2,7 +2,7 @@ package net.potion.client.model;
 
 import net.potion.entity.EntityLiving;
 import net.potion.entity.passive.EntityWolf;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class ModelWolf extends ModelBase {

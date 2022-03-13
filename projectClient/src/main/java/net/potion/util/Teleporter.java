@@ -1,5 +1,6 @@
 package net.potion.util;
 
+import net.hypnosis.util.math.MathHelper;
 import net.potion.block.Block;
 import net.potion.entity.Entity;
 import net.potion.world.World;

@@ -5,7 +5,7 @@ import net.potion.entity.IMob;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.item.Item;
 import net.potion.nbt.TagCompound;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import net.potion.world.chunk.Chunk;
 

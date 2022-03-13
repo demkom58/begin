@@ -1,7 +1,7 @@
 package net.potion.entity;
 
 import net.hypnosis.render.Tessellator;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityNoteFX extends EntityFX {

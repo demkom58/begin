@@ -6,7 +6,7 @@ import net.potion.entity.projectile.EntityArrow;
 import net.potion.item.Item;
 import net.potion.item.ItemStack;
 import net.potion.nbt.TagCompound;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntitySkeleton extends EntityMob {

@@ -3,7 +3,7 @@ package net.potion.entity;
 import net.potion.block.EnumSkyBlock;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.nbt.TagCompound;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityMob extends EntityCreature implements IMob {

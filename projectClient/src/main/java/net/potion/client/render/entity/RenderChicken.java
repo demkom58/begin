@@ -4,7 +4,7 @@ import net.potion.client.model.ModelBase;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityLiving;
 import net.potion.entity.passive.EntityChicken;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 public class RenderChicken extends RenderLiving {
     public RenderChicken(ModelBase var1, float var2) {
