@@ -1,10 +1,10 @@
 package com.demkom58.timings;
 
+import co.aikar.util.JSONUtil;
 import com.google.common.collect.Sets;
 import net.potion.entity.Entity;
 import net.potion.material.Material;
 import net.potion.server.PotionServer;
-import org.json.simple.JSONValue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -196,7 +196,8 @@ class TimingsExport extends Thread {
                 this.def.setLevel(7);
             }};
 
-            request.write(JSONValue.toJSONString(out).getBytes(StandardCharsets.UTF_8));
+            // todo: uncomment when serialization will be available
+//            request.write(JSONValue.toJSONString(out).getBytes(StandardCharsets.UTF_8));
             request.close();
 
             response = getResponse(con);

@@ -5,7 +5,6 @@ application.mainClassName = "net.minecraft.server.MinecraftServer"
 
 dependencies {
     implementation project(":projectCommon")
-    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     implementation group: 'com.google.guava', name: 'guava', version: '31.0.1-jre'
 }
 
