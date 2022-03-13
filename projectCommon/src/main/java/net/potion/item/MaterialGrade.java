@@ -1,6 +1,6 @@
 package net.potion.item;
 
-public enum EnumToolMaterial {
+public enum MaterialGrade {
     WOOD(0, 59, 2.0F, 0),
     STONE(1, 131, 4.0F, 1),
     IRON(2, 250, 6.0F, 2),
@@ -12,11 +12,11 @@ public enum EnumToolMaterial {
     private final float efficiencyOnProperMaterial;
     private final int damageVsEntity;
 
-    EnumToolMaterial(int var3, int var4, float var5, int var6) {
-        this.harvestLevel = var3;
-        this.maxUses = var4;
-        this.efficiencyOnProperMaterial = var5;
-        this.damageVsEntity = var6;
+    MaterialGrade(int harvestLevel, int maxUses, float efficiency, int attackDamage) {
+        this.harvestLevel = harvestLevel;
+        this.maxUses = maxUses;
+        this.efficiencyOnProperMaterial = efficiency;
+        this.damageVsEntity = attackDamage;
     }
 
     public int getMaxUses() {

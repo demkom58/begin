@@ -5,7 +5,7 @@ import net.potion.entity.player.EntityPlayer;
 import net.potion.world.World;
 
 public class ItemHoe extends Item {
-    public ItemHoe(int var1, EnumToolMaterial var2) {
+    public ItemHoe(int var1, MaterialGrade var2) {
         super(var1);
         this.maxStackSize = 1;
         this.setMaxDamage(var2.getMaxUses());

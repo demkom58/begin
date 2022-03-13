@@ -7,7 +7,7 @@ import net.potion.entity.EntityLiving;
 public class ItemSword extends Item {
     private int weaponDamage;
 
-    public ItemSword(int var1, EnumToolMaterial var2) {
+    public ItemSword(int var1, MaterialGrade var2) {
         super(var1);
         this.maxStackSize = 1;
         this.setMaxDamage(var2.getMaxUses());

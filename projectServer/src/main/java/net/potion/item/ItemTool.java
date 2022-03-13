@@ -5,14 +5,14 @@ import net.potion.entity.Entity;
 import net.potion.entity.EntityLiving;
 
 public class ItemTool extends Item {
-    protected EnumToolMaterial toolMaterial;
+    protected MaterialGrade material;
     private Block[] blocksEffectiveAgainst;
     private float efficiencyOnProperMaterial = 4.0F;
     private int damageVsEntity;
 
-    protected ItemTool(int var1, int var2, EnumToolMaterial var3, Block[] var4) {
+    protected ItemTool(int var1, int var2, MaterialGrade var3, Block[] var4) {
         super(var1);
-        this.toolMaterial = var3;
+        this.material = var3;
         this.blocksEffectiveAgainst = var4;
         this.maxStackSize = 1;
         this.setMaxDamage(var3.getMaxUses());
