@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-application.mainClassName = "net.minecraft.server.MinecraftServer"
+application.mainClassName = "net.potion.server.PotionServer"
 
 dependencies {
     implementation project(":projectCommon")
