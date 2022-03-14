@@ -245,11 +245,13 @@ public class AxisAlignedBB {
         return getBoundingBoxFromPool(this.minX, this.minY, this.minZ, this.maxX, this.maxY, this.maxZ);
     }
 
-    public MovingObjectPosition func_706_a(Vec3d vec1, Vec3d vec2) {
+    public MovingObjectPosition raycast(Vec3d vec1, Vec3d vec2) {
         Vec3d var3 = MathHelper.getIntermediateWithXValue(vec1, vec2, this.minX);
         Vec3d var4 = MathHelper.getIntermediateWithXValue(vec1, vec2, this.maxX);
+
         Vec3d var5 = MathHelper.getIntermediateWithYValue(vec1, vec2, this.minY);
         Vec3d var6 = MathHelper.getIntermediateWithYValue(vec1, vec2, this.maxY);
+
         Vec3d var7 = MathHelper.getIntermediateWithZValue(vec1, vec2, this.minZ);
         Vec3d var8 = MathHelper.getIntermediateWithZValue(vec1, vec2, this.maxZ);
 

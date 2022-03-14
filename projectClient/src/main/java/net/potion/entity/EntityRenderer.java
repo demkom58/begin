@@ -130,7 +130,7 @@ public class EntityRenderer {
                     if (var14.canBeCollidedWith()) {
                         float var15 = var14.getCollisionBorderSize();
                         AxisAlignedBB var16 = var14.boundingBox.expand(var15, var15, var15);
-                        MovingObjectPosition var17 = var16.func_706_a(var6, var8);
+                        MovingObjectPosition var17 = var16.raycast(var6, var8);
                         if (var16.isVecInXYZ(var6)) {
                             if (0.0D < var11 || var11 == 0.0D) {
                                 this.pointedEntity = var14;

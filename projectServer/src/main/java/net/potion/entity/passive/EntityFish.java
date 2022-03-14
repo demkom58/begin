@@ -170,7 +170,7 @@ public class EntityFish extends Entity {
                 if (var9.canBeCollidedWith() && (var9 != this.angler || this.ticksInAir >= 5)) {
                     float var10 = 0.3F;
                     AxisAlignedBB var11 = var9.boundingBox.expand(var10, var10, var10);
-                    MovingObjectPosition var12 = var11.func_706_a(var20, var2);
+                    MovingObjectPosition var12 = var11.raycast(var20, var2);
                     if (var12 != null) {
                         double var13 = var20.distanceTo(var12.hitVec);
                         if (var13 < var6 || var6 == 0.0D) {

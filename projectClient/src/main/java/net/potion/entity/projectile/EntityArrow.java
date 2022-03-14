@@ -158,7 +158,7 @@ public class EntityArrow extends Entity {
                 if (var9.canBeCollidedWith() && (var9 != this.owner || this.ticksInAir >= 5)) {
                     float var10 = 0.3F;
                     AxisAlignedBB var11 = var9.boundingBox.expand(var10, var10, var10);
-                    MovingObjectPosition var12 = var11.func_706_a(var16, var19);
+                    MovingObjectPosition var12 = var11.raycast(var16, var19);
                     if (var12 != null) {
                         double var13 = var16.distanceTo(var12.hitVec);
                         if (var13 < var6 || var6 == 0.0D) {

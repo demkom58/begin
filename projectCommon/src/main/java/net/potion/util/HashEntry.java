@@ -24,10 +24,7 @@ class HashEntry {
     }
 
     public final boolean equals(Object var1) {
-        if (!(var1 instanceof HashEntry)) {
-            return false;
-        } else {
-            HashEntry var2 = (HashEntry) var1;
+        if (var1 instanceof HashEntry var2) {
             Integer var3 = this.getHash();
             Integer var4 = var2.getHash();
             if (Objects.equals(var3, var4)) {
@@ -36,8 +33,8 @@ class HashEntry {
                 return Objects.equals(var5, var6);
             }
 
-            return false;
         }
+        return false;
     }
 
     public final int hashCode() {

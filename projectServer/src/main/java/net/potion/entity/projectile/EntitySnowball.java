@@ -130,7 +130,7 @@ public class EntitySnowball extends Entity {
                 if (entity.canBeCollidedWith() && (entity != this.owner || this.ticksInAir >= 5)) {
                     float var10 = 0.3F;
                     AxisAlignedBB var11 = entity.boundingBox.expand(var10, var10, var10);
-                    MovingObjectPosition var12 = var11.func_706_a(var15, var2);
+                    MovingObjectPosition var12 = var11.raycast(var15, var2);
                     if (var12 != null) {
                         double var13 = var15.distanceTo(var12.hitVec);
                         if (var13 < var6 || var6 == 0.0D) {

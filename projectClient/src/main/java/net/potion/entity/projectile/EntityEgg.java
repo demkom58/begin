@@ -153,7 +153,7 @@ public class EntityEgg extends Entity {
                 if (entity.canBeCollidedWith() && (entity != this.field_20051_g || this.field_20049_i >= 5)) {
                     float var10 = 0.3F;
                     AxisAlignedBB var11 = entity.boundingBox.expand(var10, var10, var10);
-                    MovingObjectPosition mop = var11.func_706_a(var15, var2);
+                    MovingObjectPosition mop = var11.raycast(var15, var2);
                     if (mop != null) {
                         double var13 = var15.distanceTo(mop.hitVec);
                         if (var13 < var6 || var6 == 0.0D) {

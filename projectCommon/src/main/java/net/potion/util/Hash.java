@@ -1,5 +1,7 @@
 package net.potion.util;
 
+import java.util.Arrays;
+
 public class Hash {
     private final float growFactor = 0.75F;
     private transient HashEntry[] slots = new HashEntry[16];
@@ -101,41 +103,39 @@ public class Hash {
     }
 
     public Object removeObject(int var1) {
-        HashEntry var2 = this.removeEntry(var1);
-        return var2 == null ? null : var2.valueEntry;
+        HashEntry removed = this.removeEntry(var1);
+        return removed == null ? null : removed.valueEntry;
     }
 
     final HashEntry removeEntry(int var1) {
-        int var2 = computeHash(var1);
-        int var3 = getSlotIndex(var2, this.slots.length);
-        HashEntry var4 = this.slots[var3];
+        int hash = computeHash(var1);
+        int index = getSlotIndex(hash, this.slots.length);
+        HashEntry value = this.slots[index];
 
-        HashEntry var5;
-        HashEntry var6;
-        for (var5 = var4; var5 != null; var5 = var6) {
-            var6 = var5.nextEntry;
-            if (var5.hashEntry == var1) {
+        HashEntry next;
+        for (HashEntry cur = value; cur != null; cur = next) {
+            next = cur.nextEntry;
+            if (cur.hashEntry == var1) {
                 ++this.versionStamp;
                 --this.count;
-                if (var4 == var5) {
-                    this.slots[var3] = var6;
+                if (value == cur) {
+                    this.slots[index] = next;
                 } else {
-                    var4.nextEntry = var6;
+                    value.nextEntry = next;
                 }
 
-                return var5;
+                return cur;
             }
 
-            var4 = var5;
+            value = cur;
         }
 
-        return var5;
+        return null;
     }
 
     public void clearMap() {
         ++this.versionStamp;
-        HashEntry[] var1 = this.slots;
-
+        Arrays.fill(this.slots, null);
         this.count = 0;
     }
 
