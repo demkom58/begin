@@ -45,8 +45,8 @@ public class NetClientHandler extends NetHandler {
     public MapStorage field_28118_b = new MapStorage(null);
     Random rand = new Random();
     private boolean disconnected = false;
-    private NetworkManager netManager;
-    private PotionClient potion;
+    private final NetworkManager netManager;
+    private final PotionClient potion;
     private WorldClient worldClient;
     private boolean field_1210_g = false;
 
@@ -61,7 +61,7 @@ public class NetClientHandler extends NetHandler {
             this.netManager.processReadPackets();
         }
 
-        this.netManager.wakeThreads();
+        this.netManager.interrupt();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class NetClientHandler extends NetHandler {
         this.potion.playerController = new PlayerControllerMP(this.potion, this);
         this.potion.statFileWriter.addStat(StatList.joinMultiplayerStat, 1);
         this.worldClient = new WorldClient(this, var1.mapSeed, var1.dimension);
-        this.worldClient.multiplayerWorld = true;
+        this.worldClient.localWorld = true;
         this.potion.changeWorld(this.worldClient);
         this.potion.thePlayer.dimension = var1.dimension;
         this.potion.displayGuiScreen(new GuiDownloadTerrain(this));
@@ -96,7 +96,7 @@ public class NetClientHandler extends NetHandler {
         double var2 = (double) var1.xPosition / 32.0D;
         double var4 = (double) var1.yPosition / 32.0D;
         double var6 = (double) var1.zPosition / 32.0D;
-        Object var8 = null;
+        Entity var8 = null;
         if (var1.type == 10) {
             var8 = new EntityMinecart(this.worldClient, var2, var4, var6, 0);
         }
@@ -122,8 +122,8 @@ public class NetClientHandler extends NetHandler {
         }
 
         if (var1.type == 63) {
-            var8 = new EntityFireball(this.worldClient, var2, var4, var6, (double) var1.field_28047_e / 8000.0D, (double) var1.field_28046_f / 8000.0D, (double) var1.field_28045_g / 8000.0D);
-            var1.field_28044_i = 0;
+            var8 = new EntityFireball(this.worldClient, var2, var4, var6, (double) var1.motionX / 8000.0D, (double) var1.motionY / 8000.0D, (double) var1.motionZ / 8000.0D);
+            var1.ownerId = 0;
         }
 
         if (var1.type == 62) {
@@ -147,22 +147,22 @@ public class NetClientHandler extends NetHandler {
         }
 
         if (var8 != null) {
-            ((Entity) var8).serverPosX = var1.xPosition;
-            ((Entity) var8).serverPosY = var1.yPosition;
-            ((Entity) var8).serverPosZ = var1.zPosition;
-            ((Entity) var8).rotationYaw = 0.0F;
-            ((Entity) var8).rotationPitch = 0.0F;
-            ((Entity) var8).entityId = var1.entityId;
-            this.worldClient.func_712_a(var1.entityId, (Entity) var8);
-            if (var1.field_28044_i > 0) {
+            var8.serverPosX = var1.xPosition;
+            var8.serverPosY = var1.yPosition;
+            var8.serverPosZ = var1.zPosition;
+            var8.rotationYaw = 0.0F;
+            var8.rotationPitch = 0.0F;
+            var8.entityId = var1.entityId;
+            this.worldClient.func_712_a(var1.entityId, var8);
+            if (var1.ownerId > 0) {
                 if (var1.type == 60) {
-                    Entity var9 = this.getEntityByID(var1.field_28044_i);
+                    Entity var9 = this.getEntityByID(var1.ownerId);
                     if (var9 instanceof EntityLiving) {
                         ((EntityArrow) var8).owner = (EntityLiving) var9;
                     }
                 }
 
-                ((Entity) var8).setVelocity((double) var1.field_28047_e / 8000.0D, (double) var1.field_28046_f / 8000.0D, (double) var1.field_28045_g / 8000.0D);
+                var8.setVelocity((double) var1.motionX / 8000.0D, (double) var1.motionY / 8000.0D, (double) var1.motionZ / 8000.0D);
             }
         }
 
@@ -170,34 +170,34 @@ public class NetClientHandler extends NetHandler {
 
     @Override
     public void handleWeather(Packet71Weather var1) {
-        double var2 = (double) var1.field_27053_b / 32.0D;
-        double var4 = (double) var1.field_27057_c / 32.0D;
-        double var6 = (double) var1.field_27056_d / 32.0D;
+        double var2 = (double) var1.x / 32.0D;
+        double var4 = (double) var1.y / 32.0D;
+        double var6 = (double) var1.z / 32.0D;
         EntityLightningBolt var8 = null;
-        if (var1.field_27055_e == 1) {
+        if (var1.field1 == 1) {
             var8 = new EntityLightningBolt(this.worldClient, var2, var4, var6);
         }
 
         if (var8 != null) {
-            var8.serverPosX = var1.field_27053_b;
-            var8.serverPosY = var1.field_27057_c;
-            var8.serverPosZ = var1.field_27056_d;
+            var8.serverPosX = var1.x;
+            var8.serverPosY = var1.y;
+            var8.serverPosZ = var1.z;
             var8.rotationYaw = 0.0F;
             var8.rotationPitch = 0.0F;
-            var8.entityId = var1.field_27054_a;
+            var8.entityId = var1.entityId;
             this.worldClient.addWeatherEffect(var8);
         }
 
     }
 
     @Override
-    public void func_21146_a(Packet25EntityPainting var1) {
+    public void handleEntityPainting(Packet25EntityPainting var1) {
         EntityPainting var2 = new EntityPainting(this.worldClient, var1.xPosition, var1.yPosition, var1.zPosition, var1.direction, var1.title);
         this.worldClient.func_712_a(var1.entityId, var2);
     }
 
     @Override
-    public void func_6498_a(Packet28EntityVelocity var1) {
+    public void handleEntityVelocity(Packet28EntityVelocity var1) {
         Entity var2 = this.getEntityByID(var1.entityId);
         if (var2 != null) {
             var2.setVelocity((double) var1.motionX / 8000.0D, (double) var1.motionY / 8000.0D, (double) var1.motionZ / 8000.0D);
@@ -205,10 +205,10 @@ public class NetClientHandler extends NetHandler {
     }
 
     @Override
-    public void func_21148_a(Packet40EntityMetadata var1) {
+    public void handleEntityMetadata(Packet40EntityMetadata var1) {
         Entity var2 = this.getEntityByID(var1.entityId);
-        if (var2 != null && var1.func_21047_b() != null) {
-            var2.getDataWatcher().updateWatchedObjectsFromList(var1.func_21047_b());
+        if (var2 != null && var1.getObjects() != null) {
+            var2.getDataWatcher().updateWatchedObjectsFromList(var1.getObjects());
         }
 
     }
@@ -365,7 +365,7 @@ public class NetClientHandler extends NetHandler {
     public void func_28117_a(Packet var1) {
         if (!this.disconnected) {
             this.netManager.addToSendQueue(var1);
-            this.netManager.func_28142_c();
+            this.netManager.serverShutdown();
         }
     }
 
@@ -410,19 +410,19 @@ public class NetClientHandler extends NetHandler {
                 var4.wakeUpPlayer(false, false, false);
             } else if (var1.animate == 4) {
                 EntityPlayer var5 = (EntityPlayer) var2;
-                var5.func_6420_o();
+                var5.playRespawnAnimation();
             }
 
         }
     }
 
     @Override
-    public void func_22186_a(Packet17Sleep var1) {
-        Entity var2 = this.getEntityByID(var1.field_22045_a);
+    public void handleSleep(Packet17Sleep var1) {
+        Entity var2 = this.getEntityByID(var1.entityId);
         if (var2 != null) {
-            if (var1.field_22046_e == 0) {
+            if (var1.field1 == 0) {
                 EntityPlayer var3 = (EntityPlayer) var2;
-                var3.sleepInBedAt(var1.field_22044_b, var1.field_22048_c, var1.field_22047_d);
+                var3.sleepInBedAt(var1.x, var1.y, var1.z);
             }
 
         }
@@ -445,7 +445,7 @@ public class NetClientHandler extends NetHandler {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                this.netManager.networkShutdown("disconnect.genericReason", "Internal client error: " + e.toString());
+                this.netManager.networkShutdown("disconnect.genericReason", "Internal client error: " + e);
             }
         }
 
@@ -453,7 +453,7 @@ public class NetClientHandler extends NetHandler {
 
     public void disconnect() {
         this.disconnected = true;
-        this.netManager.wakeThreads();
+        this.netManager.interrupt();
         this.netManager.networkShutdown("disconnect.closed");
     }
 
@@ -491,7 +491,7 @@ public class NetClientHandler extends NetHandler {
     }
 
     @Override
-    public void func_6497_a(Packet39AttachEntity var1) {
+    public void handleAttachEntity(Packet39AttachEntity var1) {
         Object var2 = this.getEntityByID(var1.entityId);
         Entity var3 = this.getEntityByID(var1.vehicleEntityId);
         if (var1.entityId == this.potion.thePlayer.entityId) {
@@ -504,7 +504,7 @@ public class NetClientHandler extends NetHandler {
     }
 
     @Override
-    public void func_9447_a(Packet38EntityStatus var1) {
+    public void handleEntityStatus(Packet38EntityStatus var1) {
         Entity var2 = this.getEntityByID(var1.entityId);
         if (var2 != null) {
             var2.handleHealthUpdate(var1.entityStatus);
@@ -522,28 +522,28 @@ public class NetClientHandler extends NetHandler {
     }
 
     @Override
-    public void func_9448_a(Packet9Respawn var1) {
-        if (var1.field_28048_a != this.potion.thePlayer.dimension) {
+    public void handleRespawnPacket(Packet9Respawn var1) {
+        if (var1.dimension != this.potion.thePlayer.dimension) {
             this.field_1210_g = false;
-            this.worldClient = new WorldClient(this, this.worldClient.getWorldInfo().getRandomSeed(), var1.field_28048_a);
-            this.worldClient.multiplayerWorld = true;
+            this.worldClient = new WorldClient(this, this.worldClient.getWorldInfo().getRandomSeed(), var1.dimension);
+            this.worldClient.localWorld = true;
             this.potion.changeWorld(this.worldClient);
-            this.potion.thePlayer.dimension = var1.field_28048_a;
+            this.potion.thePlayer.dimension = var1.dimension;
             this.potion.displayGuiScreen(new GuiDownloadTerrain(this));
         }
 
-        this.potion.respawn(true, var1.field_28048_a);
+        this.potion.respawn(true, var1.dimension);
     }
 
     @Override
-    public void func_12245_a(Packet60Explosion var1) {
+    public void handleExplosion(Packet60Explosion var1) {
         Explosion var2 = new Explosion(this.potion.theWorld, null, var1.explosionX, var1.explosionY, var1.explosionZ, var1.explosionSize);
         var2.destroyedBlockPositions = var1.destroyedBlockPositions;
         var2.doExplosionB(true);
     }
 
     @Override
-    public void func_20087_a(Packet100OpenWindow var1) {
+    public void handleOpenWindow(Packet100OpenWindow var1) {
         if (var1.inventoryType == 0) {
             InventoryBasic var2 = new InventoryBasic(var1.windowTitle, var1.slotsCount);
             this.potion.thePlayer.displayGUIChest(var2);
@@ -565,7 +565,7 @@ public class NetClientHandler extends NetHandler {
     }
 
     @Override
-    public void func_20088_a(Packet103SetSlot var1) {
+    public void handleSetSlot(Packet103SetSlot var1) {
         if (var1.windowId == -1) {
             this.potion.thePlayer.inventory.setItemStack(var1.myItemStack);
         } else if (var1.windowId == 0 && var1.itemSlot >= 36 && var1.itemSlot < 45) {
@@ -582,7 +582,7 @@ public class NetClientHandler extends NetHandler {
     }
 
     @Override
-    public void func_20089_a(Packet106Transaction var1) {
+    public void handleTransaction(Packet106Transaction var1) {
         Container var2 = null;
         if (var1.windowId == 0) {
             var2 = this.potion.thePlayer.inventorySlots;
@@ -591,18 +591,18 @@ public class NetClientHandler extends NetHandler {
         }
 
         if (var2 != null) {
-            if (var1.field_20030_c) {
-                var2.func_20113_a(var1.field_20028_b);
+            if (var1.field1) {
+                var2.func_20113_a(var1.shortWindowId);
             } else {
-                var2.func_20110_b(var1.field_20028_b);
-                this.addToSendQueue(new Packet106Transaction(var1.windowId, var1.field_20028_b, true));
+                var2.func_20110_b(var1.shortWindowId);
+                this.addToSendQueue(new Packet106Transaction(var1.windowId, var1.shortWindowId, true));
             }
         }
 
     }
 
     @Override
-    public void func_20094_a(Packet104WindowItems var1) {
+    public void handleWindowItems(Packet104WindowItems var1) {
         if (var1.windowId == 0) {
             this.potion.thePlayer.inventorySlots.putStacksInSlots(var1.itemStack);
         } else if (var1.windowId == this.potion.thePlayer.craftingInventory.windowId) {
@@ -612,7 +612,7 @@ public class NetClientHandler extends NetHandler {
     }
 
     @Override
-    public void handleSignUpdate(Packet130UpdateSign var1) {
+    public void handleUpdateSign(Packet130UpdateSign var1) {
         if (this.potion.theWorld.blockExists(var1.xPosition, var1.yPosition, var1.zPosition)) {
             TileEntity var2 = this.potion.theWorld.getBlockTileEntity(var1.xPosition, var1.yPosition, var1.zPosition);
             if (var2 instanceof TileEntitySign) {
@@ -627,7 +627,7 @@ public class NetClientHandler extends NetHandler {
     }
 
     @Override
-    public void func_20090_a(Packet105UpdateProgressbar var1) {
+    public void handleUpdateProgressbar(Packet105UpdateProgressbar var1) {
         this.registerPacket(var1);
         if (this.potion.thePlayer.craftingInventory != null && this.potion.thePlayer.craftingInventory.windowId == var1.windowId) {
             this.potion.thePlayer.craftingInventory.func_20112_a(var1.progressBar, var1.progressBarValue);
@@ -645,7 +645,7 @@ public class NetClientHandler extends NetHandler {
     }
 
     @Override
-    public void func_20092_a(Packet101CloseWindow var1) {
+    public void handleCloseWindow(Packet101CloseWindow var1) {
         this.potion.thePlayer.closeScreen();
     }
 
@@ -655,40 +655,40 @@ public class NetClientHandler extends NetHandler {
     }
 
     @Override
-    public void func_25118_a(Packet70Bed var1) {
-        int var2 = var1.field_25019_b;
-        if (var2 >= 0 && var2 < Packet70Bed.field_25020_a.length && Packet70Bed.field_25020_a[var2] != null) {
-            this.potion.thePlayer.addChatMessage(Packet70Bed.field_25020_a[var2]);
+    public void handleBed(Packet70Bed var1) {
+        int var2 = var1.field1;
+        if (var2 >= 0 && var2 < Packet70Bed.MESSAGES.length && Packet70Bed.MESSAGES[var2] != null) {
+            this.potion.thePlayer.addChatMessage(Packet70Bed.MESSAGES[var2]);
         }
 
         if (var2 == 1) {
             this.worldClient.getWorldInfo().setRaining(true);
-            this.worldClient.func_27158_h(1.0F);
+            this.worldClient.setRainingStrength(1.0F);
         } else if (var2 == 2) {
             this.worldClient.getWorldInfo().setRaining(false);
-            this.worldClient.func_27158_h(0.0F);
+            this.worldClient.setRainingStrength(0.0F);
         }
 
     }
 
     @Override
-    public void func_28116_a(Packet131MapData var1) {
-        if (var1.field_28055_a == Item.MAP.shiftedIndex) {
-            ItemMap.func_28013_a(var1.field_28054_b, this.potion.theWorld).func_28171_a(var1.field_28056_c);
+    public void handleMapData(Packet131MapData var1) {
+        if (var1.field1 == Item.MAP.shiftedIndex) {
+            ItemMap.method1(var1.field2, this.potion.theWorld).method4(var1.field3);
         } else {
-            System.out.println("Unknown itemid: " + var1.field_28054_b);
+            System.out.println("Unknown itemid: " + var1.field2);
         }
 
     }
 
     @Override
-    public void func_28115_a(Packet61DoorChange var1) {
-        this.potion.theWorld.func_28106_e(var1.field_28050_a, var1.field_28053_c, var1.field_28052_d, var1.field_28051_e, var1.field_28049_b);
+    public void handleDoorChange(Packet61DoorChange var1) {
+        this.potion.theWorld.playEffects(var1.field1, var1.x, var1.y, var1.z, var1.field2);
     }
 
     @Override
-    public void func_27245_a(Packet200Statistic var1) {
-        ((EntityClientPlayerMP) this.potion.thePlayer).func_27027_b(StatList.getStat(var1.field_27052_a), var1.field_27051_b);
+    public void handleStatistic(Packet200Statistic var1) {
+        ((EntityClientPlayerMP) this.potion.thePlayer).addGlobalStat(StatList.getStat(var1.statId), var1.value);
     }
 
     @Override

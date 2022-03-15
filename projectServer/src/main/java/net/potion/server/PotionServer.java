@@ -1,7 +1,5 @@
 package net.potion.server;
 
-import com.demkom58.timings.PotionTimings;
-import com.demkom58.timings.TimingsManager;
 import com.demkom58.util.RollingAverage;
 import net.potion.entity.EntityTracker;
 import net.potion.entity.player.IUpdatePlayerListBox;
@@ -19,7 +17,6 @@ import net.potion.world.chunk.ChunkCoordinates;
 import net.potion.world.storage.ISaveFormat;
 import net.potion.world.storage.SaveConverterRegion;
 import net.potion.world.storage.SaveOldDir;
-import net.hypnosis.util.math.Vec3d;
 
 import java.awt.*;
 import java.io.File;
@@ -75,11 +72,11 @@ public class PotionServer implements Runnable, ICommandListener {
 
     public PotionServer() {
         PotionServer.SERVER = this;
-        new ThreadSleepForever(this);
+        new ThreadSleepForever();
     }
 
     public static void main(String[] args) {
-        StatList.func_27092_a();
+        StatList.init();
 
         try {
             PotionServer server = new PotionServer();
@@ -168,9 +165,9 @@ public class PotionServer implements Runnable, ICommandListener {
     }
 
     private void initWorld(ISaveFormat saveFormat, String type, long seed) {
-        if (saveFormat.isOldSaveType(type)) {
+        if (saveFormat.isOldMapFormat(type)) {
             LOGGER.info("Converting map!");
-            saveFormat.convertMapToRegion(type, new ConvertProgressUpdater(this));
+            saveFormat.convertMapFormat(type, new ConvertProgressUpdater(this));
         }
 
         this.worldServers = new WorldServer[2];
@@ -211,7 +208,7 @@ public class PotionServer implements Runnable, ICommandListener {
                             preparingStart = var14;
                         }
 
-                        worldServer.chunkProviderServer.prepareChunk(chunkCoordinates.posX + j >> 4, chunkCoordinates.posZ + k >> 4);
+                        worldServer.chunkProviderServer.prepareChunk(chunkCoordinates.x + j >> 4, chunkCoordinates.z + k >> 4);
 
                         while (worldServer.updatingLighting() && this.serverRunning) {
                         }
@@ -240,7 +237,7 @@ public class PotionServer implements Runnable, ICommandListener {
         for (int i = 0; i < this.worldServers.length; ++i) {
             WorldServer worldServer = this.worldServers[i];
             worldServer.saveWorld(true, null);
-            worldServer.func_30006_w();
+            worldServer.clearCache();
         }
 
     }
@@ -344,7 +341,6 @@ public class PotionServer implements Runnable, ICommandListener {
     }
 
     private void doTick() {
-        TimingsManager.FULL_SERVER_TICK.startTiming();
         AxisAlignedBB.clearBoundingBoxPool();
         ++this.deathTime;
 
@@ -352,53 +348,32 @@ public class PotionServer implements Runnable, ICommandListener {
             if (i == 0 || allowNether) {
                 final WorldServer worldServer = this.worldServers[i];
 
-                PotionTimings.timeUpdateTimer.startTiming();
                 if (this.deathTime % 20 == 0) {
                     Packet4UpdateTime packet = new Packet4UpdateTime(worldServer.getWorldTime());
                     this.configManager.sendPacketToAllPlayersInDimension(packet, worldServer.worldProvider.worldType);
                 }
-                PotionTimings.timeUpdateTimer.stopTiming();
 
-                worldServer.timings.doTick.startTiming();
-                worldServer.doTick();
-                worldServer.timings.doTick.stopTiming();
-
-                worldServer.timings.lightingQueueTimer.startTiming();
+                worldServer.tick();
                 while (worldServer.updatingLighting()) { }
-                worldServer.timings.lightingQueueTimer.stopTiming();
-
-                worldServer.timings.tickEntities.startTiming();
-                worldServer.tickEntities();
-                worldServer.timings.tickEntities.stopTiming();
+                worldServer.updateEntities();
             }
         }
 
-        PotionTimings.connectionTimer.startTiming();
         this.networkServer.handleNetworkListenThread();
-        PotionTimings.connectionTimer.stopTiming();
 
-        PotionTimings.configManagerTick.startTiming();
         this.configManager.onTick();
-        PotionTimings.configManagerTick.stopTiming();
 
-        PotionTimings.trackedEntitiesTick.startTiming();
         for (int i = 0; i < this.entityTracker.length; ++i)
             this.entityTracker[i].updateTrackedEntities();
-        PotionTimings.trackedEntitiesTick.stopTiming();
 
-        PotionTimings.playerListTimer.startTiming();
         for (int i = 0; i < this.updatePlayerListBoxes.size(); ++i)
             this.updatePlayerListBoxes.get(i).update();
-        PotionTimings.playerListTimer.stopTiming();
 
         try {
-            PotionTimings.serverCommandTimer.startTiming();
             this.commandLineParser();
-            PotionTimings.serverCommandTimer.stopTiming();
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Unexpected exception while parsing console command", e);
         }
-        TimingsManager.FULL_SERVER_TICK.stopTiming();
     }
 
     public void addCommand(String name, ICommandListener listener) {

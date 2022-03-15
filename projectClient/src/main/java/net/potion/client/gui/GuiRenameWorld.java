@@ -28,7 +28,7 @@ public class GuiRenameWorld extends GuiScreen {
 
         ISaveFormat saveLoader = this.potion.getSaveLoader();
         WorldInfo worldInfo = saveLoader.readWorldInfo(this.worldName);
-        String worldName = worldInfo.getWorldName();
+        String worldName = worldInfo.getLevelName();
         this.renameField = new GuiTextField(this, this.fontRenderer, this.width / 2 - 100, 60, 200, 20, worldName);
         this.renameField.isFocused = true;
         this.renameField.setMaxStringLength(32);

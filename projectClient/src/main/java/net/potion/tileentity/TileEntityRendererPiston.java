@@ -14,7 +14,7 @@ public class TileEntityRendererPiston extends TileEntitySpecialRenderer {
 
     public void func_31070_a(TileEntityPiston var1, double var2, double var4, double var6, float var8) {
         Block var9 = Block.BLOCKS_LIST[var1.getStoredBlockID()];
-        if (var9 != null && var1.func_31008_a(var8) < 1.0F) {
+        if (var9 != null && var1.getProgress(var8) < 1.0F) {
             Tessellator var10 = Tessellator.INSTANCE;
             this.bindTextureByName("/terrain.png");
             RenderHelper.disableStandardItemLighting();
@@ -28,14 +28,14 @@ public class TileEntityRendererPiston extends TileEntitySpecialRenderer {
             }
 
             var10.startDrawingQuads();
-            var10.setTranslationD((float) var2 - (float) var1.xCoord + var1.func_31017_b(var8), (float) var4 - (float) var1.yCoord + var1.func_31014_c(var8), (float) var6 - (float) var1.zCoord + var1.func_31013_d(var8));
+            var10.setTranslationD((float) var2 - (float) var1.xCoord + var1.method2(var8), (float) var4 - (float) var1.yCoord + var1.method3(var8), (float) var6 - (float) var1.zCoord + var1.method4(var8));
             var10.setColorOpaque(1, 1, 1);
-            if (var9 == Block.PISTON_EXTENSION && var1.func_31008_a(var8) < 0.5F) {
+            if (var9 == Block.PISTON_EXTENSION && var1.getProgress(var8) < 0.5F) {
                 this.field_31071_b.func_31079_a(var9, var1.xCoord, var1.yCoord, var1.zCoord, false);
-            } else if (var1.func_31012_k() && !var1.func_31015_b()) {
-                Block.PISTON_EXTENSION.func_31052_a_(((BlockPistonBase) var9).func_31040_i());
-                this.field_31071_b.func_31079_a(Block.PISTON_EXTENSION, var1.xCoord, var1.yCoord, var1.zCoord, var1.func_31008_a(var8) < 0.5F);
-                Block.PISTON_EXTENSION.func_31051_a();
+            } else if (var1.method1() && !var1.isExtending()) {
+                Block.PISTON_EXTENSION.method2(((BlockPistonBase) var9).getBlockId());
+                this.field_31071_b.func_31079_a(Block.PISTON_EXTENSION, var1.xCoord, var1.yCoord, var1.zCoord, var1.getProgress(var8) < 0.5F);
+                Block.PISTON_EXTENSION.method3();
                 var10.setTranslationD((float) var2 - (float) var1.xCoord, (float) var4 - (float) var1.yCoord, (float) var6 - (float) var1.zCoord);
                 this.field_31071_b.func_31078_d(var9, var1.xCoord, var1.yCoord, var1.zCoord);
             } else {

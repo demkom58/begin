@@ -16,7 +16,7 @@ class GuiSlotStatsGeneral extends GuiSlot {
 
     @Override
     protected int getSize() {
-        return StatList.field_25187_b.size();
+        return StatList.field2.size();
     }
 
     @Override
@@ -40,7 +40,7 @@ class GuiSlotStatsGeneral extends GuiSlot {
 
     @Override
     protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator tess) {
-        StatBase base = StatList.field_25187_b.get(var1);
+        StatBase base = StatList.field2.get(var1);
         this.field_27276_a.drawString(GuiStats.func_27145_b(this.field_27276_a), base.statName, var2 + 2, var3 + 1, var1 % 2 == 0 ? 16777215 : 9474192);
         String var7 = base.func_27084_a(GuiStats.func_27142_c(this.field_27276_a).writeStat(base));
         this.field_27276_a.drawString(GuiStats.func_27140_d(this.field_27276_a), var7, var2 + 2 + 213 - GuiStats.func_27146_e(this.field_27276_a).getStringWidth(var7), var3 + 1, var1 % 2 == 0 ? 16777215 : 9474192);

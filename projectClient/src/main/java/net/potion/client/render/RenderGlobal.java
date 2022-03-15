@@ -308,7 +308,7 @@ public class RenderGlobal implements IWorldAccess {
                 Entity entity = (Entity) var5.get(var9);
                 if (entity.isInRangeToRenderVector3d(vec)
                         && (entity.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(entity.boundingBox))
-                        && (entity != this.potion.renderViewEntity || this.potion.gameSettings.thirdPersonView || this.potion.renderViewEntity.isPlayerSleeping())) {
+                        && (entity != this.potion.renderViewEntity || this.potion.gameSettings.thirdPersonView || this.potion.renderViewEntity.isSleeping())) {
                     int var8 = MathHelper.floor(entity.posY);
                     if (var8 < 0) {
                         var8 = 0;
@@ -633,7 +633,7 @@ public class RenderGlobal implements IWorldAccess {
             return;
 
         GL11.glDisable(GL11.GL_TEXTURE_2D);
-        Vec3d vec = this.worldObj.func_4079_a(this.potion.renderViewEntity, var1);
+        Vec3d vec = this.worldObj.getSkyColor(this.potion.renderViewEntity, var1);
         float x = (float) vec.x;
         float y = (float) vec.y;
         float z = (float) vec.z;
@@ -735,7 +735,7 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glEnable(GL11.GL_FOG);
         GL11.glPopMatrix();
-        if (this.worldObj.worldProvider.func_28112_c()) {
+        if (this.worldObj.worldProvider.method1()) {
             GL11.glColor3f(x * 0.2F + 0.04F, y * 0.2F + 0.04F, z * 0.6F + 0.1F);
         } else {
             GL11.glColor3f(x, y, z);
@@ -1399,7 +1399,7 @@ public class RenderGlobal implements IWorldAccess {
     }
 
     @Override
-    public void func_28136_a(EntityPlayer player, int var2, int x, int y, int z, int var6) {
+    public void playEffect(EntityPlayer player, int var2, int x, int y, int z, int var6) {
         Random rand = this.worldObj.rand;
         switch (var2) {
             case 1000:

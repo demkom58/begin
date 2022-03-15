@@ -164,7 +164,7 @@ public final class PotionClient implements Runnable {
         this.fullscreenArg = fullscreen;
 
         StatList.init();
-        new ThreadSleepForever(this, "Timer hack thread");
+        new ThreadSleepForever("Timer hack thread");
         instance = this;
     }
 
@@ -897,10 +897,10 @@ public final class PotionClient implements Runnable {
         if (this.currentScreen == null && this.thePlayer != null) {
             if (this.thePlayer.health <= 0) {
                 this.displayGuiScreen(null);
-            } else if (this.thePlayer.isPlayerSleeping() && this.theWorld != null && this.theWorld.multiplayerWorld) {
+            } else if (this.thePlayer.isSleeping() && this.theWorld != null && this.theWorld.localWorld) {
                 this.displayGuiScreen(new GuiSleepMP());
             }
-        } else if (this.currentScreen != null && this.currentScreen instanceof GuiSleepMP && !this.thePlayer.isPlayerSleeping()) {
+        } else if (this.currentScreen != null && this.currentScreen instanceof GuiSleepMP && !this.thePlayer.isSleeping()) {
             this.displayGuiScreen(null);
         }
 
@@ -929,7 +929,7 @@ public final class PotionClient implements Runnable {
             }
 
             this.theWorld.difficultySetting = this.gameSettings.difficulty;
-            if (this.theWorld.multiplayerWorld)
+            if (this.theWorld.localWorld)
                 this.theWorld.difficultySetting = 3;
 
             if (!this.isGamePaused)
@@ -939,14 +939,14 @@ public final class PotionClient implements Runnable {
                 this.renderGlobal.updateClouds();
 
             if (!this.isGamePaused) {
-                if (this.theWorld.field_27172_i > 0)
-                    --this.theWorld.field_27172_i;
+                if (this.theWorld.field1 > 0)
+                    --this.theWorld.field1;
 
                 this.theWorld.updateEntities();
             }
 
             if (!this.isGamePaused || this.isMultiplayerWorld()) {
-                this.theWorld.setAllowedMobSpawns(this.gameSettings.difficulty > 0, true);
+                this.theWorld.setAllowedSpawnTypes(this.gameSettings.difficulty > 0, true);
                 this.theWorld.tick();
             }
 
@@ -974,7 +974,7 @@ public final class PotionClient implements Runnable {
     }
 
     public boolean isMultiplayerWorld() {
-        return this.theWorld != null && this.theWorld.multiplayerWorld;
+        return this.theWorld != null && this.theWorld.localWorld;
     }
 
     public void startWorld(String var1, String var2, long var3) {
@@ -1008,7 +1008,7 @@ public final class PotionClient implements Runnable {
         else
             this.thePlayer.dimension = -1;
 
-        this.theWorld.setEntityDead(this.thePlayer);
+        this.theWorld.removeEntity(this.thePlayer);
         this.thePlayer.isDead = false;
         double x = this.thePlayer.posX;
         double z = this.thePlayer.posZ;
@@ -1039,7 +1039,7 @@ public final class PotionClient implements Runnable {
         if (this.thePlayer.isEntityAlive()) {
             this.thePlayer.setLocationAndAngles(x, this.thePlayer.posY, z, this.thePlayer.rotationYaw, this.thePlayer.rotationPitch);
             this.theWorld.updateEntityWithOptionalForce(this.thePlayer, false);
-            new Teleporter().func_4107_a(this.theWorld, this.thePlayer);
+            new Teleporter().setExitLocation(this.theWorld, this.thePlayer);
         }
 
     }
@@ -1067,7 +1067,7 @@ public final class PotionClient implements Runnable {
             this.playerController.func_717_a(world);
             if (!this.isMultiplayerWorld()) {
                 if (player == null) {
-                    this.thePlayer = (EntityPlayerSP) world.func_4085_a(EntityPlayerSP.class);
+                    this.thePlayer = (EntityPlayerSP) world.queryEntity(EntityPlayerSP.class);
                 }
             } else if (this.thePlayer != null) {
                 this.thePlayer.preparePlayerToSpawn();
@@ -1076,7 +1076,7 @@ public final class PotionClient implements Runnable {
                 }
             }
 
-            if (!world.multiplayerWorld)
+            if (!world.localWorld)
                 this.func_6255_d(loadScreenText);
 
             if (this.thePlayer == null) {
@@ -1195,7 +1195,7 @@ public final class PotionClient implements Runnable {
     }
 
     public void respawn(boolean var1, int var2) {
-        if (!this.theWorld.multiplayerWorld && !this.theWorld.worldProvider.canRespawnHere())
+        if (!this.theWorld.localWorld && !this.theWorld.worldProvider.canRespawnHere())
             this.usePortal();
 
         ChunkCoordinates var3 = null;
@@ -1226,7 +1226,7 @@ public final class PotionClient implements Runnable {
         int playerId = 0;
         if (this.thePlayer != null) {
             playerId = this.thePlayer.entityId;
-            this.theWorld.setEntityDead(this.thePlayer);
+            this.theWorld.removeEntity(this.thePlayer);
         }
 
         this.renderViewEntity = null;
@@ -1243,7 +1243,7 @@ public final class PotionClient implements Runnable {
         this.theWorld.spawnPlayerWithLoadedChunks(this.thePlayer);
         this.thePlayer.movementInput = new MovementInputFromOptions(this.gameSettings);
         this.thePlayer.entityId = playerId;
-        this.thePlayer.func_6420_o();
+        this.thePlayer.playRespawnAnimation();
         this.playerController.func_6473_b(this.thePlayer);
         this.func_6255_d("Respawning");
         if (this.currentScreen instanceof GuiGameOver) {

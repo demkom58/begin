@@ -1,5 +1,7 @@
 package net.potion.entity.player;
 
+import net.hypnosis.annotations.CodeSide;
+import net.hypnosis.annotations.Side;
 import net.potion.entity.Entity;
 import net.potion.item.ItemStack;
 import net.hypnosis.util.math.MathHelper;
@@ -39,6 +41,7 @@ public class EntityOtherPlayerMP extends EntityPlayer {
     }
 
     @Override
+    @Side(CodeSide.CLIENT)
     public void setPositionAndRotation2(double var1, double var3, double var5, float var7, float var8, int var9) {
         this.field_784_bh = var1;
         this.field_783_bi = var3;
@@ -52,7 +55,7 @@ public class EntityOtherPlayerMP extends EntityPlayer {
     public void onUpdate() {
         this.renderOffsetY = 0.0F;
         super.onUpdate();
-        this.field_705_Q = this.field_704_R;
+        this.field5 = this.field6;
         double var1 = this.posX - this.prevPosX;
         double var3 = this.posZ - this.prevPosZ;
         float var5 = MathHelper.sqrt(var1 * var1 + var3 * var3) * 4.0F;
@@ -60,11 +63,12 @@ public class EntityOtherPlayerMP extends EntityPlayer {
             var5 = 1.0F;
         }
 
-        this.field_704_R += (var5 - this.field_704_R) * 0.4F;
-        this.field_703_S += this.field_704_R;
+        this.field6 += (var5 - this.field6) * 0.4F;
+        this.field7 += this.field6;
     }
 
     @Override
+    @Side(CodeSide.CLIENT)
     public float getShadowSize() {
         return 0.0F;
     }
@@ -112,6 +116,7 @@ public class EntityOtherPlayerMP extends EntityPlayer {
     }
 
     @Override
+    @Side(CodeSide.CLIENT)
     public void outfitWithItem(int var1, int var2, int var3) {
         ItemStack var4 = null;
         if (var2 >= 0) {
@@ -124,9 +129,5 @@ public class EntityOtherPlayerMP extends EntityPlayer {
             this.inventory.armorInventory[var1 - 1] = var4;
         }
 
-    }
-
-    @Override
-    public void func_6420_o() {
     }
 }

@@ -6,10 +6,10 @@ import net.potion.item.ItemStack;
 import java.util.List;
 
 public class InventoryBasic implements IInventory {
-    private String inventoryTitle;
-    private int slotsCount;
-    private ItemStack[] inventoryContents;
-    private List field_20073_d;
+    private final String inventoryTitle;
+    private final int slotsCount;
+    private final ItemStack[] inventoryContents;
+    private List<IInvBasic> invBasics;
 
     public InventoryBasic(String var1, int var2) {
         this.inventoryTitle = var1;
@@ -71,9 +71,9 @@ public class InventoryBasic implements IInventory {
 
     @Override
     public void onInventoryChanged() {
-        if (this.field_20073_d != null) {
-            for (int var1 = 0; var1 < this.field_20073_d.size(); ++var1) {
-                ((IInvBasic) this.field_20073_d.get(var1)).func_20134_a(this);
+        if (this.invBasics != null) {
+            for (int i = 0; i < this.invBasics.size(); ++i) {
+                this.invBasics.get(i).onInventoryChanged(this);
             }
         }
 

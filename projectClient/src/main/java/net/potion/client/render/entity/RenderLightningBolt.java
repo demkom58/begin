@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.Random;
 
 public class RenderLightningBolt extends Render {
-    public void func_27002_a(EntityLightningBolt var1, double var2, double var4, double var6, float var8, float var9) {
+    public void handleWeather(EntityLightningBolt var1, double var2, double var4, double var6, float var8, float var9) {
         Tessellator tess = Tessellator.INSTANCE;
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_LIGHTING);
@@ -19,7 +19,7 @@ public class RenderLightningBolt extends Render {
         double[] var12 = new double[8];
         double var13 = 0.0D;
         double var15 = 0.0D;
-        Random var17 = new Random(var1.field_27029_a);
+        Random var17 = new Random(var1.field1);
 
         for (int var18 = 7; var18 >= 0; --var18) {
             var11[var18] = var13;
@@ -29,7 +29,7 @@ public class RenderLightningBolt extends Render {
         }
 
         for (int var45 = 0; var45 < 4; ++var45) {
-            Random var46 = new Random(var1.field_27029_a);
+            Random var46 = new Random(var1.field1);
 
             for (int var19 = 0; var19 < 3; ++var19) {
                 int var20 = 7;
@@ -108,6 +108,6 @@ public class RenderLightningBolt extends Render {
     // $FF: bridge method
     @Override
     public void doRender(Entity entity, double x, double y, double z, float yaw, float delta) {
-        this.func_27002_a((EntityLightningBolt) entity, x, y, z, yaw, delta);
+        this.handleWeather((EntityLightningBolt) entity, x, y, z, yaw, delta);
     }
 }

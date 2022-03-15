@@ -125,7 +125,7 @@ public class GuiAchievement extends Gui {
                 GL11.glEnable(GL15.GL_RESCALE_NORMAL);
                 GL11.glEnable(GL11.GL_COLOR_MATERIAL);
                 GL11.glEnable(GL11.GL_LIGHTING);
-                this.itemRender.renderItemIntoGUI(this.theGame.fontRenderer, this.theGame.renderEngine, this.theAchievement.theItemStack, var5 + 8, var6 + 8);
+                this.itemRender.renderItemIntoGUI(this.theGame.fontRenderer, this.theGame.renderEngine, this.theAchievement.itemStack, var5 + 8, var6 + 8);
                 GL11.glDisable(GL11.GL_LIGHTING);
                 GL11.glDepthMask(true);
                 GL11.glEnable(GL11.GL_DEPTH_TEST);

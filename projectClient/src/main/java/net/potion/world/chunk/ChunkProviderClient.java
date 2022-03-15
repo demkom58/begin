@@ -1,5 +1,7 @@
 package net.potion.world.chunk;
 
+import net.hypnosis.annotations.CodeSide;
+import net.hypnosis.annotations.Side;
 import net.potion.util.IProgressUpdatable;
 import net.potion.world.World;
 
@@ -28,7 +30,7 @@ public class ChunkProviderClient implements IChunkProvider {
 
     public void func_539_c(int var1, int var2) {
         Chunk var3 = this.provideChunk(var1, var2);
-        if (!var3.func_21167_h()) {
+        if (!var3.method1()) {
             var3.onChunkUnload();
         }
 
@@ -74,6 +76,7 @@ public class ChunkProviderClient implements IChunkProvider {
     }
 
     @Override
+    @Side(CodeSide.CLIENT)
     public String makeString() {
         return "MultiplayerChunkCache: " + this.chunkMapping.size();
     }

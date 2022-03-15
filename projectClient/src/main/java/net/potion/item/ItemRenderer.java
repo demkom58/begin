@@ -219,7 +219,7 @@ public class ItemRenderer {
             var45.addVertexWithUV(128 + var46, -var46, 0.0D, 1.0D, 0.0D);
             var45.addVertexWithUV(-var46, -var46, 0.0D, 0.0D, 0.0D);
             var45.draw();
-            MapData var47 = Item.MAP.func_28012_a(var5, this.potion.theWorld);
+            MapData var47 = Item.MAP.method2(var5, this.potion.theWorld);
             this.field_28131_f.func_28157_a(this.potion.thePlayer, this.potion.renderEngine, var47);
             GL11.glPopMatrix();
         } else if (var5 != null) {

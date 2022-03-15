@@ -167,17 +167,17 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
     @Override
     public void addStat(StatBase statBase, int addition) {
         if (statBase != null) {
-            if (statBase.field_27088_g) {
+            if (statBase.clientSide) {
                 super.addStat(statBase, addition);
             }
 
         }
     }
 
-    public void func_27027_b(StatBase var1, int var2) {
-        if (var1 != null) {
-            if (!var1.field_27088_g) {
-                super.addStat(var1, var2);
+    public void addGlobalStat(StatBase statBase, int addition) {
+        if (statBase != null) {
+            if (!statBase.clientSide) {
+                super.addStat(statBase, addition);
             }
 
         }

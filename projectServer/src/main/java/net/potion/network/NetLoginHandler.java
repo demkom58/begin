@@ -99,13 +99,13 @@ public class NetLoginHandler extends NetHandler {
         EntityPlayerMP var2 = this.server.configManager.login(this, var1.username);
         if (var2 != null) {
             this.server.configManager.readPlayerDataFromFile(var2);
-            var2.setWorldHandler(this.server.getWorldServer(var2.dimension));
+            var2.setWorld(this.server.getWorldServer(var2.dimension));
             logger.info(this.getUserAndIPString() + " logged in with entity id " + var2.entityId + " at (" + var2.posX + ", " + var2.posY + ", " + var2.posZ + ")");
             WorldServer var3 = this.server.getWorldServer(var2.dimension);
             ChunkCoordinates var4 = var3.getSpawnPoint();
             NetServerHandler var5 = new NetServerHandler(this.server, this.netManager, var2);
             var5.sendPacket(new Packet1Login("", var2.entityId, var3.getRandomSeed(), (byte) var3.worldProvider.worldType));
-            var5.sendPacket(new Packet6SpawnPosition(var4.posX, var4.posY, var4.posZ));
+            var5.sendPacket(new Packet6SpawnPosition(var4.x, var4.y, var4.z));
             this.server.configManager.func_28170_a(var2, var3);
             this.server.configManager.sendPacketToAllPlayers(new Packet3Chat("\u00a7e" + var2.username + " joined the game."));
             this.server.configManager.playerLoggedIn(var2);

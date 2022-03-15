@@ -77,13 +77,13 @@ public class ModelWolf extends ModelBase {
     @Override
     public void setLivingAnimations(EntityLiving var1, float var2, float var3, float var4) {
         EntityWolf var5 = (EntityWolf) var1;
-        if (var5.isWolfAngry()) {
+        if (var5.isAngry()) {
             this.wolfTail.rotateAngleY = 0.0F;
         } else {
             this.wolfTail.rotateAngleY = MathHelper.cos(var2 * 0.6662F) * 1.4F * var3;
         }
 
-        if (var5.isWolfSitting()) {
+        if (var5.isSitting()) {
             this.wolfMane.setRotationPoint(-1.0F, 16.0F, -3.0F);
             this.wolfMane.rotateAngleX = MathConstants.PI * 0.4f;
             this.wolfMane.rotateAngleY = 0.0F;

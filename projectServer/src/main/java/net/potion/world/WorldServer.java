@@ -48,7 +48,7 @@ public class WorldServer extends World {
 
     @Override
     protected IChunkProvider createChunkProvider() {
-        IChunkLoader var1 = this.worldFile.func_22092_a(this.worldProvider);
+        IChunkLoader var1 = this.saveHandler.getChunkLoader(this.worldProvider);
         this.chunkProviderServer = new ChunkProviderServer(this, var1, this.worldProvider.getChunkProvider());
         return this.chunkProviderServer;
     }
@@ -94,8 +94,8 @@ public class WorldServer extends World {
     }
 
     @Override
-    public boolean addLightningBolt(Entity var1) {
-        if (super.addLightningBolt(var1)) {
+    public boolean addWeatherEffect(Entity var1) {
+        if (super.addWeatherEffect(var1)) {
             this.server.configManager.sendPacketToPlayersAroundPoint(var1.posX, var1.posY, var1.posZ, 512.0D, this.worldProvider.worldType, new Packet71Weather(var1));
             return true;
         } else {
@@ -113,8 +113,8 @@ public class WorldServer extends World {
     public Explosion newExplosion(Entity exploder, double x, double y, double z, float size, boolean flaming) {
         Explosion explosion = new Explosion(this, exploder, x, y, z, size);
         explosion.isFlaming = flaming;
-        explosion.doExplosion();
-        explosion.doEffects(false);
+        explosion.doExplosionA();
+        explosion.doExplosionB(false);
         this.server.configManager.sendPacketToPlayersAroundPoint(x, y, z, 64.0D, this.worldProvider.worldType, new Packet60Explosion(x, y, z, size, explosion.destroyedBlockPositions));
         return explosion;
     }
@@ -125,15 +125,15 @@ public class WorldServer extends World {
         this.server.configManager.sendPacketToPlayersAroundPoint(var1, var2, var3, 64.0D, this.worldProvider.worldType, new Packet54PlayNoteBlock(var1, var2, var3, var4, var5));
     }
 
-    public void func_30006_w() {
-        this.worldFile.func_22093_e();
+    public void clearCache() {
+        this.saveHandler.clearCache();
     }
 
     @Override
     protected void updateWeather() {
-        boolean var1 = this.func_27068_v();
+        boolean var1 = this.isSmallRain();
         super.updateWeather();
-        if (var1 != this.func_27068_v()) {
+        if (var1 != this.isSmallRain()) {
             if (var1) {
                 this.server.configManager.sendPacketToAllPlayers(new Packet70Bed(2));
             } else {

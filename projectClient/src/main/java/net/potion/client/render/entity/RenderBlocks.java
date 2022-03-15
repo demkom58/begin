@@ -211,9 +211,9 @@ public class RenderBlocks {
         tess.addVertexWithUV(var54, var58, var60, var40, var44);
         tess.addVertexWithUV(var54, var58, var62, var48, var52);
 
-        int var65 = ModelBed.field_22280_a[direction];
+        int var65 = ModelBed.field1[direction];
         if (isBedFoot)
-            var65 = ModelBed.field_22280_a[ModelBed.field_22279_b[direction]];
+            var65 = ModelBed.field1[ModelBed.field2[direction]];
 
         var27 = 4;
         switch (direction) {
@@ -326,19 +326,19 @@ public class RenderBlocks {
         switch (var6) {
             case 0:
                 var18 = -0.3125D;
-                var14 = BlockRedstoneRepeater.field_22024_a[var7];
+                var14 = BlockRedstoneRepeater.field1[var7];
                 break;
             case 1:
                 var16 = 0.3125D;
-                var12 = -BlockRedstoneRepeater.field_22024_a[var7];
+                var12 = -BlockRedstoneRepeater.field1[var7];
                 break;
             case 2:
                 var18 = 0.3125D;
-                var14 = -BlockRedstoneRepeater.field_22024_a[var7];
+                var14 = -BlockRedstoneRepeater.field1[var7];
                 break;
             case 3:
                 var16 = -0.3125D;
-                var12 = BlockRedstoneRepeater.field_22024_a[var7];
+                var12 = BlockRedstoneRepeater.field1[var7];
         }
 
         this.renderTorchAtAngle(block, (double) x + var12, (double) y + var10, (double) z + var14, 0.0D, 0.0D);
@@ -393,7 +393,7 @@ public class RenderBlocks {
     private boolean renderBlockPiston(Block block, int x, int y, int z, boolean var5) {
         int metadata = this.blockAccess.getBlockMetadata(x, y, z);
         boolean var7 = var5 || (metadata & 8) != 0;
-        int var8 = BlockPistonBase.func_31044_d(metadata);
+        int var8 = BlockPistonBase.getOrientation(metadata);
         if (var7) {
             switch (var8) {
                 case 0:
@@ -554,7 +554,7 @@ public class RenderBlocks {
 
     private boolean renderBlockPistonExtension(Block block, int x, int y, int z, boolean var5) {
         int var6 = this.blockAccess.getBlockMetadata(x, y, z);
-        int var7 = BlockPistonExtension.func_31050_c(var6);
+        int var7 = BlockPistonExtension.method1(var6);
         float var11 = block.getBlockBrightness(this.blockAccess, x, y, z);
         float var12 = var5 ? 1.0F : 0.5F;
         double var13 = var5 ? 16.0D : 8.0D;
@@ -1523,7 +1523,7 @@ public class RenderBlocks {
         if (this.renderAllFaces || var10) {
             var13 = true;
             int var28 = block.getBlockTextureFromSideAndMetadata(1, var23);
-            float rad = (float) BlockFluid.func_293_a(this.blockAccess, x, y, z, material);
+            float rad = (float) BlockFluid.method1(this.blockAccess, x, y, z, material);
             if (rad > -999.0F) {
                 var28 = block.getBlockTextureFromSideAndMetadata(2, var23);
             }
@@ -1662,11 +1662,11 @@ public class RenderBlocks {
             } else {
                 int metadata = this.blockAccess.getBlockMetadata(curX, y, curZ);
                 if (metadata >= 8 || metadata == 0) {
-                    var6 += BlockFluid.getPercentAir(metadata) * 10.0F;
+                    var6 += BlockFluid.setFluidHeight(metadata) * 10.0F;
                     var5 += 10;
                 }
 
-                var6 += BlockFluid.getPercentAir(metadata);
+                var6 += BlockFluid.setFluidHeight(metadata);
                 ++var5;
             }
         }

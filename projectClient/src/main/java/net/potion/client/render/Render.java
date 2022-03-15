@@ -220,7 +220,7 @@ public abstract class Render {
     private void renderShadowOnBlock(Block block, double var2, double var4, double var6,
                                      int var8, int var9, int var10, float var11, float var12,
                                      double var13, double var15, double var17) {
-        if (!block.renderAsNormalBlock())
+        if (!block.isNormalCube())
             return;
 
         Tessellator tess = Tessellator.INSTANCE;

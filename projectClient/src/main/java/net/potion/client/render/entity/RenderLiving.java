@@ -48,8 +48,8 @@ public class RenderLiving extends Render {
             GL11.glScalef(-1.0F, -1.0F, 1.0F);
             this.preRenderCallback(entity, delta);
             GL11.glTranslatef(0.0F, -24.0F * var14 - 0.0078125F, 0.0F);
-            float var15 = entity.field_705_Q + (entity.field_704_R - entity.field_705_Q) * delta;
-            float var16 = entity.field_703_S - entity.field_704_R * (1.0F - delta);
+            float var15 = entity.field5 + (entity.field6 - entity.field5) * delta;
+            float var16 = entity.field7 - entity.field6 * (1.0F - delta);
             if (var15 > 1.0F) {
                 var15 = 1.0F;
             }

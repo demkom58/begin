@@ -1,6 +1,5 @@
 package net.potion.server;
 
-import com.demkom58.timings.PotionTimings;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.player.EntityPlayerMP;
 import net.potion.entity.player.IPlayerFileData;
@@ -59,7 +58,7 @@ public class ServerConfigurationManager {
     }
 
     public void setPlayerManager(WorldServer[] var1) {
-        this.playerNBTManagerObj = var1[0].getWorldFile().func_22090_d();
+        this.playerNBTManagerObj = var1[0].getSaveHandler().getPlayerData();
     }
 
     public void func_28172_a(EntityPlayerMP var1) {
@@ -101,7 +100,7 @@ public class ServerConfigurationManager {
 
     public void playerLoggedOut(EntityPlayerMP var1) {
         this.playerNBTManagerObj.writePlayerData(var1);
-        this.server.getWorldServer(var1.dimension).removePlayerForLogoff(var1);
+        this.server.getWorldServer(var1.dimension).removeEntity(var1);
         this.playerEntities.remove(var1);
         this.getPlayerManager(var1.dimension).removePlayer(var1);
     }
@@ -142,17 +141,17 @@ public class ServerConfigurationManager {
         this.getPlayerManager(var1.dimension).removePlayer(var1);
         this.playerEntities.remove(var1);
         this.server.getWorldServer(var1.dimension).removePlayer(var1);
-        ChunkCoordinates var3 = var1.getSpawnChunk();
+        ChunkCoordinates var3 = var1.getPlayerSpawnCoordinate();
         var1.dimension = var2;
         EntityPlayerMP var4 = new EntityPlayerMP(this.server, this.server.getWorldServer(var1.dimension), var1.username, new ItemInWorldManager(this.server.getWorldServer(var1.dimension)));
         var4.entityId = var1.entityId;
         var4.playerNetServerHandler = var1.playerNetServerHandler;
         WorldServer var5 = this.server.getWorldServer(var1.dimension);
         if (var3 != null) {
-            ChunkCoordinates var6 = EntityPlayer.func_25051_a(this.server.getWorldServer(var1.dimension), var3);
+            ChunkCoordinates var6 = EntityPlayer.func_25060_a(this.server.getWorldServer(var1.dimension), var3);
             if (var6 != null) {
-                var4.setLocationAndAngles((float) var6.posX + 0.5F, (float) var6.posY + 0.1F, (float) var6.posZ + 0.5F, 0.0F, 0.0F);
-                var4.setSpawnChunk(var3);
+                var4.setLocationAndAngles((float) var6.x + 0.5F, (float) var6.y + 0.1F, (float) var6.z + 0.5F, 0.0F, 0.0F);
+                var4.setPlayerSpawnCoordinate(var3);
             } else {
                 var4.playerNetServerHandler.sendPacket(new Packet70Bed(0));
             }
@@ -220,7 +219,7 @@ public class ServerConfigurationManager {
 
         this.func_28172_a(player);
         player.playerNetServerHandler.teleportTo(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
-        player.setWorldHandler(worldServer);
+        player.setWorld(worldServer);
         this.func_28170_a(player, worldServer);
         this.func_30008_g(player);
     }
@@ -496,11 +495,9 @@ public class ServerConfigurationManager {
     }
 
     public void savePlayerStates() {
-        PotionTimings.savePlayers.startTiming();
         for (int var1 = 0; var1 < this.playerEntities.size(); ++var1) {
             this.playerNBTManagerObj.writePlayerData(this.playerEntities.get(var1));
         }
-        PotionTimings.savePlayers.startTiming();
     }
 
     public void sentTileEntityToPlayer(int var1, int var2, int var3, TileEntity var4) {
@@ -526,14 +523,14 @@ public class ServerConfigurationManager {
 
     public void func_28170_a(EntityPlayerMP var1, WorldServer var2) {
         var1.playerNetServerHandler.sendPacket(new Packet4UpdateTime(var2.getWorldTime()));
-        if (var2.func_27068_v()) {
+        if (var2.isSmallRain()) {
             var1.playerNetServerHandler.sendPacket(new Packet70Bed(1));
         }
 
     }
 
     public void func_30008_g(EntityPlayerMP var1) {
-        var1.func_28017_a(var1.personalCraftingInventory);
+        var1.func_28017_a(var1.inventorySlots);
         var1.func_30001_B();
     }
 }

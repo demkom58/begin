@@ -27,7 +27,7 @@ public class GuiEditSign extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        if (this.potion.theWorld.multiplayerWorld) {
+        if (this.potion.theWorld.localWorld) {
             this.potion.getSendQueue().addToSendQueue(new Packet130UpdateSign(this.entitySign.xCoord, this.entitySign.yCoord, this.entitySign.zCoord, this.entitySign.signText));
         }
 

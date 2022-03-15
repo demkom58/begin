@@ -83,7 +83,7 @@ public class RenderPlayer extends RenderLiving {
 
         String username = player.username;
         if (!player.isSneaking()) {
-            if (player.isPlayerSleeping())
+            if (player.isSleeping())
                 this.renderLivingLabel(player, username, x, y - 1.5D, z, 64);
             else
                 this.renderLivingLabel(player, username, x, y, z, 64);
@@ -248,7 +248,7 @@ public class RenderPlayer extends RenderLiving {
     }
 
     protected void renderPlayerSleep(EntityPlayer entity, double x, double y, double z) {
-        if (entity.isEntityAlive() && entity.isPlayerSleeping()) {
+        if (entity.isEntityAlive() && entity.isSleeping()) {
             super.setRenderPosition(entity, x + (double) entity.renderOffsetX, y + (double) entity.renderOffsetY, z + (double) entity.renderOffsetZ);
         } else {
             super.setRenderPosition(entity, x, y, z);
@@ -257,7 +257,7 @@ public class RenderPlayer extends RenderLiving {
     }
 
     protected void rotatePlayer(EntityPlayer entity, float var2, float var3, float var4) {
-        if (entity.isEntityAlive() && entity.isPlayerSleeping()) {
+        if (entity.isEntityAlive() && entity.isSleeping()) {
             GL11.glRotatef(entity.getBedOrientationInDegrees(), 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(this.getDeathMaxRotation(entity), 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(270.0F, 0.0F, 1.0F, 0.0F);

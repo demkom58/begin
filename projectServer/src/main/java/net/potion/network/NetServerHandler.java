@@ -64,8 +64,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     @Override
-    public void handleMovementTypePacket(Packet27Position packet) {
-        this.playerEntity.setMovementType(packet.func_22031_c(), packet.func_22028_e(), packet.func_22032_g(), packet.func_22030_h(), packet.func_22029_d(), packet.func_22033_f());
+    public void handlePosition(Packet27Position packet) {
+        this.playerEntity.setMovementType(packet.getStrafe(), packet.getForward(), packet.isSneak(), packet.isJumping(), packet.getPitch(), packet.getYaw());
     }
 
     @Override
@@ -207,7 +207,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             AxisAlignedBB var25 = this.playerEntity.boundingBox.copy().expand(var21, var21, var21).addCoord(0.0D, -0.55D, 0.0D);
-            if (!this.server.allowFlight && !worldServer.func_27069_b(var25)) {
+            if (!this.server.allowFlight && !worldServer.containsBlock(var25)) {
                 if (var15 >= -0.03125D) {
                     ++this.playerInAirTime;
                     if (this.playerInAirTime > 80) {
@@ -266,8 +266,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             ChunkCoordinates var19 = var2.getSpawnPoint();
-            int var9 = (int) MathHelper.abs((float) (var5 - var19.posX));
-            int var20 = (int) MathHelper.abs((float) (var7 - var19.posZ));
+            int var9 = (int) MathHelper.abs((float) (var5 - var19.x));
+            int var20 = (int) MathHelper.abs((float) (var7 - var19.z));
             if (var9 > var20) {
                 var20 = var9;
             }
@@ -314,8 +314,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             int var7 = var1.zPosition;
             int var8 = var1.direction;
             ChunkCoordinates var9 = var2.getSpawnPoint();
-            int var10 = (int) MathHelper.abs((float) (var5 - var9.posX));
-            int var11 = (int) MathHelper.abs((float) (var7 - var9.posZ));
+            int var10 = (int) MathHelper.abs((float) (var5 - var9.x));
+            int var11 = (int) MathHelper.abs((float) (var7 - var9.z));
             if (var10 > var11) {
                 var11 = var10;
             }
@@ -358,12 +358,12 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
 
         this.playerEntity.isChangingQuantityOnly = true;
-        this.playerEntity.inventory.mainInventory[this.playerEntity.inventory.currentItem] = ItemStack.func_20117_a(this.playerEntity.inventory.mainInventory[this.playerEntity.inventory.currentItem]);
-        Slot var13 = this.playerEntity.currentCraftingInventory.func_20127_a(this.playerEntity.inventory, this.playerEntity.inventory.currentItem);
-        this.playerEntity.currentCraftingInventory.updateCraftingMatrix();
+        this.playerEntity.inventory.mainInventory[this.playerEntity.inventory.currentItem] = ItemStack.copyItemStack(this.playerEntity.inventory.mainInventory[this.playerEntity.inventory.currentItem]);
+        Slot var13 = this.playerEntity.craftingInventory.findSlot(this.playerEntity.inventory, this.playerEntity.inventory.currentItem);
+        this.playerEntity.craftingInventory.updateCraftingMatrix();
         this.playerEntity.isChangingQuantityOnly = false;
         if (!ItemStack.areItemStacksEqual(this.playerEntity.inventory.getCurrentItem(), var1.itemStack)) {
-            this.sendPacket(new Packet103SetSlot(this.playerEntity.currentCraftingInventory.windowId, var13.id, this.playerEntity.inventory.getCurrentItem()));
+            this.sendPacket(new Packet103SetSlot(this.playerEntity.craftingInventory.windowId, var13.slotNumber, this.playerEntity.inventory.getCurrentItem()));
         }
 
         var2.field_819_z = false;
@@ -390,7 +390,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     @Override
     public void handleBlockItemSwitch(Packet16BlockItemSwitch var1) {
-        if (var1.id >= 0 && var1.id <= InventoryPlayer.func_25054_e()) {
+        if (var1.id >= 0 && var1.id <= InventoryPlayer.getHotInventorySize()) {
             this.playerEntity.inventory.currentItem = var1.id;
         } else {
             logger.warning(this.playerEntity.username + " tried to set an invalid carried item");
@@ -461,7 +461,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     @Override
-    public void func_21001_a(Packet19EntityAction var1) {
+    public void handleEntityAction(Packet19EntityAction var1) {
         if (var1.state == 1) {
             this.playerEntity.setSneaking(true);
         } else if (var1.state == 2) {
@@ -493,7 +493,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     @Override
-    public void func_6006_a(Packet7UseEntity var1) {
+    public void handleUseEntity(Packet7UseEntity var1) {
         WorldServer var2 = this.server.getWorldServer(this.playerEntity.dimension);
         Entity var3 = var2.func_6158_a(var1.targetEntity);
         if (var3 != null && this.playerEntity.canEntityBeSeen(var3) && this.playerEntity.getDistanceSqToEntity(var3) < 36.0D) {
@@ -514,41 +514,41 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     @Override
-    public void handleCraftingGuiClosedPacked(Packet101CloseWindow var1) {
+    public void handleCloseWindow(Packet101CloseWindow var1) {
         this.playerEntity.closeCraftingGui();
     }
 
     @Override
-    public void func_20007_a(Packet102WindowClick var1) {
-        if (this.playerEntity.currentCraftingInventory.windowId == var1.window_Id && this.playerEntity.currentCraftingInventory.getCanCraft(this.playerEntity)) {
-            ItemStack var2 = this.playerEntity.currentCraftingInventory.func_27085_a(var1.inventorySlot, var1.mouseClick, var1.field_27039_f, this.playerEntity);
+    public void handleWindowClick(Packet102WindowClick var1) {
+        if (this.playerEntity.craftingInventory.windowId == var1.windowId && this.playerEntity.craftingInventory.getCanCraft(this.playerEntity)) {
+            ItemStack var2 = this.playerEntity.craftingInventory.method1(var1.inventorySlot, var1.mouseClick, var1.field1, this.playerEntity);
             if (ItemStack.areItemStacksEqual(var1.itemStack, var2)) {
-                this.playerEntity.playerNetServerHandler.sendPacket(new Packet106Transaction(var1.window_Id, var1.action, true));
+                this.playerEntity.playerNetServerHandler.sendPacket(new Packet106Transaction(var1.windowId, var1.action, true));
                 this.playerEntity.isChangingQuantityOnly = true;
-                this.playerEntity.currentCraftingInventory.updateCraftingMatrix();
+                this.playerEntity.craftingInventory.updateCraftingMatrix();
                 this.playerEntity.updateHeldItem();
                 this.playerEntity.isChangingQuantityOnly = false;
             } else {
-                this.field_10_k.put(this.playerEntity.currentCraftingInventory.windowId, var1.action);
-                this.playerEntity.playerNetServerHandler.sendPacket(new Packet106Transaction(var1.window_Id, var1.action, false));
-                this.playerEntity.currentCraftingInventory.setCanCraft(this.playerEntity, false);
+                this.field_10_k.put(this.playerEntity.craftingInventory.windowId, var1.action);
+                this.playerEntity.playerNetServerHandler.sendPacket(new Packet106Transaction(var1.windowId, var1.action, false));
+                this.playerEntity.craftingInventory.setCanCraft(this.playerEntity, false);
                 ArrayList<ItemStack> var3 = new ArrayList<>();
 
-                for (int var4 = 0; var4 < this.playerEntity.currentCraftingInventory.inventorySlots.size(); ++var4) {
-                    var3.add(this.playerEntity.currentCraftingInventory.inventorySlots.get(var4).getStack());
+                for (int var4 = 0; var4 < this.playerEntity.craftingInventory.slots.size(); ++var4) {
+                    var3.add(this.playerEntity.craftingInventory.slots.get(var4).getStack());
                 }
 
-                this.playerEntity.updateCraftingInventory(this.playerEntity.currentCraftingInventory, var3);
+                this.playerEntity.updateCraftingInventory(this.playerEntity.craftingInventory, var3);
             }
         }
 
     }
 
     @Override
-    public void func_20008_a(Packet106Transaction var1) {
-        Short var2 = this.field_10_k.get(this.playerEntity.currentCraftingInventory.windowId);
-        if (var2 != null && var1.shortWindowId == var2 && this.playerEntity.currentCraftingInventory.windowId == var1.windowId && !this.playerEntity.currentCraftingInventory.getCanCraft(this.playerEntity)) {
-            this.playerEntity.currentCraftingInventory.setCanCraft(this.playerEntity, true);
+    public void handleTransaction(Packet106Transaction var1) {
+        Short var2 = this.field_10_k.get(this.playerEntity.craftingInventory.windowId);
+        if (var2 != null && var1.shortWindowId == var2 && this.playerEntity.craftingInventory.windowId == var1.windowId && !this.playerEntity.craftingInventory.getCanCraft(this.playerEntity)) {
+            this.playerEntity.craftingInventory.setCanCraft(this.playerEntity, true);
         }
 
     }
@@ -560,7 +560,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             TileEntity var3 = var2.getBlockTileEntity(var1.xPosition, var1.yPosition, var1.zPosition);
             if (var3 instanceof TileEntitySign) {
                 TileEntitySign var4 = (TileEntitySign) var3;
-                if (!var4.getIsEditAble()) {
+                if (!var4.isEditable()) {
                     this.server.logWarning("Player " + this.playerEntity.username + " just tried to change non-editable sign");
                     return;
                 }
@@ -592,7 +592,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
                 System.arraycopy(var1.signLines, 0, var7.signText, 0, 4);
 
-                var7.func_32001_a(false);
+                var7.setEditable(false);
                 var7.onInventoryChanged();
                 var2.markBlockNeedsUpdate(var10, var11, var12);
             }

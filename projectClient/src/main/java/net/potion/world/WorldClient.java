@@ -71,7 +71,7 @@ public class WorldClient extends World {
     }
 
     @Override
-    protected IChunkProvider getChunkProvider() {
+    protected IChunkProvider createChunkProvider() {
         this.field_20915_C = new ChunkProviderClient(this);
         return this.field_20915_C;
     }
@@ -82,7 +82,7 @@ public class WorldClient extends World {
     }
 
     @Override
-    protected void updateBlocksAndPlayCaveSounds() {
+    protected void doRandomUpdateTicks() {
     }
 
     @Override
@@ -119,8 +119,8 @@ public class WorldClient extends World {
     }
 
     @Override
-    public void setEntityDead(Entity entity) {
-        super.setEntityDead(entity);
+    public void removeEntity(Entity entity) {
+        super.removeEntity(entity);
         this.field_20914_E.remove(entity);
     }
 
@@ -143,7 +143,7 @@ public class WorldClient extends World {
     public void func_712_a(int var1, Entity var2) {
         Entity entity = this.func_709_b(var1);
         if (entity != null) {
-            this.setEntityDead(entity);
+            this.removeEntity(entity);
         }
 
         this.field_20914_E.add(var2);
@@ -163,18 +163,18 @@ public class WorldClient extends World {
         Entity entity = (Entity) this.field_1055_D.removeObject(var1);
         if (entity != null) {
             this.field_20914_E.remove(entity);
-            this.setEntityDead(entity);
+            this.removeEntity(entity);
         }
 
         return entity;
     }
 
     @Override
-    public boolean setBlockMetadata(int var1, int var2, int var3, int var4) {
-        int var5 = this.getBlockId(var1, var2, var3);
-        int var6 = this.getBlockMetadata(var1, var2, var3);
-        if (super.setBlockMetadata(var1, var2, var3, var4)) {
-            this.field_1057_z.add(new WorldBlockPositionType(this, var1, var2, var3, var5, var6));
+    public boolean setBlockMetadata(int x, int y, int z, int metadata) {
+        int var5 = this.getBlockId(x, y, z);
+        int var6 = this.getBlockMetadata(x, y, z);
+        if (super.setBlockMetadata(x, y, z, metadata)) {
+            this.field_1057_z.add(new WorldBlockPositionType(this, x, y, z, var5, var6));
             return true;
         }
 
@@ -182,11 +182,11 @@ public class WorldClient extends World {
     }
 
     @Override
-    public boolean setBlockAndMetadata(int var1, int var2, int var3, int var4, int var5) {
-        int var6 = this.getBlockId(var1, var2, var3);
-        int var7 = this.getBlockMetadata(var1, var2, var3);
-        if (super.setBlockAndMetadata(var1, var2, var3, var4, var5)) {
-            this.field_1057_z.add(new WorldBlockPositionType(this, var1, var2, var3, var6, var7));
+    public boolean setBlockAndMetadata(int x, int y, int z, int blockId, int metadata) {
+        int var6 = this.getBlockId(x, y, z);
+        int var7 = this.getBlockMetadata(x, y, z);
+        if (super.setBlockAndMetadata(x, y, z, blockId, metadata)) {
+            this.field_1057_z.add(new WorldBlockPositionType(this, x, y, z, var6, var7));
             return true;
         }
 
@@ -194,11 +194,11 @@ public class WorldClient extends World {
     }
 
     @Override
-    public boolean setBlock(int var1, int var2, int var3, int var4) {
-        int var5 = this.getBlockId(var1, var2, var3);
-        int var6 = this.getBlockMetadata(var1, var2, var3);
-        if (super.setBlock(var1, var2, var3, var4)) {
-            this.field_1057_z.add(new WorldBlockPositionType(this, var1, var2, var3, var5, var6));
+    public boolean setBlock(int x, int y, int z, int blockId) {
+        int var5 = this.getBlockId(x, y, z);
+        int var6 = this.getBlockMetadata(x, y, z);
+        if (super.setBlock(x, y, z, blockId)) {
+            this.field_1057_z.add(new WorldBlockPositionType(this, x, y, z, var5, var6));
             return true;
         }
 
@@ -225,8 +225,8 @@ public class WorldClient extends World {
         if (this.worldProvider.hasNoSky)
             return;
 
-        if (this.field_27168_F > 0) {
-            --this.field_27168_F;
+        if (this.field2 > 0) {
+            --this.field2;
         }
 
         this.prevRainingStrength = this.rainingStrength;

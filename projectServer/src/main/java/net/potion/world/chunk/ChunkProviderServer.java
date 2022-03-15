@@ -4,6 +4,8 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectRBTreeMap;
 import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
+import net.hypnosis.annotations.CodeSide;
+import net.hypnosis.annotations.Side;
 import net.potion.util.IProgressUpdatable;
 import net.potion.world.WorldServer;
 
@@ -35,8 +37,8 @@ public class ChunkProviderServer implements IChunkProvider {
 
     public void func_374_c(int x, int z) {
         ChunkCoordinates coordinates = this.world.getSpawnPoint();
-        int worldX = x * 16 + 8 - coordinates.posX;
-        int worldZ = z * 16 + 8 - coordinates.posZ;
+        int worldX = x * 16 + 8 - coordinates.x;
+        int worldZ = z * 16 + 8 - coordinates.z;
         short size = 128;
         if (worldX < -size || worldX > size || worldZ < -size || worldZ > size) {
             this.chunkCoords.add(ChunkCoordIntPair.chunkXZ2Int(x, z));
@@ -62,7 +64,7 @@ public class ChunkProviderServer implements IChunkProvider {
             this.id2ChunkMap.put(chunkXZ2Int, chunk);
             this.chunks.add(chunk);
             if (chunk != null) {
-                chunk.func_4053_c();
+                chunk.method3();
                 chunk.onChunkLoad();
             }
 
@@ -198,7 +200,7 @@ public class ChunkProviderServer implements IChunkProvider {
             }
 
             if (this.chunkLoader != null) {
-                this.chunkLoader.func_661_a();
+                this.chunkLoader.method1();
             }
         }
 
@@ -208,6 +210,12 @@ public class ChunkProviderServer implements IChunkProvider {
     @Override
     public boolean canSave() {
         return !this.world.levelSaving;
+    }
+
+    @Override
+    @Side(CodeSide.CLIENT)
+    public String makeString() {
+        return "MultiplayerChunkCache: " + this.id2ChunkMap.size();
     }
 
     public Chunk getDummyChunk() {

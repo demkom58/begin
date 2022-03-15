@@ -281,7 +281,7 @@ public class GuiAchievements extends GuiScreen {
 
                 GL11.glEnable(GL11.GL_LIGHTING);
                 GL11.glEnable(GL11.GL_CULL_FACE);
-                renderItem.renderItemIntoGUI(this.potion.fontRenderer, this.potion.renderEngine, var34.theItemStack, var44 + 3, var46 + 3);
+                renderItem.renderItemIntoGUI(this.potion.fontRenderer, this.potion.renderEngine, var34.itemStack, var44 + 3, var46 + 3);
                 GL11.glDisable(GL11.GL_LIGHTING);
                 if (!this.statFileWriter.func_27181_b(var34)) {
                     renderItem.field_27004_a = true;

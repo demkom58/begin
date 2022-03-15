@@ -15,15 +15,15 @@ class GuiSlotStatsItem extends GuiSlotStats {
         this.guiStats = guiStats;
         this.statCraftings = new ArrayList<>();
 
-        for (StatCrafting statCraft : StatList.field_25186_c) {
+        for (StatCrafting statCraft : StatList.field3) {
             boolean var4 = false;
-            int var5 = statCraft.func_25072_b();
+            int var5 = statCraft.getRecipeId();
 
             if (GuiStats.func_27142_c(guiStats).writeStat(statCraft) > 0) {
                 var4 = true;
-            } else if (StatList.field_25170_B[var5] != null && GuiStats.func_27142_c(guiStats).writeStat(StatList.field_25170_B[var5]) > 0) {
+            } else if (StatList.field7[var5] != null && GuiStats.func_27142_c(guiStats).writeStat(StatList.field7[var5]) > 0) {
                 var4 = true;
-            } else if (StatList.field_25158_z[var5] != null && GuiStats.func_27142_c(guiStats).writeStat(StatList.field_25158_z[var5]) > 0) {
+            } else if (StatList.field5[var5] != null && GuiStats.func_27142_c(guiStats).writeStat(StatList.field5[var5]) > 0) {
                 var4 = true;
             }
 
@@ -61,10 +61,10 @@ class GuiSlotStatsItem extends GuiSlotStats {
     @Override
     protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator var5) {
         StatCrafting var6 = this.func_27264_b(var1);
-        int var7 = var6.func_25072_b();
+        int var7 = var6.getRecipeId();
         GuiStats.func_27148_a(this.guiStats, var2 + 40, var3, var7);
-        this.func_27265_a((StatCrafting) StatList.field_25170_B[var7], var2 + 115, var3, var1 % 2 == 0);
-        this.func_27265_a((StatCrafting) StatList.field_25158_z[var7], var2 + 165, var3, var1 % 2 == 0);
+        this.func_27265_a((StatCrafting) StatList.field7[var7], var2 + 115, var3, var1 % 2 == 0);
+        this.func_27265_a((StatCrafting) StatList.field5[var7], var2 + 165, var3, var1 % 2 == 0);
         this.func_27265_a(var6, var2 + 215, var3, var1 % 2 == 0);
     }
 

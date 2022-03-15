@@ -1,5 +1,6 @@
 package net.potion.entity.player;
 
+import net.hypnosis.util.math.MathHelper;
 import net.potion.achievement.Achievement;
 import net.potion.achievement.AchievementList;
 import net.potion.client.PotionClient;
@@ -15,7 +16,6 @@ import net.potion.stats.StatBase;
 import net.potion.tileentity.TileEntityDispenser;
 import net.potion.tileentity.TileEntityFurnace;
 import net.potion.tileentity.TileEntitySign;
-import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityPlayerSP extends EntityPlayer {
@@ -57,7 +57,7 @@ public class EntityPlayerSP extends EntityPlayer {
 
         this.prevTimeInPortal = this.timeInPortal;
         if (this.inPortal) {
-            if (!this.worldObj.multiplayerWorld && this.ridingEntity != null) {
+            if (!this.worldObj.localWorld && this.ridingEntity != null) {
                 this.mountEntity(null);
             }
 
@@ -72,7 +72,7 @@ public class EntityPlayerSP extends EntityPlayer {
             this.timeInPortal += 0.0125F;
             if (this.timeInPortal >= 1.0F) {
                 this.timeInPortal = 1.0F;
-                if (!this.worldObj.multiplayerWorld) {
+                if (!this.worldObj.localWorld) {
                     this.timeUntilPortal = 10;
                     this.potion.soundManager.playSoundFX("portal.travel", 1.0F, this.rand.nextFloat() * 0.4F + 0.8F);
                     this.potion.usePortal();
@@ -194,10 +194,6 @@ public class EntityPlayerSP extends EntityPlayer {
     @Override
     public void respawnPlayer() {
         this.potion.respawn(false, 0);
-    }
-
-    @Override
-    public void func_6420_o() {
     }
 
     @Override

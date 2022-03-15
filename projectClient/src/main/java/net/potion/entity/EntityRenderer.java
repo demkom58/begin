@@ -208,7 +208,7 @@ public class EntityRenderer {
         double var6 = var2.prevPosY + (var2.posY - var2.prevPosY) * (double) var1 - (double) var3;
         double var8 = var2.prevPosZ + (var2.posZ - var2.prevPosZ) * (double) var1;
         GL11.glRotatef(this.field_22230_A + (this.field_22220_z - this.field_22230_A) * var1, 0.0F, 0.0F, 1.0F);
-        if (var2.isPlayerSleeping()) {
+        if (var2.isSleeping()) {
             var3 = (float) ((double) var3 + 1.0D);
             GL11.glTranslatef(0.0F, 0.3F, 0.0F);
             if (!this.potion.gameSettings.field_22273_E) {
@@ -327,12 +327,12 @@ public class EntityRenderer {
             this.setupViewBobbing(var1);
         }
 
-        if (!this.potion.gameSettings.thirdPersonView && !this.potion.renderViewEntity.isPlayerSleeping() && !this.potion.gameSettings.hideGUI) {
+        if (!this.potion.gameSettings.thirdPersonView && !this.potion.renderViewEntity.isSleeping() && !this.potion.gameSettings.hideGUI) {
             this.itemRenderer.renderItemInFirstPerson(var1);
         }
 
         GL11.glPopMatrix();
-        if (!this.potion.gameSettings.thirdPersonView && !this.potion.renderViewEntity.isPlayerSleeping()) {
+        if (!this.potion.gameSettings.thirdPersonView && !this.potion.renderViewEntity.isSleeping()) {
             this.itemRenderer.renderOverlays(var1);
             this.hurtCameraEffect(var1);
         }
@@ -371,7 +371,7 @@ public class EntityRenderer {
                 var5 = this.mouseFilterYAxis.func_22386_a(var5, 0.05F * var3);
             }
 
-            this.potion.thePlayer.func_346_d(var4, var5 * (float) var6);
+            this.potion.thePlayer.updateLook(var4, var5 * (float) var6);
         }
 
         if (!this.potion.skipRenderWorld) {
@@ -620,7 +620,7 @@ public class EntityRenderer {
             for (int var15 = 0; var15 < (int) (100.0F * var1 * var1); ++var15) {
                 int var16 = var4 + this.random.nextInt(var7) - this.random.nextInt(var7);
                 int var17 = var6 + this.random.nextInt(var7) - this.random.nextInt(var7);
-                int var18 = var3.findTopSolidBlock(var16, var17);
+                int var18 = var3.findTopSolidOrLiquidBlock(var16, var17);
                 int var19 = var3.getBlockId(var16, var18 - 1, var17);
                 if (var18 <= var5 + var7 && var18 >= var5 - var7 && var3.getWorldChunkManager().getBiomeGenAt(var16, var17).canSpawnLightningBolt()) {
                     float var20 = this.random.nextFloat();
@@ -644,7 +644,7 @@ public class EntityRenderer {
 
             if (var14 > 0 && this.random.nextInt(3) < this.rainSoundCounter++) {
                 this.rainSoundCounter = 0;
-                if (var10 > var2.posY + 1.0D && var3.findTopSolidBlock(MathHelper.floor(var2.posX), MathHelper.floor(var2.posZ)) > MathHelper.floor(var2.posY)) {
+                if (var10 > var2.posY + 1.0D && var3.findTopSolidOrLiquidBlock(MathHelper.floor(var2.posX), MathHelper.floor(var2.posZ)) > MathHelper.floor(var2.posY)) {
                     this.potion.theWorld.playSoundEffect(var8, var10, var12, "ambient.weather.rain", 0.1F, 0.5F);
                 } else {
                     this.potion.theWorld.playSoundEffect(var8, var10, var12, "ambient.weather.rain", 0.2F, 1.0F);
@@ -680,14 +680,14 @@ public class EntityRenderer {
             var16 = 10;
         }
 
-        BiomeGenBase[] var17 = world.getWorldChunkManager().func_4069_a(viewX - var16, viewZ - var16, var16 * 2 + 1, var16 * 2 + 1);
+        BiomeGenBase[] var17 = world.getWorldChunkManager().getBiomeGensAt(viewX - var16, viewZ - var16, var16 * 2 + 1, var16 * 2 + 1);
         int var18 = 0;
 
         for (int x = viewX - var16; x <= viewX + var16; ++x) {
             for (int z = viewZ - var16; z <= viewZ + var16; ++z) {
                 BiomeGenBase var21 = var17[var18++];
                 if (var21.getEnableSnow()) {
-                    int topY = world.findTopSolidBlock(x, z);
+                    int topY = world.findTopSolidOrLiquidBlock(x, z);
                     if (topY < 0) {
                         topY = 0;
                     }
@@ -747,7 +747,7 @@ public class EntityRenderer {
             for (int var39 = viewZ - var16; var39 <= viewZ + var16; ++var39) {
                 BiomeGenBase var40 = var17[var18++];
                 if (var40.canSpawnLightningBolt()) {
-                    int var41 = world.findTopSolidBlock(var38, var39);
+                    int var41 = world.findTopSolidOrLiquidBlock(var38, var39);
                     int var42 = viewY - var16;
                     int var43 = viewY + var16;
                     if (var42 < var41) {
@@ -807,7 +807,7 @@ public class EntityRenderer {
         EntityLiving var3 = this.potion.renderViewEntity;
         float var4 = 1.0F / (float) (4 - this.potion.gameSettings.renderDistance);
         var4 = 1.0F - (float) Math.pow(var4, 0.25D);
-        Vec3d var5 = var2.func_4079_a(this.potion.renderViewEntity, var1);
+        Vec3d var5 = var2.getSkyColor(this.potion.renderViewEntity, var1);
         float var6 = (float) var5.x;
         float var7 = (float) var5.y;
         float var8 = (float) var5.z;
@@ -827,7 +827,7 @@ public class EntityRenderer {
             this.fogColorBlue *= var12;
         }
 
-        float var17 = var2.func_27166_f(var1);
+        float var17 = var2.getThunderStrength(var1);
         if (var17 > 0.0F) {
             float var18 = 1.0F - var17 * 0.5F;
             this.fogColorRed *= var18;

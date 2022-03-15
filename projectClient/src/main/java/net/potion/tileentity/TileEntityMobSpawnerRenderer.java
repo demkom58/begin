@@ -9,36 +9,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TileEntityMobSpawnerRenderer extends TileEntitySpecialRenderer {
-    private Map entityHashMap = new HashMap();
+    private final Map<String, Entity> entityHashMap = new HashMap<>();
 
-    public void renderTileEntityMobSpawner(TileEntityMobSpawner var1, double var2, double var4, double var6, float var8) {
+    public void renderTileEntityMobSpawner(TileEntityMobSpawner spawner, double x, double y, double z, float delta) {
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) var2 + 0.5F, (float) var4, (float) var6 + 0.5F);
-        Entity var9 = (Entity) this.entityHashMap.get(var1.getMobID());
-        if (var9 == null) {
-            var9 = EntityList.createEntityInWorld(var1.getMobID(), null);
-            this.entityHashMap.put(var1.getMobID(), var9);
+        GL11.glTranslatef((float) x + 0.5F, (float) y, (float) z + 0.5F);
+        Entity entity = this.entityHashMap.get(spawner.getMobID());
+        if (entity == null) {
+            entity = EntityList.createEntityInWorld(spawner.getMobID(), null);
+            this.entityHashMap.put(spawner.getMobID(), entity);
         }
 
-        if (var9 != null) {
-            var9.setWorld(var1.worldObj);
-            float var10 = 0.4375F;
+        if (entity != null) {
+            entity.setWorld(spawner.worldObj);
+            float scale = 0.4375F;
             GL11.glTranslatef(0.0F, 0.4F, 0.0F);
-            GL11.glRotatef((float) (var1.yaw2 + (var1.yaw - var1.yaw2) * (double) var8) * 10.0F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef((float) (spawner.yaw2 + (spawner.yaw - spawner.yaw2) * (double) delta) * 10.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-30.0F, 1.0F, 0.0F, 0.0F);
             GL11.glTranslatef(0.0F, -0.4F, 0.0F);
-            GL11.glScalef(var10, var10, var10);
-            var9.setLocationAndAngles(var2, var4, var6, 0.0F, 0.0F);
-            RenderManager.instance.renderEntityWithPosYaw(var9, 0.0D, 0.0D, 0.0D, 0.0F, var8);
+            GL11.glScalef(scale, scale, scale);
+            entity.setLocationAndAngles(x, y, z, 0.0F, 0.0F);
+            RenderManager.instance.renderEntityWithPosYaw(entity, 0.0D, 0.0D, 0.0D, 0.0F, delta);
         }
 
         GL11.glPopMatrix();
     }
 
-    // $FF: synthetic method
-    // $FF: bridge method
     @Override
-    public void renderTileEntityAt(TileEntity var1, double var2, double var4, double var6, float var8) {
-        this.renderTileEntityMobSpawner((TileEntityMobSpawner) var1, var2, var4, var6, var8);
+    public void renderTileEntityAt(TileEntity spawner, double x, double y, double z, float delta) {
+        this.renderTileEntityMobSpawner((TileEntityMobSpawner) spawner, x, y, z, delta);
     }
 }

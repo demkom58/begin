@@ -30,8 +30,8 @@ public class RenderItem extends Render {
         this.random.setSeed(187L);
         ItemStack var10 = var1.item;
         GL11.glPushMatrix();
-        float var11 = MathHelper.sin(((float) var1.age + var9) / 10.0F + var1.field_804_d) * 0.1F + 0.1F;
-        float var12 = (((float) var1.age + var9) / 20.0F + var1.field_804_d) * MathConstants.DEGREES_PER_RADIAN;
+        float var11 = MathHelper.sin(((float) var1.age + var9) / 10.0F + var1.field1) * 0.1F + 0.1F;
+        float var12 = (((float) var1.age + var9) / 20.0F + var1.field1) * MathConstants.DEGREES_PER_RADIAN;
         byte var13 = 1;
         if (var1.item.stackSize > 1) {
             var13 = 2;
@@ -51,7 +51,7 @@ public class RenderItem extends Render {
             GL11.glRotatef(var12, 0.0F, 1.0F, 0.0F);
             this.loadTexture("/terrain.png");
             float var28 = 0.25F;
-            if (!Block.BLOCKS_LIST[var10.itemID].renderAsNormalBlock() && var10.itemID != Block.STAIR_SINGLE.blockID && Block.BLOCKS_LIST[var10.itemID].getRenderType() != 16) {
+            if (!Block.BLOCKS_LIST[var10.itemID].isNormalCube() && var10.itemID != Block.STAIR_SINGLE.blockID && Block.BLOCKS_LIST[var10.itemID].getRenderType() != 16) {
                 var28 = 0.5F;
             }
 

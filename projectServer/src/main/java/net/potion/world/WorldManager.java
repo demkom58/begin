@@ -42,7 +42,7 @@ public class WorldManager implements IWorldAccess {
     }
 
     @Override
-    public void markBlockNeedsUpdate(int var1, int var2, int var3) {
+    public void markBlockAndNeighborsNeedsUpdate(int var1, int var2, int var3) {
         this.server.configManager.markBlockNeedsUpdate(var1, var2, var3, this.field_28134_b.worldProvider.worldType);
     }
 
@@ -56,7 +56,7 @@ public class WorldManager implements IWorldAccess {
     }
 
     @Override
-    public void func_28133_a(EntityPlayer var1, int var2, int var3, int var4, int var5, int var6) {
-        this.server.configManager.func_28171_a(var1, var3, var4, var5, 64.0D, this.field_28134_b.worldProvider.worldType, new Packet61DoorChange(var2, var3, var4, var5, var6));
+    public void playEffect(EntityPlayer var1, int var2, int x, int y, int z, int var6) {
+        this.server.configManager.func_28171_a(var1, x, y, z, 64.0D, this.field_28134_b.worldProvider.worldType, new Packet61DoorChange(var2, x, y, z, var6));
     }
 }

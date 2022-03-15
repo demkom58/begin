@@ -98,7 +98,7 @@ public class RenderManager {
         this.options = options;
         this.livingPlayer = entity;
         this.fontRenderer = fontRenderer;
-        if (entity.isPlayerSleeping()) {
+        if (entity.isSleeping()) {
             int blockId = world.getBlockId(MathHelper.floor(entity.posX), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ));
             if (blockId == Block.BED.blockID) {
                 int metadata = world.getBlockMetadata(MathHelper.floor(entity.posX), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ));
