@@ -190,9 +190,9 @@ public final class PotionClient implements Runnable {
         this.keyboard = new CraftKeyboard(window);
         this.mouseHelper = new MouseHelper(window, mouse);
 
-        ColorizerWater.setWaterBuffer(this.renderEngine.loadTexture("/misc/watercolor.png"));
-        ColorizerGrass.setGrassBuffer(this.renderEngine.loadTexture("/misc/grasscolor.png"));
-        ColorizerFoliage.setFoliageBuffer(this.renderEngine.loadTexture("/misc/foliagecolor.png"));
+        RenderColorizerWater.setWaterBuffer(this.renderEngine.loadTexture("/misc/watercolor.png"));
+        RenderColorizerGrass.setGrassBuffer(this.renderEngine.loadTexture("/misc/grasscolor.png"));
+        RenderColorizerFoliage.setFoliageBuffer(this.renderEngine.loadTexture("/misc/foliagecolor.png"));
 
         this.entityRenderer = new EntityRenderer(this);
         RenderManager.instance.itemRenderer = new ItemRenderer(this);

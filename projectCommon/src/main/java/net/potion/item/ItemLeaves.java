@@ -3,7 +3,7 @@ package net.potion.item;
 import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
 import net.potion.block.Block;
-import net.potion.client.render.ColorizerFoliage;
+import net.potion.client.render.RenderColorizerFoliage;
 
 public class ItemLeaves extends ItemBlock {
     public ItemLeaves(int var1) {
@@ -27,9 +27,9 @@ public class ItemLeaves extends ItemBlock {
     @Side(CodeSide.CLIENT)
     public int getColorFromDamage(int var1) {
         if ((var1 & 1) == 1) {
-            return ColorizerFoliage.getFoliageColorPine();
+            return RenderColorizerFoliage.getFoliageColorPine();
         } else {
-            return (var1 & 2) == 2 ? ColorizerFoliage.getFoliageColorBirch() : ColorizerFoliage.func_31073_c();
+            return (var1 & 2) == 2 ? RenderColorizerFoliage.getFoliageColorBirch() : RenderColorizerFoliage.func_31073_c();
         }
     }
 }

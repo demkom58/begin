@@ -2,7 +2,7 @@ package net.potion.block;
 
 import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
-import net.potion.client.render.ColorizerGrass;
+import net.potion.client.render.RenderColorizerGrass;
 import net.potion.item.Item;
 import net.potion.world.IBlockAccess;
 
@@ -42,7 +42,7 @@ public class BlockTallGrass extends BlockFlower {
             blockAccess.getWorldChunkManager().getBiomeGensAt(x, z, 1, 1);
             double var8 = blockAccess.getWorldChunkManager().temperature[0];
             double var10 = blockAccess.getWorldChunkManager().humidity[0];
-            return ColorizerGrass.getGrassColor(var8, var10);
+            return RenderColorizerGrass.getGrassColor(var8, var10);
         }
     }
 

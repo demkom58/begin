@@ -4,11 +4,11 @@ import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
 
 @Side(CodeSide.CLIENT)
-public class ColorizerGrass {
+public class RenderColorizerGrass {
     private static int[] grassBuffer = new int[65536];
 
     public static void setGrassBuffer(int[] grassBuffer) {
-        ColorizerGrass.grassBuffer = grassBuffer;
+        RenderColorizerGrass.grassBuffer = grassBuffer;
     }
 
     public static int getGrassColor(double var0, double var2) {

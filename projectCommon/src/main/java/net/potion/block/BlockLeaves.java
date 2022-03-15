@@ -2,7 +2,7 @@ package net.potion.block;
 
 import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
-import net.potion.client.render.ColorizerFoliage;
+import net.potion.client.render.RenderColorizerFoliage;
 import net.potion.entity.Entity;
 import net.potion.entity.player.EntityPlayer;
 import net.potion.item.Item;
@@ -28,9 +28,9 @@ public class BlockLeaves extends BlockLeavesBase {
     @Side(CodeSide.CLIENT)
     public int getRenderColor(int var1) {
         if ((var1 & 1) == 1) {
-            return ColorizerFoliage.getFoliageColorPine();
+            return RenderColorizerFoliage.getFoliageColorPine();
         } else {
-            return (var1 & 2) == 2 ? ColorizerFoliage.getFoliageColorBirch() : ColorizerFoliage.func_31073_c();
+            return (var1 & 2) == 2 ? RenderColorizerFoliage.getFoliageColorBirch() : RenderColorizerFoliage.func_31073_c();
         }
     }
 
@@ -39,14 +39,14 @@ public class BlockLeaves extends BlockLeavesBase {
     public int colorMultiplier(IBlockAccess blockAccess, int x, int y, int z) {
         int var5 = blockAccess.getBlockMetadata(x, y, z);
         if ((var5 & 1) == 1) {
-            return ColorizerFoliage.getFoliageColorPine();
+            return RenderColorizerFoliage.getFoliageColorPine();
         } else if ((var5 & 2) == 2) {
-            return ColorizerFoliage.getFoliageColorBirch();
+            return RenderColorizerFoliage.getFoliageColorBirch();
         } else {
             blockAccess.getWorldChunkManager().getBiomeGensAt(x, z, 1, 1);
-            double var6 = blockAccess.getWorldChunkManager().temperature[0];
-            double var8 = blockAccess.getWorldChunkManager().humidity[0];
-            return ColorizerFoliage.getFoliageColor(var6, var8);
+            double temperature = blockAccess.getWorldChunkManager().temperature[0];
+            double humidity = blockAccess.getWorldChunkManager().humidity[0];
+            return RenderColorizerFoliage.getFoliageColor(temperature, humidity);
         }
     }
 
