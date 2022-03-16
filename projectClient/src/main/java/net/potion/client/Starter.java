@@ -3,7 +3,8 @@ package net.potion.client;
 public final class Starter {
 
     public static void main(String[] args) {
-        String username = args.length > 0 ? args[0] : "Player" + System.currentTimeMillis() % 1000L;
+        String username = args.length > 0 ? args[0] : "Player";
+//                + System.currentTimeMillis() % 1000L;
         String sessionId = args.length > 1 ? args[1] : "-";
         Starter.start(username, sessionId);
     }

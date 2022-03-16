@@ -18,11 +18,11 @@ class GuiSlotStatsBlock extends GuiSlotStats {
         for (StatCrafting var3 : StatList.field4) {
             boolean var4 = false;
             int var5 = var3.getRecipeId();
-            if (GuiStats.func_27142_c(var1).writeStat(var3) > 0) {
+            if (GuiStats.func_27142_c(var1).getStatsValue(var3) > 0) {
                 var4 = true;
-            } else if (StatList.field6[var5] != null && GuiStats.func_27142_c(var1).writeStat(StatList.field6[var5]) > 0) {
+            } else if (StatList.field6[var5] != null && GuiStats.func_27142_c(var1).getStatsValue(StatList.field6[var5]) > 0) {
                 var4 = true;
-            } else if (StatList.field5[var5] != null && GuiStats.func_27142_c(var1).writeStat(StatList.field5[var5]) > 0) {
+            } else if (StatList.field5[var5] != null && GuiStats.func_27142_c(var1).getStatsValue(StatList.field5[var5]) > 0) {
                 var4 = true;
             }
 

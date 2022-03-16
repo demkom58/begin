@@ -114,7 +114,7 @@ abstract class GuiSlotStats extends GuiSlot {
 
     protected void func_27265_a(StatCrafting var1, int var2, int var3, boolean var4) {
         if (var1 != null) {
-            String var5 = var1.func_27084_a(GuiStats.func_27142_c(this.guiStats).writeStat(var1));
+            String var5 = var1.func_27084_a(GuiStats.func_27142_c(this.guiStats).getStatsValue(var1));
             this.guiStats.drawString(GuiStats.func_27133_h(this.guiStats), var5, var2 - GuiStats.func_27137_i(this.guiStats).getStringWidth(var5), var3 + 5, var4 ? 16777215 : 9474192);
         } else {
             String var6 = "-";

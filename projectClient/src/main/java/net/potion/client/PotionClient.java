@@ -444,7 +444,7 @@ public final class PotionClient implements Runnable {
             this.currentScreen.onGuiClosed();
 
         if (guiScreen instanceof GuiMainMenu)
-            this.statFileWriter.func_27175_b();
+            this.statFileWriter.onExitOrWorldChange();
 
         this.statFileWriter.syncStats();
         if (guiScreen == null && this.theWorld == null) {
@@ -469,7 +469,7 @@ public final class PotionClient implements Runnable {
 
     public void destroy() {
         try {
-            this.statFileWriter.func_27175_b();
+            this.statFileWriter.onExitOrWorldChange();
             this.statFileWriter.syncStats();
 
             try {
@@ -875,7 +875,7 @@ public final class PotionClient implements Runnable {
     public void runTick() {
         GLFW.glfwPollEvents();
 
-        this.statFileWriter.func_27178_d();
+        this.statFileWriter.saveAndPush();
         this.ingameGUI.updateTick();
         this.entityRenderer.getMouseOver(1.0F);
         if (this.thePlayer != null) {
@@ -1053,7 +1053,7 @@ public final class PotionClient implements Runnable {
     }
 
     public void changeWorld(World world, String loadScreenText, EntityPlayer player) {
-        this.statFileWriter.func_27175_b();
+        this.statFileWriter.onExitOrWorldChange();
         this.statFileWriter.syncStats();
         this.renderViewEntity = null;
         this.loadingScreen.printText(loadScreenText);

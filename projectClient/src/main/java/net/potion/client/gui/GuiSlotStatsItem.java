@@ -19,11 +19,11 @@ class GuiSlotStatsItem extends GuiSlotStats {
             boolean var4 = false;
             int var5 = statCraft.getRecipeId();
 
-            if (GuiStats.func_27142_c(guiStats).writeStat(statCraft) > 0) {
+            if (GuiStats.func_27142_c(guiStats).getStatsValue(statCraft) > 0) {
                 var4 = true;
-            } else if (StatList.field7[var5] != null && GuiStats.func_27142_c(guiStats).writeStat(StatList.field7[var5]) > 0) {
+            } else if (StatList.field7[var5] != null && GuiStats.func_27142_c(guiStats).getStatsValue(StatList.field7[var5]) > 0) {
                 var4 = true;
-            } else if (StatList.field5[var5] != null && GuiStats.func_27142_c(guiStats).writeStat(StatList.field5[var5]) > 0) {
+            } else if (StatList.field5[var5] != null && GuiStats.func_27142_c(guiStats).getStatsValue(StatList.field5[var5]) > 0) {
                 var4 = true;
             }
 

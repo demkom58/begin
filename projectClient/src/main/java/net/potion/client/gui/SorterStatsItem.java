@@ -40,8 +40,8 @@ class SorterStatsItem implements Comparator<StatCrafting> {
                 return -1;
             }
 
-            int var7 = GuiStats.func_27142_c(this.statsItem.guiStats).writeStat(var5);
-            int var8 = GuiStats.func_27142_c(this.statsItem.guiStats).writeStat(var6);
+            int var7 = GuiStats.func_27142_c(this.statsItem.guiStats).getStatsValue(var5);
+            int var8 = GuiStats.func_27142_c(this.statsItem.guiStats).getStatsValue(var6);
             if (var7 != var8) {
                 return (var7 - var8) * this.statsItem.field_27270_f;
             }
