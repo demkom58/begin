@@ -280,12 +280,12 @@ public class ItemRenderer {
         RenderHelper.disableStandardItemLighting();
     }
 
-    public void renderOverlays(float var1) {
+    public void renderOverlays(float partialTicks) {
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         if (this.potion.thePlayer.isBurning()) {
             int var2 = this.potion.renderEngine.getTexture("/terrain.png");
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, var2);
-            this.renderFireInFirstPerson(var1);
+            this.renderFireInFirstPerson(partialTicks);
         }
 
         if (this.potion.thePlayer.isEntityInsideOpaqueBlock()) {
@@ -296,7 +296,7 @@ public class ItemRenderer {
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, var5);
             int var6 = this.potion.theWorld.getBlockId(var14, var3, var4);
             if (this.potion.theWorld.isBlockNormalCube(var14, var3, var4)) {
-                this.renderInsideOfBlock(var1, Block.BLOCKS_LIST[var6].getBlockTextureFromSide(2));
+                this.renderInsideOfBlock(partialTicks, Block.BLOCKS_LIST[var6].getBlockTextureFromSide(2));
             } else {
                 for (int var7 = 0; var7 < 8; ++var7) {
                     float var8 = ((float) ((var7) % 2) - 0.5F) * this.potion.thePlayer.width * 0.9F;
@@ -312,14 +312,14 @@ public class ItemRenderer {
             }
 
             if (Block.BLOCKS_LIST[var6] != null) {
-                this.renderInsideOfBlock(var1, Block.BLOCKS_LIST[var6].getBlockTextureFromSide(2));
+                this.renderInsideOfBlock(partialTicks, Block.BLOCKS_LIST[var6].getBlockTextureFromSide(2));
             }
         }
 
         if (this.potion.thePlayer.isInsideOfMaterial(Material.WATER)) {
-            int var15 = this.potion.renderEngine.getTexture("/misc/water.png");
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, var15);
-            this.renderWarpedTextureOverlay(var1);
+            int texture = this.potion.renderEngine.getTexture("/misc/water.png");
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
+            this.renderWarpedTextureOverlay(partialTicks);
         }
 
         GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -351,9 +351,9 @@ public class ItemRenderer {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    private void renderWarpedTextureOverlay(float var1) {
+    private void renderWarpedTextureOverlay(float partialTicks) {
         Tessellator var2 = Tessellator.INSTANCE;
-        float var3 = this.potion.thePlayer.getEntityBrightness(var1);
+        float var3 = this.potion.thePlayer.getEntityBrightness(partialTicks);
         GL11.glColor4f(var3, var3, var3, 0.5F);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

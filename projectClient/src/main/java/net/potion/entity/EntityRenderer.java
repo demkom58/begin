@@ -56,8 +56,8 @@ public class EntityRenderer {
     private float field_22225_u = 0.0F;
     private float field_22224_v = 0.0F;
     private float field_22223_w = 0.0F;
-    private float field_22222_x = 0.0F;
-    private float field_22221_y = 0.0F;
+    private float debugCamFOV = 0.0F;
+    private float prevDebugCamFOV = 0.0F;
     private float field_22220_z = 0.0F;
     private float field_22230_A = 0.0F;
     private boolean cloudFog = false;
@@ -81,7 +81,7 @@ public class EntityRenderer {
         this.field_22227_s = this.field_22228_r;
         this.field_22225_u = this.field_22226_t;
         this.field_22223_w = this.field_22224_v;
-        this.field_22221_y = this.field_22222_x;
+        this.prevDebugCamFOV = this.debugCamFOV;
         this.field_22230_A = this.field_22220_z;
         if (this.potion.renderViewEntity == null) {
             this.potion.renderViewEntity = this.potion.thePlayer;
@@ -154,19 +154,19 @@ public class EntityRenderer {
         }
     }
 
-    private float getFOVModifier(float var1) {
-        EntityLiving var2 = this.potion.renderViewEntity;
-        float var3 = 70.0F;
-        if (var2.isInsideOfMaterial(Material.WATER)) {
-            var3 = 60.0F;
+    private float getFOVModifier(float partialTicks) {
+        EntityLiving entity = this.potion.renderViewEntity;
+        float fov = 70.0F;
+        if (entity.isInsideOfMaterial(Material.WATER)) {
+            fov = 60.0F;
         }
 
-        if (var2.health <= 0) {
-            float var4 = (float) var2.deathTime + var1;
-            var3 /= (1.0F - 500.0F / (var4 + 500.0F)) * 2.0F + 1.0F;
+        if (entity.health <= 0) {
+            float deathFov = (float) entity.deathTime + partialTicks;
+            fov /= (1.0F - 500.0F / (deathFov + 500.0F)) * 2.0F + 1.0F;
         }
 
-        return var3 + this.field_22221_y + (this.field_22222_x - this.field_22221_y) * var1;
+        return fov + this.prevDebugCamFOV + (this.debugCamFOV - this.prevDebugCamFOV) * partialTicks;
     }
 
     private void hurtCameraEffect(float var1) {
@@ -275,70 +275,73 @@ public class EntityRenderer {
         this.cloudFog = this.potion.renderGlobal.func_27307_a(var4, var6, var8, var1);
     }
 
-    private void setupCameraTransform(float var1, int var2) {
+    private void setupCameraTransform(float partialTicks, int var2) {
         this.farPlaneDistance = (float) (256 >> this.potion.gameSettings.renderDistance);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
         float var3 = 0.07F;
-        if (this.potion.gameSettings.anaglyph)
-            GL11.glTranslatef((float) (-(var2 * 2 - 1)) * var3, 0.0F, 0.0F);
+
+        if (this.potion.gameSettings.anaglyph) {
+            GL11.glTranslatef(-(var2 * 2F - 1F) * var3, 0.0F, 0.0F);
+        }
 
         final Window window = this.potion.window;
         if (this.cameraZoom != 1.0D) {
             GL11.glTranslatef((float) this.cameraYaw, (float) (-this.cameraPitch), 0.0F);
             GL11.glScaled(this.cameraZoom, this.cameraZoom, 1.0D);
-            GLU.gluPerspective(this.getFOVModifier(var1), (float) window.getWidth() / (float) window.getHeight(), 0.05F, this.farPlaneDistance * 2.0F);
-        } else {
-            GLU.gluPerspective(this.getFOVModifier(var1), (float) window.getWidth() / (float) window.getHeight(), 0.05F, this.farPlaneDistance * 2.0F);
         }
+
+        float aspect = (float) window.getWidth() / (float) window.getHeight();
+        float fovModifier = this.getFOVModifier(partialTicks);
+        GLU.gluPerspective(fovModifier, aspect, 0.05F, this.farPlaneDistance * 2.0F);
 
         GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
         GL11.glLoadIdentity();
         if (this.potion.gameSettings.anaglyph) {
-            GL11.glTranslatef((float) (var2 * 2 - 1) * 0.1F, 0.0F, 0.0F);
+            GL11.glTranslatef((var2 * 2F - 1F) * 0.1F, 0.0F, 0.0F);
         }
 
-        this.hurtCameraEffect(var1);
+        this.hurtCameraEffect(partialTicks);
         if (this.potion.gameSettings.viewBobbing) {
-            this.setupViewBobbing(var1);
+            this.setupViewBobbing(partialTicks);
         }
 
-        float var4 = this.potion.thePlayer.prevTimeInPortal + (this.potion.thePlayer.timeInPortal - this.potion.thePlayer.prevTimeInPortal) * var1;
+        float var4 = this.potion.thePlayer.prevTimeInPortal + (this.potion.thePlayer.timeInPortal - this.potion.thePlayer.prevTimeInPortal) * partialTicks;
         if (var4 > 0.0F) {
             float var5 = 5.0F / (var4 * var4 + 5.0F) - var4 * 0.04F;
             var5 = var5 * var5;
-            GL11.glRotatef(((float) this.rendererUpdateCount + var1) * 20.0F, 0.0F, 1.0F, 1.0F);
+            GL11.glRotatef(((float) this.rendererUpdateCount + partialTicks) * 20.0F, 0.0F, 1.0F, 1.0F);
             GL11.glScalef(1.0F / var5, 1.0F, 1.0F);
-            GL11.glRotatef(-((float) this.rendererUpdateCount + var1) * 20.0F, 0.0F, 1.0F, 1.0F);
+            GL11.glRotatef(-((float) this.rendererUpdateCount + partialTicks) * 20.0F, 0.0F, 1.0F, 1.0F);
         }
 
-        this.orientCamera(var1);
+        this.orientCamera(partialTicks);
     }
 
-    private void func_4135_b(float var1, int var2) {
+    private void func_4135_b(float partialTicks, int var2) {
         GL11.glLoadIdentity();
         if (this.potion.gameSettings.anaglyph) {
             GL11.glTranslatef((float) (var2 * 2 - 1) * 0.1F, 0.0F, 0.0F);
         }
 
         GL11.glPushMatrix();
-        this.hurtCameraEffect(var1);
+        this.hurtCameraEffect(partialTicks);
         if (this.potion.gameSettings.viewBobbing) {
-            this.setupViewBobbing(var1);
+            this.setupViewBobbing(partialTicks);
         }
 
         if (!this.potion.gameSettings.thirdPersonView && !this.potion.renderViewEntity.isSleeping() && !this.potion.gameSettings.hideGUI) {
-            this.itemRenderer.renderItemInFirstPerson(var1);
+            this.itemRenderer.renderItemInFirstPerson(partialTicks);
         }
 
         GL11.glPopMatrix();
         if (!this.potion.gameSettings.thirdPersonView && !this.potion.renderViewEntity.isSleeping()) {
-            this.itemRenderer.renderOverlays(var1);
-            this.hurtCameraEffect(var1);
+            this.itemRenderer.renderOverlays(partialTicks);
+            this.hurtCameraEffect(partialTicks);
         }
 
         if (this.potion.gameSettings.viewBobbing) {
-            this.setupViewBobbing(var1);
+            this.setupViewBobbing(partialTicks);
         }
 
     }
