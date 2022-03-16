@@ -110,7 +110,6 @@ public class StatsSyncher {
     }
 
     private void writeStats(Map<StatBase, Integer> map, File unsentFile, File tmpFile, File oldFile) throws IOException {
-        System.out.println("Saving stats...");
         try (PrintWriter writer = new PrintWriter(new FileWriter(tmpFile, false))) {
             writer.print(StatFileWriter.toJson(this.session.username, "local", map));
         }
@@ -124,7 +123,6 @@ public class StatsSyncher {
         }
 
         tmpFile.renameTo(unsentFile);
-        System.out.println("Stats saved!");
     }
 
     public void writeStats(Map<StatBase, Integer> map) {

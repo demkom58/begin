@@ -1,6 +1,8 @@
 package net.potion.stats;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import net.potion.achievement.Achievement;
 import net.potion.client.Session;
 import net.potion.util.MD5String;
@@ -110,15 +112,12 @@ public class StatFileWriter {
             e.printStackTrace();
         }
 
-
-        System.out.println(map);
         return map;
     }
 
     public static String toJson(String name, String sessionId, Map<StatBase, Integer> map) {
         final Map<Integer, Integer> stats = new HashMap<>();
         map.forEach((k, v) -> stats.put(k.statId, v));
-        System.out.println(map);
         return GSON.toJson(new StatFile(name, sessionId, stats, checksum("local", stats)));
     }
 
