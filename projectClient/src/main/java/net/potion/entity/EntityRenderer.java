@@ -10,6 +10,7 @@ import net.potion.client.PotionClient;
 import net.potion.client.input.mouse.MouseFilter;
 import net.potion.client.render.*;
 import net.potion.entity.player.EntityPlayer;
+import net.potion.entity.player.EntityPlayerSP;
 import net.potion.entity.player.PlayerControllerTest;
 import net.potion.item.ItemRenderer;
 import net.potion.material.Material;
@@ -50,16 +51,16 @@ public class EntityRenderer {
     private MouseFilter mouseFilterDummy2 = new MouseFilter();
     private MouseFilter mouseFilterDummy3 = new MouseFilter();
     private MouseFilter mouseFilterDummy4 = new MouseFilter();
-    private float field_22228_r = 4.0F;
-    private float field_22227_s = 4.0F;
-    private float field_22226_t = 0.0F;
-    private float field_22225_u = 0.0F;
-    private float field_22224_v = 0.0F;
-    private float field_22223_w = 0.0F;
+    private float thirdPersonDistance = 4.0F;
+    private float thirdPersonDistanceTemp = 4.0F;
+    private float debugCamYaw = 0.0F;
+    private float prevDebugCamYaw = 0.0F;
+    private float debugCamPitch = 0.0F;
+    private float prevDebugCamPitch = 0.0F;
     private float debugCamFOV = 0.0F;
     private float prevDebugCamFOV = 0.0F;
-    private float field_22220_z = 0.0F;
-    private float field_22230_A = 0.0F;
+    private float camRoll = 0.0F;
+    private float prevCamRoll = 0.0F;
     private boolean cloudFog = false;
     private double cameraZoom = 1.0D;
     private double cameraYaw = 0.0D;
@@ -78,11 +79,11 @@ public class EntityRenderer {
 
     public void updateRenderer() {
         this.fogColor2 = this.fogColor1;
-        this.field_22227_s = this.field_22228_r;
-        this.field_22225_u = this.field_22226_t;
-        this.field_22223_w = this.field_22224_v;
+        this.thirdPersonDistanceTemp = this.thirdPersonDistance;
+        this.prevDebugCamYaw = this.debugCamYaw;
+        this.prevDebugCamPitch = this.debugCamPitch;
         this.prevDebugCamFOV = this.debugCamFOV;
-        this.field_22230_A = this.field_22220_z;
+        this.prevCamRoll = this.camRoll;
         if (this.potion.renderViewEntity == null) {
             this.potion.renderViewEntity = this.potion.thePlayer;
         }
@@ -157,122 +158,137 @@ public class EntityRenderer {
     private float getFOVModifier(float partialTicks) {
         EntityLiving entity = this.potion.renderViewEntity;
         float fov = 70.0F;
-        if (entity.isInsideOfMaterial(Material.WATER)) {
-            fov = 60.0F;
-        }
 
         if (entity.health <= 0) {
             float deathFov = (float) entity.deathTime + partialTicks;
             fov /= (1.0F - 500.0F / (deathFov + 500.0F)) * 2.0F + 1.0F;
         }
 
+        if (entity.isInsideOfMaterial(Material.WATER)) {
+            fov *= 60.0F / 70.0F;
+        }
+
         return fov + this.prevDebugCamFOV + (this.debugCamFOV - this.prevDebugCamFOV) * partialTicks;
     }
 
     private void hurtCameraEffect(float var1) {
-        EntityLiving var2 = this.potion.renderViewEntity;
-        float var3 = (float) var2.hurtTime - var1;
-        if (var2.health <= 0) {
-            float var4 = (float) var2.deathTime + var1;
+        EntityLiving viewEntity = this.potion.renderViewEntity;
+        float var3 = (float) viewEntity.hurtTime - var1;
+        if (viewEntity.health <= 0) {
+            float var4 = (float) viewEntity.deathTime + var1;
             GL11.glRotatef(40.0F - 8000.0F / (var4 + 200.0F), 0.0F, 0.0F, 1.0F);
         }
 
         if (var3 >= 0.0F) {
-            var3 = var3 / (float) var2.maxHurtTime;
+            var3 = var3 / (float) viewEntity.maxHurtTime;
             var3 = MathHelper.sin(var3 * var3 * var3 * var3 * MathConstants.PI);
-            float var7 = var2.attackedAtYaw;
+            float var7 = viewEntity.attackedAtYaw;
             GL11.glRotatef(-var7, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-var3 * 14.0F, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(var7, 0.0F, 1.0F, 0.0F);
         }
     }
 
-    private void setupViewBobbing(float var1) {
-        if (this.potion.renderViewEntity instanceof EntityPlayer) {
-            EntityPlayer var2 = (EntityPlayer) this.potion.renderViewEntity;
-            float var3 = var2.distanceWalkedModified - var2.prevDistanceWalkedModified;
-            float var4 = -(var2.distanceWalkedModified + var3 * var1);
-            float var5 = var2.prevCameraYaw + (var2.cameraYaw - var2.prevCameraYaw) * var1;
-            float var6 = var2.prevCameraPitch + (var2.cameraPitch - var2.prevCameraPitch) * var1;
-            GL11.glTranslatef(MathHelper.sin(var4 * MathConstants.PI) * var5 * 0.5F, -Math.abs(MathHelper.cos(var4 * MathConstants.PI) * var5), 0.0F);
-            GL11.glRotatef(MathHelper.sin(var4 * MathConstants.PI) * var5 * 3.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glRotatef(Math.abs(MathHelper.cos(var4 * MathConstants.PI - 0.2F) * var5) * 5.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(var6, 1.0F, 0.0F, 0.0F);
+    private void setupViewBobbing(float partialTicks) {
+        if (this.potion.renderViewEntity instanceof EntityPlayer player) {
+            float walked = player.distanceWalkedModified - player.prevDistanceWalkedModified;
+            float walkedInterp = -(player.distanceWalkedModified + walked * partialTicks);
+            float yawInterp = player.prevCameraYaw + (player.cameraYaw - player.prevCameraYaw) * partialTicks;
+            float pitchInterp = player.prevCameraPitch + (player.cameraPitch - player.prevCameraPitch) * partialTicks;
+
+            float walkedRad = walkedInterp * MathConstants.PI;
+            GL11.glTranslatef(MathHelper.sin(walkedRad) * yawInterp * 0.5F, -Math.abs(MathHelper.cos(walkedRad) * yawInterp), 0.0F);
+            GL11.glRotatef(MathHelper.sin(walkedRad) * yawInterp * 3.0F, 0.0F, 0.0F, 1.0F);
+            GL11.glRotatef(Math.abs(MathHelper.cos(walkedRad - 0.2F) * yawInterp) * 5.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(pitchInterp, 1.0F, 0.0F, 0.0F);
         }
     }
 
-    private void orientCamera(float var1) {
-        EntityLiving var2 = this.potion.renderViewEntity;
-        float var3 = var2.yOffset - 1.62F;
-        double var4 = var2.prevPosX + (var2.posX - var2.prevPosX) * (double) var1;
-        double var6 = var2.prevPosY + (var2.posY - var2.prevPosY) * (double) var1 - (double) var3;
-        double var8 = var2.prevPosZ + (var2.posZ - var2.prevPosZ) * (double) var1;
-        GL11.glRotatef(this.field_22230_A + (this.field_22220_z - this.field_22230_A) * var1, 0.0F, 0.0F, 1.0F);
-        if (var2.isSleeping()) {
-            var3 = (float) ((double) var3 + 1.0D);
+    private void orientCamera(float partialTicks) {
+        EntityLiving viewEntity = this.potion.renderViewEntity;
+
+        float yOffset = viewEntity.yOffset - 1.62F;
+        double x = viewEntity.prevPosX + (viewEntity.posX - viewEntity.prevPosX) * (double) partialTicks;
+        double y = viewEntity.prevPosY + (viewEntity.posY - viewEntity.prevPosY) * (double) partialTicks - (double) yOffset;
+        double z = viewEntity.prevPosZ + (viewEntity.posZ - viewEntity.prevPosZ) * (double) partialTicks;
+        GL11.glRotatef(this.prevCamRoll + (this.camRoll - this.prevCamRoll) * partialTicks, 0.0F, 0.0F, 1.0F);
+
+        if (viewEntity.isSleeping()) {
+            yOffset += 1.0F;
             GL11.glTranslatef(0.0F, 0.3F, 0.0F);
-            if (!this.potion.gameSettings.field_22273_E) {
-                int var10 = this.potion.theWorld.getBlockId(MathHelper.floor(var2.posX), MathHelper.floor(var2.posY), MathHelper.floor(var2.posZ));
-                if (var10 == Block.BED.blockID) {
-                    int var11 = this.potion.theWorld.getBlockMetadata(MathHelper.floor(var2.posX), MathHelper.floor(var2.posY), MathHelper.floor(var2.posZ));
-                    int var12 = var11 & 3;
-                    GL11.glRotatef((float) (var12 * 90), 0.0F, 1.0F, 0.0F);
+            if (!this.potion.gameSettings.debugCamEnable) {
+                int blockId = this.potion.theWorld.getBlockId(
+                        MathHelper.floor(viewEntity.posX),
+                        MathHelper.floor(viewEntity.posY),
+                        MathHelper.floor(viewEntity.posZ)
+                );
+
+                if (blockId == Block.BED.blockID) {
+                    int metadata = this.potion.theWorld.getBlockMetadata(
+                            MathHelper.floor(viewEntity.posX),
+                            MathHelper.floor(viewEntity.posY),
+                            MathHelper.floor(viewEntity.posZ)
+                    );
+                    int var12 = metadata & 3;
+                    GL11.glRotatef(var12 * 90, 0.0F, 1.0F, 0.0F);
                 }
 
-                GL11.glRotatef(var2.prevRotationYaw + (var2.rotationYaw - var2.prevRotationYaw) * var1 + 180.0F, 0.0F, -1.0F, 0.0F);
-                GL11.glRotatef(var2.prevRotationPitch + (var2.rotationPitch - var2.prevRotationPitch) * var1, -1.0F, 0.0F, 0.0F);
+                GL11.glRotatef(viewEntity.prevRotationYaw + (viewEntity.rotationYaw - viewEntity.prevRotationYaw) * partialTicks + 180.0F, 0.0F, -1.0F, 0.0F);
+                GL11.glRotatef(viewEntity.prevRotationPitch + (viewEntity.rotationPitch - viewEntity.prevRotationPitch) * partialTicks, -1.0F, 0.0F, 0.0F);
             }
         } else if (this.potion.gameSettings.thirdPersonView) {
-            double var30 = this.field_22227_s + (this.field_22228_r - this.field_22227_s) * var1;
-            if (this.potion.gameSettings.field_22273_E) {
-                float var31 = this.field_22225_u + (this.field_22226_t - this.field_22225_u) * var1;
-                float var13 = this.field_22223_w + (this.field_22224_v - this.field_22223_w) * var1;
-                GL11.glTranslatef(0.0F, 0.0F, (float) (-var30));
-                GL11.glRotatef(var13, 1.0F, 0.0F, 0.0F);
-                GL11.glRotatef(var31, 0.0F, 1.0F, 0.0F);
+            double distance = this.thirdPersonDistanceTemp + (this.thirdPersonDistance - this.thirdPersonDistanceTemp) * partialTicks;
+            if (this.potion.gameSettings.debugCamEnable) {
+                float yaw = this.prevDebugCamYaw + (this.debugCamYaw - this.prevDebugCamYaw) * partialTicks;
+                float pitch = this.prevDebugCamPitch + (this.debugCamPitch - this.prevDebugCamPitch) * partialTicks;
+                GL11.glTranslatef(0.0F, 0.0F, (float) (-distance));
+                GL11.glRotatef(pitch, 1.0F, 0.0F, 0.0F);
+                GL11.glRotatef(yaw, 0.0F, 1.0F, 0.0F);
             } else {
-                float var32 = var2.rotationYaw;
-                float var33 = var2.rotationPitch;
-                double var14 = (double) (-MathHelper.sin(var32 / 180.0F * MathConstants.PI) * MathHelper.cos(var33 / 180.0F * MathConstants.PI)) * var30;
-                double var16 = (double) (MathHelper.cos(var32 / 180.0F * MathConstants.PI) * MathHelper.cos(var33 / 180.0F * MathConstants.PI)) * var30;
-                double var18 = (double) (-MathHelper.sin(var33 / 180.0F * MathConstants.PI)) * var30;
+                float yaw = viewEntity.rotationYaw;
+                float pitch = viewEntity.rotationPitch;
+                double rX = -MathHelper.sin(yaw / 180.0F * MathConstants.PI) * MathHelper.cos(pitch / 180.0F * MathConstants.PI) * distance;
+                double rZ = MathHelper.cos(yaw / 180.0F * MathConstants.PI) * MathHelper.cos(pitch / 180.0F * MathConstants.PI) * distance;
+                double rY =  -MathHelper.sin(pitch / 180.0F * MathConstants.PI) * distance;
 
-                for (int var20 = 0; var20 < 8; ++var20) {
-                    float var21 = (float) ((var20 & 1) * 2 - 1);
-                    float var22 = (float) ((var20 >> 1 & 1) * 2 - 1);
-                    float var23 = (float) ((var20 >> 2 & 1) * 2 - 1);
-                    var21 = var21 * 0.1F;
-                    var22 = var22 * 0.1F;
-                    var23 = var23 * 0.1F;
-                    MovingObjectPosition var24 = this.potion.theWorld.rayTraceBlocks(new Vec3d(var4 + (double) var21, var6 + (double) var22, var8 + (double) var23), new Vec3d(var4 - var14 + (double) var21 + (double) var23, var6 - var18 + (double) var22, var8 - var16 + (double) var23));
-                    if (var24 != null) {
-                        double var25 = var24.hitVec.distanceTo(new Vec3d(var4, var6, var8));
-                        if (var25 < var30) {
-                            var30 = var25;
+                for (int pass = 0; pass < 8; ++pass) {
+                    float pX = (pass & 1) * 2 - 1;
+                    float pY = (pass >> 1 & 1) * 2 - 1;
+                    float pZ = (pass >> 2 & 1) * 2 - 1;
+                    pX *= 0.1F;
+                    pY *= 0.1F;
+                    pZ *= 0.1F;
+                    MovingObjectPosition position = this.potion.theWorld.rayTraceBlocks(
+                            new Vec3d(x + pX, y + pY, z + pZ),
+                            new Vec3d(x - rX + pX + pZ, y - rY + pY, z - rZ + pZ));
+                    if (position != null) {
+                        double cDistance = position.hitVec.distanceTo(new Vec3d(x, y, z));
+                        if (cDistance < distance) {
+                            distance = cDistance;
                         }
                     }
                 }
 
-                GL11.glRotatef(var2.rotationPitch - var33, 1.0F, 0.0F, 0.0F);
-                GL11.glRotatef(var2.rotationYaw - var32, 0.0F, 1.0F, 0.0F);
-                GL11.glTranslatef(0.0F, 0.0F, (float) (-var30));
-                GL11.glRotatef(var32 - var2.rotationYaw, 0.0F, 1.0F, 0.0F);
-                GL11.glRotatef(var33 - var2.rotationPitch, 1.0F, 0.0F, 0.0F);
+                GL11.glRotatef(viewEntity.rotationPitch - pitch, 1.0F, 0.0F, 0.0F);
+                GL11.glRotatef(viewEntity.rotationYaw - yaw, 0.0F, 1.0F, 0.0F);
+                GL11.glTranslatef(0.0F, 0.0F, (float) (-distance));
+                GL11.glRotatef(yaw - viewEntity.rotationYaw, 0.0F, 1.0F, 0.0F);
+                GL11.glRotatef(pitch - viewEntity.rotationPitch, 1.0F, 0.0F, 0.0F);
             }
         } else {
             GL11.glTranslatef(0.0F, 0.0F, -0.1F);
         }
 
-        if (!this.potion.gameSettings.field_22273_E) {
-            GL11.glRotatef(var2.prevRotationPitch + (var2.rotationPitch - var2.prevRotationPitch) * var1, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(var2.prevRotationYaw + (var2.rotationYaw - var2.prevRotationYaw) * var1 + 180.0F, 0.0F, 1.0F, 0.0F);
+        if (!this.potion.gameSettings.debugCamEnable) {
+            GL11.glRotatef(viewEntity.prevRotationPitch + (viewEntity.rotationPitch - viewEntity.prevRotationPitch) * partialTicks, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(viewEntity.prevRotationYaw + (viewEntity.rotationYaw - viewEntity.prevRotationYaw) * partialTicks + 180.0F, 0.0F, 1.0F, 0.0F);
         }
 
-        GL11.glTranslatef(0.0F, var3, 0.0F);
-        var4 = var2.prevPosX + (var2.posX - var2.prevPosX) * (double) var1;
-        var6 = var2.prevPosY + (var2.posY - var2.prevPosY) * (double) var1 - (double) var3;
-        var8 = var2.prevPosZ + (var2.posZ - var2.prevPosZ) * (double) var1;
-        this.cloudFog = this.potion.renderGlobal.func_27307_a(var4, var6, var8, var1);
+        GL11.glTranslatef(0.0F, yOffset, 0.0F);
+        x = viewEntity.prevPosX + (viewEntity.posX - viewEntity.prevPosX) * (double) partialTicks;
+        y = viewEntity.prevPosY + (viewEntity.posY - viewEntity.prevPosY) * (double) partialTicks - (double) yOffset;
+        z = viewEntity.prevPosZ + (viewEntity.posZ - viewEntity.prevPosZ) * (double) partialTicks;
+        this.cloudFog = this.potion.renderGlobal.func_27307_a(x, y, z, partialTicks);
     }
 
     private void setupCameraTransform(float partialTicks, int var2) {
@@ -293,6 +309,7 @@ public class EntityRenderer {
 
         float aspect = (float) window.getWidth() / (float) window.getHeight();
         float fovModifier = this.getFOVModifier(partialTicks);
+
         GLU.gluPerspective(fovModifier, aspect, 0.05F, this.farPlaneDistance * 2.0F);
 
         GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
@@ -306,10 +323,12 @@ public class EntityRenderer {
             this.setupViewBobbing(partialTicks);
         }
 
-        float var4 = this.potion.thePlayer.prevTimeInPortal + (this.potion.thePlayer.timeInPortal - this.potion.thePlayer.prevTimeInPortal) * partialTicks;
-        if (var4 > 0.0F) {
-            float var5 = 5.0F / (var4 * var4 + 5.0F) - var4 * 0.04F;
-            var5 = var5 * var5;
+        final EntityPlayerSP player = this.potion.thePlayer;
+        final float timePortalInterp = player.prevTimeInPortal + (player.timeInPortal - player.prevTimeInPortal) * partialTicks;
+
+        if (timePortalInterp > 0.0F) {
+            float var5 = 5.0F / (timePortalInterp * timePortalInterp + 5.0F) - timePortalInterp * 0.04F;
+            var5 *= var5;
             GL11.glRotatef(((float) this.rendererUpdateCount + partialTicks) * 20.0F, 0.0F, 1.0F, 1.0F);
             GL11.glScalef(1.0F / var5, 1.0F, 1.0F);
             GL11.glRotatef(-((float) this.rendererUpdateCount + partialTicks) * 20.0F, 0.0F, 1.0F, 1.0F);
@@ -318,7 +337,7 @@ public class EntityRenderer {
         this.orientCamera(partialTicks);
     }
 
-    private void func_4135_b(float partialTicks, int var2) {
+    private void renderHand(float partialTicks, int var2) {
         GL11.glLoadIdentity();
         if (this.potion.gameSettings.anaglyph) {
             GL11.glTranslatef((float) (var2 * 2 - 1) * 0.1F, 0.0F, 0.0F);
@@ -462,23 +481,24 @@ public class EntityRenderer {
         }
 
         this.getMouseOver(partialTicks);
-        EntityLiving entityLiving = this.potion.renderViewEntity;
-        RenderGlobal var5 = this.potion.renderGlobal;
-        EffectRenderer var6 = this.potion.effectRenderer;
-        double var7 = entityLiving.lastTickPosX + (entityLiving.posX - entityLiving.lastTickPosX) * (double) partialTicks;
-        double var9 = entityLiving.lastTickPosY + (entityLiving.posY - entityLiving.lastTickPosY) * (double) partialTicks;
-        double var11 = entityLiving.lastTickPosZ + (entityLiving.posZ - entityLiving.lastTickPosZ) * (double) partialTicks;
-        IChunkProvider var13 = this.potion.theWorld.getIChunkProvider();
-        if (var13 instanceof ChunkProviderLoadOrGenerate) {
-            ChunkProviderLoadOrGenerate var14 = (ChunkProviderLoadOrGenerate) var13;
-            int var15 = MathHelper.floor((float) ((int) var7)) >> 4;
-            int var16 = MathHelper.floor((float) ((int) var11)) >> 4;
-            var14.setCurrentChunkOver(var15, var16);
+        EntityLiving viewEntity = this.potion.renderViewEntity;
+        RenderGlobal renderGlobal = this.potion.renderGlobal;
+        EffectRenderer effectRenderer = this.potion.effectRenderer;
+
+        double x = viewEntity.lastTickPosX + (viewEntity.posX - viewEntity.lastTickPosX) * partialTicks;
+        double y = viewEntity.lastTickPosY + (viewEntity.posY - viewEntity.lastTickPosY) * partialTicks;
+        double z = viewEntity.lastTickPosZ + (viewEntity.posZ - viewEntity.lastTickPosZ) * partialTicks;
+
+        IChunkProvider chunkProvider = this.potion.theWorld.getIChunkProvider();
+        if (chunkProvider instanceof ChunkProviderLoadOrGenerate chunkProviderLOG) {
+            int chunkX = MathHelper.floor(x) >> 4;
+            int chunkZ = MathHelper.floor(z) >> 4;
+            chunkProviderLOG.setCurrentChunkOver(chunkX, chunkZ);
         }
 
-        for (int var18 = 0; var18 < 2; ++var18) {
+        for (int pass = 0; pass < 2; ++pass) {
             if (this.potion.gameSettings.anaglyph) {
-                anaglyphField = var18;
+                anaglyphField = pass;
                 if (anaglyphField == 0) {
                     GL11.glColorMask(false, true, true, false);
                 } else {
@@ -491,11 +511,11 @@ public class EntityRenderer {
             this.updateFogColor(partialTicks);
             GL11.glClear(16640);
             GL11.glEnable(GL11.GL_CULL_FACE);
-            this.setupCameraTransform(partialTicks, var18);
+            this.setupCameraTransform(partialTicks, pass);
             ClippingHelperImpl.getInstance();
             if (this.potion.gameSettings.renderDistance < 2) {
                 this.setupFog(-1, partialTicks);
-                var5.renderSky(partialTicks);
+                renderGlobal.renderSky(partialTicks);
             }
 
             GL11.glEnable(GL11.GL_FOG);
@@ -504,13 +524,13 @@ public class EntityRenderer {
                 GL11.glShadeModel(GL11.GL_SMOOTH);
             }
 
-            Frustrum var19 = new Frustrum();
-            var19.setPosition(var7, var9, var11);
-            this.potion.renderGlobal.clipRenderersByFrustrum(var19, partialTicks);
-            if (var18 == 0) {
-                while (!this.potion.renderGlobal.updateRenderers(entityLiving, false) && var2 != 0L) {
-                    long var20 = var2 - System.nanoTime();
-                    if (var20 < 0L || var20 > 1000000000L) {
+            Frustrum frustrum = new Frustrum();
+            frustrum.setPosition(x, y, z);
+            this.potion.renderGlobal.clipRenderersByFrustrum(frustrum, partialTicks);
+            if (pass == 0) {
+                while (!this.potion.renderGlobal.updateRenderers(viewEntity, false) && var2 != 0L) {
+                    long now = var2 - System.nanoTime();
+                    if (now < 0L || now > 1000000000L) {
                         break;
                     }
                 }
@@ -520,23 +540,26 @@ public class EntityRenderer {
             GL11.glEnable(GL11.GL_FOG);
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.potion.renderEngine.getTexture("/terrain.png"));
             RenderHelper.disableStandardItemLighting();
-            var5.sortAndRender(entityLiving, 0, partialTicks);
+            renderGlobal.sortAndRender(viewEntity, 0, partialTicks);
             GL11.glShadeModel(GL11.GL_FLAT);
             RenderHelper.enableStandardItemLighting();
-            var5.renderEntities(entityLiving.getPosition(partialTicks), var19, partialTicks);
-            var6.func_1187_b(entityLiving, partialTicks);
+            renderGlobal.renderEntities(viewEntity.getPosition(partialTicks), frustrum, partialTicks);
+            effectRenderer.func_1187_b(viewEntity, partialTicks);
             RenderHelper.disableStandardItemLighting();
             this.setupFog(0, partialTicks);
-            var6.renderParticles(entityLiving, partialTicks);
-            if (this.potion.objectMouseOver != null && entityLiving.isInsideOfMaterial(Material.WATER) && entityLiving instanceof EntityPlayer) {
-                EntityPlayer var21 = (EntityPlayer) entityLiving;
+            effectRenderer.renderParticles(viewEntity, partialTicks);
+            if (this.potion.objectMouseOver != null && viewEntity.isInsideOfMaterial(Material.WATER) && viewEntity instanceof EntityPlayer player) {
                 GL11.glDisable(GL11.GL_ALPHA_TEST);
-                var5.drawBlockBreaking(var21, this.potion.objectMouseOver, 0, var21.inventory.getCurrentItem(), partialTicks);
-                var5.drawSelectionBox(var21, this.potion.objectMouseOver, 0, var21.inventory.getCurrentItem(), partialTicks);
+                renderGlobal.drawBlockBreaking(player, this.potion.objectMouseOver, 0, player.inventory.getCurrentItem(), partialTicks);
+                renderGlobal.drawSelectionBox(player, this.potion.objectMouseOver, 0, player.inventory.getCurrentItem(), partialTicks);
                 GL11.glEnable(GL11.GL_ALPHA_TEST);
             }
 
+
+            GL11.glDisable(GL11.GL_BLEND);
+            GL11.glEnable(GL11.GL_CULL_FACE);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            GL11.glDepthMask(true);
             this.setupFog(0, partialTicks);
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glDisable(GL11.GL_CULL_FACE);
@@ -547,7 +570,7 @@ public class EntityRenderer {
                 }
 
                 GL11.glColorMask(false, false, false, false);
-                int var22 = var5.sortAndRender(entityLiving, 1, partialTicks);
+                int var22 = renderGlobal.sortAndRender(viewEntity, 1, partialTicks);
                 if (this.potion.gameSettings.anaglyph) {
                     if (anaglyphField == 0) {
                         GL11.glColorMask(false, true, true, true);
@@ -559,38 +582,35 @@ public class EntityRenderer {
                 }
 
                 if (var22 > 0) {
-                    var5.renderAllRenderLists(1, partialTicks);
+                    renderGlobal.renderAllRenderLists(1, partialTicks);
                 }
 
                 GL11.glShadeModel(GL11.GL_FLAT);
             } else {
-                var5.sortAndRender(entityLiving, 1, partialTicks);
+                renderGlobal.sortAndRender(viewEntity, 1, partialTicks);
             }
 
             GL11.glDepthMask(true);
             GL11.glEnable(GL11.GL_CULL_FACE);
             GL11.glDisable(GL11.GL_BLEND);
-            if (this.cameraZoom == 1.0D && entityLiving instanceof EntityPlayer && this.potion.objectMouseOver != null && !entityLiving.isInsideOfMaterial(Material.WATER)) {
-                EntityPlayer var23 = (EntityPlayer) entityLiving;
+            if (this.cameraZoom == 1.0D && viewEntity instanceof EntityPlayer player && this.potion.objectMouseOver != null && !viewEntity.isInsideOfMaterial(Material.WATER)) {
                 GL11.glDisable(GL11.GL_ALPHA_TEST);
-                var5.drawBlockBreaking(var23, this.potion.objectMouseOver, 0, var23.inventory.getCurrentItem(), partialTicks);
-                var5.drawSelectionBox(var23, this.potion.objectMouseOver, 0, var23.inventory.getCurrentItem(), partialTicks);
+                renderGlobal.drawBlockBreaking(player, this.potion.objectMouseOver, 0, player.inventory.getCurrentItem(), partialTicks);
+                renderGlobal.drawSelectionBox(player, this.potion.objectMouseOver, 0, player.inventory.getCurrentItem(), partialTicks);
                 GL11.glEnable(GL11.GL_ALPHA_TEST);
             }
 
             this.renderRainSnow(partialTicks);
             GL11.glDisable(GL11.GL_FOG);
-            if (this.pointedEntity != null) {
-            }
 
             this.setupFog(0, partialTicks);
             GL11.glEnable(GL11.GL_FOG);
-            var5.renderClouds(partialTicks);
+            renderGlobal.renderClouds(partialTicks);
             GL11.glDisable(GL11.GL_FOG);
             this.setupFog(1, partialTicks);
             if (this.cameraZoom == 1.0D) {
                 GL11.glClear(256);
-                this.func_4135_b(partialTicks, var18);
+                this.renderHand(partialTicks, pass);
             }
 
             if (!this.potion.gameSettings.anaglyph) {
