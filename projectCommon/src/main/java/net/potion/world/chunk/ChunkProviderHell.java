@@ -189,7 +189,7 @@ public class ChunkProviderHell implements IChunkProvider {
     @Override
     public Chunk provideChunk(int x, int z) {
         this.hellRNG.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
-        byte[] var3 = new byte['\u8000'];
+        byte[] var3 = new byte[32768];
         this.method1(x, z, var3);
         this.method2(x, z, var3);
         this.cavesHell.func_867_a(this, this.worldObj, x, z, var3);

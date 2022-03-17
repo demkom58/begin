@@ -24,7 +24,7 @@ public class ChunkProviderServer implements IChunkProvider {
     private WorldServer world;
 
     public ChunkProviderServer(WorldServer worldServer, IChunkLoader chunkLoader, IChunkProvider chunkProvider) {
-        this.dummyChunk = new EmptyChunk(worldServer, new byte['\u8000'], 0, 0);
+        this.dummyChunk = new EmptyChunk(worldServer, new byte[32768], 0, 0);
         this.world = worldServer;
         this.chunkLoader = chunkLoader;
         this.serverChunkGenerator = chunkProvider;

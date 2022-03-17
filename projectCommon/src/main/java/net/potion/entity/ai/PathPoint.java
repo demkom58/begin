@@ -22,7 +22,7 @@ public class PathPoint {
     }
 
     public static int hash(int x, int y, int z) {
-        return y & 255 | (x & 32767) << 8 | (z & 32767) << 24 | (x < 0 ? Integer.MIN_VALUE : 0) | (z < 0 ? '\u8000' : 0);
+        return y & 255 | (x & 32767) << 8 | (z & 32767) << 24 | (x < 0 ? Integer.MIN_VALUE : 0) | (z < 0 ? 32768 : 0);
     }
 
     public float distanceTo(PathPoint var1) {

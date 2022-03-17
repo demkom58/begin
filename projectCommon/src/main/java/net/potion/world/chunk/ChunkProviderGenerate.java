@@ -202,7 +202,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
     @Override
     public Chunk provideChunk(int x, int z) {
         this.rand.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
-        byte[] var3 = new byte['\u8000'];
+        byte[] var3 = new byte[32768];
         Chunk var4 = new Chunk(this.worldObj, var3, x, z);
         this.biomesForGeneration = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(this.biomesForGeneration, x * 16, z * 16, 16, 16);
         double[] var5 = this.worldObj.getWorldChunkManager().temperature;

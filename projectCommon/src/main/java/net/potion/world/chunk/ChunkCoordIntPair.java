@@ -11,7 +11,7 @@ public class ChunkCoordIntPair {
 
     public static int chunkXZ2Int(int x, int z) {
         return (x < 0 ? Integer.MIN_VALUE : 0) | (x & 32767) << 16
-                | (z < 0 ? '\u8000' : 0) | z & 32767;
+                | (z < 0 ? 32768 : 0) | z & 32767;
     }
 
     public int hashCode() {

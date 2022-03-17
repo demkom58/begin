@@ -23,7 +23,7 @@ public class ChunkProvider implements IChunkProvider {
     private final World worldObj;
 
     public ChunkProvider(World var1, IChunkLoader var2, IChunkProvider var3) {
-        this.chunk = new EmptyChunk(var1, new byte['\u8000'], 0, 0);
+        this.chunk = new EmptyChunk(var1, new byte[32768], 0, 0);
         this.worldObj = var1;
         this.chunkLoader = var2;
         this.chunkGenerator = var3;

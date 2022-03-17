@@ -163,7 +163,7 @@ public class ChunkProviderSky implements IChunkProvider {
     @Override
     public Chunk provideChunk(int x, int z) {
         this.skyRNG.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
-        byte[] var3 = new byte['\u8000'];
+        byte[] var3 = new byte[32768];
         Chunk var4 = new Chunk(this.worldObj, var3, x, z);
         this.field6 = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(this.field6, x * 16, z * 16, 16, 16);
         double[] var5 = this.worldObj.getWorldChunkManager().temperature;
