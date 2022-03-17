@@ -10,23 +10,23 @@ import java.util.List;
 import java.util.Random;
 
 public class EmptyChunk extends Chunk {
-    public EmptyChunk(World var1, int var2, int var3) {
-        super(var1, var2, var3);
+    public EmptyChunk(World world, int x, int z) {
+        super(world, x, z);
         this.neverSave = true;
     }
 
-    public EmptyChunk(World var1, byte[] var2, int var3, int var4) {
-        super(var1, var2, var3, var4);
+    public EmptyChunk(World world, byte[] data, int x, int z) {
+        super(world, data, x, z);
         this.neverSave = true;
     }
 
     @Override
-    public boolean isAtLocation(int var1, int var2) {
-        return var1 == this.xPosition && var2 == this.zPosition;
+    public boolean isAtLocation(int x, int z) {
+        return x == this.xPosition && z == this.zPosition;
     }
 
     @Override
-    public int getHeightValue(int var1, int var2) {
+    public int getHeightValue(int x, int z) {
         return 0;
     }
 
@@ -39,7 +39,7 @@ public class EmptyChunk extends Chunk {
     }
 
     @Override
-    public void generateHeightMapFull() {
+    public void generateHeightAndSkyLightMap() {
     }
 
     @Override
@@ -47,75 +47,75 @@ public class EmptyChunk extends Chunk {
     }
 
     @Override
-    public int getBlockID(int var1, int var2, int var3) {
+    public int getBlockID(int x, int y, int z) {
         return 0;
     }
 
     @Override
-    public boolean setBlockIDWithMetadata(int var1, int var2, int var3, int var4, int var5) {
+    public boolean setBlockIDWithMetadata(int x, int y, int z, int blockId, int metadata) {
         return true;
     }
 
     @Override
-    public boolean setBlockID(int var1, int var2, int var3, int var4) {
+    public boolean setBlockID(int x, int y, int z, int blockId) {
         return true;
     }
 
     @Override
-    public int getBlockMetadata(int var1, int var2, int var3) {
+    public int getBlockMetadata(int x, int y, int z) {
         return 0;
     }
 
     @Override
-    public void setBlockMetadata(int var1, int var2, int var3, int var4) {
+    public void setBlockMetadata(int x, int y, int z, int metadata) {
     }
 
     @Override
-    public int getSavedLightValue(EnumSkyBlock var1, int var2, int var3, int var4) {
+    public int getSavedLightValue(EnumSkyBlock skyBlock, int x, int y, int z) {
         return 0;
     }
 
     @Override
-    public void setLightValue(EnumSkyBlock var1, int var2, int var3, int var4, int var5) {
+    public void setLightValue(EnumSkyBlock skyBlock, int x, int y, int z, int light) {
     }
 
     @Override
-    public int getBlockLightValue(int var1, int var2, int var3, int var4) {
+    public int getBlockLightValue(int x, int y, int z, int skylightSubtracted) {
         return 0;
     }
 
     @Override
-    public void addEntity(Entity var1) {
+    public void addEntity(Entity entity) {
     }
 
     @Override
-    public void removeEntity(Entity var1) {
+    public void removeEntity(Entity entity) {
     }
 
     @Override
-    public void removeEntityAtIndex(Entity var1, int var2) {
+    public void removeEntityAtIndex(Entity entity, int listIdx) {
     }
 
     @Override
-    public boolean canBlockSeeTheSky(int var1, int var2, int var3) {
+    public boolean canBlockSeeTheSky(int x, int y, int z) {
         return false;
     }
 
     @Override
-    public TileEntity getChunkBlockTileEntity(int var1, int var2, int var3) {
+    public TileEntity getChunkBlockTileEntity(int x, int y, int z) {
         return null;
     }
 
     @Override
-    public void addTileEntity(TileEntity var1) {
+    public void addTileEntity(TileEntity tileEntity) {
     }
 
     @Override
-    public void setChunkBlockTileEntity(int var1, int var2, int var3, TileEntity var4) {
+    public void setChunkBlockTileEntity(int x, int y, int z, TileEntity tileEntity) {
     }
 
     @Override
-    public void removeChunkBlockTileEntity(int var1, int var2, int var3) {
+    public void removeChunkBlockTileEntity(int x, int y, int z) {
     }
 
     @Override
@@ -131,11 +131,11 @@ public class EmptyChunk extends Chunk {
     }
 
     @Override
-    public void getEntitiesWithinAABBForEntity(Entity var1, AxisAlignedBB var2, List var3) {
+    public void getEntitiesWithinAABBForEntity(Entity entity, AxisAlignedBB bb, List<Entity> result) {
     }
 
     @Override
-    public void getEntitiesOfTypeWithinAAAB(Class type, AxisAlignedBB bb, List entities) {
+    public void getEntitiesOfTypeWithinAABB(Class<? extends Entity> type, AxisAlignedBB bb, List<Entity> entities) {
     }
 
     @Override
@@ -144,17 +144,21 @@ public class EmptyChunk extends Chunk {
     }
 
     @Override
-    public int setChunkData(byte[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
-        int var9 = var5 - var2;
-        int var10 = var6 - var3;
-        int var11 = var7 - var4;
-        int var12 = var9 * var10 * var11;
-        return var12 + var12 / 2 * 3;
+    public int setChunkData(byte[] src, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, int offset) {
+        int rngX = maxX - minX;
+        int rngY = maxY - minY;
+        int rngZ = maxZ - minZ;
+        int volume = rngX * rngY * rngZ;
+        return volume + volume / 2 * 3;
     }
 
     @Override
     public Random createSpecialRandom(long var1) {
-        return new Random(this.worldObj.getRandomSeed() + (long) (this.xPosition * this.xPosition * 4987142) + (long) (this.xPosition * 5947611) + (long) (this.zPosition * this.zPosition) * 4392871L + (long) (this.zPosition * 389711) ^ var1);
+        return new Random(this.world.getRandomSeed()
+                + (this.xPosition * this.xPosition * 4987142L)
+                + (this.xPosition * 5947611L)
+                + ((long) this.zPosition * this.zPosition) * 4392871L
+                + (this.zPosition * 389711L) ^ var1);
     }
 
     @Override

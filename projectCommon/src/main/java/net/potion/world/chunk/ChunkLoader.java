@@ -30,11 +30,11 @@ public class ChunkLoader implements IChunkLoader {
         var2.setInteger("zPos", var0.zPosition);
         var2.setLong("LastUpdate", var1.getWorldTime());
         var2.setByteArray("Blocks", var0.blocks);
-        var2.setByteArray("Data", var0.data.data);
+        var2.setByteArray("Data", var0.metadata.data);
         var2.setByteArray("SkyLight", var0.skylightMap.data);
         var2.setByteArray("BlockLight", var0.blocklightMap.data);
         var2.setByteArray("HeightMap", var0.heightMap);
-        var2.setBoolean("TerrainPopulated", var0.isTerrainPopulated);
+        var2.setBoolean("TerrainPopulated", var0.terrainPopulated);
         var0.hasEntities = false;
         TagList var3 = new TagList();
 
@@ -65,19 +65,19 @@ public class ChunkLoader implements IChunkLoader {
         int var3 = var1.getInteger("zPos");
         Chunk var4 = new Chunk(var0, var2, var3);
         var4.blocks = var1.getByteArray("Blocks");
-        var4.data = new NibbleArray(var1.getByteArray("Data"));
+        var4.metadata = new NibbleArray(var1.getByteArray("Data"));
         var4.skylightMap = new NibbleArray(var1.getByteArray("SkyLight"));
         var4.blocklightMap = new NibbleArray(var1.getByteArray("BlockLight"));
         var4.heightMap = var1.getByteArray("HeightMap");
-        var4.isTerrainPopulated = var1.getBoolean("TerrainPopulated");
-        if (!var4.data.isValid()) {
-            var4.data = new NibbleArray(var4.blocks.length);
+        var4.terrainPopulated = var1.getBoolean("TerrainPopulated");
+        if (!var4.metadata.isValid()) {
+            var4.metadata = new NibbleArray(var4.blocks.length);
         }
 
         if (var4.heightMap == null || !var4.skylightMap.isValid()) {
             var4.heightMap = new byte[256];
             var4.skylightMap = new NibbleArray(var4.blocks.length);
-            var4.generateHeightMapFull();
+            var4.generateHeightAndSkyLightMap();
         }
 
         if (!var4.blocklightMap.isValid()) {

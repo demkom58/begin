@@ -209,7 +209,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         this.generateTerrain(x, z, var3, this.biomesForGeneration, var5);
         this.replaceBlocksForBiome(x, z, var3, this.biomesForGeneration);
         this.cavesGen.func_867_a(this, this.worldObj, x, z, var3);
-        var4.generateHeightMapFull();
+        var4.generateHeightAndSkyLightMap();
         return var4;
     }
 

@@ -68,19 +68,19 @@ public class ChunkProviderServer implements IChunkProvider {
                 chunk.onChunkLoad();
             }
 
-            if (!chunk.isTerrainPopulated && this.chunkExists(x + 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x + 1, z)) {
+            if (!chunk.terrainPopulated && this.chunkExists(x + 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x + 1, z)) {
                 this.populate(this, x, z);
             }
 
-            if (this.chunkExists(x - 1, z) && !this.provideChunk(x - 1, z).isTerrainPopulated && this.chunkExists(x - 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x - 1, z)) {
+            if (this.chunkExists(x - 1, z) && !this.provideChunk(x - 1, z).terrainPopulated && this.chunkExists(x - 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x - 1, z)) {
                 this.populate(this, x - 1, z);
             }
 
-            if (this.chunkExists(x, z - 1) && !this.provideChunk(x, z - 1).isTerrainPopulated && this.chunkExists(x + 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x + 1, z)) {
+            if (this.chunkExists(x, z - 1) && !this.provideChunk(x, z - 1).terrainPopulated && this.chunkExists(x + 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x + 1, z)) {
                 this.populate(this, x, z - 1);
             }
 
-            if (this.chunkExists(x - 1, z - 1) && !this.provideChunk(x - 1, z - 1).isTerrainPopulated && this.chunkExists(x - 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x - 1, z)) {
+            if (this.chunkExists(x - 1, z - 1) && !this.provideChunk(x - 1, z - 1).terrainPopulated && this.chunkExists(x - 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x - 1, z)) {
                 this.populate(this, x - 1, z - 1);
             }
         }
@@ -142,8 +142,8 @@ public class ChunkProviderServer implements IChunkProvider {
     @Override
     public void populate(IChunkProvider chunkProvider, int x, int z) {
         Chunk chunk = this.provideChunk(x, z);
-        if (!chunk.isTerrainPopulated) {
-            chunk.isTerrainPopulated = true;
+        if (!chunk.terrainPopulated) {
+            chunk.terrainPopulated = true;
             if (this.serverChunkGenerator != null) {
                 this.serverChunkGenerator.populate(chunkProvider, x, z);
                 chunk.setChunkModified();
@@ -164,7 +164,7 @@ public class ChunkProviderServer implements IChunkProvider {
 
             if (chunk.needsSaving(var1)) {
                 this.saveChunk(chunk);
-                chunk.isModified = false;
+                chunk.modified = false;
                 ++saved;
                 if (saved == 24 && !var1) {
                     return false;

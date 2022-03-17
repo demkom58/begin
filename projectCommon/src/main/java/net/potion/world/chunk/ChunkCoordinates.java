@@ -14,42 +14,41 @@ public class ChunkCoordinates implements Comparable<ChunkCoordinates> {
         this.z = z;
     }
 
-    public ChunkCoordinates(ChunkCoordinates coordinates) {
-        this.x = coordinates.x;
-        this.y = coordinates.y;
-        this.z = coordinates.z;
+    public ChunkCoordinates(ChunkCoordinates coord) {
+        this.x = coord.x;
+        this.y = coord.y;
+        this.z = coord.z;
     }
 
-    public boolean equals(Object var1) {
-        if (!(var1 instanceof ChunkCoordinates)) {
+    public boolean equals(Object o) {
+        if (!(o instanceof ChunkCoordinates cCoord)) {
             return false;
-        } else {
-            ChunkCoordinates var2 = (ChunkCoordinates) var1;
-            return this.x == var2.x && this.y == var2.y && this.z == var2.z;
         }
+
+        return this.x == cCoord.x && this.y == cCoord.y && this.z == cCoord.z;
     }
 
     public int hashCode() {
         return this.x + this.z << 8 + this.y << 16;
     }
 
-    public int compareChunkCoordinate(ChunkCoordinates var1) {
-        if (this.y == var1.y) {
-            return this.z == var1.z ? this.x - var1.x : this.z - var1.z;
-        } else {
-            return this.y - var1.y;
+    public int compareChunkCoordinate(ChunkCoordinates cCoord) {
+        if (this.y == cCoord.y) {
+            return this.z == cCoord.z ? this.x - cCoord.x : this.z - cCoord.z;
         }
+
+        return this.y - cCoord.y;
     }
 
-    public double getSqDistanceTo(int var1, int var2, int var3) {
-        int var4 = this.x - var1;
-        int var5 = this.y - var2;
-        int var6 = this.z - var3;
-        return Math.sqrt(var4 * var4 + var5 * var5 + var6 * var6);
+    public double getSqDistanceTo(int x, int y, int z) {
+        int dX = this.x - x;
+        int dY = this.y - y;
+        int dZ = this.z - z;
+        return Math.sqrt(dX * dX + dY * dY + dZ * dZ);
     }
 
     @Override
-    public int compareTo(ChunkCoordinates coordinates) {
-        return this.compareChunkCoordinate(coordinates);
+    public int compareTo(ChunkCoordinates coord) {
+        return this.compareChunkCoordinate(coord);
     }
 }

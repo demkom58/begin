@@ -10,22 +10,22 @@ import net.potion.world.World;
 import net.potion.world.WorldChunkManager;
 
 public class ChunkCache implements IBlockAccess {
-    private int chunkX;
-    private int chunkZ;
-    private Chunk[][] chunkArray;
-    private World worldObj;
+    private final int chunkX;
+    private final int chunkZ;
+    private final Chunk[][] chunkArray;
+    private final World worldObj;
 
-    public ChunkCache(World var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-        this.worldObj = var1;
-        this.chunkX = var2 >> 4;
-        this.chunkZ = var4 >> 4;
-        int var8 = var5 >> 4;
-        int var9 = var7 >> 4;
-        this.chunkArray = new Chunk[var8 - this.chunkX + 1][var9 - this.chunkZ + 1];
+    public ChunkCache(World world, int startX, int startY, int startZ, int endX, int endY, int endZ) {
+        this.worldObj = world;
+        this.chunkX = startX >> 4;
+        this.chunkZ = startZ >> 4;
+        int endCX = endX >> 4;
+        int endCZ = endZ >> 4;
+        this.chunkArray = new Chunk[endCX - this.chunkX + 1][endCZ - this.chunkZ + 1];
 
-        for (int iX = this.chunkX; iX <= var8; ++iX) {
-            for (int iZ = this.chunkZ; iZ <= var9; ++iZ) {
-                this.chunkArray[iX - this.chunkX][iZ - this.chunkZ] = var1.getChunkFromChunkCoords(iX, iZ);
+        for (int iX = this.chunkX; iX <= endCX; ++iX) {
+            for (int iZ = this.chunkZ; iZ <= endCZ; ++iZ) {
+                this.chunkArray[iX - this.chunkX][iZ - this.chunkZ] = world.getChunkFromChunkCoords(iX, iZ);
             }
         }
 
@@ -41,10 +41,10 @@ public class ChunkCache implements IBlockAccess {
             return 0;
         }
 
-        int var4 = (x >> 4) - this.chunkX;
-        int var5 = (z >> 4) - this.chunkZ;
-        if (var4 >= 0 && var4 < this.chunkArray.length && var5 >= 0 && var5 < this.chunkArray[var4].length) {
-            Chunk chunk = this.chunkArray[var4][var5];
+        int cX = (x >> 4) - this.chunkX;
+        int cZ = (z >> 4) - this.chunkZ;
+        if (cX >= 0 && cX < this.chunkArray.length && cZ >= 0 && cZ < this.chunkArray[cX].length) {
+            Chunk chunk = this.chunkArray[cX][cZ];
             return chunk == null ? 0 : chunk.getBlockID(x & 15, y, z & 15);
         }
 
@@ -52,118 +52,123 @@ public class ChunkCache implements IBlockAccess {
     }
 
     @Override
-    public TileEntity getBlockTileEntity(int var1, int var2, int var3) {
-        int var4 = (var1 >> 4) - this.chunkX;
-        int var5 = (var3 >> 4) - this.chunkZ;
-        return this.chunkArray[var4][var5].getChunkBlockTileEntity(var1 & 15, var2, var3 & 15);
+    public TileEntity getBlockTileEntity(int x, int y, int z) {
+        int cX = (x >> 4) - this.chunkX;
+        int cZ = (z >> 4) - this.chunkZ;
+        return this.chunkArray[cX][cZ].getChunkBlockTileEntity(x & 15, y, z & 15);
     }
 
     @Override
     @Side(CodeSide.CLIENT)
-    public float getBrightness(int var1, int var2, int var3, int var4) {
-        int var5 = this.getLightValue(var1, var2, var3);
-        if (var5 < var4) {
-            var5 = var4;
+    public float getBrightness(int x, int y, int z, int minBrightness) {
+        int lightValue = this.getLightValue(x, y, z);
+        if (lightValue < minBrightness) {
+            lightValue = minBrightness;
         }
 
-        return this.worldObj.worldProvider.lightBrightnessTable[var5];
+        return this.worldObj.worldProvider.lightBrightnessTable[lightValue];
     }
 
     @Override
     @Side(CodeSide.CLIENT)
-    public float getLightBrightness(int var1, int var2, int var3) {
-        return this.worldObj.worldProvider.lightBrightnessTable[this.getLightValue(var1, var2, var3)];
+    public float getLightBrightness(int x, int y, int z) {
+        return this.worldObj.worldProvider.lightBrightnessTable[this.getLightValue(x, y, z)];
     }
 
-    public int getLightValue(int var1, int var2, int var3) {
-        return this.getLightValueExt(var1, var2, var3, true);
+    public int getLightValue(int x, int y, int z) {
+        return this.getLightValueExt(x, y, z, true);
     }
 
-    public int getLightValueExt(int var1, int var2, int var3, boolean var4) {
-        if (var1 < -32000000 || var3 < -32000000 || var1 >= 32000000 || var3 > 32000000) {
+    public int getLightValueExt(int x, int y, int z, boolean lookNearMax) {
+        if (x < -32000000 || z < -32000000 || x >= 32000000 || z > 32000000) {
             return 15;
         }
 
-        if (var4) {
-            int var5 = this.getBlockId(var1, var2, var3);
-            if (var5 == Block.STAIR_SINGLE.blockID || var5 == Block.FARMLAND.blockID || var5 == Block.STAIR_COMPACT_PLANKS.blockID || var5 == Block.STAIR_COMPACT_COBBLESTONE.blockID) {
-                int var13 = this.getLightValueExt(var1, var2 + 1, var3, false);
-                int var7 = this.getLightValueExt(var1 + 1, var2, var3, false);
-                int var8 = this.getLightValueExt(var1 - 1, var2, var3, false);
-                int var9 = this.getLightValueExt(var1, var2, var3 + 1, false);
-                int var10 = this.getLightValueExt(var1, var2, var3 - 1, false);
-                if (var7 > var13) {
-                    var13 = var7;
+        if (lookNearMax) {
+            int blockId = this.getBlockId(x, y, z);
+            if (blockId == Block.STAIR_SINGLE.blockID
+                    || blockId == Block.FARMLAND.blockID
+                    || blockId == Block.STAIR_COMPACT_PLANKS.blockID
+                    || blockId == Block.STAIR_COMPACT_COBBLESTONE.blockID) {
+                int lightUp = this.getLightValueExt(x, y + 1, z, false);
+                int lightXp = this.getLightValueExt(x + 1, y, z, false);
+                int lightXm = this.getLightValueExt(x - 1, y, z, false);
+                int lightZp = this.getLightValueExt(x, y, z + 1, false);
+                int lightZm = this.getLightValueExt(x, y, z - 1, false);
+                if (lightXp > lightUp) {
+                    lightUp = lightXp;
                 }
 
-                if (var8 > var13) {
-                    var13 = var8;
+                if (lightXm > lightUp) {
+                    lightUp = lightXm;
                 }
 
-                if (var9 > var13) {
-                    var13 = var9;
+                if (lightZp > lightUp) {
+                    lightUp = lightZp;
                 }
 
-                if (var10 > var13) {
-                    var13 = var10;
+                if (lightZm > lightUp) {
+                    lightUp = lightZm;
                 }
 
-                return var13;
+                return lightUp;
             }
         }
 
-        if (var2 < 0) {
+        if (y < 0) {
             return 0;
-        } else if (var2 >= 128) {
+        }
+
+        if (y >= 128) {
             int var12 = 15 - this.worldObj.skylightSubtracted;
             if (var12 < 0) {
                 var12 = 0;
             }
 
             return var12;
-        } else {
-            int var11 = (var1 >> 4) - this.chunkX;
-            int var6 = (var3 >> 4) - this.chunkZ;
-            return this.chunkArray[var11][var6].getBlockLightValue(var1 & 15, var2, var3 & 15, this.worldObj.skylightSubtracted);
         }
+
+        int cX = (x >> 4) - this.chunkX;
+        int cY = (z >> 4) - this.chunkZ;
+        return this.chunkArray[cX][cY].getBlockLightValue(x & 15, y, z & 15, this.worldObj.skylightSubtracted);
     }
 
     @Override
-    public int getBlockMetadata(int var1, int var2, int var3) {
-        if (var2 < 0) {
+    public int getBlockMetadata(int x, int y, int z) {
+        if (y < 0) {
             return 0;
         }
 
-        if (var2 >= 128) {
+        if (y >= 128) {
             return 0;
         }
 
-        int var4 = (var1 >> 4) - this.chunkX;
-        int var5 = (var3 >> 4) - this.chunkZ;
-        return this.chunkArray[var4][var5].getBlockMetadata(var1 & 15, var2, var3 & 15);
+        int cX = (x >> 4) - this.chunkX;
+        int xY = (z >> 4) - this.chunkZ;
+        return this.chunkArray[cX][xY].getBlockMetadata(x & 15, y, z & 15);
     }
 
     @Override
-    public Material getBlockMaterial(int var1, int var2, int var3) {
-        int var4 = this.getBlockId(var1, var2, var3);
-        return var4 == 0 ? Material.AIR : Block.BLOCKS_LIST[var4].blockMaterial;
+    public Material getBlockMaterial(int x, int y, int z) {
+        int blockId = this.getBlockId(x, y, z);
+        return blockId == 0 ? Material.AIR : Block.BLOCKS_LIST[blockId].blockMaterial;
     }
 
     @Override
     @Side(CodeSide.CLIENT)
-    public boolean isBlockOpaqueCube(int var1, int var2, int var3) {
-        Block var4 = Block.BLOCKS_LIST[this.getBlockId(var1, var2, var3)];
-        return var4 != null && var4.isOpaqueCube();
+    public boolean isBlockOpaqueCube(int x, int y, int z) {
+        Block block = Block.BLOCKS_LIST[this.getBlockId(x, y, z)];
+        return block != null && block.isOpaqueCube();
     }
 
     @Override
-    public boolean isBlockNormalCube(int var1, int var2, int var3) {
-        Block var4 = Block.BLOCKS_LIST[this.getBlockId(var1, var2, var3)];
-        if (var4 == null) {
+    public boolean isBlockNormalCube(int x, int y, int z) {
+        Block block = Block.BLOCKS_LIST[this.getBlockId(x, y, z)];
+        if (block == null) {
             return false;
-        } else {
-            return var4.blockMaterial.getIsSolid() && var4.isNormalCube();
         }
+
+        return block.blockMaterial.getIsSolid() && block.isNormalCube();
     }
 
     @Override

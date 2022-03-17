@@ -485,44 +485,48 @@ public class World implements IBlockAccess {
     }
 
     public int getBlockLightValue(int x, int y, int z) {
-        return this.getBlockLightValue_do(x, y, z, true);
+        return this.getBlockLightValueExt(x, y, z, true);
     }
 
-    public int getBlockLightValue_do(int x, int y, int z, boolean var4) {
+    public int getBlockLightValueExt(int x, int y, int z, boolean lookNearMax) {
         if (x < -32000000 || z < -32000000 || x >= 32000000 || z > 32000000) {
             return 15;
         }
 
-        if (var4) {
-            int var5 = this.getBlockId(x, y, z);
-            if (var5 == Block.STAIR_SINGLE.blockID || var5 == Block.FARMLAND.blockID || var5 == Block.STAIR_COMPACT_COBBLESTONE.blockID || var5 == Block.STAIR_COMPACT_PLANKS.blockID) {
-                int var6 = this.getBlockLightValue_do(x, y + 1, z, false);
-                int var7 = this.getBlockLightValue_do(x + 1, y, z, false);
-                int var8 = this.getBlockLightValue_do(x - 1, y, z, false);
-                int var9 = this.getBlockLightValue_do(x, y, z + 1, false);
-                int var10 = this.getBlockLightValue_do(x, y, z - 1, false);
-                if (var7 > var6) {
-                    var6 = var7;
+        if (lookNearMax) {
+            int blockId = this.getBlockId(x, y, z);
+            if (blockId == Block.STAIR_SINGLE.blockID
+                    || blockId == Block.FARMLAND.blockID
+                    || blockId == Block.STAIR_COMPACT_COBBLESTONE.blockID
+                    || blockId == Block.STAIR_COMPACT_PLANKS.blockID) {
+                int lightUp = this.getBlockLightValueExt(x, y + 1, z, false);
+                int lightXp = this.getBlockLightValueExt(x + 1, y, z, false);
+                int lightXm = this.getBlockLightValueExt(x - 1, y, z, false);
+                int lightZp = this.getBlockLightValueExt(x, y, z + 1, false);
+                int lightZm = this.getBlockLightValueExt(x, y, z - 1, false);
+                if (lightXp > lightUp) {
+                    lightUp = lightXp;
                 }
 
-                if (var8 > var6) {
-                    var6 = var8;
+                if (lightXm > lightUp) {
+                    lightUp = lightXm;
                 }
 
-                if (var9 > var6) {
-                    var6 = var9;
+                if (lightZp > lightUp) {
+                    lightUp = lightZp;
                 }
 
-                if (var10 > var6) {
-                    var6 = var10;
+                if (lightZm > lightUp) {
+                    lightUp = lightZm;
                 }
 
-                return var6;
+                return lightUp;
             }
         }
 
-        if (y < 0)
+        if (y < 0) {
             return 0;
+        }
 
         if (y >= 128) {
             y = 127;
@@ -599,29 +603,30 @@ public class World implements IBlockAccess {
 
     }
 
-    public int getSavedLightValue(EnumSkyBlock var1, int var2, int var3, int var4) {
-        if (var3 < 0) {
-            var3 = 0;
+    public int getSavedLightValue(EnumSkyBlock skyBlock, int x, int y, int z) {
+        if (y < 0) {
+            y = 0;
         }
 
-        if (var3 >= 128) {
-            var3 = 127;
+        if (y >= 128) {
+            y = 127;
         }
 
-        if (var3 >= 0 && var3 < 128 && var2 >= -32000000 && var4 >= -32000000 && var2 < 32000000 && var4 <= 32000000) {
-            int var5 = var2 >> 4;
-            int var6 = var4 >> 4;
-            if (!this.chunkExists(var5, var6))
+        if (y >= 0 && y < 128 && x >= -32000000 && z >= -32000000 && x < 32000000 && z <= 32000000) {
+            int cX = x >> 4;
+            int cZ = z >> 4;
+            if (!this.chunkExists(cX, cZ)) {
                 return 0;
+            }
 
-            Chunk chunk = this.getChunkFromChunkCoords(var5, var6);
-            return chunk.getSavedLightValue(var1, var2 & 15, var3, var4 & 15);
+            Chunk chunk = this.getChunkFromChunkCoords(cX, cZ);
+            return chunk.getSavedLightValue(skyBlock, x & 15, y, z & 15);
         }
 
-        return var1.lightValue;
+        return skyBlock.lightValue;
     }
 
-    public void setLightValue(EnumSkyBlock skyBlock, int x, int y, int z, int var5) {
+    public void setLightValue(EnumSkyBlock skyBlock, int x, int y, int z, int value) {
         if (x < -32000000 || z < -32000000 || x >= 32000000 || z > 32000000) {
             return;
         }
@@ -639,7 +644,7 @@ public class World implements IBlockAccess {
         }
 
         Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
-        chunk.setLightValue(skyBlock, x & 15, y, z & 15, var5);
+        chunk.setLightValue(skyBlock, x & 15, y, z & 15, value);
 
         for (IWorldAccess worldAccess : this.worldAccesses) {
             worldAccess.markBlockAndNeighborsNeedsUpdate(x, y, z);
@@ -649,19 +654,19 @@ public class World implements IBlockAccess {
 
     @Override
     @Side(CodeSide.CLIENT)
-    public float getBrightness(int x, int y, int z, int var4) {
-        int var5 = this.getBlockLightValue(x, y, z);
-        if (var5 < var4) {
-            var5 = var4;
+    public float getBrightness(int x, int y, int z, int minBrightness) {
+        int lightValue = this.getBlockLightValue(x, y, z);
+        if (lightValue < minBrightness) {
+            lightValue = minBrightness;
         }
 
-        return this.worldProvider.lightBrightnessTable[var5];
+        return this.worldProvider.lightBrightnessTable[lightValue];
     }
 
     @Override
     @Side(CodeSide.CLIENT)
-    public float getLightBrightness(int var1, int var2, int var3) {
-        return this.worldProvider.lightBrightnessTable[this.getBlockLightValue(var1, var2, var3)];
+    public float getLightBrightness(int x, int y, int z) {
+        return this.worldProvider.lightBrightnessTable[this.getBlockLightValue(x, y, z)];
     }
 
     public boolean isDaytime() {
@@ -1240,7 +1245,7 @@ public class World implements IBlockAccess {
 
     }
 
-    public void func_31054_a(Collection<TileEntity> tileEntities) {
+    public void addTileEntities(Collection<TileEntity> tileEntities) {
         if (this.updatingTileEntities) {
             this.tileEntities.addAll(tileEntities);
         } else  {
@@ -2031,7 +2036,7 @@ public class World implements IBlockAccess {
         for (int x = minX; x <= maxX; ++x) {
             for (int z = minZ; z <= maxZ; ++z) {
                 if (this.chunkExists(x, z))
-                    this.getChunkFromChunkCoords(x, z).getEntitiesOfTypeWithinAAAB(var1, bb, entities);
+                    this.getChunkFromChunkCoords(x, z).getEntitiesOfTypeWithinAABB(var1, bb, entities);
             }
         }
 

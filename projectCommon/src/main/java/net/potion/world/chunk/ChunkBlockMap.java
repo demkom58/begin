@@ -3,7 +3,7 @@ package net.potion.world.chunk;
 import net.potion.block.Block;
 
 public class ChunkBlockMap {
-    private static byte[] map = new byte[256];
+    private static final byte[] BLOCK_ID_MAP = new byte[256];
 
     static {
         try {
@@ -13,7 +13,7 @@ public class ChunkBlockMap {
                     id = 0;
                 }
 
-                map[i] = id;
+                BLOCK_ID_MAP[i] = id;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -23,7 +23,7 @@ public class ChunkBlockMap {
 
     public static void fix(byte[] data) {
         for (int i = 0; i < data.length; ++i) {
-            data[i] = map[data[i] & 255];
+            data[i] = BLOCK_ID_MAP[data[i] & 255];
         }
 
     }

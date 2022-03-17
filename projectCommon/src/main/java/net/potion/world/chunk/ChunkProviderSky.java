@@ -170,7 +170,7 @@ public class ChunkProviderSky implements IChunkProvider {
         this.func_28071_a(x, z, var3, this.field6, var5);
         this.method1(x, z, var3, this.field6);
         this.caves.func_867_a(this, this.worldObj, x, z, var3);
-        var4.generateHeightMapFull();
+        var4.generateHeightAndSkyLightMap();
         return var4;
     }
 

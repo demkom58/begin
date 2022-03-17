@@ -56,19 +56,19 @@ public class ChunkProvider implements IChunkProvider {
                 var4.onChunkLoad();
             }
 
-            if (!var4.isTerrainPopulated && this.chunkExists(x + 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x + 1, z)) {
+            if (!var4.terrainPopulated && this.chunkExists(x + 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x + 1, z)) {
                 this.populate(this, x, z);
             }
 
-            if (this.chunkExists(x - 1, z) && !this.provideChunk(x - 1, z).isTerrainPopulated && this.chunkExists(x - 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x - 1, z)) {
+            if (this.chunkExists(x - 1, z) && !this.provideChunk(x - 1, z).terrainPopulated && this.chunkExists(x - 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x - 1, z)) {
                 this.populate(this, x - 1, z);
             }
 
-            if (this.chunkExists(x, z - 1) && !this.provideChunk(x, z - 1).isTerrainPopulated && this.chunkExists(x + 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x + 1, z)) {
+            if (this.chunkExists(x, z - 1) && !this.provideChunk(x, z - 1).terrainPopulated && this.chunkExists(x + 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x + 1, z)) {
                 this.populate(this, x, z - 1);
             }
 
-            if (this.chunkExists(x - 1, z - 1) && !this.provideChunk(x - 1, z - 1).isTerrainPopulated && this.chunkExists(x - 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x - 1, z)) {
+            if (this.chunkExists(x - 1, z - 1) && !this.provideChunk(x - 1, z - 1).terrainPopulated && this.chunkExists(x - 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x - 1, z)) {
                 this.populate(this, x - 1, z - 1);
             }
         }
@@ -126,8 +126,8 @@ public class ChunkProvider implements IChunkProvider {
     @Override
     public void populate(IChunkProvider provider, int x, int z) {
         Chunk var4 = this.provideChunk(x, z);
-        if (!var4.isTerrainPopulated) {
-            var4.isTerrainPopulated = true;
+        if (!var4.terrainPopulated) {
+            var4.terrainPopulated = true;
             if (this.chunkGenerator != null) {
                 this.chunkGenerator.populate(provider, x, z);
                 var4.setChunkModified();
@@ -148,7 +148,7 @@ public class ChunkProvider implements IChunkProvider {
 
             if (var5.needsSaving(var1)) {
                 this.saveChunk(var5);
-                var5.isModified = false;
+                var5.modified = false;
                 ++var3;
                 if (var3 == 24 && !var1) {
                     return false;
