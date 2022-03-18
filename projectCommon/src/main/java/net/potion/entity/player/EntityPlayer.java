@@ -37,7 +37,7 @@ import net.potion.util.AxisAlignedBB;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import net.potion.world.chunk.ChunkCoordinates;
-import net.potion.world.chunk.IChunkProvider;
+import net.potion.world.chunk.IOldChunkProvider;
 
 import java.util.List;
 
@@ -92,7 +92,7 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     public static ChunkCoordinates func_25060_a(World world, ChunkCoordinates coord) {
-        IChunkProvider provider = world.getIChunkProvider();
+        IOldChunkProvider provider = world.getIChunkProvider();
         provider.prepareChunk(coord.x - 3 >> 4, coord.z - 3 >> 4);
         provider.prepareChunk(coord.x + 3 >> 4, coord.z - 3 >> 4);
         provider.prepareChunk(coord.x - 3 >> 4, coord.z + 3 >> 4);

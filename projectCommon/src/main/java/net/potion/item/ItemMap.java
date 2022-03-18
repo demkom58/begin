@@ -10,7 +10,7 @@ import net.hypnosis.util.math.MathHelper;
 import net.potion.network.packet.Packet;
 import net.potion.network.packet.Packet131MapData;
 import net.potion.world.World;
-import net.potion.world.chunk.Chunk;
+import net.potion.world.chunk.OldChunk;
 
 public class ItemMap extends ItemMapBase {
     protected ItemMap(int var1) {
@@ -80,7 +80,7 @@ public class ItemMap extends ItemMapBase {
                             byte var24 = 0;
                             byte var25 = 0;
                             int[] var26 = new int[256];
-                            Chunk var27 = var1.getChunkFromBlockCoords(var21, var22);
+                            OldChunk var27 = var1.getChunkFromBlockCoords(var21, var22);
                             int var28 = var21 & 15;
                             int var29 = var22 & 15;
                             int var30 = 0;

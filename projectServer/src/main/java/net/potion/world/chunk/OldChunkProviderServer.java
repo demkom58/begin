@@ -13,18 +13,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChunkProviderServer implements IChunkProvider {
+public class OldChunkProviderServer implements IOldChunkProvider {
     public boolean chunkLoadOverride = false;
-    private final IntSet chunkCoords = new IntRBTreeSet();
-    private final Chunk dummyChunk;
-    private final IChunkProvider serverChunkGenerator;
-    private final IChunkLoader chunkLoader;
-    private final Int2ObjectMap<Chunk> id2ChunkMap = new Int2ObjectRBTreeMap<>();
-    private final List<Chunk> chunks = new ArrayList<>();
+    private final IntSet unloadList = new IntRBTreeSet();
+    private final OldChunk dummyChunk;
+    private final IOldChunkProvider serverChunkGenerator;
+    private final IOldChunkLoader chunkLoader;
+    private final Int2ObjectMap<OldChunk> id2ChunkMap = new Int2ObjectRBTreeMap<>();
+    private final List<OldChunk> chunks = new ArrayList<>();
     private final WorldServer world;
 
-    public ChunkProviderServer(WorldServer worldServer, IChunkLoader chunkLoader, IChunkProvider chunkProvider) {
-        this.dummyChunk = new EmptyChunk(worldServer, new byte[32768], 0, 0);
+    public OldChunkProviderServer(WorldServer worldServer, IOldChunkLoader chunkLoader, IOldChunkProvider chunkProvider) {
+        this.dummyChunk = new EmptyOldChunk(worldServer, new byte[32768], 0, 0);
         this.world = worldServer;
         this.chunkLoader = chunkLoader;
         this.serverChunkGenerator = chunkProvider;
@@ -35,24 +35,24 @@ public class ChunkProviderServer implements IChunkProvider {
         return this.id2ChunkMap.containsKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
     }
 
-    public void func_374_c(int x, int z) {
+    public void addForUnload(int x, int z) {
         ChunkCoordinates coordinates = this.world.getSpawnPoint();
         int worldX = x * 16 + 8 - coordinates.x;
         int worldZ = z * 16 + 8 - coordinates.z;
         short size = 128;
         if (worldX < -size || worldX > size || worldZ < -size || worldZ > size) {
-            this.chunkCoords.add(ChunkCoordIntPair.chunkXZ2Int(x, z));
+            this.unloadList.add(ChunkCoordIntPair.chunkXZ2Int(x, z));
         }
 
     }
 
     @Override
-    public Chunk prepareChunk(int x, int z) {
+    public OldChunk prepareChunk(int x, int z) {
         int chunkXZ2Int = ChunkCoordIntPair.chunkXZ2Int(x, z);
-        this.chunkCoords.remove(chunkXZ2Int);
-        Chunk chunk = this.id2ChunkMap.get(chunkXZ2Int);
+        this.unloadList.remove(chunkXZ2Int);
+        OldChunk chunk = this.id2ChunkMap.get(chunkXZ2Int);
         if (chunk == null) {
-            chunk = this.func_4063_e(x, z);
+            chunk = this.loadChunk(x, z);
             if (chunk == null) {
                 if (this.serverChunkGenerator == null) {
                     chunk = this.dummyChunk;
@@ -89,8 +89,8 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     @Override
-    public Chunk provideChunk(int x, int z) {
-        Chunk chunk = this.id2ChunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
+    public OldChunk provideChunk(int x, int z) {
+        OldChunk chunk = this.id2ChunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
         if (chunk == null) {
             return !this.world.findingSpawnPoint && !this.chunkLoadOverride ? this.dummyChunk : this.prepareChunk(x, z);
         }
@@ -98,13 +98,13 @@ public class ChunkProviderServer implements IChunkProvider {
         return chunk;
     }
 
-    private Chunk func_4063_e(int x, int z) {
+    private OldChunk loadChunk(int x, int z) {
         if (this.chunkLoader == null) {
             return null;
         }
 
         try {
-            Chunk chunk = this.chunkLoader.loadChunk(this.world, x, z);
+            OldChunk chunk = this.chunkLoader.loadChunk(this.world, x, z);
             if (chunk != null) {
                 chunk.lastSaveTime = this.world.getWorldTime();
             }
@@ -116,7 +116,7 @@ public class ChunkProviderServer implements IChunkProvider {
         }
     }
 
-    private void func_375_a(Chunk chunk) {
+    private void saveExtraData(OldChunk chunk) {
         if (this.chunkLoader != null) {
             try {
                 this.chunkLoader.saveExtraChunkData(this.world, chunk);
@@ -127,7 +127,7 @@ public class ChunkProviderServer implements IChunkProvider {
         }
     }
 
-    private void saveChunk(Chunk chunk) {
+    private void saveChunk(OldChunk chunk) {
         if (this.chunkLoader != null) {
             try {
                 chunk.lastSaveTime = this.world.getWorldTime();
@@ -140,8 +140,8 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     @Override
-    public void populate(IChunkProvider chunkProvider, int x, int z) {
-        Chunk chunk = this.provideChunk(x, z);
+    public void populate(IOldChunkProvider chunkProvider, int x, int z) {
+        OldChunk chunk = this.provideChunk(x, z);
         if (!chunk.terrainPopulated) {
             chunk.terrainPopulated = true;
             if (this.serverChunkGenerator != null) {
@@ -153,26 +153,26 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     @Override
-    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdate) {
+    public boolean saveChunks(boolean forceSave, IProgressUpdatable progressUpdate) {
         int saved = 0;
 
         for (int i = 0; i < this.chunks.size(); ++i) {
-            Chunk chunk = this.chunks.get(i);
-            if (var1 && !chunk.neverSave) {
-                this.func_375_a(chunk);
+            OldChunk chunk = this.chunks.get(i);
+            if (forceSave && !chunk.neverSave) {
+                this.saveExtraData(chunk);
             }
 
-            if (chunk.needsSaving(var1)) {
+            if (chunk.needsSaving(forceSave)) {
                 this.saveChunk(chunk);
                 chunk.modified = false;
                 ++saved;
-                if (saved == 24 && !var1) {
+                if (saved == 24 && !forceSave) {
                     return false;
                 }
             }
         }
 
-        if (var1) {
+        if (forceSave) {
             if (this.chunkLoader == null) {
                 return true;
             }
@@ -185,23 +185,25 @@ public class ChunkProviderServer implements IChunkProvider {
 
     @Override
     public boolean unload100OldestChunks() {
-        if (!this.world.levelSaving) {
-            for (int i = 0; i < 100; ++i) {
-                if (!this.chunkCoords.isEmpty()) {
-                    int id = this.chunkCoords.iterator().nextInt();
-                    Chunk chunk = this.id2ChunkMap.get(id);
-                    chunk.onChunkUnload();
-                    this.saveChunk(chunk);
-                    this.func_375_a(chunk);
-                    this.chunkCoords.remove(id);
-                    this.id2ChunkMap.remove(id);
-                    this.chunks.remove(chunk);
-                }
-            }
+        if (this.world.levelSaving) {
+            return this.serverChunkGenerator.unload100OldestChunks();
+        }
 
-            if (this.chunkLoader != null) {
-                this.chunkLoader.method1();
+        for (int i = 0; i < 100; ++i) {
+            if (!this.unloadList.isEmpty()) {
+                int id = this.unloadList.iterator().nextInt();
+                OldChunk chunk = this.id2ChunkMap.get(id);
+                chunk.onChunkUnload();
+                this.saveChunk(chunk);
+                this.saveExtraData(chunk);
+                this.unloadList.remove(id);
+                this.id2ChunkMap.remove(id);
+                this.chunks.remove(chunk);
             }
+        }
+
+        if (this.chunkLoader != null) {
+            this.chunkLoader.method1();
         }
 
         return this.serverChunkGenerator.unload100OldestChunks();
@@ -218,27 +220,27 @@ public class ChunkProviderServer implements IChunkProvider {
         return "MultiplayerChunkCache: " + this.id2ChunkMap.size();
     }
 
-    public Chunk getDummyChunk() {
+    public OldChunk getDummyChunk() {
         return dummyChunk;
     }
 
-    public IChunkLoader getChunkLoader() {
+    public IOldChunkLoader getChunkLoader() {
         return chunkLoader;
     }
 
-    public IChunkProvider getServerChunkGenerator() {
+    public IOldChunkProvider getServerChunkGenerator() {
         return serverChunkGenerator;
     }
 
-    public Int2ObjectMap<Chunk> getId2ChunkMap() {
+    public Int2ObjectMap<OldChunk> getId2ChunkMap() {
         return id2ChunkMap;
     }
 
-    public IntSet getChunkCoords() {
-        return chunkCoords;
+    public IntSet getUnloadList() {
+        return unloadList;
     }
 
-    public List<Chunk> getChunks() {
+    public List<OldChunk> getChunks() {
         return chunks;
     }
 

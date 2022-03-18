@@ -6,7 +6,7 @@ import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.chunk.ChunkProviderSky;
-import net.potion.world.chunk.IChunkProvider;
+import net.potion.world.chunk.IOldChunkProvider;
 import net.potion.world.gen.BiomeGenBase;
 import net.hypnosis.util.math.Vec3d;
 
@@ -18,7 +18,7 @@ public class WorldProviderSky extends WorldProvider {
     }
 
     @Override
-    public IChunkProvider getChunkProvider() {
+    public IOldChunkProvider getChunkProvider() {
         return new ChunkProviderSky(this.worldObj, this.worldObj.getRandomSeed());
     }
 

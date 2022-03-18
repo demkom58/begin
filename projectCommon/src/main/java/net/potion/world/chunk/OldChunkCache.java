@@ -9,19 +9,19 @@ import net.potion.world.IBlockAccess;
 import net.potion.world.World;
 import net.potion.world.WorldChunkManager;
 
-public class ChunkCache implements IBlockAccess {
+public class OldChunkCache implements IBlockAccess {
     private final int chunkX;
     private final int chunkZ;
-    private final Chunk[][] chunkArray;
+    private final OldChunk[][] chunkArray;
     private final World worldObj;
 
-    public ChunkCache(World world, int startX, int startY, int startZ, int endX, int endY, int endZ) {
+    public OldChunkCache(World world, int startX, int startY, int startZ, int endX, int endY, int endZ) {
         this.worldObj = world;
         this.chunkX = startX >> 4;
         this.chunkZ = startZ >> 4;
         int endCX = endX >> 4;
         int endCZ = endZ >> 4;
-        this.chunkArray = new Chunk[endCX - this.chunkX + 1][endCZ - this.chunkZ + 1];
+        this.chunkArray = new OldChunk[endCX - this.chunkX + 1][endCZ - this.chunkZ + 1];
 
         for (int iX = this.chunkX; iX <= endCX; ++iX) {
             for (int iZ = this.chunkZ; iZ <= endCZ; ++iZ) {
@@ -44,7 +44,7 @@ public class ChunkCache implements IBlockAccess {
         int cX = (x >> 4) - this.chunkX;
         int cZ = (z >> 4) - this.chunkZ;
         if (cX >= 0 && cX < this.chunkArray.length && cZ >= 0 && cZ < this.chunkArray[cX].length) {
-            Chunk chunk = this.chunkArray[cX][cZ];
+            OldChunk chunk = this.chunkArray[cX][cZ];
             return chunk == null ? 0 : chunk.getBlockID(x & 15, y, z & 15);
         }
 

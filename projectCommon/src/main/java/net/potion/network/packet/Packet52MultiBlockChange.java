@@ -4,7 +4,7 @@ import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
 import net.potion.network.NetHandler;
 import net.potion.world.World;
-import net.potion.world.chunk.Chunk;
+import net.potion.world.chunk.OldChunk;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -31,7 +31,7 @@ public class Packet52MultiBlockChange extends Packet {
         this.coordinateArray = new short[var4];
         this.typeArray = new byte[var4];
         this.metadataArray = new byte[var4];
-        Chunk var6 = var5.getChunkFromChunkCoords(var1, var2);
+        OldChunk var6 = var5.getChunkFromChunkCoords(var1, var2);
 
         for (int var7 = 0; var7 < var4; ++var7) {
             int var8 = var3[var7] >> 12 & 15;

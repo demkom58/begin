@@ -52,7 +52,7 @@ public class World implements IBlockAccess {
     protected int field2 = 0;
     protected int autosavePeriod = 40;
     protected List<IWorldAccess> worldAccesses = new ArrayList<>();
-    protected IChunkProvider chunkProvider;
+    protected IOldChunkProvider chunkProvider;
     protected WorldInfo worldInfo;
     private final List<MetadataChunkBlock> lightingToUpdate = new ArrayList<>();
     private final List<Entity> unloadedEntityList = new ArrayList<>();
@@ -138,9 +138,9 @@ public class World implements IBlockAccess {
         return this.worldProvider.worldChunkMgr;
     }
 
-    protected IChunkProvider createChunkProvider() {
-        IChunkLoader chunkLoader = this.saveHandler.getChunkLoader(this.worldProvider);
-        return new ChunkProvider(this, chunkLoader, this.worldProvider.getChunkProvider());
+    protected IOldChunkProvider createChunkProvider() {
+        IOldChunkLoader chunkLoader = this.saveHandler.getChunkLoader(this.worldProvider);
+        return new OldChunkProvider(this, chunkLoader, this.worldProvider.getChunkProvider());
     }
 
     protected void generateSpawnPoint() {
@@ -296,11 +296,11 @@ public class World implements IBlockAccess {
         return this.chunkProvider.chunkExists(x, z);
     }
 
-    public Chunk getChunkFromBlockCoords(int x, int z) {
+    public OldChunk getChunkFromBlockCoords(int x, int z) {
         return this.getChunkFromChunkCoords(x >> 4, z >> 4);
     }
 
-    public Chunk getChunkFromChunkCoords(int x, int z) {
+    public OldChunk getChunkFromChunkCoords(int x, int z) {
         return this.chunkProvider.provideChunk(x, z);
     }
 
@@ -317,7 +317,7 @@ public class World implements IBlockAccess {
             return false;
         }
 
-        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+        OldChunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
         return chunk.setBlockIDWithMetadata(x & 15, y, z & 15, blockId, metadata);
     }
 
@@ -334,7 +334,7 @@ public class World implements IBlockAccess {
             return false;
         }
 
-        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+        OldChunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
         return chunk.setBlockID(x & 15, y, z & 15, blockId);
 
     }
@@ -359,7 +359,7 @@ public class World implements IBlockAccess {
             return 0;
         }
 
-        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+        OldChunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
         x = x & 15;
         z = z & 15;
         return chunk.getBlockMetadata(x, y, z);
@@ -391,7 +391,7 @@ public class World implements IBlockAccess {
             return false;
         }
 
-        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+        OldChunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
         x = x & 15;
         z = z & 15;
         chunk.setBlockMetadata(x, y, z, metadata);
@@ -532,7 +532,7 @@ public class World implements IBlockAccess {
             y = 127;
         }
 
-        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+        OldChunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
         x = x & 15;
         z = z & 15;
         return chunk.getBlockLightValue(x, y, z, this.skylightSubtracted);
@@ -556,7 +556,7 @@ public class World implements IBlockAccess {
             return false;
         }
 
-        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+        OldChunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
         x = x & 15;
         z = z & 15;
         return chunk.canBlockSeeTheSky(x, y, z);
@@ -572,7 +572,7 @@ public class World implements IBlockAccess {
             return 0;
         }
 
-        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+        OldChunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
         return chunk.getHeightValue(x & 15, z & 15);
 
     }
@@ -619,7 +619,7 @@ public class World implements IBlockAccess {
                 return 0;
             }
 
-            Chunk chunk = this.getChunkFromChunkCoords(cX, cZ);
+            OldChunk chunk = this.getChunkFromChunkCoords(cX, cZ);
             return chunk.getSavedLightValue(skyBlock, x & 15, y, z & 15);
         }
 
@@ -643,7 +643,7 @@ public class World implements IBlockAccess {
             return;
         }
 
-        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+        OldChunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
         chunk.setLightValue(skyBlock, x & 15, y, z & 15, value);
 
         for (IWorldAccess worldAccess : this.worldAccesses) {
@@ -1094,7 +1094,7 @@ public class World implements IBlockAccess {
     }
 
     public int findTopSolidOrLiquidBlock(int x, int z) {
-        Chunk chunk = this.getChunkFromBlockCoords(x, z);
+        OldChunk chunk = this.getChunkFromBlockCoords(x, z);
         int y = 127;
         x &= 15;
 
@@ -1109,7 +1109,7 @@ public class World implements IBlockAccess {
     }
 
     public int findTopSolidBlock(int x, int z) {
-        Chunk chunk = this.getChunkFromBlockCoords(x, z);
+        OldChunk chunk = this.getChunkFromBlockCoords(x, z);
         int y = 127;
         x = x & 15;
 
@@ -1219,7 +1219,7 @@ public class World implements IBlockAccess {
 
             if (tileEntity.isInvalid()) {
                 tileEntityIterator.remove();
-                Chunk chunk = this.getChunkFromChunkCoords(tileEntity.xCoord >> 4, tileEntity.zCoord >> 4);
+                OldChunk chunk = this.getChunkFromChunkCoords(tileEntity.xCoord >> 4, tileEntity.zCoord >> 4);
                 if (chunk != null)
                     chunk.removeChunkBlockTileEntity(tileEntity.xCoord & 15, tileEntity.yCoord, tileEntity.zCoord & 15);
             }
@@ -1232,7 +1232,7 @@ public class World implements IBlockAccess {
                     if (!this.loadedTileEntityList.contains(tileEntity))
                         this.loadedTileEntityList.add(tileEntity);
 
-                    Chunk chunk = this.getChunkFromChunkCoords(tileEntity.xCoord >> 4, tileEntity.zCoord >> 4);
+                    OldChunk chunk = this.getChunkFromChunkCoords(tileEntity.xCoord >> 4, tileEntity.zCoord >> 4);
                     if (chunk != null)
                         chunk.setChunkBlockTileEntity(tileEntity.xCoord & 15, tileEntity.yCoord, tileEntity.zCoord & 15, tileEntity);
 
@@ -1588,7 +1588,7 @@ public class World implements IBlockAccess {
 
     @Override
     public TileEntity getBlockTileEntity(int var1, int var2, int var3) {
-        Chunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
+        OldChunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
         return chunk != null ? chunk.getChunkBlockTileEntity(var1 & 15, var2, var3 & 15) : null;
     }
 
@@ -1606,7 +1606,7 @@ public class World implements IBlockAccess {
         }
 
         this.loadedTileEntityList.add(tileEntity);
-        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+        OldChunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
         if (chunk != null) {
             chunk.setChunkBlockTileEntity(x & 15, y, z & 15, tileEntity);
         }
@@ -1623,7 +1623,7 @@ public class World implements IBlockAccess {
             this.loadedTileEntityList.remove(tileEntity);
         }
 
-        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+        OldChunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
         if (chunk != null) {
             chunk.removeChunkBlockTileEntity(x & 15, y, z & 15);
         }
@@ -1875,7 +1875,7 @@ public class World implements IBlockAccess {
             int endX = pair.chunkXPos * 16;
             int endZ = pair.chunkZPos * 16;
 
-            Chunk chunk = this.getChunkFromChunkCoords(pair.chunkXPos, pair.chunkZPos);
+            OldChunk chunk = this.getChunkFromChunkCoords(pair.chunkXPos, pair.chunkZPos);
             if (this.ambientTickCountdown == 0) {
                 this.distHashCounter = this.distHashCounter * 3 + 1013904223;
                 int compressedCoord = this.distHashCounter >> 2;
@@ -2123,7 +2123,7 @@ public class World implements IBlockAccess {
         int endY = y + diameter;
         int endZ = z + diameter;
 
-        ChunkCache chunkCache = new ChunkCache(this, startX, startY, startZ, endX, endY, endZ);
+        OldChunkCache chunkCache = new OldChunkCache(this, startX, startY, startZ, endX, endY, endZ);
         return new Pathfinder(chunkCache).createEntityPathTo(from, to, var3);
     }
 
@@ -2142,7 +2142,7 @@ public class World implements IBlockAccess {
         int maxY = floorY + dif;
         int maxZ = floorZ + dif;
 
-        ChunkCache chunkCache = new ChunkCache(this, minX, minY, minZ, maxX, maxY, maxZ);
+        OldChunkCache chunkCache = new OldChunkCache(this, minX, minY, minZ, maxX, maxY, maxZ);
         return new Pathfinder(chunkCache).createEntityPathTo(entity, var2, var3, var4, var5);
     }
 
@@ -2415,7 +2415,7 @@ public class World implements IBlockAccess {
 
     }
 
-    public IChunkProvider getIChunkProvider() {
+    public IOldChunkProvider getIChunkProvider() {
         return this.chunkProvider;
     }
 

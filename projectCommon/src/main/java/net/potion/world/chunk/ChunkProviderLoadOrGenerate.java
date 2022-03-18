@@ -7,15 +7,15 @@ import net.potion.world.World;
 
 import java.io.IOException;
 
-public class ChunkProviderLoadOrGenerate implements IChunkProvider {
+public class ChunkProviderLoadOrGenerate implements IOldChunkProvider {
     int lastQueriedChunkXPos;
     int lastQueriedChunkZPos;
-    private Chunk blankChunk;
-    private IChunkProvider chunkProvider;
-    private IChunkLoader chunkLoader;
-    private Chunk[] chunks;
+    private OldChunk blankChunk;
+    private IOldChunkProvider chunkProvider;
+    private IOldChunkLoader chunkLoader;
+    private OldChunk[] chunks;
     private World worldObj;
-    private Chunk lastQueriedChunk;
+    private OldChunk lastQueriedChunk;
     private int curChunkX;
     private int curChunkY;
 
@@ -44,12 +44,12 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     }
 
     @Override
-    public Chunk prepareChunk(int x, int z) {
+    public OldChunk prepareChunk(int x, int z) {
         return this.provideChunk(x, z);
     }
 
     @Override
-    public Chunk provideChunk(int x, int z) {
+    public OldChunk provideChunk(int x, int z) {
         if (x == this.lastQueriedChunkXPos && z == this.lastQueriedChunkZPos && this.lastQueriedChunk != null) {
             return this.lastQueriedChunk;
         } else if (!this.worldObj.findingSpawnPoint && !this.canChunkExist(x, z)) {
@@ -65,7 +65,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                     this.saveExtraChunkData(this.chunks[var5]);
                 }
 
-                Chunk var6 = this.func_542_c(x, z);
+                OldChunk var6 = this.func_542_c(x, z);
                 if (var6 == null) {
                     if (this.chunkProvider == null) {
                         var6 = this.blankChunk;
@@ -105,12 +105,12 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         }
     }
 
-    private Chunk func_542_c(int var1, int var2) {
+    private OldChunk func_542_c(int var1, int var2) {
         if (this.chunkLoader == null) {
             return this.blankChunk;
         } else {
             try {
-                Chunk var3 = this.chunkLoader.loadChunk(this.worldObj, var1, var2);
+                OldChunk var3 = this.chunkLoader.loadChunk(this.worldObj, var1, var2);
                 if (var3 != null) {
                     var3.lastSaveTime = this.worldObj.getWorldTime();
                 }
@@ -123,7 +123,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         }
     }
 
-    private void saveExtraChunkData(Chunk var1) {
+    private void saveExtraChunkData(OldChunk var1) {
         if (this.chunkLoader != null) {
             try {
                 this.chunkLoader.saveExtraChunkData(this.worldObj, var1);
@@ -134,7 +134,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
         }
     }
 
-    private void saveChunk(Chunk var1) {
+    private void saveChunk(OldChunk var1) {
         if (this.chunkLoader != null) {
             try {
                 var1.lastSaveTime = this.worldObj.getWorldTime();
@@ -147,8 +147,8 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     }
 
     @Override
-    public void populate(IChunkProvider provider, int x, int z) {
-        Chunk var4 = this.provideChunk(x, z);
+    public void populate(IOldChunkProvider provider, int x, int z) {
+        OldChunk var4 = this.provideChunk(x, z);
         if (!var4.terrainPopulated) {
             var4.terrainPopulated = true;
             if (this.chunkProvider != null) {

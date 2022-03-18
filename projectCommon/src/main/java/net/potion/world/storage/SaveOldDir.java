@@ -4,7 +4,7 @@ import net.potion.entity.player.EntityPlayer;
 import net.potion.world.WorldInfo;
 import net.potion.world.WorldProvider;
 import net.potion.world.WorldProviderHell;
-import net.potion.world.chunk.IChunkLoader;
+import net.potion.world.chunk.IOldChunkLoader;
 
 import java.io.File;
 import java.util.List;
@@ -15,7 +15,7 @@ public class SaveOldDir extends SaveHandler {
     }
 
     @Override
-    public IChunkLoader getChunkLoader(WorldProvider provider) {
+    public IOldChunkLoader getChunkLoader(WorldProvider provider) {
         File saveDirectory = this.getWorldDir();
         if (provider instanceof WorldProviderHell) {
             File dimFile = new File(saveDirectory, "DIM-1");

@@ -4,7 +4,7 @@ import net.potion.block.Block;
 import net.potion.client.render.IsoImageBuffer;
 import net.potion.material.Material;
 import net.potion.world.World;
-import net.potion.world.chunk.Chunk;
+import net.potion.world.chunk.OldChunk;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -79,7 +79,7 @@ public class TerrainTextureManager {
             int var4 = var1.field_1353_d * 16;
             int var5 = var3 + 16;
             int var6 = var4 + 16;
-            Chunk var7 = var2.getChunkFromChunkCoords(var1.field_1354_c, var1.field_1353_d);
+            OldChunk var7 = var2.getChunkFromChunkCoords(var1.field_1354_c, var1.field_1353_d);
             if (var7.isEmptyChunk()) {
                 var1.field_1351_f = true;
                 var1.field_1352_e = true;

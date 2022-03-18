@@ -11,7 +11,7 @@ import net.potion.world.gen.*;
 
 import java.util.Random;
 
-public class ChunkProviderGenerate implements IChunkProvider {
+public class ChunkProviderGenerate implements IOldChunkProvider {
     public NoiseGeneratorOctaves noiseGen6;
     public NoiseGeneratorOctaves noiseGen7;
     public NoiseGeneratorOctaves mobSpawnerNoise;
@@ -195,15 +195,15 @@ public class ChunkProviderGenerate implements IChunkProvider {
     }
 
     @Override
-    public Chunk prepareChunk(int x, int z) {
+    public OldChunk prepareChunk(int x, int z) {
         return this.provideChunk(x, z);
     }
 
     @Override
-    public Chunk provideChunk(int x, int z) {
+    public OldChunk provideChunk(int x, int z) {
         this.rand.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
         byte[] var3 = new byte[32768];
-        Chunk var4 = new Chunk(this.worldObj, var3, x, z);
+        OldChunk var4 = new OldChunk(this.worldObj, var3, x, z);
         this.biomesForGeneration = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(this.biomesForGeneration, x * 16, z * 16, 16, 16);
         double[] var5 = this.worldObj.getWorldChunkManager().temperature;
         this.generateTerrain(x, z, var3, this.biomesForGeneration, var5);
@@ -319,7 +319,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
     }
 
     @Override
-    public void populate(IChunkProvider provider, int x, int z) {
+    public void populate(IOldChunkProvider provider, int x, int z) {
         BlockSand.fallInstantly = true;
         int var4 = x * 16;
         int var5 = z * 16;

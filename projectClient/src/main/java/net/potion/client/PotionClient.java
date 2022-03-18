@@ -36,7 +36,7 @@ import net.potion.world.WorldProvider;
 import net.potion.world.WorldRenderer;
 import net.potion.world.chunk.ChunkCoordinates;
 import net.potion.world.chunk.ChunkProviderLoadOrGenerate;
-import net.potion.world.chunk.IChunkProvider;
+import net.potion.world.chunk.IOldChunkProvider;
 import net.potion.world.storage.ISaveFormat;
 import net.potion.world.storage.ISaveHandler;
 import net.potion.world.storage.SaveConverterRegion;
@@ -879,7 +879,7 @@ public final class PotionClient implements Runnable {
         this.ingameGUI.updateTick();
         this.entityRenderer.getMouseOver(1.0F);
         if (this.thePlayer != null) {
-            IChunkProvider provider = this.theWorld.getIChunkProvider();
+            IOldChunkProvider provider = this.theWorld.getIChunkProvider();
             if (provider instanceof ChunkProviderLoadOrGenerate currentChunkOver) {
                 int chunkX = MathHelper.floor((float) ((int) this.thePlayer.posX)) >> 4;
                 int chunkY = MathHelper.floor((float) ((int) this.thePlayer.posZ)) >> 4;
@@ -1096,7 +1096,7 @@ public final class PotionClient implements Runnable {
             if (player != null)
                 world.emptyMethod1();
 
-            IChunkProvider chunkProvider = world.getIChunkProvider();
+            IOldChunkProvider chunkProvider = world.getIChunkProvider();
             if (chunkProvider instanceof ChunkProviderLoadOrGenerate) {
                 ChunkProviderLoadOrGenerate provider = (ChunkProviderLoadOrGenerate) chunkProvider;
                 int x = MathHelper.floor((float) ((int) this.thePlayer.posX)) >> 4;
@@ -1130,7 +1130,7 @@ public final class PotionClient implements Runnable {
         int progress = 0;
         int total = rad * 2 / 16 + 1;
         total = total * total;
-        IChunkProvider chunkProvider = this.theWorld.getIChunkProvider();
+        IOldChunkProvider chunkProvider = this.theWorld.getIChunkProvider();
         ChunkCoordinates chunkCoord = this.theWorld.getSpawnPoint();
         if (this.thePlayer != null) {
             chunkCoord.x = (int) this.thePlayer.posX;
@@ -1216,7 +1216,7 @@ public final class PotionClient implements Runnable {
             var5 = false;
         }
 
-        IChunkProvider chunkProvider = this.theWorld.getIChunkProvider();
+        IOldChunkProvider chunkProvider = this.theWorld.getIChunkProvider();
         if (chunkProvider instanceof ChunkProviderLoadOrGenerate loadOrGenerate) {
             loadOrGenerate.setCurrentChunkOver(var4.x >> 4, var4.z >> 4);
         }

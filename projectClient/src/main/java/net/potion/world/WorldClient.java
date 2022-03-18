@@ -5,8 +5,8 @@ import net.potion.network.NetClientHandler;
 import net.potion.network.packet.Packet255KickDisconnect;
 import net.potion.util.Hash;
 import net.potion.world.chunk.ChunkCoordinates;
-import net.potion.world.chunk.ChunkProviderClient;
-import net.potion.world.chunk.IChunkProvider;
+import net.potion.world.chunk.OldChunkProviderClient;
+import net.potion.world.chunk.IOldChunkProvider;
 import net.potion.world.storage.SaveHandlerMP;
 
 import java.util.HashSet;
@@ -16,7 +16,7 @@ import java.util.Set;
 public class WorldClient extends World {
     private LinkedList<WorldBlockPositionType> field_1057_z = new LinkedList<>();
     private NetClientHandler sendQueue;
-    private ChunkProviderClient field_20915_C;
+    private OldChunkProviderClient field_20915_C;
     private Hash field_1055_D = new Hash();
     private Set<Entity> field_20914_E = new HashSet<>();
     private Set<Entity> field_1053_F = new HashSet<>();
@@ -71,8 +71,8 @@ public class WorldClient extends World {
     }
 
     @Override
-    protected IChunkProvider createChunkProvider() {
-        this.field_20915_C = new ChunkProviderClient(this);
+    protected IOldChunkProvider createChunkProvider() {
+        this.field_20915_C = new OldChunkProviderClient(this);
         return this.field_20915_C;
     }
 
@@ -98,7 +98,7 @@ public class WorldClient extends World {
         if (var3) {
             this.field_20915_C.prepareChunk(var1, var2);
         } else {
-            this.field_20915_C.func_539_c(var1, var2);
+            this.field_20915_C.unloadChunk(var1, var2);
         }
 
         if (!var3) {

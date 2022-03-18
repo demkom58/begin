@@ -27,7 +27,7 @@ import net.potion.tileentity.TileEntitySign;
 import net.potion.util.Explosion;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.WorldClient;
-import net.potion.world.chunk.Chunk;
+import net.potion.world.chunk.OldChunk;
 import net.potion.world.chunk.ChunkCoordinates;
 import net.potion.world.storage.MapStorage;
 
@@ -316,7 +316,7 @@ public class NetClientHandler extends NetHandler {
 
     @Override
     public void handleMultiBlockChange(Packet52MultiBlockChange var1) {
-        Chunk var2 = this.worldClient.getChunkFromChunkCoords(var1.xPosition, var1.zPosition);
+        OldChunk var2 = this.worldClient.getChunkFromChunkCoords(var1.xPosition, var1.zPosition);
         int var3 = var1.xPosition * 16;
         int var4 = var1.zPosition * 16;
 

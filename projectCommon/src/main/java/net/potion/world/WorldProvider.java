@@ -6,7 +6,7 @@ import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.chunk.ChunkProviderGenerate;
-import net.potion.world.chunk.IChunkProvider;
+import net.potion.world.chunk.IOldChunkProvider;
 import net.hypnosis.util.math.Vec3d;
 
 public abstract class WorldProvider {
@@ -49,7 +49,7 @@ public abstract class WorldProvider {
         this.worldChunkMgr = new WorldChunkManager(this.worldObj);
     }
 
-    public IChunkProvider getChunkProvider() {
+    public IOldChunkProvider getChunkProvider() {
         return new ChunkProviderGenerate(this.worldObj, this.worldObj.getRandomSeed());
     }
 

@@ -1,7 +1,7 @@
 package net.potion.world.gen;
 
 import net.potion.world.World;
-import net.potion.world.chunk.IChunkProvider;
+import net.potion.world.chunk.IOldChunkProvider;
 
 import java.util.Random;
 
@@ -9,7 +9,7 @@ public class MapGenBase {
     protected int field1 = 8;
     protected Random rand = new Random();
 
-    public void func_867_a(IChunkProvider var1, World var2, int var3, int var4, byte[] var5) {
+    public void func_867_a(IOldChunkProvider var1, World var2, int var3, int var4, byte[] var5) {
         int var6 = this.field1;
         this.rand.setSeed(var2.getRandomSeed());
         long var7 = this.rand.nextLong() / 2L * 2L + 1L;

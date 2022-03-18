@@ -4,7 +4,7 @@ import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
 import net.potion.block.Block;
 import net.potion.world.chunk.ChunkProviderHell;
-import net.potion.world.chunk.IChunkProvider;
+import net.potion.world.chunk.IOldChunkProvider;
 import net.potion.world.gen.BiomeGenBase;
 import net.hypnosis.util.math.Vec3d;
 
@@ -36,7 +36,7 @@ public class WorldProviderHell extends WorldProvider {
     }
 
     @Override
-    public IChunkProvider getChunkProvider() {
+    public IOldChunkProvider getChunkProvider() {
         return new ChunkProviderHell(this.worldObj, this.worldObj.getRandomSeed());
     }
 

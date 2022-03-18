@@ -10,16 +10,16 @@ import net.potion.tileentity.TileEntity;
 import net.potion.util.Explosion;
 import net.potion.util.Hash;
 import net.hypnosis.util.math.MathHelper;
-import net.potion.world.chunk.ChunkProviderServer;
-import net.potion.world.chunk.IChunkLoader;
-import net.potion.world.chunk.IChunkProvider;
+import net.potion.world.chunk.OldChunkProviderServer;
+import net.potion.world.chunk.IOldChunkLoader;
+import net.potion.world.chunk.IOldChunkProvider;
 import net.potion.world.storage.ISaveHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorldServer extends World {
-    public ChunkProviderServer chunkProviderServer;
+    public OldChunkProviderServer chunkProviderServer;
     public boolean field_819_z = false;
     public boolean levelSaving;
     private PotionServer server;
@@ -47,9 +47,9 @@ public class WorldServer extends World {
     }
 
     @Override
-    protected IChunkProvider createChunkProvider() {
-        IChunkLoader var1 = this.saveHandler.getChunkLoader(this.worldProvider);
-        this.chunkProviderServer = new ChunkProviderServer(this, var1, this.worldProvider.getChunkProvider());
+    protected IOldChunkProvider createChunkProvider() {
+        IOldChunkLoader var1 = this.saveHandler.getChunkLoader(this.worldProvider);
+        this.chunkProviderServer = new OldChunkProviderServer(this, var1, this.worldProvider.getChunkProvider());
         return this.chunkProviderServer;
     }
 

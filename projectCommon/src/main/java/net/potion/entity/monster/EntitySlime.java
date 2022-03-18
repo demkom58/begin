@@ -8,7 +8,7 @@ import net.potion.item.Item;
 import net.potion.nbt.TagCompound;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
-import net.potion.world.chunk.Chunk;
+import net.potion.world.chunk.OldChunk;
 
 public class EntitySlime extends EntityLiving implements IMob {
     public float field1;
@@ -153,7 +153,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 
     @Override
     public boolean getCanSpawnHere() {
-        Chunk var1 = this.worldObj.getChunkFromBlockCoords(MathHelper.floor(this.posX), MathHelper.floor(this.posZ));
+        OldChunk var1 = this.worldObj.getChunkFromBlockCoords(MathHelper.floor(this.posX), MathHelper.floor(this.posZ));
         return (this.getSlimeSize() == 1 || this.worldObj.difficultySetting > 0) && this.rand.nextInt(10) == 0 && var1.createSpecialRandom(987234911L).nextInt(10) == 0 && this.posY < 16.0D;
     }
 
