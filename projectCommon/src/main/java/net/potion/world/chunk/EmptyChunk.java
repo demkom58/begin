@@ -31,7 +31,7 @@ public class EmptyChunk extends Chunk {
     }
 
     @Override
-    public void method2() {
+    public void generateBlockLightMap() {
     }
 
     @Override
@@ -43,7 +43,7 @@ public class EmptyChunk extends Chunk {
     }
 
     @Override
-    public void method3() {
+    public void prepareChunkLoad() {
     }
 
     @Override
@@ -162,7 +162,7 @@ public class EmptyChunk extends Chunk {
     }
 
     @Override
-    public boolean method1() {
+    public boolean isEmptyChunk() {
         return true;
     }
 }

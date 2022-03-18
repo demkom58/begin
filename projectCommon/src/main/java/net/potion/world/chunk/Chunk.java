@@ -66,7 +66,7 @@ public class Chunk {
         return this.heightMap[z << 4 | x] & 255;
     }
 
-    public void method2() {
+    public void generateBlockLightMap() {
     }
 
     public void generateHeightMap() {
@@ -136,7 +136,7 @@ public class Chunk {
         this.modified = true;
     }
 
-    public void method3() {
+    public void prepareChunkLoad() {
     }
 
     private void updateSkyLight(int x, int z) {
@@ -161,7 +161,7 @@ public class Chunk {
 
     }
 
-    private void method6(int x, int y, int z) {
+    private void relightBlock(int x, int y, int z) {
         int topBlockY = this.heightMap[z << 4 | x] & 255;
         int maxY = Math.max(y, topBlockY);
 
@@ -257,10 +257,10 @@ public class Chunk {
         if (!this.world.worldProvider.hasNoSky) {
             if (Block.LIGHT_OPACITY[bId & 255] != 0) {
                 if (y >= topBlockY) {
-                    this.method6(x, y + 1, z);
+                    this.relightBlock(x, y + 1, z);
                 }
             } else if (y == topBlockY - 1) {
-                this.method6(x, y, z);
+                this.relightBlock(x, y, z);
             }
 
             this.world.scheduleLightingUpdate(EnumSkyBlock.SKY, gX, y, gZ, gX, y, gZ);
@@ -295,10 +295,10 @@ public class Chunk {
         this.metadata.setNibble(x, y, z, 0);
         if (Block.LIGHT_OPACITY[bId & 255] != 0) {
             if (y >= topBlockY) {
-                this.method6(x, y + 1, z);
+                this.relightBlock(x, y + 1, z);
             }
         } else if (y == topBlockY - 1) {
-            this.method6(x, y, z);
+            this.relightBlock(x, y, z);
         }
 
         this.world.scheduleLightingUpdate(EnumSkyBlock.SKY, gX, y, gZ, gX, y, gZ);
@@ -520,11 +520,13 @@ public class Chunk {
         int start = MathHelper.floor((bb.minY - 2.0D) / 16.0D);
         int end = MathHelper.floor((bb.maxY + 2.0D) / 16.0D);
 
-        if (start < 0)
+        if (start < 0) {
             start = 0;
+        }
 
-        if (end >= this.entities.length)
+        if (end >= this.entities.length) {
             end = this.entities.length - 1;
+        }
 
         for (int listIdx = start; listIdx <= end; ++listIdx) {
             List<Entity> entityList = this.entities[listIdx];
@@ -660,7 +662,7 @@ public class Chunk {
                 + (this.zPosition * 389711L) ^ var1);
     }
 
-    public boolean method1() {
+    public boolean isEmptyChunk() {
         return false;
     }
 

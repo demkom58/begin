@@ -1694,7 +1694,7 @@ public class World implements IBlockAccess {
                     return;
                 }
 
-                if (this.getChunkFromBlockCoords(var9, var10).method1()) {
+                if (this.getChunkFromBlockCoords(var9, var10).isEmptyChunk()) {
                     return;
                 }
 

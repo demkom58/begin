@@ -30,7 +30,7 @@ public class ChunkProviderClient implements IChunkProvider {
 
     public void func_539_c(int var1, int var2) {
         Chunk var3 = this.provideChunk(var1, var2);
-        if (!var3.method1()) {
+        if (!var3.isEmptyChunk()) {
             var3.onChunkUnload();
         }
 

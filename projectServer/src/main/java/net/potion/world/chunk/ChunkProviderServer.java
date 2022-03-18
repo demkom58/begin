@@ -15,13 +15,13 @@ import java.util.List;
 
 public class ChunkProviderServer implements IChunkProvider {
     public boolean chunkLoadOverride = false;
-    private IntSet chunkCoords = new IntRBTreeSet();
-    private Chunk dummyChunk;
-    private IChunkProvider serverChunkGenerator;
-    private IChunkLoader chunkLoader;
-    private Int2ObjectMap<Chunk> id2ChunkMap = new Int2ObjectRBTreeMap<>();
-    private List<Chunk> chunks = new ArrayList<>();
-    private WorldServer world;
+    private final IntSet chunkCoords = new IntRBTreeSet();
+    private final Chunk dummyChunk;
+    private final IChunkProvider serverChunkGenerator;
+    private final IChunkLoader chunkLoader;
+    private final Int2ObjectMap<Chunk> id2ChunkMap = new Int2ObjectRBTreeMap<>();
+    private final List<Chunk> chunks = new ArrayList<>();
+    private final WorldServer world;
 
     public ChunkProviderServer(WorldServer worldServer, IChunkLoader chunkLoader, IChunkProvider chunkProvider) {
         this.dummyChunk = new EmptyChunk(worldServer, new byte[32768], 0, 0);
@@ -64,7 +64,7 @@ public class ChunkProviderServer implements IChunkProvider {
             this.id2ChunkMap.put(chunkXZ2Int, chunk);
             this.chunks.add(chunk);
             if (chunk != null) {
-                chunk.method3();
+                chunk.prepareChunkLoad();
                 chunk.onChunkLoad();
             }
 

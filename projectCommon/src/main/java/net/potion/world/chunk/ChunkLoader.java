@@ -82,7 +82,7 @@ public class ChunkLoader implements IChunkLoader {
 
         if (!var4.blocklightMap.isValid()) {
             var4.blocklightMap = new NibbleArray(var4.blocks.length);
-            var4.method2();
+            var4.generateBlockLightMap();
         }
 
         TagList var5 = var1.getTagList("Entities");

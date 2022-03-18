@@ -20,13 +20,13 @@ public class ChunkProvider implements IChunkProvider {
     private final IChunkLoader chunkLoader;
     private final Int2ObjectMap<Chunk> cord2ChunkMap = new Int2ObjectRBTreeMap<>();
     private final List<Chunk> chunks = new ArrayList<>();
-    private final World worldObj;
+    private final World world;
 
-    public ChunkProvider(World var1, IChunkLoader var2, IChunkProvider var3) {
-        this.chunk = new EmptyChunk(var1, new byte[32768], 0, 0);
-        this.worldObj = var1;
-        this.chunkLoader = var2;
-        this.chunkGenerator = var3;
+    public ChunkProvider(World world, IChunkLoader chunkLoader, IChunkProvider provider) {
+        this.chunk = new EmptyChunk(world, new byte[32768], 0, 0);
+        this.world = world;
+        this.chunkLoader = chunkLoader;
+        this.chunkGenerator = provider;
     }
 
     @Override
@@ -36,44 +36,46 @@ public class ChunkProvider implements IChunkProvider {
 
     @Override
     public Chunk prepareChunk(int x, int z) {
-        int var3 = ChunkCoordIntPair.chunkXZ2Int(x, z);
-        this.droppedChunksSet.remove(var3);
-        Chunk var4 = this.cord2ChunkMap.get(var3);
-        if (var4 == null) {
-            var4 = this.loadChunkFromFile(x, z);
-            if (var4 == null) {
-                if (this.chunkGenerator == null) {
-                    var4 = this.chunk;
-                } else {
-                    var4 = this.chunkGenerator.provideChunk(x, z);
-                }
-            }
+        int cXZ = ChunkCoordIntPair.chunkXZ2Int(x, z);
+        this.droppedChunksSet.remove(cXZ);
+        Chunk chunk = this.cord2ChunkMap.get(cXZ);
+        if (chunk != null) {
+            return chunk;
+        }
 
-            this.cord2ChunkMap.put(var3, var4);
-            this.chunks.add(var4);
-            if (var4 != null) {
-                var4.method3();
-                var4.onChunkLoad();
-            }
-
-            if (!var4.terrainPopulated && this.chunkExists(x + 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x + 1, z)) {
-                this.populate(this, x, z);
-            }
-
-            if (this.chunkExists(x - 1, z) && !this.provideChunk(x - 1, z).terrainPopulated && this.chunkExists(x - 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x - 1, z)) {
-                this.populate(this, x - 1, z);
-            }
-
-            if (this.chunkExists(x, z - 1) && !this.provideChunk(x, z - 1).terrainPopulated && this.chunkExists(x + 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x + 1, z)) {
-                this.populate(this, x, z - 1);
-            }
-
-            if (this.chunkExists(x - 1, z - 1) && !this.provideChunk(x - 1, z - 1).terrainPopulated && this.chunkExists(x - 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x - 1, z)) {
-                this.populate(this, x - 1, z - 1);
+        chunk = this.loadChunkFromFile(x, z);
+        if (chunk == null) {
+            if (this.chunkGenerator == null) {
+                chunk = this.chunk;
+            } else {
+                chunk = this.chunkGenerator.provideChunk(x, z);
             }
         }
 
-        return var4;
+        this.cord2ChunkMap.put(cXZ, chunk);
+        this.chunks.add(chunk);
+        if (chunk != null) {
+            chunk.prepareChunkLoad();
+            chunk.onChunkLoad();
+        }
+
+        if (!chunk.terrainPopulated && this.chunkExists(x + 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x + 1, z)) {
+            this.populate(this, x, z);
+        }
+
+        if (this.chunkExists(x - 1, z) && !this.provideChunk(x - 1, z).terrainPopulated && this.chunkExists(x - 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x - 1, z)) {
+            this.populate(this, x - 1, z);
+        }
+
+        if (this.chunkExists(x, z - 1) && !this.provideChunk(x, z - 1).terrainPopulated && this.chunkExists(x + 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x + 1, z)) {
+            this.populate(this, x, z - 1);
+        }
+
+        if (this.chunkExists(x - 1, z - 1) && !this.provideChunk(x - 1, z - 1).terrainPopulated && this.chunkExists(x - 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x - 1, z)) {
+            this.populate(this, x - 1, z - 1);
+        }
+
+        return chunk;
     }
 
     @Override
@@ -82,45 +84,49 @@ public class ChunkProvider implements IChunkProvider {
         return var3 == null ? this.prepareChunk(x, z) : var3;
     }
 
-    private Chunk loadChunkFromFile(int var1, int var2) {
+    private Chunk loadChunkFromFile(int x, int z) {
         if (this.chunkLoader == null) {
             return null;
         }
 
         try {
-            Chunk var3 = this.chunkLoader.loadChunk(this.worldObj, var1, var2);
-            if (var3 != null) {
-                var3.lastSaveTime = this.worldObj.getWorldTime();
+            Chunk chunk = this.chunkLoader.loadChunk(this.world, x, z);
+            if (chunk != null) {
+                chunk.lastSaveTime = this.world.getWorldTime();
             }
 
-            return var3;
+            return chunk;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private void saveChunkExtra(Chunk var1) {
-        if (this.chunkLoader != null) {
-            try {
-                this.chunkLoader.saveExtraChunkData(this.worldObj, var1);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+    private void saveChunkExtra(Chunk chunk) {
+        if (this.chunkLoader == null) {
+            return;
         }
+
+        try {
+            this.chunkLoader.saveExtraChunkData(this.world, chunk);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-    private void saveChunk(Chunk var1) {
-        if (this.chunkLoader != null) {
-            try {
-                var1.lastSaveTime = this.worldObj.getWorldTime();
-                this.chunkLoader.saveChunk(this.worldObj, var1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+    private void saveChunk(Chunk chunk) {
+        if (this.chunkLoader == null) {
+            return;
         }
+
+        try {
+            chunk.lastSaveTime = this.world.getWorldTime();
+            this.chunkLoader.saveChunk(this.world, chunk);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

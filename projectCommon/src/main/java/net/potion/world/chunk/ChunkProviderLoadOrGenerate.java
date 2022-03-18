@@ -76,7 +76,7 @@ public class ChunkProviderLoadOrGenerate implements IChunkProvider {
                 }
 
                 this.chunks[var5] = var6;
-                var6.method3();
+                var6.prepareChunkLoad();
                 if (this.chunks[var5] != null) {
                     this.chunks[var5].onChunkLoad();
                 }

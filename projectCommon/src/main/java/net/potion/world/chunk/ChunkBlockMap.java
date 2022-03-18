@@ -25,6 +25,19 @@ public class ChunkBlockMap {
         for (int i = 0; i < data.length; ++i) {
             data[i] = BLOCK_ID_MAP[data[i] & 255];
         }
+    }
 
+    public static void fix(int[][][] data) {
+        for (int x = 0; x < data.length; x++) {
+            int[][] yl = data[x];
+
+            for (int y = 0; y < yl.length; y++) {
+                int[] zl = yl[y];
+
+                for (int z = 0; z < zl.length; z++) {
+                    zl[z] = BLOCK_ID_MAP[zl[z] & 255];
+                }
+            }
+        }
     }
 }
