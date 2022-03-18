@@ -5,13 +5,13 @@ import net.potion.world.World;
 import java.io.IOException;
 
 public interface IOldChunkLoader {
-    OldChunk loadChunk(World var1, int var2, int var3) throws IOException;
+    OldChunk loadChunk(World world, int x, int z) throws IOException;
 
-    void saveChunk(World var1, OldChunk var2) throws IOException;
+    void saveChunk(World world, OldChunk chunk) throws IOException;
 
-    void saveExtraChunkData(World var1, OldChunk var2) throws IOException;
+    void saveExtraChunkData(World world, OldChunk chunk) throws IOException;
 
-    void method1();
+    void onUnloadOldest();
 
     void saveExtraData();
 }

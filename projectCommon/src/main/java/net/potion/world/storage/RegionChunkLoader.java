@@ -21,26 +21,26 @@ public class RegionChunkLoader implements IOldChunkLoader {
     }
 
     @Override
-    public OldChunk loadChunk(World var1, int var2, int var3) throws IOException {
-        DataInputStream inputStream = RegionFileCache.getChunkInputStream(this.worldDir, var2, var3);
+    public OldChunk loadChunk(World world, int x, int z) throws IOException {
+        DataInputStream inputStream = RegionFileCache.getChunkInputStream(this.worldDir, x, z);
         if (inputStream == null) {
             return null;
         }
 
         TagCompound var5 = CompressedStreamTools.readCompound(inputStream);
         if (!var5.hasKey("Level")) {
-            System.out.println("Chunk file at " + var2 + "," + var3 + " is missing level data, skipping");
+            System.out.println("Chunk file at " + x + "," + z + " is missing level data, skipping");
             return null;
         } else if (!var5.getCompoundTag("Level").hasKey("Blocks")) {
-            System.out.println("Chunk file at " + var2 + "," + var3 + " is missing block data, skipping");
+            System.out.println("Chunk file at " + x + "," + z + " is missing block data, skipping");
             return null;
         } else {
-            OldChunk var6 = OldChunkLoader.loadChunkIntoWorldFromCompound(var1, var5.getCompoundTag("Level"));
-            if (!var6.isAtLocation(var2, var3)) {
-                System.out.println("Chunk file at " + var2 + "," + var3 + " is in the wrong location; relocating. (Expected " + var2 + ", " + var3 + ", got " + var6.xPosition + ", " + var6.zPosition + ")");
-                var5.setInteger("xPos", var2);
-                var5.setInteger("zPos", var3);
-                var6 = OldChunkLoader.loadChunkIntoWorldFromCompound(var1, var5.getCompoundTag("Level"));
+            OldChunk var6 = OldChunkLoader.loadChunkIntoWorldFromCompound(world, var5.getCompoundTag("Level"));
+            if (!var6.isAtLocation(x, z)) {
+                System.out.println("Chunk file at " + x + "," + z + " is in the wrong location; relocating. (Expected " + x + ", " + z + ", got " + var6.xPosition + ", " + var6.zPosition + ")");
+                var5.setInteger("xPos", x);
+                var5.setInteger("zPos", z);
+                var6 = OldChunkLoader.loadChunkIntoWorldFromCompound(world, var5.getCompoundTag("Level"));
             }
 
             var6.checkBlocks();
@@ -69,11 +69,11 @@ public class RegionChunkLoader implements IOldChunkLoader {
     }
 
     @Override
-    public void saveExtraChunkData(World var1, OldChunk var2) throws IOException {
+    public void saveExtraChunkData(World world, OldChunk chunk) throws IOException {
     }
 
     @Override
-    public void method1() {
+    public void onUnloadOldest() {
     }
 
     @Override

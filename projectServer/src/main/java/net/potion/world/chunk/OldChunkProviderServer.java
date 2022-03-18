@@ -203,7 +203,7 @@ public class OldChunkProviderServer implements IOldChunkProvider {
         }
 
         if (this.chunkLoader != null) {
-            this.chunkLoader.method1();
+            this.chunkLoader.onUnloadOldest();
         }
 
         return this.serverChunkGenerator.unload100OldestChunks();

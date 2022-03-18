@@ -211,7 +211,7 @@ public class ChunkProviderLoadOrGenerate implements IOldChunkProvider {
     @Override
     public boolean unload100OldestChunks() {
         if (this.chunkLoader != null) {
-            this.chunkLoader.method1();
+            this.chunkLoader.onUnloadOldest();
         }
 
         return this.chunkProvider.unload100OldestChunks();

@@ -189,7 +189,7 @@ public class OldChunkProvider implements IOldChunkProvider {
         }
 
         if (this.chunkLoader != null) {
-            this.chunkLoader.method1();
+            this.chunkLoader.onUnloadOldest();
         }
 
         return this.chunkGenerator.unload100OldestChunks();

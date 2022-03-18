@@ -138,28 +138,28 @@ public class OldChunkLoader implements IOldChunkLoader {
     }
 
     @Override
-    public OldChunk loadChunk(World var1, int var2, int var3) throws IOException {
-        File var4 = this.chunkFileForXZ(var2, var3);
+    public OldChunk loadChunk(World world, int x, int z) throws IOException {
+        File var4 = this.chunkFileForXZ(x, z);
         if (var4 != null && var4.exists()) {
             try {
                 FileInputStream var5 = new FileInputStream(var4);
                 TagCompound var6 = CompressedStreamTools.readGzipCompound(var5);
                 if (!var6.hasKey("Level")) {
-                    System.out.println("Chunk file at " + var2 + "," + var3 + " is missing level data, skipping");
+                    System.out.println("Chunk file at " + x + "," + z + " is missing level data, skipping");
                     return null;
                 }
 
                 if (!var6.getCompoundTag("Level").hasKey("Blocks")) {
-                    System.out.println("Chunk file at " + var2 + "," + var3 + " is missing block data, skipping");
+                    System.out.println("Chunk file at " + x + "," + z + " is missing block data, skipping");
                     return null;
                 }
 
-                OldChunk var7 = loadChunkIntoWorldFromCompound(var1, var6.getCompoundTag("Level"));
-                if (!var7.isAtLocation(var2, var3)) {
-                    System.out.println("Chunk file at " + var2 + "," + var3 + " is in the wrong location; relocating. (Expected " + var2 + ", " + var3 + ", got " + var7.xPosition + ", " + var7.zPosition + ")");
-                    var6.setInteger("xPos", var2);
-                    var6.setInteger("zPos", var3);
-                    var7 = loadChunkIntoWorldFromCompound(var1, var6.getCompoundTag("Level"));
+                OldChunk var7 = loadChunkIntoWorldFromCompound(world, var6.getCompoundTag("Level"));
+                if (!var7.isAtLocation(x, z)) {
+                    System.out.println("Chunk file at " + x + "," + z + " is in the wrong location; relocating. (Expected " + x + ", " + z + ", got " + var7.xPosition + ", " + var7.zPosition + ")");
+                    var6.setInteger("xPos", x);
+                    var6.setInteger("zPos", z);
+                    var7 = loadChunkIntoWorldFromCompound(world, var6.getCompoundTag("Level"));
                 }
 
                 var7.checkBlocks();
@@ -173,11 +173,11 @@ public class OldChunkLoader implements IOldChunkLoader {
     }
 
     @Override
-    public void saveChunk(World var1, OldChunk var2) throws IOException {
-        var1.checkSessionLock();
-        File var3 = this.chunkFileForXZ(var2.xPosition, var2.zPosition);
+    public void saveChunk(World world, OldChunk chunk) throws IOException {
+        world.checkSessionLock();
+        File var3 = this.chunkFileForXZ(chunk.xPosition, chunk.zPosition);
         if (var3.exists()) {
-            WorldInfo var4 = var1.getWorldInfo();
+            WorldInfo var4 = world.getWorldInfo();
             var4.setSizeOnDisk(var4.getSizeOnDisk() - var3.length());
         }
 
@@ -187,7 +187,7 @@ public class OldChunkLoader implements IOldChunkLoader {
             TagCompound var6 = new TagCompound();
             TagCompound var7 = new TagCompound();
             var6.setTag("Level", var7);
-            storeChunkInCompound(var2, var1, var7);
+            storeChunkInCompound(chunk, world, var7);
             CompressedStreamTools.writeGzipCompound(var6, var5);
             var5.close();
             if (var3.exists()) {
@@ -195,7 +195,7 @@ public class OldChunkLoader implements IOldChunkLoader {
             }
 
             var10.renameTo(var3);
-            WorldInfo var8 = var1.getWorldInfo();
+            WorldInfo var8 = world.getWorldInfo();
             var8.setSizeOnDisk(var8.getSizeOnDisk() + var3.length());
         } catch (Exception e) {
             e.printStackTrace();
@@ -204,7 +204,7 @@ public class OldChunkLoader implements IOldChunkLoader {
     }
 
     @Override
-    public void method1() {
+    public void onUnloadOldest() {
     }
 
     @Override
@@ -212,6 +212,6 @@ public class OldChunkLoader implements IOldChunkLoader {
     }
 
     @Override
-    public void saveExtraChunkData(World var1, OldChunk var2) throws IOException {
+    public void saveExtraChunkData(World world, OldChunk chunk) throws IOException {
     }
 }
