@@ -34,61 +34,41 @@ public abstract class Tag {
     }
 
     public static Tag createTag(byte id) {
-        switch (id) {
-            case 0:
-                return new TagEnd();
-            case 1:
-                return new TagByte();
-            case 2:
-                return new TagShort();
-            case 3:
-                return new TagInt();
-            case 4:
-                return new TagLong();
-            case 5:
-                return new TagFloat();
-            case 6:
-                return new TagDouble();
-            case 7:
-                return new TagByteArray();
-            case 8:
-                return new TagString();
-            case 9:
-                return new TagList();
-            case 10:
-                return new TagCompound();
-            default:
-                return null;
-        }
+        return switch (id) {
+            case 0 -> new TagEnd();
+            case 1 -> new TagByte();
+            case 2 -> new TagShort();
+            case 3 -> new TagInt();
+            case 4 -> new TagLong();
+            case 5 -> new TagFloat();
+            case 6 -> new TagDouble();
+            case 7 -> new TagByteArray();
+            case 8 -> new TagString();
+            case 9 -> new TagList();
+            case 10 -> new TagCompound();
+            case 11 -> new TagIntArray();
+            default -> null;
+        };
     }
 
     public static String idToString(byte id) {
-        switch (id) {
-            case 0:
-                return "TAG_End";
-            case 1:
-                return "TAG_Byte";
-            case 2:
-                return "TAG_Short";
-            case 3:
-                return "TAG_Int";
-            case 4:
-                return "TAG_Long";
-            case 5:
-                return "TAG_Float";
-            case 6:
-                return "TAG_Double";
-            case 7:
-                return "TAG_Byte_Array";
-            case 8:
-                return "TAG_String";
-            case 9:
-                return "TAG_List";
-            case 10:
-                return "TAG_Compound";
-            default:
-                return "UNKNOWN";
-        }
+        return switch (id) {
+            case 0 -> "TAG_End";
+            case 1 -> "TAG_Byte";
+            case 2 -> "TAG_Short";
+            case 3 -> "TAG_Int";
+            case 4 -> "TAG_Long";
+            case 5 -> "TAG_Float";
+            case 6 -> "TAG_Double";
+            case 7 -> "TAG_Byte_Array";
+            case 8 -> "TAG_String";
+            case 9 -> "TAG_List";
+            case 10 -> "TAG_Compound";
+            case 11 -> "TAG_Int_Array";
+            case 12 -> "TAG_Byte_3Array";
+            case 13 -> "TAG_Int_3Array";
+            default -> "UNKNOWN";
+        };
     }
 
     public String getKey() {

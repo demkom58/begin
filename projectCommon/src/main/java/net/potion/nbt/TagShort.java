@@ -14,14 +14,17 @@ public class TagShort extends Tag {
         this.shortValue = value;
     }
 
+    @Override
     void write(DataOutput output) throws IOException {
         output.writeShort(this.shortValue);
     }
 
+    @Override
     void read(DataInput input) throws IOException {
         this.shortValue = input.readShort();
     }
 
+    @Override
     public byte getType() {
         return 2;
     }

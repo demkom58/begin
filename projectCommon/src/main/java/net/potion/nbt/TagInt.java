@@ -14,14 +14,17 @@ public class TagInt extends Tag {
         this.intValue = value;
     }
 
+    @Override
     void write(DataOutput output) throws IOException {
         output.writeInt(this.intValue);
     }
 
+    @Override
     void read(DataInput input) throws IOException {
         this.intValue = input.readInt();
     }
 
+    @Override
     public byte getType() {
         return 3;
     }

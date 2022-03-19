@@ -8,8 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TagCompound extends Tag {
-    private Map<Object, Tag> tagMap = new HashMap<>();
+    private final Map<Object, Tag> tagMap = new HashMap<>();
 
+    @Override
     void write(DataOutput output) throws IOException {
         for (Tag tag : this.tagMap.values()) {
             Tag.writeTag(tag, output);
@@ -18,6 +19,7 @@ public class TagCompound extends Tag {
         output.writeByte(0);
     }
 
+    @Override
     void read(DataInput input) throws IOException {
         this.tagMap.clear();
 
@@ -32,6 +34,7 @@ public class TagCompound extends Tag {
         return this.tagMap.values();
     }
 
+    @Override
     public byte getType() {
         return 10;
     }
@@ -114,6 +117,10 @@ public class TagCompound extends Tag {
 
     public byte[] getByteArray(String key) {
         return !this.tagMap.containsKey(key) ? new byte[0] : ((TagByteArray) this.tagMap.get(key)).byteArray;
+    }
+
+    public int[] getIntArray(String key) {
+        return !this.tagMap.containsKey(key) ? new int[0] : ((TagIntArray) this.tagMap.get(key)).intArray;
     }
 
     public TagCompound getCompoundTag(String key) {
