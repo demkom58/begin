@@ -16,7 +16,7 @@ public final class Numbers {
         return composed;
     }
 
-    public static short compact_XYZ_4bitShort(int x, int y, int z) {
+    public static short compact_XYZ_u4bitShort(int x, int y, int z) {
         short compacted = 0;
         compacted |= (x & 15) << 8;
         compacted |= (y & 15) << 4;
@@ -24,7 +24,7 @@ public final class Numbers {
         return compacted;
     }
 
-    public static short compact_XYZ_4bitShort(byte x, byte y, byte z) {
+    public static short compact_XYZ_u4bitShort(byte x, byte y, byte z) {
         short compacted = 0;
         compacted |= (x & 15) << 8;
         compacted |= (y & 15) << 4;
@@ -32,23 +32,23 @@ public final class Numbers {
         return compacted;
     }
 
-    public static byte extractX_XYZ_4bitShort(short xyz) {
+    public static byte extractX_XYZ_u4bitShort(short xyz) {
         return (byte) ((xyz >> 8) & 15);
     }
 
-    public static byte extractY_XYZ_4bitShort(short xyz) {
+    public static byte extractY_XYZ_u4bitShort(short xyz) {
         return (byte) ((xyz >> 4) & 15);
     }
 
-    public static byte extractZ_XYZ_4bitShort(short xyz) {
+    public static byte extractZ_XYZ_u4bitShort(short xyz) {
         return (byte) (xyz & 15);
     }
 
-    public static Vec3b extract_XYZ_4bitShort(short xyz) {
+    public static Vec3b extract_XYZ_u4bitShort(short xyz) {
         return new Vec3b(
-                extractX_XYZ_4bitShort(xyz),
-                extractY_XYZ_4bitShort(xyz),
-                extractZ_XYZ_4bitShort(xyz)
+                extractX_XYZ_u4bitShort(xyz),
+                extractY_XYZ_u4bitShort(xyz),
+                extractZ_XYZ_u4bitShort(xyz)
         );
     }
 }
