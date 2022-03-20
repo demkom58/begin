@@ -75,6 +75,10 @@ public class TagCompound extends Tag {
         this.tagMap.put(key, new TagByteArray(value).setKey(key));
     }
 
+    public void setIntArray(String key, int[] value) {
+        this.tagMap.put(key, new TagIntArray(value).setKey(key));
+    }
+
     public void setCompoundTag(String key, TagCompound value) {
         this.tagMap.put(key, value.setKey(key));
     }
