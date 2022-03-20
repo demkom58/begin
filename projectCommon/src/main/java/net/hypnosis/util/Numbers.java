@@ -3,6 +3,19 @@ package net.hypnosis.util;
 import net.hypnosis.util.math.Vec3b;
 
 public final class Numbers {
+    private static final long BIT21_NEGATIVE_FLAG = 0b1000000000000000000000L;
+    private static final long BIT20_VALUE_MASK = 0b111111111111111111111L;
+
+    public static long compact_XYZ_21bitLong(int x, int y, int z) {
+        long composed =
+                x < 0 ? (BIT21_NEGATIVE_FLAG | (x & BIT20_VALUE_MASK)) << 42 : (x & BIT20_VALUE_MASK) << 42;
+        composed |=
+                y < 0 ? (BIT21_NEGATIVE_FLAG | (y & BIT20_VALUE_MASK)) << 21 : (y & BIT20_VALUE_MASK) << 21;
+        composed |=
+                z < 0 ? (BIT21_NEGATIVE_FLAG | (z & BIT20_VALUE_MASK)) : (z & BIT20_VALUE_MASK);
+        return composed;
+    }
+
     public static short compact_XYZ_4bitShort(int x, int y, int z) {
         short compacted = 0;
         compacted |= (x & 15) << 8;
