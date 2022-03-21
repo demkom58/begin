@@ -14,11 +14,4 @@ allprojects {
 
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
-
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "https://jitpack.io/" }
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-    }
 }
