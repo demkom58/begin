@@ -1,7 +1,13 @@
+plugins {
+    id 'java-library'
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-
+    api group: 'org.jetbrains', name: 'annotations', version: '22.0.0'
+    api group: 'com.google.guava', name: 'guava', version: '31.1-jre'
+    api group: 'it.unimi.dsi', name: 'fastutil', version: '8.5.8'
 }

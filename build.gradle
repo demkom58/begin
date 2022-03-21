@@ -4,26 +4,21 @@ plugins {
     id 'application'
 }
 
-version = "1.7.3-Beta"
 
 allprojects {
+    apply plugin: 'idea'
     apply plugin: 'java'
+
+    group = "net.potion"
+    version = "1.7.3-Beta"
 
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 
-    project.ext.jomlVersion = "1.10.2"
-
     repositories {
         mavenLocal()
         mavenCentral()
+        maven { url "https://jitpack.io/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-    }
-
-    dependencies {
-        implementation group: 'org.jetbrains', name: 'annotations', version: '22.0.0'
-        implementation group: 'com.google.guava', name: 'guava', version: '31.0.1-jre'
-
-        implementation group: 'it.unimi.dsi', name: 'fastutil', version: '8.5.6'
     }
 }

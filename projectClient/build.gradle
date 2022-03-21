@@ -1,4 +1,3 @@
-apply plugin: 'java'
 apply plugin: 'application'
 
 application.mainClassName = "net.potion.client.Starter"

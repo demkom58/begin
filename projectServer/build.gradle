@@ -1,12 +1,9 @@
-apply plugin: 'java'
 apply plugin: 'application'
 
 application.mainClassName = "net.potion.server.PotionServer"
 
 dependencies {
-    implementation project(":projectCommon")
-    implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
-}
+    implementation project(":projectCommon")}
 
 tasks.withType(JavaExec) {
     setWorkingDir(new File(workingDir.getParentFile(), "jars"))
