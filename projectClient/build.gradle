@@ -20,8 +20,6 @@ switch (OperatingSystem.current()) {
 
 dependencies {
 	implementation project(":projectCommon")
-
-    implementation fileTree(dir: "$rootDir/jars/libraries/", includes: ['*.jar'])
     implementation group: 'com.google.code.gson', name: 'gson', version: "2.9.0"
 
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
