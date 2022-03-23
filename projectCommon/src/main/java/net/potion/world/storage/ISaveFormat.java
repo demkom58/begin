@@ -8,19 +8,19 @@ import java.util.List;
 public interface ISaveFormat {
     String getFormatName();
 
-    ISaveHandler getSaveLoader(String var1, boolean var2);
+    ISaveHandler getSaveLoader(String levelName, boolean createPlayerDirectory);
 
     List<SaveFormatData> readSaveFormatData();
 
     void flushCache();
 
-    WorldInfo readWorldInfo(String var1);
+    WorldInfo readWorldInfo(String levelName);
 
-    void removeWorld(String var1);
+    void removeWorld(String levelName);
 
-    void setLevelName(String var1, String var2);
+    void setLevelName(String oldName, String newName);
 
-    boolean isOldMapFormat(String var1);
+    boolean isOldMapFormat(String levelName);
 
-    boolean convertMapFormat(String var1, IProgressUpdatable var2);
+    boolean convertMapFormat(String levelName, IProgressUpdatable var2);
 }

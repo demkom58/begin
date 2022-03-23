@@ -164,20 +164,20 @@ public class PotionServer implements Runnable, ICommandListener {
         return true;
     }
 
-    private void initWorld(ISaveFormat saveFormat, String type, long seed) {
-        if (saveFormat.isOldMapFormat(type)) {
+    private void initWorld(ISaveFormat saveFormat, String levelName, long seed) {
+        if (saveFormat.isOldMapFormat(levelName)) {
             LOGGER.info("Converting map!");
-            saveFormat.convertMapFormat(type, new ConvertProgressUpdater(this));
+            saveFormat.convertMapFormat(levelName, new ConvertProgressUpdater(this));
         }
 
         this.worldServers = new WorldServer[2];
-        SaveOldDir saveOldDir = new SaveOldDir(new File("."), type, true);
+        SaveOldDir saveOldDir = new SaveOldDir(new File("."), levelName, true);
 
         for (int i = 0; i < this.worldServers.length; ++i) {
             if (i == 0) {
-                this.worldServers[i] = new WorldServer(this, saveOldDir, type, i == 0 ? 0 : -1, seed);
+                this.worldServers[i] = new WorldServer(this, saveOldDir, levelName, i == 0 ? 0 : -1, seed);
             } else {
-                this.worldServers[i] = new WorldServerMulti(this, saveOldDir, type, i == 0 ? 0 : -1, seed, this.worldServers[0]);
+                this.worldServers[i] = new WorldServerMulti(this, saveOldDir, levelName, i == 0 ? 0 : -1, seed, this.worldServers[0]);
             }
 
             this.worldServers[i].addWorldAccess(new WorldManager(this, this.worldServers[i]));

@@ -58,18 +58,18 @@ public class SaveConverterRegion extends SaveFormatOld {
     }
 
     @Override
-    public ISaveHandler getSaveLoader(String var1, boolean var2) {
-        return new SaveOldDir(this.worldsDirectory, var1, var2);
+    public ISaveHandler getSaveLoader(String levelName, boolean createPlayerDirectory) {
+        return new SaveOldDir(this.worldsDirectory, levelName, createPlayerDirectory);
     }
 
     @Override
-    public boolean isOldMapFormat(String var1) {
-        WorldInfo var2 = this.readWorldInfo(var1);
+    public boolean isOldMapFormat(String levelName) {
+        WorldInfo var2 = this.readWorldInfo(levelName);
         return var2 != null && var2.getVersion() == 0;
     }
 
     @Override
-    public boolean convertMapFormat(String var1, IProgressUpdatable updatable) {
+    public boolean convertMapFormat(String levelName, IProgressUpdatable updatable) {
         updatable.setLoadingProgress(0);
 
         List<ChunkFile> var3 = new ArrayList<>();
@@ -77,7 +77,7 @@ public class SaveConverterRegion extends SaveFormatOld {
         List<ChunkFile> var5 = new ArrayList<>();
         List<File> var6 = new ArrayList<>();
 
-        File var7 = new File(this.worldsDirectory, var1);
+        File var7 = new File(this.worldsDirectory, levelName);
         File var8 = new File(var7, "DIM-1");
         System.out.println("Scanning folders...");
         this.func_22183_a(var7, var3, var4);
@@ -89,9 +89,9 @@ public class SaveConverterRegion extends SaveFormatOld {
         System.out.println("Total conversion count is " + var9);
         this.func_22181_a(var7, var3, 0, var9, updatable);
         this.func_22181_a(var8, var5, var3.size(), var9, updatable);
-        WorldInfo var10 = this.readWorldInfo(var1);
+        WorldInfo var10 = this.readWorldInfo(levelName);
         var10.setVersion(19132);
-        ISaveHandler var11 = this.getSaveLoader(var1, false);
+        ISaveHandler var11 = this.getSaveLoader(levelName, false);
         var11.saveWorldInfo(var10);
         this.func_22182_a(var4, var3.size() + var5.size(), var9, updatable);
         if (var8.exists()) {

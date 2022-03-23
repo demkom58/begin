@@ -60,8 +60,8 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     @Override
-    public WorldInfo readWorldInfo(String worldName) {
-        File worldDirectory = new File(this.worldsDirectory, worldName);
+    public WorldInfo readWorldInfo(String levelName) {
+        File worldDirectory = new File(this.worldsDirectory, levelName);
         if (!worldDirectory.exists())
             return null;
 
@@ -91,8 +91,8 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     @Override
-    public void setLevelName(String worldName, String levelName) {
-        File worldDirectory = new File(this.worldsDirectory, worldName);
+    public void setLevelName(String oldName, String newName) {
+        File worldDirectory = new File(this.worldsDirectory, oldName);
         if (!worldDirectory.exists())
             return;
 
@@ -103,7 +103,7 @@ public class SaveFormatOld implements ISaveFormat {
         try {
             TagCompound levelCompound = CompressedStreamTools.readGzipCompound(new FileInputStream(levelFile));
             TagCompound dataCompound = levelCompound.getCompoundTag("Data");
-            dataCompound.setString("LevelName", levelName);
+            dataCompound.setString("LevelName", newName);
             CompressedStreamTools.writeGzipCompound(levelCompound, new FileOutputStream(levelFile));
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,8 +111,8 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     @Override
-    public void removeWorld(String worldName) {
-        File worldDirectory = new File(this.worldsDirectory, worldName);
+    public void removeWorld(String levelName) {
+        File worldDirectory = new File(this.worldsDirectory, levelName);
         if (worldDirectory.exists()) {
             removeAll(worldDirectory.listFiles());
             worldDirectory.delete();
@@ -120,17 +120,17 @@ public class SaveFormatOld implements ISaveFormat {
     }
 
     @Override
-    public ISaveHandler getSaveLoader(String var1, boolean var2) {
-        return new SaveHandler(this.worldsDirectory, var1, var2);
+    public ISaveHandler getSaveLoader(String levelName, boolean createPlayerDirectory) {
+        return new SaveHandler(this.worldsDirectory, levelName, createPlayerDirectory);
     }
 
     @Override
-    public boolean isOldMapFormat(String var1) {
+    public boolean isOldMapFormat(String levelName) {
         return false;
     }
 
     @Override
-    public boolean convertMapFormat(String var1, IProgressUpdatable updatable) {
+    public boolean convertMapFormat(String levelName, IProgressUpdatable updatable) {
         return false;
     }
 }
