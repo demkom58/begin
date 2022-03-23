@@ -13,54 +13,54 @@ public class WorldGenLiquids extends WorldGenerator {
     }
 
     @Override
-    public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
-        if (var1.getBlockId(var3, var4 + 1, var5) != Block.STONE.blockID) {
+    public boolean generate(World world, Random random, int x, int y, int z) {
+        if (world.getBlockId(x, y + 1, z) != Block.STONE.blockID) {
             return false;
-        } else if (var1.getBlockId(var3, var4 - 1, var5) != Block.STONE.blockID) {
+        } else if (world.getBlockId(x, y - 1, z) != Block.STONE.blockID) {
             return false;
-        } else if (var1.getBlockId(var3, var4, var5) != 0 && var1.getBlockId(var3, var4, var5) != Block.STONE.blockID) {
+        } else if (world.getBlockId(x, y, z) != 0 && world.getBlockId(x, y, z) != Block.STONE.blockID) {
             return false;
         }
 
         int var6 = 0;
-        if (var1.getBlockId(var3 - 1, var4, var5) == Block.STONE.blockID) {
+        if (world.getBlockId(x - 1, y, z) == Block.STONE.blockID) {
             ++var6;
         }
 
-        if (var1.getBlockId(var3 + 1, var4, var5) == Block.STONE.blockID) {
+        if (world.getBlockId(x + 1, y, z) == Block.STONE.blockID) {
             ++var6;
         }
 
-        if (var1.getBlockId(var3, var4, var5 - 1) == Block.STONE.blockID) {
+        if (world.getBlockId(x, y, z - 1) == Block.STONE.blockID) {
             ++var6;
         }
 
-        if (var1.getBlockId(var3, var4, var5 + 1) == Block.STONE.blockID) {
+        if (world.getBlockId(x, y, z + 1) == Block.STONE.blockID) {
             ++var6;
         }
 
         int var7 = 0;
-        if (var1.isAirBlock(var3 - 1, var4, var5)) {
+        if (world.isAirBlock(x - 1, y, z)) {
             ++var7;
         }
 
-        if (var1.isAirBlock(var3 + 1, var4, var5)) {
+        if (world.isAirBlock(x + 1, y, z)) {
             ++var7;
         }
 
-        if (var1.isAirBlock(var3, var4, var5 - 1)) {
+        if (world.isAirBlock(x, y, z - 1)) {
             ++var7;
         }
 
-        if (var1.isAirBlock(var3, var4, var5 + 1)) {
+        if (world.isAirBlock(x, y, z + 1)) {
             ++var7;
         }
 
         if (var6 == 3 && var7 == 1) {
-            var1.setBlockWithNotify(var3, var4, var5, this.liquidBlockId);
-            var1.scheduledUpdatesAreImmediate = true;
-            Block.BLOCKS_LIST[this.liquidBlockId].updateTick(var1, var3, var4, var5, var2);
-            var1.scheduledUpdatesAreImmediate = false;
+            world.setBlockWithNotify(x, y, z, this.liquidBlockId);
+            world.scheduledUpdatesAreImmediate = true;
+            Block.BLOCKS_LIST[this.liquidBlockId].updateTick(world, x, y, z, random);
+            world.scheduledUpdatesAreImmediate = false;
         }
 
         return true;

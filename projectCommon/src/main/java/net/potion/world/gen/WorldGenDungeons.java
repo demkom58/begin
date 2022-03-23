@@ -12,25 +12,25 @@ import java.util.Random;
 
 public class WorldGenDungeons extends WorldGenerator {
     @Override
-    public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
+    public boolean generate(World world, Random random, int x, int y, int z) {
         byte var6 = 3;
-        int var7 = var2.nextInt(2) + 2;
-        int var8 = var2.nextInt(2) + 2;
+        int var7 = random.nextInt(2) + 2;
+        int var8 = random.nextInt(2) + 2;
         int var9 = 0;
 
-        for (int var10 = var3 - var7 - 1; var10 <= var3 + var7 + 1; ++var10) {
-            for (int var11 = var4 - 1; var11 <= var4 + var6 + 1; ++var11) {
-                for (int var12 = var5 - var8 - 1; var12 <= var5 + var8 + 1; ++var12) {
-                    Material var13 = var1.getBlockMaterial(var10, var11, var12);
-                    if (var11 == var4 - 1 && !var13.isSolid()) {
+        for (int var10 = x - var7 - 1; var10 <= x + var7 + 1; ++var10) {
+            for (int var11 = y - 1; var11 <= y + var6 + 1; ++var11) {
+                for (int var12 = z - var8 - 1; var12 <= z + var8 + 1; ++var12) {
+                    Material var13 = world.getBlockMaterial(var10, var11, var12);
+                    if (var11 == y - 1 && !var13.isSolid()) {
                         return false;
                     }
 
-                    if (var11 == var4 + var6 + 1 && !var13.isSolid()) {
+                    if (var11 == y + var6 + 1 && !var13.isSolid()) {
                         return false;
                     }
 
-                    if ((var10 == var3 - var7 - 1 || var10 == var3 + var7 + 1 || var12 == var5 - var8 - 1 || var12 == var5 + var8 + 1) && var11 == var4 && var1.isAirBlock(var10, var11, var12) && var1.isAirBlock(var10, var11 + 1, var12)) {
+                    if ((var10 == x - var7 - 1 || var10 == x + var7 + 1 || var12 == z - var8 - 1 || var12 == z + var8 + 1) && var11 == y && world.isAirBlock(var10, var11, var12) && world.isAirBlock(var10, var11 + 1, var12)) {
                         ++var9;
                     }
                 }
@@ -38,18 +38,18 @@ public class WorldGenDungeons extends WorldGenerator {
         }
 
         if (var9 >= 1 && var9 <= 5) {
-            for (int var19 = var3 - var7 - 1; var19 <= var3 + var7 + 1; ++var19) {
-                for (int var22 = var4 + var6; var22 >= var4 - 1; --var22) {
-                    for (int var24 = var5 - var8 - 1; var24 <= var5 + var8 + 1; ++var24) {
-                        if (var19 != var3 - var7 - 1 && var22 != var4 - 1 && var24 != var5 - var8 - 1 && var19 != var3 + var7 + 1 && var22 != var4 + var6 + 1 && var24 != var5 + var8 + 1) {
-                            var1.setBlockWithNotify(var19, var22, var24, 0);
-                        } else if (var22 >= 0 && !var1.getBlockMaterial(var19, var22 - 1, var24).isSolid()) {
-                            var1.setBlockWithNotify(var19, var22, var24, 0);
-                        } else if (var1.getBlockMaterial(var19, var22, var24).isSolid()) {
-                            if (var22 == var4 - 1 && var2.nextInt(4) != 0) {
-                                var1.setBlockWithNotify(var19, var22, var24, Block.COBBLESTONE_MOSSY.blockID);
+            for (int var19 = x - var7 - 1; var19 <= x + var7 + 1; ++var19) {
+                for (int var22 = y + var6; var22 >= y - 1; --var22) {
+                    for (int var24 = z - var8 - 1; var24 <= z + var8 + 1; ++var24) {
+                        if (var19 != x - var7 - 1 && var22 != y - 1 && var24 != z - var8 - 1 && var19 != x + var7 + 1 && var22 != y + var6 + 1 && var24 != z + var8 + 1) {
+                            world.setBlockWithNotify(var19, var22, var24, 0);
+                        } else if (var22 >= 0 && !world.getBlockMaterial(var19, var22 - 1, var24).isSolid()) {
+                            world.setBlockWithNotify(var19, var22, var24, 0);
+                        } else if (world.getBlockMaterial(var19, var22, var24).isSolid()) {
+                            if (var22 == y - 1 && random.nextInt(4) != 0) {
+                                world.setBlockWithNotify(var19, var22, var24, Block.COBBLESTONE_MOSSY.blockID);
                             } else {
-                                var1.setBlockWithNotify(var19, var22, var24, Block.COBBLESTONE.blockID);
+                                world.setBlockWithNotify(var19, var22, var24, Block.COBBLESTONE.blockID);
                             }
                         }
                     }
@@ -59,29 +59,29 @@ public class WorldGenDungeons extends WorldGenerator {
             label110:
             for (int var20 = 0; var20 < 2; ++var20) {
                 for (int var23 = 0; var23 < 3; ++var23) {
-                    int var25 = var3 + var2.nextInt(var7 * 2 + 1) - var7;
-                    int var14 = var5 + var2.nextInt(var8 * 2 + 1) - var8;
-                    if (var1.isAirBlock(var25, var4, var14)) {
+                    int var25 = x + random.nextInt(var7 * 2 + 1) - var7;
+                    int var14 = z + random.nextInt(var8 * 2 + 1) - var8;
+                    if (world.isAirBlock(var25, y, var14)) {
                         int var15 = 0;
-                        if (var1.getBlockMaterial(var25 - 1, var4, var14).isSolid()) {
+                        if (world.getBlockMaterial(var25 - 1, y, var14).isSolid()) {
                             ++var15;
                         }
 
-                        if (var1.getBlockMaterial(var25 + 1, var4, var14).isSolid()) {
+                        if (world.getBlockMaterial(var25 + 1, y, var14).isSolid()) {
                             ++var15;
                         }
 
-                        if (var1.getBlockMaterial(var25, var4, var14 - 1).isSolid()) {
+                        if (world.getBlockMaterial(var25, y, var14 - 1).isSolid()) {
                             ++var15;
                         }
 
-                        if (var1.getBlockMaterial(var25, var4, var14 + 1).isSolid()) {
+                        if (world.getBlockMaterial(var25, y, var14 + 1).isSolid()) {
                             ++var15;
                         }
 
                         if (var15 == 1) {
-                            var1.setBlockWithNotify(var25, var4, var14, Block.CHEST.blockID);
-                            TileEntityChest var16 = (TileEntityChest) var1.getBlockTileEntity(var25, var4, var14);
+                            world.setBlockWithNotify(var25, y, var14, Block.CHEST.blockID);
+                            TileEntityChest var16 = (TileEntityChest) world.getBlockTileEntity(var25, y, var14);
                             int var17 = 0;
 
                             while (true) {
@@ -89,9 +89,9 @@ public class WorldGenDungeons extends WorldGenerator {
                                     continue label110;
                                 }
 
-                                ItemStack var18 = this.pickCheckLootItem(var2);
+                                ItemStack var18 = this.pickCheckLootItem(random);
                                 if (var18 != null) {
-                                    var16.setInventorySlotContents(var2.nextInt(var16.getSizeInventory()), var18);
+                                    var16.setInventorySlotContents(random.nextInt(var16.getSizeInventory()), var18);
                                 }
 
                                 ++var17;
@@ -101,9 +101,9 @@ public class WorldGenDungeons extends WorldGenerator {
                 }
             }
 
-            var1.setBlockWithNotify(var3, var4, var5, Block.MOB_SPAWNER.blockID);
-            TileEntityMobSpawner var21 = (TileEntityMobSpawner) var1.getBlockTileEntity(var3, var4, var5);
-            var21.setMobID(this.pickMobSpawner(var2));
+            world.setBlockWithNotify(x, y, z, Block.MOB_SPAWNER.blockID);
+            TileEntityMobSpawner var21 = (TileEntityMobSpawner) world.getBlockTileEntity(x, y, z);
+            var21.setMobID(this.pickMobSpawner(random));
             return true;
         } else {
             return false;

@@ -5,8 +5,8 @@ import net.potion.world.World;
 import java.util.Random;
 
 public abstract class WorldGenerator {
-    public abstract boolean generate(World var1, Random var2, int var3, int var4, int var5);
+    public abstract boolean generate(World world, Random random, int x, int y, int z);
 
-    public void method100(double var1, double var3, double var5) {
+    public void setScale(double scaleX, double scaleY, double scaleZ) {
     }
 }

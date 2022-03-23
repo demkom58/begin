@@ -20,6 +20,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
     double[] field3;
     double[] field4;
     double[] field5;
+    private final long seed;
     private Random rand;
     private NoiseGeneratorOctaves noiseGen1;
     private NoiseGeneratorOctaves noiseGen2;
@@ -37,6 +38,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
     public ChunkProviderGenerate(World world, long seed) {
         this.world = world;
+        this.seed = seed;
         this.rand = new Random(seed);
         this.noiseGen1 = new NoiseGeneratorOctaves(this.rand, 16);
         this.noiseGen2 = new NoiseGeneratorOctaves(this.rand, 16);
@@ -321,283 +323,283 @@ public class ChunkProviderGenerate implements IChunkProvider {
     @Override
     public void populate(IChunkProvider provider, int x, int z) {
         BlockSand.fallInstantly = true;
-        int var4 = x * 16;
-        int var5 = z * 16;
-        BiomeGenBase var6 = this.world.getWorldChunkManager().getBiomeGenAt(var4 + 16, var5 + 16);
+        int gX = x * 16;
+        int gZ = z * 16;
+        BiomeGenBase biome = this.world.getWorldChunkManager().getBiomeGenAt(x + 16, z + 16);
         this.rand.setSeed(this.world.getRandomSeed());
         long var7 = this.rand.nextLong() / 2L * 2L + 1L;
         long var9 = this.rand.nextLong() / 2L * 2L + 1L;
         this.rand.setSeed((long) x * var7 + (long) z * var9 ^ this.world.getRandomSeed());
-        double var11 = 0.25D;
+        double scale = 0.25D;
         if (this.rand.nextInt(4) == 0) {
-            int var13 = var4 + this.rand.nextInt(16) + 8;
+            int var13 = gX + this.rand.nextInt(16) + 8;
             int var14 = this.rand.nextInt(128);
-            int var15 = var5 + this.rand.nextInt(16) + 8;
+            int var15 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenLakes(Block.WATER_STILL.blockID)).generate(this.world, this.rand, var13, var14, var15);
         }
 
         if (this.rand.nextInt(8) == 0) {
-            int var26 = var4 + this.rand.nextInt(16) + 8;
+            int var26 = gX + this.rand.nextInt(16) + 8;
             int var38 = this.rand.nextInt(this.rand.nextInt(120) + 8);
-            int var50 = var5 + this.rand.nextInt(16) + 8;
+            int var50 = gZ + this.rand.nextInt(16) + 8;
             if (var38 < 64 || this.rand.nextInt(10) == 0) {
                 (new WorldGenLakes(Block.LAVA_STILL.blockID)).generate(this.world, this.rand, var26, var38, var50);
             }
         }
 
-        for (int var27 = 0; var27 < 8; ++var27) {
-            int var39 = var4 + this.rand.nextInt(16) + 8;
+        for (int i = 0; i < 8; ++i) {
+            int var39 = gX + this.rand.nextInt(16) + 8;
             int var51 = this.rand.nextInt(128);
-            int var16 = var5 + this.rand.nextInt(16) + 8;
+            int var16 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenDungeons()).generate(this.world, this.rand, var39, var51, var16);
         }
 
-        for (int var28 = 0; var28 < 10; ++var28) {
-            int var40 = var4 + this.rand.nextInt(16);
+        for (int i = 0; i < 10; ++i) {
+            int var40 = gX + this.rand.nextInt(16);
             int var52 = this.rand.nextInt(128);
-            int var63 = var5 + this.rand.nextInt(16);
+            int var63 = gZ + this.rand.nextInt(16);
             (new WorldGenClay(32)).generate(this.world, this.rand, var40, var52, var63);
         }
 
-        for (int var29 = 0; var29 < 20; ++var29) {
-            int var41 = var4 + this.rand.nextInt(16);
+        for (int i = 0; i < 20; ++i) {
+            int var41 = gX + this.rand.nextInt(16);
             int var53 = this.rand.nextInt(128);
-            int var64 = var5 + this.rand.nextInt(16);
+            int var64 = gZ + this.rand.nextInt(16);
             (new WorldGenMinable(Block.DIRT.blockID, 32)).generate(this.world, this.rand, var41, var53, var64);
         }
 
-        for (int var30 = 0; var30 < 10; ++var30) {
-            int var42 = var4 + this.rand.nextInt(16);
+        for (int i = 0; i < 10; ++i) {
+            int var42 = gX + this.rand.nextInt(16);
             int var54 = this.rand.nextInt(128);
-            int var65 = var5 + this.rand.nextInt(16);
+            int var65 = gZ + this.rand.nextInt(16);
             (new WorldGenMinable(Block.GRAVEL.blockID, 32)).generate(this.world, this.rand, var42, var54, var65);
         }
 
-        for (int var31 = 0; var31 < 20; ++var31) {
-            int var43 = var4 + this.rand.nextInt(16);
+        for (int i = 0; i < 20; ++i) {
+            int var43 = gX + this.rand.nextInt(16);
             int var55 = this.rand.nextInt(128);
-            int var66 = var5 + this.rand.nextInt(16);
+            int var66 = gZ + this.rand.nextInt(16);
             (new WorldGenMinable(Block.ORE_COAL.blockID, 16)).generate(this.world, this.rand, var43, var55, var66);
         }
 
-        for (int var32 = 0; var32 < 20; ++var32) {
-            int var44 = var4 + this.rand.nextInt(16);
+        for (int i = 0; i < 20; ++i) {
+            int var44 = gX + this.rand.nextInt(16);
             int var56 = this.rand.nextInt(64);
-            int var67 = var5 + this.rand.nextInt(16);
+            int var67 = gZ + this.rand.nextInt(16);
             (new WorldGenMinable(Block.ORE_IRON.blockID, 8)).generate(this.world, this.rand, var44, var56, var67);
         }
 
-        for (int var33 = 0; var33 < 2; ++var33) {
-            int var45 = var4 + this.rand.nextInt(16);
+        for (int i = 0; i < 2; ++i) {
+            int var45 = gX + this.rand.nextInt(16);
             int var57 = this.rand.nextInt(32);
-            int var68 = var5 + this.rand.nextInt(16);
+            int var68 = gZ + this.rand.nextInt(16);
             (new WorldGenMinable(Block.ORE_GOLD.blockID, 8)).generate(this.world, this.rand, var45, var57, var68);
         }
 
-        for (int var34 = 0; var34 < 8; ++var34) {
-            int var46 = var4 + this.rand.nextInt(16);
+        for (int i = 0; i < 8; ++i) {
+            int var46 = gX + this.rand.nextInt(16);
             int var58 = this.rand.nextInt(16);
-            int var69 = var5 + this.rand.nextInt(16);
+            int var69 = gZ + this.rand.nextInt(16);
             (new WorldGenMinable(Block.ORE_REDSTONE.blockID, 7)).generate(this.world, this.rand, var46, var58, var69);
         }
 
-        for (int var35 = 0; var35 < 1; ++var35) {
-            int var47 = var4 + this.rand.nextInt(16);
+        for (int i = 0; i < 1; ++i) {
+            int var47 = gX + this.rand.nextInt(16);
             int var59 = this.rand.nextInt(16);
-            int var70 = var5 + this.rand.nextInt(16);
+            int var70 = gZ + this.rand.nextInt(16);
             (new WorldGenMinable(Block.ORE_DIAMOND.blockID, 7)).generate(this.world, this.rand, var47, var59, var70);
         }
 
-        for (int var36 = 0; var36 < 1; ++var36) {
-            int var48 = var4 + this.rand.nextInt(16);
+        for (int i = 0; i < 1; ++i) {
+            int var48 = gX + this.rand.nextInt(16);
             int var60 = this.rand.nextInt(16) + this.rand.nextInt(16);
-            int var71 = var5 + this.rand.nextInt(16);
+            int var71 = gZ + this.rand.nextInt(16);
             (new WorldGenMinable(Block.ORE_LAPIS.blockID, 6)).generate(this.world, this.rand, var48, var60, var71);
         }
 
-        var11 = 0.5D;
-        int var37 = (int) ((this.mobSpawnerNoise.method1((double) var4 * var11, (double) var5 * var11) / 8.0D + this.rand.nextDouble() * 4.0D + 4.0D) / 3.0D);
+        scale = 0.5D;
+        int var37 = (int) ((this.mobSpawnerNoise.method1((double) x * scale, (double) z * scale) / 8.0D + this.rand.nextDouble() * 4.0D + 4.0D) / 3.0D);
         int var49 = 0;
         if (this.rand.nextInt(10) == 0) {
             ++var49;
         }
 
-        if (var6 == BiomeGenBase.FOREST) {
+        if (biome == BiomeGenBase.FOREST) {
             var49 += var37 + 5;
         }
 
-        if (var6 == BiomeGenBase.RAINFOREST) {
+        if (biome == BiomeGenBase.RAINFOREST) {
             var49 += var37 + 5;
         }
 
-        if (var6 == BiomeGenBase.SEASONAL_FOREST) {
+        if (biome == BiomeGenBase.SEASONAL_FOREST) {
             var49 += var37 + 2;
         }
 
-        if (var6 == BiomeGenBase.TAIGA) {
+        if (biome == BiomeGenBase.TAIGA) {
             var49 += var37 + 5;
         }
 
-        if (var6 == BiomeGenBase.DESERT) {
+        if (biome == BiomeGenBase.DESERT) {
             var49 -= 20;
         }
 
-        if (var6 == BiomeGenBase.TUNDRA) {
+        if (biome == BiomeGenBase.TUNDRA) {
             var49 -= 20;
         }
 
-        if (var6 == BiomeGenBase.PLAINS) {
+        if (biome == BiomeGenBase.PLAINS) {
             var49 -= 20;
         }
 
         for (int var61 = 0; var61 < var49; ++var61) {
-            int var72 = var4 + this.rand.nextInt(16) + 8;
-            int var17 = var5 + this.rand.nextInt(16) + 8;
-            WorldGenerator var18 = var6.getRandomWorldGenForTrees(this.rand);
-            var18.method100(1.0D, 1.0D, 1.0D);
+            int var72 = gX + this.rand.nextInt(16) + 8;
+            int var17 = gZ + this.rand.nextInt(16) + 8;
+            WorldGenerator var18 = biome.getRandomWorldGenForTrees(this.rand);
+            var18.setScale(1.0D, 1.0D, 1.0D);
             var18.generate(this.world, this.rand, var72, this.world.getHeightValue(var72, var17), var17);
         }
 
         byte var62 = 0;
-        if (var6 == BiomeGenBase.FOREST) {
+        if (biome == BiomeGenBase.FOREST) {
             var62 = 2;
         }
 
-        if (var6 == BiomeGenBase.SEASONAL_FOREST) {
+        if (biome == BiomeGenBase.SEASONAL_FOREST) {
             var62 = 4;
         }
 
-        if (var6 == BiomeGenBase.TAIGA) {
+        if (biome == BiomeGenBase.TAIGA) {
             var62 = 2;
         }
 
-        if (var6 == BiomeGenBase.PLAINS) {
+        if (biome == BiomeGenBase.PLAINS) {
             var62 = 3;
         }
 
-        for (int var73 = 0; var73 < var62; ++var73) {
-            int var76 = var4 + this.rand.nextInt(16) + 8;
+        for (int i = 0; i < var62; ++i) {
+            int var76 = gX + this.rand.nextInt(16) + 8;
             int var85 = this.rand.nextInt(128);
-            int var19 = var5 + this.rand.nextInt(16) + 8;
+            int var19 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenFlowers(Block.PLANT_YELLOW.blockID)).generate(this.world, this.rand, var76, var85, var19);
         }
 
         byte var74 = 0;
-        if (var6 == BiomeGenBase.FOREST) {
+        if (biome == BiomeGenBase.FOREST) {
             var74 = 2;
         }
 
-        if (var6 == BiomeGenBase.RAINFOREST) {
+        if (biome == BiomeGenBase.RAINFOREST) {
             var74 = 10;
         }
 
-        if (var6 == BiomeGenBase.SEASONAL_FOREST) {
+        if (biome == BiomeGenBase.SEASONAL_FOREST) {
             var74 = 2;
         }
 
-        if (var6 == BiomeGenBase.TAIGA) {
+        if (biome == BiomeGenBase.TAIGA) {
             var74 = 1;
         }
 
-        if (var6 == BiomeGenBase.PLAINS) {
+        if (biome == BiomeGenBase.PLAINS) {
             var74 = 10;
         }
 
-        for (int var77 = 0; var77 < var74; ++var77) {
+        for (int i = 0; i < var74; ++i) {
             byte var86 = 1;
-            if (var6 == BiomeGenBase.RAINFOREST && this.rand.nextInt(3) != 0) {
+            if (biome == BiomeGenBase.RAINFOREST && this.rand.nextInt(3) != 0) {
                 var86 = 2;
             }
 
-            int var97 = var4 + this.rand.nextInt(16) + 8;
+            int var97 = gX + this.rand.nextInt(16) + 8;
             int var20 = this.rand.nextInt(128);
-            int var21 = var5 + this.rand.nextInt(16) + 8;
+            int var21 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenTallGrass(Block.TALLGRASS.blockID, var86)).generate(this.world, this.rand, var97, var20, var21);
         }
 
         var74 = 0;
-        if (var6 == BiomeGenBase.DESERT) {
+        if (biome == BiomeGenBase.DESERT) {
             var74 = 2;
         }
 
-        for (int var78 = 0; var78 < var74; ++var78) {
-            int var87 = var4 + this.rand.nextInt(16) + 8;
+        for (int i = 0; i < var74; ++i) {
+            int var87 = gX + this.rand.nextInt(16) + 8;
             int var98 = this.rand.nextInt(128);
-            int var108 = var5 + this.rand.nextInt(16) + 8;
+            int var108 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenDeadBush(Block.DEADBUSH.blockID)).generate(this.world, this.rand, var87, var98, var108);
         }
 
         if (this.rand.nextInt(2) == 0) {
-            int var79 = var4 + this.rand.nextInt(16) + 8;
+            int var79 = gX + this.rand.nextInt(16) + 8;
             int var88 = this.rand.nextInt(128);
-            int var99 = var5 + this.rand.nextInt(16) + 8;
+            int var99 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenFlowers(Block.PLANT_RED.blockID)).generate(this.world, this.rand, var79, var88, var99);
         }
 
         if (this.rand.nextInt(4) == 0) {
-            int var80 = var4 + this.rand.nextInt(16) + 8;
+            int var80 = gX + this.rand.nextInt(16) + 8;
             int var89 = this.rand.nextInt(128);
-            int var100 = var5 + this.rand.nextInt(16) + 8;
+            int var100 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenFlowers(Block.MUSHROOM_BROWN.blockID)).generate(this.world, this.rand, var80, var89, var100);
         }
 
         if (this.rand.nextInt(8) == 0) {
-            int var81 = var4 + this.rand.nextInt(16) + 8;
+            int var81 = gX + this.rand.nextInt(16) + 8;
             int var90 = this.rand.nextInt(128);
-            int var101 = var5 + this.rand.nextInt(16) + 8;
+            int var101 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenFlowers(Block.MUSHROOM_RED.blockID)).generate(this.world, this.rand, var81, var90, var101);
         }
 
-        for (int var82 = 0; var82 < 10; ++var82) {
-            int var91 = var4 + this.rand.nextInt(16) + 8;
+        for (int i = 0; i < 10; ++i) {
+            int var91 = gX + this.rand.nextInt(16) + 8;
             int var102 = this.rand.nextInt(128);
-            int var109 = var5 + this.rand.nextInt(16) + 8;
+            int var109 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenReed()).generate(this.world, this.rand, var91, var102, var109);
         }
 
         if (this.rand.nextInt(32) == 0) {
-            int var83 = var4 + this.rand.nextInt(16) + 8;
+            int var83 = gX + this.rand.nextInt(16) + 8;
             int var92 = this.rand.nextInt(128);
-            int var103 = var5 + this.rand.nextInt(16) + 8;
+            int var103 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenPumpkin()).generate(this.world, this.rand, var83, var92, var103);
         }
 
         int var84 = 0;
-        if (var6 == BiomeGenBase.DESERT) {
+        if (biome == BiomeGenBase.DESERT) {
             var84 += 10;
         }
 
-        for (int var93 = 0; var93 < var84; ++var93) {
-            int var104 = var4 + this.rand.nextInt(16) + 8;
+        for (int i = 0; i < var84; ++i) {
+            int var104 = gX + this.rand.nextInt(16) + 8;
             int var110 = this.rand.nextInt(128);
-            int var114 = var5 + this.rand.nextInt(16) + 8;
+            int var114 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenCactus()).generate(this.world, this.rand, var104, var110, var114);
         }
 
-        for (int var94 = 0; var94 < 50; ++var94) {
-            int var105 = var4 + this.rand.nextInt(16) + 8;
+        for (int i = 0; i < 50; ++i) {
+            int var105 = gX + this.rand.nextInt(16) + 8;
             int var111 = this.rand.nextInt(this.rand.nextInt(120) + 8);
-            int var115 = var5 + this.rand.nextInt(16) + 8;
+            int var115 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenLiquids(Block.WATER_MOVING.blockID)).generate(this.world, this.rand, var105, var111, var115);
         }
 
-        for (int var95 = 0; var95 < 20; ++var95) {
-            int var106 = var4 + this.rand.nextInt(16) + 8;
+        for (int i = 0; i < 20; ++i) {
+            int var106 = gX + this.rand.nextInt(16) + 8;
             int var112 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(112) + 8) + 8);
-            int var116 = var5 + this.rand.nextInt(16) + 8;
+            int var116 = gZ + this.rand.nextInt(16) + 8;
             (new WorldGenLiquids(Block.LAVA_MOVING.blockID)).generate(this.world, this.rand, var106, var112, var116);
         }
 
-        this.generatedTemperatures = this.world.getWorldChunkManager().getTemperatures(this.generatedTemperatures, var4 + 8, var5 + 8, 16, 16);
+        this.generatedTemperatures = this.world.getWorldChunkManager().getTemperatures(this.generatedTemperatures, x + 8, z + 8, 16, 16);
 
-        for (int var96 = var4 + 8; var96 < var4 + 8 + 16; ++var96) {
-            for (int var107 = var5 + 8; var107 < var5 + 8 + 16; ++var107) {
-                int var113 = var96 - (var4 + 8);
-                int var117 = var107 - (var5 + 8);
-                int var22 = this.world.findTopSolidOrLiquidBlock(var96, var107);
+        for (int iX = gX + 8; iX < gX + 8 + 16; ++iX) {
+            for (int iZ = gZ + 8; iZ < gZ + 8 + 16; ++iZ) {
+                int var113 = iX - (gX + 8);
+                int var117 = iZ - (gZ + 8);
+                int var22 = this.world.findTopSolidOrLiquidBlock(iX, iZ);
                 double var23 = this.generatedTemperatures[var113 * 16 + var117] - (double) (var22 - 64) / 64.0D * 0.3D;
-                if (var23 < 0.5D && var22 > 0 && var22 < 128 && this.world.isAirBlock(var96, var22, var107) && this.world.getBlockMaterial(var96, var22 - 1, var107).getIsSolid() && this.world.getBlockMaterial(var96, var22 - 1, var107) != Material.ICE) {
-                    this.world.setBlockWithNotify(var96, var22, var107, Block.SNOW.blockID);
+                if (var23 < 0.5D && var22 > 0 && var22 < 128 && this.world.isAirBlock(iX, var22, iZ) && this.world.getBlockMaterial(iX, var22 - 1, iZ).getIsSolid() && this.world.getBlockMaterial(iX, var22 - 1, iZ) != Material.ICE) {
+                    this.world.setBlockWithNotify(iX, var22, iZ, Block.SNOW.blockID);
                 }
             }
         }

@@ -7,27 +7,27 @@ import java.util.Random;
 
 public class WorldGenTrees extends WorldGenerator {
     @Override
-    public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
-        int var6 = var2.nextInt(3) + 4;
+    public boolean generate(World world, Random random, int x, int y, int z) {
+        int var6 = random.nextInt(3) + 4;
         boolean var7 = true;
-        if (var4 < 1 || var4 + var6 + 1 > 128) {
+        if (y < 1 || y + var6 + 1 > 128) {
             return false;
         }
 
-        for (int var8 = var4; var8 <= var4 + 1 + var6; ++var8) {
+        for (int var8 = y; var8 <= y + 1 + var6; ++var8) {
             byte var9 = 1;
-            if (var8 == var4) {
+            if (var8 == y) {
                 var9 = 0;
             }
 
-            if (var8 >= var4 + 1 + var6 - 2) {
+            if (var8 >= y + 1 + var6 - 2) {
                 var9 = 2;
             }
 
-            for (int var10 = var3 - var9; var10 <= var3 + var9 && var7; ++var10) {
-                for (int var11 = var5 - var9; var11 <= var5 + var9 && var7; ++var11) {
+            for (int var10 = x - var9; var10 <= x + var9 && var7; ++var10) {
+                for (int var11 = z - var9; var11 <= z + var9 && var7; ++var11) {
                     if (var8 >= 0 && var8 < 128) {
-                        int var12 = var1.getBlockId(var10, var8, var11);
+                        int var12 = world.getBlockId(var10, var8, var11);
                         if (var12 != 0 && var12 != Block.LEAVES.blockID) {
                             var7 = false;
                         }
@@ -42,33 +42,33 @@ public class WorldGenTrees extends WorldGenerator {
             return false;
         }
 
-        int var16 = var1.getBlockId(var3, var4 - 1, var5);
-        if ((var16 != Block.GRASS.blockID && var16 != Block.DIRT.blockID) || var4 >= 128 - var6 - 1) {
+        int var16 = world.getBlockId(x, y - 1, z);
+        if ((var16 != Block.GRASS.blockID && var16 != Block.DIRT.blockID) || y >= 128 - var6 - 1) {
             return false;
         }
 
-        var1.setBlock(var3, var4 - 1, var5, Block.DIRT.blockID);
+        world.setBlock(x, y - 1, z, Block.DIRT.blockID);
 
-        for (int var17 = var4 - 3 + var6; var17 <= var4 + var6; ++var17) {
-            int var19 = var17 - (var4 + var6);
+        for (int var17 = y - 3 + var6; var17 <= y + var6; ++var17) {
+            int var19 = var17 - (y + var6);
             int var21 = 1 - var19 / 2;
 
-            for (int var22 = var3 - var21; var22 <= var3 + var21; ++var22) {
-                int var13 = var22 - var3;
+            for (int var22 = x - var21; var22 <= x + var21; ++var22) {
+                int var13 = var22 - x;
 
-                for (int var14 = var5 - var21; var14 <= var5 + var21; ++var14) {
-                    int var15 = var14 - var5;
-                    if ((Math.abs(var13) != var21 || Math.abs(var15) != var21 || var2.nextInt(2) != 0 && var19 != 0) && !Block.OPAQUE_CUBE_LOOKUP[var1.getBlockId(var22, var17, var14)]) {
-                        var1.setBlock(var22, var17, var14, Block.LEAVES.blockID);
+                for (int var14 = z - var21; var14 <= z + var21; ++var14) {
+                    int var15 = var14 - z;
+                    if ((Math.abs(var13) != var21 || Math.abs(var15) != var21 || random.nextInt(2) != 0 && var19 != 0) && !Block.OPAQUE_CUBE_LOOKUP[world.getBlockId(var22, var17, var14)]) {
+                        world.setBlock(var22, var17, var14, Block.LEAVES.blockID);
                     }
                 }
             }
         }
 
         for (int var18 = 0; var18 < var6; ++var18) {
-            int var20 = var1.getBlockId(var3, var4 + var18, var5);
+            int var20 = world.getBlockId(x, y + var18, z);
             if (var20 == 0 || var20 == Block.LEAVES.blockID) {
-                var1.setBlock(var3, var4 + var18, var5, Block.WOOD.blockID);
+                world.setBlock(x, y + var18, z, Block.WOOD.blockID);
             }
         }
 

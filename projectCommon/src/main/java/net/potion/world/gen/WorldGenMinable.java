@@ -17,20 +17,20 @@ public class WorldGenMinable extends WorldGenerator {
     }
 
     @Override
-    public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
-        float var6 = var2.nextFloat() * MathConstants.PI;
-        double var7 = (float) (var3 + 8) + MathHelper.sin(var6) * (float) this.numberOfBlocks / 8.0F;
-        double var9 = (float) (var3 + 8) - MathHelper.sin(var6) * (float) this.numberOfBlocks / 8.0F;
-        double var11 = (float) (var5 + 8) + MathHelper.cos(var6) * (float) this.numberOfBlocks / 8.0F;
-        double var13 = (float) (var5 + 8) - MathHelper.cos(var6) * (float) this.numberOfBlocks / 8.0F;
-        double var15 = var4 + var2.nextInt(3) + 2;
-        double var17 = var4 + var2.nextInt(3) + 2;
+    public boolean generate(World world, Random random, int x, int y, int z) {
+        float var6 = random.nextFloat() * MathConstants.PI;
+        double var7 = (float) (x + 8) + MathHelper.sin(var6) * (float) this.numberOfBlocks / 8.0F;
+        double var9 = (float) (x + 8) - MathHelper.sin(var6) * (float) this.numberOfBlocks / 8.0F;
+        double var11 = (float) (z + 8) + MathHelper.cos(var6) * (float) this.numberOfBlocks / 8.0F;
+        double var13 = (float) (z + 8) - MathHelper.cos(var6) * (float) this.numberOfBlocks / 8.0F;
+        double var15 = y + random.nextInt(3) + 2;
+        double var17 = y + random.nextInt(3) + 2;
 
         for (int var19 = 0; var19 <= this.numberOfBlocks; ++var19) {
             double var20 = var7 + (var9 - var7) * (double) var19 / (double) this.numberOfBlocks;
             double var22 = var15 + (var17 - var15) * (double) var19 / (double) this.numberOfBlocks;
             double var24 = var11 + (var13 - var11) * (double) var19 / (double) this.numberOfBlocks;
-            double var26 = var2.nextDouble() * (double) this.numberOfBlocks / 16.0D;
+            double var26 = random.nextDouble() * (double) this.numberOfBlocks / 16.0D;
             double var28 = (double) (MathHelper.sin((float) var19 * MathConstants.PI / (float) this.numberOfBlocks) + 1.0F) * var26 + 1.0D;
             double var30 = (double) (MathHelper.sin((float) var19 * MathConstants.PI / (float) this.numberOfBlocks) + 1.0F) * var26 + 1.0D;
             int var32 = MathHelper.floor(var20 - var28 / 2.0D);
@@ -48,8 +48,8 @@ public class WorldGenMinable extends WorldGenerator {
                         if (var39 * var39 + var42 * var42 < 1.0D) {
                             for (int var44 = var34; var44 <= var37; ++var44) {
                                 double var45 = ((double) var44 + 0.5D - var24) / (var28 / 2.0D);
-                                if (var39 * var39 + var42 * var42 + var45 * var45 < 1.0D && var1.getBlockId(var38, var41, var44) == Block.STONE.blockID) {
-                                    var1.setBlock(var38, var41, var44, this.minableBlockId);
+                                if (var39 * var39 + var42 * var42 + var45 * var45 < 1.0D && world.getBlockId(var38, var41, var44) == Block.STONE.blockID) {
+                                    world.setBlock(var38, var41, var44, this.minableBlockId);
                                 }
                             }
                         }

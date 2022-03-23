@@ -412,7 +412,7 @@ public class ChunkProviderSky implements IChunkProvider {
             int var76 = var4 + this.skyRNG.nextInt(16) + 8;
             int var17 = var5 + this.skyRNG.nextInt(16) + 8;
             WorldGenerator var18 = var6.getRandomWorldGenForTrees(this.skyRNG);
-            var18.method100(1.0D, 1.0D, 1.0D);
+            var18.setScale(1.0D, 1.0D, 1.0D);
             var18.generate(this.world, this.skyRNG, var76, this.world.getHeightValue(var76, var17), var17);
         }
 

@@ -312,24 +312,24 @@ public class WorldGenBigTree extends WorldGenerator {
     }
 
     @Override
-    public void method100(double var1, double var3, double var5) {
-        this.field_870_m = (int) (var1 * 12.0D);
-        if (var1 > 0.5D) {
+    public void setScale(double scaleX, double scaleY, double scaleZ) {
+        this.field_870_m = (int) (scaleX * 12.0D);
+        if (scaleX > 0.5D) {
             this.field_869_n = 5;
         }
 
-        this.field_873_j = var3;
-        this.field_872_k = var5;
+        this.field_873_j = scaleY;
+        this.field_872_k = scaleZ;
     }
 
     @Override
-    public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
-        this.world = var1;
-        long var6 = var2.nextLong();
+    public boolean generate(World world, Random random, int x, int y, int z) {
+        this.world = world;
+        long var6 = random.nextLong();
         this.random0.setSeed(var6);
-        this.basePos[0] = var3;
-        this.basePos[1] = var4;
-        this.basePos[2] = var5;
+        this.basePos[0] = x;
+        this.basePos[1] = y;
+        this.basePos[2] = z;
         if (this.field_878_e == 0) {
             this.field_878_e = 5 + this.random0.nextInt(this.field_870_m);
         }

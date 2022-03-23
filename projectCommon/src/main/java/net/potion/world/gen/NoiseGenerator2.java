@@ -42,7 +42,7 @@ public class NoiseGenerator2 {
         return (double) var0[0] * var1 + (double) var0[1] * var3;
     }
 
-    public void method2(double[] var1, double var2, double var4, int var6, int var7, double var8, double var10, double var12) {
+    public void method2(double[] noiseArr, double var2, double var4, int var6, int var7, double var8, double var10, double var12) {
         int var14 = 0;
 
         for (int var15 = 0; var15 < var6; ++var15) {
@@ -105,7 +105,7 @@ public class NoiseGenerator2 {
                 }
 
                 int var10001 = var14++;
-                var1[var10001] += 70.0D * (var21 + var23 + var25) * var12;
+                noiseArr[var10001] += 70.0D * (var21 + var23 + var25) * var12;
             }
         }
 
