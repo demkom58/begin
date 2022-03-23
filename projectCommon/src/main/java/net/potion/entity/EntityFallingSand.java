@@ -61,8 +61,8 @@ public class EntityFallingSand extends Entity {
             int var1 = MathHelper.floor(this.posX);
             int var2 = MathHelper.floor(this.posY);
             int var3 = MathHelper.floor(this.posZ);
-            if (this.worldObj.getBlockId(var1, var2, var3) == this.blockID) {
-                this.worldObj.setBlockWithNotify(var1, var2, var3, 0);
+            if (this.world.getBlockId(var1, var2, var3) == this.blockID) {
+                this.world.setBlockWithNotify(var1, var2, var3, 0);
             }
 
             if (this.onGround) {
@@ -70,10 +70,10 @@ public class EntityFallingSand extends Entity {
                 this.motionZ *= 0.699999988079071D;
                 this.motionY *= -0.5D;
                 this.setEntityDead();
-                if ((!this.worldObj.canBlockBePlacedAt(this.blockID, var1, var2, var3, true, 1) || BlockSand.canFallBelow(this.worldObj, var1, var2 - 1, var3) || !this.worldObj.setBlockWithNotify(var1, var2, var3, this.blockID)) && !this.worldObj.localWorld) {
+                if ((!this.world.canBlockBePlacedAt(this.blockID, var1, var2, var3, true, 1) || BlockSand.canFallBelow(this.world, var1, var2 - 1, var3) || !this.world.setBlockWithNotify(var1, var2, var3, this.blockID)) && !this.world.localWorld) {
                     this.dropItem(this.blockID, 1);
                 }
-            } else if (this.fallTime > 100 && !this.worldObj.localWorld) {
+            } else if (this.fallTime > 100 && !this.world.localWorld) {
                 this.dropItem(this.blockID, 1);
                 this.setEntityDead();
             }

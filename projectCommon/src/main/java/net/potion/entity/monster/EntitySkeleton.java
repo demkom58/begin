@@ -36,9 +36,9 @@ public class EntitySkeleton extends EntityMob {
 
     @Override
     public void onLivingUpdate() {
-        if (this.worldObj.isDaytime()) {
+        if (this.world.isDaytime()) {
             float var1 = this.getEntityBrightness(1.0F);
-            if (var1 > 0.5F && this.worldObj.canBlockSeeTheSky(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) && this.rand.nextFloat() * 30.0F < (var1 - 0.4F) * 2.0F) {
+            if (var1 > 0.5F && this.world.canBlockSeeTheSky(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) && this.rand.nextFloat() * 30.0F < (var1 - 0.4F) * 2.0F) {
                 this.fire = 300;
             }
         }
@@ -52,12 +52,12 @@ public class EntitySkeleton extends EntityMob {
             double var3 = var1.posX - this.posX;
             double var5 = var1.posZ - this.posZ;
             if (this.attackTime == 0) {
-                EntityArrow var7 = new EntityArrow(this.worldObj, this);
+                EntityArrow var7 = new EntityArrow(this.world, this);
                 ++var7.posY;
                 double var8 = var1.posY + (double) var1.getEyeHeight() - 0.20000000298023224D - var7.posY;
                 float var10 = MathHelper.sqrt(var3 * var3 + var5 * var5) * 0.2F;
-                this.worldObj.playSoundAtEntity(this, "random.bow", 1.0F, 1.0F / (this.rand.nextFloat() * 0.4F + 0.8F));
-                this.worldObj.entityJoinedWorld(var7);
+                this.world.playSoundAtEntity(this, "random.bow", 1.0F, 1.0F / (this.rand.nextFloat() * 0.4F + 0.8F));
+                this.world.entityJoinedWorld(var7);
                 var7.setArrowHeading(var3, var8 + (double) var10, var5, 0.6F, 12.0F);
                 this.attackTime = 30;
             }

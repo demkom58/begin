@@ -8,7 +8,7 @@ import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
 
-public class OldRegionFile {
+public class RegionFile {
     private static final byte[] EMPTY_SECTOR = new byte[4096];
 
     private final File file;
@@ -19,7 +19,7 @@ public class OldRegionFile {
     private int sizeDelta;
     private long lastModified = 0L;
 
-    public OldRegionFile(File file) {
+    public RegionFile(File file) {
         this.file = file;
         this.debugln("REGION LOAD " + this.file);
         this.sizeDelta = 0;
@@ -246,6 +246,10 @@ public class OldRegionFile {
 
     public boolean isChunkSaved(int x, int z) {
         return this.getOffset(x, z) != 0;
+    }
+
+    public int getSizeDelta() {
+        return sizeDelta;
     }
 
     private void setOffset(int x, int z, int offset) throws IOException {

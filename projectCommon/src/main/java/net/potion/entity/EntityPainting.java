@@ -136,18 +136,18 @@ public class EntityPainting extends Entity {
 
     @Override
     public void onUpdate() {
-        if (this.field1++ == 100 && !this.worldObj.localWorld) {
+        if (this.field1++ == 100 && !this.world.localWorld) {
             this.field1 = 0;
             if (!this.onValidSurface()) {
                 this.setEntityDead();
-                this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
+                this.world.entityJoinedWorld(new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
             }
         }
 
     }
 
     public boolean onValidSurface() {
-        if (this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() > 0) {
+        if (this.world.getCollidingBoundingBoxes(this, this.boundingBox).size() > 0) {
             return false;
         }
 
@@ -178,9 +178,9 @@ public class EntityPainting extends Entity {
             for (int var7 = 0; var7 < var2; ++var7) {
                 Material var8;
                 if (this.direction != 0 && this.direction != 2) {
-                    var8 = this.worldObj.getBlockMaterial(this.xPosition, var4 + var7, var5 + var6);
+                    var8 = this.world.getBlockMaterial(this.xPosition, var4 + var7, var5 + var6);
                 } else {
-                    var8 = this.worldObj.getBlockMaterial(var3 + var6, var4 + var7, this.zPosition);
+                    var8 = this.world.getBlockMaterial(var3 + var6, var4 + var7, this.zPosition);
                 }
 
                 if (!var8.isSolid()) {
@@ -189,7 +189,7 @@ public class EntityPainting extends Entity {
             }
         }
 
-        List<Entity> var10 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox);
+        List<Entity> var10 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox);
         for (int var11 = 0; var11 < var10.size(); ++var11) {
             if (var10.get(var11) instanceof EntityPainting) {
                 return false;
@@ -206,10 +206,10 @@ public class EntityPainting extends Entity {
 
     @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
-        if (!this.isDead && !this.worldObj.localWorld) {
+        if (!this.isDead && !this.world.localWorld) {
             this.setEntityDead();
             this.setBeenAttacked();
-            this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
+            this.world.entityJoinedWorld(new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
         }
 
         return true;
@@ -247,18 +247,18 @@ public class EntityPainting extends Entity {
 
     @Override
     public void moveEntity(double x, double y, double z) {
-        if (!this.worldObj.localWorld && x * x + y * y + z * z > 0.0D) {
+        if (!this.world.localWorld && x * x + y * y + z * z > 0.0D) {
             this.setEntityDead();
-            this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
+            this.world.entityJoinedWorld(new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
         }
 
     }
 
     @Override
     public void addVelocity(double var1, double var3, double var5) {
-        if (!this.worldObj.localWorld && var1 * var1 + var3 * var3 + var5 * var5 > 0.0D) {
+        if (!this.world.localWorld && var1 * var1 + var3 * var3 + var5 * var5 > 0.0D) {
             this.setEntityDead();
-            this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
+            this.world.entityJoinedWorld(new EntityItem(this.world, this.posX, this.posY, this.posZ, new ItemStack(Item.PAINTING)));
         }
 
     }

@@ -2,21 +2,20 @@ package net.potion.world.chunk;
 
 import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
-import net.potion.renew.chunk.Chunk;
 import net.potion.util.IProgressUpdatable;
 import net.potion.world.World;
 
 import java.util.*;
 
-public class OldChunkProviderClient implements IOldChunkProvider {
-    private final OldChunk blankChunk;
-    private final Map<ChunkCoordIntPair, OldChunk> chunkMapping = new HashMap<>();
+public class ChunkProviderClient implements IChunkProvider {
+    private final Chunk blankChunk;
+    private final Map<ChunkCoordIntPair, Chunk> chunkMapping = new HashMap<>();
     private final List<Chunk> chunks = new ArrayList<>();
-    private final World worldObj;
+    private final World world;
 
-    public OldChunkProviderClient(World world) {
-        this.blankChunk = new EmptyOldChunk(world, new byte[32768], 0, 0);
-        this.worldObj = world;
+    public ChunkProviderClient(World world) {
+        this.blankChunk = new EmptyChunk(world, new byte[32768], 0, 0);
+        this.world = world;
     }
 
     @Override
@@ -30,20 +29,20 @@ public class OldChunkProviderClient implements IOldChunkProvider {
     }
 
     public void unloadChunk(int x, int z) {
-        OldChunk oldChunk = this.provideChunk(x, z);
-        if (!oldChunk.isEmptyChunk()) {
-            oldChunk.onChunkUnload();
+        Chunk chunk = this.provideChunk(x, z);
+        if (!chunk.isEmptyChunk()) {
+            chunk.onChunkUnload();
         }
 
         this.chunkMapping.remove(new ChunkCoordIntPair(x, z));
-        this.chunks.remove(oldChunk);
+        this.chunks.remove(chunk);
     }
 
     @Override
-    public OldChunk prepareChunk(int x, int z) {
+    public Chunk prepareChunk(int x, int z) {
         ChunkCoordIntPair pair = new ChunkCoordIntPair(x, z);
         byte[] data = new byte[32768];
-        OldChunk chunk = new OldChunk(this.worldObj, data, x, z);
+        Chunk chunk = new Chunk(this.world, data, x, z);
         Arrays.fill(chunk.skylightMap.data, (byte) -1);
         this.chunkMapping.put(pair, chunk);
         chunk.isChunkLoaded = true;
@@ -51,14 +50,14 @@ public class OldChunkProviderClient implements IOldChunkProvider {
     }
 
     @Override
-    public OldChunk provideChunk(int x, int z) {
+    public Chunk provideChunk(int x, int z) {
         ChunkCoordIntPair pair = new ChunkCoordIntPair(x, z);
-        OldChunk chunk = this.chunkMapping.get(pair);
+        Chunk chunk = this.chunkMapping.get(pair);
         return chunk == null ? this.blankChunk : chunk;
     }
 
     @Override
-    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
+    public boolean saveChunks(boolean forceSave, IProgressUpdatable updatable) {
         return true;
     }
 
@@ -73,7 +72,7 @@ public class OldChunkProviderClient implements IOldChunkProvider {
     }
 
     @Override
-    public void populate(IOldChunkProvider provider, int x, int z) {
+    public void populate(IChunkProvider provider, int x, int z) {
     }
 
     @Override

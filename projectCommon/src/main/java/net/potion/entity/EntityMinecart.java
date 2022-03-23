@@ -95,7 +95,7 @@ public class EntityMinecart extends Entity implements IInventory {
 
     @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
-        if (this.worldObj.localWorld || this.isDead) {
+        if (this.world.localWorld || this.isDead) {
             return true;
         }
 
@@ -127,12 +127,12 @@ public class EntityMinecart extends Entity implements IInventory {
                             }
 
                             var5.stackSize -= var9;
-                            EntityItem var10 = new EntityItem(this.worldObj, this.posX + (double) var6, this.posY + (double) var7, this.posZ + (double) var8, new ItemStack(var5.itemID, var9, var5.getItemDamage()));
+                            EntityItem var10 = new EntityItem(this.world, this.posX + (double) var6, this.posY + (double) var7, this.posZ + (double) var8, new ItemStack(var5.itemID, var9, var5.getItemDamage()));
                             float var11 = 0.05F;
                             var10.motionX = (float) this.rand.nextGaussian() * var11;
                             var10.motionY = (float) this.rand.nextGaussian() * var11 + 0.2F;
                             var10.motionZ = (float) this.rand.nextGaussian() * var11;
-                            this.worldObj.entityJoinedWorld(var10);
+                            this.world.entityJoinedWorld(var10);
                         }
                     }
                 }
@@ -179,12 +179,12 @@ public class EntityMinecart extends Entity implements IInventory {
                 }
 
                 var2.stackSize -= var6;
-                EntityItem var7 = new EntityItem(this.worldObj, this.posX + (double) var3, this.posY + (double) var4, this.posZ + (double) var5, new ItemStack(var2.itemID, var6, var2.getItemDamage()));
+                EntityItem var7 = new EntityItem(this.world, this.posX + (double) var3, this.posY + (double) var4, this.posZ + (double) var5, new ItemStack(var2.itemID, var6, var2.getItemDamage()));
                 float var8 = 0.05F;
                 var7.motionX = (float) this.rand.nextGaussian() * var8;
                 var7.motionY = (float) this.rand.nextGaussian() * var8 + 0.2F;
                 var7.motionZ = (float) this.rand.nextGaussian() * var8;
-                this.worldObj.entityJoinedWorld(var7);
+                this.world.entityJoinedWorld(var7);
             }
         }
 
@@ -201,7 +201,7 @@ public class EntityMinecart extends Entity implements IInventory {
             --this.currentDamage;
         }
 
-        if (this.worldObj.localWorld && this.field3 > 0) {
+        if (this.world.localWorld && this.field3 > 0) {
             if (this.field3 > 0) {
                 double var46 = this.posX + (this.prevX - this.posX) / (double) this.field3;
                 double var47 = this.posY + (this.prevY - this.posY) / (double) this.field3;
@@ -234,17 +234,17 @@ public class EntityMinecart extends Entity implements IInventory {
             int var1 = MathHelper.floor(this.posX);
             int var2 = MathHelper.floor(this.posY);
             int var3 = MathHelper.floor(this.posZ);
-            if (BlockRail.isRailBlockAt(this.worldObj, var1, var2 - 1, var3)) {
+            if (BlockRail.isRailBlockAt(this.world, var1, var2 - 1, var3)) {
                 --var2;
             }
 
             double var4 = 0.4D;
             boolean var6 = false;
             double var7 = 0.0078125D;
-            int var9 = this.worldObj.getBlockId(var1, var2, var3);
+            int var9 = this.world.getBlockId(var1, var2, var3);
             if (BlockRail.isRailBlock(var9)) {
                 Vec3d var10 = this.method2(this.posX, this.posY, this.posZ);
-                int var11 = this.worldObj.getBlockMetadata(var1, var2, var3);
+                int var11 = this.world.getBlockMetadata(var1, var2, var3);
                 this.posY = var2;
                 boolean var12 = false;
                 boolean var13 = false;
@@ -426,15 +426,15 @@ public class EntityMinecart extends Entity implements IInventory {
                         this.motionX += this.motionX / var65 * var44;
                         this.motionZ += this.motionZ / var65 * var44;
                     } else if (var11 == 1) {
-                        if (this.worldObj.isBlockNormalCube(var1 - 1, var2, var3)) {
+                        if (this.world.isBlockNormalCube(var1 - 1, var2, var3)) {
                             this.motionX = 0.02D;
-                        } else if (this.worldObj.isBlockNormalCube(var1 + 1, var2, var3)) {
+                        } else if (this.world.isBlockNormalCube(var1 + 1, var2, var3)) {
                             this.motionX = -0.02D;
                         }
                     } else if (var11 == 0) {
-                        if (this.worldObj.isBlockNormalCube(var1, var2, var3 - 1)) {
+                        if (this.world.isBlockNormalCube(var1, var2, var3 - 1)) {
                             this.motionZ = 0.02D;
-                        } else if (this.worldObj.isBlockNormalCube(var1, var2, var3 + 1)) {
+                        } else if (this.world.isBlockNormalCube(var1, var2, var3 + 1)) {
                             this.motionZ = -0.02D;
                         }
                     }
@@ -496,7 +496,7 @@ public class EntityMinecart extends Entity implements IInventory {
             }
 
             this.setRotation(this.rotationYaw, this.rotationPitch);
-            List<Entity> var16 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+            List<Entity> var16 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
             if (var16 != null && var16.size() > 0) {
                 for (int var54 = 0; var54 < var16.size(); ++var54) {
                     Entity var18 = (Entity) var16.get(var54);
@@ -516,7 +516,7 @@ public class EntityMinecart extends Entity implements IInventory {
                     this.pushX = this.pushZ = 0.0D;
                 }
 
-                this.worldObj.spawnParticle("largesmoke", this.posX, this.posY + 0.8D, this.posZ, 0.0D, 0.0D, 0.0D);
+                this.world.spawnParticle("largesmoke", this.posX, this.posY + 0.8D, this.posZ, 0.0D, 0.0D, 0.0D);
             }
 
         }
@@ -527,15 +527,15 @@ public class EntityMinecart extends Entity implements IInventory {
         int var9 = MathHelper.floor(var1);
         int var10 = MathHelper.floor(var3);
         int var11 = MathHelper.floor(var5);
-        if (BlockRail.isRailBlockAt(this.worldObj, var9, var10 - 1, var11)) {
+        if (BlockRail.isRailBlockAt(this.world, var9, var10 - 1, var11)) {
             --var10;
         }
 
-        int var12 = this.worldObj.getBlockId(var9, var10, var11);
+        int var12 = this.world.getBlockId(var9, var10, var11);
         if (!BlockRail.isRailBlock(var12)) {
             return null;
         } else {
-            int var13 = this.worldObj.getBlockMetadata(var9, var10, var11);
+            int var13 = this.world.getBlockMetadata(var9, var10, var11);
             if (((BlockRail) Block.BLOCKS_LIST[var12]).getIsPowered()) {
                 var13 &= 7;
             }
@@ -567,13 +567,13 @@ public class EntityMinecart extends Entity implements IInventory {
         int var7 = MathHelper.floor(var1);
         int var8 = MathHelper.floor(var3);
         int var9 = MathHelper.floor(var5);
-        if (BlockRail.isRailBlockAt(this.worldObj, var7, var8 - 1, var9)) {
+        if (BlockRail.isRailBlockAt(this.world, var7, var8 - 1, var9)) {
             --var8;
         }
 
-        int var10 = this.worldObj.getBlockId(var7, var8, var9);
+        int var10 = this.world.getBlockId(var7, var8, var9);
         if (BlockRail.isRailBlock(var10)) {
-            int var11 = this.worldObj.getBlockMetadata(var7, var8, var9);
+            int var11 = this.world.getBlockMetadata(var7, var8, var9);
             var3 = var8;
             if (((BlockRail) Block.BLOCKS_LIST[var10]).getIsPowered()) {
                 var11 &= 7;
@@ -677,7 +677,7 @@ public class EntityMinecart extends Entity implements IInventory {
 
     @Override
     public void applyEntityCollision(Entity var1) {
-        if (this.worldObj.localWorld) {
+        if (this.world.localWorld) {
             return;
         }
 
@@ -808,11 +808,11 @@ public class EntityMinecart extends Entity implements IInventory {
                 return true;
             }
 
-            if (!this.worldObj.localWorld) {
+            if (!this.world.localWorld) {
                 var1.mountEntity(this);
             }
         } else if (this.minecartType == 1) {
-            if (!this.worldObj.localWorld) {
+            if (!this.world.localWorld) {
                 var1.displayGUIChest(this);
             }
         } else if (this.minecartType == 2) {

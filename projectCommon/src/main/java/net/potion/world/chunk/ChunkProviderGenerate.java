@@ -11,7 +11,7 @@ import net.potion.world.gen.*;
 
 import java.util.Random;
 
-public class ChunkProviderGenerate implements IOldChunkProvider {
+public class ChunkProviderGenerate implements IChunkProvider {
     public NoiseGeneratorOctaves noiseGen6;
     public NoiseGeneratorOctaves noiseGen7;
     public NoiseGeneratorOctaves mobSpawnerNoise;
@@ -26,7 +26,7 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
     private NoiseGeneratorOctaves noiseGen3;
     private NoiseGeneratorOctaves noiseGen4;
     private NoiseGeneratorOctaves noiseGen5;
-    private World worldObj;
+    private World world;
     private double[] terrain;
     private double[] sandNoise = new double[256];
     private double[] gravelNoise = new double[256];
@@ -35,9 +35,9 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
     private BiomeGenBase[] biomesForGeneration;
     private double[] generatedTemperatures;
 
-    public ChunkProviderGenerate(World var1, long var2) {
-        this.worldObj = var1;
-        this.rand = new Random(var2);
+    public ChunkProviderGenerate(World world, long seed) {
+        this.world = world;
+        this.rand = new Random(seed);
         this.noiseGen1 = new NoiseGeneratorOctaves(this.rand, 16);
         this.noiseGen2 = new NoiseGeneratorOctaves(this.rand, 16);
         this.noiseGen3 = new NoiseGeneratorOctaves(this.rand, 8);
@@ -195,20 +195,20 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
     }
 
     @Override
-    public OldChunk prepareChunk(int x, int z) {
+    public Chunk prepareChunk(int x, int z) {
         return this.provideChunk(x, z);
     }
 
     @Override
-    public OldChunk provideChunk(int x, int z) {
+    public Chunk provideChunk(int x, int z) {
         this.rand.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
         byte[] var3 = new byte[32768];
-        OldChunk var4 = new OldChunk(this.worldObj, var3, x, z);
-        this.biomesForGeneration = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(this.biomesForGeneration, x * 16, z * 16, 16, 16);
-        double[] var5 = this.worldObj.getWorldChunkManager().temperature;
+        Chunk var4 = new Chunk(this.world, var3, x, z);
+        this.biomesForGeneration = this.world.getWorldChunkManager().loadBlockGeneratorData(this.biomesForGeneration, x * 16, z * 16, 16, 16);
+        double[] var5 = this.world.getWorldChunkManager().temperature;
         this.generateTerrain(x, z, var3, this.biomesForGeneration, var5);
         this.replaceBlocksForBiome(x, z, var3, this.biomesForGeneration);
-        this.cavesGen.func_867_a(this, this.worldObj, x, z, var3);
+        this.cavesGen.generate(this, this.world, x, z, var3);
         var4.generateHeightAndSkyLightMap();
         return var4;
     }
@@ -220,8 +220,8 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
 
         double var8 = 684.412D;
         double var10 = 684.412D;
-        double[] var12 = this.worldObj.getWorldChunkManager().temperature;
-        double[] var13 = this.worldObj.getWorldChunkManager().humidity;
+        double[] var12 = this.world.getWorldChunkManager().temperature;
+        double[] var13 = this.world.getWorldChunkManager().humidity;
         this.field4 = this.noiseGen6.method2(this.field4, var2, var4, var5, var7, 1.121D, 1.121D, 0.5D);
         this.field5 = this.noiseGen7.method2(this.field5, var2, var4, var5, var7, 200.0D, 200.0D, 0.5D);
         this.field1 = this.noiseGen3.generateNoiseOctaves(this.field1, var2, var3, var4, var5, var6, var7, var8 / 80.0D, var10 / 160.0D, var8 / 80.0D);
@@ -319,21 +319,21 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
     }
 
     @Override
-    public void populate(IOldChunkProvider provider, int x, int z) {
+    public void populate(IChunkProvider provider, int x, int z) {
         BlockSand.fallInstantly = true;
         int var4 = x * 16;
         int var5 = z * 16;
-        BiomeGenBase var6 = this.worldObj.getWorldChunkManager().getBiomeGenAt(var4 + 16, var5 + 16);
-        this.rand.setSeed(this.worldObj.getRandomSeed());
+        BiomeGenBase var6 = this.world.getWorldChunkManager().getBiomeGenAt(var4 + 16, var5 + 16);
+        this.rand.setSeed(this.world.getRandomSeed());
         long var7 = this.rand.nextLong() / 2L * 2L + 1L;
         long var9 = this.rand.nextLong() / 2L * 2L + 1L;
-        this.rand.setSeed((long) x * var7 + (long) z * var9 ^ this.worldObj.getRandomSeed());
+        this.rand.setSeed((long) x * var7 + (long) z * var9 ^ this.world.getRandomSeed());
         double var11 = 0.25D;
         if (this.rand.nextInt(4) == 0) {
             int var13 = var4 + this.rand.nextInt(16) + 8;
             int var14 = this.rand.nextInt(128);
             int var15 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenLakes(Block.WATER_STILL.blockID)).generate(this.worldObj, this.rand, var13, var14, var15);
+            (new WorldGenLakes(Block.WATER_STILL.blockID)).generate(this.world, this.rand, var13, var14, var15);
         }
 
         if (this.rand.nextInt(8) == 0) {
@@ -341,7 +341,7 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
             int var38 = this.rand.nextInt(this.rand.nextInt(120) + 8);
             int var50 = var5 + this.rand.nextInt(16) + 8;
             if (var38 < 64 || this.rand.nextInt(10) == 0) {
-                (new WorldGenLakes(Block.LAVA_STILL.blockID)).generate(this.worldObj, this.rand, var26, var38, var50);
+                (new WorldGenLakes(Block.LAVA_STILL.blockID)).generate(this.world, this.rand, var26, var38, var50);
             }
         }
 
@@ -349,70 +349,70 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
             int var39 = var4 + this.rand.nextInt(16) + 8;
             int var51 = this.rand.nextInt(128);
             int var16 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenDungeons()).generate(this.worldObj, this.rand, var39, var51, var16);
+            (new WorldGenDungeons()).generate(this.world, this.rand, var39, var51, var16);
         }
 
         for (int var28 = 0; var28 < 10; ++var28) {
             int var40 = var4 + this.rand.nextInt(16);
             int var52 = this.rand.nextInt(128);
             int var63 = var5 + this.rand.nextInt(16);
-            (new WorldGenClay(32)).generate(this.worldObj, this.rand, var40, var52, var63);
+            (new WorldGenClay(32)).generate(this.world, this.rand, var40, var52, var63);
         }
 
         for (int var29 = 0; var29 < 20; ++var29) {
             int var41 = var4 + this.rand.nextInt(16);
             int var53 = this.rand.nextInt(128);
             int var64 = var5 + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.DIRT.blockID, 32)).generate(this.worldObj, this.rand, var41, var53, var64);
+            (new WorldGenMinable(Block.DIRT.blockID, 32)).generate(this.world, this.rand, var41, var53, var64);
         }
 
         for (int var30 = 0; var30 < 10; ++var30) {
             int var42 = var4 + this.rand.nextInt(16);
             int var54 = this.rand.nextInt(128);
             int var65 = var5 + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.GRAVEL.blockID, 32)).generate(this.worldObj, this.rand, var42, var54, var65);
+            (new WorldGenMinable(Block.GRAVEL.blockID, 32)).generate(this.world, this.rand, var42, var54, var65);
         }
 
         for (int var31 = 0; var31 < 20; ++var31) {
             int var43 = var4 + this.rand.nextInt(16);
             int var55 = this.rand.nextInt(128);
             int var66 = var5 + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_COAL.blockID, 16)).generate(this.worldObj, this.rand, var43, var55, var66);
+            (new WorldGenMinable(Block.ORE_COAL.blockID, 16)).generate(this.world, this.rand, var43, var55, var66);
         }
 
         for (int var32 = 0; var32 < 20; ++var32) {
             int var44 = var4 + this.rand.nextInt(16);
             int var56 = this.rand.nextInt(64);
             int var67 = var5 + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_IRON.blockID, 8)).generate(this.worldObj, this.rand, var44, var56, var67);
+            (new WorldGenMinable(Block.ORE_IRON.blockID, 8)).generate(this.world, this.rand, var44, var56, var67);
         }
 
         for (int var33 = 0; var33 < 2; ++var33) {
             int var45 = var4 + this.rand.nextInt(16);
             int var57 = this.rand.nextInt(32);
             int var68 = var5 + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_GOLD.blockID, 8)).generate(this.worldObj, this.rand, var45, var57, var68);
+            (new WorldGenMinable(Block.ORE_GOLD.blockID, 8)).generate(this.world, this.rand, var45, var57, var68);
         }
 
         for (int var34 = 0; var34 < 8; ++var34) {
             int var46 = var4 + this.rand.nextInt(16);
             int var58 = this.rand.nextInt(16);
             int var69 = var5 + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_REDSTONE.blockID, 7)).generate(this.worldObj, this.rand, var46, var58, var69);
+            (new WorldGenMinable(Block.ORE_REDSTONE.blockID, 7)).generate(this.world, this.rand, var46, var58, var69);
         }
 
         for (int var35 = 0; var35 < 1; ++var35) {
             int var47 = var4 + this.rand.nextInt(16);
             int var59 = this.rand.nextInt(16);
             int var70 = var5 + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_DIAMOND.blockID, 7)).generate(this.worldObj, this.rand, var47, var59, var70);
+            (new WorldGenMinable(Block.ORE_DIAMOND.blockID, 7)).generate(this.world, this.rand, var47, var59, var70);
         }
 
         for (int var36 = 0; var36 < 1; ++var36) {
             int var48 = var4 + this.rand.nextInt(16);
             int var60 = this.rand.nextInt(16) + this.rand.nextInt(16);
             int var71 = var5 + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_LAPIS.blockID, 6)).generate(this.worldObj, this.rand, var48, var60, var71);
+            (new WorldGenMinable(Block.ORE_LAPIS.blockID, 6)).generate(this.world, this.rand, var48, var60, var71);
         }
 
         var11 = 0.5D;
@@ -455,7 +455,7 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
             int var17 = var5 + this.rand.nextInt(16) + 8;
             WorldGenerator var18 = var6.getRandomWorldGenForTrees(this.rand);
             var18.method100(1.0D, 1.0D, 1.0D);
-            var18.generate(this.worldObj, this.rand, var72, this.worldObj.getHeightValue(var72, var17), var17);
+            var18.generate(this.world, this.rand, var72, this.world.getHeightValue(var72, var17), var17);
         }
 
         byte var62 = 0;
@@ -479,7 +479,7 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
             int var76 = var4 + this.rand.nextInt(16) + 8;
             int var85 = this.rand.nextInt(128);
             int var19 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.PLANT_YELLOW.blockID)).generate(this.worldObj, this.rand, var76, var85, var19);
+            (new WorldGenFlowers(Block.PLANT_YELLOW.blockID)).generate(this.world, this.rand, var76, var85, var19);
         }
 
         byte var74 = 0;
@@ -512,7 +512,7 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
             int var97 = var4 + this.rand.nextInt(16) + 8;
             int var20 = this.rand.nextInt(128);
             int var21 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenTallGrass(Block.TALLGRASS.blockID, var86)).generate(this.worldObj, this.rand, var97, var20, var21);
+            (new WorldGenTallGrass(Block.TALLGRASS.blockID, var86)).generate(this.world, this.rand, var97, var20, var21);
         }
 
         var74 = 0;
@@ -524,42 +524,42 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
             int var87 = var4 + this.rand.nextInt(16) + 8;
             int var98 = this.rand.nextInt(128);
             int var108 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenDeadBush(Block.DEADBUSH.blockID)).generate(this.worldObj, this.rand, var87, var98, var108);
+            (new WorldGenDeadBush(Block.DEADBUSH.blockID)).generate(this.world, this.rand, var87, var98, var108);
         }
 
         if (this.rand.nextInt(2) == 0) {
             int var79 = var4 + this.rand.nextInt(16) + 8;
             int var88 = this.rand.nextInt(128);
             int var99 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.PLANT_RED.blockID)).generate(this.worldObj, this.rand, var79, var88, var99);
+            (new WorldGenFlowers(Block.PLANT_RED.blockID)).generate(this.world, this.rand, var79, var88, var99);
         }
 
         if (this.rand.nextInt(4) == 0) {
             int var80 = var4 + this.rand.nextInt(16) + 8;
             int var89 = this.rand.nextInt(128);
             int var100 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.MUSHROOM_BROWN.blockID)).generate(this.worldObj, this.rand, var80, var89, var100);
+            (new WorldGenFlowers(Block.MUSHROOM_BROWN.blockID)).generate(this.world, this.rand, var80, var89, var100);
         }
 
         if (this.rand.nextInt(8) == 0) {
             int var81 = var4 + this.rand.nextInt(16) + 8;
             int var90 = this.rand.nextInt(128);
             int var101 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.MUSHROOM_RED.blockID)).generate(this.worldObj, this.rand, var81, var90, var101);
+            (new WorldGenFlowers(Block.MUSHROOM_RED.blockID)).generate(this.world, this.rand, var81, var90, var101);
         }
 
         for (int var82 = 0; var82 < 10; ++var82) {
             int var91 = var4 + this.rand.nextInt(16) + 8;
             int var102 = this.rand.nextInt(128);
             int var109 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenReed()).generate(this.worldObj, this.rand, var91, var102, var109);
+            (new WorldGenReed()).generate(this.world, this.rand, var91, var102, var109);
         }
 
         if (this.rand.nextInt(32) == 0) {
             int var83 = var4 + this.rand.nextInt(16) + 8;
             int var92 = this.rand.nextInt(128);
             int var103 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenPumpkin()).generate(this.worldObj, this.rand, var83, var92, var103);
+            (new WorldGenPumpkin()).generate(this.world, this.rand, var83, var92, var103);
         }
 
         int var84 = 0;
@@ -571,33 +571,33 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
             int var104 = var4 + this.rand.nextInt(16) + 8;
             int var110 = this.rand.nextInt(128);
             int var114 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenCactus()).generate(this.worldObj, this.rand, var104, var110, var114);
+            (new WorldGenCactus()).generate(this.world, this.rand, var104, var110, var114);
         }
 
         for (int var94 = 0; var94 < 50; ++var94) {
             int var105 = var4 + this.rand.nextInt(16) + 8;
             int var111 = this.rand.nextInt(this.rand.nextInt(120) + 8);
             int var115 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.WATER_MOVING.blockID)).generate(this.worldObj, this.rand, var105, var111, var115);
+            (new WorldGenLiquids(Block.WATER_MOVING.blockID)).generate(this.world, this.rand, var105, var111, var115);
         }
 
         for (int var95 = 0; var95 < 20; ++var95) {
             int var106 = var4 + this.rand.nextInt(16) + 8;
             int var112 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(112) + 8) + 8);
             int var116 = var5 + this.rand.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.LAVA_MOVING.blockID)).generate(this.worldObj, this.rand, var106, var112, var116);
+            (new WorldGenLiquids(Block.LAVA_MOVING.blockID)).generate(this.world, this.rand, var106, var112, var116);
         }
 
-        this.generatedTemperatures = this.worldObj.getWorldChunkManager().getTemperatures(this.generatedTemperatures, var4 + 8, var5 + 8, 16, 16);
+        this.generatedTemperatures = this.world.getWorldChunkManager().getTemperatures(this.generatedTemperatures, var4 + 8, var5 + 8, 16, 16);
 
         for (int var96 = var4 + 8; var96 < var4 + 8 + 16; ++var96) {
             for (int var107 = var5 + 8; var107 < var5 + 8 + 16; ++var107) {
                 int var113 = var96 - (var4 + 8);
                 int var117 = var107 - (var5 + 8);
-                int var22 = this.worldObj.findTopSolidOrLiquidBlock(var96, var107);
+                int var22 = this.world.findTopSolidOrLiquidBlock(var96, var107);
                 double var23 = this.generatedTemperatures[var113 * 16 + var117] - (double) (var22 - 64) / 64.0D * 0.3D;
-                if (var23 < 0.5D && var22 > 0 && var22 < 128 && this.worldObj.isAirBlock(var96, var22, var107) && this.worldObj.getBlockMaterial(var96, var22 - 1, var107).getIsSolid() && this.worldObj.getBlockMaterial(var96, var22 - 1, var107) != Material.ICE) {
-                    this.worldObj.setBlockWithNotify(var96, var22, var107, Block.SNOW.blockID);
+                if (var23 < 0.5D && var22 > 0 && var22 < 128 && this.world.isAirBlock(var96, var22, var107) && this.world.getBlockMaterial(var96, var22 - 1, var107).getIsSolid() && this.world.getBlockMaterial(var96, var22 - 1, var107) != Material.ICE) {
+                    this.world.setBlockWithNotify(var96, var22, var107, Block.SNOW.blockID);
                 }
             }
         }
@@ -606,7 +606,7 @@ public class ChunkProviderGenerate implements IOldChunkProvider {
     }
 
     @Override
-    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
+    public boolean saveChunks(boolean forceSave, IProgressUpdatable updatable) {
         return true;
     }
 

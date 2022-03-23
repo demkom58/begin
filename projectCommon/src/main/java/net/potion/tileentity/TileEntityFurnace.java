@@ -132,7 +132,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
             --this.furnaceBurnTime;
         }
 
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             if (this.furnaceBurnTime == 0 && this.canSmelt()) {
                 this.currentItemBurnTime = this.furnaceBurnTime = this.getItemBurnTime(this.furnaceItemStacks[1]);
                 if (this.furnaceBurnTime > 0) {
@@ -159,7 +159,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
             if (var1 != this.furnaceBurnTime > 0) {
                 var2 = true;
-                BlockFurnace.updateFurnaceBlockState(this.furnaceBurnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+                BlockFurnace.updateFurnaceBlockState(this.furnaceBurnTime > 0, this.world, this.xCoord, this.yCoord, this.zCoord);
             }
         }
 
@@ -226,7 +226,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
     @Override
     public boolean canInteractWith(EntityPlayer var1) {
-        if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this) {
+        if (this.world.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this) {
             return false;
         } else {
             return var1.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D) <= 64.0D;

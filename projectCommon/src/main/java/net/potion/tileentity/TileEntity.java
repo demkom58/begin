@@ -25,7 +25,7 @@ public class TileEntity {
         addMapping(TileEntityPiston.class, "Piston");
     }
 
-    public World worldObj;
+    public World world;
     public int xCoord;
     public int yCoord;
     public int zCoord;
@@ -84,12 +84,12 @@ public class TileEntity {
     }
 
     public int getBlockMetadata() {
-        return this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+        return this.world.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
     }
 
     public void onInventoryChanged() {
-        if (this.worldObj != null) {
-            this.worldObj.updateTileEntityChunkAndDoNothing(this.xCoord, this.yCoord, this.zCoord, this);
+        if (this.world != null) {
+            this.world.updateTileEntityChunkAndDoNothing(this.xCoord, this.yCoord, this.zCoord, this);
         }
 
     }
@@ -102,7 +102,7 @@ public class TileEntity {
     }
 
     public Block getBlockType() {
-        return Block.BLOCKS_LIST[this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord)];
+        return Block.BLOCKS_LIST[this.world.getBlockId(this.xCoord, this.yCoord, this.zCoord)];
     }
 
     @Side(CodeSide.SERVER)

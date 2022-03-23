@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class IsoImageBuffer {
     public BufferedImage field_1348_a;
-    public World worldObj;
+    public World world;
     public int field_1354_c;
     public int field_1353_d;
     public boolean field_1352_e = false;
@@ -14,8 +14,8 @@ public class IsoImageBuffer {
     public int field_1350_g = 0;
     public boolean field_1349_h = false;
 
-    public IsoImageBuffer(World var1, int var2, int var3) {
-        this.worldObj = var1;
+    public IsoImageBuffer(World world, int var2, int var3) {
+        this.world = world;
         this.func_889_a(var2, var3);
     }
 
@@ -28,7 +28,7 @@ public class IsoImageBuffer {
     }
 
     public void func_888_a(World var1, int var2, int var3) {
-        this.worldObj = var1;
+        this.world = var1;
         this.func_889_a(var2, var3);
     }
 }

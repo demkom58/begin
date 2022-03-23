@@ -8,7 +8,7 @@ import net.potion.item.Item;
 import net.potion.nbt.TagCompound;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
-import net.potion.world.chunk.OldChunk;
+import net.potion.world.chunk.Chunk;
 
 public class EntitySlime extends EntityLiving implements IMob {
     public float field1;
@@ -66,11 +66,11 @@ public class EntitySlime extends EntityLiving implements IMob {
                 float var5 = this.rand.nextFloat() * 0.5F + 0.5F;
                 float var6 = MathHelper.sin(var4) * (float) var2 * 0.5F * var5;
                 float var7 = MathHelper.cos(var4) * (float) var2 * 0.5F * var5;
-                this.worldObj.spawnParticle("slime", this.posX + (double) var6, this.boundingBox.minY, this.posZ + (double) var7, 0.0D, 0.0D, 0.0D);
+                this.world.spawnParticle("slime", this.posX + (double) var6, this.boundingBox.minY, this.posZ + (double) var7, 0.0D, 0.0D, 0.0D);
             }
 
             if (var2 > 2) {
-                this.worldObj.playSoundAtEntity(this, "mob.slime", this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+                this.world.playSoundAtEntity(this, "mob.slime", this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
             }
 
             this.field1 = -0.5F;
@@ -82,7 +82,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     @Override
     protected void updatePlayerActionState() {
         this.tryDespawn();
-        EntityPlayer var1 = this.worldObj.getClosestPlayerToEntity(this, 16.0D);
+        EntityPlayer var1 = this.world.getClosestPlayerToEntity(this, 16.0D);
         if (var1 != null) {
             this.faceEntity(var1, 10.0F, 20.0F);
         }
@@ -95,7 +95,7 @@ public class EntitySlime extends EntityLiving implements IMob {
 
             this.isJumping = true;
             if (this.getSlimeSize() > 1) {
-                this.worldObj.playSoundAtEntity(this, "mob.slime", this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+                this.world.playSoundAtEntity(this, "mob.slime", this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) * 0.8F);
             }
 
             this.field1 = 1.0F;
@@ -113,14 +113,14 @@ public class EntitySlime extends EntityLiving implements IMob {
     @Override
     public void setEntityDead() {
         int var1 = this.getSlimeSize();
-        if (!this.worldObj.localWorld && var1 > 1 && this.health == 0) {
+        if (!this.world.localWorld && var1 > 1 && this.health == 0) {
             for (int var2 = 0; var2 < 4; ++var2) {
                 float var3 = ((float) (var2 % 2) - 0.5F) * (float) var1 / 4.0F;
                 float var4 = ((float) (var2 / 2) - 0.5F) * (float) var1 / 4.0F;
-                EntitySlime var5 = new EntitySlime(this.worldObj);
+                EntitySlime var5 = new EntitySlime(this.world);
                 var5.setSlimeSize(var1 / 2);
                 var5.setLocationAndAngles(this.posX + (double) var3, this.posY + 0.5D, this.posZ + (double) var4, this.rand.nextFloat() * 360.0F, 0.0F);
-                this.worldObj.entityJoinedWorld(var5);
+                this.world.entityJoinedWorld(var5);
             }
         }
 
@@ -131,7 +131,7 @@ public class EntitySlime extends EntityLiving implements IMob {
     public void onCollideWithPlayer(EntityPlayer var1) {
         int var2 = this.getSlimeSize();
         if (var2 > 1 && this.canEntityBeSeen(var1) && (double) this.getDistanceToEntity(var1) < 0.6D * (double) var2 && var1.attackEntityFrom(this, var2)) {
-            this.worldObj.playSoundAtEntity(this, "mob.slimeattack", 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            this.world.playSoundAtEntity(this, "mob.slimeattack", 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
         }
 
     }
@@ -153,8 +153,8 @@ public class EntitySlime extends EntityLiving implements IMob {
 
     @Override
     public boolean getCanSpawnHere() {
-        OldChunk var1 = this.worldObj.getChunkFromBlockCoords(MathHelper.floor(this.posX), MathHelper.floor(this.posZ));
-        return (this.getSlimeSize() == 1 || this.worldObj.difficultySetting > 0) && this.rand.nextInt(10) == 0 && var1.createSpecialRandom(987234911L).nextInt(10) == 0 && this.posY < 16.0D;
+        Chunk var1 = this.world.getChunkFromBlockCoords(MathHelper.floor(this.posX), MathHelper.floor(this.posZ));
+        return (this.getSlimeSize() == 1 || this.world.difficultySetting > 0) && this.rand.nextInt(10) == 0 && var1.createSpecialRandom(987234911L).nextInt(10) == 0 && this.posY < 16.0D;
     }
 
     @Override

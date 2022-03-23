@@ -21,7 +21,7 @@ public class TileEntityMobSpawnerRenderer extends TileEntitySpecialRenderer {
         }
 
         if (entity != null) {
-            entity.setWorld(spawner.worldObj);
+            entity.setWorld(spawner.world);
             float scale = 0.4375F;
             GL11.glTranslatef(0.0F, 0.4F, 0.0F);
             GL11.glRotatef((float) (spawner.yaw2 + (spawner.yaw - spawner.yaw2) * (double) delta) * 10.0F, 0.0F, 1.0F, 0.0F);

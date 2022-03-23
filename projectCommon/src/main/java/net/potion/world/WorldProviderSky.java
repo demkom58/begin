@@ -6,7 +6,7 @@ import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.chunk.ChunkProviderSky;
-import net.potion.world.chunk.IOldChunkProvider;
+import net.potion.world.chunk.IChunkProvider;
 import net.potion.world.gen.BiomeGenBase;
 import net.hypnosis.util.math.Vec3d;
 
@@ -18,8 +18,8 @@ public class WorldProviderSky extends WorldProvider {
     }
 
     @Override
-    public IOldChunkProvider getChunkProvider() {
-        return new ChunkProviderSky(this.worldObj, this.worldObj.getRandomSeed());
+    public IChunkProvider getChunkProvider() {
+        return new ChunkProviderSky(this.world, this.world.getRandomSeed());
     }
 
     @Override
@@ -69,7 +69,7 @@ public class WorldProviderSky extends WorldProvider {
 
     @Override
     public boolean canCoordinateBeSpawn(int var1, int var2) {
-        int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
+        int var3 = this.world.getFirstUncoveredBlock(var1, var2);
         return var3 != 0 && Block.BLOCKS_LIST[var3].blockMaterial.getIsSolid();
     }
 }

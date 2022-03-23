@@ -115,7 +115,7 @@ public class EntitySnowball extends Entity {
         }
 
         if (this.inGround) {
-            int var1 = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
+            int var1 = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
             if (var1 == this.inTile) {
                 ++this.ticksInGround;
                 if (this.ticksInGround == 1200) {
@@ -137,16 +137,16 @@ public class EntitySnowball extends Entity {
 
         Vec3d var15 = new Vec3d(this.posX, this.posY, this.posZ);
         Vec3d var2 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-        MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
+        MovingObjectPosition var3 = this.world.rayTraceBlocks(var15, var2);
         var15 = new Vec3d(this.posX, this.posY, this.posZ);
         var2 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
         if (var3 != null) {
             var2 = new Vec3d(var3.hitVec.x, var3.hitVec.y, var3.hitVec.z);
         }
 
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             Entity var4 = null;
-            List<Entity> var5 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+            List<Entity> var5 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
             double var6 = 0.0D;
 
             for (int var8 = 0; var8 < var5.size(); ++var8) {
@@ -176,7 +176,7 @@ public class EntitySnowball extends Entity {
             }
 
             for (int var18 = 0; var18 < 8; ++var18) {
-                this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
+                this.world.spawnParticle("snowballpoof", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
             }
 
             this.setEntityDead();
@@ -212,7 +212,7 @@ public class EntitySnowball extends Entity {
         if (this.isInWater()) {
             for (int var7 = 0; var7 < 4; ++var7) {
                 float var22 = 0.25F;
-                this.worldObj.spawnParticle("bubble", this.posX - this.motionX * (double) var22, this.posY - this.motionY * (double) var22, this.posZ - this.motionZ * (double) var22, this.motionX, this.motionY, this.motionZ);
+                this.world.spawnParticle("bubble", this.posX - this.motionX * (double) var22, this.posY - this.motionY * (double) var22, this.posZ - this.motionZ * (double) var22, this.motionX, this.motionY, this.motionZ);
             }
 
             var20 = 0.8F;
@@ -248,7 +248,7 @@ public class EntitySnowball extends Entity {
     @Override
     public void onCollideWithPlayer(EntityPlayer var1) {
         if (this.inGround && this.owner == var1 && this.shake <= 0 && var1.inventory.addItemStackToInventory(new ItemStack(Item.ARROW, 1))) {
-            this.worldObj.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+            this.world.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
             var1.onItemPickup(this, 1);
             this.setEntityDead();
         }

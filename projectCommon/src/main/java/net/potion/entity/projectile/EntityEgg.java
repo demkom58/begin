@@ -116,7 +116,7 @@ public class EntityEgg extends Entity {
         }
 
         if (this.inGround) {
-            int var1 = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
+            int var1 = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
             if (var1 == this.inTile) {
                 ++this.field2;
                 if (this.field2 == 1200) {
@@ -138,16 +138,16 @@ public class EntityEgg extends Entity {
 
         Vec3d var15 = new Vec3d(this.posX, this.posY, this.posZ);
         Vec3d var2 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-        MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
+        MovingObjectPosition var3 = this.world.rayTraceBlocks(var15, var2);
         var15 = new Vec3d(this.posX, this.posY, this.posZ);
         var2 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
         if (var3 != null) {
             var2 = new Vec3d(var3.hitVec.x, var3.hitVec.y, var3.hitVec.z);
         }
 
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             Entity var4 = null;
-            List<Entity> entities = this.worldObj.getEntitiesWithinAABBExcludingEntity(this,
+            List<Entity> entities = this.world.getEntitiesWithinAABBExcludingEntity(this,
                     this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D)
             );
             double var6 = 0.0D;
@@ -177,21 +177,21 @@ public class EntityEgg extends Entity {
             if (var3.entityHit != null && var3.entityHit.attackEntityFrom(this.field1, 0)) {
             }
 
-            if (!this.worldObj.localWorld && this.rand.nextInt(8) == 0) {
+            if (!this.world.localWorld && this.rand.nextInt(8) == 0) {
                 byte var18 = 1;
                 if (this.rand.nextInt(32) == 0) {
                     var18 = 4;
                 }
 
                 for (int var21 = 0; var21 < var18; ++var21) {
-                    EntityChicken var23 = new EntityChicken(this.worldObj);
+                    EntityChicken var23 = new EntityChicken(this.world);
                     var23.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-                    this.worldObj.entityJoinedWorld(var23);
+                    this.world.entityJoinedWorld(var23);
                 }
             }
 
             for (int var19 = 0; var19 < 8; ++var19) {
-                this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
+                this.world.spawnParticle("snowballpoof", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
             }
 
             this.setEntityDead();
@@ -227,7 +227,7 @@ public class EntityEgg extends Entity {
         if (this.isInWater()) {
             for (int var7 = 0; var7 < 4; ++var7) {
                 float var25 = 0.25F;
-                this.worldObj.spawnParticle("bubble", this.posX - this.motionX * (double) var25, this.posY - this.motionY * (double) var25, this.posZ - this.motionZ * (double) var25, this.motionX, this.motionY, this.motionZ);
+                this.world.spawnParticle("bubble", this.posX - this.motionX * (double) var25, this.posY - this.motionY * (double) var25, this.posZ - this.motionZ * (double) var25, this.motionX, this.motionY, this.motionZ);
             }
 
             var22 = 0.8F;
@@ -263,7 +263,7 @@ public class EntityEgg extends Entity {
     @Override
     public void onCollideWithPlayer(EntityPlayer var1) {
         if (this.inGround && this.field1 == var1 && this.shake <= 0 && var1.inventory.addItemStackToInventory(new ItemStack(Item.ARROW, 1))) {
-            this.worldObj.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+            this.world.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
             var1.onItemPickup(this, 1);
             this.setEntityDead();
         }

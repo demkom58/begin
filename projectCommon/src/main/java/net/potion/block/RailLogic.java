@@ -10,21 +10,21 @@ class RailLogic {
     // $FF: synthetic field
     final BlockRail rail;
     private final boolean isPoweredRail;
-    private final World worldObj;
+    private final World world;
     private final int trackX;
     private final int trackY;
     private final int trackZ;
     private final List<ChunkPosition> connectedTracks = new ArrayList<>();
 
-    public RailLogic(BlockRail var1, World var2, int var3, int var4, int var5) {
-        this.rail = var1;
-        this.worldObj = var2;
-        this.trackX = var3;
-        this.trackY = var4;
-        this.trackZ = var5;
+    public RailLogic(BlockRail rail, World world, int x, int y, int z) {
+        this.rail = rail;
+        this.world = world;
+        this.trackX = x;
+        this.trackY = y;
+        this.trackZ = z;
 
-        int blockId = var2.getBlockId(var3, var4, var5);
-        int metadata = var2.getBlockMetadata(var3, var4, var5);
+        int blockId = world.getBlockId(x, y, z);
+        int metadata = world.getBlockMetadata(x, y, z);
         if (BlockRail.isPoweredBlockRail((BlockRail) Block.BLOCKS_LIST[blockId])) {
             this.isPoweredRail = true;
             metadata &= -9;
@@ -89,22 +89,22 @@ class RailLogic {
     }
 
     private boolean isMinecartTrack(int var1, int var2, int var3) {
-        if (BlockRail.isRailBlockAt(this.worldObj, var1, var2, var3)) {
+        if (BlockRail.isRailBlockAt(this.world, var1, var2, var3)) {
             return true;
-        } else if (BlockRail.isRailBlockAt(this.worldObj, var1, var2 + 1, var3)) {
+        } else if (BlockRail.isRailBlockAt(this.world, var1, var2 + 1, var3)) {
             return true;
         } else {
-            return BlockRail.isRailBlockAt(this.worldObj, var1, var2 - 1, var3);
+            return BlockRail.isRailBlockAt(this.world, var1, var2 - 1, var3);
         }
     }
 
     private RailLogic getMinecartTrackLogic(ChunkPosition var1) {
-        if (BlockRail.isRailBlockAt(this.worldObj, var1.x, var1.y, var1.z)) {
-            return new RailLogic(this.rail, this.worldObj, var1.x, var1.y, var1.z);
-        } else if (BlockRail.isRailBlockAt(this.worldObj, var1.x, var1.y + 1, var1.z)) {
-            return new RailLogic(this.rail, this.worldObj, var1.x, var1.y + 1, var1.z);
+        if (BlockRail.isRailBlockAt(this.world, var1.x, var1.y, var1.z)) {
+            return new RailLogic(this.rail, this.world, var1.x, var1.y, var1.z);
+        } else if (BlockRail.isRailBlockAt(this.world, var1.x, var1.y + 1, var1.z)) {
+            return new RailLogic(this.rail, this.world, var1.x, var1.y + 1, var1.z);
         } else {
-            return BlockRail.isRailBlockAt(this.worldObj, var1.x, var1.y - 1, var1.z) ? new RailLogic(this.rail, this.worldObj, var1.x, var1.y - 1, var1.z) : null;
+            return BlockRail.isRailBlockAt(this.world, var1.x, var1.y - 1, var1.z) ? new RailLogic(this.rail, this.world, var1.x, var1.y - 1, var1.z) : null;
         }
     }
 
@@ -198,21 +198,21 @@ class RailLogic {
         }
 
         if (var6 == 0) {
-            if (BlockRail.isRailBlockAt(this.worldObj, this.trackX, this.trackY + 1, this.trackZ - 1)) {
+            if (BlockRail.isRailBlockAt(this.world, this.trackX, this.trackY + 1, this.trackZ - 1)) {
                 var6 = 4;
             }
 
-            if (BlockRail.isRailBlockAt(this.worldObj, this.trackX, this.trackY + 1, this.trackZ + 1)) {
+            if (BlockRail.isRailBlockAt(this.world, this.trackX, this.trackY + 1, this.trackZ + 1)) {
                 var6 = 5;
             }
         }
 
         if (var6 == 1) {
-            if (BlockRail.isRailBlockAt(this.worldObj, this.trackX + 1, this.trackY + 1, this.trackZ)) {
+            if (BlockRail.isRailBlockAt(this.world, this.trackX + 1, this.trackY + 1, this.trackZ)) {
                 var6 = 2;
             }
 
-            if (BlockRail.isRailBlockAt(this.worldObj, this.trackX - 1, this.trackY + 1, this.trackZ)) {
+            if (BlockRail.isRailBlockAt(this.world, this.trackX - 1, this.trackY + 1, this.trackZ)) {
                 var6 = 3;
             }
         }
@@ -223,10 +223,10 @@ class RailLogic {
 
         int var7 = var6;
         if (this.isPoweredRail) {
-            var7 = this.worldObj.getBlockMetadata(this.trackX, this.trackY, this.trackZ) & 8 | var6;
+            var7 = this.world.getBlockMetadata(this.trackX, this.trackY, this.trackZ) & 8 | var6;
         }
 
-        this.worldObj.setBlockMetadataWithNotify(this.trackX, this.trackY, this.trackZ, var7);
+        this.world.setBlockMetadataWithNotify(this.trackX, this.trackY, this.trackZ, var7);
     }
 
     private boolean method3(int var1, int var2, int var3) {
@@ -318,21 +318,21 @@ class RailLogic {
         }
 
         if (var7 == 0) {
-            if (BlockRail.isRailBlockAt(this.worldObj, this.trackX, this.trackY + 1, this.trackZ - 1)) {
+            if (BlockRail.isRailBlockAt(this.world, this.trackX, this.trackY + 1, this.trackZ - 1)) {
                 var7 = 4;
             }
 
-            if (BlockRail.isRailBlockAt(this.worldObj, this.trackX, this.trackY + 1, this.trackZ + 1)) {
+            if (BlockRail.isRailBlockAt(this.world, this.trackX, this.trackY + 1, this.trackZ + 1)) {
                 var7 = 5;
             }
         }
 
         if (var7 == 1) {
-            if (BlockRail.isRailBlockAt(this.worldObj, this.trackX + 1, this.trackY + 1, this.trackZ)) {
+            if (BlockRail.isRailBlockAt(this.world, this.trackX + 1, this.trackY + 1, this.trackZ)) {
                 var7 = 2;
             }
 
-            if (BlockRail.isRailBlockAt(this.worldObj, this.trackX - 1, this.trackY + 1, this.trackZ)) {
+            if (BlockRail.isRailBlockAt(this.world, this.trackX - 1, this.trackY + 1, this.trackZ)) {
                 var7 = 3;
             }
         }
@@ -344,11 +344,11 @@ class RailLogic {
         this.setConnections(var7);
         int var8 = var7;
         if (this.isPoweredRail) {
-            var8 = this.worldObj.getBlockMetadata(this.trackX, this.trackY, this.trackZ) & 8 | var7;
+            var8 = this.world.getBlockMetadata(this.trackX, this.trackY, this.trackZ) & 8 | var7;
         }
 
-        if (var2 || this.worldObj.getBlockMetadata(this.trackX, this.trackY, this.trackZ) != var8) {
-            this.worldObj.setBlockMetadataWithNotify(this.trackX, this.trackY, this.trackZ, var8);
+        if (var2 || this.world.getBlockMetadata(this.trackX, this.trackY, this.trackZ) != var8) {
+            this.world.setBlockMetadataWithNotify(this.trackX, this.trackY, this.trackZ, var8);
 
             for (int var9 = 0; var9 < this.connectedTracks.size(); ++var9) {
                 RailLogic var10 = this.getMinecartTrackLogic(this.connectedTracks.get(var9));

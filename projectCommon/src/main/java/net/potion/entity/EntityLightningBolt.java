@@ -46,8 +46,8 @@ public class EntityLightningBolt extends EntityWeatherEffect {
     public void onUpdate() {
         super.onUpdate();
         if (this.field2 == 2) {
-            this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "ambient.weather.thunder", 10000.0F, 0.8F + this.rand.nextFloat() * 0.2F);
-            this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "random.explode", 2.0F, 0.5F + this.rand.nextFloat() * 0.2F);
+            this.world.playSoundEffect(this.posX, this.posY, this.posZ, "ambient.weather.thunder", 10000.0F, 0.8F + this.rand.nextFloat() * 0.2F);
+            this.world.playSoundEffect(this.posX, this.posY, this.posZ, "random.explode", 2.0F, 0.5F + this.rand.nextFloat() * 0.2F);
         }
 
         --this.field2;
@@ -58,12 +58,12 @@ public class EntityLightningBolt extends EntityWeatherEffect {
                 --this.field3;
                 this.field2 = 1;
                 this.field1 = this.rand.nextLong();
-                if (this.worldObj.doChunksNearChunkExist(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ), 10)) {
+                if (this.world.doChunksNearChunkExist(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ), 10)) {
                     int var1 = MathHelper.floor(this.posX);
                     int var2 = MathHelper.floor(this.posY);
                     int var3 = MathHelper.floor(this.posZ);
-                    if (this.worldObj.getBlockId(var1, var2, var3) == 0 && Block.FIRE.canPlaceBlockAt(this.worldObj, var1, var2, var3)) {
-                        this.worldObj.setBlockWithNotify(var1, var2, var3, Block.FIRE.blockID);
+                    if (this.world.getBlockId(var1, var2, var3) == 0 && Block.FIRE.canPlaceBlockAt(this.world, var1, var2, var3)) {
+                        this.world.setBlockWithNotify(var1, var2, var3, Block.FIRE.blockID);
                     }
                 }
             }
@@ -71,14 +71,14 @@ public class EntityLightningBolt extends EntityWeatherEffect {
 
         if (this.field2 >= 0) {
             double var6 = 3.0D;
-            List<Entity> var7 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBoxFromPool(this.posX - var6, this.posY - var6, this.posZ - var6, this.posX + var6, this.posY + 6.0D + var6, this.posZ + var6));
+            List<Entity> var7 = this.world.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBoxFromPool(this.posX - var6, this.posY - var6, this.posZ - var6, this.posX + var6, this.posY + 6.0D + var6, this.posZ + var6));
 
             for (int var4 = 0; var4 < var7.size(); ++var4) {
                 Entity var5 = var7.get(var4);
                 var5.onStruckByLightning(this);
             }
 
-            this.worldObj.field1 = 2;
+            this.world.field1 = 2;
         }
 
     }

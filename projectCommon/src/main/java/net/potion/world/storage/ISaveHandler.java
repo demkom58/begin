@@ -4,7 +4,7 @@ import net.potion.entity.player.EntityPlayer;
 import net.potion.entity.player.IPlayerFileData;
 import net.potion.world.WorldInfo;
 import net.potion.world.WorldProvider;
-import net.potion.world.chunk.IOldChunkLoader;
+import net.potion.world.chunk.IChunkLoader;
 
 import java.io.File;
 import java.util.List;
@@ -14,7 +14,7 @@ public interface ISaveHandler {
 
     void validateSession();
 
-    IOldChunkLoader getChunkLoader(WorldProvider provider);
+    IChunkLoader getChunkLoader(WorldProvider provider);
 
     void saveWorldInfoAndPlayer(WorldInfo worldInfo, List<EntityPlayer> players);
 

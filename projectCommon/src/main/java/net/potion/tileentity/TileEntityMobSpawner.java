@@ -24,24 +24,24 @@ public class TileEntityMobSpawner extends TileEntity {
     }
 
     public boolean anyPlayerInRange() {
-        return this.worldObj.getClosestPlayer((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D, 16.0D) != null;
+        return this.world.getClosestPlayer((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D, 16.0D) != null;
     }
 
     @Override
     public void updateEntity() {
         this.yaw2 = this.yaw;
         if (this.anyPlayerInRange()) {
-            double var1 = (float) this.xCoord + this.worldObj.rand.nextFloat();
-            double var3 = (float) this.yCoord + this.worldObj.rand.nextFloat();
-            double var5 = (float) this.zCoord + this.worldObj.rand.nextFloat();
-            this.worldObj.spawnParticle("smoke", var1, var3, var5, 0.0D, 0.0D, 0.0D);
-            this.worldObj.spawnParticle("flame", var1, var3, var5, 0.0D, 0.0D, 0.0D);
+            double var1 = (float) this.xCoord + this.world.rand.nextFloat();
+            double var3 = (float) this.yCoord + this.world.rand.nextFloat();
+            double var5 = (float) this.zCoord + this.world.rand.nextFloat();
+            this.world.spawnParticle("smoke", var1, var3, var5, 0.0D, 0.0D, 0.0D);
+            this.world.spawnParticle("flame", var1, var3, var5, 0.0D, 0.0D, 0.0D);
 
             for (this.yaw += 1000.0F / ((float) this.delay + 200.0F); this.yaw > 360.0D; this.yaw2 -= 360.0D) {
                 this.yaw -= 360.0D;
             }
 
-            if (!this.worldObj.localWorld) {
+            if (!this.world.localWorld) {
                 if (this.delay == -1) {
                     this.updateDelay();
                 }
@@ -54,31 +54,31 @@ public class TileEntityMobSpawner extends TileEntity {
                 byte var7 = 4;
 
                 for (int var8 = 0; var8 < var7; ++var8) {
-                    EntityLiving var9 = (EntityLiving) EntityList.createEntityInWorld(this.mobID, this.worldObj);
+                    EntityLiving var9 = (EntityLiving) EntityList.createEntityInWorld(this.mobID, this.world);
                     if (var9 == null) {
                         return;
                     }
 
-                    int var10 = this.worldObj.getEntitiesWithinAABB(var9.getClass(), AxisAlignedBB.getBoundingBoxFromPool(this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 1, this.zCoord + 1).expand(8.0D, 4.0D, 8.0D)).size();
+                    int var10 = this.world.getEntitiesWithinAABB(var9.getClass(), AxisAlignedBB.getBoundingBoxFromPool(this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 1, this.zCoord + 1).expand(8.0D, 4.0D, 8.0D)).size();
                     if (var10 >= 6) {
                         this.updateDelay();
                         return;
                     }
 
                     if (var9 != null) {
-                        double var11 = (double) this.xCoord + (this.worldObj.rand.nextDouble() - this.worldObj.rand.nextDouble()) * 4.0D;
-                        double var13 = this.yCoord + this.worldObj.rand.nextInt(3) - 1;
-                        double var15 = (double) this.zCoord + (this.worldObj.rand.nextDouble() - this.worldObj.rand.nextDouble()) * 4.0D;
-                        var9.setLocationAndAngles(var11, var13, var15, this.worldObj.rand.nextFloat() * 360.0F, 0.0F);
+                        double var11 = (double) this.xCoord + (this.world.rand.nextDouble() - this.world.rand.nextDouble()) * 4.0D;
+                        double var13 = this.yCoord + this.world.rand.nextInt(3) - 1;
+                        double var15 = (double) this.zCoord + (this.world.rand.nextDouble() - this.world.rand.nextDouble()) * 4.0D;
+                        var9.setLocationAndAngles(var11, var13, var15, this.world.rand.nextFloat() * 360.0F, 0.0F);
                         if (var9.getCanSpawnHere()) {
-                            this.worldObj.entityJoinedWorld(var9);
+                            this.world.entityJoinedWorld(var9);
 
                             for (int var17 = 0; var17 < 20; ++var17) {
-                                var1 = (double) this.xCoord + 0.5D + ((double) this.worldObj.rand.nextFloat() - 0.5D) * 2.0D;
-                                var3 = (double) this.yCoord + 0.5D + ((double) this.worldObj.rand.nextFloat() - 0.5D) * 2.0D;
-                                var5 = (double) this.zCoord + 0.5D + ((double) this.worldObj.rand.nextFloat() - 0.5D) * 2.0D;
-                                this.worldObj.spawnParticle("smoke", var1, var3, var5, 0.0D, 0.0D, 0.0D);
-                                this.worldObj.spawnParticle("flame", var1, var3, var5, 0.0D, 0.0D, 0.0D);
+                                var1 = (double) this.xCoord + 0.5D + ((double) this.world.rand.nextFloat() - 0.5D) * 2.0D;
+                                var3 = (double) this.yCoord + 0.5D + ((double) this.world.rand.nextFloat() - 0.5D) * 2.0D;
+                                var5 = (double) this.zCoord + 0.5D + ((double) this.world.rand.nextFloat() - 0.5D) * 2.0D;
+                                this.world.spawnParticle("smoke", var1, var3, var5, 0.0D, 0.0D, 0.0D);
+                                this.world.spawnParticle("flame", var1, var3, var5, 0.0D, 0.0D, 0.0D);
                             }
 
                             var9.spawnExplosionParticle();
@@ -93,7 +93,7 @@ public class TileEntityMobSpawner extends TileEntity {
     }
 
     private void updateDelay() {
-        this.delay = 200 + this.worldObj.rand.nextInt(600);
+        this.delay = 200 + this.world.rand.nextInt(600);
     }
 
     @Override

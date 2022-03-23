@@ -6,11 +6,11 @@ import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.chunk.ChunkProviderGenerate;
-import net.potion.world.chunk.IOldChunkProvider;
+import net.potion.world.chunk.IChunkProvider;
 import net.hypnosis.util.math.Vec3d;
 
 public abstract class WorldProvider {
-    public World worldObj;
+    public World world;
     public WorldChunkManager worldChunkMgr;
     public boolean isNether = false;
     public boolean isHellWorld = false;
@@ -19,18 +19,18 @@ public abstract class WorldProvider {
     public int worldType = 0;
     private float[] colorsSunriseSunset = new float[4];
 
-    public static WorldProvider getProviderForDimension(int var0) {
-        if (var0 == -1)
+    public static WorldProvider getProviderForDimension(int dimension) {
+        if (dimension == -1)
             return new WorldProviderHell();
 
-        if (var0 == 0)
+        if (dimension == 0)
             return new WorldProviderSurface();
 
-        return var0 == 1 ? new WorldProviderSky() : null;
+        return dimension == 1 ? new WorldProviderSky() : null;
     }
 
-    public final void registerWorld(World var1) {
-        this.worldObj = var1;
+    public final void registerWorld(World world) {
+        this.world = world;
         this.registerWorldChunkManager();
         this.generateLightBrightnessTable();
     }
@@ -46,16 +46,16 @@ public abstract class WorldProvider {
     }
 
     protected void registerWorldChunkManager() {
-        this.worldChunkMgr = new WorldChunkManager(this.worldObj);
+        this.worldChunkMgr = new WorldChunkManager(this.world);
     }
 
-    public IOldChunkProvider getChunkProvider() {
-        return new ChunkProviderGenerate(this.worldObj, this.worldObj.getRandomSeed());
+    public IChunkProvider getChunkProvider() {
+        return new ChunkProviderGenerate(this.world, this.world.getRandomSeed());
     }
 
     public boolean canCoordinateBeSpawn(int var1, int var2) {
-        int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
-        return var3 == Block.SAND.blockID;
+        int uncoveredBlock = this.world.getFirstUncoveredBlock(var1, var2);
+        return uncoveredBlock == Block.SAND.blockID;
     }
 
     public float calculateCelestialAngle(long celestialAngle, float var3) {

@@ -80,7 +80,7 @@ public class EntityBoat extends Entity {
 
     @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
-        if (this.worldObj.localWorld || this.isDead) {
+        if (this.world.localWorld || this.isDead) {
             return true;
         }
 
@@ -163,12 +163,12 @@ public class EntityBoat extends Entity {
             double var5 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double) (var4) / (double) var1 - 0.125D;
             double var7 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double) (var4 + 1) / (double) var1 - 0.125D;
             AxisAlignedBB var9 = AxisAlignedBB.getBoundingBoxFromPool(this.boundingBox.minX, var5, this.boundingBox.minZ, this.boundingBox.maxX, var7, this.boundingBox.maxZ);
-            if (this.worldObj.isAABBInMaterial(var9, Material.WATER)) {
+            if (this.world.isAABBInMaterial(var9, Material.WATER)) {
                 var2 += 1.0D / (double) var1;
             }
         }
 
-        if (this.worldObj.localWorld) {
+        if (this.world.localWorld) {
             if (this.field1 > 0) {
                 double var23 = this.posX + (this.field2 - this.posX) / (double) this.field1;
                 double var25 = this.posY + (this.field3 - this.posY) / (double) this.field1;
@@ -255,17 +255,17 @@ public class EntityBoat extends Entity {
                     if (this.rand.nextBoolean()) {
                         double var17 = this.posX - var8 * var13 * 0.8D + var10 * var15;
                         double var19 = this.posZ - var10 * var13 * 0.8D - var8 * var15;
-                        this.worldObj.spawnParticle("splash", var17, this.posY - 0.125D, var19, this.motionX, this.motionY, this.motionZ);
+                        this.world.spawnParticle("splash", var17, this.posY - 0.125D, var19, this.motionX, this.motionY, this.motionZ);
                     } else {
                         double var35 = this.posX + var8 + var10 * var13 * 0.7D;
                         double var39 = this.posZ + var10 - var8 * var13 * 0.7D;
-                        this.worldObj.spawnParticle("splash", var35, this.posY - 0.125D, var39, this.motionX, this.motionY, this.motionZ);
+                        this.world.spawnParticle("splash", var35, this.posY - 0.125D, var39, this.motionX, this.motionY, this.motionZ);
                     }
                 }
             }
 
             if (this.isCollidedHorizontally && var6 > 0.15D) {
-                if (!this.worldObj.localWorld) {
+                if (!this.world.localWorld) {
                     this.setEntityDead();
 
                     for (int var27 = 0; var27 < 3; ++var27) {
@@ -308,7 +308,7 @@ public class EntityBoat extends Entity {
 
             this.rotationYaw = (float) ((double) this.rotationYaw + var14);
             this.setRotation(this.rotationYaw, this.rotationPitch);
-            List var16 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+            List var16 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
             if (var16 != null && var16.size() > 0) {
                 for (int var36 = 0; var36 < var16.size(); ++var36) {
                     Entity var18 = (Entity) var16.get(var36);
@@ -322,8 +322,8 @@ public class EntityBoat extends Entity {
                 int var38 = MathHelper.floor(this.posX + ((double) (var37 % 2) - 0.5D) * 0.8D);
                 int var40 = MathHelper.floor(this.posY);
                 int var20 = MathHelper.floor(this.posZ + ((double) (var37 / 2) - 0.5D) * 0.8D);
-                if (this.worldObj.getBlockId(var38, var40, var20) == Block.SNOW.blockID) {
-                    this.worldObj.setBlockWithNotify(var38, var40, var20, 0);
+                if (this.world.getBlockId(var38, var40, var20) == Block.SNOW.blockID) {
+                    this.world.setBlockWithNotify(var38, var40, var20, 0);
                 }
             }
 
@@ -363,7 +363,7 @@ public class EntityBoat extends Entity {
             return true;
         }
 
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             var1.mountEntity(this);
         }
 

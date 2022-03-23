@@ -25,7 +25,7 @@ public class EntityWaterMob extends EntityCreature implements IAnimals {
 
     @Override
     public boolean getCanSpawnHere() {
-        return this.worldObj.checkIfAABBIsClear(this.boundingBox);
+        return this.world.checkIfAABBIsClear(this.boundingBox);
     }
 
     @Override

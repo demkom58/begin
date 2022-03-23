@@ -4,16 +4,16 @@ import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
 import net.potion.util.IProgressUpdatable;
 
-public interface IOldChunkProvider {
+public interface IChunkProvider {
     boolean chunkExists(int x, int z);
 
-    OldChunk provideChunk(int x, int z);
+    Chunk provideChunk(int x, int z);
 
-    OldChunk prepareChunk(int x, int z);
+    Chunk prepareChunk(int x, int z);
 
-    void populate(IOldChunkProvider provider, int x, int z);
+    void populate(IChunkProvider provider, int x, int z);
 
-    boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable);
+    boolean saveChunks(boolean forceSave, IProgressUpdatable updatable);
 
     boolean unload100OldestChunks();
 

@@ -20,7 +20,7 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
     private int field_1793_a = 0;
     private int zoomLevel = 2;
     private boolean displayHelpText = true;
-    private World worldObj;
+    private World world;
     private File dataFolder = this.getPotionDir();
     private boolean running = true;
     private final List<IsoImageBuffer> imageBufferList = Collections.synchronizedList(new LinkedList<>());
@@ -60,14 +60,14 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
 
     public void loadWorld(String var1) {
         this.field_1785_i = this.field_1784_j = 0;
-        this.worldObj = new World(new SaveHandler(new File(this.dataFolder, "saves"), var1, false), var1, (new Random()).nextLong());
-        this.worldObj.skylightSubtracted = 0;
+        this.world = new World(new SaveHandler(new File(this.dataFolder, "saves"), var1, false), var1, (new Random()).nextLong());
+        this.world.skylightSubtracted = 0;
         synchronized (this.imageBufferList) {
             this.imageBufferList.clear();
 
             for (int var3 = 0; var3 < 64; ++var3) {
                 for (int var4 = 0; var4 < 64; ++var4) {
-                    this.imageBuffers[var3][var4].func_888_a(this.worldObj, var3, var4);
+                    this.imageBuffers[var3][var4].func_888_a(this.world, var3, var4);
                 }
             }
 
@@ -76,12 +76,12 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
 
     private void setTimeOfDay(int var1) {
         synchronized (this.imageBufferList) {
-            this.worldObj.skylightSubtracted = var1;
+            this.world.skylightSubtracted = var1;
             this.imageBufferList.clear();
 
             for (int var3 = 0; var3 < 64; ++var3) {
                 for (int var4 = 0; var4 < 64; ++var4) {
-                    this.imageBuffers[var3][var4].func_888_a(this.worldObj, var3, var4);
+                    this.imageBuffers[var3][var4].func_888_a(this.world, var3, var4);
                 }
             }
 
@@ -180,8 +180,8 @@ public class CanvasIsomPreview extends Canvas implements KeyListener, MouseListe
         var1.translate(this.getWidth() / 2, this.getHeight() / 2);
         var1.scale(this.zoomLevel, this.zoomLevel);
         var1.translate(this.field_1785_i, this.field_1784_j);
-        if (this.worldObj != null) {
-            ChunkCoordinates var3 = this.worldObj.getSpawnPoint();
+        if (this.world != null) {
+            ChunkCoordinates var3 = this.world.getSpawnPoint();
             var1.translate(-(var3.x + var3.z), -(-var3.x + var3.z) + 64);
         }
 

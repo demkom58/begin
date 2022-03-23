@@ -49,7 +49,7 @@ public class MetadataChunkBlock {
                 } else {
                     var14 = world.doChunksNearChunkExist(x, 0, z, 1);
                     if (var14) {
-                        OldChunk var15 = world.getChunkFromChunkCoords(x >> 4, z >> 4);
+                        Chunk var15 = world.getChunkFromChunkCoords(x >> 4, z >> 4);
                         if (var15.isEmptyChunk()) {
                             var14 = false;
                         }

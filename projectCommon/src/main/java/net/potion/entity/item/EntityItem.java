@@ -59,11 +59,11 @@ public class EntityItem extends Entity {
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
         this.motionY -= 0.03999999910593033D;
-        if (this.worldObj.getBlockMaterial(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) == Material.LAVA) {
+        if (this.world.getBlockMaterial(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) == Material.LAVA) {
             this.motionY = 0.20000000298023224D;
             this.motionX = (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F;
             this.motionZ = (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F;
-            this.worldObj.playSoundAtEntity(this, "random.fizz", 0.4F, 2.0F + this.rand.nextFloat() * 0.4F);
+            this.world.playSoundAtEntity(this, "random.fizz", 0.4F, 2.0F + this.rand.nextFloat() * 0.4F);
         }
 
         this.pushOutOfBlocks(this.posX, (this.boundingBox.minY + this.boundingBox.maxY) / 2.0D, this.posZ);
@@ -72,7 +72,7 @@ public class EntityItem extends Entity {
         float moveMul = 0.98F;
         if (this.onGround) {
             moveMul = 0.58800006F;
-            int onBlockId = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
+            int onBlockId = this.world.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
             if (onBlockId > 0)
                 moveMul = Block.BLOCKS_LIST[onBlockId].slipperiness * 0.98F;
         }
@@ -94,7 +94,7 @@ public class EntityItem extends Entity {
 
     @Override
     public boolean handleWaterMovement() {
-        return this.worldObj.handleMaterialAcceleration(this.boundingBox, Material.WATER, this);
+        return this.world.handleMaterialAcceleration(this.boundingBox, Material.WATER, this);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class EntityItem extends Entity {
 
     @Override
     public void onCollideWithPlayer(EntityPlayer player) {
-        if (this.worldObj.localWorld)
+        if (this.world.localWorld)
             return;
 
         int stackSize = this.item.stackSize;
@@ -140,7 +140,7 @@ public class EntityItem extends Entity {
             if (this.item.itemID == Item.LEATHER.shiftedIndex)
                 player.triggerAchievement(AchievementList.killCow);
 
-            this.worldObj.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+            this.world.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
             player.onItemPickup(this, stackSize);
             if (this.item.stackSize <= 0)
                 this.setEntityDead();

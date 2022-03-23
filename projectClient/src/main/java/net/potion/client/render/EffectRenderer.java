@@ -15,14 +15,14 @@ import java.util.List;
 import java.util.Random;
 
 public class EffectRenderer {
-    protected World worldObj;
+    protected World world;
     private List[] fxLayers = new List[4];
     private RenderEngine renderer;
     private Random rand = new Random();
 
     public EffectRenderer(World var1, RenderEngine var2) {
         if (var1 != null) {
-            this.worldObj = var1;
+            this.world = var1;
         }
 
         this.renderer = var2;
@@ -109,7 +109,7 @@ public class EffectRenderer {
     }
 
     public void clearEffects(World var1) {
-        this.worldObj = var1;
+        this.world = var1;
 
         for (int var2 = 0; var2 < 4; ++var2) {
             this.fxLayers[var2].clear();
@@ -129,7 +129,7 @@ public class EffectRenderer {
                         double var13 = (double) var2 + ((double) var9 + 0.5D) / (double) var7;
                         double var15 = (double) var3 + ((double) var10 + 0.5D) / (double) var7;
                         int var17 = this.rand.nextInt(6);
-                        this.addEffect((new EntityDiggingFX(this.worldObj, var11, var13, var15, var11 - (double) var1 - 0.5D, var13 - (double) var2 - 0.5D, var15 - (double) var3 - 0.5D, var6, var17, var5)).position(var1, var2, var3));
+                        this.addEffect((new EntityDiggingFX(this.world, var11, var13, var15, var11 - (double) var1 - 0.5D, var13 - (double) var2 - 0.5D, var15 - (double) var3 - 0.5D, var6, var17, var5)).position(var1, var2, var3));
                     }
                 }
             }
@@ -138,7 +138,7 @@ public class EffectRenderer {
     }
 
     public void addBlockHitEffects(int x, int y, int z, int sideHit) {
-        int blockId = this.worldObj.getBlockId(x, y, z);
+        int blockId = this.world.getBlockId(x, y, z);
         if (blockId == 0)
             return;
 
@@ -158,7 +158,7 @@ public class EffectRenderer {
         }
 
         this.addEffect(
-                new EntityDiggingFX(this.worldObj, efX, efY, efZ, 0.0D, 0.0D, 0.0D, block, sideHit, this.worldObj.getBlockMetadata(x, y, z))
+                new EntityDiggingFX(this.world, efX, efY, efZ, 0.0D, 0.0D, 0.0D, block, sideHit, this.world.getBlockMetadata(x, y, z))
                         .position(x, y, z).motion(0.2F).scale(0.6F)
         );
     }

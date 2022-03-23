@@ -15,16 +15,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class OldChunkLoader implements IOldChunkLoader {
+public class ChunkLoader implements IChunkLoader {
     private File saveDir;
     private boolean createIfNecessary;
 
-    public OldChunkLoader(File saveDir, boolean createIfNecessary) {
+    public ChunkLoader(File saveDir, boolean createIfNecessary) {
         this.saveDir = saveDir;
         this.createIfNecessary = createIfNecessary;
     }
 
-    public static void storeChunkInCompound(OldChunk var0, World var1, TagCompound var2) {
+    public static void storeChunkInCompound(Chunk var0, World var1, TagCompound var2) {
         var1.checkSessionLock();
         var2.setInteger("xPos", var0.xPosition);
         var2.setInteger("zPos", var0.zPosition);
@@ -60,10 +60,10 @@ public class OldChunkLoader implements IOldChunkLoader {
         var2.setTag("TileEntities", var8);
     }
 
-    public static OldChunk loadChunkIntoWorldFromCompound(World var0, TagCompound var1) {
+    public static Chunk loadChunkIntoWorldFromCompound(World var0, TagCompound var1) {
         int var2 = var1.getInteger("xPos");
         int var3 = var1.getInteger("zPos");
-        OldChunk var4 = new OldChunk(var0, var2, var3);
+        Chunk var4 = new Chunk(var0, var2, var3);
         var4.blocks = var1.getByteArray("Blocks");
         var4.metadata = new NibbleArray(var1.getByteArray("Data"));
         var4.skylightMap = new NibbleArray(var1.getByteArray("SkyLight"));
@@ -138,7 +138,7 @@ public class OldChunkLoader implements IOldChunkLoader {
     }
 
     @Override
-    public OldChunk loadChunk(World world, int x, int z) throws IOException {
+    public Chunk loadChunk(World world, int x, int z) throws IOException {
         File var4 = this.chunkFileForXZ(x, z);
         if (var4 != null && var4.exists()) {
             try {
@@ -154,7 +154,7 @@ public class OldChunkLoader implements IOldChunkLoader {
                     return null;
                 }
 
-                OldChunk var7 = loadChunkIntoWorldFromCompound(world, var6.getCompoundTag("Level"));
+                Chunk var7 = loadChunkIntoWorldFromCompound(world, var6.getCompoundTag("Level"));
                 if (!var7.isAtLocation(x, z)) {
                     System.out.println("Chunk file at " + x + "," + z + " is in the wrong location; relocating. (Expected " + x + ", " + z + ", got " + var7.xPosition + ", " + var7.zPosition + ")");
                     var6.setInteger("xPos", x);
@@ -173,7 +173,7 @@ public class OldChunkLoader implements IOldChunkLoader {
     }
 
     @Override
-    public void saveChunk(World world, OldChunk chunk) throws IOException {
+    public void saveChunk(World world, Chunk chunk) throws IOException {
         world.checkSessionLock();
         File var3 = this.chunkFileForXZ(chunk.xPosition, chunk.zPosition);
         if (var3.exists()) {
@@ -212,6 +212,6 @@ public class OldChunkLoader implements IOldChunkLoader {
     }
 
     @Override
-    public void saveExtraChunkData(World world, OldChunk chunk) throws IOException {
+    public void saveExtraChunkData(World world, Chunk chunk) throws IOException {
     }
 }

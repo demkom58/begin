@@ -10,8 +10,8 @@ import net.potion.util.PotionException;
 import net.potion.world.WorldInfo;
 import net.potion.world.WorldProvider;
 import net.potion.world.WorldProviderHell;
-import net.potion.world.chunk.OldChunkLoader;
-import net.potion.world.chunk.IOldChunkLoader;
+import net.potion.world.chunk.ChunkLoader;
+import net.potion.world.chunk.IChunkLoader;
 
 import java.io.*;
 import java.util.List;
@@ -73,14 +73,14 @@ public class SaveHandler implements IPlayerFileData, ISaveHandler {
     }
 
     @Override
-    public IOldChunkLoader getChunkLoader(WorldProvider provider) {
+    public IChunkLoader getChunkLoader(WorldProvider provider) {
         if (provider instanceof WorldProviderHell) {
             File file = new File(this.worldDir, "DIM-1");
             file.mkdirs();
-            return new OldChunkLoader(file, true);
+            return new ChunkLoader(file, true);
         }
 
-        return new OldChunkLoader(this.worldDir, true);
+        return new ChunkLoader(this.worldDir, true);
     }
 
     @Override

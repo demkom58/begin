@@ -10,8 +10,8 @@ import net.potion.tileentity.TileEntity;
 import net.potion.tileentity.TileEntityRenderer;
 import net.potion.util.AxisAlignedBB;
 import net.hypnosis.util.math.MathHelper;
-import net.potion.world.chunk.OldChunk;
-import net.potion.world.chunk.OldChunkCache;
+import net.potion.world.chunk.Chunk;
+import net.potion.world.chunk.ChunkCache;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -132,11 +132,11 @@ public class WorldRenderer {
             this.skipRenderPass[var7] = true;
         }
 
-        OldChunk.isLit = false;
+        Chunk.isLit = false;
         Set<TileEntity> tileEntityRenderers = new HashSet<>(this.tileEntityRenderers);
         this.tileEntityRenderers.clear();
         byte var8 = 1;
-        OldChunkCache chunkCache = new OldChunkCache(this.world, startX - var8, startY - var8, startZ - var8, endX + var8, endY + var8, endZ + var8);
+        ChunkCache chunkCache = new ChunkCache(this.world, startX - var8, startY - var8, startZ - var8, endX + var8, endY + var8, endZ + var8);
         RenderBlocks renderBlocks = new RenderBlocks(chunkCache);
 
         for (int i = 0; i < 2; ++i) {
@@ -201,7 +201,7 @@ public class WorldRenderer {
         this.tileEntities.addAll(entities);
         tileEntityRenderers.removeAll(this.tileEntityRenderers);
         this.tileEntities.removeAll(tileEntityRenderers);
-        this.isChunkLit = OldChunk.isLit;
+        this.isChunkLit = Chunk.isLit;
         this.isInitialized = true;
     }
 

@@ -19,7 +19,7 @@ import net.hypnosis.util.math.MathHelper;
 import net.potion.util.MovingObjectPosition;
 import net.potion.world.World;
 import net.potion.world.chunk.ChunkProviderLoadOrGenerate;
-import net.potion.world.chunk.IOldChunkProvider;
+import net.potion.world.chunk.IChunkProvider;
 import net.potion.world.gen.BiomeGenBase;
 import net.hypnosis.util.math.Vec3d;
 import org.lwjgl.opengl.ARBVertexBlend;
@@ -489,7 +489,7 @@ public class EntityRenderer {
         double y = viewEntity.lastTickPosY + (viewEntity.posY - viewEntity.lastTickPosY) * partialTicks;
         double z = viewEntity.lastTickPosZ + (viewEntity.posZ - viewEntity.lastTickPosZ) * partialTicks;
 
-        IOldChunkProvider chunkProvider = this.potion.theWorld.getIChunkProvider();
+        IChunkProvider chunkProvider = this.potion.theWorld.getIChunkProvider();
         if (chunkProvider instanceof ChunkProviderLoadOrGenerate chunkProviderLOG) {
             int chunkX = MathHelper.floor(x) >> 4;
             int chunkZ = MathHelper.floor(z) >> 4;

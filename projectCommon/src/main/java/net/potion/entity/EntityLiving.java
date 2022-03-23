@@ -85,7 +85,7 @@ public abstract class EntityLiving extends Entity {
     }
 
     public boolean canEntityBeSeen(Entity var1) {
-        return this.worldObj.rayTraceBlocks(new Vec3d(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ), new Vec3d(var1.posX, var1.posY + (double) var1.getEyeHeight(), var1.posZ)) == null;
+        return this.world.rayTraceBlocks(new Vec3d(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ), new Vec3d(var1.posX, var1.posY + (double) var1.getEyeHeight(), var1.posZ)) == null;
     }
 
     @Override
@@ -116,7 +116,7 @@ public abstract class EntityLiving extends Entity {
     public void playLivingSound() {
         String var1 = this.getLivingSound();
         if (var1 != null) {
-            this.worldObj.playSoundAtEntity(this, var1, this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            this.world.playSoundAtEntity(this, var1, this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
         }
 
     }
@@ -134,7 +134,7 @@ public abstract class EntityLiving extends Entity {
             this.attackEntityFrom(null, 1);
         }
 
-        if (this.isImmuneToFire || this.worldObj.localWorld) {
+        if (this.isImmuneToFire || this.world.localWorld) {
             this.fire = 0;
         }
 
@@ -147,7 +147,7 @@ public abstract class EntityLiving extends Entity {
                     float var2 = this.rand.nextFloat() - this.rand.nextFloat();
                     float var3 = this.rand.nextFloat() - this.rand.nextFloat();
                     float var4 = this.rand.nextFloat() - this.rand.nextFloat();
-                    this.worldObj.spawnParticle("bubble", this.posX + (double) var2, this.posY + (double) var3, this.posZ + (double) var4, this.motionX, this.motionY, this.motionZ);
+                    this.world.spawnParticle("bubble", this.posX + (double) var2, this.posY + (double) var3, this.posZ + (double) var4, this.motionX, this.motionY, this.motionZ);
                 }
 
                 this.attackEntityFrom(null, 2);
@@ -181,7 +181,7 @@ public abstract class EntityLiving extends Entity {
                     double var9 = this.rand.nextGaussian() * 0.02D;
                     double var10 = this.rand.nextGaussian() * 0.02D;
                     double var6 = this.rand.nextGaussian() * 0.02D;
-                    this.worldObj.spawnParticle("explode", this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, var9, var10, var6);
+                    this.world.spawnParticle("explode", this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, var9, var10, var6);
                 }
             }
         }
@@ -198,7 +198,7 @@ public abstract class EntityLiving extends Entity {
             double var4 = this.rand.nextGaussian() * 0.02D;
             double var6 = this.rand.nextGaussian() * 0.02D;
             double var8 = 10.0D;
-            this.worldObj.spawnParticle("explode", this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width - var2 * var8, this.posY + (double) (this.rand.nextFloat() * this.height) - var4 * var8, this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width - var6 * var8, var2, var4, var6);
+            this.world.spawnParticle("explode", this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width - var2 * var8, this.posY + (double) (this.rand.nextFloat() * this.height) - var4 * var8, this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width - var6 * var8, var2, var4, var6);
         }
 
     }
@@ -334,7 +334,7 @@ public abstract class EntityLiving extends Entity {
 
     @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
-        if (this.worldObj.localWorld) {
+        if (this.world.localWorld) {
             return false;
         }
 
@@ -363,7 +363,7 @@ public abstract class EntityLiving extends Entity {
 
         this.attackedAtYaw = 0.0F;
         if (var3) {
-            this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 2);
+            this.world.sendTrackedEntityStatusUpdatePacket(this, (byte) 2);
             this.setBeenAttacked();
             if (var1 != null) {
                 double var4 = var1.posX - this.posX;
@@ -382,12 +382,12 @@ public abstract class EntityLiving extends Entity {
 
         if (this.health <= 0) {
             if (var3) {
-                this.worldObj.playSoundAtEntity(this, this.getDeathSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+                this.world.playSoundAtEntity(this, this.getDeathSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             }
 
             this.onDeath(var1);
         } else if (var3) {
-            this.worldObj.playSoundAtEntity(this, this.getHurtSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            this.world.playSoundAtEntity(this, this.getHurtSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
         }
 
         return true;
@@ -445,11 +445,11 @@ public abstract class EntityLiving extends Entity {
         }
 
         this.unused_flag = true;
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             this.dropFewItems();
         }
 
-        this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 3);
+        this.world.sendTrackedEntityStatusUpdatePacket(this, (byte) 3);
     }
 
     protected void dropFewItems() {
@@ -474,10 +474,10 @@ public abstract class EntityLiving extends Entity {
         int var2 = (int) Math.ceil(var1 - 3.0F);
         if (var2 > 0) {
             this.attackEntityFrom(null, var2);
-            int var3 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.posY - 0.20000000298023224D - (double) this.yOffset), MathHelper.floor(this.posZ));
+            int var3 = this.world.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.posY - 0.20000000298023224D - (double) this.yOffset), MathHelper.floor(this.posZ));
             if (var3 > 0) {
                 StepSound var4 = Block.BLOCKS_LIST[var3].stepSound;
-                this.worldObj.playSoundAtEntity(this, var4.getFormattedName(), var4.getVolume() * 0.5F, var4.getPitch() * 0.75F);
+                this.world.playSoundAtEntity(this, var4.getFormattedName(), var4.getVolume() * 0.5F, var4.getPitch() * 0.75F);
             }
         }
 
@@ -510,7 +510,7 @@ public abstract class EntityLiving extends Entity {
             float var9 = 0.91F;
             if (this.onGround) {
                 var9 = 0.54600006F;
-                int var4 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
+                int var4 = this.world.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
                 if (var4 > 0) {
                     var9 = Block.BLOCKS_LIST[var4].slipperiness * 0.91F;
                 }
@@ -521,7 +521,7 @@ public abstract class EntityLiving extends Entity {
             var9 = 0.91F;
             if (this.onGround) {
                 var9 = 0.54600006F;
-                int var5 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
+                int var5 = this.world.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
                 if (var5 > 0) {
                     var9 = Block.BLOCKS_LIST[var5].slipperiness * 0.91F;
                 }
@@ -582,7 +582,7 @@ public abstract class EntityLiving extends Entity {
         int var1 = MathHelper.floor(this.posX);
         int var2 = MathHelper.floor(this.boundingBox.minY);
         int var3 = MathHelper.floor(this.posZ);
-        return this.worldObj.getBlockId(var1, var2, var3) == Block.LADDER.blockID;
+        return this.world.getBlockId(var1, var2, var3) == Block.LADDER.blockID;
     }
 
     @Override
@@ -634,7 +634,7 @@ public abstract class EntityLiving extends Entity {
             --this.newPosRotationIncrements;
             this.setPosition(var1, var3, var5);
             this.setRotation(this.rotationYaw, this.rotationPitch);
-            List<AxisAlignedBB> var9 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.getInsetBoundingBox(0.03125D, 0.0D, 0.03125D));
+            List<AxisAlignedBB> var9 = this.world.getCollidingBoundingBoxes(this, this.boundingBox.getInsetBoundingBox(0.03125D, 0.0D, 0.03125D));
             if (var9.size() > 0) {
                 double var10 = 0.0D;
 
@@ -675,7 +675,7 @@ public abstract class EntityLiving extends Entity {
         this.moveForward *= 0.98F;
         this.randomYawVelocity *= 0.9F;
         this.moveEntityWithHeading(this.moveStrafing, this.moveForward);
-        List<Entity> var16 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+        List<Entity> var16 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
         if (var16 != null && var16.size() > 0) {
             for (int var4 = 0; var4 < var16.size(); ++var4) {
                 Entity var17 = var16.get(var4);
@@ -700,7 +700,7 @@ public abstract class EntityLiving extends Entity {
     }
 
     protected void tryDespawn() {
-        EntityPlayer var1 = this.worldObj.getClosestPlayerToEntity(this, -1.0D);
+        EntityPlayer var1 = this.world.getClosestPlayerToEntity(this, -1.0D);
         if (this.canDespawn() && var1 != null) {
             double var2 = var1.posX - this.posX;
             double var4 = var1.posY - this.posY;
@@ -723,13 +723,13 @@ public abstract class EntityLiving extends Entity {
 
     protected void updatePlayerActionState() {
         ++this.entityAge;
-        EntityPlayer var1 = this.worldObj.getClosestPlayerToEntity(this, -1.0D);
+        EntityPlayer var1 = this.world.getClosestPlayerToEntity(this, -1.0D);
         this.tryDespawn();
         this.moveStrafing = 0.0F;
         this.moveForward = 0.0F;
         float var2 = 8.0F;
         if (this.rand.nextFloat() < 0.02F) {
-            var1 = this.worldObj.getClosestPlayerToEntity(this, var2);
+            var1 = this.world.getClosestPlayerToEntity(this, var2);
             if (var1 != null) {
                 this.currentTarget = var1;
                 this.numTicksToChaseTarget = 10 + this.rand.nextInt(20);
@@ -814,7 +814,7 @@ public abstract class EntityLiving extends Entity {
     }
 
     public boolean getCanSpawnHere() {
-        return this.worldObj.checkIfAABBIsClear(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.worldObj.containsLiquid(this.boundingBox);
+        return this.world.checkIfAABBIsClear(this.boundingBox) && this.world.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.world.containsLiquid(this.boundingBox);
     }
 
     @Override
@@ -871,7 +871,7 @@ public abstract class EntityLiving extends Entity {
         Vec3d var4 = this.getPosition(var3);
         Vec3d var5 = this.getLook(var3);
         Vec3d var6 = new Vec3d(var4).add(var5.x * var1, var5.y * var1, var5.z * var1);
-        return this.worldObj.rayTraceBlocks(var4, var6);
+        return this.world.rayTraceBlocks(var4, var6);
     }
 
     public int getMaxSpawnedInChunk() {
@@ -890,10 +890,10 @@ public abstract class EntityLiving extends Entity {
             this.heartsLife = this.heartsHalvesLife;
             this.hurtTime = this.maxHurtTime = 10;
             this.attackedAtYaw = 0.0F;
-            this.worldObj.playSoundAtEntity(this, this.getHurtSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            this.world.playSoundAtEntity(this, this.getHurtSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             this.attackEntityFrom(null, 0);
         } else if (var1 == 3) {
-            this.worldObj.playSoundAtEntity(this, this.getDeathSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            this.world.playSoundAtEntity(this, this.getDeathSound(), this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             this.health = 0;
             this.onDeath(null);
         } else {

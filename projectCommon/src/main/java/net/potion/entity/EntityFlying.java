@@ -31,7 +31,7 @@ public class EntityFlying extends EntityLiving {
             float var3 = 0.91F;
             if (this.onGround) {
                 var3 = 0.54600006F;
-                int var4 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
+                int var4 = this.world.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
                 if (var4 > 0) {
                     var3 = Block.BLOCKS_LIST[var4].slipperiness * 0.91F;
                 }
@@ -42,7 +42,7 @@ public class EntityFlying extends EntityLiving {
             var3 = 0.91F;
             if (this.onGround) {
                 var3 = 0.54600006F;
-                int var5 = this.worldObj.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
+                int var5 = this.world.getBlockId(MathHelper.floor(this.posX), MathHelper.floor(this.boundingBox.minY) - 1, MathHelper.floor(this.posZ));
                 if (var5 > 0) {
                     var3 = Block.BLOCKS_LIST[var5].slipperiness * 0.91F;
                 }

@@ -42,7 +42,7 @@ public class EntityCreeper extends EntityMob {
 
     @Override
     protected void attackBlockedEntity(Entity var1, float var2) {
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             if (this.timeSinceIgnited > 0) {
                 this.setCreeperState(-1);
                 --this.timeSinceIgnited;
@@ -57,10 +57,10 @@ public class EntityCreeper extends EntityMob {
     @Override
     public void onUpdate() {
         this.lastActiveTime = this.timeSinceIgnited;
-        if (this.worldObj.localWorld) {
+        if (this.world.localWorld) {
             int var1 = this.getCreeperState();
             if (var1 > 0 && this.timeSinceIgnited == 0) {
-                this.worldObj.playSoundAtEntity(this, "random.fuse", 1.0F, 0.5F);
+                this.world.playSoundAtEntity(this, "random.fuse", 1.0F, 0.5F);
             }
 
             this.timeSinceIgnited += var1;
@@ -105,20 +105,20 @@ public class EntityCreeper extends EntityMob {
 
     @Override
     protected void attackEntity(Entity var1, float var2) {
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             int var3 = this.getCreeperState();
             if (var3 <= 0 && var2 < 3.0F || var3 > 0 && var2 < 7.0F) {
                 if (this.timeSinceIgnited == 0) {
-                    this.worldObj.playSoundAtEntity(this, "random.fuse", 1.0F, 0.5F);
+                    this.world.playSoundAtEntity(this, "random.fuse", 1.0F, 0.5F);
                 }
 
                 this.setCreeperState(1);
                 ++this.timeSinceIgnited;
                 if (this.timeSinceIgnited >= 30) {
                     if (this.getPowered()) {
-                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 6.0F);
+                        this.world.createExplosion(this, this.posX, this.posY, this.posZ, 6.0F);
                     } else {
-                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 3.0F);
+                        this.world.createExplosion(this, this.posX, this.posY, this.posZ, 3.0F);
                     }
 
                     this.setEntityDead();

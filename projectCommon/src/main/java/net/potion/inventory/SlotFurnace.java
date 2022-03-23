@@ -20,7 +20,7 @@ public class SlotFurnace extends Slot {
 
     @Override
     public void onPickupFromSlot(ItemStack var1) {
-        var1.onCrafting(this.thePlayer.worldObj, this.thePlayer);
+        var1.onCrafting(this.thePlayer.world, this.thePlayer);
         if (var1.itemID == Item.INGOT_IRON.shiftedIndex) {
             this.thePlayer.addStat(AchievementList.acquireIron, 1);
         }

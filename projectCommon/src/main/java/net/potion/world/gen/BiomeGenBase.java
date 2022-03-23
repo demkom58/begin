@@ -14,17 +14,17 @@ import java.util.List;
 import java.util.Random;
 
 public class BiomeGenBase {
-    public static final BiomeGenBase RAINFOREST = new BiomeGenRainforest().setColor(0x8fa36).setBiomeName("Rainforest").method1(2094168);
-    public static final BiomeGenBase SWAMPLAND = new BiomeGenSwamp().setColor(0x7f9b2).setBiomeName("Swampland").method1(9154376);
+    public static final BiomeGenBase RAINFOREST = new BiomeGenRainforest().setColor(0x8fa36).setBiomeName("Rainforest");
+    public static final BiomeGenBase SWAMPLAND = new BiomeGenSwamp().setColor(0x7f9b2).setBiomeName("Swampland");
     public static final BiomeGenBase SEASONAL_FOREST = new BiomeGenBase().setColor(0x9be023).setBiomeName("Seasonal Forest");
-    public static final BiomeGenBase FOREST = new BiomeGenForest().setColor(0x56621).setBiomeName("Forest").method1(5159473);
+    public static final BiomeGenBase FOREST = new BiomeGenForest().setColor(0x56621).setBiomeName("Forest");
     public static final BiomeGenBase SAVANNA = new BiomeGenDesert().setColor(0xd9e023).setBiomeName("Savanna");
     public static final BiomeGenBase SHRUBLAND = new BiomeGenBase().setColor(0xa1ad20).setBiomeName("Shrubland");
-    public static final BiomeGenBase TAIGA = new BiomeGenTaiga().setColor(0x2eb153).setBiomeName("Taiga").setEnableSnow().method1(8107825);
+    public static final BiomeGenBase TAIGA = new BiomeGenTaiga().setColor(0x2eb153).setBiomeName("Taiga").setEnableSnow();
     public static final BiomeGenBase DESERT = new BiomeGenDesert().setColor(0xfa9418).setBiomeName("Desert").setDisableRain();
     public static final BiomeGenBase PLAINS = new BiomeGenDesert().setColor(0xffd910).setBiomeName("Plains");
-    public static final BiomeGenBase ICE_DESERT = new BiomeGenDesert().setColor(0xffed93).setBiomeName("Ice Desert").setEnableSnow().setDisableRain().method1(12899129);
-    public static final BiomeGenBase TUNDRA = new BiomeGenBase().setColor(0x57ebf9).setBiomeName("Tundra").setEnableSnow().method1(12899129);
+    public static final BiomeGenBase ICE_DESERT = new BiomeGenDesert().setColor(0xffed93).setBiomeName("Ice Desert").setEnableSnow().setDisableRain();
+    public static final BiomeGenBase TUNDRA = new BiomeGenBase().setColor(0x57ebf9).setBiomeName("Tundra").setEnableSnow();
     public static final BiomeGenBase HELL = new BiomeGenHell().setColor(0xff0000).setBiomeName("Hell").setDisableRain();
     public static final BiomeGenBase SKY = new BiomeGenSky().setColor(0x8080ff).setBiomeName("Sky").setDisableRain();
     private static final BiomeGenBase[] biomeLookupTable = new BiomeGenBase[4096];
@@ -37,7 +37,6 @@ public class BiomeGenBase {
     public int color;
     public byte topBlock;
     public byte fillerBlock;
-    public int field1;
     protected List<SpawnListEntry> spawnableMonsterList;
     protected List<SpawnListEntry> spawnableCreatureList;
     protected List<SpawnListEntry> spawnableWaterCreatureList;
@@ -47,7 +46,6 @@ public class BiomeGenBase {
     protected BiomeGenBase() {
         this.topBlock = (byte) Block.GRASS.blockID;
         this.fillerBlock = (byte) Block.DIRT.blockID;
-        this.field1 = 5169201;
         this.spawnableMonsterList = new ArrayList<>();
         this.spawnableCreatureList = new ArrayList<>();
         this.spawnableWaterCreatureList = new ArrayList<>();
@@ -130,11 +128,6 @@ public class BiomeGenBase {
 
     protected BiomeGenBase setBiomeName(String biomeName) {
         this.biomeName = biomeName;
-        return this;
-    }
-
-    protected BiomeGenBase method1(int var1) {
-        this.field1 = var1;
         return this;
     }
 

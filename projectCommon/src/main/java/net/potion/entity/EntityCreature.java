@@ -26,7 +26,7 @@ public class EntityCreature extends EntityLiving {
         if (this.playerToAttack == null) {
             this.playerToAttack = this.findPlayerToAttack();
             if (this.playerToAttack != null) {
-                this.pathToEntity = this.worldObj.getPathToEntity(this, this.playerToAttack, var1);
+                this.pathToEntity = this.world.getPathToEntity(this, this.playerToAttack, var1);
             }
         } else if (!this.playerToAttack.isEntityAlive()) {
             this.playerToAttack = null;
@@ -44,7 +44,7 @@ public class EntityCreature extends EntityLiving {
                 this.buildPath();
             }
         } else {
-            this.pathToEntity = this.worldObj.getPathToEntity(this, this.playerToAttack, var1);
+            this.pathToEntity = this.world.getPathToEntity(this, this.playerToAttack, var1);
         }
 
         int var21 = MathHelper.floor(this.boundingBox.minY + 0.5D);
@@ -146,7 +146,7 @@ public class EntityCreature extends EntityLiving {
         }
 
         if (var1) {
-            this.pathToEntity = this.worldObj.getEntityPathToXYZ(this, var2, var3, var4, 10.0F);
+            this.pathToEntity = this.world.getEntityPathToXYZ(this, var2, var3, var4, 10.0F);
         }
 
     }

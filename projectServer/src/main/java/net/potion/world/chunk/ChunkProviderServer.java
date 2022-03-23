@@ -13,18 +13,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OldChunkProviderServer implements IOldChunkProvider {
+public class ChunkProviderServer implements IChunkProvider {
     public boolean chunkLoadOverride = false;
     private final IntSet unloadList = new IntRBTreeSet();
-    private final OldChunk dummyChunk;
-    private final IOldChunkProvider serverChunkGenerator;
-    private final IOldChunkLoader chunkLoader;
-    private final Int2ObjectMap<OldChunk> id2ChunkMap = new Int2ObjectRBTreeMap<>();
-    private final List<OldChunk> chunks = new ArrayList<>();
+    private final Chunk dummyChunk;
+    private final IChunkProvider serverChunkGenerator;
+    private final IChunkLoader chunkLoader;
+    private final Int2ObjectMap<Chunk> id2ChunkMap = new Int2ObjectRBTreeMap<>();
+    private final List<Chunk> chunks = new ArrayList<>();
     private final WorldServer world;
 
-    public OldChunkProviderServer(WorldServer worldServer, IOldChunkLoader chunkLoader, IOldChunkProvider chunkProvider) {
-        this.dummyChunk = new EmptyOldChunk(worldServer, new byte[32768], 0, 0);
+    public ChunkProviderServer(WorldServer worldServer, IChunkLoader chunkLoader, IChunkProvider chunkProvider) {
+        this.dummyChunk = new EmptyChunk(worldServer, new byte[32768], 0, 0);
         this.world = worldServer;
         this.chunkLoader = chunkLoader;
         this.serverChunkGenerator = chunkProvider;
@@ -47,10 +47,10 @@ public class OldChunkProviderServer implements IOldChunkProvider {
     }
 
     @Override
-    public OldChunk prepareChunk(int x, int z) {
+    public Chunk prepareChunk(int x, int z) {
         int chunkXZ2Int = ChunkCoordIntPair.chunkXZ2Int(x, z);
         this.unloadList.remove(chunkXZ2Int);
-        OldChunk chunk = this.id2ChunkMap.get(chunkXZ2Int);
+        Chunk chunk = this.id2ChunkMap.get(chunkXZ2Int);
         if (chunk == null) {
             chunk = this.loadChunk(x, z);
             if (chunk == null) {
@@ -89,8 +89,8 @@ public class OldChunkProviderServer implements IOldChunkProvider {
     }
 
     @Override
-    public OldChunk provideChunk(int x, int z) {
-        OldChunk chunk = this.id2ChunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
+    public Chunk provideChunk(int x, int z) {
+        Chunk chunk = this.id2ChunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
         if (chunk == null) {
             return !this.world.findingSpawnPoint && !this.chunkLoadOverride ? this.dummyChunk : this.prepareChunk(x, z);
         }
@@ -98,13 +98,13 @@ public class OldChunkProviderServer implements IOldChunkProvider {
         return chunk;
     }
 
-    private OldChunk loadChunk(int x, int z) {
+    private Chunk loadChunk(int x, int z) {
         if (this.chunkLoader == null) {
             return null;
         }
 
         try {
-            OldChunk chunk = this.chunkLoader.loadChunk(this.world, x, z);
+            Chunk chunk = this.chunkLoader.loadChunk(this.world, x, z);
             if (chunk != null) {
                 chunk.lastSaveTime = this.world.getWorldTime();
             }
@@ -116,7 +116,7 @@ public class OldChunkProviderServer implements IOldChunkProvider {
         }
     }
 
-    private void saveExtraData(OldChunk chunk) {
+    private void saveExtraData(Chunk chunk) {
         if (this.chunkLoader != null) {
             try {
                 this.chunkLoader.saveExtraChunkData(this.world, chunk);
@@ -127,7 +127,7 @@ public class OldChunkProviderServer implements IOldChunkProvider {
         }
     }
 
-    private void saveChunk(OldChunk chunk) {
+    private void saveChunk(Chunk chunk) {
         if (this.chunkLoader != null) {
             try {
                 chunk.lastSaveTime = this.world.getWorldTime();
@@ -140,8 +140,8 @@ public class OldChunkProviderServer implements IOldChunkProvider {
     }
 
     @Override
-    public void populate(IOldChunkProvider chunkProvider, int x, int z) {
-        OldChunk chunk = this.provideChunk(x, z);
+    public void populate(IChunkProvider chunkProvider, int x, int z) {
+        Chunk chunk = this.provideChunk(x, z);
         if (!chunk.terrainPopulated) {
             chunk.terrainPopulated = true;
             if (this.serverChunkGenerator != null) {
@@ -153,11 +153,11 @@ public class OldChunkProviderServer implements IOldChunkProvider {
     }
 
     @Override
-    public boolean saveChunks(boolean forceSave, IProgressUpdatable progressUpdate) {
+    public boolean saveChunks(boolean forceSave, IProgressUpdatable updatable) {
         int saved = 0;
 
         for (int i = 0; i < this.chunks.size(); ++i) {
-            OldChunk chunk = this.chunks.get(i);
+            Chunk chunk = this.chunks.get(i);
             if (forceSave && !chunk.neverSave) {
                 this.saveExtraData(chunk);
             }
@@ -192,7 +192,7 @@ public class OldChunkProviderServer implements IOldChunkProvider {
         for (int i = 0; i < 100; ++i) {
             if (!this.unloadList.isEmpty()) {
                 int id = this.unloadList.iterator().nextInt();
-                OldChunk chunk = this.id2ChunkMap.get(id);
+                Chunk chunk = this.id2ChunkMap.get(id);
                 chunk.onChunkUnload();
                 this.saveChunk(chunk);
                 this.saveExtraData(chunk);
@@ -220,19 +220,19 @@ public class OldChunkProviderServer implements IOldChunkProvider {
         return "MultiplayerChunkCache: " + this.id2ChunkMap.size();
     }
 
-    public OldChunk getDummyChunk() {
+    public Chunk getDummyChunk() {
         return dummyChunk;
     }
 
-    public IOldChunkLoader getChunkLoader() {
+    public IChunkLoader getChunkLoader() {
         return chunkLoader;
     }
 
-    public IOldChunkProvider getServerChunkGenerator() {
+    public IChunkProvider getServerChunkGenerator() {
         return serverChunkGenerator;
     }
 
-    public Int2ObjectMap<OldChunk> getId2ChunkMap() {
+    public Int2ObjectMap<Chunk> getId2ChunkMap() {
         return id2ChunkMap;
     }
 
@@ -240,7 +240,7 @@ public class OldChunkProviderServer implements IOldChunkProvider {
         return unloadList;
     }
 
-    public List<OldChunk> getChunks() {
+    public List<Chunk> getChunks() {
         return chunks;
     }
 

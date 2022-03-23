@@ -214,7 +214,7 @@ public abstract class Render {
     }
 
     private World getWorldFromRenderManager() {
-        return this.renderManager.worldObj;
+        return this.renderManager.world;
     }
 
     private void renderShadowOnBlock(Block block, double var2, double var4, double var6,

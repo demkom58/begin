@@ -4,7 +4,7 @@ import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
 import net.potion.block.Block;
 import net.potion.world.chunk.ChunkProviderHell;
-import net.potion.world.chunk.IOldChunkProvider;
+import net.potion.world.chunk.IChunkProvider;
 import net.potion.world.gen.BiomeGenBase;
 import net.hypnosis.util.math.Vec3d;
 
@@ -36,13 +36,13 @@ public class WorldProviderHell extends WorldProvider {
     }
 
     @Override
-    public IOldChunkProvider getChunkProvider() {
-        return new ChunkProviderHell(this.worldObj, this.worldObj.getRandomSeed());
+    public IChunkProvider getChunkProvider() {
+        return new ChunkProviderHell(this.world, this.world.getRandomSeed());
     }
 
     @Override
     public boolean canCoordinateBeSpawn(int var1, int var2) {
-        int var3 = this.worldObj.getFirstUncoveredBlock(var1, var2);
+        int var3 = this.world.getFirstUncoveredBlock(var1, var2);
         if (var3 == Block.BEDROCK.blockID)
             return false;
 

@@ -62,21 +62,21 @@ public class EntityTNTPrimed extends Entity {
         }
 
         if (this.fuse-- <= 0) {
-            if (!this.worldObj.localWorld) {
+            if (!this.world.localWorld) {
                 this.setEntityDead();
                 this.explode();
             } else {
                 this.setEntityDead();
             }
         } else {
-            this.worldObj.spawnParticle("smoke", this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
+            this.world.spawnParticle("smoke", this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
         }
 
     }
 
     private void explode() {
         float var1 = 4.0F;
-        this.worldObj.createExplosion(null, this.posX, this.posY, this.posZ, var1);
+        this.world.createExplosion(null, this.posX, this.posY, this.posZ, var1);
     }
 
     @Override

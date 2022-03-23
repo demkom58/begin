@@ -19,7 +19,7 @@ public class MapGenCaves extends MapGenBase {
         float var22 = 0.0F;
         Random var23 = new Random(this.rand.nextLong());
         if (var14 <= 0) {
-            int var24 = this.field1 * 16 - 16;
+            int var24 = this.range * 16 - 16;
             var14 = var24 - var23.nextInt(var24 / 4);
         }
 
@@ -162,19 +162,19 @@ public class MapGenCaves extends MapGenBase {
     }
 
     @Override
-    protected void method1(World var1, int var2, int var3, int var4, int var5, byte[] var6) {
+    protected void recursiveGenerate(World world, int x, int z, int centerX, int centerZ, byte[] chunk) {
         int var7 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(40) + 1) + 1);
         if (this.rand.nextInt(15) != 0) {
             var7 = 0;
         }
 
         for (int var8 = 0; var8 < var7; ++var8) {
-            double var9 = var2 * 16 + this.rand.nextInt(16);
+            double var9 = x * 16 + this.rand.nextInt(16);
             double var11 = this.rand.nextInt(this.rand.nextInt(120) + 8);
-            double var13 = var3 * 16 + this.rand.nextInt(16);
+            double var13 = z * 16 + this.rand.nextInt(16);
             int var15 = 1;
             if (this.rand.nextInt(4) == 0) {
-                this.method2(var4, var5, var6, var9, var11, var13);
+                this.method2(centerX, centerZ, chunk, var9, var11, var13);
                 var15 += this.rand.nextInt(4);
             }
 
@@ -182,7 +182,7 @@ public class MapGenCaves extends MapGenBase {
                 float var17 = this.rand.nextFloat() * MathConstants.PI * 2.0F;
                 float var18 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
                 float var19 = this.rand.nextFloat() * 2.0F + this.rand.nextFloat();
-                this.releaseEntitySkin(var4, var5, var6, var9, var11, var13, var19, var17, var18, 0, 0, 1.0D);
+                this.releaseEntitySkin(centerX, centerZ, chunk, var9, var11, var13, var19, var17, var18, 0, 0, 1.0D);
             }
         }
 

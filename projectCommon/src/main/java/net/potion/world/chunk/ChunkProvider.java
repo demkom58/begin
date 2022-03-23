@@ -13,17 +13,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OldChunkProvider implements IOldChunkProvider {
+public class ChunkProvider implements IChunkProvider {
     private final IntSet droppedChunksSet = new IntRBTreeSet();
-    private final OldChunk chunk;
-    private final IOldChunkProvider chunkGenerator;
-    private final IOldChunkLoader chunkLoader;
-    private final Int2ObjectMap<OldChunk> cord2ChunkMap = new Int2ObjectRBTreeMap<>();
-    private final List<OldChunk> chunks = new ArrayList<>();
+    private final Chunk chunk;
+    private final IChunkProvider chunkGenerator;
+    private final IChunkLoader chunkLoader;
+    private final Int2ObjectMap<Chunk> cord2ChunkMap = new Int2ObjectRBTreeMap<>();
+    private final List<Chunk> chunks = new ArrayList<>();
     private final World world;
 
-    public OldChunkProvider(World world, IOldChunkLoader chunkLoader, IOldChunkProvider provider) {
-        this.chunk = new EmptyOldChunk(world, new byte[32768], 0, 0);
+    public ChunkProvider(World world, IChunkLoader chunkLoader, IChunkProvider provider) {
+        this.chunk = new EmptyChunk(world, new byte[32768], 0, 0);
         this.world = world;
         this.chunkLoader = chunkLoader;
         this.chunkGenerator = provider;
@@ -35,10 +35,10 @@ public class OldChunkProvider implements IOldChunkProvider {
     }
 
     @Override
-    public OldChunk prepareChunk(int x, int z) {
+    public Chunk prepareChunk(int x, int z) {
         int cXZ = ChunkCoordIntPair.chunkXZ2Int(x, z);
         this.droppedChunksSet.remove(cXZ);
-        OldChunk chunk = this.cord2ChunkMap.get(cXZ);
+        Chunk chunk = this.cord2ChunkMap.get(cXZ);
         if (chunk != null) {
             return chunk;
         }
@@ -79,18 +79,18 @@ public class OldChunkProvider implements IOldChunkProvider {
     }
 
     @Override
-    public OldChunk provideChunk(int x, int z) {
-        OldChunk var3 = this.cord2ChunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
+    public Chunk provideChunk(int x, int z) {
+        Chunk var3 = this.cord2ChunkMap.get(ChunkCoordIntPair.chunkXZ2Int(x, z));
         return var3 == null ? this.prepareChunk(x, z) : var3;
     }
 
-    private OldChunk loadChunkFromFile(int x, int z) {
+    private Chunk loadChunkFromFile(int x, int z) {
         if (this.chunkLoader == null) {
             return null;
         }
 
         try {
-            OldChunk chunk = this.chunkLoader.loadChunk(this.world, x, z);
+            Chunk chunk = this.chunkLoader.loadChunk(this.world, x, z);
             if (chunk != null) {
                 chunk.lastSaveTime = this.world.getWorldTime();
             }
@@ -102,7 +102,7 @@ public class OldChunkProvider implements IOldChunkProvider {
         }
     }
 
-    private void saveChunkExtra(OldChunk chunk) {
+    private void saveChunkExtra(Chunk chunk) {
         if (this.chunkLoader == null) {
             return;
         }
@@ -115,7 +115,7 @@ public class OldChunkProvider implements IOldChunkProvider {
 
     }
 
-    private void saveChunk(OldChunk chunk) {
+    private void saveChunk(Chunk chunk) {
         if (this.chunkLoader == null) {
             return;
         }
@@ -130,8 +130,8 @@ public class OldChunkProvider implements IOldChunkProvider {
     }
 
     @Override
-    public void populate(IOldChunkProvider provider, int x, int z) {
-        OldChunk var4 = this.provideChunk(x, z);
+    public void populate(IChunkProvider provider, int x, int z) {
+        Chunk var4 = this.provideChunk(x, z);
         if (!var4.terrainPopulated) {
             var4.terrainPopulated = true;
             if (this.chunkGenerator != null) {
@@ -143,26 +143,26 @@ public class OldChunkProvider implements IOldChunkProvider {
     }
 
     @Override
-    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
+    public boolean saveChunks(boolean forceSave, IProgressUpdatable updatable) {
         int var3 = 0;
 
         for (int var4 = 0; var4 < this.chunks.size(); ++var4) {
-            OldChunk var5 = this.chunks.get(var4);
-            if (var1 && !var5.neverSave) {
+            Chunk var5 = this.chunks.get(var4);
+            if (forceSave && !var5.neverSave) {
                 this.saveChunkExtra(var5);
             }
 
-            if (var5.needsSaving(var1)) {
+            if (var5.needsSaving(forceSave)) {
                 this.saveChunk(var5);
                 var5.modified = false;
                 ++var3;
-                if (var3 == 24 && !var1) {
+                if (var3 == 24 && !forceSave) {
                     return false;
                 }
             }
         }
 
-        if (var1) {
+        if (forceSave) {
             if (this.chunkLoader == null) {
                 return true;
             }
@@ -178,7 +178,7 @@ public class OldChunkProvider implements IOldChunkProvider {
         for (int var1 = 0; var1 < 100; ++var1) {
             if (!this.droppedChunksSet.isEmpty()) {
                 Integer var2 = this.droppedChunksSet.iterator().next();
-                OldChunk var3 = this.cord2ChunkMap.get(var2);
+                Chunk var3 = this.cord2ChunkMap.get(var2);
                 var3.onChunkUnload();
                 this.saveChunk(var3);
                 this.saveChunkExtra(var3);

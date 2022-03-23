@@ -111,10 +111,10 @@ public class EntityArrow extends Entity {
             this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, var1) * 180.0D / Math.PI);
         }
 
-        int var15 = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
+        int var15 = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
         if (var15 > 0) {
-            Block.BLOCKS_LIST[var15].setBlockBoundsBasedOnState(this.worldObj, this.xTile, this.yTile, this.zTile);
-            AxisAlignedBB var2 = Block.BLOCKS_LIST[var15].getCollisionBoundingBoxFromPool(this.worldObj, this.xTile, this.yTile, this.zTile);
+            Block.BLOCKS_LIST[var15].setBlockBoundsBasedOnState(this.world, this.xTile, this.yTile, this.zTile);
+            AxisAlignedBB var2 = Block.BLOCKS_LIST[var15].getCollisionBoundingBoxFromPool(this.world, this.xTile, this.yTile, this.zTile);
             if (var2 != null && var2.isVecInXYZ(new Vec3d(this.posX, this.posY, this.posZ))) {
                 this.inGround = true;
             }
@@ -125,8 +125,8 @@ public class EntityArrow extends Entity {
         }
 
         if (this.inGround) {
-            var15 = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
-            int var21 = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
+            var15 = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
+            int var21 = this.world.getBlockMetadata(this.xTile, this.yTile, this.zTile);
             if (var15 == this.inTile && var21 == this.field1) {
                 ++this.ticksInGround;
                 if (this.ticksInGround == 1200) {
@@ -145,7 +145,7 @@ public class EntityArrow extends Entity {
             ++this.ticksInAir;
             Vec3d var16 = new Vec3d(this.posX, this.posY, this.posZ);
             Vec3d var19 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-            MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var16, var19, false, true);
+            MovingObjectPosition var3 = this.world.rayTraceBlocks(var16, var19, false, true);
             var16 = new Vec3d(this.posX, this.posY, this.posZ);
             var19 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
             if (var3 != null) {
@@ -153,7 +153,7 @@ public class EntityArrow extends Entity {
             }
 
             Entity var4 = null;
-            List var5 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+            List var5 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
             double var6 = 0.0D;
 
             for (int var8 = 0; var8 < var5.size(); ++var8) {
@@ -179,7 +179,7 @@ public class EntityArrow extends Entity {
             if (var3 != null) {
                 if (var3.entityHit != null) {
                     if (var3.entityHit.attackEntityFrom(this.owner, 4)) {
-                        this.worldObj.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+                        this.world.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
                         this.setEntityDead();
                     } else {
                         this.motionX *= -0.10000000149011612D;
@@ -193,8 +193,8 @@ public class EntityArrow extends Entity {
                     this.xTile = var3.blockX;
                     this.yTile = var3.blockY;
                     this.zTile = var3.blockZ;
-                    this.inTile = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
-                    this.field1 = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
+                    this.inTile = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
+                    this.field1 = this.world.getBlockMetadata(this.xTile, this.yTile, this.zTile);
                     this.motionX = (float) (var3.hitVec.x - this.posX);
                     this.motionY = (float) (var3.hitVec.y - this.posY);
                     this.motionZ = (float) (var3.hitVec.z - this.posZ);
@@ -202,7 +202,7 @@ public class EntityArrow extends Entity {
                     this.posX -= this.motionX / (double) var22 * 0.05000000074505806D;
                     this.posY -= this.motionY / (double) var22 * 0.05000000074505806D;
                     this.posZ -= this.motionZ / (double) var22 * 0.05000000074505806D;
-                    this.worldObj.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+                    this.world.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
                     this.inGround = true;
                     this.arrowShake = 7;
                 }
@@ -236,7 +236,7 @@ public class EntityArrow extends Entity {
             if (this.isInWater()) {
                 for (int var26 = 0; var26 < 4; ++var26) {
                     float var27 = 0.25F;
-                    this.worldObj.spawnParticle("bubble", this.posX - this.motionX * (double) var27, this.posY - this.motionY * (double) var27, this.posZ - this.motionZ * (double) var27, this.motionX, this.motionY, this.motionZ);
+                    this.world.spawnParticle("bubble", this.posX - this.motionX * (double) var27, this.posY - this.motionY * (double) var27, this.posZ - this.motionZ * (double) var27, this.motionX, this.motionY, this.motionZ);
                 }
 
                 var24 = 0.8F;
@@ -276,9 +276,9 @@ public class EntityArrow extends Entity {
 
     @Override
     public void onCollideWithPlayer(EntityPlayer var1) {
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             if (this.inGround && this.doesArrowBelongToPlayer && this.arrowShake <= 0 && var1.inventory.addItemStackToInventory(new ItemStack(Item.ARROW, 1))) {
-                this.worldObj.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                this.world.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 var1.onItemPickup(this, 1);
                 this.setEntityDead();
             }

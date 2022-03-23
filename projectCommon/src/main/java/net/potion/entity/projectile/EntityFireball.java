@@ -81,7 +81,7 @@ public class EntityFireball extends Entity {
         }
 
         if (this.inGround) {
-            int var1 = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
+            int var1 = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
             if (var1 == this.inTile) {
                 ++this.field4;
                 if (this.field4 == 1200) {
@@ -103,7 +103,7 @@ public class EntityFireball extends Entity {
 
         Vec3d var15 = new Vec3d(this.posX, this.posY, this.posZ);
         Vec3d var2 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-        MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
+        MovingObjectPosition var3 = this.world.rayTraceBlocks(var15, var2);
         var15 = new Vec3d(this.posX, this.posY, this.posZ);
         var2 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
         if (var3 != null) {
@@ -111,7 +111,7 @@ public class EntityFireball extends Entity {
         }
 
         Entity var4 = null;
-        List<Entity> var5 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+        List<Entity> var5 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
         double var6 = 0.0D;
 
         for (int var8 = 0; var8 < var5.size(); ++var8) {
@@ -135,12 +135,12 @@ public class EntityFireball extends Entity {
         }
 
         if (var3 != null) {
-            if (!this.worldObj.localWorld) {
+            if (!this.world.localWorld) {
                 if (var3.entityHit != null) {
                     var3.entityHit.attackEntityFrom(this.owner, 0);
                 }
 
-                this.worldObj.newExplosion(null, this.posX, this.posY, this.posZ, 1.0F, true);
+                this.world.newExplosion(null, this.posX, this.posY, this.posZ, 1.0F, true);
             }
 
             this.setEntityDead();
@@ -175,7 +175,7 @@ public class EntityFireball extends Entity {
         if (this.isInWater()) {
             for (int var20 = 0; var20 < 4; ++var20) {
                 float var21 = 0.25F;
-                this.worldObj.spawnParticle("bubble", this.posX - this.motionX * (double) var21, this.posY - this.motionY * (double) var21, this.posZ - this.motionZ * (double) var21, this.motionX, this.motionY, this.motionZ);
+                this.world.spawnParticle("bubble", this.posX - this.motionX * (double) var21, this.posY - this.motionY * (double) var21, this.posZ - this.motionZ * (double) var21, this.motionX, this.motionY, this.motionZ);
             }
 
             var19 = 0.8F;
@@ -187,7 +187,7 @@ public class EntityFireball extends Entity {
         this.motionX *= var19;
         this.motionY *= var19;
         this.motionZ *= var19;
-        this.worldObj.spawnParticle("smoke", this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
+        this.world.spawnParticle("smoke", this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
         this.setPosition(this.posX, this.posY, this.posZ);
     }
 

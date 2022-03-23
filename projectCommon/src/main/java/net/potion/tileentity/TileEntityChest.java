@@ -96,7 +96,7 @@ public class TileEntityChest extends TileEntity implements IInventory {
 
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-        if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this) {
+        if (this.world.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this) {
             return false;
         }
 

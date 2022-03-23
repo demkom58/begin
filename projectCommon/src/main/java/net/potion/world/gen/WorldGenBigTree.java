@@ -8,7 +8,7 @@ import java.util.Random;
 public class WorldGenBigTree extends WorldGenerator {
     static final byte[] field_882_a = new byte[]{2, 0, 0, 1, 2, 1};
     Random random0 = new Random();
-    World worldObj;
+    World world;
     int[] basePos = new int[]{0, 0, 0};
     int field_878_e = 0;
     int height;
@@ -106,11 +106,11 @@ public class WorldGenBigTree extends WorldGenerator {
                     ++var13;
                 } else {
                     var11[var9] = var10[var9] + var13;
-                    int var14 = this.worldObj.getBlockId(var11[0], var11[1], var11[2]);
+                    int var14 = this.world.getBlockId(var11[0], var11[1], var11[2]);
                     if (var14 != 0 && var14 != 18) {
                         ++var13;
                     } else {
-                        this.worldObj.setBlock(var11[0], var11[1], var11[2], var6);
+                        this.world.setBlock(var11[0], var11[1], var11[2], var6);
                         ++var13;
                     }
                 }
@@ -188,7 +188,7 @@ public class WorldGenBigTree extends WorldGenerator {
                 var14[var6] = MathHelper.floor((double) (var1[var6] + var15) + 0.5D);
                 var14[var7] = MathHelper.floor((double) var1[var7] + (double) var15 * var10 + 0.5D);
                 var14[var8] = MathHelper.floor((double) var1[var8] + (double) var15 * var12 + 0.5D);
-                this.worldObj.setBlock(var14[0], var14[1], var14[2], var3);
+                this.world.setBlock(var14[0], var14[1], var14[2], var3);
             }
 
         }
@@ -282,7 +282,7 @@ public class WorldGenBigTree extends WorldGenerator {
                 var13[var5] = var1[var5] + var14;
                 var13[var6] = MathHelper.floor((double) var1[var6] + (double) var14 * var9);
                 var13[var7] = MathHelper.floor((double) var1[var7] + (double) var14 * var11);
-                int var16 = this.worldObj.getBlockId(var13[0], var13[1], var13[2]);
+                int var16 = this.world.getBlockId(var13[0], var13[1], var13[2]);
                 if (var16 != 0 && var16 != 18) {
                     break;
                 }
@@ -295,7 +295,7 @@ public class WorldGenBigTree extends WorldGenerator {
     boolean method12() {
         int[] var1 = new int[]{this.basePos[0], this.basePos[1], this.basePos[2]};
         int[] var2 = new int[]{this.basePos[0], this.basePos[1] + this.field_878_e - 1, this.basePos[2]};
-        int var3 = this.worldObj.getBlockId(this.basePos[0], this.basePos[1] - 1, this.basePos[2]);
+        int var3 = this.world.getBlockId(this.basePos[0], this.basePos[1] - 1, this.basePos[2]);
         if (var3 != 2 && var3 != 3) {
             return false;
         } else {
@@ -324,7 +324,7 @@ public class WorldGenBigTree extends WorldGenerator {
 
     @Override
     public boolean generate(World var1, Random var2, int var3, int var4, int var5) {
-        this.worldObj = var1;
+        this.world = var1;
         long var6 = var2.nextLong();
         this.random0.setSeed(var6);
         this.basePos[0] = var3;

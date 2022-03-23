@@ -7,15 +7,15 @@ import net.potion.world.World;
 
 import java.io.IOException;
 
-public class ChunkProviderLoadOrGenerate implements IOldChunkProvider {
+public class ChunkProviderLoadOrGenerate implements IChunkProvider {
     int lastQueriedChunkXPos;
     int lastQueriedChunkZPos;
-    private OldChunk blankChunk;
-    private IOldChunkProvider chunkProvider;
-    private IOldChunkLoader chunkLoader;
-    private OldChunk[] chunks;
-    private World worldObj;
-    private OldChunk lastQueriedChunk;
+    private Chunk blankChunk;
+    private IChunkProvider chunkProvider;
+    private IChunkLoader chunkLoader;
+    private Chunk[] chunks;
+    private World world;
+    private Chunk lastQueriedChunk;
     private int curChunkX;
     private int curChunkY;
 
@@ -44,15 +44,15 @@ public class ChunkProviderLoadOrGenerate implements IOldChunkProvider {
     }
 
     @Override
-    public OldChunk prepareChunk(int x, int z) {
+    public Chunk prepareChunk(int x, int z) {
         return this.provideChunk(x, z);
     }
 
     @Override
-    public OldChunk provideChunk(int x, int z) {
+    public Chunk provideChunk(int x, int z) {
         if (x == this.lastQueriedChunkXPos && z == this.lastQueriedChunkZPos && this.lastQueriedChunk != null) {
             return this.lastQueriedChunk;
-        } else if (!this.worldObj.findingSpawnPoint && !this.canChunkExist(x, z)) {
+        } else if (!this.world.findingSpawnPoint && !this.canChunkExist(x, z)) {
             return this.blankChunk;
         } else {
             int var3 = x & 31;
@@ -65,7 +65,7 @@ public class ChunkProviderLoadOrGenerate implements IOldChunkProvider {
                     this.saveExtraChunkData(this.chunks[var5]);
                 }
 
-                OldChunk var6 = this.func_542_c(x, z);
+                Chunk var6 = this.func_542_c(x, z);
                 if (var6 == null) {
                     if (this.chunkProvider == null) {
                         var6 = this.blankChunk;
@@ -105,14 +105,14 @@ public class ChunkProviderLoadOrGenerate implements IOldChunkProvider {
         }
     }
 
-    private OldChunk func_542_c(int var1, int var2) {
+    private Chunk func_542_c(int var1, int var2) {
         if (this.chunkLoader == null) {
             return this.blankChunk;
         } else {
             try {
-                OldChunk var3 = this.chunkLoader.loadChunk(this.worldObj, var1, var2);
+                Chunk var3 = this.chunkLoader.loadChunk(this.world, var1, var2);
                 if (var3 != null) {
-                    var3.lastSaveTime = this.worldObj.getWorldTime();
+                    var3.lastSaveTime = this.world.getWorldTime();
                 }
 
                 return var3;
@@ -123,10 +123,10 @@ public class ChunkProviderLoadOrGenerate implements IOldChunkProvider {
         }
     }
 
-    private void saveExtraChunkData(OldChunk var1) {
+    private void saveExtraChunkData(Chunk var1) {
         if (this.chunkLoader != null) {
             try {
-                this.chunkLoader.saveExtraChunkData(this.worldObj, var1);
+                this.chunkLoader.saveExtraChunkData(this.world, var1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -134,11 +134,11 @@ public class ChunkProviderLoadOrGenerate implements IOldChunkProvider {
         }
     }
 
-    private void saveChunk(OldChunk var1) {
+    private void saveChunk(Chunk var1) {
         if (this.chunkLoader != null) {
             try {
-                var1.lastSaveTime = this.worldObj.getWorldTime();
-                this.chunkLoader.saveChunk(this.worldObj, var1);
+                var1.lastSaveTime = this.world.getWorldTime();
+                this.chunkLoader.saveChunk(this.world, var1);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -147,8 +147,8 @@ public class ChunkProviderLoadOrGenerate implements IOldChunkProvider {
     }
 
     @Override
-    public void populate(IOldChunkProvider provider, int x, int z) {
-        OldChunk var4 = this.provideChunk(x, z);
+    public void populate(IChunkProvider provider, int x, int z) {
+        Chunk var4 = this.provideChunk(x, z);
         if (!var4.terrainPopulated) {
             var4.terrainPopulated = true;
             if (this.chunkProvider != null) {
@@ -160,12 +160,12 @@ public class ChunkProviderLoadOrGenerate implements IOldChunkProvider {
     }
 
     @Override
-    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
+    public boolean saveChunks(boolean forceSave, IProgressUpdatable updatable) {
         int var3 = 0;
         int var4 = 0;
-        if (progressUpdatable != null) {
+        if (updatable != null) {
             for (int var5 = 0; var5 < this.chunks.length; ++var5) {
-                if (this.chunks[var5] != null && this.chunks[var5].needsSaving(var1)) {
+                if (this.chunks[var5] != null && this.chunks[var5].needsSaving(forceSave)) {
                     ++var4;
                 }
             }
@@ -175,29 +175,29 @@ public class ChunkProviderLoadOrGenerate implements IOldChunkProvider {
 
         for (int var6 = 0; var6 < this.chunks.length; ++var6) {
             if (this.chunks[var6] != null) {
-                if (var1 && !this.chunks[var6].neverSave) {
+                if (forceSave && !this.chunks[var6].neverSave) {
                     this.saveExtraChunkData(this.chunks[var6]);
                 }
 
-                if (this.chunks[var6].needsSaving(var1)) {
+                if (this.chunks[var6].needsSaving(forceSave)) {
                     this.saveChunk(this.chunks[var6]);
                     this.chunks[var6].modified = false;
                     ++var3;
-                    if (var3 == 2 && !var1) {
+                    if (var3 == 2 && !forceSave) {
                         return false;
                     }
 
-                    if (progressUpdatable != null) {
+                    if (updatable != null) {
                         ++var7;
                         if (var7 % 10 == 0) {
-                            progressUpdatable.setLoadingProgress(var7 * 100 / var4);
+                            updatable.setLoadingProgress(var7 * 100 / var4);
                         }
                     }
                 }
             }
         }
 
-        if (var1) {
+        if (forceSave) {
             if (this.chunkLoader == null) {
                 return true;
             }

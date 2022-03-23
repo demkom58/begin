@@ -15,9 +15,9 @@ public class EntityZombie extends EntityMob {
 
     @Override
     public void onLivingUpdate() {
-        if (this.worldObj.isDaytime()) {
+        if (this.world.isDaytime()) {
             float var1 = this.getEntityBrightness(1.0F);
-            if (var1 > 0.5F && this.worldObj.canBlockSeeTheSky(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) && this.rand.nextFloat() * 30.0F < (var1 - 0.4F) * 2.0F) {
+            if (var1 > 0.5F && this.world.canBlockSeeTheSky(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) && this.rand.nextFloat() * 30.0F < (var1 - 0.4F) * 2.0F) {
                 this.fire = 300;
             }
         }

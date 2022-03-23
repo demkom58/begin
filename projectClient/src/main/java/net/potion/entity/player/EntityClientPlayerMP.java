@@ -40,7 +40,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
 
     @Override
     public void onUpdate() {
-        if (this.worldObj.blockExists(MathHelper.floor(this.posX), 64, MathHelper.floor(this.posZ))) {
+        if (this.world.blockExists(MathHelper.floor(this.posX), 64, MathHelper.floor(this.posZ))) {
             super.onUpdate();
             this.func_4056_N();
         }

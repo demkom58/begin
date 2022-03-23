@@ -43,7 +43,7 @@ public class EntityLavaFX extends EntityFX {
 
         float var1 = (float) this.particleAge / (float) this.particleMaxAge;
         if (this.rand.nextFloat() > var1) {
-            this.worldObj.spawnParticle("smoke", this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ);
+            this.world.spawnParticle("smoke", this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ);
         }
 
         this.motionY -= 0.03D;

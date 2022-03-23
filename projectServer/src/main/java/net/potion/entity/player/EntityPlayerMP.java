@@ -153,7 +153,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         for (int var2 = 0; var2 < this.inventory.getSizeInventory(); ++var2) {
             ItemStack var3 = this.inventory.getStackInSlot(var2);
             if (var3 != null && Item.ITEMS_LIST[var3.itemID].shouldRotateAroundWhenRendering() && this.playerNetServerHandler.getNumChunkDataPackets() <= 2) {
-                Packet var4 = ((ItemMapBase) Item.ITEMS_LIST[var3.itemID]).method1(var3, this.worldObj, this);
+                Packet var4 = ((ItemMapBase) Item.ITEMS_LIST[var3.itemID]).method1(var3, this.world, this);
                 if (var4 != null) {
                     this.playerNetServerHandler.sendPacket(var4);
                 }
@@ -318,7 +318,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     public void displayWorkbenchGUI(int var1, int var2, int var3) {
         this.getNextWidowId();
         this.playerNetServerHandler.sendPacket(new Packet100OpenWindow(this.currentWindowId, 1, "Crafting", 9));
-        this.craftingInventory = new ContainerWorkbench(this.inventory, this.worldObj, var1, var2, var3);
+        this.craftingInventory = new ContainerWorkbench(this.inventory, this.world, var1, var2, var3);
         this.craftingInventory.windowId = this.currentWindowId;
         this.craftingInventory.addViewer(this);
     }

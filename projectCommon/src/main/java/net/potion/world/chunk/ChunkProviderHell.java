@@ -10,7 +10,7 @@ import net.potion.world.gen.*;
 
 import java.util.Random;
 
-public class ChunkProviderHell implements IOldChunkProvider {
+public class ChunkProviderHell implements IChunkProvider {
     public NoiseGeneratorOctaves noiseGen6;
     public NoiseGeneratorOctaves noiseGen7;
     double[] field1;
@@ -24,7 +24,7 @@ public class ChunkProviderHell implements IOldChunkProvider {
     private NoiseGeneratorOctaves noiseGen3;
     private NoiseGeneratorOctaves noiseGen4;
     private NoiseGeneratorOctaves noiseGen5;
-    private World worldObj;
+    private World world;
     private double[] terrain;
     private double[] sandNoise = new double[256];
     private double[] gravelNoise = new double[256];
@@ -32,7 +32,7 @@ public class ChunkProviderHell implements IOldChunkProvider {
     private MapGenBase cavesHell = new MapGenCavesHell();
 
     public ChunkProviderHell(World var1, long var2) {
-        this.worldObj = var1;
+        this.world = var1;
         this.hellRNG = new Random(var2);
         this.noiseGen1 = new NoiseGeneratorOctaves(this.hellRNG, 16);
         this.noiseGen2 = new NoiseGeneratorOctaves(this.hellRNG, 16);
@@ -182,18 +182,18 @@ public class ChunkProviderHell implements IOldChunkProvider {
     }
 
     @Override
-    public OldChunk prepareChunk(int x, int z) {
+    public Chunk prepareChunk(int x, int z) {
         return this.provideChunk(x, z);
     }
 
     @Override
-    public OldChunk provideChunk(int x, int z) {
+    public Chunk provideChunk(int x, int z) {
         this.hellRNG.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
         byte[] var3 = new byte[32768];
         this.method1(x, z, var3);
         this.method2(x, z, var3);
-        this.cavesHell.func_867_a(this, this.worldObj, x, z, var3);
-        return new OldChunk(this.worldObj, var3, x, z);
+        this.cavesHell.generate(this, this.world, x, z, var3);
+        return new Chunk(this.world, var3, x, z);
     }
 
     private double[] method3(double[] var1, int var2, int var3, int var4, int var5, int var6, int var7) {
@@ -308,7 +308,7 @@ public class ChunkProviderHell implements IOldChunkProvider {
     }
 
     @Override
-    public void populate(IOldChunkProvider provider, int x, int z) {
+    public void populate(IChunkProvider provider, int x, int z) {
         BlockSand.fallInstantly = true;
         int var4 = x * 16;
         int var5 = z * 16;
@@ -317,7 +317,7 @@ public class ChunkProviderHell implements IOldChunkProvider {
             int var7 = var4 + this.hellRNG.nextInt(16) + 8;
             int var8 = this.hellRNG.nextInt(120) + 4;
             int var9 = var5 + this.hellRNG.nextInt(16) + 8;
-            (new WorldGenHellLava(Block.LAVA_MOVING.blockID)).generate(this.worldObj, this.hellRNG, var7, var8, var9);
+            (new WorldGenHellLava(Block.LAVA_MOVING.blockID)).generate(this.world, this.hellRNG, var7, var8, var9);
         }
 
         int var11 = this.hellRNG.nextInt(this.hellRNG.nextInt(10) + 1) + 1;
@@ -326,7 +326,7 @@ public class ChunkProviderHell implements IOldChunkProvider {
             int var18 = var4 + this.hellRNG.nextInt(16) + 8;
             int var23 = this.hellRNG.nextInt(120) + 4;
             int var10 = var5 + this.hellRNG.nextInt(16) + 8;
-            (new WorldGenFire()).generate(this.worldObj, this.hellRNG, var18, var23, var10);
+            (new WorldGenFire()).generate(this.world, this.hellRNG, var18, var23, var10);
         }
 
         var11 = this.hellRNG.nextInt(this.hellRNG.nextInt(10) + 1);
@@ -335,35 +335,35 @@ public class ChunkProviderHell implements IOldChunkProvider {
             int var19 = var4 + this.hellRNG.nextInt(16) + 8;
             int var24 = this.hellRNG.nextInt(120) + 4;
             int var28 = var5 + this.hellRNG.nextInt(16) + 8;
-            (new WorldGenGlowStone1()).generate(this.worldObj, this.hellRNG, var19, var24, var28);
+            (new WorldGenGlowStone1()).generate(this.world, this.hellRNG, var19, var24, var28);
         }
 
         for (int var15 = 0; var15 < 10; ++var15) {
             int var20 = var4 + this.hellRNG.nextInt(16) + 8;
             int var25 = this.hellRNG.nextInt(128);
             int var29 = var5 + this.hellRNG.nextInt(16) + 8;
-            (new WorldGenGlowStone2()).generate(this.worldObj, this.hellRNG, var20, var25, var29);
+            (new WorldGenGlowStone2()).generate(this.world, this.hellRNG, var20, var25, var29);
         }
 
         if (this.hellRNG.nextInt(1) == 0) {
             int var16 = var4 + this.hellRNG.nextInt(16) + 8;
             int var21 = this.hellRNG.nextInt(128);
             int var26 = var5 + this.hellRNG.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.MUSHROOM_BROWN.blockID)).generate(this.worldObj, this.hellRNG, var16, var21, var26);
+            (new WorldGenFlowers(Block.MUSHROOM_BROWN.blockID)).generate(this.world, this.hellRNG, var16, var21, var26);
         }
 
         if (this.hellRNG.nextInt(1) == 0) {
             int var17 = var4 + this.hellRNG.nextInt(16) + 8;
             int var22 = this.hellRNG.nextInt(128);
             int var27 = var5 + this.hellRNG.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.MUSHROOM_RED.blockID)).generate(this.worldObj, this.hellRNG, var17, var22, var27);
+            (new WorldGenFlowers(Block.MUSHROOM_RED.blockID)).generate(this.world, this.hellRNG, var17, var22, var27);
         }
 
         BlockSand.fallInstantly = false;
     }
 
     @Override
-    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdatable) {
+    public boolean saveChunks(boolean forceSave, IProgressUpdatable updatable) {
         return true;
     }
 

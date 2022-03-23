@@ -27,7 +27,7 @@ public class EntityMob extends EntityCreature implements IMob {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!this.worldObj.localWorld && this.worldObj.difficultySetting == 0) {
+        if (!this.world.localWorld && this.world.difficultySetting == 0) {
             this.setEntityDead();
         }
 
@@ -35,7 +35,7 @@ public class EntityMob extends EntityCreature implements IMob {
 
     @Override
     protected Entity findPlayerToAttack() {
-        EntityPlayer var1 = this.worldObj.getClosestPlayerToEntity(this, 16.0D);
+        EntityPlayer var1 = this.world.getClosestPlayerToEntity(this, 16.0D);
         return var1 != null && this.canEntityBeSeen(var1) ? var1 : null;
     }
 
@@ -66,7 +66,7 @@ public class EntityMob extends EntityCreature implements IMob {
 
     @Override
     protected float getBlockPathWeight(int var1, int var2, int var3) {
-        return 0.5F - this.worldObj.getLightBrightness(var1, var2, var3);
+        return 0.5F - this.world.getLightBrightness(var1, var2, var3);
     }
 
     @Override
@@ -84,15 +84,15 @@ public class EntityMob extends EntityCreature implements IMob {
         int var1 = MathHelper.floor(this.posX);
         int var2 = MathHelper.floor(this.boundingBox.minY);
         int var3 = MathHelper.floor(this.posZ);
-        if (this.worldObj.getSavedLightValue(EnumSkyBlock.SKY, var1, var2, var3) > this.rand.nextInt(32)) {
+        if (this.world.getSavedLightValue(EnumSkyBlock.SKY, var1, var2, var3) > this.rand.nextInt(32)) {
             return false;
         } else {
-            int var4 = this.worldObj.getBlockLightValue(var1, var2, var3);
-            if (this.worldObj.isBigThunder()) {
-                int var5 = this.worldObj.skylightSubtracted;
-                this.worldObj.skylightSubtracted = 10;
-                var4 = this.worldObj.getBlockLightValue(var1, var2, var3);
-                this.worldObj.skylightSubtracted = var5;
+            int var4 = this.world.getBlockLightValue(var1, var2, var3);
+            if (this.world.isBigThunder()) {
+                int var5 = this.world.skylightSubtracted;
+                this.world.skylightSubtracted = 10;
+                var4 = this.world.getBlockLightValue(var1, var2, var3);
+                this.world.skylightSubtracted = var5;
             }
 
             return var4 <= this.rand.nextInt(8) && super.getCanSpawnHere();

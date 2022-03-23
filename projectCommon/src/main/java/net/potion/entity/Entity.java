@@ -36,7 +36,7 @@ public abstract class Entity implements Rotatable {
     public boolean preventEntitySpawning = false;
     public Entity riddenByEntity;
     public Entity ridingEntity;
-    public World worldObj;
+    public World world;
     public double prevPosX;
     public double prevPosY;
     public double prevPosZ;
@@ -103,7 +103,7 @@ public abstract class Entity implements Rotatable {
     private double entityRiderYawDelta;
 
     public Entity(World world) {
-        this.worldObj = world;
+        this.world = world;
         this.setPosition(0.0D, 0.0D, 0.0D);
         this.dataWatcher.addObject(0, (byte) 0);
         this.entityInit();
@@ -129,12 +129,12 @@ public abstract class Entity implements Rotatable {
 
     @Side(CodeSide.CLIENT)
     protected void preparePlayerToSpawn() {
-        if (this.worldObj == null)
+        if (this.world == null)
             return;
 
         while (this.posY > 0.0D) {
             this.setPosition(this.posX, this.posY, this.posZ);
-            if (this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0)
+            if (this.world.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0)
                 break;
 
             ++this.posY;
@@ -280,19 +280,19 @@ public abstract class Entity implements Rotatable {
                     var1 = 1.0F;
                 }
 
-                this.worldObj.playSoundAtEntity(this, "random.splash", var1, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
+                this.world.playSoundAtEntity(this, "random.splash", var1, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
                 float var2 = (float) MathHelper.floor(this.boundingBox.minY);
 
                 for (int var3 = 0; (float) var3 < 1.0F + this.width * 20.0F; ++var3) {
                     float var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
                     float var5 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-                    this.worldObj.spawnParticle("bubble", this.posX + (double) var4, var2 + 1.0F, this.posZ + (double) var5, this.motionX, this.motionY - (double) (this.rand.nextFloat() * 0.2F), this.motionZ);
+                    this.world.spawnParticle("bubble", this.posX + (double) var4, var2 + 1.0F, this.posZ + (double) var5, this.motionX, this.motionY - (double) (this.rand.nextFloat() * 0.2F), this.motionZ);
                 }
 
                 for (int var6 = 0; (float) var6 < 1.0F + this.width * 20.0F; ++var6) {
                     float var7 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
                     float var8 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width;
-                    this.worldObj.spawnParticle("splash", this.posX + (double) var7, var2 + 1.0F, this.posZ + (double) var8, this.motionX, this.motionY, this.motionZ);
+                    this.world.spawnParticle("splash", this.posX + (double) var7, var2 + 1.0F, this.posZ + (double) var8, this.motionX, this.motionY, this.motionZ);
                 }
             }
 
@@ -303,7 +303,7 @@ public abstract class Entity implements Rotatable {
             this.inWater = false;
         }
 
-        if (this.worldObj.localWorld) {
+        if (this.world.localWorld) {
             this.fire = 0;
         } else if (this.fire > 0) {
             if (this.isImmuneToFire) {
@@ -328,7 +328,7 @@ public abstract class Entity implements Rotatable {
             this.kill();
         }
 
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             this.setFlag(0, this.fire > 0);
             this.setFlag(2, this.ridingEntity != null);
         }
@@ -350,11 +350,11 @@ public abstract class Entity implements Rotatable {
 
     public boolean isOffsetPositionInLiquid(double var1, double var3, double var5) {
         AxisAlignedBB var7 = this.boundingBox.getOffsetBoundingBox(var1, var3, var5);
-        List<AxisAlignedBB> var8 = this.worldObj.getCollidingBoundingBoxes(this, var7);
+        List<AxisAlignedBB> var8 = this.world.getCollidingBoundingBoxes(this, var7);
         if (var8.size() > 0) {
             return false;
         } else {
-            return !this.worldObj.containsLiquid(var7);
+            return !this.world.containsLiquid(var7);
         }
     }
 
@@ -387,7 +387,7 @@ public abstract class Entity implements Rotatable {
         boolean var18 = this.onGround && this.isSneaking();
         if (var18) {
             double var19;
-            for (var19 = 0.05D; x != 0.0D && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.getOffsetBoundingBox(x, -1.0D, 0.0D)).size() == 0; updX = x) {
+            for (var19 = 0.05D; x != 0.0D && this.world.getCollidingBoundingBoxes(this, this.boundingBox.getOffsetBoundingBox(x, -1.0D, 0.0D)).size() == 0; updX = x) {
                 if (x < var19 && x >= -var19) {
                     x = 0.0D;
                 } else if (x > 0.0D) {
@@ -397,7 +397,7 @@ public abstract class Entity implements Rotatable {
                 }
             }
 
-            for (; z != 0.0D && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.getOffsetBoundingBox(0.0D, -1.0D, z)).size() == 0; updZ = z) {
+            for (; z != 0.0D && this.world.getCollidingBoundingBoxes(this, this.boundingBox.getOffsetBoundingBox(0.0D, -1.0D, z)).size() == 0; updZ = z) {
                 if (z < var19 && z >= -var19) {
                     z = 0.0D;
                 } else if (z > 0.0D) {
@@ -408,7 +408,7 @@ public abstract class Entity implements Rotatable {
             }
         }
 
-        List<AxisAlignedBB> boundingBoxes = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(x, y, z));
+        List<AxisAlignedBB> boundingBoxes = this.world.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(x, y, z));
 
         for (int i = 0; i < boundingBoxes.size(); ++i)
             y = boundingBoxes.get(i).calculateYOffset(this.boundingBox, y);
@@ -453,7 +453,7 @@ public abstract class Entity implements Rotatable {
             z = updZ;
             AxisAlignedBB var27 = this.boundingBox.copy();
             this.boundingBox.setBB(var17);
-            boundingBoxes = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(updX, y, updZ));
+            boundingBoxes = this.world.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(updX, y, updZ));
 
             for (int i = 0; i < boundingBoxes.size(); ++i) {
                 y = boundingBoxes.get(i).calculateYOffset(this.boundingBox, y);
@@ -540,22 +540,22 @@ public abstract class Entity implements Rotatable {
             int blockX = MathHelper.floor(this.posX);
             int blockY = MathHelper.floor(this.posY - 0.20000000298023224D - (double) this.yOffset);
             int blockZ = MathHelper.floor(this.posZ);
-            int walkBlockId = this.worldObj.getBlockId(blockX, blockY, blockZ);
+            int walkBlockId = this.world.getBlockId(blockX, blockY, blockZ);
 
-            if (this.worldObj.getBlockId(blockX, blockY - 1, blockZ) == Block.FENCE.blockID)
-                walkBlockId = this.worldObj.getBlockId(blockX, blockY - 1, blockZ);
+            if (this.world.getBlockId(blockX, blockY - 1, blockZ) == Block.FENCE.blockID)
+                walkBlockId = this.world.getBlockId(blockX, blockY - 1, blockZ);
 
             if (this.distanceWalkedModified > (float) this.nextStepDistance && walkBlockId > 0) {
                 ++this.nextStepDistance;
                 StepSound stepSound = Block.BLOCKS_LIST[walkBlockId].stepSound;
-                if (this.worldObj.getBlockId(blockX, blockY + 1, blockZ) == Block.SNOW.blockID) {
+                if (this.world.getBlockId(blockX, blockY + 1, blockZ) == Block.SNOW.blockID) {
                     stepSound = Block.SNOW.stepSound;
-                    this.worldObj.playSoundAtEntity(this, stepSound.getFormattedName(), stepSound.getVolume() * 0.15F, stepSound.getPitch());
+                    this.world.playSoundAtEntity(this, stepSound.getFormattedName(), stepSound.getVolume() * 0.15F, stepSound.getPitch());
                 } else if (!Block.BLOCKS_LIST[walkBlockId].blockMaterial.isLiquid()) {
-                    this.worldObj.playSoundAtEntity(this, stepSound.getFormattedName(), stepSound.getVolume() * 0.15F, stepSound.getPitch());
+                    this.world.playSoundAtEntity(this, stepSound.getFormattedName(), stepSound.getVolume() * 0.15F, stepSound.getPitch());
                 }
 
-                Block.BLOCKS_LIST[walkBlockId].onEntityWalking(this.worldObj, blockX, blockY, blockZ, this);
+                Block.BLOCKS_LIST[walkBlockId].onEntityWalking(this.world, blockX, blockY, blockZ, this);
             }
         }
 
@@ -566,13 +566,13 @@ public abstract class Entity implements Rotatable {
         int maxY = MathHelper.floor(this.boundingBox.maxY - 0.001D);
         int maxZ = MathHelper.floor(this.boundingBox.maxZ - 0.001D);
 
-        if (this.worldObj.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
+        if (this.world.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ)) {
             for (int iX = minX; iX <= maxX; ++iX) {
                 for (int iY = minY; iY <= maxY; ++iY) {
                     for (int iZ = minZ; iZ <= maxZ; ++iZ) {
-                        int blockId = this.worldObj.getBlockId(iX, iY, iZ);
+                        int blockId = this.world.getBlockId(iX, iY, iZ);
                         if (blockId > 0) {
-                            Block.BLOCKS_LIST[blockId].onEntityCollidedWithBlock(this.worldObj, iX, iY, iZ, this);
+                            Block.BLOCKS_LIST[blockId].onEntityCollidedWithBlock(this.world, iX, iY, iZ, this);
                         }
                     }
                 }
@@ -580,7 +580,7 @@ public abstract class Entity implements Rotatable {
         }
 
         boolean wet = this.isWet();
-        if (this.worldObj.containsBurners(this.boundingBox.getInsetBoundingBox(0.001D, 0.001D, 0.001D))) {
+        if (this.world.containsBurners(this.boundingBox.getInsetBoundingBox(0.001D, 0.001D, 0.001D))) {
             this.dealFireDamage(1);
             if (!wet) {
                 ++this.fire;
@@ -593,7 +593,7 @@ public abstract class Entity implements Rotatable {
         }
 
         if (wet && this.fire > 0) {
-            this.worldObj.playSoundAtEntity(this, "random.fizz", 0.7F, 1.6F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
+            this.world.playSoundAtEntity(this, "random.fizz", 0.7F, 1.6F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.4F);
             this.fire = -this.fireResistance;
         }
     }
@@ -638,7 +638,7 @@ public abstract class Entity implements Rotatable {
     }
 
     public boolean isWet() {
-        return this.inWater || this.worldObj.canBlockBeRainedOn(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ));
+        return this.inWater || this.world.canBlockBeRainedOn(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ));
     }
 
     public boolean isInWater() {
@@ -646,7 +646,7 @@ public abstract class Entity implements Rotatable {
     }
 
     public boolean handleWaterMovement() {
-        return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, -0.4000000059604645D, 0.0D).getInsetBoundingBox(0.001D, 0.001D, 0.001D), Material.WATER, this);
+        return this.world.handleMaterialAcceleration(this.boundingBox.expand(0.0D, -0.4000000059604645D, 0.0D).getInsetBoundingBox(0.001D, 0.001D, 0.001D), Material.WATER, this);
     }
 
     public boolean isInsideOfMaterial(Material var1) {
@@ -654,10 +654,10 @@ public abstract class Entity implements Rotatable {
         int var4 = MathHelper.floor(this.posX);
         int var5 = MathHelper.floor((float) MathHelper.floor(var2));
         int var6 = MathHelper.floor(this.posZ);
-        int var7 = this.worldObj.getBlockId(var4, var5, var6);
+        int var7 = this.world.getBlockId(var4, var5, var6);
 
         if (var7 != 0 && Block.BLOCKS_LIST[var7].blockMaterial == var1) {
-            float var8 = BlockFluid.setFluidHeight(this.worldObj.getBlockMetadata(var4, var5, var6)) - 0.11111111F;
+            float var8 = BlockFluid.setFluidHeight(this.world.getBlockMetadata(var4, var5, var6)) - 0.11111111F;
             float var9 = (float) (var5 + 1) - var8;
             return var2 < (double) var9;
         }
@@ -670,7 +670,7 @@ public abstract class Entity implements Rotatable {
     }
 
     public boolean handleLavaMovement() {
-        return this.worldObj.containsMaterial(this.boundingBox.expand(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.LAVA);
+        return this.world.containsMaterial(this.boundingBox.expand(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.LAVA);
     }
 
     public void moveFlying(float var1, float var2, float var3) {
@@ -695,8 +695,8 @@ public abstract class Entity implements Rotatable {
         double var3 = (this.boundingBox.maxY - this.boundingBox.minY) * 0.66D;
         int var5 = MathHelper.floor(this.posY - (double) this.yOffset + var3);
         int var6 = MathHelper.floor(this.posZ);
-        if (this.worldObj.checkChunksExist(MathHelper.floor(this.boundingBox.minX), MathHelper.floor(this.boundingBox.minY), MathHelper.floor(this.boundingBox.minZ), MathHelper.floor(this.boundingBox.maxX), MathHelper.floor(this.boundingBox.maxY), MathHelper.floor(this.boundingBox.maxZ))) {
-            float var7 = this.worldObj.getLightBrightness(var2, var5, var6);
+        if (this.world.checkChunksExist(MathHelper.floor(this.boundingBox.minX), MathHelper.floor(this.boundingBox.minY), MathHelper.floor(this.boundingBox.minZ), MathHelper.floor(this.boundingBox.maxX), MathHelper.floor(this.boundingBox.maxY), MathHelper.floor(this.boundingBox.maxZ))) {
+            float var7 = this.world.getLightBrightness(var2, var5, var6);
             if (var7 < this.entityBrightness) {
                 var7 = this.entityBrightness;
             }
@@ -708,7 +708,7 @@ public abstract class Entity implements Rotatable {
     }
 
     public void setWorld(World var1) {
-        this.worldObj = var1;
+        this.world = var1;
     }
 
     public void setPositionAndRotation(double var1, double var3, double var5, float var7, float var8) {
@@ -942,9 +942,9 @@ public abstract class Entity implements Rotatable {
     }
 
     public EntityItem entityDropItem(ItemStack var1, float var2) {
-        EntityItem var3 = new EntityItem(this.worldObj, this.posX, this.posY + (double) var2, this.posZ, var1);
+        EntityItem var3 = new EntityItem(this.world, this.posX, this.posY + (double) var2, this.posZ, var1);
         var3.delayBeforeCanPickup = 10;
-        this.worldObj.entityJoinedWorld(var3);
+        this.world.entityJoinedWorld(var3);
         return var3;
     }
 
@@ -960,7 +960,7 @@ public abstract class Entity implements Rotatable {
             int var5 = MathHelper.floor(this.posX + (double) var2);
             int var6 = MathHelper.floor(this.posY + (double) this.getEyeHeight() + (double) var3);
             int var7 = MathHelper.floor(this.posZ + (double) var4);
-            if (this.worldObj.isBlockNormalCube(var5, var6, var7)) {
+            if (this.world.isBlockNormalCube(var5, var6, var7)) {
                 return true;
             }
         }
@@ -1079,7 +1079,7 @@ public abstract class Entity implements Rotatable {
     public void setPositionAndRotation2(double var1, double var3, double var5, float var7, float var8, int var9) {
         this.setPosition(var1, var3, var5);
         this.setRotation(var7, var8);
-        List var10 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.getInsetBoundingBox(0.03125D, 0.0D, 0.03125D));
+        List var10 = this.world.getCollidingBoundingBoxes(this, this.boundingBox.getInsetBoundingBox(0.03125D, 0.0D, 0.03125D));
         if (var10.size() > 0) {
             double var11 = 0.0D;
 
@@ -1184,13 +1184,13 @@ public abstract class Entity implements Rotatable {
         double var10 = var1 - (double) var7;
         double var12 = var3 - (double) var8;
         double var14 = var5 - (double) var9;
-        if (this.worldObj.isBlockNormalCube(var7, var8, var9)) {
-            boolean var16 = !this.worldObj.isBlockNormalCube(var7 - 1, var8, var9);
-            boolean var17 = !this.worldObj.isBlockNormalCube(var7 + 1, var8, var9);
-            boolean var18 = !this.worldObj.isBlockNormalCube(var7, var8 - 1, var9);
-            boolean var19 = !this.worldObj.isBlockNormalCube(var7, var8 + 1, var9);
-            boolean var20 = !this.worldObj.isBlockNormalCube(var7, var8, var9 - 1);
-            boolean var21 = !this.worldObj.isBlockNormalCube(var7, var8, var9 + 1);
+        if (this.world.isBlockNormalCube(var7, var8, var9)) {
+            boolean var16 = !this.world.isBlockNormalCube(var7 - 1, var8, var9);
+            boolean var17 = !this.world.isBlockNormalCube(var7 + 1, var8, var9);
+            boolean var18 = !this.world.isBlockNormalCube(var7, var8 - 1, var9);
+            boolean var19 = !this.world.isBlockNormalCube(var7, var8 + 1, var9);
+            boolean var20 = !this.world.isBlockNormalCube(var7, var8, var9 - 1);
+            boolean var21 = !this.world.isBlockNormalCube(var7, var8, var9 + 1);
             byte var22 = -1;
             double var23 = 9999.0D;
             if (var16 && var10 < var23) {
@@ -1253,6 +1253,6 @@ public abstract class Entity implements Rotatable {
     }
 
     public World getWorld() {
-        return worldObj;
+        return world;
     }
 }

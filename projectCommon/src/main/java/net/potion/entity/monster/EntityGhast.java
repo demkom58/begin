@@ -43,7 +43,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 
     @Override
     protected void updatePlayerActionState() {
-        if (!this.worldObj.localWorld && this.worldObj.difficultySetting == 0) {
+        if (!this.world.localWorld && this.world.difficultySetting == 0) {
             this.setEntityDead();
         }
 
@@ -77,7 +77,7 @@ public class EntityGhast extends EntityFlying implements IMob {
         }
 
         if (this.targetedEntity == null || this.aggroCooldown-- <= 0) {
-            this.targetedEntity = this.worldObj.getClosestPlayerToEntity(this, 100.0D);
+            this.targetedEntity = this.world.getClosestPlayerToEntity(this, 100.0D);
             if (this.targetedEntity != null) {
                 this.aggroCooldown = 20;
             }
@@ -91,19 +91,19 @@ public class EntityGhast extends EntityFlying implements IMob {
             this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(var11, var15)) * 180.0F / MathConstants.PI;
             if (this.canEntityBeSeen(this.targetedEntity)) {
                 if (this.attackCounter == 10) {
-                    this.worldObj.playSoundAtEntity(this, "mob.ghast.charge", this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+                    this.world.playSoundAtEntity(this, "mob.ghast.charge", this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
                 }
 
                 ++this.attackCounter;
                 if (this.attackCounter == 20) {
-                    this.worldObj.playSoundAtEntity(this, "mob.ghast.fireball", this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-                    EntityFireball var17 = new EntityFireball(this.worldObj, this, var11, var13, var15);
+                    this.world.playSoundAtEntity(this, "mob.ghast.fireball", this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+                    EntityFireball var17 = new EntityFireball(this.world, this, var11, var13, var15);
                     double var18 = 4.0D;
                     Vec3d var20 = this.getLook(1.0F);
                     var17.posX = this.posX + var20.x * var18;
                     var17.posY = this.posY + (double) (this.height / 2.0F) + 0.5D;
                     var17.posZ = this.posZ + var20.z * var18;
-                    this.worldObj.entityJoinedWorld(var17);
+                    this.world.entityJoinedWorld(var17);
                     this.attackCounter = -40;
                 }
             } else if (this.attackCounter > 0) {
@@ -116,7 +116,7 @@ public class EntityGhast extends EntityFlying implements IMob {
             }
         }
 
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             byte var21 = this.dataWatcher.getWatchableObjectByte(16);
             byte var12 = (byte) (this.attackCounter > 10 ? 1 : 0);
             if (var21 != var12) {
@@ -134,7 +134,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 
         for (int var16 = 1; (double) var16 < var7; ++var16) {
             var15.offset(var9, var11, var13);
-            if (this.worldObj.getCollidingBoundingBoxes(this, var15).size() > 0) {
+            if (this.world.getCollidingBoundingBoxes(this, var15).size() > 0) {
                 return false;
             }
         }
@@ -169,7 +169,7 @@ public class EntityGhast extends EntityFlying implements IMob {
 
     @Override
     public boolean getCanSpawnHere() {
-        return this.rand.nextInt(20) == 0 && super.getCanSpawnHere() && this.worldObj.difficultySetting > 0;
+        return this.rand.nextInt(20) == 0 && super.getCanSpawnHere() && this.world.difficultySetting > 0;
     }
 
     @Override

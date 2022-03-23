@@ -42,7 +42,7 @@ public class RenderGlobal implements IWorldAccess {
     double prevSortY = -9999.0D;
     double prevSortZ = -9999.0D;
     int frustrumCheckOffset = 0;
-    private World worldObj;
+    private World world;
     private RenderEngine renderEngine;
     private List<WorldRenderer> worldRenderersToUpdate = new ArrayList<>();
     private WorldRenderer[] sortedWorldRenderers;
@@ -185,15 +185,15 @@ public class RenderGlobal implements IWorldAccess {
     }
 
     public void changeWorld(World world) {
-        if (this.worldObj != null) {
-            this.worldObj.removeWorldAccess(this);
+        if (this.world != null) {
+            this.world.removeWorldAccess(this);
         }
 
         this.prevSortX = -9999.0D;
         this.prevSortY = -9999.0D;
         this.prevSortZ = -9999.0D;
         RenderManager.instance.setWorld(world);
-        this.worldObj = world;
+        this.world = world;
         this.globalRenderBlocks = new RenderBlocks(world);
         if (world != null) {
             world.addWorldAccess(this);
@@ -242,7 +242,7 @@ public class RenderGlobal implements IWorldAccess {
             for (int y = 0; y < this.renderChunksTall; ++y) {
                 for (int z = 0; z < this.renderChunksDeep; ++z) {
                     final WorldRenderer renderer = new WorldRenderer(
-                            this.worldObj, this.tileEntities, x * 16, y * 16, z * 16, 16, this.glRenderListBase + id
+                            this.world, this.tileEntities, x * 16, y * 16, z * 16, 16, this.glRenderListBase + id
                     );
 
                     final int idx = (z * this.renderChunksTall + y) * this.renderChunksWide + x;
@@ -266,7 +266,7 @@ public class RenderGlobal implements IWorldAccess {
             }
         }
 
-        if (this.worldObj != null) {
+        if (this.world != null) {
             EntityLiving entity = this.potion.renderViewEntity;
             if (entity != null) {
                 this.markRenderersForNewPosition(MathHelper.floor(entity.posX), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ));
@@ -281,8 +281,8 @@ public class RenderGlobal implements IWorldAccess {
         if (this.renderEntitiesStartupCounter > 0) {
             --this.renderEntitiesStartupCounter;
         } else {
-            TileEntityRenderer.instance.cacheActiveRenderInfo(this.worldObj, this.renderEngine, this.potion.fontRenderer, this.potion.renderViewEntity, delta);
-            RenderManager.instance.cacheActiveRenderInfo(this.worldObj, this.renderEngine, this.potion.fontRenderer, this.potion.renderViewEntity, this.potion.gameSettings, delta);
+            TileEntityRenderer.instance.cacheActiveRenderInfo(this.world, this.renderEngine, this.potion.fontRenderer, this.potion.renderViewEntity, delta);
+            RenderManager.instance.cacheActiveRenderInfo(this.world, this.renderEngine, this.potion.fontRenderer, this.potion.renderViewEntity, this.potion.gameSettings, delta);
             this.countEntitiesTotal = 0;
             this.countEntitiesRendered = 0;
             this.countEntitiesHidden = 0;
@@ -293,11 +293,11 @@ public class RenderGlobal implements IWorldAccess {
             TileEntityRenderer.staticPlayerX = var4.lastTickPosX + (var4.posX - var4.lastTickPosX) * (double) delta;
             TileEntityRenderer.staticPlayerY = var4.lastTickPosY + (var4.posY - var4.lastTickPosY) * (double) delta;
             TileEntityRenderer.staticPlayerZ = var4.lastTickPosZ + (var4.posZ - var4.lastTickPosZ) * (double) delta;
-            List var5 = this.worldObj.getLoadedEntityList();
+            List var5 = this.world.getLoadedEntityList();
             this.countEntitiesTotal = var5.size();
 
-            for (int var6 = 0; var6 < this.worldObj.weatherEffects.size(); ++var6) {
-                Entity var7 = this.worldObj.weatherEffects.get(var6);
+            for (int var6 = 0; var6 < this.world.weatherEffects.size(); ++var6) {
+                Entity var7 = this.world.weatherEffects.get(var6);
                 ++this.countEntitiesRendered;
                 if (var7.isInRangeToRenderVector3d(vec)) {
                     RenderManager.instance.renderEntity(var7, delta);
@@ -318,7 +318,7 @@ public class RenderGlobal implements IWorldAccess {
                         var8 = 127;
                     }
 
-                    if (this.worldObj.blockExists(MathHelper.floor(entity.posX), var8, MathHelper.floor(entity.posZ))) {
+                    if (this.world.blockExists(MathHelper.floor(entity.posX), var8, MathHelper.floor(entity.posZ))) {
                         ++this.countEntitiesRendered;
                         RenderManager.instance.renderEntity(entity, delta);
                     }
@@ -633,7 +633,7 @@ public class RenderGlobal implements IWorldAccess {
             return;
 
         GL11.glDisable(GL11.GL_TEXTURE_2D);
-        Vec3d vec = this.worldObj.getSkyColor(this.potion.renderViewEntity, var1);
+        Vec3d vec = this.world.getSkyColor(this.potion.renderViewEntity, var1);
         float x = (float) vec.x;
         float y = (float) vec.y;
         float z = (float) vec.z;
@@ -657,13 +657,13 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.disableStandardItemLighting();
-        float[] var18 = this.worldObj.worldProvider.calcSunriseSunsetColors(this.worldObj.getCelestialAngle(var1), var1);
+        float[] var18 = this.world.worldProvider.calcSunriseSunsetColors(this.world.getCelestialAngle(var1), var1);
         if (var18 != null) {
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glShadeModel(GL11.GL_SMOOTH);
             GL11.glPushMatrix();
             GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
-            float var20 = this.worldObj.getCelestialAngle(var1);
+            float var20 = this.world.getCelestialAngle(var1);
             GL11.glRotatef(var20 > 0.5F ? 180.0F : 0.0F, 0.0F, 0.0F, 1.0F);
             float var9 = var18[0];
             float var10 = var18[1];
@@ -698,14 +698,14 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         GL11.glPushMatrix();
-        float var19 = 1.0F - this.worldObj.getRainStrength(var1);
+        float var19 = 1.0F - this.world.getRainStrength(var1);
         float var21 = 0.0F;
         float var22 = 0.0F;
         float var23 = 0.0F;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, var19);
         GL11.glTranslatef(var21, var22, var23);
         GL11.glRotatef(0.0F, 0.0F, 0.0F, 1.0F);
-        GL11.glRotatef(this.worldObj.getCelestialAngle(var1) * 360.0F, 1.0F, 0.0F, 0.0F);
+        GL11.glRotatef(this.world.getCelestialAngle(var1) * 360.0F, 1.0F, 0.0F, 0.0F);
         float var24 = 30.0F;
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.renderEngine.getTexture("/terrain/sun.png"));
         tess.startDrawingQuads();
@@ -724,7 +724,7 @@ public class RenderGlobal implements IWorldAccess {
         tess.draw();
         GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-        float starBrightness = this.worldObj.getStarBrightness(var1) * var19;
+        float starBrightness = this.world.getStarBrightness(var1) * var19;
         if (starBrightness > 0.0F) {
             GL11.glColor4f(starBrightness, starBrightness, starBrightness, starBrightness);
             GL11.glCallList(this.starGLCallList);
@@ -735,7 +735,7 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glEnable(GL11.GL_FOG);
         GL11.glPopMatrix();
-        if (this.worldObj.worldProvider.method1()) {
+        if (this.world.worldProvider.method1()) {
             GL11.glColor3f(x * 0.2F + 0.04F, y * 0.2F + 0.04F, z * 0.6F + 0.1F);
         } else {
             GL11.glColor3f(x, y, z);
@@ -767,7 +767,7 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-        Vec3d vec = this.worldObj.cloudColor(partialTicks);
+        Vec3d vec = this.world.cloudColor(partialTicks);
         float r = (float) vec.x;
         float g = (float) vec.y;
         float b = (float) vec.z;
@@ -790,7 +790,7 @@ public class RenderGlobal implements IWorldAccess {
 
         dX = dX - (double) (dX2048 * GL11.GL_EXP);
         dZ = dZ - (double) (dZ2048 * GL11.GL_EXP);
-        float spY = this.worldObj.worldProvider.getCloudHeight() - dY + 0.33F;
+        float spY = this.world.worldProvider.getCloudHeight() - dY + 0.33F;
         float spX = (float) (dX * (double) m);
         float spZ = (float) (dZ * (double) m);
         tess.startDrawingQuads();
@@ -827,7 +827,7 @@ public class RenderGlobal implements IWorldAccess {
 
         double dX = (rve.prevPosX + (rve.posX - rve.prevPosX) * (double) partialTicks + (double) (((float) this.cloudOffsetX + partialTicks) * 0.03F)) / (double) vol;
         double dZ = (rve.prevPosZ + (rve.posZ - rve.prevPosZ) * (double) partialTicks) / (double) vol + 0.33000001311302185D;
-        float cpy = this.worldObj.worldProvider.getCloudHeight() - dY + 0.33F;
+        float cpy = this.world.worldProvider.getCloudHeight() - dY + 0.33F;
 
         int dX2048 = MathHelper.floor(dX / 2048.0D);
         int dZ2048 = MathHelper.floor(dZ / 2048.0D);
@@ -838,7 +838,7 @@ public class RenderGlobal implements IWorldAccess {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-        Vec3d color = this.worldObj.cloudColor(partialTicks);
+        Vec3d color = this.world.cloudColor(partialTicks);
         float r = (float) color.x;
         float g = (float) color.y;
         float b = (float) color.z;
@@ -1095,7 +1095,7 @@ public class RenderGlobal implements IWorldAccess {
                 GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureId);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
                 GL11.glPushMatrix();
-                int blockId = this.worldObj.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
+                int blockId = this.world.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
                 Block block = blockId > 0 ? Block.BLOCKS_LIST[blockId] : null;
                 GL11.glDisable(GL11.GL_ALPHA_TEST);
                 GL11.glPolygonOffset(-3.0F, -3.0F);
@@ -1168,14 +1168,14 @@ public class RenderGlobal implements IWorldAccess {
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glDepthMask(false);
             float expand = 0.002F;
-            int blockId = this.worldObj.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
+            int blockId = this.world.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
             if (blockId > 0) {
-                Block.BLOCKS_LIST[blockId].setBlockBoundsBasedOnState(this.worldObj, pos.blockX, pos.blockY, pos.blockZ);
+                Block.BLOCKS_LIST[blockId].setBlockBoundsBasedOnState(this.world, pos.blockX, pos.blockY, pos.blockZ);
                 double x = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) var5;
                 double y = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) var5;
                 double z = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) var5;
                 this.drawOutlinedBoundingBox(Block.BLOCKS_LIST[blockId]
-                        .getSelectedBoundingBoxFromPool(this.worldObj, pos.blockX, pos.blockY, pos.blockZ)
+                        .getSelectedBoundingBoxFromPool(this.world, pos.blockX, pos.blockY, pos.blockZ)
                         .expand(expand, expand, expand)
                         .getOffsetBoundingBox(-x, -y, -z));
             }
@@ -1304,49 +1304,49 @@ public class RenderGlobal implements IWorldAccess {
             if (var14 * var14 + var16 * var16 + var18 * var18 <= var20 * var20) {
                 switch (var1) {
                     case "bubble":
-                        this.potion.effectRenderer.addEffect(new EntityBubbleFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityBubbleFX(this.world, var2, var4, var6, var8, var10, var12));
                         break;
                     case "smoke":
-                        this.potion.effectRenderer.addEffect(new EntitySmokeFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntitySmokeFX(this.world, var2, var4, var6, var8, var10, var12));
                         break;
                     case "note":
-                        this.potion.effectRenderer.addEffect(new EntityNoteFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityNoteFX(this.world, var2, var4, var6, var8, var10, var12));
                         break;
                     case "portal":
-                        this.potion.effectRenderer.addEffect(new EntityPortalFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityPortalFX(this.world, var2, var4, var6, var8, var10, var12));
                         break;
                     case "explode":
-                        this.potion.effectRenderer.addEffect(new EntityExplodeFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityExplodeFX(this.world, var2, var4, var6, var8, var10, var12));
                         break;
                     case "flame":
-                        this.potion.effectRenderer.addEffect(new EntityFlameFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityFlameFX(this.world, var2, var4, var6, var8, var10, var12));
                         break;
                     case "lava":
-                        this.potion.effectRenderer.addEffect(new EntityLavaFX(this.worldObj, var2, var4, var6));
+                        this.potion.effectRenderer.addEffect(new EntityLavaFX(this.world, var2, var4, var6));
                         break;
                     case "footstep":
-                        this.potion.effectRenderer.addEffect(new EntityFootStepFX(this.renderEngine, this.worldObj, var2, var4, var6));
+                        this.potion.effectRenderer.addEffect(new EntityFootStepFX(this.renderEngine, this.world, var2, var4, var6));
                         break;
                     case "splash":
-                        this.potion.effectRenderer.addEffect(new EntitySplashFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntitySplashFX(this.world, var2, var4, var6, var8, var10, var12));
                         break;
                     case "largesmoke":
-                        this.potion.effectRenderer.addEffect(new EntitySmokeFX(this.worldObj, var2, var4, var6, var8, var10, var12, 2.5F));
+                        this.potion.effectRenderer.addEffect(new EntitySmokeFX(this.world, var2, var4, var6, var8, var10, var12, 2.5F));
                         break;
                     case "reddust":
-                        this.potion.effectRenderer.addEffect(new EntityReddustFX(this.worldObj, var2, var4, var6, (float) var8, (float) var10, (float) var12));
+                        this.potion.effectRenderer.addEffect(new EntityReddustFX(this.world, var2, var4, var6, (float) var8, (float) var10, (float) var12));
                         break;
                     case "snowballpoof":
-                        this.potion.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.SNOWBALL));
+                        this.potion.effectRenderer.addEffect(new EntitySlimeFX(this.world, var2, var4, var6, Item.SNOWBALL));
                         break;
                     case "snowshovel":
-                        this.potion.effectRenderer.addEffect(new EntitySnowShovelFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntitySnowShovelFX(this.world, var2, var4, var6, var8, var10, var12));
                         break;
                     case "slime":
-                        this.potion.effectRenderer.addEffect(new EntitySlimeFX(this.worldObj, var2, var4, var6, Item.SLIMEBALL));
+                        this.potion.effectRenderer.addEffect(new EntitySlimeFX(this.world, var2, var4, var6, Item.SLIMEBALL));
                         break;
                     case "heart":
-                        this.potion.effectRenderer.addEffect(new EntityHeartFX(this.worldObj, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityHeartFX(this.world, var2, var4, var6, var8, var10, var12));
                         break;
                 }
 
@@ -1400,32 +1400,32 @@ public class RenderGlobal implements IWorldAccess {
 
     @Override
     public void playEffect(EntityPlayer player, int var2, int x, int y, int z, int var6) {
-        Random rand = this.worldObj.rand;
+        Random rand = this.world.rand;
         switch (var2) {
             case 1000:
-                this.worldObj.playSoundEffect(x, y, z, "random.click", 1.0F, 1.0F);
+                this.world.playSoundEffect(x, y, z, "random.click", 1.0F, 1.0F);
                 break;
             case 1001:
-                this.worldObj.playSoundEffect(x, y, z, "random.click", 1.0F, 1.2F);
+                this.world.playSoundEffect(x, y, z, "random.click", 1.0F, 1.2F);
                 break;
             case 1002:
-                this.worldObj.playSoundEffect(x, y, z, "random.bow", 1.0F, 1.2F);
+                this.world.playSoundEffect(x, y, z, "random.bow", 1.0F, 1.2F);
                 break;
             case 1003:
                 if (Math.random() < 0.5D) {
-                    this.worldObj.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "random.door_open", 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+                    this.world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "random.door_open", 1.0F, this.world.rand.nextFloat() * 0.1F + 0.9F);
                 } else {
-                    this.worldObj.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "random.door_close", 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+                    this.world.playSoundEffect((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D, "random.door_close", 1.0F, this.world.rand.nextFloat() * 0.1F + 0.9F);
                 }
                 break;
             case 1004:
-                this.worldObj.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, "random.fizz", 0.5F, 2.6F + (rand.nextFloat() - rand.nextFloat()) * 0.8F);
+                this.world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, "random.fizz", 0.5F, 2.6F + (rand.nextFloat() - rand.nextFloat()) * 0.8F);
                 break;
             case 1005:
                 if (Item.ITEMS_LIST[var6] instanceof ItemRecord) {
-                    this.worldObj.playRecord(((ItemRecord) Item.ITEMS_LIST[var6]).recordName, x, y, z);
+                    this.world.playRecord(((ItemRecord) Item.ITEMS_LIST[var6]).recordName, x, y, z);
                 } else {
-                    this.worldObj.playRecord(null, x, y, z);
+                    this.world.playRecord(null, x, y, z);
                 }
                 break;
             case 2000:

@@ -37,7 +37,7 @@ import net.potion.util.AxisAlignedBB;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import net.potion.world.chunk.ChunkCoordinates;
-import net.potion.world.chunk.IOldChunkProvider;
+import net.potion.world.chunk.IChunkProvider;
 
 import java.util.List;
 
@@ -92,7 +92,7 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     public static ChunkCoordinates func_25060_a(World world, ChunkCoordinates coord) {
-        IOldChunkProvider provider = world.getIChunkProvider();
+        IChunkProvider provider = world.getIChunkProvider();
         provider.prepareChunk(coord.x - 3 >> 4, coord.z - 3 >> 4);
         provider.prepareChunk(coord.x + 3 >> 4, coord.z - 3 >> 4);
         provider.prepareChunk(coord.x - 3 >> 4, coord.z + 3 >> 4);
@@ -117,10 +117,10 @@ public abstract class EntityPlayer extends EntityLiving {
             if (this.sleepTimer > 100)
                 this.sleepTimer = 100;
 
-            if (!this.worldObj.localWorld) {
+            if (!this.world.localWorld) {
                 if (!this.isInBed()) {
                     this.wakeUpPlayer(true, true, false);
-                } else if (this.worldObj.isDaytime()) {
+                } else if (this.world.isDaytime()) {
                     this.wakeUpPlayer(false, true, true);
                 }
             }
@@ -131,7 +131,7 @@ public abstract class EntityPlayer extends EntityLiving {
         }
 
         super.onUpdate();
-        if (!this.worldObj.localWorld && this.craftingInventory != null && !this.craftingInventory.isUsableByPlayer(this)) {
+        if (!this.world.localWorld && this.craftingInventory != null && !this.craftingInventory.isUsableByPlayer(this)) {
             this.closeScreen();
             this.craftingInventory = this.inventorySlots;
         }
@@ -227,7 +227,7 @@ public abstract class EntityPlayer extends EntityLiving {
 
     @Override
     public void onLivingUpdate() {
-        if (this.worldObj.difficultySetting == 0 && this.health < 20 && this.ticksExisted % 20 * 12 == 0) {
+        if (this.world.difficultySetting == 0 && this.health < 20 && this.ticksExisted % 20 * 12 == 0) {
             this.heal(1);
         }
 
@@ -251,7 +251,7 @@ public abstract class EntityPlayer extends EntityLiving {
         this.cameraYaw += (var1 - this.cameraYaw) * 0.4F;
         this.cameraPitch += (var2 - this.cameraPitch) * 0.8F;
         if (this.health > 0) {
-            List<Entity> entities = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(1.0D, 0.0D, 1.0D));
+            List<Entity> entities = this.world.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(1.0D, 0.0D, 1.0D));
             if (entities == null) {
                 return;
             }
@@ -320,7 +320,7 @@ public abstract class EntityPlayer extends EntityLiving {
             return;
         }
 
-        EntityItem item = new EntityItem(this.worldObj, this.posX, this.posY - 0.30000001192092896D + (double) this.getEyeHeight(), this.posZ, stack);
+        EntityItem item = new EntityItem(this.world, this.posX, this.posY - 0.30000001192092896D + (double) this.getEyeHeight(), this.posZ, stack);
         item.delayBeforeCanPickup = 40;
         float var4 = 0.1F;
         if (var2) {
@@ -347,7 +347,7 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     protected void joinEntityItemWithWorld(EntityItem var1) {
-        this.worldObj.entityJoinedWorld(var1);
+        this.world.entityJoinedWorld(var1);
     }
 
     public float getCurrentPlayerStrVsBlock(Block var1) {
@@ -423,20 +423,20 @@ public abstract class EntityPlayer extends EntityLiving {
         if (this.health <= 0)
             return false;
 
-        if (this.isSleeping() && !this.worldObj.localWorld) {
+        if (this.isSleeping() && !this.world.localWorld) {
             this.wakeUpPlayer(true, true, false);
         }
 
         if (var1 instanceof EntityMob || var1 instanceof EntityArrow) {
-            if (this.worldObj.difficultySetting == 0) {
+            if (this.world.difficultySetting == 0) {
                 var2 = 0;
             }
 
-            if (this.worldObj.difficultySetting == 1) {
+            if (this.world.difficultySetting == 1) {
                 var2 = var2 / 3 + 1;
             }
 
-            if (this.worldObj.difficultySetting == 3) {
+            if (this.world.difficultySetting == 3) {
                 var2 = var2 * 3 / 2;
             }
         }
@@ -471,7 +471,7 @@ public abstract class EntityPlayer extends EntityLiving {
             }
 
             if (!(var1 instanceof EntityPlayer) || this.isPvpEnabled()) {
-                for (Entity var5 : this.worldObj.getEntitiesWithinAABB(EntityWolf.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D))) {
+                for (Entity var5 : this.world.getEntitiesWithinAABB(EntityWolf.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D))) {
                     EntityWolf var6 = (EntityWolf) var5;
                     if (var6.isWolfTamed() && var6.getTarget() == null && this.username.equals(var6.getOwner()) && (!var2 || !var6.isSitting())) {
                         var6.setSitting(false);
@@ -590,16 +590,16 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     public EnumBedStatus sleepInBedAt(int var1, int var2, int var3) {
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             if (this.isSleeping() || !this.isEntityAlive()) {
                 return EnumBedStatus.OTHER_PROBLEM;
             }
 
-            if (this.worldObj.worldProvider.isNether) {
+            if (this.world.worldProvider.isNether) {
                 return EnumBedStatus.NOT_POSSIBLE_HERE;
             }
 
-            if (this.worldObj.isDaytime()) {
+            if (this.world.isDaytime()) {
                 return EnumBedStatus.NOT_POSSIBLE_NOW;
             }
 
@@ -610,8 +610,8 @@ public abstract class EntityPlayer extends EntityLiving {
 
         this.setSize(0.2F, 0.2F);
         this.yOffset = 0.2F;
-        if (this.worldObj.blockExists(var1, var2, var3)) {
-            int var4 = this.worldObj.getBlockMetadata(var1, var2, var3);
+        if (this.world.blockExists(var1, var2, var3)) {
+            int var4 = this.world.getBlockMetadata(var1, var2, var3);
             int var5 = BlockBed.getDirectionFromMetadata(var4);
             float var6 = 0.5F;
             float var7 = 0.5F;
@@ -632,8 +632,8 @@ public abstract class EntityPlayer extends EntityLiving {
         this.sleepTimer = 0;
         this.bedChunkCoordinates = new ChunkCoordinates(var1, var2, var3);
         this.motionX = this.motionZ = this.motionY = 0.0D;
-        if (!this.worldObj.localWorld) {
-            this.worldObj.updateAllPlayersSleepingFlag();
+        if (!this.world.localWorld) {
+            this.world.updateAllPlayersSleepingFlag();
         }
 
         return EnumBedStatus.OK;
@@ -656,9 +656,9 @@ public abstract class EntityPlayer extends EntityLiving {
         this.resetHeight();
         ChunkCoordinates var4 = this.bedChunkCoordinates;
         ChunkCoordinates var5 = this.bedChunkCoordinates;
-        if (var4 != null && this.worldObj.getBlockId(var4.x, var4.y, var4.z) == Block.BED.blockID) {
-            BlockBed.setBedOccupied(this.worldObj, var4.x, var4.y, var4.z, false);
-            var5 = BlockBed.getNearestEmptyChunkCoordinates(this.worldObj, var4.x, var4.y, var4.z, 0);
+        if (var4 != null && this.world.getBlockId(var4.x, var4.y, var4.z) == Block.BED.blockID) {
+            BlockBed.setBedOccupied(this.world, var4.x, var4.y, var4.z, false);
+            var5 = BlockBed.getNearestEmptyChunkCoordinates(this.world, var4.x, var4.y, var4.z, 0);
             if (var5 == null) {
                 var5 = new ChunkCoordinates(var4.x, var4.y + 1, var4.z);
             }
@@ -667,8 +667,8 @@ public abstract class EntityPlayer extends EntityLiving {
         }
 
         this.sleeping = false;
-        if (!this.worldObj.localWorld && var2) {
-            this.worldObj.updateAllPlayersSleepingFlag();
+        if (!this.world.localWorld && var2) {
+            this.world.updateAllPlayersSleepingFlag();
         }
 
         if (var1) {
@@ -684,13 +684,13 @@ public abstract class EntityPlayer extends EntityLiving {
     }
 
     private boolean isInBed() {
-        return this.worldObj.getBlockId(this.bedChunkCoordinates.x, this.bedChunkCoordinates.y, this.bedChunkCoordinates.z) == Block.BED.blockID;
+        return this.world.getBlockId(this.bedChunkCoordinates.x, this.bedChunkCoordinates.y, this.bedChunkCoordinates.z) == Block.BED.blockID;
     }
 
     @Side(CodeSide.CLIENT)
     public float getBedOrientationInDegrees() {
         if (this.bedChunkCoordinates != null) {
-            int var1 = this.worldObj.getBlockMetadata(this.bedChunkCoordinates.x, this.bedChunkCoordinates.y, this.bedChunkCoordinates.z);
+            int var1 = this.world.getBlockMetadata(this.bedChunkCoordinates.x, this.bedChunkCoordinates.y, this.bedChunkCoordinates.z);
             int var2 = BlockBed.getDirectionFromMetadata(var1);
             switch (var2) {
                 case 0:

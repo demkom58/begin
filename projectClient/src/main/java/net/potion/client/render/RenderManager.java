@@ -30,7 +30,7 @@ public class RenderManager {
     public static double renderPosZ;
     public RenderEngine renderEngine;
     public ItemRenderer itemRenderer;
-    public World worldObj;
+    public World world;
     public EntityLiving livingPlayer;
     public float playerViewY;
     public float playerViewX;
@@ -93,7 +93,7 @@ public class RenderManager {
     }
 
     public void cacheActiveRenderInfo(World world, RenderEngine renderEngine, FontRenderer fontRenderer, EntityLiving entity, GameSettings options, float delta) {
-        this.worldObj = world;
+        this.world = world;
         this.renderEngine = renderEngine;
         this.options = options;
         this.livingPlayer = entity;
@@ -138,7 +138,7 @@ public class RenderManager {
     }
 
     public void setWorld(World world) {
-        this.worldObj = world;
+        this.world = world;
     }
 
     public double getDistanceToCamera(double var1, double var3, double var5) {

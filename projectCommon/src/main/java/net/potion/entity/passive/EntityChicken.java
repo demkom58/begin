@@ -46,8 +46,8 @@ public class EntityChicken extends EntityAnimal {
         }
 
         this.field2 += this.field5 * 2.0F;
-        if (!this.worldObj.localWorld && --this.timeUntilNextEgg <= 0) {
-            this.worldObj.playSoundAtEntity(this, "mob.chickenplop", 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+        if (!this.world.localWorld && --this.timeUntilNextEgg <= 0) {
+            this.world.playSoundAtEntity(this, "mob.chickenplop", 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             this.dropItem(Item.EGG.shiftedIndex, 1);
             this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
         }

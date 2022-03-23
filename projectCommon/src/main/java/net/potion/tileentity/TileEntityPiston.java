@@ -84,9 +84,9 @@ public class TileEntityPiston extends TileEntity {
             var1 = 1.0F - var1;
         }
 
-        AxisAlignedBB var3 = Block.PISTON_MOVING.method1(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, var1, this.storedOrientation);
+        AxisAlignedBB var3 = Block.PISTON_MOVING.method1(this.world, this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, var1, this.storedOrientation);
         if (var3 != null) {
-            List<Entity> var4 = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, var3);
+            List<Entity> var4 = this.world.getEntitiesWithinAABBExcludingEntity(null, var3);
             if (!var4.isEmpty()) {
                 ENTITIES.addAll(var4);
 
@@ -103,10 +103,10 @@ public class TileEntityPiston extends TileEntity {
     public void clearPistonTileEntity() {
         if (this.lastProgress < 1.0F) {
             this.lastProgress = this.progress = 1.0F;
-            this.worldObj.removeBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
+            this.world.removeBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
             this.invalidate();
-            if (this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.PISTON_MOVING.blockID) {
-                this.worldObj.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, this.storedMetadata);
+            if (this.world.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.PISTON_MOVING.blockID) {
+                this.world.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, this.storedMetadata);
             }
         }
 
@@ -117,10 +117,10 @@ public class TileEntityPiston extends TileEntity {
         this.lastProgress = this.progress;
         if (this.lastProgress >= 1.0F) {
             this.method5(1.0F, 0.25F);
-            this.worldObj.removeBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
+            this.world.removeBlockTileEntity(this.xCoord, this.yCoord, this.zCoord);
             this.invalidate();
-            if (this.worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.PISTON_MOVING.blockID) {
-                this.worldObj.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, this.storedMetadata);
+            if (this.world.getBlockId(this.xCoord, this.yCoord, this.zCoord) == Block.PISTON_MOVING.blockID) {
+                this.world.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, this.storedBlockID, this.storedMetadata);
             }
 
         } else {

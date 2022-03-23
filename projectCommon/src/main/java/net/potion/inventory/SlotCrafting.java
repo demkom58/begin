@@ -23,7 +23,7 @@ public class SlotCrafting extends Slot {
 
     @Override
     public void onPickupFromSlot(ItemStack var1) {
-        var1.onCrafting(this.thePlayer.worldObj, this.thePlayer);
+        var1.onCrafting(this.thePlayer.world, this.thePlayer);
         if (var1.itemID == Block.WORKBENCH.blockID) {
             this.thePlayer.addStat(AchievementList.buildWorkBench, 1);
         } else if (var1.itemID == Item.PICKAXE_WOOD.shiftedIndex) {

@@ -85,7 +85,7 @@ public class EntitySquid extends EntityWaterMob {
 
     @Override
     public boolean isInWater() {
-        return this.worldObj.handleMaterialAcceleration(this.boundingBox.expand(0.0D, -0.6000000238418579D, 0.0D), Material.WATER, this);
+        return this.world.handleMaterialAcceleration(this.boundingBox.expand(0.0D, -0.6000000238418579D, 0.0D), Material.WATER, this);
     }
 
     @Override

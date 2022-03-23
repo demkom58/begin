@@ -30,7 +30,7 @@ public class EntitySpider extends EntityMob {
         float var1 = this.getEntityBrightness(1.0F);
         if (var1 < 0.5F) {
             double var2 = 16.0D;
-            return this.worldObj.getClosestPlayerToEntity(this, var2);
+            return this.world.getClosestPlayerToEntity(this, var2);
         } else {
             return null;
         }

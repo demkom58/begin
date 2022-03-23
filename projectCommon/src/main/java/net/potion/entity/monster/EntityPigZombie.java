@@ -28,7 +28,7 @@ public class EntityPigZombie extends EntityZombie {
     public void onUpdate() {
         this.moveSpeed = this.playerToAttack != null ? 0.95F : 0.5F;
         if (this.randomSoundDelay > 0 && --this.randomSoundDelay == 0) {
-            this.worldObj.playSoundAtEntity(this, "mob.zombiepig.zpigangry", this.getSoundVolume() * 2.0F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+            this.world.playSoundAtEntity(this, "mob.zombiepig.zpigangry", this.getSoundVolume() * 2.0F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) * 1.8F);
         }
 
         super.onUpdate();
@@ -36,7 +36,7 @@ public class EntityPigZombie extends EntityZombie {
 
     @Override
     public boolean getCanSpawnHere() {
-        return this.worldObj.difficultySetting > 0 && this.worldObj.checkIfAABBIsClear(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.worldObj.containsLiquid(this.boundingBox);
+        return this.world.difficultySetting > 0 && this.world.checkIfAABBIsClear(this.boundingBox) && this.world.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.world.containsLiquid(this.boundingBox);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class EntityPigZombie extends EntityZombie {
     @Override
     public boolean attackEntityFrom(Entity var1, int var2) {
         if (var1 instanceof EntityPlayer) {
-            List<Entity> var3 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(32.0D, 32.0D, 32.0D));
+            List<Entity> var3 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(32.0D, 32.0D, 32.0D));
 
             for (int var4 = 0; var4 < var3.size(); ++var4) {
                 Entity var5 = var3.get(var4);

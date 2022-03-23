@@ -116,7 +116,7 @@ public class RenderPainting extends Render {
             var6 = MathHelper.floor(var1.posZ + (double) (var2 / 16.0F));
         }
 
-        float var7 = this.renderManager.worldObj.getLightBrightness(var4, var5, var6);
+        float var7 = this.renderManager.world.getLightBrightness(var4, var5, var6);
         GL11.glColor3f(var7, var7, var7);
     }
 

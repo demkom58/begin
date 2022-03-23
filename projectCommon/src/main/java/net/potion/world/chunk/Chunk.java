@@ -12,7 +12,7 @@ import net.potion.world.World;
 
 import java.util.*;
 
-public class OldChunk {
+public class Chunk {
     public static boolean isLit;
     public final int xPosition;
     public final int zPosition;
@@ -32,7 +32,7 @@ public class OldChunk {
     public boolean hasEntities;
     public long lastSaveTime;
 
-    public OldChunk(World world, int x, int z) {
+    public Chunk(World world, int x, int z) {
         this.chunkTileEntityMap = new HashMap<>();
         this.entities = new List[8];
         this.terrainPopulated = false;
@@ -50,7 +50,7 @@ public class OldChunk {
 
     }
 
-    public OldChunk(World world, byte[] blocks, int x, int z) {
+    public Chunk(World world, byte[] blocks, int x, int z) {
         this(world, x, z);
         this.blocks = blocks;
         this.metadata = new NibbleArray(blocks.length);
@@ -440,7 +440,7 @@ public class OldChunk {
 
     public void setChunkBlockTileEntity(int x, int y, int z, TileEntity tileEntity) {
         ChunkPosition cPos = new ChunkPosition(x, y, z);
-        tileEntity.worldObj = this.world;
+        tileEntity.world = this.world;
         tileEntity.xCoord = this.xPosition * 16 + x;
         tileEntity.yCoord = y;
         tileEntity.zCoord = this.zPosition * 16 + z;

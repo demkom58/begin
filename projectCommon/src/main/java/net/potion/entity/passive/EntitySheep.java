@@ -64,7 +64,7 @@ public class EntitySheep extends EntityAnimal {
     public boolean interact(EntityPlayer var1) {
         ItemStack var2 = var1.inventory.getCurrentItem();
         if (var2 != null && var2.itemID == Item.SHEARS.shiftedIndex && !this.getSheared()) {
-            if (!this.worldObj.localWorld) {
+            if (!this.world.localWorld) {
                 this.setSheared(true);
                 int var3 = 2 + this.rand.nextInt(3);
 

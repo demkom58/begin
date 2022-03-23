@@ -57,7 +57,7 @@ public class EntityPlayerSP extends EntityPlayer {
 
         this.prevTimeInPortal = this.timeInPortal;
         if (this.inPortal) {
-            if (!this.worldObj.localWorld && this.ridingEntity != null) {
+            if (!this.world.localWorld && this.ridingEntity != null) {
                 this.mountEntity(null);
             }
 
@@ -72,7 +72,7 @@ public class EntityPlayerSP extends EntityPlayer {
             this.timeInPortal += 0.0125F;
             if (this.timeInPortal >= 1.0F) {
                 this.timeInPortal = 1.0F;
-                if (!this.worldObj.localWorld) {
+                if (!this.world.localWorld) {
                     this.timeUntilPortal = 10;
                     this.potion.soundManager.playSoundFX("portal.travel", 1.0F, this.rand.nextFloat() * 0.4F + 0.8F);
                     this.potion.usePortal();
@@ -144,7 +144,7 @@ public class EntityPlayerSP extends EntityPlayer {
 
     @Override
     public void displayWorkbenchGUI(int var1, int var2, int var3) {
-        this.potion.displayGuiScreen(new GuiCrafting(this.inventory, this.worldObj, var1, var2, var3));
+        this.potion.displayGuiScreen(new GuiCrafting(this.inventory, this.world, var1, var2, var3));
     }
 
     @Override
@@ -221,7 +221,7 @@ public class EntityPlayerSP extends EntityPlayer {
     }
 
     private boolean isBlockTranslucent(int var1, int var2, int var3) {
-        return this.worldObj.isBlockNormalCube(var1, var2, var3);
+        return this.world.isBlockNormalCube(var1, var2, var3);
     }
 
     @Override

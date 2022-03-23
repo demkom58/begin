@@ -125,7 +125,7 @@ public class InventoryPlayer implements IInventory {
     public void decrementAnimations() {
         for (int var1 = 0; var1 < this.mainInventory.length; ++var1) {
             if (this.mainInventory[var1] != null) {
-                this.mainInventory[var1].updateAnimation(this.player.worldObj, this.player, var1, this.currentItem == var1);
+                this.mainInventory[var1].updateAnimation(this.player.world, this.player, var1, this.currentItem == var1);
             }
         }
 

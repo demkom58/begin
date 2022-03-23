@@ -50,7 +50,7 @@ public class EntityPig extends EntityAnimal {
 
     @Override
     public boolean interact(EntityPlayer var1) {
-        if (!this.getSaddled() || this.worldObj.localWorld || this.riddenByEntity != null && this.riddenByEntity != var1) {
+        if (!this.getSaddled() || this.world.localWorld || this.riddenByEntity != null && this.riddenByEntity != var1) {
             return false;
         } else {
             var1.mountEntity(this);
@@ -78,10 +78,10 @@ public class EntityPig extends EntityAnimal {
 
     @Override
     public void onStruckByLightning(EntityLightningBolt var1) {
-        if (!this.worldObj.localWorld) {
-            EntityPigZombie var2 = new EntityPigZombie(this.worldObj);
+        if (!this.world.localWorld) {
+            EntityPigZombie var2 = new EntityPigZombie(this.world);
             var2.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-            this.worldObj.entityJoinedWorld(var2);
+            this.world.entityJoinedWorld(var2);
             this.setEntityDead();
         }
     }

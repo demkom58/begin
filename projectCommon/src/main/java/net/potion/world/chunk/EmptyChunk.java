@@ -9,13 +9,13 @@ import net.potion.world.World;
 import java.util.List;
 import java.util.Random;
 
-public class EmptyOldChunk extends OldChunk {
-    public EmptyOldChunk(World world, int x, int z) {
+public class EmptyChunk extends Chunk {
+    public EmptyChunk(World world, int x, int z) {
         super(world, x, z);
         this.neverSave = true;
     }
 
-    public EmptyOldChunk(World world, byte[] data, int x, int z) {
+    public EmptyChunk(World world, byte[] data, int x, int z) {
         super(world, data, x, z);
         this.neverSave = true;
     }

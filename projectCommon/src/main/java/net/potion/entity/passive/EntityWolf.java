@@ -125,7 +125,7 @@ public class EntityWolf extends EntityAnimal {
     protected void updatePlayerActionState() {
         super.updatePlayerActionState();
         if (!this.hasAttacked && !this.hasPath() && this.isWolfTamed() && this.ridingEntity == null) {
-            EntityPlayer var3 = this.worldObj.getPlayerEntityByName(this.getOwner());
+            EntityPlayer var3 = this.world.getPlayerEntityByName(this.getOwner());
             if (var3 != null) {
                 float var2 = var3.getDistanceToEntity(this);
                 if (var2 > 5.0F) {
@@ -134,10 +134,10 @@ public class EntityWolf extends EntityAnimal {
             } else if (!this.isInWater()) {
                 this.setSitting(true);
             }
-        } else if (this.playerToAttack == null && !this.hasPath() && !this.isWolfTamed() && this.worldObj.rand.nextInt(100) == 0) {
-            List<Entity> var1 = this.worldObj.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
+        } else if (this.playerToAttack == null && !this.hasPath() && !this.isWolfTamed() && this.world.rand.nextInt(100) == 0) {
+            List<Entity> var1 = this.world.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
             if (!var1.isEmpty()) {
-                this.setTarget(var1.get(this.worldObj.rand.nextInt(var1.size())));
+                this.setTarget(var1.get(this.world.rand.nextInt(var1.size())));
             }
         }
 
@@ -145,7 +145,7 @@ public class EntityWolf extends EntityAnimal {
             this.setSitting(false);
         }
 
-        if (!this.worldObj.localWorld) {
+        if (!this.world.localWorld) {
             this.dataWatcher.updateObject(18, this.health);
         }
 
@@ -173,7 +173,7 @@ public class EntityWolf extends EntityAnimal {
             this.field3 = true;
             this.timeShaking = 0.0F;
             this.prevTimeShaking = 0.0F;
-            this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 8);
+            this.world.sendTrackedEntityStatusUpdatePacket(this, (byte) 8);
         }
 
     }
@@ -199,7 +199,7 @@ public class EntityWolf extends EntityAnimal {
             this.prevTimeShaking = 0.0F;
         } else if ((this.isWolfShaking || this.field3) && this.field3) {
             if (this.timeShaking == 0.0F) {
-                this.worldObj.playSoundAtEntity(this, "mob.wolf.shake", this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+                this.world.playSoundAtEntity(this, "mob.wolf.shake", this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             }
 
             this.prevTimeShaking = this.timeShaking;
@@ -218,7 +218,7 @@ public class EntityWolf extends EntityAnimal {
                 for (int var3 = 0; var3 < var2; ++var3) {
                     float var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
                     float var5 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
-                    this.worldObj.spawnParticle("splash", this.posX + (double) var4, var1 + 0.8F, this.posZ + (double) var5, this.motionX, this.motionY, this.motionZ);
+                    this.world.spawnParticle("splash", this.posX + (double) var4, var1 + 0.8F, this.posZ + (double) var5, this.motionX, this.motionY, this.motionZ);
                 }
             }
         }
@@ -259,7 +259,7 @@ public class EntityWolf extends EntityAnimal {
     }
 
     private void getPathOrWalkableBlock(Entity var1, float var2) {
-        PathEntity var3 = this.worldObj.getPathToEntity(this, var1, 16.0F);
+        PathEntity var3 = this.world.getPathToEntity(this, var1, 16.0F);
         if (var3 == null && var2 > 12.0F) {
             int var4 = MathHelper.floor(var1.posX) - 2;
             int var5 = MathHelper.floor(var1.posZ) - 2;
@@ -267,7 +267,7 @@ public class EntityWolf extends EntityAnimal {
 
             for (int var7 = 0; var7 <= 4; ++var7) {
                 for (int var8 = 0; var8 <= 4; ++var8) {
-                    if ((var7 < 1 || var8 < 1 || var7 > 3 || var8 > 3) && this.worldObj.isBlockNormalCube(var4 + var7, var6 - 1, var5 + var8) && !this.worldObj.isBlockNormalCube(var4 + var7, var6, var5 + var8) && !this.worldObj.isBlockNormalCube(var4 + var7, var6 + 1, var5 + var8)) {
+                    if ((var7 < 1 || var8 < 1 || var7 > 3 || var8 > 3) && this.world.isBlockNormalCube(var4 + var7, var6 - 1, var5 + var8) && !this.world.isBlockNormalCube(var4 + var7, var6, var5 + var8) && !this.world.isBlockNormalCube(var4 + var7, var6 + 1, var5 + var8)) {
                         this.setLocationAndAngles((float) (var4 + var7) + 0.5F, var6, (float) (var5 + var8) + 0.5F, this.rotationYaw, this.rotationPitch);
                         return;
                     }
@@ -306,7 +306,7 @@ public class EntityWolf extends EntityAnimal {
             }
 
             if (var1 instanceof EntityLiving) {
-                for (Entity var5 : this.worldObj.getEntitiesWithinAABB(EntityWolf.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D))) {
+                for (Entity var5 : this.world.getEntitiesWithinAABB(EntityWolf.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D))) {
                     EntityWolf var6 = (EntityWolf) var5;
                     if (!var6.isWolfTamed() && var6.playerToAttack == null) {
                         var6.playerToAttack = var1;
@@ -329,7 +329,7 @@ public class EntityWolf extends EntityAnimal {
 
     @Override
     protected Entity findPlayerToAttack() {
-        return this.isAngry() ? this.worldObj.getClosestPlayerToEntity(this, 16.0D) : null;
+        return this.isAngry() ? this.world.getClosestPlayerToEntity(this, 16.0D) : null;
     }
 
     @Override
@@ -365,7 +365,7 @@ public class EntityWolf extends EntityAnimal {
                     var1.inventory.setInventorySlotContents(var1.inventory.currentItem, null);
                 }
 
-                if (!this.worldObj.localWorld) {
+                if (!this.world.localWorld) {
                     if (this.rand.nextInt(3) == 0) {
                         this.setWolfTamed(true);
                         this.setPathToEntity(null);
@@ -373,10 +373,10 @@ public class EntityWolf extends EntityAnimal {
                         this.health = 20;
                         this.setOwner(var1.username);
                         this.playTameEffect(true);
-                        this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 7);
+                        this.world.sendTrackedEntityStatusUpdatePacket(this, (byte) 7);
                     } else {
                         this.playTameEffect(false);
-                        this.worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte) 6);
+                        this.world.sendTrackedEntityStatusUpdatePacket(this, (byte) 6);
                     }
                 }
 
@@ -396,7 +396,7 @@ public class EntityWolf extends EntityAnimal {
             }
 
             if (var1.username.equalsIgnoreCase(this.getOwner())) {
-                if (!this.worldObj.localWorld) {
+                if (!this.world.localWorld) {
                     this.setSitting(!this.isSitting());
                     this.isJumping = false;
                     this.setPathToEntity(null);
@@ -419,7 +419,7 @@ public class EntityWolf extends EntityAnimal {
             double var4 = this.rand.nextGaussian() * 0.02D;
             double var6 = this.rand.nextGaussian() * 0.02D;
             double var8 = this.rand.nextGaussian() * 0.02D;
-            this.worldObj.spawnParticle(var2, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, var4, var6, var8);
+            this.world.spawnParticle(var2, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + 0.5D + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, var4, var6, var8);
         }
 
     }
