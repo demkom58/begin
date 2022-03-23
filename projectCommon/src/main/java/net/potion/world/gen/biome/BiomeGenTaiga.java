@@ -15,6 +15,10 @@ public class BiomeGenTaiga extends BiomeGenBase {
 
     @Override
     public WorldGenerator getRandomWorldGenForTrees(Random random) {
-        return (random.nextInt(3) == 0 ? new WorldGenTaiga1() : new WorldGenTaiga2());
+        if (random.nextInt(3) == 0) {
+            return new WorldGenTaiga1();
+        }
+
+        return new WorldGenTaiga2();
     }
 }

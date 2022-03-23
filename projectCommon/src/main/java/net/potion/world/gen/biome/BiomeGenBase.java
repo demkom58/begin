@@ -142,11 +142,13 @@ public class BiomeGenBase {
     @Side(CodeSide.CLIENT)
     public int getSkyColorByTemp(float temp) {
         temp = temp / 3.0F;
-        if (temp < -1.0F)
+        if (temp < -1.0F) {
             temp = -1.0F;
+        }
 
-        if (temp > 1.0F)
+        if (temp > 1.0F) {
             temp = 1.0F;
+        }
 
         return Color.getHSBColor(0.62222224F - temp * 0.05F, 0.5F + temp * 0.1F, 1.0F).getRGB();
     }
@@ -160,7 +162,11 @@ public class BiomeGenBase {
             return this.spawnableCreatureList;
         }
 
-        return type == EnumCreatureType.WATER_CREATURE ? this.spawnableWaterCreatureList : null;
+        if (type == EnumCreatureType.WATER_CREATURE) {
+            return this.spawnableWaterCreatureList;
+        }
+
+        return null;
     }
 
     public boolean getEnableSnow() {

@@ -18,8 +18,12 @@ public class BiomeGenForest extends BiomeGenBase {
     public WorldGenerator getRandomWorldGenForTrees(Random random) {
         if (random.nextInt(5) == 0) {
             return new WorldGenForest();
-        } else {
-            return (random.nextInt(3) == 0 ? new WorldGenBigTree() : new WorldGenTrees());
         }
+
+        if (random.nextInt(3) == 0) {
+            return new WorldGenBigTree();
+        }
+
+        return new WorldGenTrees();
     }
 }
