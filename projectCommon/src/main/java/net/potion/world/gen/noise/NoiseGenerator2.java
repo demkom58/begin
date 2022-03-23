@@ -5,31 +5,30 @@ import java.util.Random;
 public class NoiseGenerator2 {
     private static final double field_4294_f = 0.5D * (Math.sqrt(3.0D) - 1.0D);
     private static final double field_4293_g = (3.0D - Math.sqrt(3.0D)) / 6.0D;
-    private static int[][] field_4296_d = new int[][]{{1, 1, 0}, {-1, 1, 0}, {1, -1, 0}, {-1, -1, 0}, {1, 0, 1}, {-1, 0, 1}, {1, 0, -1}, {-1, 0, -1}, {0, 1, 1}, {0, -1, 1}, {0, 1, -1}, {0, -1, -1}};
+    private static final int[][] field_4296_d = new int[][]{{1, 1, 0}, {-1, 1, 0}, {1, -1, 0}, {-1, -1, 0}, {1, 0, 1}, {-1, 0, 1}, {1, 0, -1}, {-1, 0, -1}, {0, 1, 1}, {0, -1, 1}, {0, 1, -1}, {0, -1, -1}};
     public double r1;
     public double r2;
     public double r3;
-    private int[] field_4295_e;
+    private final int[] values;
 
     public NoiseGenerator2() {
         this(new Random());
     }
 
-    public NoiseGenerator2(Random var1) {
-        this.field_4295_e = new int[512];
-        this.r1 = var1.nextDouble() * 256.0D;
-        this.r2 = var1.nextDouble() * 256.0D;
-        this.r3 = var1.nextDouble() * 256.0D;
+    public NoiseGenerator2(Random random) {
+        this.values = new int[512];
+        this.r1 = random.nextDouble() * 256.0D;
+        this.r2 = random.nextDouble() * 256.0D;
+        this.r3 = random.nextDouble() * 256.0D;
 
-        for (int var2 = 0; var2 < 256; this.field_4295_e[var2] = var2++) {
-        }
+        for (int i = 0; i < 256; this.values[i] = i++);
 
-        for (int var5 = 0; var5 < 256; ++var5) {
-            int var3 = var1.nextInt(256 - var5) + var5;
-            int var4 = this.field_4295_e[var5];
-            this.field_4295_e[var5] = this.field_4295_e[var3];
-            this.field_4295_e[var3] = var4;
-            this.field_4295_e[var5 + 256] = this.field_4295_e[var5];
+        for (int i = 0; i < 256; ++i) {
+            int rnd = random.nextInt(256 - i) + i;
+            int var4 = this.values[i];
+            this.values[i] = this.values[rnd];
+            this.values[rnd] = var4;
+            this.values[i + 256] = this.values[i];
         }
 
     }
@@ -74,9 +73,9 @@ public class NoiseGenerator2 {
                 double var49 = var39 - 1.0D + 2.0D * field_4293_g;
                 int var51 = var29 & 255;
                 int var52 = var30 & 255;
-                int var53 = this.field_4295_e[var51 + this.field_4295_e[var52]] % 12;
-                int var54 = this.field_4295_e[var51 + var41 + this.field_4295_e[var52 + var42]] % 12;
-                int var55 = this.field_4295_e[var51 + 1 + this.field_4295_e[var52 + 1]] % 12;
+                int var53 = this.values[var51 + this.values[var52]] % 12;
+                int var54 = this.values[var51 + var41 + this.values[var52 + var42]] % 12;
+                int var55 = this.values[var51 + 1 + this.values[var52 + 1]] % 12;
                 double var56 = 0.5D - var37 * var37 - var39 * var39;
                 double var21;
                 if (var56 < 0.0D) {

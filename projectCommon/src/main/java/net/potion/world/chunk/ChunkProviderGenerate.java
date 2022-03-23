@@ -58,7 +58,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
         int var8 = var6 + 1;
         byte var9 = 17;
         int var10 = var6 + 1;
-        this.terrain = this.method1(this.terrain, var1 * var6, 0, var2 * var6, var8, var9, var10);
+        this.terrain = this.noise(this.terrain, var1 * var6, 0, var2 * var6, var8, var9, var10);
 
         for (int var11 = 0; var11 < var6; ++var11) {
             for (int var12 = 0; var12 < var6; ++var12) {
@@ -122,74 +122,81 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
     }
 
-    public void replaceBlocksForBiome(int var1, int var2, byte[] var3, BiomeGenBase[] var4) {
+    public void replaceBlocksForBiome(int x, int z, byte[] chunk, BiomeGenBase[] bases) {
         byte var5 = 64;
         double var6 = 0.03125D;
-        this.sandNoise = this.noiseGen4.generateNoiseOctaves(this.sandNoise, var1 * 16, var2 * 16, 0.0D, 16, 16, 1, var6, var6, 1.0D);
-        this.gravelNoise = this.noiseGen4.generateNoiseOctaves(this.gravelNoise, var1 * 16, 109.0134D, var2 * 16, 16, 1, 16, var6, 1.0D, var6);
-        this.stoneNoise = this.noiseGen5.generateNoiseOctaves(this.stoneNoise, var1 * 16, var2 * 16, 0.0D, 16, 16, 1, var6 * 2.0D, var6 * 2.0D, var6 * 2.0D);
+        this.sandNoise = this.noiseGen4.generateNoiseOctaves(this.sandNoise, x * 16, z * 16, 0.0D, 16, 16, 1, var6, var6, 1.0D);
+        this.gravelNoise = this.noiseGen4.generateNoiseOctaves(this.gravelNoise, x * 16, 109.0134D, z * 16, 16, 1, 16, var6, 1.0D, var6);
+        this.stoneNoise = this.noiseGen5.generateNoiseOctaves(this.stoneNoise, x * 16, z * 16, 0.0D, 16, 16, 1, var6 * 2.0D, var6 * 2.0D, var6 * 2.0D);
 
-        for (int var8 = 0; var8 < 16; ++var8) {
-            for (int var9 = 0; var9 < 16; ++var9) {
-                BiomeGenBase var10 = var4[var8 + var9 * 16];
-                boolean var11 = this.sandNoise[var8 + var9 * 16] + this.rand.nextDouble() * 0.2D > 0.0D;
-                boolean var12 = this.gravelNoise[var8 + var9 * 16] + this.rand.nextDouble() * 0.2D > 3.0D;
-                int var13 = (int) (this.stoneNoise[var8 + var9 * 16] / 3.0D + 3.0D + this.rand.nextDouble() * 0.25D);
+        for (int iX = 0; iX < 16; ++iX) {
+            for (int iZ = 0; iZ < 16; ++iZ) {
+                BiomeGenBase base = bases[iX + iZ * 16];
+                boolean sand = this.sandNoise[iX + iZ * 16] + this.rand.nextDouble() * 0.2D > 0.0D;
+                boolean gravel = this.gravelNoise[iX + iZ * 16] + this.rand.nextDouble() * 0.2D > 3.0D;
+                int var13 = (int) (this.stoneNoise[iX + iZ * 16] / 3.0D + 3.0D + this.rand.nextDouble() * 0.25D);
                 int var14 = -1;
-                byte var15 = var10.topBlock;
-                byte var16 = var10.fillerBlock;
 
-                for (int var17 = 127; var17 >= 0; --var17) {
-                    int var18 = (var9 * 16 + var8) * 128 + var17;
-                    if (var17 <= this.rand.nextInt(5)) {
-                        var3[var18] = (byte) Block.BEDROCK.blockID;
-                    } else {
-                        byte var19 = var3[var18];
-                        if (var19 == 0) {
-                            var14 = -1;
-                        } else if (var19 == Block.STONE.blockID) {
-                            if (var14 == -1) {
-                                if (var13 <= 0) {
-                                    var15 = 0;
-                                    var16 = (byte) Block.STONE.blockID;
-                                } else if (var17 >= var5 - 4 && var17 <= var5 + 1) {
-                                    var15 = var10.topBlock;
-                                    var16 = var10.fillerBlock;
-                                    if (var12) {
-                                        var15 = 0;
-                                    }
+                byte topBlock = base.topBlock;
+                byte fillerBlock = base.fillerBlock;
 
-                                    if (var12) {
-                                        var16 = (byte) Block.GRAVEL.blockID;
-                                    }
+                for (int iY = 127; iY >= 0; --iY) {
+                    int idx = (iZ * 16 + iX) * 128 + iY;
+                    if (iY <= this.rand.nextInt(5)) {
+                        chunk[idx] = (byte) Block.BEDROCK.blockID;
+                        continue;
+                    }
 
-                                    if (var11) {
-                                        var15 = (byte) Block.SAND.blockID;
-                                    }
+                    byte block = chunk[idx];
+                    if (block == 0) {
+                        var14 = -1;
+                        continue;
+                    }
 
-                                    if (var11) {
-                                        var16 = (byte) Block.SAND.blockID;
-                                    }
-                                }
+                    if (block != Block.STONE.blockID) {
+                        continue;
+                    }
 
-                                if (var17 < var5 && var15 == 0) {
-                                    var15 = (byte) Block.WATER_STILL.blockID;
-                                }
-
-                                var14 = var13;
-                                if (var17 >= var5 - 1) {
-                                    var3[var18] = var15;
-                                } else {
-                                    var3[var18] = var16;
-                                }
-                            } else if (var14 > 0) {
-                                --var14;
-                                var3[var18] = var16;
-                                if (var14 == 0 && var16 == Block.SAND.blockID) {
-                                    var14 = this.rand.nextInt(4);
-                                    var16 = (byte) Block.SAND_STONE.blockID;
-                                }
+                    if (var14 == -1) {
+                        if (var13 <= 0) {
+                            topBlock = 0;
+                            fillerBlock = (byte) Block.STONE.blockID;
+                        } else if (iY >= var5 - 4 && iY <= var5 + 1) {
+                            topBlock = base.topBlock;
+                            fillerBlock = base.fillerBlock;
+                            if (gravel) {
+                                topBlock = 0;
                             }
+
+                            if (gravel) {
+                                fillerBlock = (byte) Block.GRAVEL.blockID;
+                            }
+
+                            if (sand) {
+                                topBlock = (byte) Block.SAND.blockID;
+                            }
+
+                            if (sand) {
+                                fillerBlock = (byte) Block.SAND.blockID;
+                            }
+                        }
+
+                        if (iY < var5 && topBlock == 0) {
+                            topBlock = (byte) Block.WATER_STILL.blockID;
+                        }
+
+                        var14 = var13;
+                        if (iY >= var5 - 1) {
+                            chunk[idx] = topBlock;
+                        } else {
+                            chunk[idx] = fillerBlock;
+                        }
+                    } else if (var14 > 0) {
+                        --var14;
+                        chunk[idx] = fillerBlock;
+                        if (var14 == 0 && fillerBlock == Block.SAND.blockID) {
+                            var14 = this.rand.nextInt(4);
+                            fillerBlock = (byte) Block.SAND_STONE.blockID;
                         }
                     }
                 }
@@ -217,37 +224,40 @@ public class ChunkProviderGenerate implements IChunkProvider {
         return var4;
     }
 
-    private double[] method1(double[] var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-        if (var1 == null) {
-            var1 = new double[var5 * var6 * var7];
+    private double[] noise(double[] values, int x, int z, int var4, int width, int height, int length) {
+        if (values == null) {
+            values = new double[width * height * length];
         }
 
         double var8 = 684.412D;
         double var10 = 684.412D;
-        double[] var12 = this.world.getWorldChunkManager().temperature;
-        double[] var13 = this.world.getWorldChunkManager().humidity;
-        this.field4 = this.noiseGen6.method2(this.field4, var2, var4, var5, var7, 1.121D, 1.121D, 0.5D);
-        this.field5 = this.noiseGen7.method2(this.field5, var2, var4, var5, var7, 200.0D, 200.0D, 0.5D);
-        this.field1 = this.noiseGen3.generateNoiseOctaves(this.field1, var2, var3, var4, var5, var6, var7, var8 / 80.0D, var10 / 160.0D, var8 / 80.0D);
-        this.field2 = this.noiseGen1.generateNoiseOctaves(this.field2, var2, var3, var4, var5, var6, var7, var8, var10, var8);
-        this.field3 = this.noiseGen2.generateNoiseOctaves(this.field3, var2, var3, var4, var5, var6, var7, var8, var10, var8);
+
+        double[] temperatures = this.world.getWorldChunkManager().temperature;
+        double[] humidities = this.world.getWorldChunkManager().humidity;
+
+        this.field4 = this.noiseGen6.generateNoiseOctaves(this.field4, x, var4, width, length, 1.121D, 1.121D, 0.5D);
+        this.field5 = this.noiseGen7.generateNoiseOctaves(this.field5, x, var4, width, length, 200.0D, 200.0D, 0.5D);
+        this.field1 = this.noiseGen3.generateNoiseOctaves(this.field1, x, z, var4, width, height, length, var8 / 80.0D, var10 / 160.0D, var8 / 80.0D);
+        this.field2 = this.noiseGen1.generateNoiseOctaves(this.field2, x, z, var4, width, height, length, var8, var10, var8);
+        this.field3 = this.noiseGen2.generateNoiseOctaves(this.field3, x, z, var4, width, height, length, var8, var10, var8);
         int var14 = 0;
         int var15 = 0;
-        int var16 = 16 / var5;
+        int var16 = 16 / width;
 
-        for (int var17 = 0; var17 < var5; ++var17) {
-            int var18 = var17 * var16 + var16 / 2;
+        for (int iX = 0; iX < width; ++iX) {
+            int var18 = iX * var16 + var16 / 2;
 
-            for (int var19 = 0; var19 < var7; ++var19) {
-                int var20 = var19 * var16 + var16 / 2;
-                double var21 = var12[var18 * 16 + var20];
-                double var23 = var13[var18 * 16 + var20] * var21;
-                double var25 = 1.0D - var23;
-                var25 = var25 * var25;
-                var25 = var25 * var25;
-                var25 = 1.0D - var25;
+            for (int iZ = 0; iZ < length; ++iZ) {
+                int var20 = iZ * var16 + var16 / 2;
+                double temperature = temperatures[var18 * 16 + var20];
+                double humidity = humidities[var18 * 16 + var20] * temperature;
+                double revHumidity = 1.0D - humidity;
+                revHumidity *= revHumidity;
+                revHumidity *= revHumidity;
+                revHumidity = 1.0D - revHumidity;
+
                 double var27 = (this.field4[var15] + 256.0D) / 512.0D;
-                var27 = var27 * var25;
+                var27 = var27 * revHumidity;
                 if (var27 > 1.0D) {
                     var27 = 1.0D;
                 }
@@ -280,13 +290,13 @@ public class ChunkProviderGenerate implements IChunkProvider {
                 }
 
                 var27 = var27 + 0.5D;
-                var29 = var29 * (double) var6 / 16.0D;
-                double var31 = (double) var6 / 2.0D + var29 * 4.0D;
+                var29 = var29 * (double) height / 16.0D;
+                double var31 = (double) height / 2.0D + var29 * 4.0D;
                 ++var15;
 
-                for (int var33 = 0; var33 < var6; ++var33) {
+                for (int iY = 0; iY < height; ++iY) {
                     double var34 = 0.0D;
-                    double var36 = ((double) var33 - var31) * 12.0D / var27;
+                    double var36 = ((double) iY - var31) * 12.0D / var27;
                     if (var36 < 0.0D) {
                         var36 *= 4.0D;
                     }
@@ -303,18 +313,18 @@ public class ChunkProviderGenerate implements IChunkProvider {
                     }
 
                     var34 = var34 - var36;
-                    if (var33 > var6 - 4) {
-                        double var44 = (float) (var33 - (var6 - 4)) / 3.0F;
+                    if (iY > height - 4) {
+                        double var44 = (float) (iY - (height - 4)) / 3.0F;
                         var34 = var34 * (1.0D - var44) + -10.0D * var44;
                     }
 
-                    var1[var14] = var34;
+                    values[var14] = var34;
                     ++var14;
                 }
             }
         }
 
-        return var1;
+        return values;
     }
 
     @Override
@@ -334,274 +344,251 @@ public class ChunkProviderGenerate implements IChunkProvider {
         this.rand.setSeed((long) x * var7 + (long) z * var9 ^ this.world.getRandomSeed());
         double scale = 0.25D;
         if (this.rand.nextInt(4) == 0) {
-            int var13 = gX + this.rand.nextInt(16) + 8;
-            int var14 = this.rand.nextInt(128);
-            int var15 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenLakes(Block.WATER_STILL.blockID)).generate(this.world, this.rand, var13, var14, var15);
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenLakes(Block.WATER_STILL.blockID).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         if (this.rand.nextInt(8) == 0) {
-            int var26 = gX + this.rand.nextInt(16) + 8;
-            int var38 = this.rand.nextInt(this.rand.nextInt(120) + 8);
-            int var50 = gZ + this.rand.nextInt(16) + 8;
-            if (var38 < 64 || this.rand.nextInt(10) == 0) {
-                (new WorldGenLakes(Block.LAVA_STILL.blockID)).generate(this.world, this.rand, var26, var38, var50);
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(this.rand.nextInt(120) + 8);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            if (lY < 64 || this.rand.nextInt(10) == 0) {
+                new WorldGenLakes(Block.LAVA_STILL.blockID).generate(this.world, this.rand, lX, lY, lZ);
             }
         }
 
         for (int i = 0; i < 8; ++i) {
-            int var39 = gX + this.rand.nextInt(16) + 8;
-            int var51 = this.rand.nextInt(128);
-            int var16 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenDungeons()).generate(this.world, this.rand, var39, var51, var16);
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenDungeons().generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 10; ++i) {
-            int var40 = gX + this.rand.nextInt(16);
-            int var52 = this.rand.nextInt(128);
-            int var63 = gZ + this.rand.nextInt(16);
-            (new WorldGenClay(32)).generate(this.world, this.rand, var40, var52, var63);
+            int lX = gX + this.rand.nextInt(16);
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16);
+            new WorldGenClay(32).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 20; ++i) {
-            int var41 = gX + this.rand.nextInt(16);
-            int var53 = this.rand.nextInt(128);
-            int var64 = gZ + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.DIRT.blockID, 32)).generate(this.world, this.rand, var41, var53, var64);
+            int lX = gX + this.rand.nextInt(16);
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16);
+            new WorldGenMinable(Block.DIRT.blockID, 32).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 10; ++i) {
-            int var42 = gX + this.rand.nextInt(16);
-            int var54 = this.rand.nextInt(128);
-            int var65 = gZ + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.GRAVEL.blockID, 32)).generate(this.world, this.rand, var42, var54, var65);
+            int lX = gX + this.rand.nextInt(16);
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16);
+            new WorldGenMinable(Block.GRAVEL.blockID, 32).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 20; ++i) {
-            int var43 = gX + this.rand.nextInt(16);
-            int var55 = this.rand.nextInt(128);
-            int var66 = gZ + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_COAL.blockID, 16)).generate(this.world, this.rand, var43, var55, var66);
+            int lX = gX + this.rand.nextInt(16);
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16);
+            new WorldGenMinable(Block.ORE_COAL.blockID, 16).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 20; ++i) {
-            int var44 = gX + this.rand.nextInt(16);
-            int var56 = this.rand.nextInt(64);
-            int var67 = gZ + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_IRON.blockID, 8)).generate(this.world, this.rand, var44, var56, var67);
+            int lX = gX + this.rand.nextInt(16);
+            int lY = this.rand.nextInt(64);
+            int lZ = gZ + this.rand.nextInt(16);
+            new WorldGenMinable(Block.ORE_IRON.blockID, 8).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 2; ++i) {
-            int var45 = gX + this.rand.nextInt(16);
-            int var57 = this.rand.nextInt(32);
-            int var68 = gZ + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_GOLD.blockID, 8)).generate(this.world, this.rand, var45, var57, var68);
+            int lX = gX + this.rand.nextInt(16);
+            int lY = this.rand.nextInt(32);
+            int lZ = gZ + this.rand.nextInt(16);
+            new WorldGenMinable(Block.ORE_GOLD.blockID, 8).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 8; ++i) {
-            int var46 = gX + this.rand.nextInt(16);
-            int var58 = this.rand.nextInt(16);
-            int var69 = gZ + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_REDSTONE.blockID, 7)).generate(this.world, this.rand, var46, var58, var69);
+            int lX = gX + this.rand.nextInt(16);
+            int lY = this.rand.nextInt(16);
+            int lZ = gZ + this.rand.nextInt(16);
+            new WorldGenMinable(Block.ORE_REDSTONE.blockID, 7).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 1; ++i) {
-            int var47 = gX + this.rand.nextInt(16);
-            int var59 = this.rand.nextInt(16);
-            int var70 = gZ + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_DIAMOND.blockID, 7)).generate(this.world, this.rand, var47, var59, var70);
+            int lX = gX + this.rand.nextInt(16);
+            int lY = this.rand.nextInt(16);
+            int lZ = gZ + this.rand.nextInt(16);
+            new WorldGenMinable(Block.ORE_DIAMOND.blockID, 7).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 1; ++i) {
-            int var48 = gX + this.rand.nextInt(16);
-            int var60 = this.rand.nextInt(16) + this.rand.nextInt(16);
-            int var71 = gZ + this.rand.nextInt(16);
-            (new WorldGenMinable(Block.ORE_LAPIS.blockID, 6)).generate(this.world, this.rand, var48, var60, var71);
+            int lX = gX + this.rand.nextInt(16);
+            int lY = this.rand.nextInt(16) + this.rand.nextInt(16);
+            int lZ = gZ + this.rand.nextInt(16);
+            new WorldGenMinable(Block.ORE_LAPIS.blockID, 6).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         scale = 0.5D;
-        int var37 = (int) ((this.mobSpawnerNoise.method1((double) x * scale, (double) z * scale) / 8.0D + this.rand.nextDouble() * 4.0D + 4.0D) / 3.0D);
-        int var49 = 0;
+        int treeRand = (int) ((this.mobSpawnerNoise.noise(x * scale, z * scale) / 8.0D + this.rand.nextDouble() * 4.0D + 4.0D) / 3.0D);
+        int trees = 0;
         if (this.rand.nextInt(10) == 0) {
-            ++var49;
+            ++trees;
         }
 
         if (biome == BiomeGenBase.FOREST) {
-            var49 += var37 + 5;
+            trees += treeRand + 5;
+        } else if (biome == BiomeGenBase.RAINFOREST) {
+            trees += treeRand + 5;
+        } else if (biome == BiomeGenBase.SEASONAL_FOREST) {
+            trees += treeRand + 2;
+        } else if (biome == BiomeGenBase.TAIGA) {
+            trees += treeRand + 5;
+        } else if (biome == BiomeGenBase.DESERT) {
+            trees -= 20;
+        } else if (biome == BiomeGenBase.TUNDRA) {
+            trees -= 20;
+        } else if (biome == BiomeGenBase.PLAINS) {
+            trees -= 20;
         }
 
-        if (biome == BiomeGenBase.RAINFOREST) {
-            var49 += var37 + 5;
+        for (int i = 0; i < trees; ++i) {
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            WorldGenerator generator = biome.getRandomWorldGenForTrees(this.rand);
+            generator.setScale(1.0D, 1.0D, 1.0D);
+            generator.generate(this.world, this.rand, lX, this.world.getHeightValue(lX, lZ), lZ);
         }
 
-        if (biome == BiomeGenBase.SEASONAL_FOREST) {
-            var49 += var37 + 2;
-        }
-
-        if (biome == BiomeGenBase.TAIGA) {
-            var49 += var37 + 5;
-        }
-
-        if (biome == BiomeGenBase.DESERT) {
-            var49 -= 20;
-        }
-
-        if (biome == BiomeGenBase.TUNDRA) {
-            var49 -= 20;
-        }
-
-        if (biome == BiomeGenBase.PLAINS) {
-            var49 -= 20;
-        }
-
-        for (int var61 = 0; var61 < var49; ++var61) {
-            int var72 = gX + this.rand.nextInt(16) + 8;
-            int var17 = gZ + this.rand.nextInt(16) + 8;
-            WorldGenerator var18 = biome.getRandomWorldGenForTrees(this.rand);
-            var18.setScale(1.0D, 1.0D, 1.0D);
-            var18.generate(this.world, this.rand, var72, this.world.getHeightValue(var72, var17), var17);
-        }
-
-        byte var62 = 0;
+        byte flowers = 0;
         if (biome == BiomeGenBase.FOREST) {
-            var62 = 2;
+            flowers = 2;
+        } else if (biome == BiomeGenBase.SEASONAL_FOREST) {
+            flowers = 4;
+        } else if (biome == BiomeGenBase.TAIGA) {
+            flowers = 2;
+        } else if (biome == BiomeGenBase.PLAINS) {
+            flowers = 3;
         }
 
-        if (biome == BiomeGenBase.SEASONAL_FOREST) {
-            var62 = 4;
+        for (int i = 0; i < flowers; ++i) {
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenFlowers(Block.PLANT_YELLOW.blockID).generate(this.world, this.rand, lX, lY, lZ);
         }
 
-        if (biome == BiomeGenBase.TAIGA) {
-            var62 = 2;
-        }
-
-        if (biome == BiomeGenBase.PLAINS) {
-            var62 = 3;
-        }
-
-        for (int i = 0; i < var62; ++i) {
-            int var76 = gX + this.rand.nextInt(16) + 8;
-            int var85 = this.rand.nextInt(128);
-            int var19 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.PLANT_YELLOW.blockID)).generate(this.world, this.rand, var76, var85, var19);
-        }
-
-        byte var74 = 0;
+        byte grass = 0;
         if (biome == BiomeGenBase.FOREST) {
-            var74 = 2;
+            grass = 2;
+        } else if (biome == BiomeGenBase.RAINFOREST) {
+            grass = 10;
+        } else if (biome == BiomeGenBase.SEASONAL_FOREST) {
+            grass = 2;
+        } else if (biome == BiomeGenBase.TAIGA) {
+            grass = 1;
+        } else if (biome == BiomeGenBase.PLAINS) {
+            grass = 10;
         }
 
-        if (biome == BiomeGenBase.RAINFOREST) {
-            var74 = 10;
-        }
-
-        if (biome == BiomeGenBase.SEASONAL_FOREST) {
-            var74 = 2;
-        }
-
-        if (biome == BiomeGenBase.TAIGA) {
-            var74 = 1;
-        }
-
-        if (biome == BiomeGenBase.PLAINS) {
-            var74 = 10;
-        }
-
-        for (int i = 0; i < var74; ++i) {
-            byte var86 = 1;
+        for (int i = 0; i < grass; ++i) {
+            byte metadata = 1;
             if (biome == BiomeGenBase.RAINFOREST && this.rand.nextInt(3) != 0) {
-                var86 = 2;
+                metadata = 2;
             }
 
-            int var97 = gX + this.rand.nextInt(16) + 8;
-            int var20 = this.rand.nextInt(128);
-            int var21 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenTallGrass(Block.TALLGRASS.blockID, var86)).generate(this.world, this.rand, var97, var20, var21);
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenTallGrass(Block.TALLGRASS.blockID, metadata).generate(this.world, this.rand, lX, lY, lZ);
         }
 
-        var74 = 0;
+        grass = 0;
         if (biome == BiomeGenBase.DESERT) {
-            var74 = 2;
+            grass = 2;
         }
 
-        for (int i = 0; i < var74; ++i) {
-            int var87 = gX + this.rand.nextInt(16) + 8;
-            int var98 = this.rand.nextInt(128);
-            int var108 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenDeadBush(Block.DEADBUSH.blockID)).generate(this.world, this.rand, var87, var98, var108);
+        for (int i = 0; i < grass; ++i) {
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenDeadBush(Block.DEADBUSH.blockID).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         if (this.rand.nextInt(2) == 0) {
-            int var79 = gX + this.rand.nextInt(16) + 8;
-            int var88 = this.rand.nextInt(128);
-            int var99 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.PLANT_RED.blockID)).generate(this.world, this.rand, var79, var88, var99);
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenFlowers(Block.PLANT_RED.blockID).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         if (this.rand.nextInt(4) == 0) {
-            int var80 = gX + this.rand.nextInt(16) + 8;
-            int var89 = this.rand.nextInt(128);
-            int var100 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.MUSHROOM_BROWN.blockID)).generate(this.world, this.rand, var80, var89, var100);
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenFlowers(Block.MUSHROOM_BROWN.blockID).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         if (this.rand.nextInt(8) == 0) {
-            int var81 = gX + this.rand.nextInt(16) + 8;
-            int var90 = this.rand.nextInt(128);
-            int var101 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenFlowers(Block.MUSHROOM_RED.blockID)).generate(this.world, this.rand, var81, var90, var101);
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenFlowers(Block.MUSHROOM_RED.blockID).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 10; ++i) {
-            int var91 = gX + this.rand.nextInt(16) + 8;
-            int var102 = this.rand.nextInt(128);
-            int var109 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenReed()).generate(this.world, this.rand, var91, var102, var109);
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenReed().generate(this.world, this.rand, lX, lY, lZ);
         }
 
         if (this.rand.nextInt(32) == 0) {
-            int var83 = gX + this.rand.nextInt(16) + 8;
-            int var92 = this.rand.nextInt(128);
-            int var103 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenPumpkin()).generate(this.world, this.rand, var83, var92, var103);
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenPumpkin().generate(this.world, this.rand, lX, lY, lZ);
         }
 
-        int var84 = 0;
+        int cactus = 0;
         if (biome == BiomeGenBase.DESERT) {
-            var84 += 10;
+            cactus += 10;
         }
 
-        for (int i = 0; i < var84; ++i) {
-            int var104 = gX + this.rand.nextInt(16) + 8;
-            int var110 = this.rand.nextInt(128);
-            int var114 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenCactus()).generate(this.world, this.rand, var104, var110, var114);
+        for (int i = 0; i < cactus; ++i) {
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(128);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenCactus().generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 50; ++i) {
-            int var105 = gX + this.rand.nextInt(16) + 8;
-            int var111 = this.rand.nextInt(this.rand.nextInt(120) + 8);
-            int var115 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.WATER_MOVING.blockID)).generate(this.world, this.rand, var105, var111, var115);
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(this.rand.nextInt(120) + 8);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenLiquids(Block.WATER_MOVING.blockID).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         for (int i = 0; i < 20; ++i) {
-            int var106 = gX + this.rand.nextInt(16) + 8;
-            int var112 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(112) + 8) + 8);
-            int var116 = gZ + this.rand.nextInt(16) + 8;
-            (new WorldGenLiquids(Block.LAVA_MOVING.blockID)).generate(this.world, this.rand, var106, var112, var116);
+            int lX = gX + this.rand.nextInt(16) + 8;
+            int lY = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(112) + 8) + 8);
+            int lZ = gZ + this.rand.nextInt(16) + 8;
+            new WorldGenLiquids(Block.LAVA_MOVING.blockID).generate(this.world, this.rand, lX, lY, lZ);
         }
 
         this.generatedTemperatures = this.world.getWorldChunkManager().getTemperatures(this.generatedTemperatures, x + 8, z + 8, 16, 16);
 
         for (int iX = gX + 8; iX < gX + 8 + 16; ++iX) {
             for (int iZ = gZ + 8; iZ < gZ + 8 + 16; ++iZ) {
-                int var113 = iX - (gX + 8);
-                int var117 = iZ - (gZ + 8);
-                int var22 = this.world.findTopSolidOrLiquidBlock(iX, iZ);
-                double var23 = this.generatedTemperatures[var113 * 16 + var117] - (double) (var22 - 64) / 64.0D * 0.3D;
-                if (var23 < 0.5D && var22 > 0 && var22 < 128 && this.world.isAirBlock(iX, var22, iZ) && this.world.getBlockMaterial(iX, var22 - 1, iZ).getIsSolid() && this.world.getBlockMaterial(iX, var22 - 1, iZ) != Material.ICE) {
-                    this.world.setBlockWithNotify(iX, var22, iZ, Block.SNOW.blockID);
+                int lX = iX - (gX + 8);
+                int lZ = iZ - (gZ + 8);
+                int topY = this.world.findTopSolidOrLiquidBlock(iX, iZ);
+                double temp = this.generatedTemperatures[lX * 16 + lZ] - (double) (topY - 64) / 64.0D * 0.3D;
+                if (temp < 0.5D && topY > 0 && topY < 128
+                        && this.world.isAirBlock(iX, topY, iZ)
+                        && this.world.getBlockMaterial(iX, topY - 1, iZ).getIsSolid()
+                        && this.world.getBlockMaterial(iX, topY - 1, iZ) != Material.ICE) {
+                    this.world.setBlockWithNotify(iX, topY, iZ, Block.SNOW.blockID);
                 }
             }
         }

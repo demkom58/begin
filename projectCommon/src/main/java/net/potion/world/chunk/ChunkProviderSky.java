@@ -185,8 +185,8 @@ public class ChunkProviderSky implements IChunkProvider {
         double var10 = 684.412D;
         double[] var12 = this.world.getWorldChunkManager().temperature;
         double[] var13 = this.world.getWorldChunkManager().humidity;
-        this.field4 = this.noiseGen6.method2(this.field4, var2, var4, var5, var7, 1.121D, 1.121D, 0.5D);
-        this.field5 = this.noiseGen7.method2(this.field5, var2, var4, var5, var7, 200.0D, 200.0D, 0.5D);
+        this.field4 = this.noiseGen6.generateNoiseOctaves(this.field4, var2, var4, var5, var7, 1.121D, 1.121D, 0.5D);
+        this.field5 = this.noiseGen7.generateNoiseOctaves(this.field5, var2, var4, var5, var7, 200.0D, 200.0D, 0.5D);
         var8 = var8 * 2.0D;
         this.field1 = this.noiseGen3.generateNoiseOctaves(this.field1, var2, var3, var4, var5, var6, var7, var8 / 80.0D, var10 / 160.0D, var8 / 80.0D);
         this.field2 = this.noiseGen1.generateNoiseOctaves(this.field2, var2, var3, var4, var5, var6, var7, var8, var10, var8);
@@ -376,7 +376,7 @@ public class ChunkProviderSky implements IChunkProvider {
         }
 
         var11 = 0.5D;
-        int var35 = (int) ((this.noiseGen8.method1((double) var4 * var11, (double) var5 * var11) / 8.0D + this.skyRNG.nextDouble() * 4.0D + 4.0D) / 3.0D);
+        int var35 = (int) ((this.noiseGen8.noise((double) var4 * var11, (double) var5 * var11) / 8.0D + this.skyRNG.nextDouble() * 4.0D + 4.0D) / 3.0D);
         int var47 = 0;
         if (this.skyRNG.nextInt(10) == 0) {
             ++var47;
