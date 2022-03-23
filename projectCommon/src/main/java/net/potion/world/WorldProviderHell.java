@@ -5,7 +5,7 @@ import net.hypnosis.annotations.Side;
 import net.potion.block.Block;
 import net.potion.world.chunk.ChunkProviderHell;
 import net.potion.world.chunk.IChunkProvider;
-import net.potion.world.gen.BiomeGenBase;
+import net.potion.world.gen.biome.BiomeGenBase;
 import net.hypnosis.util.math.Vec3d;
 
 public class WorldProviderHell extends WorldProvider {

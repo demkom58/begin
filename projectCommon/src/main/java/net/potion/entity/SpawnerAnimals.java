@@ -16,7 +16,7 @@ import net.potion.world.World;
 import net.potion.world.chunk.ChunkCoordIntPair;
 import net.potion.world.chunk.ChunkCoordinates;
 import net.potion.world.chunk.ChunkPosition;
-import net.potion.world.gen.BiomeGenBase;
+import net.potion.world.gen.biome.BiomeGenBase;
 
 import java.util.HashSet;
 import java.util.List;

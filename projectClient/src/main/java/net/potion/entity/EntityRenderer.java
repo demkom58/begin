@@ -20,7 +20,7 @@ import net.potion.util.MovingObjectPosition;
 import net.potion.world.World;
 import net.potion.world.chunk.ChunkProviderLoadOrGenerate;
 import net.potion.world.chunk.IChunkProvider;
-import net.potion.world.gen.BiomeGenBase;
+import net.potion.world.gen.biome.BiomeGenBase;
 import net.hypnosis.util.math.Vec3d;
 import org.lwjgl.opengl.ARBVertexBlend;
 import org.lwjgl.opengl.GL;

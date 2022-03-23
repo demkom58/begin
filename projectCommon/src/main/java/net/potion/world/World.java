@@ -20,7 +20,7 @@ import net.potion.nbt.TagCompound;
 import net.potion.tileentity.TileEntity;
 import net.potion.util.*;
 import net.potion.world.chunk.*;
-import net.potion.world.gen.BiomeGenBase;
+import net.potion.world.gen.biome.BiomeGenBase;
 import net.potion.world.storage.ISaveHandler;
 import net.potion.world.storage.MapStorage;
 

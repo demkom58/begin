@@ -3,7 +3,7 @@ package net.potion.world;
 import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
 import net.potion.world.chunk.ChunkCoordIntPair;
-import net.potion.world.gen.BiomeGenBase;
+import net.potion.world.gen.biome.BiomeGenBase;
 
 import java.util.Arrays;
 

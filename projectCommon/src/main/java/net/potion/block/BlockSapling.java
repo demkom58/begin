@@ -3,7 +3,7 @@ package net.potion.block;
 import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
 import net.potion.world.World;
-import net.potion.world.gen.*;
+import net.potion.world.gen.struct.*;
 
 import java.util.Random;
 

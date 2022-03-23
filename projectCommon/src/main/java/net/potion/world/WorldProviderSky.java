@@ -7,7 +7,7 @@ import net.potion.block.Block;
 import net.hypnosis.util.math.MathHelper;
 import net.potion.world.chunk.ChunkProviderSky;
 import net.potion.world.chunk.IChunkProvider;
-import net.potion.world.gen.BiomeGenBase;
+import net.potion.world.gen.biome.BiomeGenBase;
 import net.hypnosis.util.math.Vec3d;
 
 public class WorldProviderSky extends WorldProvider {

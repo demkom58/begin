@@ -3,8 +3,8 @@ package net.potion.world;
 import net.hypnosis.annotations.CodeSide;
 import net.hypnosis.annotations.Side;
 import net.potion.world.chunk.ChunkCoordIntPair;
-import net.potion.world.gen.BiomeGenBase;
-import net.potion.world.gen.NoiseGeneratorOctaves2;
+import net.potion.world.gen.biome.BiomeGenBase;
+import net.potion.world.gen.noise.NoiseGeneratorOctaves2;
 
 import java.util.Random;
 
