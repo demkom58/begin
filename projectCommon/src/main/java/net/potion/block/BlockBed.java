@@ -178,17 +178,17 @@ public class BlockBed extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        int var6 = world.getBlockMetadata(x, y, z);
         int var7 = getDirectionFromMetadata(var6);
         if (isBlockFootOfBed(var6)) {
-            if (var1.getBlockId(var2 - HEAD_BLOCK_TO_FOOT_BLOCK_MAP[var7][0], var3, var4 - HEAD_BLOCK_TO_FOOT_BLOCK_MAP[var7][1]) != this.blockID) {
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+            if (world.getBlockId(x - HEAD_BLOCK_TO_FOOT_BLOCK_MAP[var7][0], y, z - HEAD_BLOCK_TO_FOOT_BLOCK_MAP[var7][1]) != this.blockID) {
+                world.setBlockWithNotify(x, y, z, 0);
             }
-        } else if (var1.getBlockId(var2 + HEAD_BLOCK_TO_FOOT_BLOCK_MAP[var7][0], var3, var4 + HEAD_BLOCK_TO_FOOT_BLOCK_MAP[var7][1]) != this.blockID) {
-            var1.setBlockWithNotify(var2, var3, var4, 0);
-            if (!var1.localWorld) {
-                this.dropBlockAsItem(var1, var2, var3, var4, var6);
+        } else if (world.getBlockId(x + HEAD_BLOCK_TO_FOOT_BLOCK_MAP[var7][0], y, z + HEAD_BLOCK_TO_FOOT_BLOCK_MAP[var7][1]) != this.blockID) {
+            world.setBlockWithNotify(x, y, z, 0);
+            if (!world.localWorld) {
+                this.dropBlockAsItem(world, x, y, z, var6);
             }
         }
 

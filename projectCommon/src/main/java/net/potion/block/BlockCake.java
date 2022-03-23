@@ -115,10 +115,10 @@ public class BlockCake extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!this.canBlockStay(var1, var2, var3, var4)) {
-            this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        if (!this.canBlockStay(world, x, y, z)) {
+            this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
+            world.setBlockWithNotify(x, y, z, 0);
         }
 
     }

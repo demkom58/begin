@@ -109,33 +109,33 @@ public class BlockTorch extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (this.dropTorchIfCantStay(var1, var2, var3, var4)) {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        if (this.dropTorchIfCantStay(world, x, y, z)) {
+            int var6 = world.getBlockMetadata(x, y, z);
             boolean var7 = false;
-            if (!var1.isBlockNormalCube(var2 - 1, var3, var4) && var6 == 1) {
+            if (!world.isBlockNormalCube(x - 1, y, z) && var6 == 1) {
                 var7 = true;
             }
 
-            if (!var1.isBlockNormalCube(var2 + 1, var3, var4) && var6 == 2) {
+            if (!world.isBlockNormalCube(x + 1, y, z) && var6 == 2) {
                 var7 = true;
             }
 
-            if (!var1.isBlockNormalCube(var2, var3, var4 - 1) && var6 == 3) {
+            if (!world.isBlockNormalCube(x, y, z - 1) && var6 == 3) {
                 var7 = true;
             }
 
-            if (!var1.isBlockNormalCube(var2, var3, var4 + 1) && var6 == 4) {
+            if (!world.isBlockNormalCube(x, y, z + 1) && var6 == 4) {
                 var7 = true;
             }
 
-            if (!this.method1(var1, var2, var3 - 1, var4) && var6 == 5) {
+            if (!this.method1(world, x, y - 1, z) && var6 == 5) {
                 var7 = true;
             }
 
             if (var7) {
-                this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+                this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
+                world.setBlockWithNotify(x, y, z, 0);
             }
         }
 

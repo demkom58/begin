@@ -108,18 +108,18 @@ public class BlockRedstoneRepeater extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!this.canBlockStay(var1, var2, var3, var4)) {
-            this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        if (!this.canBlockStay(world, x, y, z)) {
+            this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
+            world.setBlockWithNotify(x, y, z, 0);
         } else {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
-            boolean var7 = this.isPowered(var1, var2, var3, var4, var6);
+            int var6 = world.getBlockMetadata(x, y, z);
+            boolean var7 = this.isPowered(world, x, y, z, var6);
             int var8 = (var6 & 12) >> 2;
             if (this.isRepeaterPowered && !var7) {
-                var1.scheduleBlockUpdate(var2, var3, var4, this.blockID, field2[var8] * 2);
+                world.scheduleBlockUpdate(x, y, z, this.blockID, field2[var8] * 2);
             } else if (!this.isRepeaterPowered && var7) {
-                var1.scheduleBlockUpdate(var2, var3, var4, this.blockID, field2[var8] * 2);
+                world.scheduleBlockUpdate(x, y, z, this.blockID, field2[var8] * 2);
             }
 
         }

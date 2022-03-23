@@ -1254,13 +1254,13 @@ public class RenderGlobal implements IWorldAccess {
     }
 
     @Override
-    public void markBlockAndNeighborsNeedsUpdate(int var1, int var2, int var3) {
-        this.func_949_a(var1 - 1, var2 - 1, var3 - 1, var1 + 1, var2 + 1, var3 + 1);
+    public void markBlockAndNeighborsNeedsUpdate(int x, int y, int z) {
+        this.func_949_a(x - 1, y - 1, z - 1, x + 1, y + 1, z + 1);
     }
 
     @Override
-    public void markBlockRangeNeedsUpdate(int var1, int var2, int var3, int var4, int var5, int var6) {
-        this.func_949_a(var1 - 1, var2 - 1, var3 - 1, var4 + 1, var5 + 1, var6 + 1);
+    public void markBlockRangeNeedsUpdate(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+        this.func_949_a(minX - 1, minY - 1, minZ - 1, maxX + 1, maxY + 1, maxZ + 1);
     }
 
     public void clipRenderersByFrustrum(ICamera camera, float var2) {
@@ -1274,79 +1274,79 @@ public class RenderGlobal implements IWorldAccess {
     }
 
     @Override
-    public void playRecord(String var1, int var2, int var3, int var4) {
-        if (var1 != null)
-            this.potion.ingameGUI.setRecordPlayingMessage("C418 - " + var1);
+    public void playRecord(String recordName, int x, int y, int z) {
+        if (recordName != null)
+            this.potion.ingameGUI.setRecordPlayingMessage("C418 - " + recordName);
 
-        this.potion.soundManager.playStreaming(var1, (float) var2, (float) var3, (float) var4, 1.0F, 1.0F);
+        this.potion.soundManager.playStreaming(recordName, (float) x, (float) y, (float) z, 1.0F, 1.0F);
     }
 
     @Override
-    public void playSound(String var1, double var2, double var4, double var6, float var8, float var9) {
+    public void playSound(String soundCategory, double x, double y, double z, float volume, float pitch) {
         float var10 = 16.0F;
-        if (var8 > 1.0F) {
-            var10 *= var8;
+        if (volume > 1.0F) {
+            var10 *= volume;
         }
 
-        if (this.potion.renderViewEntity.getDistanceSq(var2, var4, var6) < (double) (var10 * var10)) {
-            this.potion.soundManager.playSound(var1, (float) var2, (float) var4, (float) var6, var8, var9);
+        if (this.potion.renderViewEntity.getDistanceSq(x, y, z) < (double) (var10 * var10)) {
+            this.potion.soundManager.playSound(soundCategory, (float) x, (float) y, (float) z, volume, pitch);
         }
 
     }
 
     @Override
-    public void spawnParticle(String var1, double var2, double var4, double var6, double var8, double var10, double var12) {
+    public void spawnParticle(String particleName, double x, double y, double z, double motionX, double motionY, double motionZ) {
         if (this.potion != null && this.potion.renderViewEntity != null && this.potion.effectRenderer != null) {
-            double var14 = this.potion.renderViewEntity.posX - var2;
-            double var16 = this.potion.renderViewEntity.posY - var4;
-            double var18 = this.potion.renderViewEntity.posZ - var6;
+            double var14 = this.potion.renderViewEntity.posX - x;
+            double var16 = this.potion.renderViewEntity.posY - y;
+            double var18 = this.potion.renderViewEntity.posZ - z;
             double var20 = 16.0D;
             if (var14 * var14 + var16 * var16 + var18 * var18 <= var20 * var20) {
-                switch (var1) {
+                switch (particleName) {
                     case "bubble":
-                        this.potion.effectRenderer.addEffect(new EntityBubbleFX(this.world, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityBubbleFX(this.world, x, y, z, motionX, motionY, motionZ));
                         break;
                     case "smoke":
-                        this.potion.effectRenderer.addEffect(new EntitySmokeFX(this.world, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntitySmokeFX(this.world, x, y, z, motionX, motionY, motionZ));
                         break;
                     case "note":
-                        this.potion.effectRenderer.addEffect(new EntityNoteFX(this.world, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityNoteFX(this.world, x, y, z, motionX, motionY, motionZ));
                         break;
                     case "portal":
-                        this.potion.effectRenderer.addEffect(new EntityPortalFX(this.world, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityPortalFX(this.world, x, y, z, motionX, motionY, motionZ));
                         break;
                     case "explode":
-                        this.potion.effectRenderer.addEffect(new EntityExplodeFX(this.world, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityExplodeFX(this.world, x, y, z, motionX, motionY, motionZ));
                         break;
                     case "flame":
-                        this.potion.effectRenderer.addEffect(new EntityFlameFX(this.world, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityFlameFX(this.world, x, y, z, motionX, motionY, motionZ));
                         break;
                     case "lava":
-                        this.potion.effectRenderer.addEffect(new EntityLavaFX(this.world, var2, var4, var6));
+                        this.potion.effectRenderer.addEffect(new EntityLavaFX(this.world, x, y, z));
                         break;
                     case "footstep":
-                        this.potion.effectRenderer.addEffect(new EntityFootStepFX(this.renderEngine, this.world, var2, var4, var6));
+                        this.potion.effectRenderer.addEffect(new EntityFootStepFX(this.renderEngine, this.world, x, y, z));
                         break;
                     case "splash":
-                        this.potion.effectRenderer.addEffect(new EntitySplashFX(this.world, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntitySplashFX(this.world, x, y, z, motionX, motionY, motionZ));
                         break;
                     case "largesmoke":
-                        this.potion.effectRenderer.addEffect(new EntitySmokeFX(this.world, var2, var4, var6, var8, var10, var12, 2.5F));
+                        this.potion.effectRenderer.addEffect(new EntitySmokeFX(this.world, x, y, z, motionX, motionY, motionZ, 2.5F));
                         break;
                     case "reddust":
-                        this.potion.effectRenderer.addEffect(new EntityReddustFX(this.world, var2, var4, var6, (float) var8, (float) var10, (float) var12));
+                        this.potion.effectRenderer.addEffect(new EntityReddustFX(this.world, x, y, z, (float) motionX, (float) motionY, (float) motionZ));
                         break;
                     case "snowballpoof":
-                        this.potion.effectRenderer.addEffect(new EntitySlimeFX(this.world, var2, var4, var6, Item.SNOWBALL));
+                        this.potion.effectRenderer.addEffect(new EntitySlimeFX(this.world, x, y, z, Item.SNOWBALL));
                         break;
                     case "snowshovel":
-                        this.potion.effectRenderer.addEffect(new EntitySnowShovelFX(this.world, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntitySnowShovelFX(this.world, x, y, z, motionX, motionY, motionZ));
                         break;
                     case "slime":
-                        this.potion.effectRenderer.addEffect(new EntitySlimeFX(this.world, var2, var4, var6, Item.SLIMEBALL));
+                        this.potion.effectRenderer.addEffect(new EntitySlimeFX(this.world, x, y, z, Item.SLIMEBALL));
                         break;
                     case "heart":
-                        this.potion.effectRenderer.addEffect(new EntityHeartFX(this.world, var2, var4, var6, var8, var10, var12));
+                        this.potion.effectRenderer.addEffect(new EntityHeartFX(this.world, x, y, z, motionX, motionY, motionZ));
                         break;
                 }
 
@@ -1391,7 +1391,7 @@ public class RenderGlobal implements IWorldAccess {
     }
 
     @Override
-    public void doNothingWithTileEntity(int var1, int var2, int var3, TileEntity var4) {
+    public void doNothingWithTileEntity(int x, int y, int z, TileEntity tile) {
     }
 
     public void dispose() {
@@ -1399,9 +1399,9 @@ public class RenderGlobal implements IWorldAccess {
     }
 
     @Override
-    public void playEffect(EntityPlayer player, int var2, int x, int y, int z, int var6) {
+    public void playEffect(EntityPlayer player, int effectId, int x, int y, int z, int subData) {
         Random rand = this.world.rand;
-        switch (var2) {
+        switch (effectId) {
             case 1000:
                 this.world.playSoundEffect(x, y, z, "random.click", 1.0F, 1.0F);
                 break;
@@ -1422,15 +1422,15 @@ public class RenderGlobal implements IWorldAccess {
                 this.world.playSoundEffect((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, "random.fizz", 0.5F, 2.6F + (rand.nextFloat() - rand.nextFloat()) * 0.8F);
                 break;
             case 1005:
-                if (Item.ITEMS_LIST[var6] instanceof ItemRecord) {
-                    this.world.playRecord(((ItemRecord) Item.ITEMS_LIST[var6]).recordName, x, y, z);
+                if (Item.ITEMS_LIST[subData] instanceof ItemRecord) {
+                    this.world.playRecord(((ItemRecord) Item.ITEMS_LIST[subData]).recordName, x, y, z);
                 } else {
                     this.world.playRecord(null, x, y, z);
                 }
                 break;
             case 2000:
-                int var8 = var6 % 3 - 1;
-                int var9 = var6 / 3 % 3 - 1;
+                int var8 = subData % 3 - 1;
+                int var9 = subData / 3 % 3 - 1;
                 double var10 = (double) x + (double) var8 * 0.6D + 0.5D;
                 double var12 = (double) y + 0.5D;
                 double var14 = (double) z + (double) var9 * 0.6D + 0.5D;
@@ -1448,13 +1448,13 @@ public class RenderGlobal implements IWorldAccess {
 
                 return;
             case 2001:
-                int var16 = var6 & 255;
+                int var16 = subData & 255;
                 if (var16 > 0) {
                     Block block = Block.BLOCKS_LIST[var16];
                     this.potion.soundManager.playSound(block.stepSound.stepSoundDir(), (float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
                 }
 
-                this.potion.effectRenderer.addBlockDestroyEffects(x, y, z, var6 & 255, var6 >> 8 & 255);
+                this.potion.effectRenderer.addBlockDestroyEffects(x, y, z, subData & 255, subData >> 8 & 255);
         }
 
     }

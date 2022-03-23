@@ -70,28 +70,28 @@ public class World implements IBlockAccess {
     private int ambientTickCountdown = this.rand.nextInt(12000);
     private final List<Entity> entities = new ArrayList<>();
 
-    public World(ISaveHandler saveHandler, String levelName, WorldProvider var3, long var4) {
+    public World(ISaveHandler saveHandler, String levelName, WorldProvider worldProvider, long randomSeed) {
         this.lockTimestamp = System.currentTimeMillis();
         this.isNewWorld = false;
         this.saveHandler = saveHandler;
-        this.worldInfo = new WorldInfo(var4, levelName);
-        this.worldProvider = var3;
+        this.worldInfo = new WorldInfo(randomSeed, levelName);
+        this.worldProvider = worldProvider;
         this.mapStorage = new MapStorage(saveHandler);
-        var3.registerWorld(this);
+        worldProvider.registerWorld(this);
         this.chunkProvider = this.createChunkProvider();
         this.calculateInitialSkylight();
         this.resetWeather();
     }
 
-    public World(World var1, WorldProvider var2) {
+    public World(World world, WorldProvider worldProvider) {
         this.lockTimestamp = System.currentTimeMillis();
         this.isNewWorld = false;
-        this.lockTimestamp = var1.lockTimestamp;
-        this.saveHandler = var1.saveHandler;
-        this.worldInfo = new WorldInfo(var1.worldInfo);
+        this.lockTimestamp = world.lockTimestamp;
+        this.saveHandler = world.saveHandler;
+        this.worldInfo = new WorldInfo(world.worldInfo);
         this.mapStorage = new MapStorage(this.saveHandler);
-        this.worldProvider = var2;
-        var2.registerWorld(this);
+        this.worldProvider = worldProvider;
+        worldProvider.registerWorld(this);
         this.chunkProvider = this.createChunkProvider();
         this.calculateInitialSkylight();
         this.resetWeather();
@@ -189,39 +189,39 @@ public class World implements IBlockAccess {
     }
 
     @Side(CodeSide.CLIENT)
-    public void spawnPlayerWithLoadedChunks(EntityPlayer entityPlayer) {
+    public void spawnPlayerWithLoadedChunks(EntityPlayer player) {
         try {
             TagCompound playerCompound = this.worldInfo.getPlayerNBTTagCompound();
             if (playerCompound != null) {
-                entityPlayer.readFromNBT(playerCompound);
+                player.readFromNBT(playerCompound);
                 this.worldInfo.setPlayerNBTTagCompound(null);
             }
 
             if (this.chunkProvider instanceof ChunkProviderLoadOrGenerate chunkProvider) {
-                int x = MathHelper.floor(entityPlayer.posX) >> 4;
-                int z = MathHelper.floor(entityPlayer.posZ) >> 4;
+                int x = MathHelper.floor(player.posX) >> 4;
+                int z = MathHelper.floor(player.posZ) >> 4;
                 chunkProvider.setCurrentChunkOver(x, z);
             }
 
-            this.entityJoinedWorld(entityPlayer);
+            this.entityJoinedWorld(player);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public void saveWorld(boolean var1, IProgressUpdatable progressUpdate) {
+    public void saveWorld(boolean forceSave, IProgressUpdatable updatable) {
         if (this.chunkProvider.canSave()) {
-            if (progressUpdate != null) {
-                progressUpdate.display("Saving level");
+            if (updatable != null) {
+                updatable.display("Saving level");
             }
 
             this.saveLevel();
-            if (progressUpdate != null) {
-                progressUpdate.displayLoadingString("Saving chunks");
+            if (updatable != null) {
+                updatable.displayLoadingString("Saving chunks");
             }
 
-            this.chunkProvider.saveChunks(var1, progressUpdate);
+            this.chunkProvider.saveChunks(forceSave, updatable);
         }
     }
 
@@ -245,13 +245,13 @@ public class World implements IBlockAccess {
     }
 
     @Override
-    public int getBlockId(int var1, int var2, int var3) {
-        if (var1 >= -32000000 && var3 >= -32000000 && var1 < 32000000 && var3 <= 32000000) {
-            if (var2 < 0) {
+    public int getBlockId(int x, int y, int z) {
+        if (x >= -32000000 && z >= -32000000 && x < 32000000 && z <= 32000000) {
+            if (y < 0) {
                 return 0;
             }
 
-            return var2 >= 128 ? 0 : this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4).getBlockID(var1 & 15, var2, var3 & 15);
+            return y >= 128 ? 0 : this.getChunkFromChunkCoords(x >> 4, z >> 4).getBlockID(x & 15, y, z & 15);
         }
 
         return 0;
@@ -265,21 +265,21 @@ public class World implements IBlockAccess {
         return (y >= 0 && y < 128) && this.chunkExists(x >> 4, z >> 4);
     }
 
-    public boolean doChunksNearChunkExist(int var1, int var2, int var3, int var4) {
-        return this.checkChunksExist(var1 - var4, var2 - var4, var3 - var4, var1 + var4, var2 + var4, var3 + var4);
+    public boolean doChunksNearChunkExist(int x, int y, int z, int r) {
+        return this.checkChunksExist(x - r, y - r, z - r, x + r, y + r, z + r);
     }
 
-    public boolean checkChunksExist(int var1, int var2, int var3, int var4, int var5, int var6) {
-        if (var5 >= 0 && var2 < 128) {
-            var1 = var1 >> 4;
-            var2 = var2 >> 4;
-            var3 = var3 >> 4;
-            var4 = var4 >> 4;
-            var5 = var5 >> 4;
-            var6 = var6 >> 4;
+    public boolean checkChunksExist(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+        if (maxY >= 0 && minY < 128) {
+            minX = minX >> 4;
+            minY = minY >> 4;
+            minZ = minZ >> 4;
+            maxX = maxX >> 4;
+            maxY = maxY >> 4;
+            maxZ = maxZ >> 4;
 
-            for (int var7 = var1; var7 <= var4; ++var7) {
-                for (int var8 = var3; var8 <= var6; ++var8) {
+            for (int var7 = minX; var7 <= maxX; ++var7) {
+                for (int var8 = minZ; var8 <= maxZ; ++var8) {
                     if (!this.chunkExists(var7, var8)) {
                         return false;
                     }
@@ -428,42 +428,42 @@ public class World implements IBlockAccess {
         this.notifyBlocksOfNeighborChange(x, y, z, blockId);
     }
 
-    public void markBlocksDirtyVertical(int var1, int var2, int var3, int var4) {
-        if (var3 > var4) {
-            int var5 = var4;
-            var4 = var3;
-            var3 = var5;
+    public void markBlocksDirtyVertical(int x, int z, int minY, int maxY) {
+        if (minY > maxY) {
+            int tmp = maxY;
+            maxY = minY;
+            minY = tmp;
         }
 
-        this.markBlocksDirty(var1, var3, var2, var1, var4, var2);
+        this.markBlocksDirty(x, minY, z, x, maxY, z);
     }
 
-    public void markBlockAsNeedsUpdate(int var1, int var2, int var3) {
+    public void markBlockAsNeedsUpdate(int x, int y, int z) {
         for (IWorldAccess worldAccess : this.worldAccesses) {
-            worldAccess.markBlockRangeNeedsUpdate(var1, var2, var3, var1, var2, var3);
+            worldAccess.markBlockRangeNeedsUpdate(x, y, z, x, y, z);
         }
     }
 
-    public void markBlocksDirty(int var1, int var2, int var3, int var4, int var5, int var6) {
+    public void markBlocksDirty(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
         for (IWorldAccess worldAccess : this.worldAccesses) {
-            worldAccess.markBlockRangeNeedsUpdate(var1, var2, var3, var4, var5, var6);
+            worldAccess.markBlockRangeNeedsUpdate(minX, minY, minZ, maxX, maxY, maxZ);
         }
     }
 
-    public void notifyBlocksOfNeighborChange(int var1, int var2, int var3, int var4) {
-        this.notifyBlockOfNeighborChange(var1 - 1, var2, var3, var4);
-        this.notifyBlockOfNeighborChange(var1 + 1, var2, var3, var4);
-        this.notifyBlockOfNeighborChange(var1, var2 - 1, var3, var4);
-        this.notifyBlockOfNeighborChange(var1, var2 + 1, var3, var4);
-        this.notifyBlockOfNeighborChange(var1, var2, var3 - 1, var4);
-        this.notifyBlockOfNeighborChange(var1, var2, var3 + 1, var4);
+    public void notifyBlocksOfNeighborChange(int x, int y, int z, int blockId) {
+        this.notifyBlockOfNeighborChange(x - 1, y, z, blockId);
+        this.notifyBlockOfNeighborChange(x + 1, y, z, blockId);
+        this.notifyBlockOfNeighborChange(x, y - 1, z, blockId);
+        this.notifyBlockOfNeighborChange(x, y + 1, z, blockId);
+        this.notifyBlockOfNeighborChange(x, y, z - 1, blockId);
+        this.notifyBlockOfNeighborChange(x, y, z + 1, blockId);
     }
 
-    private void notifyBlockOfNeighborChange(int var1, int var2, int var3, int var4) {
+    private void notifyBlockOfNeighborChange(int x, int y, int z, int blockId) {
         if (!this.editingBlocks && !this.localWorld) {
-            Block var5 = Block.BLOCKS_LIST[this.getBlockId(var1, var2, var3)];
-            if (var5 != null) {
-                var5.onNeighborBlockChange(this, var1, var2, var3, var4);
+            Block block = Block.BLOCKS_LIST[this.getBlockId(x, y, z)];
+            if (block != null) {
+                block.onNeighborBlockChange(this, x, y, z, blockId);
             }
 
         }
@@ -654,10 +654,10 @@ public class World implements IBlockAccess {
 
     @Override
     @Side(CodeSide.CLIENT)
-    public float getBrightness(int x, int y, int z, int minBrightness) {
+    public float getBrightness(int x, int y, int z, int minValue) {
         int lightValue = this.getBlockLightValue(x, y, z);
-        if (lightValue < minBrightness) {
-            lightValue = minBrightness;
+        if (lightValue < minValue) {
+            lightValue = minValue;
         }
 
         return this.worldProvider.lightBrightnessTable[lightValue];
@@ -838,18 +838,21 @@ public class World implements IBlockAccess {
     }
 
     public void playSoundEffect(double x, double y, double z, String soundName, float volume, float pitch) {
-        for (IWorldAccess worldAccess : this.worldAccesses)
+        for (IWorldAccess worldAccess : this.worldAccesses) {
             worldAccess.playSound(soundName, x, y, z, volume, pitch);
+        }
     }
 
-    public void playRecord(String var1, int var2, int var3, int var4) {
-        for (IWorldAccess worldAccess : this.worldAccesses)
-            worldAccess.playRecord(var1, var2, var3, var4);
+    public void playRecord(String recordName, int x, int y, int z) {
+        for (IWorldAccess worldAccess : this.worldAccesses) {
+            worldAccess.playRecord(recordName, x, y, z);
+        }
     }
 
-    public void spawnParticle(String var1, double var2, double var4, double var6, double var8, double var10, double var12) {
-        for (IWorldAccess worldAccess : this.worldAccesses)
-            worldAccess.spawnParticle(var1, var2, var4, var6, var8, var10, var12);
+    public void spawnParticle(String particleName, double x, double y, double z, double var8, double var10, double var12) {
+        for (IWorldAccess worldAccess : this.worldAccesses) {
+            worldAccess.spawnParticle(particleName, x, y, z, var8, var10, var12);
+        }
     }
 
     public boolean addWeatherEffect(Entity entity) {
@@ -969,8 +972,8 @@ public class World implements IBlockAccess {
         return this.collidingBoundingBoxes;
     }
 
-    public int calculateSkylightSubtracted(float var1) {
-        float var2 = this.getCelestialAngle(var1);
+    public int calculateSkylightSubtracted(float partialTicks) {
+        float var2 = this.getCelestialAngle(partialTicks);
         float var3 = 1.0F - (MathHelper.cos(var2 * MathConstants.PI * 2.0F) * 2.0F + 0.5F);
 
         if (var3 < 0.0F)
@@ -980,8 +983,8 @@ public class World implements IBlockAccess {
             var3 = 1.0F;
 
         var3 = 1.0F - var3;
-        var3 = (float) ((double) var3 * (1.0D - (double) (this.getRainStrength(var1) * 5.0F) / 16.0D));
-        var3 = (float) ((double) var3 * (1.0D - (double) (this.getThunderStrength(var1) * 5.0F) / 16.0D));
+        var3 = (float) ((double) var3 * (1.0D - (double) (this.getRainStrength(partialTicks) * 5.0F) / 16.0D));
+        var3 = (float) ((double) var3 * (1.0D - (double) (this.getThunderStrength(partialTicks) * 5.0F) / 16.0D));
         var3 = 1.0F - var3;
 
         return (int) (var3 * 11.0F);
@@ -1042,8 +1045,8 @@ public class World implements IBlockAccess {
         return new Vec3d(r, g, b);
     }
 
-    public float getCelestialAngle(float var1) {
-        return this.worldProvider.calculateCelestialAngle(this.worldInfo.getWorldTime(), var1);
+    public float getCelestialAngle(float partialTicks) {
+        return this.worldProvider.calculateCelestialAngle(this.worldInfo.getWorldTime(), partialTicks);
     }
 
     @Side(CodeSide.CLIENT)
@@ -1088,9 +1091,9 @@ public class World implements IBlockAccess {
     }
 
     @Side(CodeSide.CLIENT)
-    public Vec3d getFogColor(float var1) {
-        float celestialAngle = this.getCelestialAngle(var1);
-        return this.worldProvider.getFogColor(celestialAngle, var1);
+    public Vec3d getFogColor(float partialTicks) {
+        float celestialAngle = this.getCelestialAngle(partialTicks);
+        return this.worldProvider.getFogColor(celestialAngle, partialTicks);
     }
 
     public int findTopSolidOrLiquidBlock(int x, int z) {
@@ -1315,8 +1318,8 @@ public class World implements IBlockAccess {
         }
     }
 
-    public boolean checkIfAABBIsClear(AxisAlignedBB axis) {
-        List<Entity> entities = this.getEntitiesWithinAABBExcludingEntity(null, axis);
+    public boolean checkIfAABBIsClear(AxisAlignedBB bb) {
+        List<Entity> entities = this.getEntitiesWithinAABBExcludingEntity(null, bb);
 
         for (int i = 0; i < entities.size(); ++i) {
             Entity entity = entities.get(i);
@@ -1327,22 +1330,22 @@ public class World implements IBlockAccess {
         return true;
     }
 
-    public boolean containsBlock(AxisAlignedBB var1) {
-        int minX = MathHelper.floor(var1.minX);
-        int maxX = MathHelper.floor(var1.maxX + 1.0D);
-        int minY = MathHelper.floor(var1.minY);
-        int maxY = MathHelper.floor(var1.maxY + 1.0D);
-        int minZ = MathHelper.floor(var1.minZ);
-        int maxZ = MathHelper.floor(var1.maxZ + 1.0D);
-        if (var1.minX < 0.0D) {
+    public boolean containsBlock(AxisAlignedBB bb) {
+        int minX = MathHelper.floor(bb.minX);
+        int maxX = MathHelper.floor(bb.maxX + 1.0D);
+        int minY = MathHelper.floor(bb.minY);
+        int maxY = MathHelper.floor(bb.maxY + 1.0D);
+        int minZ = MathHelper.floor(bb.minZ);
+        int maxZ = MathHelper.floor(bb.maxZ + 1.0D);
+        if (bb.minX < 0.0D) {
             --minX;
         }
 
-        if (var1.minY < 0.0D) {
+        if (bb.minY < 0.0D) {
             --minY;
         }
 
-        if (var1.minZ < 0.0D) {
+        if (bb.minZ < 0.0D) {
             --minZ;
         }
 
@@ -1360,21 +1363,21 @@ public class World implements IBlockAccess {
         return false;
     }
 
-    public boolean containsLiquid(AxisAlignedBB axis) {
-        int minX = MathHelper.floor(axis.minX);
-        int maxX = MathHelper.floor(axis.maxX + 1.0D);
-        int minY = MathHelper.floor(axis.minY);
-        int maxY = MathHelper.floor(axis.maxY + 1.0D);
-        int minZ = MathHelper.floor(axis.minZ);
-        int maxZ = MathHelper.floor(axis.maxZ + 1.0D);
+    public boolean containsLiquid(AxisAlignedBB bb) {
+        int minX = MathHelper.floor(bb.minX);
+        int maxX = MathHelper.floor(bb.maxX + 1.0D);
+        int minY = MathHelper.floor(bb.minY);
+        int maxY = MathHelper.floor(bb.maxY + 1.0D);
+        int minZ = MathHelper.floor(bb.minZ);
+        int maxZ = MathHelper.floor(bb.maxZ + 1.0D);
 
-        if (axis.minX < 0.0D)
+        if (bb.minX < 0.0D)
             --minX;
 
-        if (axis.minY < 0.0D)
+        if (bb.minY < 0.0D)
             --minY;
 
-        if (axis.minZ < 0.0D)
+        if (bb.minZ < 0.0D)
             --minZ;
 
         for (int x = minX; x < maxX; ++x) {
@@ -1391,13 +1394,13 @@ public class World implements IBlockAccess {
         return false;
     }
 
-    public boolean containsBurners(AxisAlignedBB axis) {
-        int minX = MathHelper.floor(axis.minX);
-        int maxX = MathHelper.floor(axis.maxX + 1.0D);
-        int minY = MathHelper.floor(axis.minY);
-        int maxY = MathHelper.floor(axis.maxY + 1.0D);
-        int minZ = MathHelper.floor(axis.minZ);
-        int maxZ = MathHelper.floor(axis.maxZ + 1.0D);
+    public boolean containsBurners(AxisAlignedBB bb) {
+        int minX = MathHelper.floor(bb.minX);
+        int maxX = MathHelper.floor(bb.maxX + 1.0D);
+        int minY = MathHelper.floor(bb.minY);
+        int maxY = MathHelper.floor(bb.maxY + 1.0D);
+        int minZ = MathHelper.floor(bb.minZ);
+        int maxZ = MathHelper.floor(bb.maxZ + 1.0D);
 
         if (!this.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ))
             return false;
@@ -1418,13 +1421,13 @@ public class World implements IBlockAccess {
         return false;
     }
 
-    public boolean handleMaterialAcceleration(AxisAlignedBB var1, Material var2, Entity entity) {
-        int minX = MathHelper.floor(var1.minX);
-        int maxX = MathHelper.floor(var1.maxX + 1.0D);
-        int minY = MathHelper.floor(var1.minY);
-        int maxY = MathHelper.floor(var1.maxY + 1.0D);
-        int minZ = MathHelper.floor(var1.minZ);
-        int maxZ = MathHelper.floor(var1.maxZ + 1.0D);
+    public boolean handleMaterialAcceleration(AxisAlignedBB bb, Material material, Entity entity) {
+        int minX = MathHelper.floor(bb.minX);
+        int maxX = MathHelper.floor(bb.maxX + 1.0D);
+        int minY = MathHelper.floor(bb.minY);
+        int maxY = MathHelper.floor(bb.maxY + 1.0D);
+        int minZ = MathHelper.floor(bb.minZ);
+        int maxZ = MathHelper.floor(bb.maxZ + 1.0D);
 
         if (!this.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ))
             return false;
@@ -1436,7 +1439,7 @@ public class World implements IBlockAccess {
             for (int y = minY; y < maxY; ++y) {
                 for (int z = minZ; z < maxZ; ++z) {
                     Block block = Block.BLOCKS_LIST[this.getBlockId(x, y, z)];
-                    if (block != null && block.blockMaterial == var2) {
+                    if (block != null && block.blockMaterial == material) {
                         double percentAir = (float) (y + 1) - BlockFluid.setFluidHeight(this.getBlockMetadata(x, y, z));
                         if ((double) maxY >= percentAir) {
                             handled = true;
@@ -1458,13 +1461,13 @@ public class World implements IBlockAccess {
         return handled;
     }
 
-    public boolean containsMaterial(AxisAlignedBB axis, Material material) {
-        int minX = MathHelper.floor(axis.minX);
-        int maxX = MathHelper.floor(axis.maxX + 1.0D);
-        int minY = MathHelper.floor(axis.minY);
-        int maxY = MathHelper.floor(axis.maxY + 1.0D);
-        int minZ = MathHelper.floor(axis.minZ);
-        int maxZ = MathHelper.floor(axis.maxZ + 1.0D);
+    public boolean containsMaterial(AxisAlignedBB bb, Material material) {
+        int minX = MathHelper.floor(bb.minX);
+        int maxX = MathHelper.floor(bb.maxX + 1.0D);
+        int minY = MathHelper.floor(bb.minY);
+        int maxY = MathHelper.floor(bb.maxY + 1.0D);
+        int minZ = MathHelper.floor(bb.minZ);
+        int maxZ = MathHelper.floor(bb.maxZ + 1.0D);
 
         for (int x = minX; x < maxX; ++x) {
             for (int y = minY; y < maxY; ++y) {
@@ -1479,13 +1482,13 @@ public class World implements IBlockAccess {
         return false;
     }
 
-    public boolean isAABBInMaterial(AxisAlignedBB axis, Material material) {
-        int minX = MathHelper.floor(axis.minX);
-        int maxX = MathHelper.floor(axis.maxX + 1.0D);
-        int minY = MathHelper.floor(axis.minY);
-        int maxY = MathHelper.floor(axis.maxY + 1.0D);
-        int minZ = MathHelper.floor(axis.minZ);
-        int maxZ = MathHelper.floor(axis.maxZ + 1.0D);
+    public boolean isAABBInMaterial(AxisAlignedBB bb, Material material) {
+        int minX = MathHelper.floor(bb.minX);
+        int maxX = MathHelper.floor(bb.maxX + 1.0D);
+        int minY = MathHelper.floor(bb.minY);
+        int maxY = MathHelper.floor(bb.maxY + 1.0D);
+        int minZ = MathHelper.floor(bb.minZ);
+        int maxZ = MathHelper.floor(bb.maxZ + 1.0D);
 
         for (int x = minX; x < maxX; ++x) {
             for (int y = minY; y < maxY; ++y) {
@@ -1497,7 +1500,7 @@ public class World implements IBlockAccess {
                         if (metadata < 8)
                             upY = (double) (y + 1) - (double) metadata / 8.0D;
 
-                        if (upY >= axis.minY)
+                        if (upY >= bb.minY)
                             return true;
                     }
                 }
@@ -1587,9 +1590,9 @@ public class World implements IBlockAccess {
     }
 
     @Override
-    public TileEntity getBlockTileEntity(int var1, int var2, int var3) {
-        Chunk chunk = this.getChunkFromChunkCoords(var1 >> 4, var3 >> 4);
-        return chunk != null ? chunk.getChunkBlockTileEntity(var1 & 15, var2, var3 & 15) : null;
+    public TileEntity getBlockTileEntity(int x, int y, int z) {
+        Chunk chunk = this.getChunkFromChunkCoords(x >> 4, z >> 4);
+        return chunk != null ? chunk.getChunkBlockTileEntity(x & 15, y, z & 15) : null;
     }
 
     public void setBlockTileEntity(int x, int y, int z, TileEntity tileEntity) {
@@ -1646,8 +1649,8 @@ public class World implements IBlockAccess {
     }
 
     @Side(CodeSide.CLIENT)
-    public void saveWorldIndirectly(IProgressUpdatable progressUpdatable) {
-        this.saveWorld(true, progressUpdatable);
+    public void saveWorldIndirectly(IProgressUpdatable updatable) {
+        this.saveWorld(true, updatable);
     }
 
     public boolean updatingLighting() {
@@ -1735,9 +1738,9 @@ public class World implements IBlockAccess {
 
     }
 
-    public void setAllowedSpawnTypes(boolean var1, boolean var2) {
-        this.spawnHostileMobs = var1;
-        this.spawnPeacefulMobs = var2;
+    public void setAllowedSpawnTypes(boolean hostile, boolean peaceful) {
+        this.spawnHostileMobs = hostile;
+        this.spawnPeacefulMobs = peaceful;
     }
 
     public void tick() {
@@ -2127,7 +2130,7 @@ public class World implements IBlockAccess {
         return new Pathfinder(chunkCache).createEntityPathTo(from, to, var3);
     }
 
-    public PathEntity getEntityPathToXYZ(Entity entity, int var2, int var3, int var4, float var5) {
+    public PathEntity getEntityPathToXYZ(Entity entity, int x, int y, int z, float var5) {
         int floorX = MathHelper.floor(entity.posX);
         int floorY = MathHelper.floor(entity.posY);
         int floorZ = MathHelper.floor(entity.posZ);
@@ -2143,7 +2146,7 @@ public class World implements IBlockAccess {
         int maxZ = floorZ + dif;
 
         ChunkCache chunkCache = new ChunkCache(this, minX, minY, minZ, maxX, maxY, maxZ);
-        return new Pathfinder(chunkCache).createEntityPathTo(entity, var2, var3, var4, var5);
+        return new Pathfinder(chunkCache).createEntityPathTo(entity, x, y, z, var5);
     }
 
     public boolean isBlockProvidingPowerTo(int x, int y, int z, int var4) {
@@ -2197,17 +2200,17 @@ public class World implements IBlockAccess {
         return this.isBlockIndirectlyProvidingPowerTo(x + 1, y, z, 5);
     }
 
-    public EntityPlayer getClosestPlayerToEntity(Entity entity, double var2) {
-        return this.getClosestPlayer(entity.posX, entity.posY, entity.posZ, var2);
+    public EntityPlayer getClosestPlayerToEntity(Entity entity, double maxDistance) {
+        return this.getClosestPlayer(entity.posX, entity.posY, entity.posZ, maxDistance);
     }
 
-    public EntityPlayer getClosestPlayer(double x, double y, double z, double var7) {
+    public EntityPlayer getClosestPlayer(double x, double y, double z, double maxDistance) {
         double var9 = -1.0D;
         EntityPlayer player = null;
 
         for (EntityPlayer entityPlayer : this.playerEntities) {
             double distanceSq = entityPlayer.getDistanceSq(x, y, z);
-            if ((var7 < 0.0D || distanceSq < var7 * var7) && (var9 == -1.0D || distanceSq < var9)) {
+            if ((maxDistance < 0.0D || distanceSq < maxDistance * maxDistance) && (var9 == -1.0D || distanceSq < var9)) {
                 var9 = distanceSq;
                 player = entityPlayer;
             }
@@ -2337,8 +2340,8 @@ public class World implements IBlockAccess {
         return this.worldInfo.getWorldTime();
     }
 
-    public void setWorldTime(long var1) {
-        this.worldInfo.setWorldTime(var1);
+    public void setWorldTime(long worldTime) {
+        this.worldInfo.setWorldTime(worldTime);
     }
 
     public ChunkCoordinates getSpawnPoint() {
@@ -2369,7 +2372,7 @@ public class World implements IBlockAccess {
         return true;
     }
 
-    public void sendTrackedEntityStatusUpdatePacket(Entity var1, byte var2) {
+    public void sendTrackedEntityStatusUpdatePacket(Entity entity, byte status) {
     }
 
     @Side(CodeSide.CLIENT)
@@ -2419,10 +2422,10 @@ public class World implements IBlockAccess {
         return this.chunkProvider;
     }
 
-    public void playNoteAt(int x, int y, int z, int var4, int var5) {
+    public void playNoteAt(int x, int y, int z, int instrumentType, int pitch) {
         int blockId = this.getBlockId(x, y, z);
         if (blockId > 0)
-            Block.BLOCKS_LIST[blockId].playBlock(this, x, y, z, var4, var5);
+            Block.BLOCKS_LIST[blockId].playBlock(this, x, y, z, instrumentType, pitch);
     }
 
     public ISaveHandler getSaveHandler() {
@@ -2469,17 +2472,17 @@ public class World implements IBlockAccess {
         return false;
     }
 
-    public float getThunderStrength(float var1) {
-        return (this.prevThunderingStrength + (this.thunderingStrength - this.prevThunderingStrength) * var1) * this.getRainStrength(var1);
+    public float getThunderStrength(float thunderStrength) {
+        return (this.prevThunderingStrength + (this.thunderingStrength - this.prevThunderingStrength) * thunderStrength) * this.getRainStrength(thunderStrength);
     }
 
     public float getRainStrength(float var1) {
         return this.prevRainingStrength + (this.rainingStrength - this.prevRainingStrength) * var1;
     }
 
-    public void setRainingStrength(float var1) {
-        this.prevRainingStrength = var1;
-        this.rainingStrength = var1;
+    public void setRainingStrength(float rainingStrength) {
+        this.prevRainingStrength = rainingStrength;
+        this.rainingStrength = rainingStrength;
     }
 
     public boolean isBigThunder() {
@@ -2490,20 +2493,20 @@ public class World implements IBlockAccess {
         return (double) this.getRainStrength(1.0F) > 0.2D;
     }
 
-    public boolean canBlockBeRainedOn(int var1, int var2, int var3) {
+    public boolean canBlockBeRainedOn(int x, int y, int z) {
         if (!this.isSmallRain()) {
             return false;
         }
 
-        if (!this.canBlockSeeTheSky(var1, var2, var3)) {
+        if (!this.canBlockSeeTheSky(x, y, z)) {
             return false;
         }
 
-        if (this.findTopSolidOrLiquidBlock(var1, var3) > var2) {
+        if (this.findTopSolidOrLiquidBlock(x, z) > y) {
             return false;
         }
 
-        BiomeGenBase genBase = this.getWorldChunkManager().getBiomeGenAt(var1, var3);
+        BiomeGenBase genBase = this.getWorldChunkManager().getBiomeGenAt(x, z);
         return !genBase.getEnableSnow() && genBase.canSpawnLightningBolt();
     }
 
@@ -2519,13 +2522,13 @@ public class World implements IBlockAccess {
         return this.mapStorage.getUniqueDataId(var1);
     }
 
-    public void playEffects(int var1, int var2, int var3, int var4, int var5) {
-        this.playEffects(null, var1, var2, var3, var4, var5);
+    public void playEffects(int effectId, int x, int y, int z, int subData) {
+        this.playEffects(null, effectId, x, y, z, subData);
     }
 
-    public void playEffects(EntityPlayer var1, int var2, int var3, int var4, int var5, int var6) {
+    public void playEffects(EntityPlayer player, int effectId, int x, int y, int z, int subData) {
         for (IWorldAccess worldAccess : this.worldAccesses) {
-            worldAccess.playEffect(var1, var2, var3, var4, var5, var6);
+            worldAccess.playEffect(player, effectId, x, y, z, subData);
         }
     }
 }

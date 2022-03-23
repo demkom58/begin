@@ -5,23 +5,23 @@ import net.potion.entity.player.EntityPlayer;
 import net.potion.tileentity.TileEntity;
 
 public interface IWorldAccess {
-    void markBlockAndNeighborsNeedsUpdate(int var1, int var2, int var3);
+    void markBlockAndNeighborsNeedsUpdate(int x, int y, int z);
 
-    void markBlockRangeNeedsUpdate(int var1, int var2, int var3, int var4, int var5, int var6);
+    void markBlockRangeNeedsUpdate(int minX, int minY, int minZ, int maxX, int maxY, int maxZ);
 
-    void playSound(String var1, double var2, double var4, double var6, float var8, float var9);
+    void playSound(String soundCategory, double x, double y, double z, float volume, float pitch);
 
-    void spawnParticle(String var1, double var2, double var4, double var6, double var8, double var10, double var12);
+    void spawnParticle(String particleName, double x, double y, double z, double motionX, double motionY, double motionZ);
 
-    void obtainEntitySkin(Entity var1);
+    void obtainEntitySkin(Entity entity);
 
-    void releaseEntitySkin(Entity var1);
+    void releaseEntitySkin(Entity entity);
 
     void updateAllRenderers();
 
-    void playRecord(String var1, int var2, int var3, int var4);
+    void playRecord(String recordName, int x, int y, int z);
 
-    void doNothingWithTileEntity(int var1, int var2, int var3, TileEntity var4);
+    void doNothingWithTileEntity(int x, int y, int z, TileEntity tile);
 
-    void playEffect(EntityPlayer var1, int var2, int var3, int var4, int var5, int var6);
+    void playEffect(EntityPlayer player, int effectId, int x, int y, int z, int subData);
 }

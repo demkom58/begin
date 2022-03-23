@@ -162,9 +162,9 @@ public class BlockPistonBase extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!var1.localWorld && !this.ignoreUpdates) {
-            this.updatePistonState(var1, var2, var3, var4);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        if (!world.localWorld && !this.ignoreUpdates) {
+            this.updatePistonState(world, x, y, z);
         }
 
     }

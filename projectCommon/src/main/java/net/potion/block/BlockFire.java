@@ -201,9 +201,9 @@ public class BlockFire extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!var1.isBlockNormalCube(var2, var3 - 1, var4) && !this.canSpreadFire(var1, var2, var3, var4)) {
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        if (!world.isBlockNormalCube(x, y - 1, z) && !this.canSpreadFire(world, x, y, z)) {
+            world.setBlockWithNotify(x, y, z, 0);
         }
     }
 

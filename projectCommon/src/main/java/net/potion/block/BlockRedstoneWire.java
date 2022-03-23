@@ -301,21 +301,21 @@ public class BlockRedstoneWire extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (var1.localWorld) {
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        if (world.localWorld) {
             return;
         }
 
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
-        boolean var7 = this.canPlaceBlockAt(var1, var2, var3, var4);
+        int var6 = world.getBlockMetadata(x, y, z);
+        boolean var7 = this.canPlaceBlockAt(world, x, y, z);
         if (!var7) {
-            this.dropBlockAsItem(var1, var2, var3, var4, var6);
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+            this.dropBlockAsItem(world, x, y, z, var6);
+            world.setBlockWithNotify(x, y, z, 0);
         } else {
-            this.updateAndPropagateCurrentStrength(var1, var2, var3, var4);
+            this.updateAndPropagateCurrentStrength(world, x, y, z);
         }
 
-        super.onNeighborBlockChange(var1, var2, var3, var4, var5);
+        super.onNeighborBlockChange(world, x, y, z, var5);
     }
 
     @Override

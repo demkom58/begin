@@ -20,13 +20,13 @@ public class BlockNote extends BlockContainer {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
         if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower()) {
-            boolean var6 = var1.isBlockGettingPowered(var2, var3, var4);
-            TileEntityNote var7 = (TileEntityNote) var1.getBlockTileEntity(var2, var3, var4);
+            boolean var6 = world.isBlockGettingPowered(x, y, z);
+            TileEntityNote var7 = (TileEntityNote) world.getBlockTileEntity(x, y, z);
             if (var7.previousRedstoneState != var6) {
                 if (var6) {
-                    var7.triggerNote(var1, var2, var3, var4);
+                    var7.triggerNote(world, x, y, z);
                 }
 
                 var7.previousRedstoneState = var6;

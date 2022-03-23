@@ -156,13 +156,13 @@ public class BlockPistonExtension extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        int var6 = method1(var1.getBlockMetadata(var2, var3, var4));
-        int var7 = var1.getBlockId(var2 - PistonBlockTextures.field2[var6], var3 - PistonBlockTextures.field3[var6], var4 - PistonBlockTextures.field4[var6]);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        int var6 = method1(world.getBlockMetadata(x, y, z));
+        int var7 = world.getBlockId(x - PistonBlockTextures.field2[var6], y - PistonBlockTextures.field3[var6], z - PistonBlockTextures.field4[var6]);
         if (var7 != Block.PISTON_BASE.blockID && var7 != Block.PISTON_STICKY_BASE.blockID) {
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+            world.setBlockWithNotify(x, y, z, 0);
         } else {
-            Block.BLOCKS_LIST[var7].onNeighborBlockChange(var1, var2 - PistonBlockTextures.field2[var6], var3 - PistonBlockTextures.field3[var6], var4 - PistonBlockTextures.field4[var6], var5);
+            Block.BLOCKS_LIST[var7].onNeighborBlockChange(world, x - PistonBlockTextures.field2[var6], y - PistonBlockTextures.field3[var6], z - PistonBlockTextures.field4[var6], var5);
         }
 
     }

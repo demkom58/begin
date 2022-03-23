@@ -16,10 +16,10 @@ public class BlockStationary extends BlockFluid {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        super.onNeighborBlockChange(var1, var2, var3, var4, var5);
-        if (var1.getBlockId(var2, var3, var4) == this.blockID) {
-            this.update(var1, var2, var3, var4);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        super.onNeighborBlockChange(world, x, y, z, var5);
+        if (world.getBlockId(x, y, z) == this.blockID) {
+            this.update(world, x, y, z);
         }
 
     }

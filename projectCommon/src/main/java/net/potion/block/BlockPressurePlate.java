@@ -55,12 +55,12 @@ public class BlockPressurePlate extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        boolean var6 = !var1.isBlockNormalCube(var2, var3 - 1, var4);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        boolean var6 = !world.isBlockNormalCube(x, y - 1, z);
 
         if (var6) {
-            this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+            this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
+            world.setBlockWithNotify(x, y, z, 0);
         }
 
     }

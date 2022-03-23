@@ -37,10 +37,10 @@ public class BlockTNT extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower() && var1.isBlockIndirectlyGettingPowered(var2, var3, var4)) {
-            this.onBlockDestroyedByPlayer(var1, var2, var3, var4, 1);
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower() && world.isBlockIndirectlyGettingPowered(x, y, z)) {
+            this.onBlockDestroyedByPlayer(world, x, y, z, 1);
+            world.setBlockWithNotify(x, y, z, 0);
         }
 
     }

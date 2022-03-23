@@ -352,7 +352,7 @@ public class Block {
     public void onBlockDestroyedByPlayer(World var1, int var2, int var3, int var4, int var5) {
     }
 
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
     }
 
     public int tickRate() {

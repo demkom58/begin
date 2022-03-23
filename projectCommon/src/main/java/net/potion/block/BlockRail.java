@@ -109,58 +109,58 @@ public class BlockRail extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!var1.localWorld) {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        if (!world.localWorld) {
+            int var6 = world.getBlockMetadata(x, y, z);
             int var7 = var6;
             if (this.isPowered) {
                 var7 = var6 & 7;
             }
 
             boolean var8 = false;
-            if (!var1.isBlockNormalCube(var2, var3 - 1, var4)) {
+            if (!world.isBlockNormalCube(x, y - 1, z)) {
                 var8 = true;
             }
 
-            if (var7 == 2 && !var1.isBlockNormalCube(var2 + 1, var3, var4)) {
+            if (var7 == 2 && !world.isBlockNormalCube(x + 1, y, z)) {
                 var8 = true;
             }
 
-            if (var7 == 3 && !var1.isBlockNormalCube(var2 - 1, var3, var4)) {
+            if (var7 == 3 && !world.isBlockNormalCube(x - 1, y, z)) {
                 var8 = true;
             }
 
-            if (var7 == 4 && !var1.isBlockNormalCube(var2, var3, var4 - 1)) {
+            if (var7 == 4 && !world.isBlockNormalCube(x, y, z - 1)) {
                 var8 = true;
             }
 
-            if (var7 == 5 && !var1.isBlockNormalCube(var2, var3, var4 + 1)) {
+            if (var7 == 5 && !world.isBlockNormalCube(x, y, z + 1)) {
                 var8 = true;
             }
 
             if (var8) {
-                this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+                this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z));
+                world.setBlockWithNotify(x, y, z, 0);
             } else if (this.blockID == Block.RAIL_POWERED.blockID) {
-                boolean var9 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4) || var1.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
-                var9 = var9 || this.method2(var1, var2, var3, var4, var6, true, 0) || this.method2(var1, var2, var3, var4, var6, false, 0);
+                boolean var9 = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
+                var9 = var9 || this.method2(world, x, y, z, var6, true, 0) || this.method2(world, x, y, z, var6, false, 0);
                 boolean var10 = false;
                 if (var9 && (var6 & 8) == 0) {
-                    var1.setBlockMetadataWithNotify(var2, var3, var4, var7 | 8);
+                    world.setBlockMetadataWithNotify(x, y, z, var7 | 8);
                     var10 = true;
                 } else if (!var9 && (var6 & 8) != 0) {
-                    var1.setBlockMetadataWithNotify(var2, var3, var4, var7);
+                    world.setBlockMetadataWithNotify(x, y, z, var7);
                     var10 = true;
                 }
 
                 if (var10) {
-                    var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.blockID);
+                    world.notifyBlocksOfNeighborChange(x, y - 1, z, this.blockID);
                     if (var7 == 2 || var7 == 3 || var7 == 4 || var7 == 5) {
-                        var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.blockID);
+                        world.notifyBlocksOfNeighborChange(x, y + 1, z, this.blockID);
                     }
                 }
-            } else if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower() && !this.isPowered && RailLogic.getNAdjacentTracks(new RailLogic(this, var1, var2, var3, var4)) == 3) {
-                this.method1(var1, var2, var3, var4, false);
+            } else if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower() && !this.isPowered && RailLogic.getNAdjacentTracks(new RailLogic(this, world, x, y, z)) == 3) {
+                this.method1(world, x, y, z, false);
             }
 
         }

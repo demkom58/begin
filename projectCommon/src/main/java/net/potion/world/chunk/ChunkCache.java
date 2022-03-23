@@ -60,10 +60,10 @@ public class ChunkCache implements IBlockAccess {
 
     @Override
     @Side(CodeSide.CLIENT)
-    public float getBrightness(int x, int y, int z, int minBrightness) {
+    public float getBrightness(int x, int y, int z, int minValue) {
         int lightValue = this.getLightValue(x, y, z);
-        if (lightValue < minBrightness) {
-            lightValue = minBrightness;
+        if (lightValue < minValue) {
+            lightValue = minValue;
         }
 
         return this.world.worldProvider.lightBrightnessTable[lightValue];

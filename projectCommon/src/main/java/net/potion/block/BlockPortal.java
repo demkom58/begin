@@ -93,37 +93,37 @@ public class BlockPortal extends BlockBreakable {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
         byte var6 = 0;
         byte var7 = 1;
-        if (var1.getBlockId(var2 - 1, var3, var4) == this.blockID || var1.getBlockId(var2 + 1, var3, var4) == this.blockID) {
+        if (world.getBlockId(x - 1, y, z) == this.blockID || world.getBlockId(x + 1, y, z) == this.blockID) {
             var6 = 1;
             var7 = 0;
         }
 
-        int var8 = var3;
-        while (var1.getBlockId(var2, var8 - 1, var4) == this.blockID) {
+        int var8 = y;
+        while (world.getBlockId(x, var8 - 1, z) == this.blockID) {
             --var8;
         }
 
-        if (var1.getBlockId(var2, var8 - 1, var4) != Block.OBSIDIAN.blockID) {
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+        if (world.getBlockId(x, var8 - 1, z) != Block.OBSIDIAN.blockID) {
+            world.setBlockWithNotify(x, y, z, 0);
         } else {
             int var9 = 1;
-            while (var9 < 4 && var1.getBlockId(var2, var8 + var9, var4) == this.blockID) {
+            while (var9 < 4 && world.getBlockId(x, var8 + var9, z) == this.blockID) {
                 ++var9;
             }
 
-            if (var9 == 3 && var1.getBlockId(var2, var8 + var9, var4) == Block.OBSIDIAN.blockID) {
-                boolean var10 = var1.getBlockId(var2 - 1, var3, var4) == this.blockID || var1.getBlockId(var2 + 1, var3, var4) == this.blockID;
-                boolean var11 = var1.getBlockId(var2, var3, var4 - 1) == this.blockID || var1.getBlockId(var2, var3, var4 + 1) == this.blockID;
+            if (var9 == 3 && world.getBlockId(x, var8 + var9, z) == Block.OBSIDIAN.blockID) {
+                boolean var10 = world.getBlockId(x - 1, y, z) == this.blockID || world.getBlockId(x + 1, y, z) == this.blockID;
+                boolean var11 = world.getBlockId(x, y, z - 1) == this.blockID || world.getBlockId(x, y, z + 1) == this.blockID;
                 if (var10 && var11) {
-                    var1.setBlockWithNotify(var2, var3, var4, 0);
-                } else if ((var1.getBlockId(var2 + var6, var3, var4 + var7) != Block.OBSIDIAN.blockID || var1.getBlockId(var2 - var6, var3, var4 - var7) != this.blockID) && (var1.getBlockId(var2 - var6, var3, var4 - var7) != Block.OBSIDIAN.blockID || var1.getBlockId(var2 + var6, var3, var4 + var7) != this.blockID)) {
-                    var1.setBlockWithNotify(var2, var3, var4, 0);
+                    world.setBlockWithNotify(x, y, z, 0);
+                } else if ((world.getBlockId(x + var6, y, z + var7) != Block.OBSIDIAN.blockID || world.getBlockId(x - var6, y, z - var7) != this.blockID) && (world.getBlockId(x - var6, y, z - var7) != Block.OBSIDIAN.blockID || world.getBlockId(x + var6, y, z + var7) != this.blockID)) {
+                    world.setBlockWithNotify(x, y, z, 0);
                 }
             } else {
-                var1.setBlockWithNotify(var2, var3, var4, 0);
+                world.setBlockWithNotify(x, y, z, 0);
             }
         }
     }

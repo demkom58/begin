@@ -164,11 +164,11 @@ public class BlockDispenser extends BlockContainer {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
         if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower()) {
-            boolean var6 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4) || var1.isBlockIndirectlyGettingPowered(var2, var3 + 1, var4);
+            boolean var6 = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
             if (var6) {
-                var1.scheduleBlockUpdate(var2, var3, var4, this.blockID, this.tickRate());
+                world.scheduleBlockUpdate(x, y, z, this.blockID, this.tickRate());
             }
         }
 

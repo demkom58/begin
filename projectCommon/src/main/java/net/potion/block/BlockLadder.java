@@ -112,31 +112,31 @@ public class BlockLadder extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        int var6 = var1.getBlockMetadata(var2, var3, var4);
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        int var6 = world.getBlockMetadata(x, y, z);
         boolean var7 = false;
-        if (var6 == 2 && var1.isBlockNormalCube(var2, var3, var4 + 1)) {
+        if (var6 == 2 && world.isBlockNormalCube(x, y, z + 1)) {
             var7 = true;
         }
 
-        if (var6 == 3 && var1.isBlockNormalCube(var2, var3, var4 - 1)) {
+        if (var6 == 3 && world.isBlockNormalCube(x, y, z - 1)) {
             var7 = true;
         }
 
-        if (var6 == 4 && var1.isBlockNormalCube(var2 + 1, var3, var4)) {
+        if (var6 == 4 && world.isBlockNormalCube(x + 1, y, z)) {
             var7 = true;
         }
 
-        if (var6 == 5 && var1.isBlockNormalCube(var2 - 1, var3, var4)) {
+        if (var6 == 5 && world.isBlockNormalCube(x - 1, y, z)) {
             var7 = true;
         }
 
         if (!var7) {
-            this.dropBlockAsItem(var1, var2, var3, var4, var6);
-            var1.setBlockWithNotify(var2, var3, var4, 0);
+            this.dropBlockAsItem(world, x, y, z, var6);
+            world.setBlockWithNotify(x, y, z, 0);
         }
 
-        super.onNeighborBlockChange(var1, var2, var3, var4, var5);
+        super.onNeighborBlockChange(world, x, y, z, var5);
     }
 
     @Override

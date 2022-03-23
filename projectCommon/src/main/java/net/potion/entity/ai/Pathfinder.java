@@ -35,7 +35,7 @@ public class Pathfinder {
         return this.addToPath(from, var9, var10, var11, var8);
     }
 
-    private PathEntity addToPath(Entity var1, PathPoint var2, PathPoint var3, PathPoint var4, float var5) {
+    private PathEntity addToPath(Entity entity, PathPoint var2, PathPoint var3, PathPoint var4, float var5) {
         var2.totalPathDistance = 0.0F;
         var2.distanceToNext = var2.distanceTo(var3);
         var2.distanceToTarget = var2.distanceToNext;
@@ -54,7 +54,7 @@ public class Pathfinder {
             }
 
             var7.isFirst = true;
-            int var8 = this.findPathOptions(var1, var7, var4, var3, var5);
+            int var8 = this.findPathOptions(entity, var7, var4, var3, var5);
 
             for (int var9 = 0; var9 < var8; ++var9) {
                 PathPoint var10 = this.pathOptions[var9];

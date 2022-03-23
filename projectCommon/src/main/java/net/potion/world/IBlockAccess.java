@@ -6,24 +6,24 @@ import net.potion.material.Material;
 import net.potion.tileentity.TileEntity;
 
 public interface IBlockAccess {
-    int getBlockId(int var1, int var2, int var3);
+    int getBlockId(int x, int y, int z);
 
-    TileEntity getBlockTileEntity(int var1, int var2, int var3);
-
-    @Side(CodeSide.CLIENT)
-    float getBrightness(int var1, int var2, int var3, int var4);
+    TileEntity getBlockTileEntity(int x, int y, int z);
 
     @Side(CodeSide.CLIENT)
-    float getLightBrightness(int var1, int var2, int var3);
-
-    int getBlockMetadata(int var1, int var2, int var3);
-
-    Material getBlockMaterial(int var1, int var2, int var3);
+    float getBrightness(int x, int y, int z, int minValue);
 
     @Side(CodeSide.CLIENT)
-    boolean isBlockOpaqueCube(int var1, int var2, int var3);
+    float getLightBrightness(int x, int y, int z);
 
-    boolean isBlockNormalCube(int var1, int var2, int var3);
+    int getBlockMetadata(int x, int y, int z);
+
+    Material getBlockMaterial(int x, int y, int z);
+
+    @Side(CodeSide.CLIENT)
+    boolean isBlockOpaqueCube(int x, int y, int z);
+
+    boolean isBlockNormalCube(int x, int y, int z);
 
     WorldChunkManager getWorldChunkManager();
 }

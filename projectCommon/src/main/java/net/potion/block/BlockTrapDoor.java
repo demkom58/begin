@@ -118,13 +118,13 @@ public class BlockTrapDoor extends Block {
     }
 
     @Override
-    public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
-        if (!var1.localWorld) {
-            int var6 = var1.getBlockMetadata(var2, var3, var4);
-            int var7 = var2;
-            int var8 = var4;
+    public void onNeighborBlockChange(World world, int x, int y, int z, int var5) {
+        if (!world.localWorld) {
+            int var6 = world.getBlockMetadata(x, y, z);
+            int var7 = x;
+            int var8 = z;
             if ((var6 & 3) == 0) {
-                var8 = var4 + 1;
+                var8 = z + 1;
             }
 
             if ((var6 & 3) == 1) {
@@ -132,21 +132,21 @@ public class BlockTrapDoor extends Block {
             }
 
             if ((var6 & 3) == 2) {
-                var7 = var2 + 1;
+                var7 = x + 1;
             }
 
             if ((var6 & 3) == 3) {
                 --var7;
             }
 
-            if (!var1.isBlockNormalCube(var7, var3, var8)) {
-                var1.setBlockWithNotify(var2, var3, var4, 0);
-                this.dropBlockAsItem(var1, var2, var3, var4, var6);
+            if (!world.isBlockNormalCube(var7, y, var8)) {
+                world.setBlockWithNotify(x, y, z, 0);
+                this.dropBlockAsItem(world, x, y, z, var6);
             }
 
             if (var5 > 0 && Block.BLOCKS_LIST[var5].canProvidePower()) {
-                boolean var9 = var1.isBlockIndirectlyGettingPowered(var2, var3, var4);
-                this.onPoweredBlockChange(var1, var2, var3, var4, var9);
+                boolean var9 = world.isBlockIndirectlyGettingPowered(x, y, z);
+                this.onPoweredBlockChange(world, x, y, z, var9);
             }
 
         }

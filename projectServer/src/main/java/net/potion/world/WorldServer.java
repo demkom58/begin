@@ -104,9 +104,9 @@ public class WorldServer extends World {
     }
 
     @Override
-    public void sendTrackedEntityStatusUpdatePacket(Entity var1, byte var2) {
-        Packet38EntityStatus var3 = new Packet38EntityStatus(var1.entityId, var2);
-        this.server.getEntityTracker(this.worldProvider.worldType).sendPacketToTrackedPlayersAndTrackedEntity(var1, var3);
+    public void sendTrackedEntityStatusUpdatePacket(Entity entity, byte status) {
+        Packet38EntityStatus var3 = new Packet38EntityStatus(entity.entityId, status);
+        this.server.getEntityTracker(this.worldProvider.worldType).sendPacketToTrackedPlayersAndTrackedEntity(entity, var3);
     }
 
     @Override
@@ -120,9 +120,9 @@ public class WorldServer extends World {
     }
 
     @Override
-    public void playNoteAt(int var1, int var2, int var3, int var4, int var5) {
-        super.playNoteAt(var1, var2, var3, var4, var5);
-        this.server.configManager.sendPacketToPlayersAroundPoint(var1, var2, var3, 64.0D, this.worldProvider.worldType, new Packet54PlayNoteBlock(var1, var2, var3, var4, var5));
+    public void playNoteAt(int var1, int var2, int var3, int instrumentType, int pitch) {
+        super.playNoteAt(var1, var2, var3, instrumentType, pitch);
+        this.server.configManager.sendPacketToPlayersAroundPoint(var1, var2, var3, 64.0D, this.worldProvider.worldType, new Packet54PlayNoteBlock(var1, var2, var3, instrumentType, pitch));
     }
 
     public void clearCache() {
