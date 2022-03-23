@@ -41,24 +41,24 @@ public class InventoryCrafting implements IInventory {
 
     @Override
     public ItemStack decrStackSize(int var1, int var2) {
-        if (this.stackList[var1] != null) {
-            if (this.stackList[var1].stackSize <= var2) {
-                ItemStack var4 = this.stackList[var1];
-                this.stackList[var1] = null;
-                this.eventHandler.onCraftMatrixChanged(this);
-                return var4;
-            } else {
-                ItemStack var3 = this.stackList[var1].splitStack(var2);
-                if (this.stackList[var1].stackSize == 0) {
-                    this.stackList[var1] = null;
-                }
-
-                this.eventHandler.onCraftMatrixChanged(this);
-                return var3;
-            }
-        } else {
+        if (this.stackList[var1] == null) {
             return null;
         }
+
+        if (this.stackList[var1].stackSize <= var2) {
+            ItemStack var4 = this.stackList[var1];
+            this.stackList[var1] = null;
+            this.eventHandler.onCraftMatrixChanged(this);
+            return var4;
+        }
+
+        ItemStack var3 = this.stackList[var1].splitStack(var2);
+        if (this.stackList[var1].stackSize == 0) {
+            this.stackList[var1] = null;
+        }
+
+        this.eventHandler.onCraftMatrixChanged(this);
+        return var3;
     }
 
     @Override

@@ -4,25 +4,25 @@ import net.potion.entity.player.EntityPlayer;
 import net.potion.tileentity.TileEntityDispenser;
 
 public class ContainerDispenser extends Container {
-    private TileEntityDispenser dispenser;
+    private final TileEntityDispenser dispenser;
 
-    public ContainerDispenser(IInventory var1, TileEntityDispenser var2) {
-        this.dispenser = var2;
+    public ContainerDispenser(IInventory inventory, TileEntityDispenser dispenser) {
+        this.dispenser = dispenser;
 
-        for (int var3 = 0; var3 < 3; ++var3) {
-            for (int var4 = 0; var4 < 3; ++var4) {
-                this.addSlot(new Slot(var2, var4 + var3 * 3, 62 + var4 * 18, 17 + var3 * 18));
+        for (int x = 0; x < 3; ++x) {
+            for (int y = 0; y < 3; ++y) {
+                this.addSlot(new Slot(dispenser, y + x * 3, 62 + y * 18, 17 + x * 18));
             }
         }
 
-        for (int var5 = 0; var5 < 3; ++var5) {
-            for (int var7 = 0; var7 < 9; ++var7) {
-                this.addSlot(new Slot(var1, var7 + var5 * 9 + 9, 8 + var7 * 18, 84 + var5 * 18));
+        for (int x = 0; x < 3; ++x) {
+            for (int y = 0; y < 9; ++y) {
+                this.addSlot(new Slot(inventory, y + x * 9 + 9, 8 + y * 18, 84 + x * 18));
             }
         }
 
-        for (int var6 = 0; var6 < 9; ++var6) {
-            this.addSlot(new Slot(var1, var6, 8 + var6 * 18, 142));
+        for (int x = 0; x < 9; ++x) {
+            this.addSlot(new Slot(inventory, x, 8 + x * 18, 142));
         }
 
     }

@@ -11,11 +11,11 @@ public class Slot {
     public int xDisplayPosition;
     public int yDisplayPosition;
 
-    public Slot(IInventory var1, int var2, int var3, int var4) {
-        this.inventory = var1;
-        this.slotIndex = var2;
-        this.xDisplayPosition = var3;
-        this.yDisplayPosition = var4;
+    public Slot(IInventory inventory, int slotIndex, int x, int y) {
+        this.inventory = inventory;
+        this.slotIndex = slotIndex;
+        this.xDisplayPosition = x;
+        this.yDisplayPosition = y;
     }
 
     public void onPickupFromSlot(ItemStack var1) {
@@ -56,8 +56,8 @@ public class Slot {
         return this.inventory.decrStackSize(this.slotIndex, var1);
     }
 
-    public boolean isHere(IInventory var1, int var2) {
-        return var1 == this.inventory && var2 == this.slotIndex;
+    public boolean isHere(IInventory inventory, int slotIndex) {
+        return inventory == this.inventory && slotIndex == this.slotIndex;
     }
 
 }

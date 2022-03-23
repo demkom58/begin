@@ -9,34 +9,34 @@ public class ContainerPlayer extends Container {
     public IInventory craftResult;
     public boolean isLocalPlayer;
 
-    public ContainerPlayer(InventoryPlayer var1) {
-        this(var1, true);
+    public ContainerPlayer(InventoryPlayer inv) {
+        this(inv, true);
     }
 
-    public ContainerPlayer(InventoryPlayer var1, boolean var2) {
+    public ContainerPlayer(InventoryPlayer inv, boolean localPlayer) {
         this.craftMatrix = new InventoryCrafting(this, 2, 2);
         this.craftResult = new InventoryCraftResult();
-        this.isLocalPlayer = var2;
-        this.addSlot(new SlotCrafting(var1.player, this.craftMatrix, this.craftResult, 0, 144, 36));
+        this.isLocalPlayer = localPlayer;
+        this.addSlot(new SlotCrafting(inv.player, this.craftMatrix, this.craftResult, 0, 144, 36));
 
-        for (int var3 = 0; var3 < 2; ++var3) {
-            for (int var4 = 0; var4 < 2; ++var4) {
-                this.addSlot(new Slot(this.craftMatrix, var4 + var3 * 2, 88 + var4 * 18, 26 + var3 * 18));
+        for (int x = 0; x < 2; ++x) {
+            for (int y = 0; y < 2; ++y) {
+                this.addSlot(new Slot(this.craftMatrix, y + x * 2, 88 + y * 18, 26 + x * 18));
             }
         }
 
-        for (int var5 = 0; var5 < 4; ++var5) {
-            this.addSlot(new SlotArmor(this, var1, var1.getSizeInventory() - 1 - var5, 8, 8 + var5 * 18, var5));
+        for (int y = 0; y < 4; ++y) {
+            this.addSlot(new SlotArmor(this, inv, inv.getSizeInventory() - 1 - y, 8, 8 + y * 18, y));
         }
 
-        for (int var6 = 0; var6 < 3; ++var6) {
-            for (int var8 = 0; var8 < 9; ++var8) {
-                this.addSlot(new Slot(var1, var8 + (var6 + 1) * 9, 8 + var8 * 18, 84 + var6 * 18));
+        for (int x = 0; x < 3; ++x) {
+            for (int y = 0; y < 9; ++y) {
+                this.addSlot(new Slot(inv, y + (x + 1) * 9, 8 + y * 18, 84 + x * 18));
             }
         }
 
-        for (int var7 = 0; var7 < 9; ++var7) {
-            this.addSlot(new Slot(var1, var7, 8 + var7 * 18, 142));
+        for (int x = 0; x < 9; ++x) {
+            this.addSlot(new Slot(inv, x, 8 + x * 18, 142));
         }
 
         this.onCraftMatrixChanged(this.craftMatrix);
@@ -48,14 +48,14 @@ public class ContainerPlayer extends Container {
     }
 
     @Override
-    public void onCraftGuiClosed(EntityPlayer var1) {
-        super.onCraftGuiClosed(var1);
+    public void onCraftGuiClosed(EntityPlayer player) {
+        super.onCraftGuiClosed(player);
 
-        for (int var2 = 0; var2 < 4; ++var2) {
-            ItemStack var3 = this.craftMatrix.getStackInSlot(var2);
-            if (var3 != null) {
-                var1.dropPlayerItem(var3);
-                this.craftMatrix.setInventorySlotContents(var2, null);
+        for (int x = 0; x < 4; ++x) {
+            ItemStack stack = this.craftMatrix.getStackInSlot(x);
+            if (stack != null) {
+                player.dropPlayerItem(stack);
+                this.craftMatrix.setInventorySlotContents(x, null);
             }
         }
 
@@ -68,33 +68,34 @@ public class ContainerPlayer extends Container {
 
     @Override
     public ItemStack getStackInSlot(int var1) {
-        ItemStack var2 = null;
         Slot var3 = this.slots.get(var1);
-        if (var3 != null && var3.hasStack()) {
-            ItemStack var4 = var3.getStack();
-            var2 = var4.copy();
-            if (var1 == 0) {
-                this.method2(var4, 9, 45, true);
-            } else if (var1 >= 9 && var1 < 36) {
-                this.method2(var4, 36, 45, false);
-            } else if (var1 >= 36 && var1 < 45) {
-                this.method2(var4, 9, 36, false);
-            } else {
-                this.method2(var4, 9, 45, false);
-            }
-
-            if (var4.stackSize == 0) {
-                var3.putStack(null);
-            } else {
-                var3.onSlotChanged();
-            }
-
-            if (var4.stackSize == var2.stackSize) {
-                return null;
-            }
-
-            var3.onPickupFromSlot(var4);
+        if (var3 == null || !var3.hasStack()) {
+            return null;
         }
+
+        ItemStack var4 = var3.getStack();
+        ItemStack var2 = var4.copy();
+        if (var1 == 0) {
+            this.method2(var4, 9, 45, true);
+        } else if (var1 >= 9 && var1 < 36) {
+            this.method2(var4, 36, 45, false);
+        } else if (var1 >= 36 && var1 < 45) {
+            this.method2(var4, 9, 36, false);
+        } else {
+            this.method2(var4, 9, 45, false);
+        }
+
+        if (var4.stackSize == 0) {
+            var3.putStack(null);
+        } else {
+            var3.onSlotChanged();
+        }
+
+        if (var4.stackSize == var2.stackSize) {
+            return null;
+        }
+
+        var3.onPickupFromSlot(var4);
 
         return var2;
     }

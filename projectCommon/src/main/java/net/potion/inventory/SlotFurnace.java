@@ -6,7 +6,7 @@ import net.potion.item.Item;
 import net.potion.item.ItemStack;
 
 public class SlotFurnace extends Slot {
-    private EntityPlayer thePlayer;
+    private final EntityPlayer thePlayer;
 
     public SlotFurnace(EntityPlayer var1, IInventory var2, int var3, int var4, int var5) {
         super(var2, var3, var4, var5);

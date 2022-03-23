@@ -64,8 +64,8 @@ public class SaveConverterRegion extends SaveFormatOld {
 
     @Override
     public boolean isOldMapFormat(String levelName) {
-        WorldInfo var2 = this.readWorldInfo(levelName);
-        return var2 != null && var2.getVersion() == 0;
+        WorldInfo worldInfo = this.readWorldInfo(levelName);
+        return worldInfo != null && worldInfo.getVersion() == 0;
     }
 
     @Override
@@ -77,25 +77,25 @@ public class SaveConverterRegion extends SaveFormatOld {
         List<ChunkFile> var5 = new ArrayList<>();
         List<File> var6 = new ArrayList<>();
 
-        File var7 = new File(this.worldsDirectory, levelName);
-        File var8 = new File(var7, "DIM-1");
+        File worldsDir = new File(this.worldsDirectory, levelName);
+        File dimDir = new File(worldsDir, "DIM-1");
         System.out.println("Scanning folders...");
-        this.func_22183_a(var7, var3, var4);
-        if (var8.exists()) {
-            this.func_22183_a(var8, var5, var6);
+        this.func_22183_a(worldsDir, var3, var4);
+        if (dimDir.exists()) {
+            this.func_22183_a(dimDir, var5, var6);
         }
 
-        int var9 = var3.size() + var5.size() + var4.size() + var6.size();
-        System.out.println("Total conversion count is " + var9);
-        this.func_22181_a(var7, var3, 0, var9, updatable);
-        this.func_22181_a(var8, var5, var3.size(), var9, updatable);
-        WorldInfo var10 = this.readWorldInfo(levelName);
-        var10.setVersion(19132);
-        ISaveHandler var11 = this.getSaveLoader(levelName, false);
-        var11.saveWorldInfo(var10);
-        this.func_22182_a(var4, var3.size() + var5.size(), var9, updatable);
-        if (var8.exists()) {
-            this.func_22182_a(var6, var3.size() + var5.size() + var4.size(), var9, updatable);
+        int conversionCount = var3.size() + var5.size() + var4.size() + var6.size();
+        System.out.println("Total conversion count is " + conversionCount);
+        this.func_22181_a(worldsDir, var3, 0, conversionCount, updatable);
+        this.func_22181_a(dimDir, var5, var3.size(), conversionCount, updatable);
+        WorldInfo worldInfo = this.readWorldInfo(levelName);
+        worldInfo.setVersion(19132);
+        ISaveHandler saveHandler = this.getSaveLoader(levelName, false);
+        saveHandler.saveWorldInfo(worldInfo);
+        this.func_22182_a(var4, var3.size() + var5.size(), conversionCount, updatable);
+        if (dimDir.exists()) {
+            this.func_22182_a(var6, var3.size() + var5.size() + var4.size(), conversionCount, updatable);
         }
 
         return true;

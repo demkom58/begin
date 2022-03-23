@@ -1,5 +1,7 @@
 package net.potion.world.storage;
 
+import it.unimi.dsi.fastutil.objects.Object2ShortMap;
+import it.unimi.dsi.fastutil.objects.Object2ShortOpenHashMap;
 import net.potion.item.MapDataBase;
 import net.potion.nbt.CompressedStreamTools;
 import net.potion.nbt.Tag;
@@ -16,7 +18,7 @@ public class MapStorage {
     private final ISaveHandler saveHandler;
     private final Map<String, MapDataBase> loadedDataMap = new HashMap<>();
     private final List<MapDataBase> loadedDataList = new ArrayList<>();
-    private final Map<String, Short> idCounts = new HashMap<>();
+    private final Object2ShortMap<String> idCounts = new Object2ShortOpenHashMap<>();
 
     public MapStorage(ISaveHandler saveHandler) {
         this.saveHandler = saveHandler;
@@ -24,9 +26,9 @@ public class MapStorage {
     }
 
     public MapDataBase loadData(Class var1, String var2) {
-        MapDataBase var3 = this.loadedDataMap.get(var2);
-        if (var3 != null) {
-            return var3;
+        MapDataBase map = this.loadedDataMap.get(var2);
+        if (map != null) {
+            return map;
         }
 
         if (this.saveHandler != null) {
@@ -34,7 +36,7 @@ public class MapStorage {
                 File var4 = this.saveHandler.getFile(var2);
                 if (var4 != null && var4.exists()) {
                     try {
-                        var3 = (MapDataBase) var1.getConstructor(String.class).newInstance(var2);
+                        map = (MapDataBase) var1.getConstructor(String.class).newInstance(var2);
                     } catch (Exception e) {
                         throw new RuntimeException("Failed to instantiate " + var1.toString(), e);
                     }
@@ -42,19 +44,19 @@ public class MapStorage {
                     FileInputStream var5 = new FileInputStream(var4);
                     TagCompound var6 = CompressedStreamTools.readGzipCompound(var5);
                     var5.close();
-                    var3.readFromNBT(var6.getCompoundTag("data"));
+                    map.readFromNBT(var6.getCompoundTag("data"));
                 }
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
         }
 
-        if (var3 != null) {
-            this.loadedDataMap.put(var2, var3);
-            this.loadedDataList.add(var3);
+        if (map != null) {
+            this.loadedDataMap.put(var2, map);
+            this.loadedDataList.add(map);
         }
 
-        return var3;
+        return map;
     }
 
     public void setData(String var1, MapDataBase var2) {
@@ -82,23 +84,25 @@ public class MapStorage {
     }
 
     private void saveData(MapDataBase var1) {
-        if (this.saveHandler != null) {
-            try {
-                File var2 = this.saveHandler.getFile(var1.mapId);
-                if (var2 != null) {
-                    TagCompound var3 = new TagCompound();
-                    var1.writeToNBT(var3);
-                    TagCompound var4 = new TagCompound();
-                    var4.setCompoundTag("data", var3);
-                    FileOutputStream var5 = new FileOutputStream(var2);
-                    CompressedStreamTools.writeGzipCompound(var4, var5);
-                    var5.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+        if (this.saveHandler == null) {
+            return;
         }
+
+        try {
+            File var2 = this.saveHandler.getFile(var1.mapId);
+            if (var2 != null) {
+                TagCompound var3 = new TagCompound();
+                var1.writeToNBT(var3);
+                TagCompound var4 = new TagCompound();
+                var4.setCompoundTag("data", var3);
+                FileOutputStream var5 = new FileOutputStream(var2);
+                CompressedStreamTools.writeGzipCompound(var4, var5);
+                var5.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void loadIdCounts() {
@@ -115,8 +119,7 @@ public class MapStorage {
                 var2.close();
 
                 for (Tag var5 : var3.tags()) {
-                    if (var5 instanceof TagShort) {
-                        TagShort var6 = (TagShort) var5;
+                    if (var5 instanceof TagShort var6) {
                         String var7 = var6.getKey();
                         short var8 = var6.shortValue;
                         this.idCounts.put(var7, var8);
@@ -130,13 +133,7 @@ public class MapStorage {
     }
 
     public int getUniqueDataId(String var1) {
-        Short var2 = this.idCounts.get(var1);
-        if (var2 == null) {
-            var2 = 0;
-        } else {
-            var2 = (short) (var2 + 1);
-        }
-
+        short var2 = (short) (this.idCounts.getOrDefault(var1, (short) -1) + 1);
         this.idCounts.put(var1, var2);
         if (this.saveHandler == null) {
             return var2;
@@ -148,7 +145,7 @@ public class MapStorage {
                 TagCompound var4 = new TagCompound();
 
                 for (String var6 : this.idCounts.keySet()) {
-                    short var7 = this.idCounts.get(var6);
+                    short var7 = this.idCounts.getShort(var6);
                     var4.setShort(var6, var7);
                 }
 

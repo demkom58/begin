@@ -33,11 +33,11 @@ public class ContainerFurnace extends Container {
 
     @Override
     @Side(CodeSide.SERVER)
-    public void addViewer(ICrafting var1) {
-        super.addViewer(var1);
-        var1.updateCraftingInventoryInfo(this, 0, this.furnace.furnaceCookTime);
-        var1.updateCraftingInventoryInfo(this, 1, this.furnace.furnaceBurnTime);
-        var1.updateCraftingInventoryInfo(this, 2, this.furnace.currentItemBurnTime);
+    public void addViewer(ICrafting viewer) {
+        super.addViewer(viewer);
+        viewer.updateCraftingInventoryInfo(this, 0, this.furnace.furnaceCookTime);
+        viewer.updateCraftingInventoryInfo(this, 1, this.furnace.furnaceBurnTime);
+        viewer.updateCraftingInventoryInfo(this, 2, this.furnace.currentItemBurnTime);
     }
 
     @Override

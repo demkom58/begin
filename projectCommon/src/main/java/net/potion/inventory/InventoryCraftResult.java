@@ -23,13 +23,13 @@ public class InventoryCraftResult implements IInventory {
 
     @Override
     public ItemStack decrStackSize(int var1, int var2) {
-        if (this.stackResult[var1] != null) {
-            ItemStack var3 = this.stackResult[var1];
-            this.stackResult[var1] = null;
-            return var3;
-        } else {
+        if (this.stackResult[var1] == null) {
             return null;
         }
+
+        ItemStack var3 = this.stackResult[var1];
+        this.stackResult[var1] = null;
+        return var3;
     }
 
     @Override

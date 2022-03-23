@@ -4,8 +4,8 @@ import net.potion.entity.player.EntityPlayer;
 import net.potion.item.ItemStack;
 
 public class ContainerChest extends Container {
-    private IInventory inventory;
-    private int rows;
+    private final IInventory inventory;
+    private final int rows;
 
     public ContainerChest(IInventory var1, IInventory var2) {
         this.inventory = var2;
@@ -38,7 +38,7 @@ public class ContainerChest extends Container {
     @Override
     public ItemStack getStackInSlot(int var1) {
         ItemStack var2 = null;
-        Slot var3 = (Slot) this.slots.get(var1);
+        Slot var3 = this.slots.get(var1);
         if (var3 != null && var3.hasStack()) {
             ItemStack var4 = var3.getStack();
             var2 = var4.copy();

@@ -7,12 +7,13 @@ import net.potion.item.crafting.CraftingManager;
 import net.potion.world.World;
 
 public class ContainerWorkbench extends Container {
+    private final World world;
+    private final int x;
+    private final int y;
+    private final int z;
+
     public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
     public IInventory craftResult = new InventoryCraftResult();
-    private World world;
-    private int x;
-    private int y;
-    private int z;
 
     public ContainerWorkbench(InventoryPlayer var1, World var2, int var3, int var4, int var5) {
         this.world = var2;
@@ -71,7 +72,7 @@ public class ContainerWorkbench extends Container {
     @Override
     public ItemStack getStackInSlot(int var1) {
         ItemStack var2 = null;
-        Slot var3 = (Slot) this.slots.get(var1);
+        Slot var3 = this.slots.get(var1);
         if (var3 != null && var3.hasStack()) {
             ItemStack var4 = var3.getStack();
             var2 = var4.copy();

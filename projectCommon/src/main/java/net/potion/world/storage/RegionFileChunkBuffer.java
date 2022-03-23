@@ -4,8 +4,8 @@ import java.io.ByteArrayOutputStream;
 
 class RegionFileChunkBuffer extends ByteArrayOutputStream {
     final RegionFile regionFile;
-    private int x;
-    private int z;
+    private final int x;
+    private final int z;
 
     public RegionFileChunkBuffer(RegionFile regionFile, int x, int z) {
         super(8096);

@@ -23,7 +23,7 @@ public class ChatAllowedCharacters {
             }
 
             bufferedReader.close();
-        } catch (Exception e) { }
+        } catch (Exception ignored) { }
 
         return result.toString();
     }
