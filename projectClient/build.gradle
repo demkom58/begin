@@ -35,3 +35,7 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
 }
+
+tasks.withType(JavaExec) {
+    setWorkingDir(new File(workingDir.getParentFile(), "jars"))
+}
