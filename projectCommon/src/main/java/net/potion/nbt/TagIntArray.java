@@ -2,6 +2,7 @@ package net.potion.nbt;
 
 import java.io.DataInput;
 import java.io.DataOutput;
+import java.io.EOFException;
 import java.io.IOException;
 
 public class TagIntArray extends Tag {
@@ -20,7 +21,7 @@ public class TagIntArray extends Tag {
 
         output.writeInt(length);
         for (int i = 0; i < length; i++) {
-            output.write(this.intArray[i]);
+            output.writeInt(this.intArray[i]);
         }
     }
 
