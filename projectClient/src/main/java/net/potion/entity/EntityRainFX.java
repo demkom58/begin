@@ -3,7 +3,7 @@ package net.potion.entity;
 import net.hypnosis.render.Tessellator;
 import net.potion.block.BlockFluid;
 import net.potion.material.Material;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityRainFX extends EntityFX {
@@ -49,9 +49,9 @@ public class EntityRainFX extends EntityFX {
             this.motionZ *= 0.699999988079071D;
         }
 
-        Material var1 = this.worldObj.getBlockMaterial(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ));
+        Material var1 = this.world.getBlockMaterial(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ));
         if (var1.isLiquid() || var1.isSolid()) {
-            double var2 = (float) (MathHelper.floor(this.posY) + 1) - BlockFluid.getPercentAir(this.worldObj.getBlockMetadata(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)));
+            double var2 = (float) (MathHelper.floor(this.posY) + 1) - BlockFluid.setFluidHeight(this.world.getBlockMetadata(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)));
             if (this.posY < var2) {
                 this.setEntityDead();
             }

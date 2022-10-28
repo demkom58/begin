@@ -25,7 +25,7 @@ public class PlayerController {
     public boolean sendBlockRemoved(int x, int y, int z, int var4) {
         World world = this.potion.theWorld;
         Block block = Block.BLOCKS_LIST[world.getBlockId(x, y, z)];
-        world.func_28106_e(2001, x, y, z, block.blockID + world.getBlockMetadata(x, y, z) * 256);
+        world.playEffects(2001, x, y, z, block.blockID + world.getBlockMetadata(x, y, z) * 256);
         int metadata = world.getBlockMetadata(x, y, z);
         boolean changed = world.setBlockWithNotify(x, y, z, 0);
 
@@ -98,7 +98,7 @@ public class PlayerController {
     }
 
     public ItemStack func_27174_a(int var1, int var2, int var3, boolean var4, EntityPlayer var5) {
-        return var5.craftingInventory.func_27280_a(var2, var3, var4, var5);
+        return var5.craftingInventory.method1(var2, var3, var4, var5);
     }
 
     public void func_20086_a(int var1, EntityPlayer var2) {

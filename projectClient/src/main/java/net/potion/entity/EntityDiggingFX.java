@@ -22,7 +22,7 @@ public class EntityDiggingFX extends EntityFX {
         if (this.field_4082_a == Block.GRASS)
             return this;
 
-        int multiplier = this.field_4082_a.colorMultiplier(this.worldObj, x, y, z);
+        int multiplier = this.field_4082_a.colorMultiplier(this.world, x, y, z);
         this.particleRed *= (float) (multiplier >> 16 & 255) / 255.0F;
         this.particleGreen *= (float) (multiplier >> 8 & 255) / 255.0F;
         this.particleBlue *= (float) (multiplier & 255) / 255.0F;

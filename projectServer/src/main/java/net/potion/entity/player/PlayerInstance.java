@@ -57,7 +57,7 @@ class PlayerInstance {
                     PlayerManager.getPlayerInstancesToUpdate(this.playerManager).remove(this);
                 }
 
-                this.playerManager.getPotionServer().chunkProviderServer.func_374_c(this.chunkX, this.chunkZ);
+                this.playerManager.getPotionServer().chunkProviderServer.addForUnload(this.chunkX, this.chunkZ);
             }
 
             var1.loadedChunks.remove(this.currentChunk);

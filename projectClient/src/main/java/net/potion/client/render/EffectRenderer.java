@@ -1,11 +1,12 @@
 package net.potion.client.render;
 
 import net.hypnosis.render.Tessellator;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityDiggingFX;
 import net.potion.entity.EntityFX;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import org.lwjgl.opengl.GL11;
 
@@ -14,14 +15,14 @@ import java.util.List;
 import java.util.Random;
 
 public class EffectRenderer {
-    protected World worldObj;
+    protected World world;
     private List[] fxLayers = new List[4];
     private RenderEngine renderer;
     private Random rand = new Random();
 
     public EffectRenderer(World var1, RenderEngine var2) {
         if (var1 != null) {
-            this.worldObj = var1;
+            this.world = var1;
         }
 
         this.renderer = var2;
@@ -55,11 +56,11 @@ public class EffectRenderer {
     }
 
     public void renderParticles(Entity var1, float var2) {
-        float var3 = MathHelper.cos(var1.rotationYaw * 3.1415927F / 180.0F);
-        float var4 = MathHelper.sin(var1.rotationYaw * 3.1415927F / 180.0F);
-        float var5 = -var4 * MathHelper.sin(var1.rotationPitch * 3.1415927F / 180.0F);
-        float var6 = var3 * MathHelper.sin(var1.rotationPitch * 3.1415927F / 180.0F);
-        float var7 = MathHelper.cos(var1.rotationPitch * 3.1415927F / 180.0F);
+        float var3 = MathHelper.cos(var1.rotationYaw * MathConstants.PI / 180.0F);
+        float var4 = MathHelper.sin(var1.rotationYaw * MathConstants.PI / 180.0F);
+        float var5 = -var4 * MathHelper.sin(var1.rotationPitch * MathConstants.PI / 180.0F);
+        float var6 = var3 * MathHelper.sin(var1.rotationPitch * MathConstants.PI / 180.0F);
+        float var7 = MathHelper.cos(var1.rotationPitch * MathConstants.PI / 180.0F);
         EntityFX.interpPosX = var1.lastTickPosX + (var1.posX - var1.lastTickPosX) * (double) var2;
         EntityFX.interpPosY = var1.lastTickPosY + (var1.posY - var1.lastTickPosY) * (double) var2;
         EntityFX.interpPosZ = var1.lastTickPosZ + (var1.posZ - var1.lastTickPosZ) * (double) var2;
@@ -108,7 +109,7 @@ public class EffectRenderer {
     }
 
     public void clearEffects(World var1) {
-        this.worldObj = var1;
+        this.world = var1;
 
         for (int var2 = 0; var2 < 4; ++var2) {
             this.fxLayers[var2].clear();
@@ -128,7 +129,7 @@ public class EffectRenderer {
                         double var13 = (double) var2 + ((double) var9 + 0.5D) / (double) var7;
                         double var15 = (double) var3 + ((double) var10 + 0.5D) / (double) var7;
                         int var17 = this.rand.nextInt(6);
-                        this.addEffect((new EntityDiggingFX(this.worldObj, var11, var13, var15, var11 - (double) var1 - 0.5D, var13 - (double) var2 - 0.5D, var15 - (double) var3 - 0.5D, var6, var17, var5)).position(var1, var2, var3));
+                        this.addEffect((new EntityDiggingFX(this.world, var11, var13, var15, var11 - (double) var1 - 0.5D, var13 - (double) var2 - 0.5D, var15 - (double) var3 - 0.5D, var6, var17, var5)).position(var1, var2, var3));
                     }
                 }
             }
@@ -137,7 +138,7 @@ public class EffectRenderer {
     }
 
     public void addBlockHitEffects(int x, int y, int z, int sideHit) {
-        int blockId = this.worldObj.getBlockId(x, y, z);
+        int blockId = this.world.getBlockId(x, y, z);
         if (blockId == 0)
             return;
 
@@ -157,7 +158,7 @@ public class EffectRenderer {
         }
 
         this.addEffect(
-                new EntityDiggingFX(this.worldObj, efX, efY, efZ, 0.0D, 0.0D, 0.0D, block, sideHit, this.worldObj.getBlockMetadata(x, y, z))
+                new EntityDiggingFX(this.world, efX, efY, efZ, 0.0D, 0.0D, 0.0D, block, sideHit, this.world.getBlockMetadata(x, y, z))
                         .position(x, y, z).motion(0.2F).scale(0.6F)
         );
     }

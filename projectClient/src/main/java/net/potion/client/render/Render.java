@@ -7,7 +7,7 @@ import net.potion.client.model.ModelBiped;
 import net.potion.client.render.entity.RenderBlocks;
 import net.potion.entity.Entity;
 import net.potion.util.AxisAlignedBB;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import org.lwjgl.opengl.GL11;
 
@@ -214,13 +214,13 @@ public abstract class Render {
     }
 
     private World getWorldFromRenderManager() {
-        return this.renderManager.worldObj;
+        return this.renderManager.world;
     }
 
     private void renderShadowOnBlock(Block block, double var2, double var4, double var6,
                                      int var8, int var9, int var10, float var11, float var12,
                                      double var13, double var15, double var17) {
-        if (!block.renderAsNormalBlock())
+        if (!block.isNormalCube())
             return;
 
         Tessellator tess = Tessellator.INSTANCE;

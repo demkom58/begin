@@ -13,7 +13,7 @@ import net.potion.inventory.InventoryPlayer;
 import net.potion.item.ItemStack;
 import net.potion.material.Material;
 import net.potion.util.CommonUtil;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.StringTranslate;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
@@ -160,10 +160,10 @@ public class GuiIngame extends Gui {
 
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL15.GL_RESCALE_NORMAL);
-        if (this.potion.thePlayer.func_22060_M() > 0) {
+        if (this.potion.thePlayer.getSleepTimer() > 0) {
             GL11.glDisable(GL11.GL_ALPHA_TEST);
             GL11.glDisable(GL11.GL_DEPTH_TEST);
-            int var25 = this.potion.thePlayer.func_22060_M();
+            int var25 = this.potion.thePlayer.getSleepTimer();
             float var31 = (float) var25 / 100.0F;
             if (var31 > 1.0F) {
                 var31 = 1.0F - (float) (var25 - 100) / 10.0F;

@@ -1,0 +1,113 @@
+package net.potion.entity.monster;
+
+import net.hypnosis.annotations.CodeSide;
+import net.hypnosis.annotations.Side;
+import net.potion.entity.Entity;
+import net.potion.entity.player.EntityPlayer;
+import net.potion.item.Item;
+import net.potion.item.ItemStack;
+import net.potion.nbt.TagCompound;
+import net.potion.world.World;
+
+import java.util.List;
+
+public class EntityPigZombie extends EntityZombie {
+    private static final ItemStack defaultHeldItem = new ItemStack(Item.SWORD_GOLD, 1);
+    private int angerLevel = 0;
+    private int randomSoundDelay = 0;
+
+    public EntityPigZombie(World var1) {
+        super(var1);
+        this.texture = "/mob/pigzombie.png";
+        this.moveSpeed = 0.5F;
+        this.attackStrength = 5;
+        this.isImmuneToFire = true;
+    }
+
+    @Override
+    public void onUpdate() {
+        this.moveSpeed = this.playerToAttack != null ? 0.95F : 0.5F;
+        if (this.randomSoundDelay > 0 && --this.randomSoundDelay == 0) {
+            this.world.playSoundAtEntity(this, "mob.zombiepig.zpigangry", this.getSoundVolume() * 2.0F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) * 1.8F);
+        }
+
+        super.onUpdate();
+    }
+
+    @Override
+    public boolean getCanSpawnHere() {
+        return this.world.difficultySetting > 0 && this.world.checkIfAABBIsClear(this.boundingBox) && this.world.getCollidingBoundingBoxes(this, this.boundingBox).size() == 0 && !this.world.containsLiquid(this.boundingBox);
+    }
+
+    @Override
+    public void writeEntityToNBT(TagCompound var1) {
+        super.writeEntityToNBT(var1);
+        var1.setShort("Anger", (short) this.angerLevel);
+    }
+
+    @Override
+    public void readEntityFromNBT(TagCompound var1) {
+        super.readEntityFromNBT(var1);
+        this.angerLevel = var1.getShort("Anger");
+    }
+
+    @Override
+    protected Entity findPlayerToAttack() {
+        return this.angerLevel == 0 ? null : super.findPlayerToAttack();
+    }
+
+    @Override
+    public void onLivingUpdate() {
+        super.onLivingUpdate();
+    }
+
+    @Override
+    public boolean attackEntityFrom(Entity var1, int var2) {
+        if (var1 instanceof EntityPlayer) {
+            List<Entity> var3 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.expand(32.0D, 32.0D, 32.0D));
+
+            for (int var4 = 0; var4 < var3.size(); ++var4) {
+                Entity var5 = var3.get(var4);
+                if (var5 instanceof EntityPigZombie var6) {
+                    var6.becomeAngryAt(var1);
+                }
+            }
+
+            this.becomeAngryAt(var1);
+        }
+
+        return super.attackEntityFrom(var1, var2);
+    }
+
+    private void becomeAngryAt(Entity var1) {
+        this.playerToAttack = var1;
+        this.angerLevel = 400 + this.rand.nextInt(400);
+        this.randomSoundDelay = this.rand.nextInt(40);
+    }
+
+    @Override
+    protected String getLivingSound() {
+        return "mob.zombiepig.zpig";
+    }
+
+    @Override
+    protected String getHurtSound() {
+        return "mob.zombiepig.zpighurt";
+    }
+
+    @Override
+    protected String getDeathSound() {
+        return "mob.zombiepig.zpigdeath";
+    }
+
+    @Override
+    protected int getDropItemId() {
+        return Item.PORKCHOP_COOKED.shiftedIndex;
+    }
+
+    @Override
+    @Side(CodeSide.CLIENT)
+    public ItemStack getHeldItem() {
+        return defaultHeldItem;
+    }
+}

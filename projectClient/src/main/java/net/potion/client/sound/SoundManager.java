@@ -3,9 +3,10 @@ package net.potion.client.sound;
 import net.hypnosis.audio.Sound;
 import net.hypnosis.audio.SoundSystem;
 import net.hypnosis.audio.Source;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.client.GameSettings;
 import net.potion.entity.EntityLiving;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 import java.io.File;
 import java.util.Random;
@@ -113,8 +114,8 @@ public class SoundManager {
         double y = entity.prevPosY + (entity.posY - entity.prevPosY) * (double) radius;
         double z = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * (double) radius;
 
-        float cos = MathHelper.cos(-radians * 0.017453292F - 3.1415927F);
-        float sin = MathHelper.sin(-radians * 0.017453292F - 3.1415927F);
+        float cos = MathHelper.cos(-radians * MathConstants.RADIANS_PER_DEGREE - MathConstants.PI);
+        float sin = MathHelper.sin(-radians * MathConstants.RADIANS_PER_DEGREE - MathConstants.PI);
 
         float notSin = -sin;
         float notCos = -cos;

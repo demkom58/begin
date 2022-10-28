@@ -3,143 +3,153 @@ package net.potion.stats;
 import net.potion.client.Session;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class StatsSyncher {
-    private volatile boolean field_27438_a = false;
-    private volatile Map<StatBase, Integer> field_27437_b = null;
-    private volatile Map<StatBase, Integer> field_27436_c = null;
-    private StatFileWriter fileWriter;
+    private final ExecutorService executor = Executors.newFixedThreadPool(1);
+    private volatile boolean saving = false;
 
-    private File statUnsent;
-    private File stat;
-    private File statUnsentTmp;
-    private File statTmp;
-    private File statUnsentOld;
-    private File statOld;
+    private volatile Map<StatBase, Integer> stats = null;
 
-    private Session session;
-    private int field_27427_l = 0;
-    private int field_27426_m = 0;
+    private final StatFileWriter fileWriter;
+    private final File statUnsent;
+    private final File stat;
+    private final File statUnsentTmp;
+    private final File statTmp;
+    private final File statUnsentOld;
+    private final File statOld;
+    private final Session session;
+
+    private int pushesToSave = 0;
 
     public StatsSyncher(Session session, StatFileWriter fileWriter, File statsRoot) {
-        this.statUnsent = new File(statsRoot, "stats_" + session.username.toLowerCase() + "_unsent.dat");
-        this.stat = new File(statsRoot, "stats_" + session.username.toLowerCase() + ".dat");
-        this.statUnsentOld = new File(statsRoot, "stats_" + session.username.toLowerCase() + "_unsent.old");
-        this.statOld = new File(statsRoot, "stats_" + session.username.toLowerCase() + ".old");
-        this.statUnsentTmp = new File(statsRoot, "stats_" + session.username.toLowerCase() + "_unsent.tmp");
-        this.statTmp = new File(statsRoot, "stats_" + session.username.toLowerCase() + ".tmp");
+        final String lowerName = session.username.toLowerCase();
 
-        if (!session.username.toLowerCase().equals(session.username)) {
-            this.moveFile(statsRoot, "stats_" + session.username + "_unsent.dat", this.statUnsent);
-            this.moveFile(statsRoot, "stats_" + session.username + ".dat", this.stat);
-            this.moveFile(statsRoot, "stats_" + session.username + "_unsent.old", this.statUnsentOld);
-            this.moveFile(statsRoot, "stats_" + session.username + ".old", this.statOld);
-            this.moveFile(statsRoot, "stats_" + session.username + "_unsent.tmp", this.statUnsentTmp);
-            this.moveFile(statsRoot, "stats_" + session.username + ".tmp", this.statTmp);
-        }
+        this.statUnsent = new File(statsRoot, "stats_" + lowerName + "_unsent.dat");
+        this.stat = new File(statsRoot, "stats_" + lowerName + ".dat");
+
+        this.statUnsentOld = new File(statsRoot, "stats_" + lowerName + "_unsent.old");
+        this.statOld = new File(statsRoot, "stats_" + lowerName + ".old");
+
+        this.statUnsentTmp = new File(statsRoot, "stats_" + lowerName + "_unsent.tmp");
+        this.statTmp = new File(statsRoot, "stats_" + lowerName + ".tmp");
 
         this.fileWriter = fileWriter;
         this.session = session;
 
-        if (this.statUnsent.exists())
-            fileWriter.func_27179_a(this.readStats(this.statUnsent, this.statUnsentTmp, this.statUnsentOld));
+        if (this.statUnsent.exists()) {
+            fileWriter.addStats(this.readStatsMap(this.statUnsent, this.statUnsentTmp, this.statUnsentOld));
+        }
 
-        this.func_27418_a();
+        this.syncStats();
     }
 
-    private void moveFile(File rootDirectory, String fileName, File newFile) {
-        File file = new File(rootDirectory, fileName);
-        if (file.exists() && !file.isDirectory() && !newFile.exists())
-            file.renameTo(newFile);
+    private void syncStats() {
+        if (this.saving) {
+            throw new IllegalStateException("Can't get stats from server while StatsSyncher is busy!");
+        }
+
+        this.pushesToSave = 100;
+        this.saving = true;
+
+        executor.execute(() -> {
+            try {
+                if (stats != null) {
+                    writeStats(stats, stat, statTmp, statOld);
+                } else if (stat.exists()) {
+                    stats = readStatsMap(stat, statTmp, statOld);
+                    System.out.println("INITIAL SYNC: " + stats);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                saving = false;
+            }
+        });
     }
 
-    private Map<StatBase, Integer> readStats(File statFile, File statTmp, File statOld) {
-        if (statFile.exists())
-            return this.readStatsMapFromFile(statFile);
+    public void pushStats() {
+        if (this.pushesToSave > 0) {
+            --this.pushesToSave;
+        }
 
-        if (statOld.exists())
-            return this.readStatsMapFromFile(statOld);
-
-        return statTmp.exists() ? this.readStatsMapFromFile(statTmp) : null;
+        if (this.stats != null) {
+            this.fileWriter.addStats(this.stats);
+            this.stats = null;
+        }
     }
 
-    private Map<StatBase, Integer> readStatsMapFromFile(File file) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            StringBuilder builder = new StringBuilder();
+    private Map<StatBase, Integer> readStatsMap(File statFile, File statTmp, File statOld) {
+        if (statFile.exists()) {
+            return this.readStats(statFile);
+        }
 
-            String bufferString;
-            while ((bufferString = reader.readLine()) != null)
-                builder.append(bufferString);
+        if (statOld.exists()) {
+            return this.readStats(statOld);
+        }
 
-            return StatFileWriter.readStatMap(builder.toString());
-        } catch (Exception e) {
+        if (statTmp.exists()) {
+            return this.readStats(statTmp);
+        }
+
+        return null;
+    }
+
+    private Map<StatBase, Integer> readStats(File file) {
+        try {
+            return StatFileWriter.fromJson(Files.readString(file.toPath()));
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return null;
     }
 
-    private void updateStatFile(Map<StatBase, Integer> map, File unsentFile, File tmpFile, File oldFile) throws IOException {
+    private void writeStats(Map<StatBase, Integer> map, File unsentFile, File tmpFile, File oldFile) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(tmpFile, false))) {
             writer.print(StatFileWriter.toJson(this.session.username, "local", map));
         }
 
-        if (oldFile.exists())
+        if (oldFile.exists()) {
             oldFile.delete();
+        }
 
-        if (unsentFile.exists())
+        if (unsentFile.exists()) {
             unsentFile.renameTo(oldFile);
+        }
 
         tmpFile.renameTo(unsentFile);
     }
 
-    public void func_27418_a() {
-        if (this.field_27438_a)
-            throw new IllegalStateException("Can't get stats from server while StatsSyncher is busy!");
-
-        this.field_27427_l = 100;
-        this.field_27438_a = true;
-
-        new Thread(() -> {
-            try {
-                if (field_27437_b != null) {
-                    updateStatFile(field_27437_b, stat, statTmp, statOld);
-                } else if (stat.exists()) {
-                    field_27437_b = readStats(stat, statTmp, statOld);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                field_27438_a = false;
-            }
-        }).start();
-    }
-
-    public void func_27424_a(Map<StatBase, Integer> map) {
-        if (this.field_27438_a)
+    public void writeStats(Map<StatBase, Integer> map) {
+        if (this.saving) {
             throw new IllegalStateException("Can't save stats while StatsSyncher is busy!");
+        }
 
-        this.field_27427_l = 100;
-        this.field_27438_a = true;
+        this.pushesToSave = 100;
+        this.saving = true;
 
-        new Thread(() -> {
+        executor.execute(() -> {
             try {
-                updateStatFile(map, statUnsent, statUnsentTmp, statUnsentOld);
+                writeStats(map, statUnsent, statUnsentTmp, statUnsentOld);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                field_27438_a = false;
+                saving = false;
             }
-        }).start();
+        });
     }
 
-    public void syncStatsFileWithMap(Map<StatBase, Integer> var1) {
-        int var2 = 30;
+    public void tryToWrite(Map<StatBase, Integer> stats) {
+        int tries = 30;
 
-        while (this.field_27438_a) {
-            --var2;
-            if (var2 <= 0) {
+        while (this.saving) {
+            --tries;
+            if (tries <= 0) {
                 break;
             }
 
@@ -150,40 +160,19 @@ public class StatsSyncher {
             }
         }
 
-        this.field_27438_a = true;
+        this.saving = true;
 
         try {
-            this.updateStatFile(var1, this.statUnsent, this.statUnsentTmp, this.statUnsentOld);
+            this.writeStats(stats, this.statUnsent, this.statUnsentTmp, this.statUnsentOld);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.field_27438_a = false;
+            this.saving = false;
         }
 
     }
 
-    public boolean func_27420_b() {
-        return this.field_27427_l <= 0 && !this.field_27438_a && this.field_27436_c == null;
-    }
-
-    public void func_27425_c() {
-        if (this.field_27427_l > 0) {
-            --this.field_27427_l;
-        }
-
-        if (this.field_27426_m > 0) {
-            --this.field_27426_m;
-        }
-
-        if (this.field_27436_c != null) {
-            this.fileWriter.func_27187_c(this.field_27436_c);
-            this.field_27436_c = null;
-        }
-
-        if (this.field_27437_b != null) {
-            this.fileWriter.func_27180_b(this.field_27437_b);
-            this.field_27437_b = null;
-        }
-
+    public boolean shouldSave() {
+        return this.pushesToSave <= 0 && !this.saving;
     }
 }

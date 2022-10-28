@@ -44,7 +44,7 @@ public class GameSettings {
     public String lastServer;
     public boolean field_22275_C;
     public boolean smoothCamera;
-    public boolean field_22273_E;
+    public boolean debugCamEnable;
     public float field_22272_F;
     public float field_22271_G;
     public int guiScale;
@@ -72,7 +72,7 @@ public class GameSettings {
         this.lastServer = "";
         this.field_22275_C = false;
         this.smoothCamera = false;
-        this.field_22273_E = false;
+        this.debugCamEnable = false;
         this.field_22272_F = 1.0F;
         this.field_22271_G = 1.0F;
         this.guiScale = 0;
@@ -102,7 +102,7 @@ public class GameSettings {
         this.lastServer = "";
         this.field_22275_C = false;
         this.smoothCamera = false;
-        this.field_22273_E = false;
+        this.debugCamEnable = false;
         this.field_22272_F = 1.0F;
         this.field_22271_G = 1.0F;
         this.guiScale = 0;

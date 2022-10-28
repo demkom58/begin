@@ -1,6 +1,7 @@
 package net.potion.client.model;
 
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathConstants;
+import net.hypnosis.util.math.MathHelper;
 
 public class ModelQuadruped extends ModelBase {
     public ModelRenderer head = new ModelRenderer(0, 0);
@@ -43,12 +44,12 @@ public class ModelQuadruped extends ModelBase {
 
     @Override
     public void setRotationAngles(float var1, float var2, float var3, float var4, float var5, float var6) {
-        this.head.rotateAngleX = var5 / 57.295776F;
-        this.head.rotateAngleY = var4 / 57.295776F;
-        this.body.rotateAngleX = 1.5707964F;
+        this.head.rotateAngleX = var5 / MathConstants.DEGREES_PER_RADIAN;
+        this.head.rotateAngleY = var4 / MathConstants.DEGREES_PER_RADIAN;
+        this.body.rotateAngleX = MathConstants.PI / 2f;
         this.leg1.rotateAngleX = MathHelper.cos(var1 * 0.6662F) * 1.4F * var2;
-        this.leg2.rotateAngleX = MathHelper.cos(var1 * 0.6662F + 3.1415927F) * 1.4F * var2;
-        this.leg3.rotateAngleX = MathHelper.cos(var1 * 0.6662F + 3.1415927F) * 1.4F * var2;
+        this.leg2.rotateAngleX = MathHelper.cos(var1 * 0.6662F + MathConstants.PI) * 1.4F * var2;
+        this.leg3.rotateAngleX = MathHelper.cos(var1 * 0.6662F + MathConstants.PI) * 1.4F * var2;
         this.leg4.rotateAngleX = MathHelper.cos(var1 * 0.6662F) * 1.4F * var2;
     }
 }

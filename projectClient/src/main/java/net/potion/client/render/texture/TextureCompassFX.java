@@ -57,18 +57,18 @@ public class TextureCompassFX extends TextureFX {
             ChunkCoordinates var21 = this.potion.theWorld.getSpawnPoint();
             double var23 = (double) var21.x - this.potion.thePlayer.posX;
             double var25 = (double) var21.z - this.potion.thePlayer.posZ;
-            var20 = (double) (this.potion.thePlayer.rotationYaw - 90.0F) * 3.141592653589793D / 180.0D - Math.atan2(var25, var23);
+            var20 = (double) (this.potion.thePlayer.rotationYaw - 90.0F) * Math.PI / 180.0D - Math.atan2(var25, var23);
             if (this.potion.theWorld.worldProvider.isNether) {
-                var20 = Math.random() * 3.1415927410125732D * 2.0D;
+                var20 = Math.random() * Math.PI * 2.0D;
             }
         }
 
         double var22;
-        for (var22 = var20 - this.field_4229_i; var22 < -3.141592653589793D; var22 += 6.283185307179586D) {
+        for (var22 = var20 - this.field_4229_i; var22 < -Math.PI; var22 += Math.PI * 2) {
         }
 
-        while (var22 >= 3.141592653589793D) {
-            var22 -= 6.283185307179586D;
+        while (var22 >= Math.PI) {
+            var22 -= Math.PI * 2;
         }
 
         if (var22 < -1.0D) {

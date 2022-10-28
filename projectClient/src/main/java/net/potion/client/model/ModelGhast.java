@@ -1,6 +1,6 @@
 package net.potion.client.model;
 
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 import java.util.Random;
 

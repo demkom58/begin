@@ -31,7 +31,7 @@ public class MapItemRenderer {
 
     public void func_28157_a(EntityPlayer var1, RenderEngine var2, MapData var3) {
         for (int var4 = 0; var4 < GL11.GL_LIGHT0; ++var4) {
-            byte var5 = var3.field_28176_f[var4];
+            byte var5 = var3.colors[var4];
             if (var5 / 4 == 0) {
                 this.field_28159_a[var4] = (var4 + var4 / 128 & 1) * 8 + 16 << 24;
             } else {
@@ -80,16 +80,16 @@ public class MapItemRenderer {
         GL11.glDisable(GL11.GL_BLEND);
         var2.bindTexture(var2.getTexture("/misc/mapicons.png"));
 
-        for (MapCoord var20 : var3.field_28173_i) {
+        for (MapCoord var20 : var3.mapCoordList) {
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) var15 + (float) var20.field_28216_b / 2.0F + 64.0F, (float) var16 + (float) var20.field_28220_c / 2.0F + 64.0F, -0.02F);
-            GL11.glRotatef((float) (var20.field_28219_d * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
+            GL11.glTranslatef((float) var15 + (float) var20.field2 / 2.0F + 64.0F, (float) var16 + (float) var20.field3 / 2.0F + 64.0F, -0.02F);
+            GL11.glRotatef((float) (var20.field4 * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
             GL11.glScalef(4.0F, 4.0F, 3.0F);
             GL11.glTranslatef(-0.125F, 0.125F, 0.0F);
-            float var21 = (float) (var20.field_28217_a % 4) / 4.0F;
-            float var22 = (float) (var20.field_28217_a / 4) / 4.0F;
-            float var23 = (float) (var20.field_28217_a % 4 + 1) / 4.0F;
-            float var24 = (float) (var20.field_28217_a / 4 + 1) / 4.0F;
+            float var21 = (float) (var20.field1 % 4) / 4.0F;
+            float var22 = (float) (var20.field1 / 4) / 4.0F;
+            float var23 = (float) (var20.field1 % 4 + 1) / 4.0F;
+            float var24 = (float) (var20.field1 / 4 + 1) / 4.0F;
             var17.startDrawingQuads();
             var17.addVertexWithUV(-1.0D, 1.0D, 0.0D, var21, var22);
             var17.addVertexWithUV(1.0D, 1.0D, 0.0D, var23, var22);
@@ -102,7 +102,7 @@ public class MapItemRenderer {
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0F, 0.0F, -0.04F);
         GL11.glScalef(1.0F, 1.0F, 1.0F);
-        this.field_28160_d.drawString(var3.field_28168_a, var15, var16, -16777216);
+        this.field_28160_d.drawString(var3.mapId, var15, var16, -16777216);
         GL11.glPopMatrix();
     }
 }

@@ -1,6 +1,7 @@
 package net.potion.client.model;
 
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathConstants;
+import net.hypnosis.util.math.MathHelper;
 
 public class ModelSpider extends ModelBase {
     public ModelRenderer spiderHead;
@@ -71,9 +72,9 @@ public class ModelSpider extends ModelBase {
 
     @Override
     public void setRotationAngles(float var1, float var2, float var3, float var4, float var5, float var6) {
-        this.spiderHead.rotateAngleY = var4 / 57.295776F;
-        this.spiderHead.rotateAngleX = var5 / 57.295776F;
-        float var7 = 0.7853982F;
+        this.spiderHead.rotateAngleY = var4 / MathConstants.DEGREES_PER_RADIAN;
+        this.spiderHead.rotateAngleX = var5 / MathConstants.DEGREES_PER_RADIAN;
+        float var7 = MathConstants.PI * 0.25f;
         this.spiderLeg1.rotateAngleZ = -var7;
         this.spiderLeg2.rotateAngleZ = var7;
         this.spiderLeg3.rotateAngleZ = -var7 * 0.74F;
@@ -93,13 +94,13 @@ public class ModelSpider extends ModelBase {
         this.spiderLeg7.rotateAngleY = -var9 * 2.0F + var8;
         this.spiderLeg8.rotateAngleY = var9 * 2.0F - var8;
         float var10 = -(MathHelper.cos(var1 * 0.6662F * 2.0F + 0.0F) * 0.4F) * var2;
-        float var11 = -(MathHelper.cos(var1 * 0.6662F * 2.0F + 3.1415927F) * 0.4F) * var2;
-        float var12 = -(MathHelper.cos(var1 * 0.6662F * 2.0F + 1.5707964F) * 0.4F) * var2;
-        float var13 = -(MathHelper.cos(var1 * 0.6662F * 2.0F + 4.712389F) * 0.4F) * var2;
+        float var11 = -(MathHelper.cos(var1 * 0.6662F * 2.0F + MathConstants.PI) * 0.4F) * var2;
+        float var12 = -(MathHelper.cos(var1 * 0.6662F * 2.0F + MathConstants.PI / 2f) * 0.4F) * var2;
+        float var13 = -(MathHelper.cos(var1 * 0.6662F * 2.0F + MathConstants.PI * 1.5f) * 0.4F) * var2;
         float var14 = Math.abs(MathHelper.sin(var1 * 0.6662F + 0.0F) * 0.4F) * var2;
-        float var15 = Math.abs(MathHelper.sin(var1 * 0.6662F + 3.1415927F) * 0.4F) * var2;
-        float var16 = Math.abs(MathHelper.sin(var1 * 0.6662F + 1.5707964F) * 0.4F) * var2;
-        float var17 = Math.abs(MathHelper.sin(var1 * 0.6662F + 4.712389F) * 0.4F) * var2;
+        float var15 = Math.abs(MathHelper.sin(var1 * 0.6662F + MathConstants.PI) * 0.4F) * var2;
+        float var16 = Math.abs(MathHelper.sin(var1 * 0.6662F + MathConstants.PI / 2f) * 0.4F) * var2;
+        float var17 = Math.abs(MathHelper.sin(var1 * 0.6662F + MathConstants.PI * 1.5f) * 0.4F) * var2;
         this.spiderLeg1.rotateAngleY += var10;
         this.spiderLeg2.rotateAngleY += -var10;
         this.spiderLeg3.rotateAngleY += var11;

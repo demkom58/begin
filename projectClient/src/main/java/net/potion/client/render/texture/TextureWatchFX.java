@@ -1,5 +1,6 @@
 package net.potion.client.render.texture;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.client.PotionClient;
 import net.potion.item.Item;
 
@@ -37,18 +38,18 @@ public class TextureWatchFX extends TextureFX {
         double var1 = 0.0D;
         if (this.potion.theWorld != null && this.potion.thePlayer != null) {
             float var3 = this.potion.theWorld.getCelestialAngle(1.0F);
-            var1 = -var3 * 3.1415927F * 2.0F;
+            var1 = -var3 * MathConstants.PI * 2.0F;
             if (this.potion.theWorld.worldProvider.isNether) {
-                var1 = Math.random() * 3.1415927410125732D * 2.0D;
+                var1 = Math.random() * Math.PI * 2.0D;
             }
         }
 
         double var22;
-        for (var22 = var1 - this.field_4222_j; var22 < -3.141592653589793D; var22 += 6.283185307179586D) {
+        for (var22 = var1 - this.field_4222_j; var22 < -Math.PI; var22 += Math.PI * 2) {
         }
 
-        while (var22 >= 3.141592653589793D) {
-            var22 -= 6.283185307179586D;
+        while (var22 >= Math.PI) {
+            var22 -= Math.PI * 2;
         }
 
         if (var22 < -1.0D) {

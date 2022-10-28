@@ -14,14 +14,17 @@ public class TagFloat extends Tag {
         this.floatValue = value;
     }
 
+    @Override
     void write(DataOutput output) throws IOException {
         output.writeFloat(this.floatValue);
     }
 
+    @Override
     void read(DataInput input) throws IOException {
         this.floatValue = input.readFloat();
     }
 
+    @Override
     public byte getType() {
         return 5;
     }

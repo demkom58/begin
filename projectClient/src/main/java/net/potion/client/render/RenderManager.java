@@ -16,7 +16,7 @@ import net.potion.entity.projectile.EntityFireball;
 import net.potion.entity.projectile.EntitySnowball;
 import net.potion.item.Item;
 import net.potion.item.ItemRenderer;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 import org.lwjgl.opengl.GL11;
 
@@ -30,7 +30,7 @@ public class RenderManager {
     public static double renderPosZ;
     public RenderEngine renderEngine;
     public ItemRenderer itemRenderer;
-    public World worldObj;
+    public World world;
     public EntityLiving livingPlayer;
     public float playerViewY;
     public float playerViewX;
@@ -93,12 +93,12 @@ public class RenderManager {
     }
 
     public void cacheActiveRenderInfo(World world, RenderEngine renderEngine, FontRenderer fontRenderer, EntityLiving entity, GameSettings options, float delta) {
-        this.worldObj = world;
+        this.world = world;
         this.renderEngine = renderEngine;
         this.options = options;
         this.livingPlayer = entity;
         this.fontRenderer = fontRenderer;
-        if (entity.isPlayerSleeping()) {
+        if (entity.isSleeping()) {
             int blockId = world.getBlockId(MathHelper.floor(entity.posX), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ));
             if (blockId == Block.BED.blockID) {
                 int metadata = world.getBlockMetadata(MathHelper.floor(entity.posX), MathHelper.floor(entity.posY), MathHelper.floor(entity.posZ));
@@ -138,7 +138,7 @@ public class RenderManager {
     }
 
     public void setWorld(World world) {
-        this.worldObj = world;
+        this.world = world;
     }
 
     public double getDistanceToCamera(double var1, double var3, double var5) {

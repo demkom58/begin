@@ -17,14 +17,17 @@ public class TagString extends Tag {
         }
     }
 
+    @Override
     void write(DataOutput output) throws IOException {
         output.writeUTF(this.stringValue);
     }
 
+    @Override
     void read(DataInput input) throws IOException {
         this.stringValue = input.readUTF();
     }
 
+    @Override
     public byte getType() {
         return 8;
     }

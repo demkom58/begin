@@ -16,25 +16,25 @@ public class WorldManager implements IWorldAccess {
     }
 
     @Override
-    public void spawnParticle(String var1, double var2, double var4, double var6, double var8, double var10, double var12) {
+    public void spawnParticle(String particleName, double x, double y, double z, double motionX, double motionY, double motionZ) {
     }
 
     @Override
-    public void obtainEntitySkin(Entity var1) {
-        this.server.getEntityTracker(this.field_28134_b.worldProvider.worldType).trackEntity(var1);
+    public void obtainEntitySkin(Entity entity) {
+        this.server.getEntityTracker(this.field_28134_b.worldProvider.worldType).trackEntity(entity);
     }
 
     @Override
-    public void releaseEntitySkin(Entity var1) {
-        this.server.getEntityTracker(this.field_28134_b.worldProvider.worldType).untrackEntity(var1);
+    public void releaseEntitySkin(Entity entity) {
+        this.server.getEntityTracker(this.field_28134_b.worldProvider.worldType).untrackEntity(entity);
     }
 
     @Override
-    public void playSound(String var1, double var2, double var4, double var6, float var8, float var9) {
+    public void playSound(String soundCategory, double x, double y, double z, float volume, float pitch) {
     }
 
     @Override
-    public void markBlockRangeNeedsUpdate(int var1, int var2, int var3, int var4, int var5, int var6) {
+    public void markBlockRangeNeedsUpdate(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
     }
 
     @Override
@@ -42,21 +42,21 @@ public class WorldManager implements IWorldAccess {
     }
 
     @Override
-    public void markBlockNeedsUpdate(int var1, int var2, int var3) {
-        this.server.configManager.markBlockNeedsUpdate(var1, var2, var3, this.field_28134_b.worldProvider.worldType);
+    public void markBlockAndNeighborsNeedsUpdate(int x, int y, int z) {
+        this.server.configManager.markBlockNeedsUpdate(x, y, z, this.field_28134_b.worldProvider.worldType);
     }
 
     @Override
-    public void playRecord(String var1, int var2, int var3, int var4) {
+    public void playRecord(String recordName, int x, int y, int z) {
     }
 
     @Override
-    public void doNothingWithTileEntity(int var1, int var2, int var3, TileEntity var4) {
-        this.server.configManager.sentTileEntityToPlayer(var1, var2, var3, var4);
+    public void doNothingWithTileEntity(int x, int y, int z, TileEntity tile) {
+        this.server.configManager.sentTileEntityToPlayer(x, y, z, tile);
     }
 
     @Override
-    public void func_28133_a(EntityPlayer var1, int var2, int var3, int var4, int var5, int var6) {
-        this.server.configManager.func_28171_a(var1, var3, var4, var5, 64.0D, this.field_28134_b.worldProvider.worldType, new Packet61DoorChange(var2, var3, var4, var5, var6));
+    public void playEffect(EntityPlayer player, int effectId, int x, int y, int z, int subData) {
+        this.server.configManager.func_28171_a(player, x, y, z, 64.0D, this.field_28134_b.worldProvider.worldType, new Packet61DoorChange(effectId, x, y, z, subData));
     }
 }

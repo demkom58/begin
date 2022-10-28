@@ -7,7 +7,7 @@ import net.potion.client.render.RenderHelper;
 import net.potion.client.render.entity.RenderItem;
 import net.potion.stats.StatCollector;
 import net.potion.stats.StatFileWriter;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
@@ -223,8 +223,8 @@ public class GuiAchievements extends GuiScreen {
                 int var17 = achievement.parentAchievement.displayRow * 24 - var5 + 11 + var11;
                 int var18 = 0;
                 boolean var19 = this.statFileWriter.hasAchievementUnlocked(achievement);
-                boolean var20 = this.statFileWriter.func_27181_b(achievement);
-                int var52 = Math.sin((double) (System.currentTimeMillis() % 600L) / 600.0D * 3.141592653589793D * 2.0D) > 0.6D ? 255 : 130;
+                boolean var20 = this.statFileWriter.canBeUnlocked(achievement);
+                int var52 = Math.sin((double) (System.currentTimeMillis() % 600L) / 600.0D * Math.PI * 2.0D) > 0.6D ? 255 : 130;
                 if (var19) {
                     var18 = -9408400;
                 } else if (var20) {
@@ -256,8 +256,8 @@ public class GuiAchievements extends GuiScreen {
                 if (this.statFileWriter.hasAchievementUnlocked(var34)) {
                     float var41 = 1.0F;
                     GL11.glColor4f(var41, var41, var41, 1.0F);
-                } else if (this.statFileWriter.func_27181_b(var34)) {
-                    float var42 = Math.sin((double) (System.currentTimeMillis() % 600L) / 600.0D * 3.141592653589793D * 2.0D) < 0.6D ? 0.6F : 0.8F;
+                } else if (this.statFileWriter.canBeUnlocked(var34)) {
+                    float var42 = Math.sin((double) (System.currentTimeMillis() % 600L) / 600.0D * Math.PI * 2.0D) < 0.6D ? 0.6F : 0.8F;
                     GL11.glColor4f(var42, var42, var42, 1.0F);
                 } else {
                     float var43 = 0.3F;
@@ -273,7 +273,7 @@ public class GuiAchievements extends GuiScreen {
                     this.drawTexturedModalRect(var44 - 2, var46 - 2, 0, 202, 26, 26);
                 }
 
-                if (!this.statFileWriter.func_27181_b(var34)) {
+                if (!this.statFileWriter.canBeUnlocked(var34)) {
                     float var49 = 0.1F;
                     GL11.glColor4f(var49, var49, var49, 1.0F);
                     renderItem.field_27004_a = false;
@@ -281,9 +281,9 @@ public class GuiAchievements extends GuiScreen {
 
                 GL11.glEnable(GL11.GL_LIGHTING);
                 GL11.glEnable(GL11.GL_CULL_FACE);
-                renderItem.renderItemIntoGUI(this.potion.fontRenderer, this.potion.renderEngine, var34.theItemStack, var44 + 3, var46 + 3);
+                renderItem.renderItemIntoGUI(this.potion.fontRenderer, this.potion.renderEngine, var34.itemStack, var44 + 3, var46 + 3);
                 GL11.glDisable(GL11.GL_LIGHTING);
-                if (!this.statFileWriter.func_27181_b(var34)) {
+                if (!this.statFileWriter.canBeUnlocked(var34)) {
                     renderItem.field_27004_a = true;
                 }
 
@@ -310,7 +310,7 @@ public class GuiAchievements extends GuiScreen {
             String var37 = achievement.getDescription();
             int var39 = var1 + 12;
             int var45 = var2 - 4;
-            if (this.statFileWriter.func_27181_b(achievement)) {
+            if (this.statFileWriter.canBeUnlocked(achievement)) {
                 int var47 = Math.max(this.fontRenderer.getStringWidth(var35), 120);
                 int var50 = this.fontRenderer.func_27277_a(var37, var47);
                 if (this.statFileWriter.hasAchievementUnlocked(achievement)) {
@@ -330,7 +330,7 @@ public class GuiAchievements extends GuiScreen {
                 this.fontRenderer.func_27278_a(var51, var39, var45 + 12, var48, -9416624);
             }
 
-            this.fontRenderer.drawStringWithShadow(var35, var39, var45, this.statFileWriter.func_27181_b(achievement) ? (achievement.getSpecial() ? -128 : -1) : (achievement.getSpecial() ? -8355776 : -8355712));
+            this.fontRenderer.drawStringWithShadow(var35, var39, var45, this.statFileWriter.canBeUnlocked(achievement) ? (achievement.getSpecial() ? -128 : -1) : (achievement.getSpecial() ? -8355776 : -8355712));
         }
 
         GL11.glEnable(GL11.GL_DEPTH_TEST);

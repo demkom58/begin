@@ -1,6 +1,7 @@
 package net.potion.client.model;
 
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathConstants;
+import net.hypnosis.util.math.MathHelper;
 
 public class ModelChicken extends ModelBase {
     public ModelRenderer head;
@@ -55,15 +56,15 @@ public class ModelChicken extends ModelBase {
 
     @Override
     public void setRotationAngles(float var1, float var2, float var3, float var4, float var5, float var6) {
-        this.head.rotateAngleX = -(var5 / 57.295776F);
-        this.head.rotateAngleY = var4 / 57.295776F;
+        this.head.rotateAngleX = -(var5 / MathConstants.DEGREES_PER_RADIAN);
+        this.head.rotateAngleY = var4 / MathConstants.DEGREES_PER_RADIAN;
         this.bill.rotateAngleX = this.head.rotateAngleX;
         this.bill.rotateAngleY = this.head.rotateAngleY;
         this.chin.rotateAngleX = this.head.rotateAngleX;
         this.chin.rotateAngleY = this.head.rotateAngleY;
-        this.body.rotateAngleX = 1.5707964F;
+        this.body.rotateAngleX = MathConstants.PI / 2f;
         this.rightLeg.rotateAngleX = MathHelper.cos(var1 * 0.6662F) * 1.4F * var2;
-        this.leftLeg.rotateAngleX = MathHelper.cos(var1 * 0.6662F + 3.1415927F) * 1.4F * var2;
+        this.leftLeg.rotateAngleX = MathHelper.cos(var1 * 0.6662F + MathConstants.PI) * 1.4F * var2;
         this.rightWing.rotateAngleZ = var3;
         this.leftWing.rotateAngleZ = -var3;
     }

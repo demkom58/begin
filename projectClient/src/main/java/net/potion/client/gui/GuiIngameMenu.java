@@ -1,16 +1,17 @@
 package net.potion.client.gui;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.stats.StatCollector;
 import net.potion.stats.StatList;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 public class GuiIngameMenu extends GuiScreen {
-    private int updateCounter2 = 0;
+    private int timesSaved = 0;
     private int updateCounter = 0;
 
     @Override
     public void initGui() {
-        this.updateCounter2 = 0;
+        this.timesSaved = 0;
         this.buttons.clear();
         byte var1 = -16;
         this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + var1, "Save and quit to title"));
@@ -64,10 +65,10 @@ public class GuiIngameMenu extends GuiScreen {
     @Override
     public void drawScreen(int var1, int var2, float partialTicks) {
         this.drawDefaultBackground();
-        boolean var4 = !this.potion.theWorld.func_650_a(this.updateCounter2++);
+        boolean var4 = !this.potion.theWorld.save(this.timesSaved++);
         if (var4 || this.updateCounter < 20) {
             float var5 = ((float) (this.updateCounter % 10) + partialTicks) / 10.0F;
-            var5 = MathHelper.sin(var5 * 3.1415927F * 2.0F) * 0.2F + 0.8F;
+            var5 = MathHelper.sin(var5 * MathConstants.PI * 2.0F) * 0.2F + 0.8F;
             int var6 = (int) (255.0F * var5);
             this.drawString(this.fontRenderer, "Saving level..", 8, this.height - 16, var6 << 16 | var6 << 8 | var6);
         }

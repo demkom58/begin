@@ -70,7 +70,7 @@ public class TerrainTextureManager {
     }
 
     public void func_799_a(IsoImageBuffer var1) {
-        World var2 = var1.worldObj;
+        World var2 = var1.world;
         if (var2 == null) {
             var1.field_1351_f = true;
             var1.field_1352_e = true;
@@ -80,7 +80,7 @@ public class TerrainTextureManager {
             int var5 = var3 + 16;
             int var6 = var4 + 16;
             Chunk var7 = var2.getChunkFromChunkCoords(var1.field_1354_c, var1.field_1353_d);
-            if (var7.func_21167_h()) {
+            if (var7.isEmptyChunk()) {
                 var1.field_1351_f = true;
                 var1.field_1352_e = true;
             } else {

@@ -1,7 +1,8 @@
 package net.potion.client.gui;
 
 import net.hypnosis.render.Tessellator;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathConstants;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.util.StringTranslate;
 import org.lwjgl.opengl.GL11;
 
@@ -117,7 +118,7 @@ public class GuiMainMenu extends GuiScreen {
         GL11.glTranslatef((float) (this.width / 2 + 90), 70.0F, 0.0F);
         GL11.glRotatef(-20.0F, 0.0F, 0.0F, 1.0F);
 
-        float splashScale = 1.8F - MathHelper.abs(MathHelper.sin((float) (System.currentTimeMillis() % 1000L) / 1000.0F * 3.1415927F * 2.0F) * 0.1F);
+        float splashScale = 1.8F - MathHelper.abs(MathHelper.sin((float) (System.currentTimeMillis() % 1000L) / 1000.0F * MathConstants.PI * 2.0F) * 0.1F);
         splashScale *= 100.0F / (float) (this.fontRenderer.getStringWidth(this.splashText) + 32);
 
         GL11.glScalef(splashScale, splashScale, splashScale);

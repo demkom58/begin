@@ -4,6 +4,8 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectRBTreeMap;
 import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
+import net.hypnosis.annotations.CodeSide;
+import net.hypnosis.annotations.Side;
 import net.potion.util.IProgressUpdatable;
 import net.potion.world.WorldServer;
 
@@ -13,16 +15,16 @@ import java.util.List;
 
 public class ChunkProviderServer implements IChunkProvider {
     public boolean chunkLoadOverride = false;
-    private IntSet chunkCoords = new IntRBTreeSet();
-    private Chunk dummyChunk;
-    private IChunkProvider serverChunkGenerator;
-    private IChunkLoader chunkLoader;
-    private Int2ObjectMap<Chunk> id2ChunkMap = new Int2ObjectRBTreeMap<>();
-    private List<Chunk> chunks = new ArrayList<>();
-    private WorldServer world;
+    private final IntSet unloadList = new IntRBTreeSet();
+    private final Chunk dummyChunk;
+    private final IChunkProvider serverChunkGenerator;
+    private final IChunkLoader chunkLoader;
+    private final Int2ObjectMap<Chunk> id2ChunkMap = new Int2ObjectRBTreeMap<>();
+    private final List<Chunk> chunks = new ArrayList<>();
+    private final WorldServer world;
 
     public ChunkProviderServer(WorldServer worldServer, IChunkLoader chunkLoader, IChunkProvider chunkProvider) {
-        this.dummyChunk = new EmptyChunk(worldServer, new byte['\u8000'], 0, 0);
+        this.dummyChunk = new EmptyChunk(worldServer, new byte[32768], 0, 0);
         this.world = worldServer;
         this.chunkLoader = chunkLoader;
         this.serverChunkGenerator = chunkProvider;
@@ -33,13 +35,13 @@ public class ChunkProviderServer implements IChunkProvider {
         return this.id2ChunkMap.containsKey(ChunkCoordIntPair.chunkXZ2Int(x, z));
     }
 
-    public void func_374_c(int x, int z) {
+    public void addForUnload(int x, int z) {
         ChunkCoordinates coordinates = this.world.getSpawnPoint();
-        int worldX = x * 16 + 8 - coordinates.posX;
-        int worldZ = z * 16 + 8 - coordinates.posZ;
+        int worldX = x * 16 + 8 - coordinates.x;
+        int worldZ = z * 16 + 8 - coordinates.z;
         short size = 128;
         if (worldX < -size || worldX > size || worldZ < -size || worldZ > size) {
-            this.chunkCoords.add(ChunkCoordIntPair.chunkXZ2Int(x, z));
+            this.unloadList.add(ChunkCoordIntPair.chunkXZ2Int(x, z));
         }
 
     }
@@ -47,10 +49,10 @@ public class ChunkProviderServer implements IChunkProvider {
     @Override
     public Chunk prepareChunk(int x, int z) {
         int chunkXZ2Int = ChunkCoordIntPair.chunkXZ2Int(x, z);
-        this.chunkCoords.remove(chunkXZ2Int);
+        this.unloadList.remove(chunkXZ2Int);
         Chunk chunk = this.id2ChunkMap.get(chunkXZ2Int);
         if (chunk == null) {
-            chunk = this.func_4063_e(x, z);
+            chunk = this.loadChunk(x, z);
             if (chunk == null) {
                 if (this.serverChunkGenerator == null) {
                     chunk = this.dummyChunk;
@@ -62,23 +64,23 @@ public class ChunkProviderServer implements IChunkProvider {
             this.id2ChunkMap.put(chunkXZ2Int, chunk);
             this.chunks.add(chunk);
             if (chunk != null) {
-                chunk.func_4053_c();
+                chunk.prepareChunkLoad();
                 chunk.onChunkLoad();
             }
 
-            if (!chunk.isTerrainPopulated && this.chunkExists(x + 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x + 1, z)) {
+            if (!chunk.terrainPopulated && this.chunkExists(x + 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x + 1, z)) {
                 this.populate(this, x, z);
             }
 
-            if (this.chunkExists(x - 1, z) && !this.provideChunk(x - 1, z).isTerrainPopulated && this.chunkExists(x - 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x - 1, z)) {
+            if (this.chunkExists(x - 1, z) && !this.provideChunk(x - 1, z).terrainPopulated && this.chunkExists(x - 1, z + 1) && this.chunkExists(x, z + 1) && this.chunkExists(x - 1, z)) {
                 this.populate(this, x - 1, z);
             }
 
-            if (this.chunkExists(x, z - 1) && !this.provideChunk(x, z - 1).isTerrainPopulated && this.chunkExists(x + 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x + 1, z)) {
+            if (this.chunkExists(x, z - 1) && !this.provideChunk(x, z - 1).terrainPopulated && this.chunkExists(x + 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x + 1, z)) {
                 this.populate(this, x, z - 1);
             }
 
-            if (this.chunkExists(x - 1, z - 1) && !this.provideChunk(x - 1, z - 1).isTerrainPopulated && this.chunkExists(x - 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x - 1, z)) {
+            if (this.chunkExists(x - 1, z - 1) && !this.provideChunk(x - 1, z - 1).terrainPopulated && this.chunkExists(x - 1, z - 1) && this.chunkExists(x, z - 1) && this.chunkExists(x - 1, z)) {
                 this.populate(this, x - 1, z - 1);
             }
         }
@@ -96,7 +98,7 @@ public class ChunkProviderServer implements IChunkProvider {
         return chunk;
     }
 
-    private Chunk func_4063_e(int x, int z) {
+    private Chunk loadChunk(int x, int z) {
         if (this.chunkLoader == null) {
             return null;
         }
@@ -114,7 +116,7 @@ public class ChunkProviderServer implements IChunkProvider {
         }
     }
 
-    private void func_375_a(Chunk chunk) {
+    private void saveExtraData(Chunk chunk) {
         if (this.chunkLoader != null) {
             try {
                 this.chunkLoader.saveExtraChunkData(this.world, chunk);
@@ -140,8 +142,8 @@ public class ChunkProviderServer implements IChunkProvider {
     @Override
     public void populate(IChunkProvider chunkProvider, int x, int z) {
         Chunk chunk = this.provideChunk(x, z);
-        if (!chunk.isTerrainPopulated) {
-            chunk.isTerrainPopulated = true;
+        if (!chunk.terrainPopulated) {
+            chunk.terrainPopulated = true;
             if (this.serverChunkGenerator != null) {
                 this.serverChunkGenerator.populate(chunkProvider, x, z);
                 chunk.setChunkModified();
@@ -151,26 +153,26 @@ public class ChunkProviderServer implements IChunkProvider {
     }
 
     @Override
-    public boolean saveChunks(boolean var1, IProgressUpdatable progressUpdate) {
+    public boolean saveChunks(boolean forceSave, IProgressUpdatable updatable) {
         int saved = 0;
 
         for (int i = 0; i < this.chunks.size(); ++i) {
             Chunk chunk = this.chunks.get(i);
-            if (var1 && !chunk.neverSave) {
-                this.func_375_a(chunk);
+            if (forceSave && !chunk.neverSave) {
+                this.saveExtraData(chunk);
             }
 
-            if (chunk.needsSaving(var1)) {
+            if (chunk.needsSaving(forceSave)) {
                 this.saveChunk(chunk);
-                chunk.isModified = false;
+                chunk.modified = false;
                 ++saved;
-                if (saved == 24 && !var1) {
+                if (saved == 24 && !forceSave) {
                     return false;
                 }
             }
         }
 
-        if (var1) {
+        if (forceSave) {
             if (this.chunkLoader == null) {
                 return true;
             }
@@ -183,23 +185,25 @@ public class ChunkProviderServer implements IChunkProvider {
 
     @Override
     public boolean unload100OldestChunks() {
-        if (!this.world.levelSaving) {
-            for (int i = 0; i < 100; ++i) {
-                if (!this.chunkCoords.isEmpty()) {
-                    int id = this.chunkCoords.iterator().nextInt();
-                    Chunk chunk = this.id2ChunkMap.get(id);
-                    chunk.onChunkUnload();
-                    this.saveChunk(chunk);
-                    this.func_375_a(chunk);
-                    this.chunkCoords.remove(id);
-                    this.id2ChunkMap.remove(id);
-                    this.chunks.remove(chunk);
-                }
-            }
+        if (this.world.levelSaving) {
+            return this.serverChunkGenerator.unload100OldestChunks();
+        }
 
-            if (this.chunkLoader != null) {
-                this.chunkLoader.func_661_a();
+        for (int i = 0; i < 100; ++i) {
+            if (!this.unloadList.isEmpty()) {
+                int id = this.unloadList.iterator().nextInt();
+                Chunk chunk = this.id2ChunkMap.get(id);
+                chunk.onChunkUnload();
+                this.saveChunk(chunk);
+                this.saveExtraData(chunk);
+                this.unloadList.remove(id);
+                this.id2ChunkMap.remove(id);
+                this.chunks.remove(chunk);
             }
+        }
+
+        if (this.chunkLoader != null) {
+            this.chunkLoader.onUnloadOldest();
         }
 
         return this.serverChunkGenerator.unload100OldestChunks();
@@ -208,6 +212,12 @@ public class ChunkProviderServer implements IChunkProvider {
     @Override
     public boolean canSave() {
         return !this.world.levelSaving;
+    }
+
+    @Override
+    @Side(CodeSide.CLIENT)
+    public String makeString() {
+        return "MultiplayerChunkCache: " + this.id2ChunkMap.size();
     }
 
     public Chunk getDummyChunk() {
@@ -226,8 +236,8 @@ public class ChunkProviderServer implements IChunkProvider {
         return id2ChunkMap;
     }
 
-    public IntSet getChunkCoords() {
-        return chunkCoords;
+    public IntSet getUnloadList() {
+        return unloadList;
     }
 
     public List<Chunk> getChunks() {

@@ -5,7 +5,7 @@ import net.potion.client.model.ModelBoat;
 import net.potion.client.render.Render;
 import net.potion.entity.Entity;
 import net.potion.entity.item.EntityBoat;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class RenderBoat extends Render {

@@ -1,8 +1,9 @@
 package net.potion.client.model;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.entity.EntityLiving;
 import net.potion.entity.passive.EntityWolf;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class ModelWolf extends ModelBase {
@@ -76,30 +77,30 @@ public class ModelWolf extends ModelBase {
     @Override
     public void setLivingAnimations(EntityLiving var1, float var2, float var3, float var4) {
         EntityWolf var5 = (EntityWolf) var1;
-        if (var5.isWolfAngry()) {
+        if (var5.isAngry()) {
             this.wolfTail.rotateAngleY = 0.0F;
         } else {
             this.wolfTail.rotateAngleY = MathHelper.cos(var2 * 0.6662F) * 1.4F * var3;
         }
 
-        if (var5.isWolfSitting()) {
+        if (var5.isSitting()) {
             this.wolfMane.setRotationPoint(-1.0F, 16.0F, -3.0F);
-            this.wolfMane.rotateAngleX = 1.2566371F;
+            this.wolfMane.rotateAngleX = MathConstants.PI * 0.4f;
             this.wolfMane.rotateAngleY = 0.0F;
             this.wolfBody.setRotationPoint(0.0F, 18.0F, 0.0F);
-            this.wolfBody.rotateAngleX = 0.7853982F;
+            this.wolfBody.rotateAngleX = MathConstants.PI * 0.25f;
             this.wolfTail.setRotationPoint(-1.0F, 21.0F, 6.0F);
             this.wolfLeg1.setRotationPoint(-2.5F, 22.0F, 2.0F);
-            this.wolfLeg1.rotateAngleX = 4.712389F;
+            this.wolfLeg1.rotateAngleX = MathConstants.PI * 1.5f;
             this.wolfLeg2.setRotationPoint(0.5F, 22.0F, 2.0F);
-            this.wolfLeg2.rotateAngleX = 4.712389F;
-            this.wolfLeg3.rotateAngleX = 5.811947F;
+            this.wolfLeg2.rotateAngleX = MathConstants.PI * 1.5f;
+            this.wolfLeg3.rotateAngleX = MathConstants.PI * 1.85f;
             this.wolfLeg3.setRotationPoint(-2.49F, 17.0F, -4.0F);
-            this.wolfLeg4.rotateAngleX = 5.811947F;
+            this.wolfLeg4.rotateAngleX = MathConstants.PI * 1.85f;
             this.wolfLeg4.setRotationPoint(0.51F, 17.0F, -4.0F);
         } else {
             this.wolfBody.setRotationPoint(0.0F, 14.0F, 2.0F);
-            this.wolfBody.rotateAngleX = 1.5707964F;
+            this.wolfBody.rotateAngleX = MathConstants.PI / 2f;
             this.wolfMane.setRotationPoint(-1.0F, 14.0F, -3.0F);
             this.wolfMane.rotateAngleX = this.wolfBody.rotateAngleX;
             this.wolfTail.setRotationPoint(-1.0F, 12.0F, 8.0F);
@@ -108,8 +109,8 @@ public class ModelWolf extends ModelBase {
             this.wolfLeg3.setRotationPoint(-2.5F, 16.0F, -4.0F);
             this.wolfLeg4.setRotationPoint(0.5F, 16.0F, -4.0F);
             this.wolfLeg1.rotateAngleX = MathHelper.cos(var2 * 0.6662F) * 1.4F * var3;
-            this.wolfLeg2.rotateAngleX = MathHelper.cos(var2 * 0.6662F + 3.1415927F) * 1.4F * var3;
-            this.wolfLeg3.rotateAngleX = MathHelper.cos(var2 * 0.6662F + 3.1415927F) * 1.4F * var3;
+            this.wolfLeg2.rotateAngleX = MathHelper.cos(var2 * 0.6662F + MathConstants.PI) * 1.4F * var3;
+            this.wolfLeg3.rotateAngleX = MathHelper.cos(var2 * 0.6662F + MathConstants.PI) * 1.4F * var3;
             this.wolfLeg4.rotateAngleX = MathHelper.cos(var2 * 0.6662F) * 1.4F * var3;
         }
 
@@ -131,8 +132,8 @@ public class ModelWolf extends ModelBase {
     @Override
     public void setRotationAngles(float var1, float var2, float var3, float var4, float var5, float var6) {
         super.setRotationAngles(var1, var2, var3, var4, var5, var6);
-        this.wolfHeadMain.rotateAngleX = var5 / 57.295776F;
-        this.wolfHeadMain.rotateAngleY = var4 / 57.295776F;
+        this.wolfHeadMain.rotateAngleX = var5 / MathConstants.DEGREES_PER_RADIAN;
+        this.wolfHeadMain.rotateAngleY = var4 / MathConstants.DEGREES_PER_RADIAN;
         this.wolfRightEar.rotateAngleY = this.wolfHeadMain.rotateAngleY;
         this.wolfRightEar.rotateAngleX = this.wolfHeadMain.rotateAngleX;
         this.wolfLeftEar.rotateAngleY = this.wolfHeadMain.rotateAngleY;

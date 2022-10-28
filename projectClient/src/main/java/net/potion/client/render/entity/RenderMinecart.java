@@ -6,8 +6,8 @@ import net.potion.client.model.ModelMinecart;
 import net.potion.client.render.Render;
 import net.potion.entity.Entity;
 import net.potion.entity.EntityMinecart;
-import net.potion.util.MathHelper;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.MathHelper;
+import net.hypnosis.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 
 public class RenderMinecart extends Render {
@@ -24,11 +24,11 @@ public class RenderMinecart extends Render {
         double var12 = var1.lastTickPosY + (var1.posY - var1.lastTickPosY) * (double) var9;
         double var14 = var1.lastTickPosZ + (var1.posZ - var1.lastTickPosZ) * (double) var9;
         double var16 = 0.30000001192092896D;
-        Vector3d var18 = var1.func_514_g(var10, var12, var14);
+        Vec3d var18 = var1.method2(var10, var12, var14);
         float var19 = var1.prevRotationPitch + (var1.rotationPitch - var1.prevRotationPitch) * var9;
         if (var18 != null) {
-            Vector3d var20 = var1.func_515_a(var10, var12, var14, var16);
-            Vector3d var21 = var1.func_515_a(var10, var12, var14, -var16);
+            Vec3d var20 = var1.method1(var10, var12, var14, var16);
+            Vec3d var21 = var1.method1(var10, var12, var14, -var16);
             if (var20 == null) {
                 var20 = var18;
             }
@@ -40,10 +40,10 @@ public class RenderMinecart extends Render {
             var2 += var18.x - var10;
             var4 += (var20.y + var21.y) / 2.0D - var12;
             var6 += var18.z - var14;
-            Vector3d var22 = new Vector3d(var21).add(-var20.x, -var20.y, -var20.z);
+            Vec3d var22 = new Vec3d(var21).add(-var20.x, -var20.y, -var20.z);
             if (var22.length() != 0.0D) {
-                var22 = MathHelper.normalizeOrZero(new Vector3d(var22));
-                var8 = (float) (Math.atan2(var22.z, var22.x) * 180.0D / 3.141592653589793D);
+                var22 = MathHelper.normalizeOrZero(new Vec3d(var22));
+                var8 = (float) (Math.atan2(var22.z, var22.x) * 180.0D / Math.PI);
                 var19 = (float) (Math.atan(var22.y) * 73.0D);
             }
         }
@@ -51,14 +51,14 @@ public class RenderMinecart extends Render {
         GL11.glTranslatef((float) var2, (float) var4, (float) var6);
         GL11.glRotatef(180.0F - var8, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(-var19, 0.0F, 0.0F, 1.0F);
-        float var23 = (float) var1.minecartTimeSinceHit - var9;
-        float var24 = (float) var1.minecartCurrentDamage - var9;
+        float var23 = (float) var1.timeSinceHit - var9;
+        float var24 = (float) var1.currentDamage - var9;
         if (var24 < 0.0F) {
             var24 = 0.0F;
         }
 
         if (var23 > 0.0F) {
-            GL11.glRotatef(MathHelper.sin(var23) * var23 * var24 / 10.0F * (float) var1.minecartRockDirection, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(MathHelper.sin(var23) * var23 * var24 / 10.0F * (float) var1.rockDirection, 1.0F, 0.0F, 0.0F);
         }
 
         if (var1.minecartType != 0) {

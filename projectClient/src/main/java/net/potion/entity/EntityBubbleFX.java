@@ -1,7 +1,7 @@
 package net.potion.entity;
 
 import net.potion.material.Material;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityBubbleFX extends EntityFX {
@@ -29,7 +29,7 @@ public class EntityBubbleFX extends EntityFX {
         this.motionX *= 0.8500000238418579D;
         this.motionY *= 0.8500000238418579D;
         this.motionZ *= 0.8500000238418579D;
-        if (this.worldObj.getBlockMaterial(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) != Material.WATER) {
+        if (this.world.getBlockMaterial(MathHelper.floor(this.posX), MathHelper.floor(this.posY), MathHelper.floor(this.posZ)) != Material.WATER) {
             this.setEntityDead();
         }
 

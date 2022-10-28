@@ -15,14 +15,14 @@ class GuiSlotStatsBlock extends GuiSlotStats {
         this.field_27274_a = var1;
         this.statCraftings = new ArrayList<>();
 
-        for (StatCrafting var3 : StatList.field_25185_d) {
+        for (StatCrafting var3 : StatList.field4) {
             boolean var4 = false;
-            int var5 = var3.func_25072_b();
-            if (GuiStats.func_27142_c(var1).writeStat(var3) > 0) {
+            int var5 = var3.getRecipeId();
+            if (GuiStats.func_27142_c(var1).getStatsValue(var3) > 0) {
                 var4 = true;
-            } else if (StatList.field_25172_A[var5] != null && GuiStats.func_27142_c(var1).writeStat(StatList.field_25172_A[var5]) > 0) {
+            } else if (StatList.field6[var5] != null && GuiStats.func_27142_c(var1).getStatsValue(StatList.field6[var5]) > 0) {
                 var4 = true;
-            } else if (StatList.field_25158_z[var5] != null && GuiStats.func_27142_c(var1).writeStat(StatList.field_25158_z[var5]) > 0) {
+            } else if (StatList.field5[var5] != null && GuiStats.func_27142_c(var1).getStatsValue(StatList.field5[var5]) > 0) {
                 var4 = true;
             }
 
@@ -60,10 +60,10 @@ class GuiSlotStatsBlock extends GuiSlotStats {
     @Override
     protected void drawSlot(int var1, int var2, int var3, int var4, Tessellator tess) {
         StatCrafting statCrafting = this.func_27264_b(var1);
-        int var7 = statCrafting.func_25072_b();
+        int var7 = statCrafting.getRecipeId();
         GuiStats.func_27148_a(this.field_27274_a, var2 + 40, var3, var7);
-        this.func_27265_a((StatCrafting) StatList.field_25158_z[var7], var2 + 115, var3, var1 % 2 == 0);
-        this.func_27265_a((StatCrafting) StatList.field_25172_A[var7], var2 + 165, var3, var1 % 2 == 0);
+        this.func_27265_a((StatCrafting) StatList.field5[var7], var2 + 115, var3, var1 % 2 == 0);
+        this.func_27265_a((StatCrafting) StatList.field6[var7], var2 + 165, var3, var1 % 2 == 0);
         this.func_27265_a(statCrafting, var2 + 215, var3, var1 % 2 == 0);
     }
 

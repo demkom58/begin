@@ -1,6 +1,7 @@
 package net.potion.item;
 
 import net.hypnosis.render.Tessellator;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.potion.client.PotionClient;
 import net.potion.client.render.Render;
@@ -12,7 +13,7 @@ import net.potion.client.render.item.MapItemRenderer;
 import net.potion.entity.EntityLiving;
 import net.potion.entity.player.EntityPlayerSP;
 import net.potion.material.Material;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
@@ -160,9 +161,9 @@ public class ItemRenderer {
             GL11.glPushMatrix();
             float var16 = 0.8F;
             float var23 = var3.getSwingProgress(var1);
-            float var31 = MathHelper.sin(var23 * 3.1415927F);
-            float var40 = MathHelper.sin(MathHelper.sqrt(var23) * 3.1415927F);
-            GL11.glTranslatef(-var40 * 0.4F, MathHelper.sin(MathHelper.sqrt(var23) * 3.1415927F * 2.0F) * 0.2F, -var31 * 0.2F);
+            float var31 = MathHelper.sin(var23 * MathConstants.PI);
+            float var40 = MathHelper.sin(MathHelper.sqrt(var23) * MathConstants.PI);
+            GL11.glTranslatef(-var40 * 0.4F, MathHelper.sin(MathHelper.sqrt(var23) * MathConstants.PI * 2.0F) * 0.2F, -var31 * 0.2F);
             var23 = 1.0F - var4 / 45.0F + 0.1F;
             if (var23 < 0.0F) {
                 var23 = 0.0F;
@@ -172,7 +173,7 @@ public class ItemRenderer {
                 var23 = 1.0F;
             }
 
-            var23 = -MathHelper.cos(var23 * 3.1415927F) * 0.5F + 0.5F;
+            var23 = -MathHelper.cos(var23 * MathConstants.PI) * 0.5F + 0.5F;
             GL11.glTranslatef(0.0F, 0.0F * var16 - (1.0F - var2) * 1.2F - var23 * 0.5F + 0.04F, -0.9F * var16);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(var23 * -85.0F, 0.0F, 0.0F, 1.0F);
@@ -196,8 +197,8 @@ public class ItemRenderer {
             }
 
             var31 = var3.getSwingProgress(var1);
-            var40 = MathHelper.sin(var31 * var31 * 3.1415927F);
-            float var44 = MathHelper.sin(MathHelper.sqrt(var31) * 3.1415927F);
+            var40 = MathHelper.sin(var31 * var31 * MathConstants.PI);
+            float var44 = MathHelper.sin(MathHelper.sqrt(var31) * MathConstants.PI);
             GL11.glRotatef(-var40 * 20.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-var44 * 20.0F, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(-var44 * 80.0F, 1.0F, 0.0F, 0.0F);
@@ -218,22 +219,22 @@ public class ItemRenderer {
             var45.addVertexWithUV(128 + var46, -var46, 0.0D, 1.0D, 0.0D);
             var45.addVertexWithUV(-var46, -var46, 0.0D, 0.0D, 0.0D);
             var45.draw();
-            MapData var47 = Item.MAP.func_28012_a(var5, this.potion.theWorld);
+            MapData var47 = Item.MAP.method2(var5, this.potion.theWorld);
             this.field_28131_f.func_28157_a(this.potion.thePlayer, this.potion.renderEngine, var47);
             GL11.glPopMatrix();
         } else if (var5 != null) {
             GL11.glPushMatrix();
             float var14 = 0.8F;
             float var17 = var3.getSwingProgress(var1);
-            float var26 = MathHelper.sin(var17 * 3.1415927F);
-            float var35 = MathHelper.sin(MathHelper.sqrt(var17) * 3.1415927F);
-            GL11.glTranslatef(-var35 * 0.4F, MathHelper.sin(MathHelper.sqrt(var17) * 3.1415927F * 2.0F) * 0.2F, -var26 * 0.2F);
+            float var26 = MathHelper.sin(var17 * MathConstants.PI);
+            float var35 = MathHelper.sin(MathHelper.sqrt(var17) * MathConstants.PI);
+            GL11.glTranslatef(-var35 * 0.4F, MathHelper.sin(MathHelper.sqrt(var17) * MathConstants.PI * 2.0F) * 0.2F, -var26 * 0.2F);
             GL11.glTranslatef(0.7F * var14, -0.65F * var14 - (1.0F - var2) * 0.6F, -0.9F * var14);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(GL15.GL_RESCALE_NORMAL);
             var17 = var3.getSwingProgress(var1);
-            var26 = MathHelper.sin(var17 * var17 * 3.1415927F);
-            var35 = MathHelper.sin(MathHelper.sqrt(var17) * 3.1415927F);
+            var26 = MathHelper.sin(var17 * var17 * MathConstants.PI);
+            var35 = MathHelper.sin(MathHelper.sqrt(var17) * MathConstants.PI);
             GL11.glRotatef(-var26 * 20.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-var35 * 20.0F, 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(-var35 * 80.0F, 1.0F, 0.0F, 0.0F);
@@ -249,15 +250,15 @@ public class ItemRenderer {
             GL11.glPushMatrix();
             float var15 = 0.8F;
             float var20 = var3.getSwingProgress(var1);
-            float var28 = MathHelper.sin(var20 * 3.1415927F);
-            float var37 = MathHelper.sin(MathHelper.sqrt(var20) * 3.1415927F);
-            GL11.glTranslatef(-var37 * 0.3F, MathHelper.sin(MathHelper.sqrt(var20) * 3.1415927F * 2.0F) * 0.4F, -var28 * 0.4F);
+            float var28 = MathHelper.sin(var20 * MathConstants.PI);
+            float var37 = MathHelper.sin(MathHelper.sqrt(var20) * MathConstants.PI);
+            GL11.glTranslatef(-var37 * 0.3F, MathHelper.sin(MathHelper.sqrt(var20) * MathConstants.PI * 2.0F) * 0.4F, -var28 * 0.4F);
             GL11.glTranslatef(0.8F * var15, -0.75F * var15 - (1.0F - var2) * 0.6F, -0.9F * var15);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(GL15.GL_RESCALE_NORMAL);
             var20 = var3.getSwingProgress(var1);
-            var28 = MathHelper.sin(var20 * var20 * 3.1415927F);
-            var37 = MathHelper.sin(MathHelper.sqrt(var20) * 3.1415927F);
+            var28 = MathHelper.sin(var20 * var20 * MathConstants.PI);
+            var37 = MathHelper.sin(MathHelper.sqrt(var20) * MathConstants.PI);
             GL11.glRotatef(var37 * 70.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(-var28 * 20.0F, 0.0F, 0.0F, 1.0F);
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.potion.renderEngine.getTextureForDownloadableImage(this.potion.thePlayer.skinUrl, this.potion.thePlayer.getEntityTexture()));
@@ -279,12 +280,12 @@ public class ItemRenderer {
         RenderHelper.disableStandardItemLighting();
     }
 
-    public void renderOverlays(float var1) {
+    public void renderOverlays(float partialTicks) {
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         if (this.potion.thePlayer.isBurning()) {
             int var2 = this.potion.renderEngine.getTexture("/terrain.png");
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, var2);
-            this.renderFireInFirstPerson(var1);
+            this.renderFireInFirstPerson(partialTicks);
         }
 
         if (this.potion.thePlayer.isEntityInsideOpaqueBlock()) {
@@ -295,7 +296,7 @@ public class ItemRenderer {
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, var5);
             int var6 = this.potion.theWorld.getBlockId(var14, var3, var4);
             if (this.potion.theWorld.isBlockNormalCube(var14, var3, var4)) {
-                this.renderInsideOfBlock(var1, Block.BLOCKS_LIST[var6].getBlockTextureFromSide(2));
+                this.renderInsideOfBlock(partialTicks, Block.BLOCKS_LIST[var6].getBlockTextureFromSide(2));
             } else {
                 for (int var7 = 0; var7 < 8; ++var7) {
                     float var8 = ((float) ((var7) % 2) - 0.5F) * this.potion.thePlayer.width * 0.9F;
@@ -311,14 +312,14 @@ public class ItemRenderer {
             }
 
             if (Block.BLOCKS_LIST[var6] != null) {
-                this.renderInsideOfBlock(var1, Block.BLOCKS_LIST[var6].getBlockTextureFromSide(2));
+                this.renderInsideOfBlock(partialTicks, Block.BLOCKS_LIST[var6].getBlockTextureFromSide(2));
             }
         }
 
         if (this.potion.thePlayer.isInsideOfMaterial(Material.WATER)) {
-            int var15 = this.potion.renderEngine.getTexture("/misc/water.png");
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, var15);
-            this.renderWarpedTextureOverlay(var1);
+            int texture = this.potion.renderEngine.getTexture("/misc/water.png");
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
+            this.renderWarpedTextureOverlay(partialTicks);
         }
 
         GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -350,9 +351,9 @@ public class ItemRenderer {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    private void renderWarpedTextureOverlay(float var1) {
+    private void renderWarpedTextureOverlay(float partialTicks) {
         Tessellator var2 = Tessellator.INSTANCE;
-        float var3 = this.potion.thePlayer.getEntityBrightness(var1);
+        float var3 = this.potion.thePlayer.getEntityBrightness(partialTicks);
         GL11.glColor4f(var3, var3, var3, 0.5F);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

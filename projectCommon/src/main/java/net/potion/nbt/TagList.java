@@ -10,6 +10,7 @@ public class TagList extends Tag {
     private List<Tag> tagList = new ArrayList<>();
     private byte tagType;
 
+    @Override
     void write(DataOutput output) throws IOException {
         if (this.tagList.size() > 0) {
             this.tagType = this.tagList.get(0).getType();
@@ -26,6 +27,7 @@ public class TagList extends Tag {
 
     }
 
+    @Override
     void read(DataInput input) throws IOException {
         this.tagType = input.readByte();
         int size = input.readInt();
@@ -39,6 +41,7 @@ public class TagList extends Tag {
 
     }
 
+    @Override
     public byte getType() {
         return 9;
     }

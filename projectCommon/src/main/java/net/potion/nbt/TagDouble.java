@@ -14,14 +14,17 @@ public class TagDouble extends Tag {
         this.doubleValue = value;
     }
 
+    @Override
     void write(DataOutput output) throws IOException {
         output.writeDouble(this.doubleValue);
     }
 
+    @Override
     void read(DataInput input) throws IOException {
         this.doubleValue = input.readDouble();
     }
 
+    @Override
     public byte getType() {
         return 6;
     }

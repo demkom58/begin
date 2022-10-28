@@ -4,7 +4,6 @@ import com.google.common.collect.Sets;
 import net.potion.entity.Entity;
 import net.potion.material.Material;
 import net.potion.server.PotionServer;
-import org.json.simple.JSONValue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,7 +14,6 @@ import java.lang.management.RuntimeMXBean;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -196,7 +194,8 @@ class TimingsExport extends Thread {
                 this.def.setLevel(7);
             }};
 
-            request.write(JSONValue.toJSONString(out).getBytes(StandardCharsets.UTF_8));
+            // todo: uncomment when serialization will be available
+//            request.write(JSONValue.toJSONString(out).getBytes(StandardCharsets.UTF_8));
             request.close();
 
             response = getResponse(con);

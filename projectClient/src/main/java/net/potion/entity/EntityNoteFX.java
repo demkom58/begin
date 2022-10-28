@@ -1,7 +1,8 @@
 package net.potion.entity;
 
 import net.hypnosis.render.Tessellator;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathConstants;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityNoteFX extends EntityFX {
@@ -17,9 +18,9 @@ public class EntityNoteFX extends EntityFX {
         this.motionY *= 0.009999999776482582D;
         this.motionZ *= 0.009999999776482582D;
         this.motionY += 0.2D;
-        this.particleRed = MathHelper.sin(((float) var8 + 0.0F) * 3.1415927F * 2.0F) * 0.65F + 0.35F;
-        this.particleGreen = MathHelper.sin(((float) var8 + 0.33333334F) * 3.1415927F * 2.0F) * 0.65F + 0.35F;
-        this.particleBlue = MathHelper.sin(((float) var8 + 0.6666667F) * 3.1415927F * 2.0F) * 0.65F + 0.35F;
+        this.particleRed = MathHelper.sin(((float) var8 + 0.0F) * MathConstants.PI * 2.0F) * 0.65F + 0.35F;
+        this.particleGreen = MathHelper.sin(((float) var8 + 0.33333334F) * MathConstants.PI * 2.0F) * 0.65F + 0.35F;
+        this.particleBlue = MathHelper.sin(((float) var8 + 0.6666667F) * MathConstants.PI * 2.0F) * 0.65F + 0.35F;
         this.particleScale *= 0.75F;
         this.particleScale *= var14;
         this.field_21065_a = this.particleScale;

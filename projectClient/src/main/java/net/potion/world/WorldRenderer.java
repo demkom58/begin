@@ -9,7 +9,7 @@ import net.potion.entity.Entity;
 import net.potion.tileentity.TileEntity;
 import net.potion.tileentity.TileEntityRenderer;
 import net.potion.util.AxisAlignedBB;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.chunk.Chunk;
 import net.potion.world.chunk.ChunkCache;
 import org.lwjgl.opengl.GL11;

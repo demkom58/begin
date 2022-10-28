@@ -189,14 +189,14 @@ public class ConsoleCommandHandler {
                     if ("add".equalsIgnoreCase(var36)) {
                         for (int var41 = 0; var41 < this.potionServer.worldServers.length; ++var41) {
                             WorldServer var43 = this.potionServer.worldServers[var41];
-                            var43.func_32005_b(var43.getWorldTime() + (long) var39);
+                            var43.setTime(var43.getWorldTime() + (long) var39);
                         }
 
                         this.sendNoticeToOps(username, "Added " + var39 + " to time");
                     } else if ("set".equalsIgnoreCase(var36)) {
                         for (int var42 = 0; var42 < this.potionServer.worldServers.length; ++var42) {
                             WorldServer var44 = this.potionServer.worldServers[var42];
-                            var44.func_32005_b(var39);
+                            var44.setTime(var39);
                         }
 
                         this.sendNoticeToOps(username, "Set time to " + var39);

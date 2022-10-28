@@ -14,17 +14,20 @@ public class TagByteArray extends Tag {
         this.byteArray = value;
     }
 
+    @Override
     void write(DataOutput output) throws IOException {
         output.writeInt(this.byteArray.length);
         output.write(this.byteArray);
     }
 
+    @Override
     void read(DataInput input) throws IOException {
         int var2 = input.readInt();
         this.byteArray = new byte[var2];
         input.readFully(this.byteArray);
     }
 
+    @Override
     public byte getType() {
         return 7;
     }

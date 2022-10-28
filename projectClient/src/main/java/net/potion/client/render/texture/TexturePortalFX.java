@@ -1,7 +1,8 @@
 package net.potion.client.render.texture;
 
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 
 import java.util.Random;
 
@@ -40,7 +41,7 @@ public class TexturePortalFX extends TextureFX {
                         }
 
                         float var11 = var9 * var9 + var10 * var10;
-                        float var12 = (float) Math.atan2(var10, var9) + ((float) var2 / 32.0F * 3.1415927F * 2.0F - var11 * 10.0F + (float) (var6 * 2)) * (float) (var6 * 2 - 1);
+                        float var12 = (float) Math.atan2(var10, var9) + ((float) var2 / 32.0F * MathConstants.PI * 2.0F - var11 * 10.0F + (float) (var6 * 2)) * (float) (var6 * 2 - 1);
                         var12 = (MathHelper.sin(var12) + 1.0F) / 2.0F;
                         var12 = var12 / (var11 + 1.0F);
                         var5 += var12 * 0.5F;

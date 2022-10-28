@@ -1,6 +1,7 @@
 package net.potion.client.render.entity;
 
 import net.hypnosis.render.Tessellator;
+import net.hypnosis.util.math.MathConstants;
 import net.potion.block.Block;
 import net.potion.client.PotionClient;
 import net.potion.client.model.ModelBiped;
@@ -12,7 +13,7 @@ import net.potion.entity.player.EntityPlayerSP;
 import net.potion.item.Item;
 import net.potion.item.ItemArmor;
 import net.potion.item.ItemStack;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class RenderPlayer extends RenderLiving {
@@ -82,7 +83,7 @@ public class RenderPlayer extends RenderLiving {
 
         String username = player.username;
         if (!player.isSneaking()) {
-            if (player.isPlayerSleeping())
+            if (player.isSleeping())
                 this.renderLivingLabel(player, username, x, y - 1.5D, z, 64);
             else
                 this.renderLivingLabel(player, username, x, y, z, 64);
@@ -163,8 +164,8 @@ public class RenderPlayer extends RenderLiving {
             double var26 = player.prevChasingPosY + (player.chasingPosY - player.prevChasingPosY) * (double) delta - (player.prevPosY + (player.posY - player.prevPosY) * (double) delta);
             double var8 = player.prevChasingPosZ + (player.chasingPosZ - player.prevChasingPosZ) * (double) delta - (player.prevPosZ + (player.posZ - player.prevPosZ) * (double) delta);
             float var10 = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * delta;
-            double var11 = MathHelper.sin(var10 * 3.1415927F / 180.0F);
-            double var13 = -MathHelper.cos(var10 * 3.1415927F / 180.0F);
+            double var11 = MathHelper.sin(var10 * MathConstants.PI / 180.0F);
+            double var13 = -MathHelper.cos(var10 * MathConstants.PI / 180.0F);
             float var15 = (float) var26 * 10.0F;
 
             if (var15 < -6.0F)
@@ -247,7 +248,7 @@ public class RenderPlayer extends RenderLiving {
     }
 
     protected void renderPlayerSleep(EntityPlayer entity, double x, double y, double z) {
-        if (entity.isEntityAlive() && entity.isPlayerSleeping()) {
+        if (entity.isEntityAlive() && entity.isSleeping()) {
             super.setRenderPosition(entity, x + (double) entity.renderOffsetX, y + (double) entity.renderOffsetY, z + (double) entity.renderOffsetZ);
         } else {
             super.setRenderPosition(entity, x, y, z);
@@ -256,7 +257,7 @@ public class RenderPlayer extends RenderLiving {
     }
 
     protected void rotatePlayer(EntityPlayer entity, float var2, float var3, float var4) {
-        if (entity.isEntityAlive() && entity.isPlayerSleeping()) {
+        if (entity.isEntityAlive() && entity.isSleeping()) {
             GL11.glRotatef(entity.getBedOrientationInDegrees(), 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(this.getDeathMaxRotation(entity), 0.0F, 0.0F, 1.0F);
             GL11.glRotatef(270.0F, 0.0F, 1.0F, 0.0F);

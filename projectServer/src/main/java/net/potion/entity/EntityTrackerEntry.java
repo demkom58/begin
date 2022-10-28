@@ -1,5 +1,6 @@
 package net.potion.entity;
 
+import net.hypnosis.util.math.MathHelper;
 import net.potion.block.Block;
 import net.potion.entity.item.EntityBoat;
 import net.potion.entity.item.EntityItem;
@@ -13,7 +14,6 @@ import net.potion.entity.projectile.EntitySnowball;
 import net.potion.item.ItemStack;
 import net.potion.network.packet.*;
 import net.potion.util.DataWatcher;
-import net.potion.util.MathHelper;
 
 import java.util.HashSet;
 import java.util.List;
@@ -172,37 +172,38 @@ public class EntityTrackerEntry {
     }
 
     public void updatePlayerEntity(EntityPlayerMP var1) {
-        if (var1 != this.trackedEntity) {
-            double var2 = var1.posX - (double) (this.encodedPosX / 32);
-            double var4 = var1.posZ - (double) (this.encodedPosZ / 32);
-            if (var2 >= (double) (-this.trackingDistanceThreshold) && var2 <= (double) this.trackingDistanceThreshold && var4 >= (double) (-this.trackingDistanceThreshold) && var4 <= (double) this.trackingDistanceThreshold) {
-                if (!this.trackedPlayers.contains(var1)) {
-                    this.trackedPlayers.add(var1);
-                    var1.playerNetServerHandler.sendPacket(this.getSpawnPacket());
-                    if (this.shouldSendMotionUpdates) {
-                        var1.playerNetServerHandler.sendPacket(new Packet28EntityVelocity(this.trackedEntity.entityId, this.trackedEntity.motionX, this.trackedEntity.motionY, this.trackedEntity.motionZ));
-                    }
+        if (var1 == this.trackedEntity) {
+            return;
+        }
 
-                    ItemStack[] var6 = this.trackedEntity.getInventory();
-                    if (var6 != null) {
-                        for (int var7 = 0; var7 < var6.length; ++var7) {
-                            var1.playerNetServerHandler.sendPacket(new Packet5PlayerInventory(this.trackedEntity.entityId, var7, var6[var7]));
-                        }
-                    }
+        double var2 = var1.posX - (double) (this.encodedPosX / 32);
+        double var4 = var1.posZ - (double) (this.encodedPosZ / 32);
+        if (var2 >= (double) (-this.trackingDistanceThreshold) && var2 <= (double) this.trackingDistanceThreshold && var4 >= (double) (-this.trackingDistanceThreshold) && var4 <= (double) this.trackingDistanceThreshold) {
+            if (!this.trackedPlayers.contains(var1)) {
+                this.trackedPlayers.add(var1);
+                var1.playerNetServerHandler.sendPacket(this.getSpawnPacket());
+                if (this.shouldSendMotionUpdates) {
+                    var1.playerNetServerHandler.sendPacket(new Packet28EntityVelocity(this.trackedEntity.entityId, this.trackedEntity.motionX, this.trackedEntity.motionY, this.trackedEntity.motionZ));
+                }
 
-                    if (this.trackedEntity instanceof EntityPlayer) {
-                        EntityPlayer var8 = (EntityPlayer) this.trackedEntity;
-                        if (var8.isSleeping()) {
-                            var1.playerNetServerHandler.sendPacket(new Packet17Sleep(this.trackedEntity, 0, MathHelper.floor(this.trackedEntity.posX), MathHelper.floor(this.trackedEntity.posY), MathHelper.floor(this.trackedEntity.posZ)));
-                        }
+                ItemStack[] var6 = this.trackedEntity.getInventory();
+                if (var6 != null) {
+                    for (int var7 = 0; var7 < var6.length; ++var7) {
+                        var1.playerNetServerHandler.sendPacket(new Packet5PlayerInventory(this.trackedEntity.entityId, var7, var6[var7]));
                     }
                 }
-            } else if (this.trackedPlayers.contains(var1)) {
-                this.trackedPlayers.remove(var1);
-                var1.playerNetServerHandler.sendPacket(new Packet29DestroyEntity(this.trackedEntity.entityId));
-            }
 
+                if (this.trackedEntity instanceof EntityPlayer var8) {
+                    if (var8.isSleeping()) {
+                        var1.playerNetServerHandler.sendPacket(new Packet17Sleep(this.trackedEntity, 0, MathHelper.floor(this.trackedEntity.posX), MathHelper.floor(this.trackedEntity.posY), MathHelper.floor(this.trackedEntity.posZ)));
+                    }
+                }
+            }
+        } else if (this.trackedPlayers.contains(var1)) {
+            this.trackedPlayers.remove(var1);
+            var1.playerNetServerHandler.sendPacket(new Packet29DestroyEntity(this.trackedEntity.entityId));
         }
+
     }
 
     public void updatePlayerEntities(List var1) {
@@ -213,8 +214,7 @@ public class EntityTrackerEntry {
     }
 
     private Packet getSpawnPacket() {
-        if (this.trackedEntity instanceof EntityItem) {
-            EntityItem var6 = (EntityItem) this.trackedEntity;
+        if (this.trackedEntity instanceof EntityItem var6) {
             Packet21PickupSpawn var7 = new Packet21PickupSpawn(var6);
             var6.posX = (double) var7.xPosition / 32.0D;
             var6.posY = (double) var7.yPosition / 32.0D;
@@ -222,63 +222,56 @@ public class EntityTrackerEntry {
             return var7;
         } else if (this.trackedEntity instanceof EntityPlayerMP) {
             return new Packet20NamedEntitySpawn((EntityPlayer) this.trackedEntity);
-        } else {
-            if (this.trackedEntity instanceof EntityMinecart) {
-                EntityMinecart var1 = (EntityMinecart) this.trackedEntity;
-                if (var1.minecartType == 0) {
-                    return new Packet23VehicleSpawn(this.trackedEntity, 10);
-                }
-
-                if (var1.minecartType == 1) {
-                    return new Packet23VehicleSpawn(this.trackedEntity, 11);
-                }
-
-                if (var1.minecartType == 2) {
-                    return new Packet23VehicleSpawn(this.trackedEntity, 12);
-                }
+        } else if (this.trackedEntity instanceof EntityMinecart var1) {
+            if (var1.minecartType == 0) {
+                return new Packet23VehicleSpawn(this.trackedEntity, 10);
             }
 
-            if (this.trackedEntity instanceof EntityBoat) {
-                return new Packet23VehicleSpawn(this.trackedEntity, 1);
-            } else if (this.trackedEntity instanceof IAnimals) {
-                return new Packet24MobSpawn((EntityLiving) this.trackedEntity);
-            } else if (this.trackedEntity instanceof EntityFish) {
-                return new Packet23VehicleSpawn(this.trackedEntity, 90);
-            } else if (this.trackedEntity instanceof EntityArrow) {
-                EntityLiving var5 = ((EntityArrow) this.trackedEntity).owner;
-                return new Packet23VehicleSpawn(this.trackedEntity, 60, var5 != null ? var5.entityId : this.trackedEntity.entityId);
-            } else if (this.trackedEntity instanceof EntitySnowball) {
-                return new Packet23VehicleSpawn(this.trackedEntity, 61);
-            } else if (this.trackedEntity instanceof EntityFireball) {
-                EntityFireball var4 = (EntityFireball) this.trackedEntity;
-                Packet23VehicleSpawn var2 = new Packet23VehicleSpawn(this.trackedEntity, 63, ((EntityFireball) this.trackedEntity).owner.entityId);
-                var2.field_28044_e = (int) (var4.field_9199_b * 8000.0D);
-                var2.field_28043_f = (int) (var4.field_9198_c * 8000.0D);
-                var2.field_28042_g = (int) (var4.field_9196_d * 8000.0D);
-                return var2;
-            } else if (this.trackedEntity instanceof EntityEgg) {
-                return new Packet23VehicleSpawn(this.trackedEntity, 62);
-            } else if (this.trackedEntity instanceof EntityTNTPrimed) {
-                return new Packet23VehicleSpawn(this.trackedEntity, 50);
-            } else {
-                if (this.trackedEntity instanceof EntityFallingSand) {
-                    EntityFallingSand var3 = (EntityFallingSand) this.trackedEntity;
-                    if (var3.blockID == Block.SAND.blockID) {
-                        return new Packet23VehicleSpawn(this.trackedEntity, 70);
-                    }
+            if (var1.minecartType == 1) {
+                return new Packet23VehicleSpawn(this.trackedEntity, 11);
+            }
 
-                    if (var3.blockID == Block.GRAVEL.blockID) {
-                        return new Packet23VehicleSpawn(this.trackedEntity, 71);
-                    }
-                }
-
-                if (this.trackedEntity instanceof EntityPainting) {
-                    return new Packet25EntityPainting((EntityPainting) this.trackedEntity);
-                } else {
-                    throw new IllegalArgumentException("Don't know how to add " + this.trackedEntity.getClass() + "!");
-                }
+            if (var1.minecartType == 2) {
+                return new Packet23VehicleSpawn(this.trackedEntity, 12);
             }
         }
+
+        if (this.trackedEntity instanceof EntityBoat) {
+            return new Packet23VehicleSpawn(this.trackedEntity, 1);
+        } else if (this.trackedEntity instanceof IAnimals) {
+            return new Packet24MobSpawn((EntityLiving) this.trackedEntity);
+        } else if (this.trackedEntity instanceof EntityFish) {
+            return new Packet23VehicleSpawn(this.trackedEntity, 90);
+        } else if (this.trackedEntity instanceof EntityArrow) {
+            EntityLiving var5 = ((EntityArrow) this.trackedEntity).owner;
+            return new Packet23VehicleSpawn(this.trackedEntity, 60, var5 != null ? var5.entityId : this.trackedEntity.entityId);
+        } else if (this.trackedEntity instanceof EntitySnowball) {
+            return new Packet23VehicleSpawn(this.trackedEntity, 61);
+        } else if (this.trackedEntity instanceof EntityFireball var4) {
+            Packet23VehicleSpawn var2 = new Packet23VehicleSpawn(this.trackedEntity, 63, ((EntityFireball) this.trackedEntity).owner.entityId);
+            var2.motionX = (int) (var4.field1 * 8000.0D);
+            var2.motionY = (int) (var4.field2 * 8000.0D);
+            var2.motionZ = (int) (var4.field3 * 8000.0D);
+            return var2;
+        } else if (this.trackedEntity instanceof EntityEgg) {
+            return new Packet23VehicleSpawn(this.trackedEntity, 62);
+        } else if (this.trackedEntity instanceof EntityTNTPrimed) {
+            return new Packet23VehicleSpawn(this.trackedEntity, 50);
+        } else if (this.trackedEntity instanceof EntityFallingSand var3) {
+            if (var3.blockID == Block.SAND.blockID) {
+                return new Packet23VehicleSpawn(this.trackedEntity, 70);
+            }
+
+            if (var3.blockID == Block.GRAVEL.blockID) {
+                return new Packet23VehicleSpawn(this.trackedEntity, 71);
+            }
+        }
+
+        if (this.trackedEntity instanceof EntityPainting) {
+            return new Packet25EntityPainting((EntityPainting) this.trackedEntity);
+        }
+
+        throw new IllegalArgumentException("Don't know how to add " + this.trackedEntity.getClass() + "!");
     }
 
     public void removeTrackedPlayerSymmetric(EntityPlayerMP var1) {

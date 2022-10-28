@@ -1,5 +1,6 @@
 package net.potion.world.storage;
 
+import net.potion.entity.player.IPlayerFileData;
 import net.potion.world.WorldInfo;
 import net.potion.world.WorldProvider;
 import net.potion.world.chunk.IChunkLoader;
@@ -31,7 +32,17 @@ public class SaveHandlerMP implements ISaveHandler {
     }
 
     @Override
-    public File func_28113_a(String var1) {
+    public File getFile(String var1) {
+        return null;
+    }
+
+    @Override
+    public void clearCache() {
+
+    }
+
+    @Override
+    public IPlayerFileData getPlayerData() {
         return null;
     }
 }

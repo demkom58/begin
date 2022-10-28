@@ -1,7 +1,7 @@
 package net.potion.client.render;
 
-import net.potion.util.MathHelper;
-import org.joml.Vector3d;
+import net.hypnosis.util.math.MathHelper;
+import net.hypnosis.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
@@ -25,12 +25,12 @@ public class RenderHelper {
         float var0 = 0.4F;
         float var1 = 0.6F;
         float var2 = 0.0F;
-        Vector3d var3 = MathHelper.normalizeOrZero(new Vector3d(0.20000000298023224D, 1.0D, -0.699999988079071D));
+        Vec3d var3 = MathHelper.normalizeOrZero(new Vec3d(0.20000000298023224D, 1.0D, -0.699999988079071D));
         GL11.glLightfv(GL11.GL_LIGHT0, GL11.GL_POSITION, func_1157_a(var3.x, var3.y, var3.z, 0.0D));
         GL11.glLightfv(GL11.GL_LIGHT0, GL11.GL_DIFFUSE, func_1156_a(var1, var1, var1, 1.0F));
         GL11.glLightfv(GL11.GL_LIGHT0, GL11.GL_AMBIENT, func_1156_a(0.0F, 0.0F, 0.0F, 1.0F));
         GL11.glLightfv(GL11.GL_LIGHT0, GL11.GL_SPECULAR, func_1156_a(var2, var2, var2, 1.0F));
-        var3 = MathHelper.normalizeOrZero(new Vector3d(-0.20000000298023224D, 1.0D, 0.699999988079071D));
+        var3 = MathHelper.normalizeOrZero(new Vec3d(-0.20000000298023224D, 1.0D, 0.699999988079071D));
         GL11.glLightfv(GL11.GL_LIGHT1, GL11.GL_POSITION, func_1157_a(var3.x, var3.y, var3.z, 0.0D));
         GL11.glLightfv(GL11.GL_LIGHT1, GL11.GL_DIFFUSE, func_1156_a(var1, var1, var1, 1.0F));
         GL11.glLightfv(GL11.GL_LIGHT1, GL11.GL_AMBIENT, func_1156_a(0.0F, 0.0F, 0.0F, 1.0F));

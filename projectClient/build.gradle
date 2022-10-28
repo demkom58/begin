@@ -1,19 +1,41 @@
-apply plugin: 'java'
 apply plugin: 'application'
 
-application.mainClassName = "net.minecraft.client.Minecraft"
+application.mainClassName = "net.potion.client.Starter"
 
-project.ext.lwjglVersion = "3.3.0-SNAPSHOT"
-project.ext.lwjglNatives = "natives-windows"
+project.ext.lwjglVersion = "3.3.1"
+
+import org.gradle.internal.os.OperatingSystem
+switch (OperatingSystem.current()) {
+    case OperatingSystem.LINUX:
+        project.ext.lwjglNatives = "natives-linux"
+        break
+    case OperatingSystem.MAC_OS:
+        project.ext.lwjglNatives = "natives-macos"
+        break
+    case OperatingSystem.WINDOWS:
+        project.ext.lwjglNatives = "natives-windows"
+        break
+}
 
 dependencies {
 	implementation project(":projectCommon")
+    implementation group: 'com.google.code.gson', name: 'gson', version: "2.9.0"
 
-    implementation group: 'com.github.cliftonlabs', name: 'json-simple', version: '4.0.0'
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
-    implementation group: 'org.lwjgl', name: 'lwjgl', version: "${lwjglVersion}"
-    implementation group: 'org.lwjgl', name: 'lwjgl-glfw', version: "${lwjglVersion}"
-    implementation group: 'org.lwjgl', name: 'lwjgl-openal', version: "${lwjglVersion}"
-    implementation group: 'org.lwjgl', name: 'lwjgl-opengl', version: "${lwjglVersion}"
-    implementation group: 'org.lwjgl', name: 'lwjgl-stb', version: "${lwjglVersion}"
+    implementation "org.lwjgl:lwjgl"
+    implementation "org.lwjgl:lwjgl-glfw"
+    implementation "org.lwjgl:lwjgl-openal"
+    implementation "org.lwjgl:lwjgl-opengl"
+    implementation "org.lwjgl:lwjgl-stb"
+
+    runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
+}
+
+tasks.withType(JavaExec) {
+    setWorkingDir(new File(workingDir.getParentFile(), "jars"))
 }

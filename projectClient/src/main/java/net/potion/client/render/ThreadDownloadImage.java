@@ -3,6 +3,7 @@ package net.potion.client.render;
 import javax.imageio.ImageIO;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 class ThreadDownloadImage extends Thread {
     // $FF: synthetic field
@@ -27,7 +28,12 @@ class ThreadDownloadImage extends Thread {
             var1 = (HttpURLConnection) var2.openConnection();
             var1.setDoInput(true);
             var1.setDoOutput(false);
-            var1.connect();
+            try {
+                var1.connect();
+            } catch (UnknownHostException e) {
+                System.err.println("Failed to download resources... '" + this.location + "' is down or no Internet connection.");
+                return;
+            }
             if (var1.getResponseCode() / 100 != 4) {
                 if (this.buffer == null) {
                     this.imageData.image = ImageIO.read(var1.getInputStream());

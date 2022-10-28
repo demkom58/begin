@@ -7,7 +7,7 @@ import net.potion.entity.item.EntityItem;
 import net.potion.network.NetClientHandler;
 import net.potion.network.packet.*;
 import net.potion.stats.StatBase;
-import net.potion.util.MathHelper;
+import net.hypnosis.util.math.MathHelper;
 import net.potion.world.World;
 
 public class EntityClientPlayerMP extends EntityPlayerSP {
@@ -40,7 +40,7 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
 
     @Override
     public void onUpdate() {
-        if (this.worldObj.blockExists(MathHelper.floor(this.posX), 64, MathHelper.floor(this.posZ))) {
+        if (this.world.blockExists(MathHelper.floor(this.posX), 64, MathHelper.floor(this.posZ))) {
             super.onUpdate();
             this.func_4056_N();
         }
@@ -167,17 +167,17 @@ public class EntityClientPlayerMP extends EntityPlayerSP {
     @Override
     public void addStat(StatBase statBase, int addition) {
         if (statBase != null) {
-            if (statBase.field_27088_g) {
+            if (statBase.clientSide) {
                 super.addStat(statBase, addition);
             }
 
         }
     }
 
-    public void func_27027_b(StatBase var1, int var2) {
-        if (var1 != null) {
-            if (!var1.field_27088_g) {
-                super.addStat(var1, var2);
+    public void addGlobalStat(StatBase statBase, int addition) {
+        if (statBase != null) {
+            if (!statBase.clientSide) {
+                super.addStat(statBase, addition);
             }
 
         }
