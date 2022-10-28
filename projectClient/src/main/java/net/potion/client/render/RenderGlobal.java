@@ -220,8 +220,7 @@ public class RenderGlobal implements IWorldAccess {
         this.renderChunksDeep = var7 / 16 + 1;
         this.worldRenderers = new WorldRenderer[this.renderChunksWide * this.renderChunksTall * this.renderChunksDeep];
         this.sortedWorldRenderers = new WorldRenderer[this.renderChunksWide * this.renderChunksTall * this.renderChunksDeep];
-        int var2 = 0;
-        int var3 = 0;
+
         this.minBlockX = 0;
         this.minBlockY = 0;
         this.minBlockZ = 0;
@@ -236,22 +235,32 @@ public class RenderGlobal implements IWorldAccess {
         this.worldRenderersToUpdate.clear();
         this.tileEntities.clear();
 
-        for (int var8 = 0; var8 < this.renderChunksWide; ++var8) {
-            for (int var5 = 0; var5 < this.renderChunksTall; ++var5) {
-                for (int var6 = 0; var6 < this.renderChunksDeep; ++var6) {
-                    this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var8] = new WorldRenderer(this.worldObj, this.tileEntities, var8 * 16, var5 * 16, var6 * 16, 16, this.glRenderListBase + var2);
+        int id = 0;
+        int chunkIdx = 0;
+        for (int x = 0; x < this.renderChunksWide; ++x) {
+            for (int y = 0; y < this.renderChunksTall; ++y) {
+                for (int z = 0; z < this.renderChunksDeep; ++z) {
+                    final WorldRenderer renderer = new WorldRenderer(
+                            this.worldObj, this.tileEntities, x * 16, y * 16, z * 16, 16, this.glRenderListBase + id
+                    );
+
+                    final int idx = (z * this.renderChunksTall + y) * this.renderChunksWide + x;
+                    this.worldRenderers[idx] = renderer;
+
                     if (this.occlusionEnabled) {
-                        this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var8].glOcclusionQuery = this.glOcclusionQueryBase.get(var3);
+                        renderer.glOcclusionQuery = this.glOcclusionQueryBase.get(chunkIdx);
                     }
 
-                    this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var8].isWaitingOnOcclusionQuery = false;
-                    this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var8].isVisible = true;
-                    this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var8].isInFrustum = true;
-                    this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var8].chunkIndex = var3++;
-                    this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var8].markDirty();
-                    this.sortedWorldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var8] = this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var8];
-                    this.worldRenderersToUpdate.add(this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var8]);
-                    var2 += 3;
+                    renderer.isWaitingOnOcclusionQuery = false;
+                    renderer.isVisible = true;
+                    renderer.isInFrustum = true;
+                    renderer.chunkIndex = chunkIdx++;
+                    renderer.markDirty();
+
+                    this.sortedWorldRenderers[idx] = renderer;
+                    this.worldRenderersToUpdate.add(renderer);
+
+                    id += 3;
                 }
             }
         }
@@ -582,17 +591,17 @@ public class RenderGlobal implements IWorldAccess {
         double dZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
         int var14 = 0;
 
-        for (int var15 = 0; var15 < this.allRenderLists.length; ++var15) {
-            this.allRenderLists[var15].resetList();
+        for (int i = 0; i < this.allRenderLists.length; ++i) {
+            this.allRenderLists[i].resetList();
         }
 
-        for (int var21 = 0; var21 < this.glRenderLists.size(); ++var21) {
-            WorldRenderer renderer = this.glRenderLists.get(var21);
+        for (int i = 0; i < this.glRenderLists.size(); ++i) {
+            WorldRenderer renderer = this.glRenderLists.get(i);
             int var17 = -1;
 
-            for (int var18 = 0; var18 < var14; ++var18) {
-                if (this.allRenderLists[var18].rendersChunk(renderer.posXMinus, renderer.posYMinus, renderer.posZMinus)) {
-                    var17 = var18;
+            for (int j = 0; j < var14; ++j) {
+                if (this.allRenderLists[j].rendersChunk(renderer.posXMinus, renderer.posYMinus, renderer.posZMinus)) {
+                    var17 = j;
                 }
             }
 

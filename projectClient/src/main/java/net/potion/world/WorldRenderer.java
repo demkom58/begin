@@ -22,7 +22,7 @@ import java.util.Set;
 public class WorldRenderer {
     public static int chunksUpdated = 0;
     private static Tessellator tess = Tessellator.INSTANCE;
-    public World worldObj;
+    public World world;
     public int posX;
     public int posY;
     public int posZ;
@@ -49,41 +49,64 @@ public class WorldRenderer {
     public int glOcclusionQuery;
     public boolean isChunkLit;
     public List<TileEntity> tileEntityRenderers = new ArrayList<>();
-    private int glRenderList = -1;
+    private final int glRenderList;
     private boolean isInitialized = false;
     private List<TileEntity> tileEntities;
 
-    public WorldRenderer(World var1, List<TileEntity> var2, int var3, int var4, int var5, int var6, int var7) {
-        this.worldObj = var1;
-        this.tileEntities = var2;
-        this.sizeWidth = this.sizeHeight = this.sizeDepth = var6;
+    public WorldRenderer(World world, List<TileEntity> tileEntities, int x, int y, int z, int size, int glRenderList) {
+        this.world = world;
+        this.tileEntities = tileEntities;
+        this.sizeWidth = this.sizeHeight = this.sizeDepth = size;
         this.rendererRadius = MathHelper.sqrt((float) (this.sizeWidth * this.sizeWidth + this.sizeHeight * this.sizeHeight + this.sizeDepth * this.sizeDepth)) / 2.0F;
-        this.glRenderList = var7;
+        this.glRenderList = glRenderList;
         this.posX = -999;
-        this.setPosition(var3, var4, var5);
+        this.setPosition(x, y, z);
         this.needsUpdate = false;
     }
 
     public void setPosition(int x, int y, int z) {
         if (x != this.posX || y != this.posY || z != this.posZ) {
             this.setDontDraw();
+
             this.posX = x;
             this.posY = y;
             this.posZ = z;
+
             this.posXPlus = x + this.sizeWidth / 2;
             this.posYPlus = y + this.sizeHeight / 2;
             this.posZPlus = z + this.sizeDepth / 2;
+
             this.posXClip = x & 1023;
             this.posYClip = y;
             this.posZClip = z & 1023;
+
             this.posXMinus = x - this.posXClip;
             this.posYMinus = y - this.posYClip;
             this.posZMinus = z - this.posZClip;
+
             float var4 = 6.0F;
-            this.rendererBoundingBox = AxisAlignedBB.getBoundingBox((float) x - var4, (float) y - var4, (float) z - var4, (float) (x + this.sizeWidth) + var4, (float) (y + this.sizeHeight) + var4, (float) (z + this.sizeDepth) + var4);
+            this.rendererBoundingBox = AxisAlignedBB.getBoundingBox(
+                    (float) x - var4,
+                    (float) y - var4,
+                    (float) z - var4,
+                    (float) (x + this.sizeWidth) + var4,
+                    (float) (y + this.sizeHeight) + var4,
+                    (float) (z + this.sizeDepth) + var4
+            );
+
             GL11.glNewList(this.glRenderList + 2, GL11.GL_COMPILE);
-            RenderItem.renderAABB(AxisAlignedBB.getBoundingBoxFromPool((float) this.posXClip - var4, (float) this.posYClip - var4, (float) this.posZClip - var4, (float) (this.posXClip + this.sizeWidth) + var4, (float) (this.posYClip + this.sizeHeight) + var4, (float) (this.posZClip + this.sizeDepth) + var4));
+            RenderItem.renderAABB(
+                    AxisAlignedBB.getBoundingBoxFromPool(
+                            (float) this.posXClip - var4,
+                            (float) this.posYClip - var4,
+                            (float) this.posZClip - var4,
+                            (float) (this.posXClip + this.sizeWidth) + var4,
+                            (float) (this.posYClip + this.sizeHeight) + var4,
+                            (float) (this.posZClip + this.sizeDepth) + var4
+                    )
+            );
             GL11.glEndList();
+
             this.markDirty();
         }
     }
@@ -113,7 +136,7 @@ public class WorldRenderer {
         Set<TileEntity> tileEntityRenderers = new HashSet<>(this.tileEntityRenderers);
         this.tileEntityRenderers.clear();
         byte var8 = 1;
-        ChunkCache chunkCache = new ChunkCache(this.worldObj, startX - var8, startY - var8, startZ - var8, endX + var8, endY + var8, endZ + var8);
+        ChunkCache chunkCache = new ChunkCache(this.world, startX - var8, startY - var8, startZ - var8, endX + var8, endY + var8, endZ + var8);
         RenderBlocks renderBlocks = new RenderBlocks(chunkCache);
 
         for (int i = 0; i < 2; ++i) {
@@ -200,14 +223,14 @@ public class WorldRenderer {
 
     public void func_1204_c() {
         this.setDontDraw();
-        this.worldObj = null;
+        this.world = null;
     }
 
-    public int getGLCallListForPass(int var1) {
+    public int getGLCallListForPass(int zeroAll) {
         if (!this.isInFrustum)
             return -1;
 
-        return !this.skipRenderPass[var1] ? this.glRenderList + var1 : -1;
+        return !this.skipRenderPass[zeroAll] ? this.glRenderList + zeroAll : -1;
     }
 
     public void updateInFrustrum(ICamera camera) {

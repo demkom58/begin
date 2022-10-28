@@ -18,12 +18,12 @@ public class RenderBlocks {
     private int overrideBlockTexture = -1;
     private boolean flipTexture = false;
     private boolean renderAllFaces = false;
-    private int field_31087_g = 0;
-    private int field_31086_h = 0;
-    private int field_31085_i = 0;
-    private int field_31084_j = 0;
-    private int field_31083_k = 0;
-    private int field_31082_l = 0;
+    private int uvRotateEast = 0;
+    private int uvRotateWest = 0;
+    private int uvRotateSouth = 0;
+    private int uvRotateNorth = 0;
+    private int uvRotateTop = 0;
+    private int uvRotateBottom = 0;
     private boolean enableAO;
     private float lightValueOwn;
     private float aoLightValueXNeg;
@@ -65,18 +65,6 @@ public class RenderBlocks {
     private float colorBlueBottomLeft;
     private float colorBlueBottomRight;
     private float colorBlueTopRight;
-    private boolean field_22339_T;
-    private boolean field_22338_U;
-    private boolean field_22337_V;
-    private boolean field_22336_W;
-    private boolean field_22335_X;
-    private boolean field_22334_Y;
-    private boolean field_22333_Z;
-    private boolean field_22363_aa;
-    private boolean field_22361_ab;
-    private boolean field_22359_ac;
-    private boolean field_22357_ad;
-    private boolean field_22355_ae;
 
     public RenderBlocks(IBlockAccess blockAccess) {
         this.blockAccess = blockAccess;
@@ -408,90 +396,90 @@ public class RenderBlocks {
         if (var7) {
             switch (var8) {
                 case 0:
-                    this.field_31087_g = 3;
-                    this.field_31086_h = 3;
-                    this.field_31085_i = 3;
-                    this.field_31084_j = 3;
+                    this.uvRotateEast = 3;
+                    this.uvRotateWest = 3;
+                    this.uvRotateSouth = 3;
+                    this.uvRotateNorth = 3;
                     block.setBlockBounds(0.0F, 0.25F, 0.0F, 1.0F, 1.0F, 1.0F);
                     break;
                 case 1:
                     block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
                     break;
                 case 2:
-                    this.field_31085_i = 1;
-                    this.field_31084_j = 2;
+                    this.uvRotateSouth = 1;
+                    this.uvRotateNorth = 2;
                     block.setBlockBounds(0.0F, 0.0F, 0.25F, 1.0F, 1.0F, 1.0F);
                     break;
                 case 3:
-                    this.field_31085_i = 2;
-                    this.field_31084_j = 1;
-                    this.field_31083_k = 3;
-                    this.field_31082_l = 3;
+                    this.uvRotateSouth = 2;
+                    this.uvRotateNorth = 1;
+                    this.uvRotateTop = 3;
+                    this.uvRotateBottom = 3;
                     block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.75F);
                     break;
                 case 4:
-                    this.field_31087_g = 1;
-                    this.field_31086_h = 2;
-                    this.field_31083_k = 2;
-                    this.field_31082_l = 1;
+                    this.uvRotateEast = 1;
+                    this.uvRotateWest = 2;
+                    this.uvRotateTop = 2;
+                    this.uvRotateBottom = 1;
                     block.setBlockBounds(0.25F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
                     break;
                 case 5:
-                    this.field_31087_g = 2;
-                    this.field_31086_h = 1;
-                    this.field_31083_k = 1;
-                    this.field_31082_l = 2;
+                    this.uvRotateEast = 2;
+                    this.uvRotateWest = 1;
+                    this.uvRotateTop = 1;
+                    this.uvRotateBottom = 2;
                     block.setBlockBounds(0.0F, 0.0F, 0.0F, 0.75F, 1.0F, 1.0F);
             }
 
             this.renderStandardBlock(block, x, y, z);
-            this.field_31087_g = 0;
-            this.field_31086_h = 0;
-            this.field_31085_i = 0;
-            this.field_31084_j = 0;
-            this.field_31083_k = 0;
-            this.field_31082_l = 0;
+            this.uvRotateEast = 0;
+            this.uvRotateWest = 0;
+            this.uvRotateSouth = 0;
+            this.uvRotateNorth = 0;
+            this.uvRotateTop = 0;
+            this.uvRotateBottom = 0;
             block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         } else {
             switch (var8) {
                 case 0:
-                    this.field_31087_g = 3;
-                    this.field_31086_h = 3;
-                    this.field_31085_i = 3;
-                    this.field_31084_j = 3;
+                    this.uvRotateEast = 3;
+                    this.uvRotateWest = 3;
+                    this.uvRotateSouth = 3;
+                    this.uvRotateNorth = 3;
                 case 1:
                 default:
                     break;
                 case 2:
-                    this.field_31085_i = 1;
-                    this.field_31084_j = 2;
+                    this.uvRotateSouth = 1;
+                    this.uvRotateNorth = 2;
                     break;
                 case 3:
-                    this.field_31085_i = 2;
-                    this.field_31084_j = 1;
-                    this.field_31083_k = 3;
-                    this.field_31082_l = 3;
+                    this.uvRotateSouth = 2;
+                    this.uvRotateNorth = 1;
+                    this.uvRotateTop = 3;
+                    this.uvRotateBottom = 3;
                     break;
                 case 4:
-                    this.field_31087_g = 1;
-                    this.field_31086_h = 2;
-                    this.field_31083_k = 2;
-                    this.field_31082_l = 1;
+                    this.uvRotateEast = 1;
+                    this.uvRotateWest = 2;
+                    this.uvRotateTop = 2;
+                    this.uvRotateBottom = 1;
                     break;
                 case 5:
-                    this.field_31087_g = 2;
-                    this.field_31086_h = 1;
-                    this.field_31083_k = 1;
-                    this.field_31082_l = 2;
+                    this.uvRotateEast = 2;
+                    this.uvRotateWest = 1;
+                    this.uvRotateTop = 1;
+                    this.uvRotateBottom = 2;
             }
 
             this.renderStandardBlock(block, x, y, z);
-            this.field_31087_g = 0;
-            this.field_31086_h = 0;
-            this.field_31085_i = 0;
-            this.field_31084_j = 0;
-            this.field_31083_k = 0;
-            this.field_31082_l = 0;
+            this.uvRotateEast = 0;
+            this.uvRotateWest = 0;
+            this.uvRotateSouth = 0;
+            this.uvRotateNorth = 0;
+            this.uvRotateTop = 0;
+            this.uvRotateBottom = 0;
         }
 
         return true;
@@ -571,10 +559,10 @@ public class RenderBlocks {
         double var13 = var5 ? 16.0D : 8.0D;
         switch (var7) {
             case 0:
-                this.field_31087_g = 3;
-                this.field_31086_h = 3;
-                this.field_31085_i = 3;
-                this.field_31084_j = 3;
+                this.uvRotateEast = 3;
+                this.uvRotateWest = 3;
+                this.uvRotateSouth = 3;
+                this.uvRotateNorth = 3;
                 block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.25F, 1.0F);
                 this.renderStandardBlock(block, x, y, z);
                 this.func_31076_a((float) x + 0.375F, (float) x + 0.625F, (float) y + 0.25F, (float) y + 0.25F + var12, (float) z + 0.625F, (float) z + 0.625F, var11 * 0.8F, var13);
@@ -591,8 +579,8 @@ public class RenderBlocks {
                 this.func_31076_a((float) x + 0.625F, (float) x + 0.625F, (float) y - 0.25F + 1.0F - var12, (float) y - 0.25F + 1.0F, (float) z + 0.625F, (float) z + 0.375F, var11 * 0.6F, var13);
                 break;
             case 2:
-                this.field_31085_i = 1;
-                this.field_31084_j = 2;
+                this.uvRotateSouth = 1;
+                this.uvRotateNorth = 2;
                 block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
                 this.renderStandardBlock(block, x, y, z);
                 this.func_31081_b((float) x + 0.375F, (float) x + 0.375F, (float) y + 0.625F, (float) y + 0.375F, (float) z + 0.25F, (float) z + 0.25F + var12, var11 * 0.6F, var13);
@@ -601,10 +589,10 @@ public class RenderBlocks {
                 this.func_31081_b((float) x + 0.625F, (float) x + 0.375F, (float) y + 0.625F, (float) y + 0.625F, (float) z + 0.25F, (float) z + 0.25F + var12, var11, var13);
                 break;
             case 3:
-                this.field_31085_i = 2;
-                this.field_31084_j = 1;
-                this.field_31083_k = 3;
-                this.field_31082_l = 3;
+                this.uvRotateSouth = 2;
+                this.uvRotateNorth = 1;
+                this.uvRotateTop = 3;
+                this.uvRotateBottom = 3;
                 block.setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
                 this.renderStandardBlock(block, x, y, z);
                 this.func_31081_b((float) x + 0.375F, (float) x + 0.375F, (float) y + 0.625F, (float) y + 0.375F, (float) z - 0.25F + 1.0F - var12, (float) z - 0.25F + 1.0F, var11 * 0.6F, var13);
@@ -613,10 +601,10 @@ public class RenderBlocks {
                 this.func_31081_b((float) x + 0.625F, (float) x + 0.375F, (float) y + 0.625F, (float) y + 0.625F, (float) z - 0.25F + 1.0F - var12, (float) z - 0.25F + 1.0F, var11, var13);
                 break;
             case 4:
-                this.field_31087_g = 1;
-                this.field_31086_h = 2;
-                this.field_31083_k = 2;
-                this.field_31082_l = 1;
+                this.uvRotateEast = 1;
+                this.uvRotateWest = 2;
+                this.uvRotateTop = 2;
+                this.uvRotateBottom = 1;
                 block.setBlockBounds(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
                 this.renderStandardBlock(block, x, y, z);
                 this.func_31077_c((float) x + 0.25F, (float) x + 0.25F + var12, (float) y + 0.375F, (float) y + 0.375F, (float) z + 0.625F, (float) z + 0.375F, var11 * 0.5F, var13);
@@ -625,10 +613,10 @@ public class RenderBlocks {
                 this.func_31077_c((float) x + 0.25F, (float) x + 0.25F + var12, (float) y + 0.625F, (float) y + 0.375F, (float) z + 0.625F, (float) z + 0.625F, var11 * 0.6F, var13);
                 break;
             case 5:
-                this.field_31087_g = 2;
-                this.field_31086_h = 1;
-                this.field_31083_k = 1;
-                this.field_31082_l = 2;
+                this.uvRotateEast = 2;
+                this.uvRotateWest = 1;
+                this.uvRotateTop = 1;
+                this.uvRotateBottom = 2;
                 block.setBlockBounds(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
                 this.renderStandardBlock(block, x, y, z);
                 this.func_31077_c((float) x - 0.25F + 1.0F - var12, (float) x - 0.25F + 1.0F, (float) y + 0.375F, (float) y + 0.375F, (float) z + 0.625F, (float) z + 0.375F, var11 * 0.5F, var13);
@@ -637,12 +625,12 @@ public class RenderBlocks {
                 this.func_31077_c((float) x - 0.25F + 1.0F - var12, (float) x - 0.25F + 1.0F, (float) y + 0.625F, (float) y + 0.375F, (float) z + 0.625F, (float) z + 0.625F, var11 * 0.6F, var13);
         }
 
-        this.field_31087_g = 0;
-        this.field_31086_h = 0;
-        this.field_31085_i = 0;
-        this.field_31084_j = 0;
-        this.field_31083_k = 0;
-        this.field_31082_l = 0;
+        this.uvRotateEast = 0;
+        this.uvRotateWest = 0;
+        this.uvRotateSouth = 0;
+        this.uvRotateNorth = 0;
+        this.uvRotateTop = 0;
+        this.uvRotateBottom = 0;
         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         return true;
     }
@@ -1755,35 +1743,42 @@ public class RenderBlocks {
     public boolean renderStandardBlockWithAmbientOcclusion(Block block, int x, int y, int z, float r, float g, float b) {
         this.enableAO = true;
         boolean result = false;
+
         float topLeftMul = this.lightValueOwn;
         float botLeftMul = this.lightValueOwn;
         float botRightMul = this.lightValueOwn;
         float topRightMul = this.lightValueOwn;
+
         boolean var13 = true;
         boolean var14 = true;
         boolean var15 = true;
         boolean var16 = true;
         boolean var17 = true;
         boolean var18 = true;
-        this.lightValueOwn = block.getBlockBrightness(this.blockAccess, x, y, z);
-        this.aoLightValueXNeg = block.getBlockBrightness(this.blockAccess, x - 1, y, z);
-        this.aoLightValueYNeg = block.getBlockBrightness(this.blockAccess, x, y - 1, z);
-        this.aoLightValueZNeg = block.getBlockBrightness(this.blockAccess, x, y, z - 1);
-        this.aoLightValueXPos = block.getBlockBrightness(this.blockAccess, x + 1, y, z);
-        this.aoLightValueYPos = block.getBlockBrightness(this.blockAccess, x, y + 1, z);
-        this.aoLightValueZPos = block.getBlockBrightness(this.blockAccess, x, y, z + 1);
-        this.field_22338_U = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x + 1, y + 1, z)];
-        this.field_22359_ac = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x + 1, y - 1, z)];
-        this.field_22334_Y = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x + 1, y, z + 1)];
-        this.field_22363_aa = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x + 1, y, z - 1)];
-        this.field_22337_V = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x - 1, y + 1, z)];
-        this.field_22357_ad = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x - 1, y - 1, z)];
-        this.field_22335_X = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x - 1, y, z - 1)];
-        this.field_22333_Z = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x - 1, y, z + 1)];
-        this.field_22336_W = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x, y + 1, z + 1)];
-        this.field_22339_T = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x, y + 1, z - 1)];
-        this.field_22355_ae = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x, y - 1, z + 1)];
-        this.field_22361_ab = Block.CAN_BLOCK_GRASS[this.blockAccess.getBlockId(x, y - 1, z - 1)];
+
+        final IBlockAccess world = this.blockAccess;
+        this.lightValueOwn = block.getBlockBrightness(world, x, y, z);
+        this.aoLightValueXNeg = block.getBlockBrightness(world, x - 1, y, z);
+        this.aoLightValueYNeg = block.getBlockBrightness(world, x, y - 1, z);
+        this.aoLightValueZNeg = block.getBlockBrightness(world, x, y, z - 1);
+        this.aoLightValueXPos = block.getBlockBrightness(world, x + 1, y, z);
+        this.aoLightValueYPos = block.getBlockBrightness(world, x, y + 1, z);
+        this.aoLightValueZPos = block.getBlockBrightness(world, x, y, z + 1);
+
+        final boolean[] canGrass = Block.CAN_BLOCK_GRASS;
+        boolean canGrassXpYp = canGrass[world.getBlockId(x + 1, y + 1, z)];
+        boolean canGrassXpYm = canGrass[world.getBlockId(x + 1, y - 1, z)];
+        boolean canGrassXpZp = canGrass[world.getBlockId(x + 1, y, z + 1)];
+        boolean canGrassXpZm = canGrass[world.getBlockId(x + 1, y, z - 1)];
+        boolean canGrassXmYp = canGrass[world.getBlockId(x - 1, y + 1, z)];
+        boolean canGrassXmYm = canGrass[world.getBlockId(x - 1, y - 1, z)];
+        boolean canGrassXmZm = canGrass[world.getBlockId(x - 1, y, z - 1)];
+        boolean canGrassXmZp = canGrass[world.getBlockId(x - 1, y, z + 1)];
+        boolean canGrassYpZp = canGrass[world.getBlockId(x, y + 1, z + 1)];
+        boolean canGrassYpZm = canGrass[world.getBlockId(x, y + 1, z - 1)];
+        boolean canGrassYmZp = canGrass[world.getBlockId(x, y - 1, z + 1)];
+        boolean canGrassYmZm = canGrass[world.getBlockId(x, y - 1, z - 1)];
+
         if (block.blockIndexInTexture == 3) {
             var18 = false;
             var17 = false;
@@ -1800,7 +1795,7 @@ public class RenderBlocks {
             var13 = false;
         }
 
-        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y - 1, z, 0)) {
+        if (this.renderAllFaces || block.shouldSideBeRendered(world, x, y - 1, z, 0)) {
             if (this.field_22352_G <= 0) {
                 topRightMul = this.aoLightValueYNeg;
                 botRightMul = this.aoLightValueYNeg;
@@ -1808,32 +1803,32 @@ public class RenderBlocks {
                 topLeftMul = this.aoLightValueYNeg;
             } else {
                 --y;
-                this.field_22376_n = block.getBlockBrightness(this.blockAccess, x - 1, y, z);
-                this.field_22374_p = block.getBlockBrightness(this.blockAccess, x, y, z - 1);
-                this.field_22373_q = block.getBlockBrightness(this.blockAccess, x, y, z + 1);
-                this.field_22371_s = block.getBlockBrightness(this.blockAccess, x + 1, y, z);
-                if (!this.field_22361_ab && !this.field_22357_ad) {
+                this.field_22376_n = block.getBlockBrightness(world, x - 1, y, z);
+                this.field_22374_p = block.getBlockBrightness(world, x, y, z - 1);
+                this.field_22373_q = block.getBlockBrightness(world, x, y, z + 1);
+                this.field_22371_s = block.getBlockBrightness(world, x + 1, y, z);
+                if (!canGrassYmZm && !canGrassXmYm) {
                     this.field_22377_m = this.field_22376_n;
                 } else {
-                    this.field_22377_m = block.getBlockBrightness(this.blockAccess, x - 1, y, z - 1);
+                    this.field_22377_m = block.getBlockBrightness(world, x - 1, y, z - 1);
                 }
 
-                if (!this.field_22355_ae && !this.field_22357_ad) {
+                if (!canGrassYmZp && !canGrassXmYm) {
                     this.field_22375_o = this.field_22376_n;
                 } else {
-                    this.field_22375_o = block.getBlockBrightness(this.blockAccess, x - 1, y, z + 1);
+                    this.field_22375_o = block.getBlockBrightness(world, x - 1, y, z + 1);
                 }
 
-                if (!this.field_22361_ab && !this.field_22359_ac) {
+                if (!canGrassYmZm && !canGrassXpYm) {
                     this.field_22372_r = this.field_22371_s;
                 } else {
-                    this.field_22372_r = block.getBlockBrightness(this.blockAccess, x + 1, y, z - 1);
+                    this.field_22372_r = block.getBlockBrightness(world, x + 1, y, z - 1);
                 }
 
-                if (!this.field_22355_ae && !this.field_22359_ac) {
+                if (!canGrassYmZp && !canGrassXpYm) {
                     this.field_22370_t = this.field_22371_s;
                 } else {
-                    this.field_22370_t = block.getBlockBrightness(this.blockAccess, x + 1, y, z + 1);
+                    this.field_22370_t = block.getBlockBrightness(world, x + 1, y, z + 1);
                 }
 
                 ++y;
@@ -1862,11 +1857,11 @@ public class RenderBlocks {
             this.colorRedTopRight *= topRightMul;
             this.colorGreenTopRight *= topRightMul;
             this.colorBlueTopRight *= topRightMul;
-            this.renderBottomFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 0));
+            this.renderBottomFace(block, x, y, z, block.getBlockTexture(world, x, y, z, 0));
             result = true;
         }
 
-        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y + 1, z, 1)) {
+        if (this.renderAllFaces || block.shouldSideBeRendered(world, x, y + 1, z, 1)) {
             if (this.field_22352_G <= 0) {
                 topRightMul = this.aoLightValueYPos;
                 botRightMul = this.aoLightValueYPos;
@@ -1874,32 +1869,32 @@ public class RenderBlocks {
                 topLeftMul = this.aoLightValueYPos;
             } else {
                 ++y;
-                this.field_22368_v = block.getBlockBrightness(this.blockAccess, x - 1, y, z);
-                this.field_22364_z = block.getBlockBrightness(this.blockAccess, x + 1, y, z);
-                this.field_22366_x = block.getBlockBrightness(this.blockAccess, x, y, z - 1);
-                this.field_22362_A = block.getBlockBrightness(this.blockAccess, x, y, z + 1);
-                if (!this.field_22339_T && !this.field_22337_V) {
+                this.field_22368_v = block.getBlockBrightness(world, x - 1, y, z);
+                this.field_22364_z = block.getBlockBrightness(world, x + 1, y, z);
+                this.field_22366_x = block.getBlockBrightness(world, x, y, z - 1);
+                this.field_22362_A = block.getBlockBrightness(world, x, y, z + 1);
+                if (!canGrassYpZm && !canGrassXmYp) {
                     this.field_22369_u = this.field_22368_v;
                 } else {
-                    this.field_22369_u = block.getBlockBrightness(this.blockAccess, x - 1, y, z - 1);
+                    this.field_22369_u = block.getBlockBrightness(world, x - 1, y, z - 1);
                 }
 
-                if (!this.field_22339_T && !this.field_22338_U) {
+                if (!canGrassYpZm && !canGrassXpYp) {
                     this.field_22365_y = this.field_22364_z;
                 } else {
-                    this.field_22365_y = block.getBlockBrightness(this.blockAccess, x + 1, y, z - 1);
+                    this.field_22365_y = block.getBlockBrightness(world, x + 1, y, z - 1);
                 }
 
-                if (!this.field_22336_W && !this.field_22337_V) {
+                if (!canGrassYpZp && !canGrassXmYp) {
                     this.field_22367_w = this.field_22368_v;
                 } else {
-                    this.field_22367_w = block.getBlockBrightness(this.blockAccess, x - 1, y, z + 1);
+                    this.field_22367_w = block.getBlockBrightness(world, x - 1, y, z + 1);
                 }
 
-                if (!this.field_22336_W && !this.field_22338_U) {
+                if (!canGrassYpZp && !canGrassXpYp) {
                     this.field_22360_B = this.field_22364_z;
                 } else {
-                    this.field_22360_B = block.getBlockBrightness(this.blockAccess, x + 1, y, z + 1);
+                    this.field_22360_B = block.getBlockBrightness(world, x + 1, y, z + 1);
                 }
 
                 --y;
@@ -1928,11 +1923,11 @@ public class RenderBlocks {
             this.colorRedTopRight *= topRightMul;
             this.colorGreenTopRight *= topRightMul;
             this.colorBlueTopRight *= topRightMul;
-            this.renderTopFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 1));
+            this.renderTopFace(block, x, y, z, block.getBlockTexture(world, x, y, z, 1));
             result = true;
         }
 
-        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y, z - 1, 2)) {
+        if (this.renderAllFaces || block.shouldSideBeRendered(world, x, y, z - 1, 2)) {
             if (this.field_22352_G <= 0) {
                 topRightMul = this.aoLightValueZNeg;
                 botRightMul = this.aoLightValueZNeg;
@@ -1940,32 +1935,32 @@ public class RenderBlocks {
                 topLeftMul = this.aoLightValueZNeg;
             } else {
                 --z;
-                this.field_22358_C = block.getBlockBrightness(this.blockAccess, x - 1, y, z);
-                this.field_22374_p = block.getBlockBrightness(this.blockAccess, x, y - 1, z);
-                this.field_22366_x = block.getBlockBrightness(this.blockAccess, x, y + 1, z);
-                this.field_22356_D = block.getBlockBrightness(this.blockAccess, x + 1, y, z);
-                if (!this.field_22335_X && !this.field_22361_ab) {
+                this.field_22358_C = block.getBlockBrightness(world, x - 1, y, z);
+                this.field_22374_p = block.getBlockBrightness(world, x, y - 1, z);
+                this.field_22366_x = block.getBlockBrightness(world, x, y + 1, z);
+                this.field_22356_D = block.getBlockBrightness(world, x + 1, y, z);
+                if (!canGrassXmZm && !canGrassYmZm) {
                     this.field_22377_m = this.field_22358_C;
                 } else {
-                    this.field_22377_m = block.getBlockBrightness(this.blockAccess, x - 1, y - 1, z);
+                    this.field_22377_m = block.getBlockBrightness(world, x - 1, y - 1, z);
                 }
 
-                if (!this.field_22335_X && !this.field_22339_T) {
+                if (!canGrassXmZm && !canGrassYpZm) {
                     this.field_22369_u = this.field_22358_C;
                 } else {
-                    this.field_22369_u = block.getBlockBrightness(this.blockAccess, x - 1, y + 1, z);
+                    this.field_22369_u = block.getBlockBrightness(world, x - 1, y + 1, z);
                 }
 
-                if (!this.field_22363_aa && !this.field_22361_ab) {
+                if (!canGrassXpZm && !canGrassYmZm) {
                     this.field_22372_r = this.field_22356_D;
                 } else {
-                    this.field_22372_r = block.getBlockBrightness(this.blockAccess, x + 1, y - 1, z);
+                    this.field_22372_r = block.getBlockBrightness(world, x + 1, y - 1, z);
                 }
 
-                if (!this.field_22363_aa && !this.field_22339_T) {
+                if (!canGrassXpZm && !canGrassYpZm) {
                     this.field_22365_y = this.field_22356_D;
                 } else {
-                    this.field_22365_y = block.getBlockBrightness(this.blockAccess, x + 1, y + 1, z);
+                    this.field_22365_y = block.getBlockBrightness(world, x + 1, y + 1, z);
                 }
 
                 ++z;
@@ -1993,7 +1988,7 @@ public class RenderBlocks {
             this.colorRedTopRight *= topRightMul;
             this.colorGreenTopRight *= topRightMul;
             this.colorBlueTopRight *= topRightMul;
-            int blockTexture = block.getBlockTexture(this.blockAccess, x, y, z, 2);
+            int blockTexture = block.getBlockTexture(world, x, y, z, 2);
             this.renderEastFace(block, x, y, z, blockTexture);
 
             if (fancyGrass && blockTexture == 3 && this.overrideBlockTexture < 0) {
@@ -2017,7 +2012,7 @@ public class RenderBlocks {
             result = true;
         }
 
-        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x, y, z + 1, 3)) {
+        if (this.renderAllFaces || block.shouldSideBeRendered(world, x, y, z + 1, 3)) {
             if (this.field_22352_G <= 0) {
                 topRightMul = this.aoLightValueZPos;
                 botRightMul = this.aoLightValueZPos;
@@ -2025,32 +2020,32 @@ public class RenderBlocks {
                 topLeftMul = this.aoLightValueZPos;
             } else {
                 ++z;
-                this.field_22354_E = block.getBlockBrightness(this.blockAccess, x - 1, y, z);
-                this.field_22353_F = block.getBlockBrightness(this.blockAccess, x + 1, y, z);
-                this.field_22373_q = block.getBlockBrightness(this.blockAccess, x, y - 1, z);
-                this.field_22362_A = block.getBlockBrightness(this.blockAccess, x, y + 1, z);
-                if (!this.field_22333_Z && !this.field_22355_ae) {
+                this.field_22354_E = block.getBlockBrightness(world, x - 1, y, z);
+                this.field_22353_F = block.getBlockBrightness(world, x + 1, y, z);
+                this.field_22373_q = block.getBlockBrightness(world, x, y - 1, z);
+                this.field_22362_A = block.getBlockBrightness(world, x, y + 1, z);
+                if (!canGrassXmZp && !canGrassYmZp) {
                     this.field_22375_o = this.field_22354_E;
                 } else {
-                    this.field_22375_o = block.getBlockBrightness(this.blockAccess, x - 1, y - 1, z);
+                    this.field_22375_o = block.getBlockBrightness(world, x - 1, y - 1, z);
                 }
 
-                if (!this.field_22333_Z && !this.field_22336_W) {
+                if (!canGrassXmZp && !canGrassYpZp) {
                     this.field_22367_w = this.field_22354_E;
                 } else {
-                    this.field_22367_w = block.getBlockBrightness(this.blockAccess, x - 1, y + 1, z);
+                    this.field_22367_w = block.getBlockBrightness(world, x - 1, y + 1, z);
                 }
 
-                if (!this.field_22334_Y && !this.field_22355_ae) {
+                if (!canGrassXpZp && !canGrassYmZp) {
                     this.field_22370_t = this.field_22353_F;
                 } else {
-                    this.field_22370_t = block.getBlockBrightness(this.blockAccess, x + 1, y - 1, z);
+                    this.field_22370_t = block.getBlockBrightness(world, x + 1, y - 1, z);
                 }
 
-                if (!this.field_22334_Y && !this.field_22336_W) {
+                if (!canGrassXpZp && !canGrassYpZp) {
                     this.field_22360_B = this.field_22353_F;
                 } else {
-                    this.field_22360_B = block.getBlockBrightness(this.blockAccess, x + 1, y + 1, z);
+                    this.field_22360_B = block.getBlockBrightness(world, x + 1, y + 1, z);
                 }
 
                 --z;
@@ -2079,8 +2074,8 @@ public class RenderBlocks {
             this.colorRedTopRight *= topRightMul;
             this.colorGreenTopRight *= topRightMul;
             this.colorBlueTopRight *= topRightMul;
-            int blockTexture = block.getBlockTexture(this.blockAccess, x, y, z, 3);
-            this.renderWestFace(block, x, y, z, block.getBlockTexture(this.blockAccess, x, y, z, 3));
+            int blockTexture = block.getBlockTexture(world, x, y, z, 3);
+            this.renderWestFace(block, x, y, z, block.getBlockTexture(world, x, y, z, 3));
 
             if (fancyGrass && blockTexture == 3 && this.overrideBlockTexture < 0) {
                 this.colorRedTopLeft *= r;
@@ -2104,7 +2099,7 @@ public class RenderBlocks {
             result = true;
         }
 
-        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x - 1, y, z, 4)) {
+        if (this.renderAllFaces || block.shouldSideBeRendered(world, x - 1, y, z, 4)) {
             if (this.field_22352_G <= 0) {
                 topRightMul = this.aoLightValueXNeg;
                 botRightMul = this.aoLightValueXNeg;
@@ -2112,32 +2107,32 @@ public class RenderBlocks {
                 topLeftMul = this.aoLightValueXNeg;
             } else {
                 --x;
-                this.field_22376_n = block.getBlockBrightness(this.blockAccess, x, y - 1, z);
-                this.field_22358_C = block.getBlockBrightness(this.blockAccess, x, y, z - 1);
-                this.field_22354_E = block.getBlockBrightness(this.blockAccess, x, y, z + 1);
-                this.field_22368_v = block.getBlockBrightness(this.blockAccess, x, y + 1, z);
-                if (!this.field_22335_X && !this.field_22357_ad) {
+                this.field_22376_n = block.getBlockBrightness(world, x, y - 1, z);
+                this.field_22358_C = block.getBlockBrightness(world, x, y, z - 1);
+                this.field_22354_E = block.getBlockBrightness(world, x, y, z + 1);
+                this.field_22368_v = block.getBlockBrightness(world, x, y + 1, z);
+                if (!canGrassXmZm && !canGrassXmYm) {
                     this.field_22377_m = this.field_22358_C;
                 } else {
-                    this.field_22377_m = block.getBlockBrightness(this.blockAccess, x, y - 1, z - 1);
+                    this.field_22377_m = block.getBlockBrightness(world, x, y - 1, z - 1);
                 }
 
-                if (!this.field_22333_Z && !this.field_22357_ad) {
+                if (!canGrassXmZp && !canGrassXmYm) {
                     this.field_22375_o = this.field_22354_E;
                 } else {
-                    this.field_22375_o = block.getBlockBrightness(this.blockAccess, x, y - 1, z + 1);
+                    this.field_22375_o = block.getBlockBrightness(world, x, y - 1, z + 1);
                 }
 
-                if (!this.field_22335_X && !this.field_22337_V) {
+                if (!canGrassXmZm && !canGrassXmYp) {
                     this.field_22369_u = this.field_22358_C;
                 } else {
-                    this.field_22369_u = block.getBlockBrightness(this.blockAccess, x, y + 1, z - 1);
+                    this.field_22369_u = block.getBlockBrightness(world, x, y + 1, z - 1);
                 }
 
-                if (!this.field_22333_Z && !this.field_22337_V) {
+                if (!canGrassXmZp && !canGrassXmYp) {
                     this.field_22367_w = this.field_22354_E;
                 } else {
-                    this.field_22367_w = block.getBlockBrightness(this.blockAccess, x, y + 1, z + 1);
+                    this.field_22367_w = block.getBlockBrightness(world, x, y + 1, z + 1);
                 }
 
                 ++x;
@@ -2167,7 +2162,7 @@ public class RenderBlocks {
             this.colorRedTopRight *= topRightMul;
             this.colorGreenTopRight *= topRightMul;
             this.colorBlueTopRight *= topRightMul;
-            int blockTexture = block.getBlockTexture(this.blockAccess, x, y, z, 4);
+            int blockTexture = block.getBlockTexture(world, x, y, z, 4);
             this.renderNorthFace(block, x, y, z, blockTexture);
             if (fancyGrass && blockTexture == 3 && this.overrideBlockTexture < 0) {
                 this.colorRedTopLeft *= r;
@@ -2190,7 +2185,7 @@ public class RenderBlocks {
             result = true;
         }
 
-        if (this.renderAllFaces || block.shouldSideBeRendered(this.blockAccess, x + 1, y, z, 5)) {
+        if (this.renderAllFaces || block.shouldSideBeRendered(world, x + 1, y, z, 5)) {
             if (this.field_22352_G <= 0) {
                 topRightMul = this.aoLightValueXPos;
                 botRightMul = this.aoLightValueXPos;
@@ -2198,32 +2193,32 @@ public class RenderBlocks {
                 topLeftMul = this.aoLightValueXPos;
             } else {
                 ++x;
-                this.field_22371_s = block.getBlockBrightness(this.blockAccess, x, y - 1, z);
-                this.field_22356_D = block.getBlockBrightness(this.blockAccess, x, y, z - 1);
-                this.field_22353_F = block.getBlockBrightness(this.blockAccess, x, y, z + 1);
-                this.field_22364_z = block.getBlockBrightness(this.blockAccess, x, y + 1, z);
-                if (!this.field_22359_ac && !this.field_22363_aa) {
+                this.field_22371_s = block.getBlockBrightness(world, x, y - 1, z);
+                this.field_22356_D = block.getBlockBrightness(world, x, y, z - 1);
+                this.field_22353_F = block.getBlockBrightness(world, x, y, z + 1);
+                this.field_22364_z = block.getBlockBrightness(world, x, y + 1, z);
+                if (!canGrassXpYm && !canGrassXpZm) {
                     this.field_22372_r = this.field_22356_D;
                 } else {
-                    this.field_22372_r = block.getBlockBrightness(this.blockAccess, x, y - 1, z - 1);
+                    this.field_22372_r = block.getBlockBrightness(world, x, y - 1, z - 1);
                 }
 
-                if (!this.field_22359_ac && !this.field_22334_Y) {
+                if (!canGrassXpYm && !canGrassXpZp) {
                     this.field_22370_t = this.field_22353_F;
                 } else {
-                    this.field_22370_t = block.getBlockBrightness(this.blockAccess, x, y - 1, z + 1);
+                    this.field_22370_t = block.getBlockBrightness(world, x, y - 1, z + 1);
                 }
 
-                if (!this.field_22338_U && !this.field_22363_aa) {
+                if (!canGrassXpYp && !canGrassXpZm) {
                     this.field_22365_y = this.field_22356_D;
                 } else {
-                    this.field_22365_y = block.getBlockBrightness(this.blockAccess, x, y + 1, z - 1);
+                    this.field_22365_y = block.getBlockBrightness(world, x, y + 1, z - 1);
                 }
 
-                if (!this.field_22338_U && !this.field_22334_Y) {
+                if (!canGrassXpYp && !canGrassXpZp) {
                     this.field_22360_B = this.field_22353_F;
                 } else {
-                    this.field_22360_B = block.getBlockBrightness(this.blockAccess, x, y + 1, z + 1);
+                    this.field_22360_B = block.getBlockBrightness(world, x, y + 1, z + 1);
                 }
 
                 --x;
@@ -2252,7 +2247,7 @@ public class RenderBlocks {
             this.colorRedTopRight *= topRightMul;
             this.colorGreenTopRight *= topRightMul;
             this.colorBlueTopRight *= topRightMul;
-            int blockTexture = block.getBlockTexture(this.blockAccess, x, y, z, 5);
+            int blockTexture = block.getBlockTexture(world, x, y, z, 5);
             this.renderSouthFace(block, x, y, z, blockTexture);
 
             if (fancyGrass && blockTexture == 3 && this.overrideBlockTexture < 0) {
@@ -2744,7 +2739,7 @@ public class RenderBlocks {
         double tMinX = minX;
         double tMinZ = minZ;
         double tMaxZ = maxZ;
-        if (this.field_31082_l == 2) {
+        if (this.uvRotateBottom == 2) {
             minX = ((double) var10 + block.minZ * 16.0D) / 256.0D;
             minZ = ((double) (var11 + 16) - block.maxX * 16.0D) / 256.0D;
             maxX = ((double) var10 + block.maxZ * 16.0D) / 256.0D;
@@ -2755,7 +2750,7 @@ public class RenderBlocks {
             tMinX = maxX;
             minZ = maxZ;
             maxZ = tMinZ;
-        } else if (this.field_31082_l == 1) {
+        } else if (this.uvRotateBottom == 1) {
             minX = ((double) (var10 + 16) - block.maxZ * 16.0D) / 256.0D;
             minZ = ((double) var11 + block.minX * 16.0D) / 256.0D;
             maxX = ((double) (var10 + 16) - block.minZ * 16.0D) / 256.0D;
@@ -2766,7 +2761,7 @@ public class RenderBlocks {
             maxX = tMinX;
             tMinZ = maxZ;
             tMaxZ = minZ;
-        } else if (this.field_31082_l == 3) {
+        } else if (this.uvRotateBottom == 3) {
             minX = ((double) (var10 + 16) - block.minX * 16.0D) / 256.0D;
             maxX = ((double) (var10 + 16) - block.maxX * 16.0D - 0.01D) / 256.0D;
             minZ = ((double) (var11 + 16) - block.minZ * 16.0D) / 256.0D;
@@ -2826,7 +2821,7 @@ public class RenderBlocks {
         double tMinX = minX;
         double tMinZ = minZ;
         double tMaxZ = maxZ;
-        if (this.field_31083_k == 1) {
+        if (this.uvRotateTop == 1) {
             minX = ((double) var10 + block.minZ * 16.0D) / 256.0D;
             minZ = ((double) (var11 + 16) - block.maxX * 16.0D) / 256.0D;
             maxX = ((double) var10 + block.maxZ * 16.0D) / 256.0D;
@@ -2837,7 +2832,7 @@ public class RenderBlocks {
             tMinX = maxX;
             minZ = maxZ;
             maxZ = tMinZ;
-        } else if (this.field_31083_k == 2) {
+        } else if (this.uvRotateTop == 2) {
             minX = ((double) (var10 + 16) - block.maxZ * 16.0D) / 256.0D;
             minZ = ((double) var11 + block.minX * 16.0D) / 256.0D;
             maxX = ((double) (var10 + 16) - block.minZ * 16.0D) / 256.0D;
@@ -2848,7 +2843,7 @@ public class RenderBlocks {
             maxX = tMinX;
             tMinZ = maxZ;
             tMaxZ = minZ;
-        } else if (this.field_31083_k == 3) {
+        } else if (this.uvRotateTop == 3) {
             minX = ((double) (var10 + 16) - block.minX * 16.0D) / 256.0D;
             maxX = ((double) (var10 + 16) - block.maxX * 16.0D - 0.01D) / 256.0D;
             minZ = ((double) (var11 + 16) - block.minZ * 16.0D) / 256.0D;
@@ -2914,7 +2909,7 @@ public class RenderBlocks {
         double tMinX = minX;
         double tMaxY = maxY;
         double tMinY = minY;
-        if (this.field_31087_g == 2) {
+        if (this.uvRotateEast == 2) {
             minX = ((double) var10 + block.minY * 16.0D) / 256.0D;
             maxY = ((double) (var11 + 16) - block.minX * 16.0D) / 256.0D;
             maxX = ((double) var10 + block.maxY * 16.0D) / 256.0D;
@@ -2925,7 +2920,7 @@ public class RenderBlocks {
             tMinX = maxX;
             maxY = minY;
             minY = tMaxY;
-        } else if (this.field_31087_g == 1) {
+        } else if (this.uvRotateEast == 1) {
             minX = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
             maxY = ((double) var11 + block.maxX * 16.0D) / 256.0D;
             maxX = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
@@ -2936,7 +2931,7 @@ public class RenderBlocks {
             maxX = tMinX;
             tMaxY = minY;
             tMinY = maxY;
-        } else if (this.field_31087_g == 3) {
+        } else if (this.uvRotateEast == 3) {
             minX = ((double) (var10 + 16) - block.minX * 16.0D) / 256.0D;
             maxX = ((double) (var10 + 16) - block.maxX * 16.0D - 0.01D) / 256.0D;
             maxY = ((double) var11 + block.maxY * 16.0D) / 256.0D;
@@ -3002,7 +2997,7 @@ public class RenderBlocks {
         double tMinX = minX;
         double tMaxY = maxY;
         double tMinY = minY;
-        if (this.field_31086_h == 1) {
+        if (this.uvRotateWest == 1) {
             minX = ((double) var10 + block.minY * 16.0D) / 256.0D;
             minY = ((double) (var11 + 16) - block.minX * 16.0D) / 256.0D;
             maxX = ((double) var10 + block.maxY * 16.0D) / 256.0D;
@@ -3013,7 +3008,7 @@ public class RenderBlocks {
             tMinX = maxX;
             maxY = minY;
             minY = tMaxY;
-        } else if (this.field_31086_h == 2) {
+        } else if (this.uvRotateWest == 2) {
             minX = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
             maxY = ((double) var11 + block.minX * 16.0D) / 256.0D;
             maxX = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
@@ -3024,7 +3019,7 @@ public class RenderBlocks {
             maxX = tMinX;
             tMaxY = minY;
             tMinY = maxY;
-        } else if (this.field_31086_h == 3) {
+        } else if (this.uvRotateWest == 3) {
             minX = ((double) (var10 + 16) - block.minX * 16.0D) / 256.0D;
             maxX = ((double) (var10 + 16) - block.maxX * 16.0D - 0.01D) / 256.0D;
             maxY = ((double) var11 + block.maxY * 16.0D) / 256.0D;
@@ -3090,7 +3085,7 @@ public class RenderBlocks {
         double tMinZ = minZ;
         double tMaxY = maxY;
         double tMinY = minY;
-        if (this.field_31084_j == 1) {
+        if (this.uvRotateNorth == 1) {
             minZ = ((double) var10 + block.minY * 16.0D) / 256.0D;
             maxY = ((double) (var11 + 16) - block.maxZ * 16.0D) / 256.0D;
             maxZ = ((double) var10 + block.maxY * 16.0D) / 256.0D;
@@ -3101,7 +3096,7 @@ public class RenderBlocks {
             tMinZ = maxZ;
             maxY = minY;
             minY = tMaxY;
-        } else if (this.field_31084_j == 2) {
+        } else if (this.uvRotateNorth == 2) {
             minZ = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
             maxY = ((double) var11 + block.minZ * 16.0D) / 256.0D;
             maxZ = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
@@ -3112,7 +3107,7 @@ public class RenderBlocks {
             maxZ = tMinZ;
             tMaxY = minY;
             tMinY = maxY;
-        } else if (this.field_31084_j == 3) {
+        } else if (this.uvRotateNorth == 3) {
             minZ = ((double) (var10 + 16) - block.minZ * 16.0D) / 256.0D;
             maxZ = ((double) (var10 + 16) - block.maxZ * 16.0D - 0.01D) / 256.0D;
             maxY = ((double) var11 + block.maxY * 16.0D) / 256.0D;
@@ -3178,7 +3173,7 @@ public class RenderBlocks {
         double tMinZ = minZ;
         double tMaxY = maxY;
         double tMinY = minY;
-        if (this.field_31085_i == 2) {
+        if (this.uvRotateSouth == 2) {
             minZ = ((double) var10 + block.minY * 16.0D) / 256.0D;
             maxY = ((double) (var11 + 16) - block.minZ * 16.0D) / 256.0D;
             maxZ = ((double) var10 + block.maxY * 16.0D) / 256.0D;
@@ -3189,7 +3184,7 @@ public class RenderBlocks {
             tMinZ = maxZ;
             maxY = minY;
             minY = tMaxY;
-        } else if (this.field_31085_i == 1) {
+        } else if (this.uvRotateSouth == 1) {
             minZ = ((double) (var10 + 16) - block.maxY * 16.0D) / 256.0D;
             maxY = ((double) var11 + block.maxZ * 16.0D) / 256.0D;
             maxZ = ((double) (var10 + 16) - block.minY * 16.0D) / 256.0D;
@@ -3200,7 +3195,7 @@ public class RenderBlocks {
             maxZ = tMinZ;
             tMaxY = minY;
             tMinY = maxY;
-        } else if (this.field_31085_i == 3) {
+        } else if (this.uvRotateSouth == 3) {
             minZ = ((double) (var10 + 16) - block.minZ * 16.0D) / 256.0D;
             maxZ = ((double) (var10 + 16) - block.maxZ * 16.0D - 0.01D) / 256.0D;
             maxY = ((double) var11 + block.maxY * 16.0D) / 256.0D;
