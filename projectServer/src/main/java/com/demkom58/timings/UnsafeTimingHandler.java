@@ -1,6 +1,6 @@
 package com.demkom58.timings;
 
-import net.potion.server.PotionServer;
+import net.minecraft.server.MinecraftServer;
 
 class UnsafeTimingHandler extends TimingHandler {
 
@@ -9,7 +9,7 @@ class UnsafeTimingHandler extends TimingHandler {
     }
 
     private static void checkThread() {
-        if (!PotionServer.SERVER.isPrimaryThread()) {
+        if (!MinecraftServer.SERVER.isPrimaryThread()) {
             throw new IllegalStateException("Calling Timings from Async Operation");
         }
     }

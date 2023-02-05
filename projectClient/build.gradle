@@ -1,6 +1,6 @@
 apply plugin: 'application'
 
-application.mainClassName = "net.potion.client.Starter"
+application.mainClassName = "net.minecraft.client.Starter"
 
 project.ext.lwjglVersion = "3.3.1"
 

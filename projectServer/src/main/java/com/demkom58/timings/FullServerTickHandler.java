@@ -3,7 +3,7 @@ package com.demkom58.timings;
 import static com.demkom58.timings.TimingsManager.*;
 
 public class FullServerTickHandler extends TimingHandler {
-    private static final TimingIdentifier IDENTITY = new TimingIdentifier("Potion", "Full Server Tick", null, false);
+    private static final TimingIdentifier IDENTITY = new TimingIdentifier("Minecraft", "Full Server Tick", null, false);
     final TimingData minuteData;
     double avgFreeMemory = -1D;
     double avgUsedMemory = -1D;

@@ -4,8 +4,8 @@ import co.aikar.util.LoadingMap;
 import co.aikar.util.MRUMapCache;
 import com.google.common.base.Function;
 import com.google.common.collect.Sets;
-import net.potion.material.Material;
-import net.potion.server.PotionServer;
+import net.minecraft.material.Material;
+import net.minecraft.server.MinecraftServer;
 
 import java.lang.management.ManagementFactory;
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class TimingHistory {
 
         // Information about all loaded chunks/entities
         // noinspection unchecked
-        this.worlds = toObjectMapper(PotionServer.SERVER.worldServers, world -> pair(worldMap.get(world.getWorldInfo().getLevelName()), ""));
+        this.worlds = toObjectMapper(MinecraftServer.SERVER.worldServers, world -> pair(worldMap.get(world.getWorldInfo().getLevelName()), ""));
     }
 
     static class RegionData {

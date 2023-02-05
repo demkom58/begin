@@ -1,6 +1,6 @@
 package com.demkom58.util;
 
-import net.potion.server.PotionServer;
+import net.minecraft.server.MinecraftServer;
 
 public class RollingAverage {
     private final int size;
@@ -12,13 +12,13 @@ public class RollingAverage {
 
     public RollingAverage(int size) {
         this.size = size;
-        this.time = size * PotionServer.SEC_IN_NANO;
-        this.total = PotionServer.TPS * PotionServer.SEC_IN_NANO * size;
+        this.time = size * MinecraftServer.SEC_IN_NANO;
+        this.total = MinecraftServer.TPS * MinecraftServer.SEC_IN_NANO * size;
         this.samples = new double[size];
         this.times = new long[size];
         for (int i = 0; i < size; i++) {
-            this.samples[i] = PotionServer.TPS;
-            this.times[i] = PotionServer.SEC_IN_NANO;
+            this.samples[i] = MinecraftServer.TPS;
+            this.times[i] = MinecraftServer.SEC_IN_NANO;
         }
     }
 

@@ -1,0 +1,55 @@
+package net.minecraft.client.gui;
+
+import org.lwjgl.opengl.GL11;
+
+public class GuiGameOver extends GuiScreen {
+    @Override
+    public void initGui() {
+        this.buttons.clear();
+        this.buttons.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 72, "Respawn"));
+        this.buttons.add(new GuiButton(2, this.width / 2 - 100, this.height / 4 + 96, "Title menu"));
+        if (this.client.session == null) {
+            this.buttons.get(1).enabled = false;
+        }
+
+    }
+
+    @Override
+    public void charTyped(char ch, int key) {
+    }
+
+    @Override
+    public void keyTyped(int keycode, int scancode, int action, int mods) {
+    }
+
+    @Override
+    protected void actionPerformed(GuiButton button) {
+
+        if (button.id == 1) {
+            this.client.thePlayer.respawnPlayer();
+            this.client.displayGuiScreen(null);
+        }
+
+        if (button.id == 2) {
+            this.client.changeWorld(null);
+            this.client.displayGuiScreen(new GuiMainMenu());
+        }
+
+    }
+
+    @Override
+    public void drawScreen(int var1, int var2, float partialTicks) {
+        this.drawGradientRect(0, 0, this.width, this.height, 1615855616, -1602211792);
+        GL11.glPushMatrix();
+        GL11.glScalef(2.0F, 2.0F, 2.0F);
+        this.drawCenteredString(this.fontRenderer, "Game over!", this.width / 2 / 2, 30, 16777215);
+        GL11.glPopMatrix();
+        this.drawCenteredString(this.fontRenderer, "Score: &e" + this.client.thePlayer.getScore(), this.width / 2, 100, 16777215);
+        super.drawScreen(var1, var2, partialTicks);
+    }
+
+    @Override
+    public boolean doesGuiPauseGame() {
+        return false;
+    }
+}

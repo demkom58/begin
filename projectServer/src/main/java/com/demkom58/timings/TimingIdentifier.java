@@ -18,7 +18,7 @@ final class TimingIdentifier {
     static final Map<String, TimingGroup> GROUP_MAP = MRUMapCache.of(
         LoadingMap.newIdentityHashMap(TimingGroup::new, 64)
     );
-    static final TimingGroup DEFAULT_GROUP = getGroup("Potion");
+    static final TimingGroup DEFAULT_GROUP = getGroup("Minecraft");
     final String group;
     final String name;
     final TimingHandler groupHandler;

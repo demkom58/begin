@@ -1,6 +1,6 @@
 package net.hypnosis.render;
 
-import net.potion.client.render.GLAllocation;
+import net.minecraft.client.render.GLAllocation;
 import org.lwjgl.opengl.ARBVertexBufferObject;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;

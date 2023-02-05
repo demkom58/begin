@@ -1,6 +1,6 @@
 package com.demkom58.timings;
 
-import net.potion.world.World;
+import net.minecraft.world.World;
 
 /**
  * Set of timers per world, to track world specific timings.

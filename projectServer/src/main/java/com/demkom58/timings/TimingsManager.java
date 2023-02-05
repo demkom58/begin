@@ -2,7 +2,7 @@ package com.demkom58.timings;
 
 import co.aikar.util.LoadingMap;
 import com.google.common.collect.EvictingQueue;
-import net.potion.server.PotionServer;
+import net.minecraft.server.MinecraftServer;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -55,7 +55,7 @@ public final class TimingsManager {
                 handler.processTick(violated);
             }
 
-            TimingHistory.playerTicks += PotionServer.SERVER.configManager.playerEntities.size();
+            TimingHistory.playerTicks += MinecraftServer.SERVER.configManager.playerEntities.size();
             TimingHistory.timedTicks++;
             // Generate TPS/Ping/Tick reports every minute
         }
@@ -84,7 +84,7 @@ public final class TimingsManager {
                     timings.reset(true);
                 }
             }
-            PotionServer.LOGGER.log(Level.INFO, "Timings Reset");
+            MinecraftServer.LOGGER.log(Level.INFO, "Timings Reset");
             HISTORY.clear();
             needsFullReset = false;
             needsRecheckEnabled = false;

@@ -1,7 +1,7 @@
 package com.demkom58.timings;
 
 /**
- * Provides an ability to time sections of code within the Potion Server
+ * Provides an ability to time sections of code within the Minecraft Server
  */
 public interface Timing extends AutoCloseable {
     /**

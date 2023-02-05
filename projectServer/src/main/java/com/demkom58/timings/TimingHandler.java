@@ -2,7 +2,7 @@ package com.demkom58.timings;
 
 import co.aikar.util.LoadingIntMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.potion.server.PotionServer;
+import net.minecraft.server.MinecraftServer;
 
 import java.util.logging.Level;
 
@@ -61,7 +61,7 @@ class TimingHandler implements Timing {
 
     @Override
     public Timing startTimingIfSync() {
-        if (PotionServer.SERVER.isPrimaryThread()) {
+        if (MinecraftServer.SERVER.isPrimaryThread()) {
             startTiming();
         }
         return this;
@@ -69,7 +69,7 @@ class TimingHandler implements Timing {
 
     @Override
     public void stopTimingIfSync() {
-        if (PotionServer.SERVER.isPrimaryThread()) {
+        if (MinecraftServer.SERVER.isPrimaryThread()) {
             stopTiming();
         }
     }
@@ -87,8 +87,8 @@ class TimingHandler implements Timing {
     @Override
     public void stopTiming() {
         if (enabled && --timingDepth == 0 && start != 0) {
-            if (!PotionServer.SERVER.isPrimaryThread()) {
-                PotionServer.LOGGER.log(Level.SEVERE, "stopTiming called async for " + name);
+            if (!MinecraftServer.SERVER.isPrimaryThread()) {
+                MinecraftServer.LOGGER.log(Level.SEVERE, "stopTiming called async for " + name);
                 new Throwable().printStackTrace();
                 start = 0;
                 return;
