@@ -1,4 +1,5 @@
 apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 application.mainClassName = "net.minecraft.server.MinecraftServer"
 
