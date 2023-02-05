@@ -6,6 +6,7 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
+import java.awt.*;
 import java.nio.*;
 
 public class Tessellator {
@@ -278,6 +279,10 @@ public class Tessellator {
 
     public void setColorOpaque(int r, int g, int b) {
         this.setColorRGBA(r, g, b, 255);
+    }
+
+    public void setColorOpaque(Color color) {
+        this.setColorRGBA(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
     }
 
     public void setColorRGBA(int r, int g, int b, int a) {

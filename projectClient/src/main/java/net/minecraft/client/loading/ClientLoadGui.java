@@ -10,6 +10,8 @@ import net.minecraft.client.render.RenderEngine;
 import net.minecraft.client.render.ScaledResolution;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
+
 public class ClientLoadGui extends Gui {
     private final MinecraftClient client;
     private final Window window;
@@ -67,14 +69,14 @@ public class ClientLoadGui extends Gui {
         drawString(fontRenderer, percent,
                 (res.getScaledWidth() - fontRenderer.getStringWidth(percent)) / 2,
                 res.getScaledHeight() - 45,
-                0x323E96
+                0xF6883E
         );
 
         final String title = loadingModel.getTitle();
         drawString(fontRenderer, title,
                 (res.getScaledWidth() - fontRenderer.getStringWidth(title)) / 2,
                 res.getScaledHeight() - 30,
-                0x323E96
+                0xF6883E
         );
     }
 
@@ -86,13 +88,17 @@ public class ClientLoadGui extends Gui {
         final int x = (int) ((res.getScaledWidth() - width) / 2),
                 y = (int) ((res.getScaledHeight() - height) / 2);
 
+        double w = res.getScaledWidth();
+        double h = res.getScaledHeight();
+
         Tessellator tess = Tessellator.INSTANCE;
         tess.setColorOpaque_I(0xFFFFFF);
         tess.startDrawingQuads();
-        tess.addVertexWithUV(x, y + height, 0.0D, 0, 1);
-        tess.addVertexWithUV(x + width, y + height, 0.0D, 1, 1);
-        tess.addVertexWithUV(x + width, y, 0.0D, 1, 0);
-        tess.addVertexWithUV(x, y, 0.0D, 0, 0);
+
+        tess.addVertexWithUV(0, h, 0, 0, 1);
+        tess.addVertexWithUV(w, h, 0, 1, 1);
+        tess.addVertexWithUV(w, 0, 0, 1, 0);
+        tess.addVertexWithUV(0, 0, 0, 0, 0);
 
         tess.draw();
     }
@@ -105,7 +111,7 @@ public class ClientLoadGui extends Gui {
 
         final Tessellator tess = Tessellator.INSTANCE;
         tess.startDrawingQuads();
-        tess.setColorOpaque(36, 42, 87);
+        tess.setColorOpaque(246, 136, 62);
         tess.addVertex(x, y, 0);
         tess.addVertex(x + progressWidth, y, 0);
         tess.addVertex(x + progressWidth, y + height, 0);

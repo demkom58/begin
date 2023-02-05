@@ -172,7 +172,7 @@ public final class MinecraftClient implements Runnable {
     public void startGame() {
         OpenGL.init(Api.OPENGL, ContextApi.NATIVE, Profile.COMPAT, 3, 3, false);
         this.window = Window.builder()
-                .title("Minecraft [Re 1.7.3b]")
+                .title("Minecraft [" + MinecraftClient.VERSION + "]")
                 .width(displayWidthArg)
                 .height(displayHeightArg)
                 .fullscreen(fullscreenArg)
