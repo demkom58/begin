@@ -1,6 +1,5 @@
 package net.minecraft.server;
 
-import com.demkom58.timings.TimingsCommand;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,14 +8,12 @@ import net.minecraft.world.WorldServer;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Set;
 import java.util.logging.Logger;
 
 public class ConsoleCommandHandler {
     private static Logger logger = Logger.getLogger("Minecraft");
-    private final TimingsCommand timingsCommand = new TimingsCommand();
     private final DecimalFormat format;
     private final MinecraftServer server;
 
@@ -36,10 +33,7 @@ public class ConsoleCommandHandler {
         final String cmd = commandName.toLowerCase();
 
         if (!cmd.startsWith("help") && !cmd.startsWith("?")) {
-            if (cmd.startsWith(timingsCommand.name)) {
-                final String[] s = commandName.split(" ");
-                timingsCommand.execute(Arrays.copyOfRange(s, 1, s.length));
-            } else if (cmd.startsWith("tps")) {
+            if (cmd.startsWith("tps")) {
                 String tps1 = format.format(server.tps1.getAverage());
                 String tps5 = format.format(server.tps5.getAverage());
                 String tps15 = format.format(server.tps15.getAverage());
