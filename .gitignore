@@ -79,6 +79,7 @@ jars/world/
 jars/stats/
 jars/*.txt
 jars/server.log
+jars/server.log.lck
 !jars/bin/
 .dec/
 
