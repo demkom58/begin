@@ -1,8 +1,5 @@
 package net.hypnosis.util.block;
 
-
-import com.google.common.base.MoreObjects;
-
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Optional;
@@ -189,8 +186,16 @@ public class BlockBox {
         consumer.accept(m.set(this.minX, this.minY, this.minZ));
     }
 
+    @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("minX", this.minX).add("minY", this.minY).add("minZ", this.minZ).add("maxX", this.maxX).add("maxY", this.maxY).add("maxZ", this.maxZ).toString();
+        return "BlockBox{" +
+               "minX=" + minX +
+               ", minY=" + minY +
+               ", minZ=" + minZ +
+               ", maxX=" + maxX +
+               ", maxY=" + maxY +
+               ", maxZ=" + maxZ +
+               '}';
     }
 
     public boolean equals(Object o) {

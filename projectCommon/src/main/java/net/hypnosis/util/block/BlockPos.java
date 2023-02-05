@@ -1,8 +1,6 @@
 package net.hypnosis.util.block;
 
-
-import com.google.common.collect.AbstractIterator;
-import net.hypnosis.util.Validate;
+import net.hypnosis.util.AbstractIterator;
 import net.hypnosis.util.math.*;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -374,7 +372,10 @@ public class BlockPos extends Vec3i {
     }
 
     public static Iterable<BlockPos.Mutable> iterateInSquare(BlockPos center, int radius, Direction firstDirection, Direction secondDirection) {
-        Validate.validateState(firstDirection.getAxis() != secondDirection.getAxis(), "The two directions cannot be on the same axis");
+        if (firstDirection.getAxis() == secondDirection.getAxis()) {
+            throw new IllegalArgumentException("The two directions cannot be on the same axis");
+        }
+
         return () -> new AbstractIterator<>() {
             private final Direction[] directions = new Direction[]{firstDirection, secondDirection, firstDirection.getOpposite(), secondDirection.getOpposite()};
             private final Mutable pos = center.mutableCopy().move(secondDirection);

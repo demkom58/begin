@@ -1,7 +1,5 @@
 package net.hypnosis.util.math;
 
-import com.google.common.base.MoreObjects;
-
 public class Vec3b {
     public static final Vec3b ZERO = new Vec3b(0, 0, 0);
     private byte x;
@@ -206,8 +204,13 @@ public class Vec3b {
         return axis.choose(this.x, this.y, this.z);
     }
 
+    @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("x", this.getX()).add("y", this.getY()).add("z", this.getZ()).toString();
+        return "Vec3b{" +
+               "x=" + x +
+               ", y=" + y +
+               ", z=" + z +
+               '}';
     }
 
     public String toShortString() {

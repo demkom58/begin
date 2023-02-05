@@ -1,13 +1,10 @@
 package net.hypnosis.util.math;
 
-
-import com.google.common.collect.Lists;
-
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GravityField {
-    private final List<Point> points = Lists.newArrayList();
+    private final List<Point> points = new ArrayList<>();
 
     public GravityField() {
     }
@@ -35,7 +32,7 @@ public class GravityField {
 
         public double getGravityFactor(Vec3i pos) {
             double d = this.pos.getSquaredDistance(pos);
-            return d == 0.0D ? 1.0D / 0.0 : this.mass / Math.sqrt(d);
+            return d == 0.0D ? Double.POSITIVE_INFINITY : this.mass / Math.sqrt(d);
         }
     }
 }

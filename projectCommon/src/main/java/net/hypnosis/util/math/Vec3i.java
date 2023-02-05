@@ -1,7 +1,5 @@
 package net.hypnosis.util.math;
 
-import com.google.common.base.MoreObjects;
-
 import static net.hypnosis.util.math.Direction.*;
 
 public class Vec3i {
@@ -212,8 +210,13 @@ public class Vec3i {
         return axis.choose(this.x, this.y, this.z);
     }
 
+    @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("x", this.getX()).add("y", this.getY()).add("z", this.getZ()).toString();
+        return "Vec3i{" +
+               "x=" + x +
+               ", y=" + y +
+               ", z=" + z +
+               '}';
     }
 
     public String toShortString() {

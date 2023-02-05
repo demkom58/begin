@@ -1,12 +1,10 @@
 package net.hypnosis.util.math;
 
-import com.google.common.collect.Iterators;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.hypnosis.entity.Rotatable;
 import net.hypnosis.util.block.BlockPos;
 import net.hypnosis.util.Collects;
-import net.hypnosis.util.Result;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -320,10 +318,8 @@ public enum Direction {
         return this.name;
     }
 
-    private static Result<Direction> validateVertical(Direction direction) {
-        return direction.getAxis().isVertical()
-                ? Result.success(direction)
-                : Result.error("Expected a vertical direction");
+    private static boolean isVertical(Direction direction) {
+        return direction.getAxis().isVertical();
     }
 
     public static Direction get(Direction.AxisDirection direction, Direction.Axis axis) {
@@ -494,7 +490,7 @@ public enum Direction {
 
         @Override
         public @NotNull Iterator<Direction> iterator() {
-            return Iterators.forArray(this.facingArray);
+            return Arrays.stream(this.facingArray).iterator();
         }
 
         public Stream<Direction> stream() {

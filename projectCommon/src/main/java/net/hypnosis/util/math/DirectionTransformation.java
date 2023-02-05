@@ -1,11 +1,10 @@
 package net.hypnosis.util.math;
 
-
-import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.booleans.BooleanArrayList;
 import it.unimi.dsi.fastutil.booleans.BooleanList;
 
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -135,7 +134,7 @@ public enum DirectionTransformation {
 
     public Direction map(Direction direction) {
         if (this.mappings == null) {
-            this.mappings = Maps.newEnumMap(Direction.class);
+            this.mappings = new EnumMap<>(Direction.class);
 
             Direction[] values = Direction.values();
             for (int i = 0; i < values.length; ++i) {

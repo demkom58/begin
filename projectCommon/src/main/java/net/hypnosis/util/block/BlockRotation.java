@@ -1,11 +1,6 @@
 package net.hypnosis.util.block;
 
-
-import com.google.common.collect.Lists;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import net.hypnosis.util.Collects;
 import net.hypnosis.util.math.Direction;
@@ -80,7 +75,7 @@ public enum BlockRotation {
     }
 
     public static List<BlockRotation> randomRotationOrder(Random random) {
-        List<BlockRotation> list = Lists.newArrayList(values());
+        List<BlockRotation> list = Arrays.asList(values());
         Collections.shuffle(list, random);
         return list;
     }
