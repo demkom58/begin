@@ -443,7 +443,7 @@ public class EntityRenderer {
                 GL11.glLoadIdentity();
                 GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
                 GL11.glLoadIdentity();
-                this.func_905_b();
+                this.updateView();
                 if (this.client.gameSettings.limitFramerate == 2) {
                     long var18 = (this.field_28133_I + (long) (1000000000 / var7) - System.nanoTime()) / 1000000L;
                     if (var18 < 0L) {
@@ -813,13 +813,14 @@ public class EntityRenderer {
 
     }
 
-    public void func_905_b() {
+    public void updateView() {
         final Window window = this.client.window;
-        ScaledResolution var1 = new ScaledResolution(this.client.gameSettings, window.getWidth(), window.getHeight());
+        ScaledResolution res = new ScaledResolution(this.client.gameSettings, window.getWidth(), window.getHeight());
+
         GL11.glClear(256);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GL11.glOrtho(0.0D, var1.width, var1.height, 0.0D, 1000.0D, 3000.0D);
+        GL11.glOrtho(0.0D, res.width, res.height, 0.0D, 1000.0D, 3000.0D);
         GL11.glMatrixMode(ARBVertexBlend.GL_MODELVIEW0_ARB);
         GL11.glLoadIdentity();
         GL11.glTranslatef(0.0F, 0.0F, -2000.0F);

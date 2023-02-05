@@ -42,11 +42,11 @@ public class GameSettings {
     public boolean thirdPersonView;
     public boolean showDebugInfo;
     public String lastServer;
-    public boolean field_22275_C;
+    public boolean noclip;
     public boolean smoothCamera;
     public boolean debugCamEnable;
-    public float field_22272_F;
-    public float field_22271_G;
+    public float noclipRate;
+    public float debugCamRate;
     public int guiScale;
     protected MinecraftClient client;
     private File optionsFile;
@@ -70,11 +70,11 @@ public class GameSettings {
         this.thirdPersonView = false;
         this.showDebugInfo = false;
         this.lastServer = "";
-        this.field_22275_C = false;
+        this.noclip = false;
         this.smoothCamera = false;
         this.debugCamEnable = false;
-        this.field_22272_F = 1.0F;
-        this.field_22271_G = 1.0F;
+        this.noclipRate = 1.0F;
+        this.debugCamRate = 1.0F;
         this.guiScale = 0;
         this.client = client;
         this.optionsFile = new File(settingsRoot, "options.txt");
@@ -100,11 +100,11 @@ public class GameSettings {
         this.thirdPersonView = false;
         this.showDebugInfo = false;
         this.lastServer = "";
-        this.field_22275_C = false;
+        this.noclip = false;
         this.smoothCamera = false;
         this.debugCamEnable = false;
-        this.field_22272_F = 1.0F;
-        this.field_22271_G = 1.0F;
+        this.noclipRate = 1.0F;
+        this.debugCamRate = 1.0F;
         this.guiScale = 0;
     }
 

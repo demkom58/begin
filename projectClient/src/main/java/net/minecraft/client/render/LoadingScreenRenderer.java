@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 public class LoadingScreenRenderer implements IProgressUpdatable {
     private String field_1004_a = "";
     private MinecraftClient client;
-    private String field_1007_c = "";
+    private String currentlyDisplayedText = "";
     private long field_1006_d = System.currentTimeMillis();
     private boolean field_1005_e = false;
 
@@ -27,7 +27,7 @@ public class LoadingScreenRenderer implements IProgressUpdatable {
     @Override
     public void display(String var1) {
         this.field_1005_e = true;
-        this.func_597_c(this.field_1007_c);
+        this.func_597_c(this.currentlyDisplayedText);
     }
 
     public void func_597_c(String var1) {
@@ -38,7 +38,7 @@ public class LoadingScreenRenderer implements IProgressUpdatable {
             return;
         }
 
-        this.field_1007_c = var1;
+        this.currentlyDisplayedText = var1;
         final Window window = this.client.window;
         ScaledResolution res = new ScaledResolution(this.client.gameSettings, window.getWidth(), window.getHeight());
         GL11.glClear(256);
@@ -123,7 +123,7 @@ public class LoadingScreenRenderer implements IProgressUpdatable {
                 GL11.glEnable(GL11.GL_TEXTURE_2D);
             }
 
-            this.client.fontRenderer.drawStringWithShadow(this.field_1007_c, (width - this.client.fontRenderer.getStringWidth(this.field_1007_c)) / 2, height / 2 - 4 - 16, 16777215);
+            this.client.fontRenderer.drawStringWithShadow(this.currentlyDisplayedText, (width - this.client.fontRenderer.getStringWidth(this.currentlyDisplayedText)) / 2, height / 2 - 4 - 16, 16777215);
             this.client.fontRenderer.drawStringWithShadow(this.field_1004_a, (width - this.client.fontRenderer.getStringWidth(this.field_1004_a)) / 2, height / 2 - 4 + 8, 16777215);
             client.window.update();
 

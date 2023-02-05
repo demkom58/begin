@@ -33,27 +33,27 @@ public class RenderBlocks {
     private float aoLightValueXPos;
     private float aoLightValueYPos;
     private float aoLightValueZPos;
-    private float field_22377_m;
-    private float field_22376_n;
-    private float field_22375_o;
-    private float field_22374_p;
-    private float field_22373_q;
-    private float field_22372_r;
-    private float field_22371_s;
-    private float field_22370_t;
-    private float field_22369_u;
-    private float field_22368_v;
-    private float field_22367_w;
-    private float field_22366_x;
-    private float field_22365_y;
-    private float field_22364_z;
-    private float field_22362_A;
-    private float field_22360_B;
-    private float field_22358_C;
-    private float field_22356_D;
-    private float field_22354_E;
-    private float field_22353_F;
-    private int field_22352_G = 1;
+    private float aoLightValueScratchXYZNNN;
+    private float aoLightValueScratchXYNN;
+    private float aoLightValueScratchXYZNNP;
+    private float aoLightValueScratchYZNN;
+    private float aoLightValueScratchYZNP;
+    private float aoLightValueScratchXYZPNN;
+    private float aoLightValueScratchXYPN;
+    private float aoLightValueScratchXYZPNP;
+    private float aoLightValueScratchXYZNPN;
+    private float aoLightValueScratchXYNP;
+    private float aoLightValueScratchXYZNPP;
+    private float aoLightValueScratchYZPN;
+    private float aoLightValueScratchXYZPPN;
+    private float aoLightValueScratchXYPP;
+    private float aoLightValueScratchYZPP;
+    private float aoLightValueScratchXYZPPP;
+    private float aoLightValueScratchXZNN;
+    private float aoLightValueScratchXZPN;
+    private float aoLightValueScratchXZNP;
+    private float aoLightValueScratchXZPP;
+    private int aoType = 1;
     private float colorRedTopLeft;
     private float colorRedBottomLeft;
     private float colorRedBottomRight;
@@ -1802,46 +1802,46 @@ public class RenderBlocks {
         }
 
         if (this.renderAllFaces || block.shouldSideBeRendered(world, x, y - 1, z, 0)) {
-            if (this.field_22352_G <= 0) {
+            if (this.aoType <= 0) {
                 topRightMul = this.aoLightValueYNeg;
                 botRightMul = this.aoLightValueYNeg;
                 botLeftMul = this.aoLightValueYNeg;
                 topLeftMul = this.aoLightValueYNeg;
             } else {
                 --y;
-                this.field_22376_n = block.getBlockBrightness(world, x - 1, y, z);
-                this.field_22374_p = block.getBlockBrightness(world, x, y, z - 1);
-                this.field_22373_q = block.getBlockBrightness(world, x, y, z + 1);
-                this.field_22371_s = block.getBlockBrightness(world, x + 1, y, z);
+                this.aoLightValueScratchXYNN = block.getBlockBrightness(world, x - 1, y, z);
+                this.aoLightValueScratchYZNN = block.getBlockBrightness(world, x, y, z - 1);
+                this.aoLightValueScratchYZNP = block.getBlockBrightness(world, x, y, z + 1);
+                this.aoLightValueScratchXYPN = block.getBlockBrightness(world, x + 1, y, z);
                 if (!canGrassYmZm && !canGrassXmYm) {
-                    this.field_22377_m = this.field_22376_n;
+                    this.aoLightValueScratchXYZNNN = this.aoLightValueScratchXYNN;
                 } else {
-                    this.field_22377_m = block.getBlockBrightness(world, x - 1, y, z - 1);
+                    this.aoLightValueScratchXYZNNN = block.getBlockBrightness(world, x - 1, y, z - 1);
                 }
 
                 if (!canGrassYmZp && !canGrassXmYm) {
-                    this.field_22375_o = this.field_22376_n;
+                    this.aoLightValueScratchXYZNNP = this.aoLightValueScratchXYNN;
                 } else {
-                    this.field_22375_o = block.getBlockBrightness(world, x - 1, y, z + 1);
+                    this.aoLightValueScratchXYZNNP = block.getBlockBrightness(world, x - 1, y, z + 1);
                 }
 
                 if (!canGrassYmZm && !canGrassXpYm) {
-                    this.field_22372_r = this.field_22371_s;
+                    this.aoLightValueScratchXYZPNN = this.aoLightValueScratchXYPN;
                 } else {
-                    this.field_22372_r = block.getBlockBrightness(world, x + 1, y, z - 1);
+                    this.aoLightValueScratchXYZPNN = block.getBlockBrightness(world, x + 1, y, z - 1);
                 }
 
                 if (!canGrassYmZp && !canGrassXpYm) {
-                    this.field_22370_t = this.field_22371_s;
+                    this.aoLightValueScratchXYZPNP = this.aoLightValueScratchXYPN;
                 } else {
-                    this.field_22370_t = block.getBlockBrightness(world, x + 1, y, z + 1);
+                    this.aoLightValueScratchXYZPNP = block.getBlockBrightness(world, x + 1, y, z + 1);
                 }
 
                 ++y;
-                topLeftMul = (this.field_22375_o + this.field_22376_n + this.field_22373_q + this.aoLightValueYNeg) / 4.0F;
-                topRightMul = (this.field_22373_q + this.aoLightValueYNeg + this.field_22370_t + this.field_22371_s) / 4.0F;
-                botRightMul = (this.aoLightValueYNeg + this.field_22374_p + this.field_22371_s + this.field_22372_r) / 4.0F;
-                botLeftMul = (this.field_22376_n + this.field_22377_m + this.aoLightValueYNeg + this.field_22374_p) / 4.0F;
+                topLeftMul = (this.aoLightValueScratchXYZNNP + this.aoLightValueScratchXYNN + this.aoLightValueScratchYZNP + this.aoLightValueYNeg) / 4.0F;
+                topRightMul = (this.aoLightValueScratchYZNP + this.aoLightValueYNeg + this.aoLightValueScratchXYZPNP + this.aoLightValueScratchXYPN) / 4.0F;
+                botRightMul = (this.aoLightValueYNeg + this.aoLightValueScratchYZNN + this.aoLightValueScratchXYPN + this.aoLightValueScratchXYZPNN) / 4.0F;
+                botLeftMul = (this.aoLightValueScratchXYNN + this.aoLightValueScratchXYZNNN + this.aoLightValueYNeg + this.aoLightValueScratchYZNN) / 4.0F;
             }
 
             this.colorRedTopLeft = this.colorRedBottomLeft = this.colorRedBottomRight = this.colorRedTopRight = (var13 ? r : 1.0F) * 0.5F;
@@ -1868,46 +1868,46 @@ public class RenderBlocks {
         }
 
         if (this.renderAllFaces || block.shouldSideBeRendered(world, x, y + 1, z, 1)) {
-            if (this.field_22352_G <= 0) {
+            if (this.aoType <= 0) {
                 topRightMul = this.aoLightValueYPos;
                 botRightMul = this.aoLightValueYPos;
                 botLeftMul = this.aoLightValueYPos;
                 topLeftMul = this.aoLightValueYPos;
             } else {
                 ++y;
-                this.field_22368_v = block.getBlockBrightness(world, x - 1, y, z);
-                this.field_22364_z = block.getBlockBrightness(world, x + 1, y, z);
-                this.field_22366_x = block.getBlockBrightness(world, x, y, z - 1);
-                this.field_22362_A = block.getBlockBrightness(world, x, y, z + 1);
+                this.aoLightValueScratchXYNP = block.getBlockBrightness(world, x - 1, y, z);
+                this.aoLightValueScratchXYPP = block.getBlockBrightness(world, x + 1, y, z);
+                this.aoLightValueScratchYZPN = block.getBlockBrightness(world, x, y, z - 1);
+                this.aoLightValueScratchYZPP = block.getBlockBrightness(world, x, y, z + 1);
                 if (!canGrassYpZm && !canGrassXmYp) {
-                    this.field_22369_u = this.field_22368_v;
+                    this.aoLightValueScratchXYZNPN = this.aoLightValueScratchXYNP;
                 } else {
-                    this.field_22369_u = block.getBlockBrightness(world, x - 1, y, z - 1);
+                    this.aoLightValueScratchXYZNPN = block.getBlockBrightness(world, x - 1, y, z - 1);
                 }
 
                 if (!canGrassYpZm && !canGrassXpYp) {
-                    this.field_22365_y = this.field_22364_z;
+                    this.aoLightValueScratchXYZPPN = this.aoLightValueScratchXYPP;
                 } else {
-                    this.field_22365_y = block.getBlockBrightness(world, x + 1, y, z - 1);
+                    this.aoLightValueScratchXYZPPN = block.getBlockBrightness(world, x + 1, y, z - 1);
                 }
 
                 if (!canGrassYpZp && !canGrassXmYp) {
-                    this.field_22367_w = this.field_22368_v;
+                    this.aoLightValueScratchXYZNPP = this.aoLightValueScratchXYNP;
                 } else {
-                    this.field_22367_w = block.getBlockBrightness(world, x - 1, y, z + 1);
+                    this.aoLightValueScratchXYZNPP = block.getBlockBrightness(world, x - 1, y, z + 1);
                 }
 
                 if (!canGrassYpZp && !canGrassXpYp) {
-                    this.field_22360_B = this.field_22364_z;
+                    this.aoLightValueScratchXYZPPP = this.aoLightValueScratchXYPP;
                 } else {
-                    this.field_22360_B = block.getBlockBrightness(world, x + 1, y, z + 1);
+                    this.aoLightValueScratchXYZPPP = block.getBlockBrightness(world, x + 1, y, z + 1);
                 }
 
                 --y;
-                topRightMul = (this.field_22367_w + this.field_22368_v + this.field_22362_A + this.aoLightValueYPos) / 4.0F;
-                topLeftMul = (this.field_22362_A + this.aoLightValueYPos + this.field_22360_B + this.field_22364_z) / 4.0F;
-                botLeftMul = (this.aoLightValueYPos + this.field_22366_x + this.field_22364_z + this.field_22365_y) / 4.0F;
-                botRightMul = (this.field_22368_v + this.field_22369_u + this.aoLightValueYPos + this.field_22366_x) / 4.0F;
+                topRightMul = (this.aoLightValueScratchXYZNPP + this.aoLightValueScratchXYNP + this.aoLightValueScratchYZPP + this.aoLightValueYPos) / 4.0F;
+                topLeftMul = (this.aoLightValueScratchYZPP + this.aoLightValueYPos + this.aoLightValueScratchXYZPPP + this.aoLightValueScratchXYPP) / 4.0F;
+                botLeftMul = (this.aoLightValueYPos + this.aoLightValueScratchYZPN + this.aoLightValueScratchXYPP + this.aoLightValueScratchXYZPPN) / 4.0F;
+                botRightMul = (this.aoLightValueScratchXYNP + this.aoLightValueScratchXYZNPN + this.aoLightValueYPos + this.aoLightValueScratchYZPN) / 4.0F;
             }
 
             this.colorRedTopLeft = this.colorRedBottomLeft = this.colorRedBottomRight = this.colorRedTopRight = var14 ? r : 1.0F;
@@ -1934,46 +1934,46 @@ public class RenderBlocks {
         }
 
         if (this.renderAllFaces || block.shouldSideBeRendered(world, x, y, z - 1, 2)) {
-            if (this.field_22352_G <= 0) {
+            if (this.aoType <= 0) {
                 topRightMul = this.aoLightValueZNeg;
                 botRightMul = this.aoLightValueZNeg;
                 botLeftMul = this.aoLightValueZNeg;
                 topLeftMul = this.aoLightValueZNeg;
             } else {
                 --z;
-                this.field_22358_C = block.getBlockBrightness(world, x - 1, y, z);
-                this.field_22374_p = block.getBlockBrightness(world, x, y - 1, z);
-                this.field_22366_x = block.getBlockBrightness(world, x, y + 1, z);
-                this.field_22356_D = block.getBlockBrightness(world, x + 1, y, z);
+                this.aoLightValueScratchXZNN = block.getBlockBrightness(world, x - 1, y, z);
+                this.aoLightValueScratchYZNN = block.getBlockBrightness(world, x, y - 1, z);
+                this.aoLightValueScratchYZPN = block.getBlockBrightness(world, x, y + 1, z);
+                this.aoLightValueScratchXZPN = block.getBlockBrightness(world, x + 1, y, z);
                 if (!canGrassXmZm && !canGrassYmZm) {
-                    this.field_22377_m = this.field_22358_C;
+                    this.aoLightValueScratchXYZNNN = this.aoLightValueScratchXZNN;
                 } else {
-                    this.field_22377_m = block.getBlockBrightness(world, x - 1, y - 1, z);
+                    this.aoLightValueScratchXYZNNN = block.getBlockBrightness(world, x - 1, y - 1, z);
                 }
 
                 if (!canGrassXmZm && !canGrassYpZm) {
-                    this.field_22369_u = this.field_22358_C;
+                    this.aoLightValueScratchXYZNPN = this.aoLightValueScratchXZNN;
                 } else {
-                    this.field_22369_u = block.getBlockBrightness(world, x - 1, y + 1, z);
+                    this.aoLightValueScratchXYZNPN = block.getBlockBrightness(world, x - 1, y + 1, z);
                 }
 
                 if (!canGrassXpZm && !canGrassYmZm) {
-                    this.field_22372_r = this.field_22356_D;
+                    this.aoLightValueScratchXYZPNN = this.aoLightValueScratchXZPN;
                 } else {
-                    this.field_22372_r = block.getBlockBrightness(world, x + 1, y - 1, z);
+                    this.aoLightValueScratchXYZPNN = block.getBlockBrightness(world, x + 1, y - 1, z);
                 }
 
                 if (!canGrassXpZm && !canGrassYpZm) {
-                    this.field_22365_y = this.field_22356_D;
+                    this.aoLightValueScratchXYZPPN = this.aoLightValueScratchXZPN;
                 } else {
-                    this.field_22365_y = block.getBlockBrightness(world, x + 1, y + 1, z);
+                    this.aoLightValueScratchXYZPPN = block.getBlockBrightness(world, x + 1, y + 1, z);
                 }
 
                 ++z;
-                topLeftMul = (this.field_22358_C + this.field_22369_u + this.aoLightValueZNeg + this.field_22366_x) / 4.0F;
-                botLeftMul = (this.aoLightValueZNeg + this.field_22366_x + this.field_22356_D + this.field_22365_y) / 4.0F;
-                botRightMul = (this.field_22374_p + this.aoLightValueZNeg + this.field_22372_r + this.field_22356_D) / 4.0F;
-                topRightMul = (this.field_22377_m + this.field_22358_C + this.field_22374_p + this.aoLightValueZNeg) / 4.0F;
+                topLeftMul = (this.aoLightValueScratchXZNN + this.aoLightValueScratchXYZNPN + this.aoLightValueZNeg + this.aoLightValueScratchYZPN) / 4.0F;
+                botLeftMul = (this.aoLightValueZNeg + this.aoLightValueScratchYZPN + this.aoLightValueScratchXZPN + this.aoLightValueScratchXYZPPN) / 4.0F;
+                botRightMul = (this.aoLightValueScratchYZNN + this.aoLightValueZNeg + this.aoLightValueScratchXYZPNN + this.aoLightValueScratchXZPN) / 4.0F;
+                topRightMul = (this.aoLightValueScratchXYZNNN + this.aoLightValueScratchXZNN + this.aoLightValueScratchYZNN + this.aoLightValueZNeg) / 4.0F;
             }
 
             this.colorRedTopLeft = this.colorRedBottomLeft = this.colorRedBottomRight = this.colorRedTopRight = (var15 ? r : 1.0F) * 0.8F;
@@ -2019,46 +2019,46 @@ public class RenderBlocks {
         }
 
         if (this.renderAllFaces || block.shouldSideBeRendered(world, x, y, z + 1, 3)) {
-            if (this.field_22352_G <= 0) {
+            if (this.aoType <= 0) {
                 topRightMul = this.aoLightValueZPos;
                 botRightMul = this.aoLightValueZPos;
                 botLeftMul = this.aoLightValueZPos;
                 topLeftMul = this.aoLightValueZPos;
             } else {
                 ++z;
-                this.field_22354_E = block.getBlockBrightness(world, x - 1, y, z);
-                this.field_22353_F = block.getBlockBrightness(world, x + 1, y, z);
-                this.field_22373_q = block.getBlockBrightness(world, x, y - 1, z);
-                this.field_22362_A = block.getBlockBrightness(world, x, y + 1, z);
+                this.aoLightValueScratchXZNP = block.getBlockBrightness(world, x - 1, y, z);
+                this.aoLightValueScratchXZPP = block.getBlockBrightness(world, x + 1, y, z);
+                this.aoLightValueScratchYZNP = block.getBlockBrightness(world, x, y - 1, z);
+                this.aoLightValueScratchYZPP = block.getBlockBrightness(world, x, y + 1, z);
                 if (!canGrassXmZp && !canGrassYmZp) {
-                    this.field_22375_o = this.field_22354_E;
+                    this.aoLightValueScratchXYZNNP = this.aoLightValueScratchXZNP;
                 } else {
-                    this.field_22375_o = block.getBlockBrightness(world, x - 1, y - 1, z);
+                    this.aoLightValueScratchXYZNNP = block.getBlockBrightness(world, x - 1, y - 1, z);
                 }
 
                 if (!canGrassXmZp && !canGrassYpZp) {
-                    this.field_22367_w = this.field_22354_E;
+                    this.aoLightValueScratchXYZNPP = this.aoLightValueScratchXZNP;
                 } else {
-                    this.field_22367_w = block.getBlockBrightness(world, x - 1, y + 1, z);
+                    this.aoLightValueScratchXYZNPP = block.getBlockBrightness(world, x - 1, y + 1, z);
                 }
 
                 if (!canGrassXpZp && !canGrassYmZp) {
-                    this.field_22370_t = this.field_22353_F;
+                    this.aoLightValueScratchXYZPNP = this.aoLightValueScratchXZPP;
                 } else {
-                    this.field_22370_t = block.getBlockBrightness(world, x + 1, y - 1, z);
+                    this.aoLightValueScratchXYZPNP = block.getBlockBrightness(world, x + 1, y - 1, z);
                 }
 
                 if (!canGrassXpZp && !canGrassYpZp) {
-                    this.field_22360_B = this.field_22353_F;
+                    this.aoLightValueScratchXYZPPP = this.aoLightValueScratchXZPP;
                 } else {
-                    this.field_22360_B = block.getBlockBrightness(world, x + 1, y + 1, z);
+                    this.aoLightValueScratchXYZPPP = block.getBlockBrightness(world, x + 1, y + 1, z);
                 }
 
                 --z;
-                topLeftMul = (this.field_22354_E + this.field_22367_w + this.aoLightValueZPos + this.field_22362_A) / 4.0F;
-                topRightMul = (this.aoLightValueZPos + this.field_22362_A + this.field_22353_F + this.field_22360_B) / 4.0F;
-                botRightMul = (this.field_22373_q + this.aoLightValueZPos + this.field_22370_t + this.field_22353_F) / 4.0F;
-                botLeftMul = (this.field_22375_o + this.field_22354_E + this.field_22373_q + this.aoLightValueZPos) / 4.0F;
+                topLeftMul = (this.aoLightValueScratchXZNP + this.aoLightValueScratchXYZNPP + this.aoLightValueZPos + this.aoLightValueScratchYZPP) / 4.0F;
+                topRightMul = (this.aoLightValueZPos + this.aoLightValueScratchYZPP + this.aoLightValueScratchXZPP + this.aoLightValueScratchXYZPPP) / 4.0F;
+                botRightMul = (this.aoLightValueScratchYZNP + this.aoLightValueZPos + this.aoLightValueScratchXYZPNP + this.aoLightValueScratchXZPP) / 4.0F;
+                botLeftMul = (this.aoLightValueScratchXYZNNP + this.aoLightValueScratchXZNP + this.aoLightValueScratchYZNP + this.aoLightValueZPos) / 4.0F;
             }
 
             this.colorRedTopLeft = this.colorRedBottomLeft = this.colorRedBottomRight = this.colorRedTopRight = (var16 ? r : 1.0F) * 0.8F;
@@ -2106,46 +2106,46 @@ public class RenderBlocks {
         }
 
         if (this.renderAllFaces || block.shouldSideBeRendered(world, x - 1, y, z, 4)) {
-            if (this.field_22352_G <= 0) {
+            if (this.aoType <= 0) {
                 topRightMul = this.aoLightValueXNeg;
                 botRightMul = this.aoLightValueXNeg;
                 botLeftMul = this.aoLightValueXNeg;
                 topLeftMul = this.aoLightValueXNeg;
             } else {
                 --x;
-                this.field_22376_n = block.getBlockBrightness(world, x, y - 1, z);
-                this.field_22358_C = block.getBlockBrightness(world, x, y, z - 1);
-                this.field_22354_E = block.getBlockBrightness(world, x, y, z + 1);
-                this.field_22368_v = block.getBlockBrightness(world, x, y + 1, z);
+                this.aoLightValueScratchXYNN = block.getBlockBrightness(world, x, y - 1, z);
+                this.aoLightValueScratchXZNN = block.getBlockBrightness(world, x, y, z - 1);
+                this.aoLightValueScratchXZNP = block.getBlockBrightness(world, x, y, z + 1);
+                this.aoLightValueScratchXYNP = block.getBlockBrightness(world, x, y + 1, z);
                 if (!canGrassXmZm && !canGrassXmYm) {
-                    this.field_22377_m = this.field_22358_C;
+                    this.aoLightValueScratchXYZNNN = this.aoLightValueScratchXZNN;
                 } else {
-                    this.field_22377_m = block.getBlockBrightness(world, x, y - 1, z - 1);
+                    this.aoLightValueScratchXYZNNN = block.getBlockBrightness(world, x, y - 1, z - 1);
                 }
 
                 if (!canGrassXmZp && !canGrassXmYm) {
-                    this.field_22375_o = this.field_22354_E;
+                    this.aoLightValueScratchXYZNNP = this.aoLightValueScratchXZNP;
                 } else {
-                    this.field_22375_o = block.getBlockBrightness(world, x, y - 1, z + 1);
+                    this.aoLightValueScratchXYZNNP = block.getBlockBrightness(world, x, y - 1, z + 1);
                 }
 
                 if (!canGrassXmZm && !canGrassXmYp) {
-                    this.field_22369_u = this.field_22358_C;
+                    this.aoLightValueScratchXYZNPN = this.aoLightValueScratchXZNN;
                 } else {
-                    this.field_22369_u = block.getBlockBrightness(world, x, y + 1, z - 1);
+                    this.aoLightValueScratchXYZNPN = block.getBlockBrightness(world, x, y + 1, z - 1);
                 }
 
                 if (!canGrassXmZp && !canGrassXmYp) {
-                    this.field_22367_w = this.field_22354_E;
+                    this.aoLightValueScratchXYZNPP = this.aoLightValueScratchXZNP;
                 } else {
-                    this.field_22367_w = block.getBlockBrightness(world, x, y + 1, z + 1);
+                    this.aoLightValueScratchXYZNPP = block.getBlockBrightness(world, x, y + 1, z + 1);
                 }
 
                 ++x;
-                topRightMul = (this.field_22376_n + this.field_22375_o + this.aoLightValueXNeg + this.field_22354_E) / 4.0F;
-                topLeftMul = (this.aoLightValueXNeg + this.field_22354_E + this.field_22368_v + this.field_22367_w) / 4.0F;
-                botLeftMul = (this.field_22358_C + this.aoLightValueXNeg + this.field_22369_u + this.field_22368_v) / 4.0F;
-                botRightMul = (this.field_22377_m + this.field_22376_n + this.field_22358_C + this.aoLightValueXNeg) / 4.0F;
+                topRightMul = (this.aoLightValueScratchXYNN + this.aoLightValueScratchXYZNNP + this.aoLightValueXNeg + this.aoLightValueScratchXZNP) / 4.0F;
+                topLeftMul = (this.aoLightValueXNeg + this.aoLightValueScratchXZNP + this.aoLightValueScratchXYNP + this.aoLightValueScratchXYZNPP) / 4.0F;
+                botLeftMul = (this.aoLightValueScratchXZNN + this.aoLightValueXNeg + this.aoLightValueScratchXYZNPN + this.aoLightValueScratchXYNP) / 4.0F;
+                botRightMul = (this.aoLightValueScratchXYZNNN + this.aoLightValueScratchXYNN + this.aoLightValueScratchXZNN + this.aoLightValueXNeg) / 4.0F;
             }
 
             this.colorRedTopLeft = this.colorRedBottomLeft = this.colorRedBottomRight = this.colorRedTopRight = (var17 ? r : 1.0F) * 0.6F;
@@ -2192,46 +2192,46 @@ public class RenderBlocks {
         }
 
         if (this.renderAllFaces || block.shouldSideBeRendered(world, x + 1, y, z, 5)) {
-            if (this.field_22352_G <= 0) {
+            if (this.aoType <= 0) {
                 topRightMul = this.aoLightValueXPos;
                 botRightMul = this.aoLightValueXPos;
                 botLeftMul = this.aoLightValueXPos;
                 topLeftMul = this.aoLightValueXPos;
             } else {
                 ++x;
-                this.field_22371_s = block.getBlockBrightness(world, x, y - 1, z);
-                this.field_22356_D = block.getBlockBrightness(world, x, y, z - 1);
-                this.field_22353_F = block.getBlockBrightness(world, x, y, z + 1);
-                this.field_22364_z = block.getBlockBrightness(world, x, y + 1, z);
+                this.aoLightValueScratchXYPN = block.getBlockBrightness(world, x, y - 1, z);
+                this.aoLightValueScratchXZPN = block.getBlockBrightness(world, x, y, z - 1);
+                this.aoLightValueScratchXZPP = block.getBlockBrightness(world, x, y, z + 1);
+                this.aoLightValueScratchXYPP = block.getBlockBrightness(world, x, y + 1, z);
                 if (!canGrassXpYm && !canGrassXpZm) {
-                    this.field_22372_r = this.field_22356_D;
+                    this.aoLightValueScratchXYZPNN = this.aoLightValueScratchXZPN;
                 } else {
-                    this.field_22372_r = block.getBlockBrightness(world, x, y - 1, z - 1);
+                    this.aoLightValueScratchXYZPNN = block.getBlockBrightness(world, x, y - 1, z - 1);
                 }
 
                 if (!canGrassXpYm && !canGrassXpZp) {
-                    this.field_22370_t = this.field_22353_F;
+                    this.aoLightValueScratchXYZPNP = this.aoLightValueScratchXZPP;
                 } else {
-                    this.field_22370_t = block.getBlockBrightness(world, x, y - 1, z + 1);
+                    this.aoLightValueScratchXYZPNP = block.getBlockBrightness(world, x, y - 1, z + 1);
                 }
 
                 if (!canGrassXpYp && !canGrassXpZm) {
-                    this.field_22365_y = this.field_22356_D;
+                    this.aoLightValueScratchXYZPPN = this.aoLightValueScratchXZPN;
                 } else {
-                    this.field_22365_y = block.getBlockBrightness(world, x, y + 1, z - 1);
+                    this.aoLightValueScratchXYZPPN = block.getBlockBrightness(world, x, y + 1, z - 1);
                 }
 
                 if (!canGrassXpYp && !canGrassXpZp) {
-                    this.field_22360_B = this.field_22353_F;
+                    this.aoLightValueScratchXYZPPP = this.aoLightValueScratchXZPP;
                 } else {
-                    this.field_22360_B = block.getBlockBrightness(world, x, y + 1, z + 1);
+                    this.aoLightValueScratchXYZPPP = block.getBlockBrightness(world, x, y + 1, z + 1);
                 }
 
                 --x;
-                topLeftMul = (this.field_22371_s + this.field_22370_t + this.aoLightValueXPos + this.field_22353_F) / 4.0F;
-                topRightMul = (this.aoLightValueXPos + this.field_22353_F + this.field_22364_z + this.field_22360_B) / 4.0F;
-                botRightMul = (this.field_22356_D + this.aoLightValueXPos + this.field_22365_y + this.field_22364_z) / 4.0F;
-                botLeftMul = (this.field_22372_r + this.field_22371_s + this.field_22356_D + this.aoLightValueXPos) / 4.0F;
+                topLeftMul = (this.aoLightValueScratchXYPN + this.aoLightValueScratchXYZPNP + this.aoLightValueXPos + this.aoLightValueScratchXZPP) / 4.0F;
+                topRightMul = (this.aoLightValueXPos + this.aoLightValueScratchXZPP + this.aoLightValueScratchXYPP + this.aoLightValueScratchXYZPPP) / 4.0F;
+                botRightMul = (this.aoLightValueScratchXZPN + this.aoLightValueXPos + this.aoLightValueScratchXYZPPN + this.aoLightValueScratchXYPP) / 4.0F;
+                botLeftMul = (this.aoLightValueScratchXYZPNN + this.aoLightValueScratchXYPN + this.aoLightValueScratchXZPN + this.aoLightValueXPos) / 4.0F;
             }
 
             this.colorRedTopLeft = this.colorRedBottomLeft = this.colorRedBottomRight = this.colorRedTopRight = (var18 ? r : 1.0F) * 0.6F;

@@ -40,8 +40,8 @@ class SorterStatsBlock implements Comparator<StatCrafting> {
                 return -1;
             }
 
-            int var7 = GuiStats.func_27142_c(this.statsBlock.field_27274_a).getStatsValue(var5);
-            int var8 = GuiStats.func_27142_c(this.statsBlock.field_27274_a).getStatsValue(var6);
+            int var7 = GuiStats.getStatFileWriter(this.statsBlock.field_27274_a).getStatsValue(var5);
+            int var8 = GuiStats.getStatFileWriter(this.statsBlock.field_27274_a).getStatsValue(var6);
             if (var7 != var8) {
                 return (var7 - var8) * this.statsBlock.field_27270_f;
             }

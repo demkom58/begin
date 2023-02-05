@@ -13,129 +13,64 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
 public class GuiStats extends GuiScreen {
-    private static RenderItem field_27153_j = new RenderItem();
-    protected GuiScreen field_27152_a;
-    protected String field_27154_i = "Select world";
-    private GuiSlotStatsGeneral field_27151_l;
-    private GuiSlotStatsItem field_27150_m;
-    private GuiSlotStatsBlock field_27157_n;
-    private StatFileWriter field_27156_o;
-    private GuiSlot field_27155_p = null;
+    private static RenderItem renderItem = new RenderItem();
+    protected GuiScreen parentGui;
+    protected String statsTitle = "Select world";
+    private GuiSlotStatsGeneral slotGeneral;
+    private GuiSlotStatsItem slotItem;
+    private GuiSlotStatsBlock slotBlock;
+    private StatFileWriter statFileWriter;
+    private GuiSlot selectedSlot = null;
 
-    public GuiStats(GuiScreen var1, StatFileWriter var2) {
-        this.field_27152_a = var1;
-        this.field_27156_o = var2;
+    public GuiStats(GuiScreen parent, StatFileWriter writer) {
+        this.parentGui = parent;
+        this.statFileWriter = writer;
     }
 
     // $FF: synthetic method
-    static MinecraftClient func_27141_a(GuiStats var0) {
+    static MinecraftClient getClient(GuiStats var0) {
         return var0.client;
     }
 
     // $FF: synthetic method
-    static FontRenderer func_27145_b(GuiStats var0) {
+    static FontRenderer getFontRenderer(GuiStats var0) {
         return var0.fontRenderer;
     }
 
     // $FF: synthetic method
-    static StatFileWriter func_27142_c(GuiStats var0) {
-        return var0.field_27156_o;
+    static StatFileWriter getStatFileWriter(GuiStats var0) {
+        return var0.statFileWriter;
     }
 
     // $FF: synthetic method
-    static FontRenderer func_27140_d(GuiStats var0) {
-        return var0.fontRenderer;
+    static void drawSprite(GuiStats var0, int var1, int var2, int var3, int var4) {
+        var0.drawSprite(var1, var2, var3, var4);
     }
 
     // $FF: synthetic method
-    static FontRenderer func_27146_e(GuiStats var0) {
-        return var0.fontRenderer;
-    }
-
-    // $FF: synthetic method
-    static MinecraftClient func_27143_f(GuiStats var0) {
-        return var0.client;
-    }
-
-    // $FF: synthetic method
-    static void func_27128_a(GuiStats var0, int var1, int var2, int var3, int var4) {
-        var0.func_27136_c(var1, var2, var3, var4);
-    }
-
-    // $FF: synthetic method
-    static MinecraftClient func_27149_g(GuiStats var0) {
-        return var0.client;
-    }
-
-    // $FF: synthetic method
-    static FontRenderer func_27133_h(GuiStats var0) {
-        return var0.fontRenderer;
-    }
-
-    // $FF: synthetic method
-    static FontRenderer func_27137_i(GuiStats var0) {
-        return var0.fontRenderer;
-    }
-
-    // $FF: synthetic method
-    static FontRenderer func_27132_j(GuiStats var0) {
-        return var0.fontRenderer;
-    }
-
-    // $FF: synthetic method
-    static FontRenderer func_27134_k(GuiStats var0) {
-        return var0.fontRenderer;
-    }
-
-    // $FF: synthetic method
-    static FontRenderer func_27139_l(GuiStats var0) {
-        return var0.fontRenderer;
-    }
-
-    // $FF: synthetic method
-    static void func_27129_a(GuiStats var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+    static void drawGradientRect(GuiStats var0, int var1, int var2, int var3, int var4, int var5, int var6) {
         var0.drawGradientRect(var1, var2, var3, var4, var5, var6);
     }
 
     // $FF: synthetic method
-    static FontRenderer func_27144_m(GuiStats var0) {
-        return var0.fontRenderer;
-    }
-
-    // $FF: synthetic method
-    static FontRenderer func_27127_n(GuiStats var0) {
-        return var0.fontRenderer;
-    }
-
-    // $FF: synthetic method
-    static void func_27135_b(GuiStats var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-        var0.drawGradientRect(var1, var2, var3, var4, var5, var6);
-    }
-
-    // $FF: synthetic method
-    static FontRenderer func_27131_o(GuiStats var0) {
-        return var0.fontRenderer;
-    }
-
-    // $FF: synthetic method
-    static void func_27148_a(GuiStats var0, int var1, int var2, int var3) {
-        var0.func_27138_c(var1, var2, var3);
+    static void drawItemSprite(GuiStats var0, int var1, int var2, int var3) {
+        var0.drawItemSprite(var1, var2, var3);
     }
 
     @Override
     public void initGui() {
-        this.field_27154_i = StatCollector.translateToLocal("gui.stats");
-        this.field_27151_l = new GuiSlotStatsGeneral(this);
-        this.field_27151_l.registerScrollButtons(this.buttons, 1, 1);
-        this.field_27150_m = new GuiSlotStatsItem(this);
-        this.field_27150_m.registerScrollButtons(this.buttons, 1, 1);
-        this.field_27157_n = new GuiSlotStatsBlock(this);
-        this.field_27157_n.registerScrollButtons(this.buttons, 1, 1);
-        this.field_27155_p = this.field_27151_l;
-        this.func_27130_k();
+        this.statsTitle = StatCollector.translateToLocal("gui.stats");
+        this.slotGeneral = new GuiSlotStatsGeneral(this);
+        this.slotGeneral.registerScrollButtons(this.buttons, 1, 1);
+        this.slotItem = new GuiSlotStatsItem(this);
+        this.slotItem.registerScrollButtons(this.buttons, 1, 1);
+        this.slotBlock = new GuiSlotStatsBlock(this);
+        this.slotBlock.registerScrollButtons(this.buttons, 1, 1);
+        this.selectedSlot = this.slotGeneral;
+        this.addHeaderButtons();
     }
 
-    public void func_27130_k() {
+    public void addHeaderButtons() {
         StringTranslate var1 = StringTranslate.getInstance();
         this.buttons.add(new GuiButton(0, this.width / 2 + 4, this.height - 28, 150, 20, var1.translateKey("gui.done")));
         this.buttons.add(new GuiButton(1, this.width / 2 - 154, this.height - 52, 100, 20, var1.translateKey("stat.generalButton")));
@@ -143,11 +78,11 @@ public class GuiStats extends GuiScreen {
         this.buttons.add(var2 = new GuiButton(2, this.width / 2 - 46, this.height - 52, 100, 20, var1.translateKey("stat.blocksButton")));
         GuiButton var3;
         this.buttons.add(var3 = new GuiButton(3, this.width / 2 + 62, this.height - 52, 100, 20, var1.translateKey("stat.itemsButton")));
-        if (this.field_27157_n.getSize() == 0) {
+        if (this.slotBlock.getSize() == 0) {
             var2.enabled = false;
         }
 
-        if (this.field_27150_m.getSize() == 0) {
+        if (this.slotItem.getSize() == 0) {
             var3.enabled = false;
         }
 
@@ -159,42 +94,42 @@ public class GuiStats extends GuiScreen {
             return;
 
         if (button.id == 0) {
-            this.client.displayGuiScreen(this.field_27152_a);
+            this.client.displayGuiScreen(this.parentGui);
         } else if (button.id == 1) {
-            this.field_27155_p = this.field_27151_l;
+            this.selectedSlot = this.slotGeneral;
         } else if (button.id == 3) {
-            this.field_27155_p = this.field_27150_m;
+            this.selectedSlot = this.slotItem;
         } else if (button.id == 2) {
-            this.field_27155_p = this.field_27157_n;
+            this.selectedSlot = this.slotBlock;
         } else {
-            this.field_27155_p.actionPerformed(button);
+            this.selectedSlot.actionPerformed(button);
         }
     }
 
     @Override
     public void drawScreen(int var1, int var2, float partialTicks) {
-        this.field_27155_p.drawScreen(var1, var2, partialTicks);
-        this.drawCenteredString(this.fontRenderer, this.field_27154_i, this.width / 2, 20, 16777215);
+        this.selectedSlot.drawScreen(var1, var2, partialTicks);
+        this.drawCenteredString(this.fontRenderer, this.statsTitle, this.width / 2, 20, 16777215);
         super.drawScreen(var1, var2, partialTicks);
     }
 
-    private void func_27138_c(int var1, int var2, int var3) {
-        this.func_27147_a(var1 + 1, var2 + 1);
+    private void drawItemSprite(int var1, int var2, int var3) {
+        this.drawButtonBackground(var1 + 1, var2 + 1);
         GL11.glEnable(GL15.GL_RESCALE_NORMAL);
         GL11.glPushMatrix();
         GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
         RenderHelper.enableStandardItemLighting();
         GL11.glPopMatrix();
-        field_27153_j.drawItemIntoGui(this.fontRenderer, this.client.renderEngine, var3, 0, Item.ITEMS_LIST[var3].getIconFromDamage(0), var1 + 2, var2 + 2);
+        renderItem.drawItemIntoGui(this.fontRenderer, this.client.renderEngine, var3, 0, Item.ITEMS_LIST[var3].getIconFromDamage(0), var1 + 2, var2 + 2);
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL15.GL_RESCALE_NORMAL);
     }
 
-    private void func_27147_a(int var1, int var2) {
-        this.func_27136_c(var1, var2, 0, 0);
+    private void drawButtonBackground(int var1, int var2) {
+        this.drawSprite(var1, var2, 0, 0);
     }
 
-    private void func_27136_c(int var1, int var2, int var3, int var4) {
+    private void drawSprite(int var1, int var2, int var3, int var4) {
         int textureId = this.client.renderEngine.getTexture("/gui/slot.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.client.renderEngine.bindTexture(textureId);

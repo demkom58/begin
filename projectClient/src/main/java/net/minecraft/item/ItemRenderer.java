@@ -23,12 +23,12 @@ public class ItemRenderer {
     private float equippedProgress = 0.0F;
     private float prevEquippedProgress = 0.0F;
     private RenderBlocks renderBlocksInstance = new RenderBlocks();
-    private MapItemRenderer field_28131_f;
-    private int field_20099_f = -1;
+    private MapItemRenderer renderer;
+    private int lastItemSlot = -1;
 
     public ItemRenderer(MinecraftClient client) {
         this.client = client;
-        this.field_28131_f = new MapItemRenderer(client.fontRenderer, client.gameSettings, client.renderEngine);
+        this.renderer = new MapItemRenderer(client.fontRenderer, client.gameSettings, client.renderEngine);
     }
 
     public void renderItem(EntityLiving var1, ItemStack var2) {
@@ -220,7 +220,7 @@ public class ItemRenderer {
             var45.addVertexWithUV(-var46, -var46, 0.0D, 0.0D, 0.0D);
             var45.draw();
             MapData var47 = Item.MAP.method2(var5, this.client.theWorld);
-            this.field_28131_f.func_28157_a(this.client.thePlayer, this.client.renderEngine, var47);
+            this.renderer.func_28157_a(this.client.thePlayer, this.client.renderEngine, var47);
             GL11.glPopMatrix();
         } else if (var5 != null) {
             GL11.glPushMatrix();
@@ -415,33 +415,35 @@ public class ItemRenderer {
 
     public void updateEquippedItem() {
         this.prevEquippedProgress = this.equippedProgress;
-        EntityPlayerSP var1 = this.client.thePlayer;
-        ItemStack var2 = var1.inventory.getCurrentItem();
-        boolean var4 = this.field_20099_f == var1.inventory.currentItem && var2 == this.itemToRender;
-        if (this.itemToRender == null && var2 == null) {
-            var4 = true;
+
+        EntityPlayerSP player = this.client.thePlayer;
+        ItemStack item = player.inventory.getCurrentItem();
+
+        boolean sameItem = this.lastItemSlot == player.inventory.currentItem && item == this.itemToRender;
+        if (this.itemToRender == null && item == null) {
+            sameItem = true;
         }
 
-        if (var2 != null && this.itemToRender != null && var2 != this.itemToRender && var2.itemID == this.itemToRender.itemID && var2.getItemDamage() == this.itemToRender.getItemDamage()) {
-            this.itemToRender = var2;
-            var4 = true;
+        if (item != null && this.itemToRender != null && item != this.itemToRender && item.itemID == this.itemToRender.itemID && item.getItemDamage() == this.itemToRender.getItemDamage()) {
+            this.itemToRender = item;
+            sameItem = true;
         }
 
-        float var5 = 0.4F;
-        float var6 = var4 ? 1.0F : 0.0F;
-        float var7 = var6 - this.equippedProgress;
-        if (var7 < -var5) {
-            var7 = -var5;
+        float step = 0.4F;
+        float progressDuration = sameItem ? 1.0F : 0.0F;
+        float progressStep = progressDuration - this.equippedProgress;
+        if (progressStep < -step) {
+            progressStep = -step;
         }
 
-        if (var7 > var5) {
-            var7 = var5;
+        if (progressStep > step) {
+            progressStep = step;
         }
 
-        this.equippedProgress += var7;
+        this.equippedProgress += progressStep;
         if (this.equippedProgress < 0.1F) {
-            this.itemToRender = var2;
-            this.field_20099_f = var1.inventory.currentItem;
+            this.itemToRender = item;
+            this.lastItemSlot = player.inventory.currentItem;
         }
 
     }

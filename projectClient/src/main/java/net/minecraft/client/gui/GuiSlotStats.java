@@ -18,7 +18,7 @@ abstract class GuiSlotStats extends GuiSlot {
     protected int field_27270_f;
 
     protected GuiSlotStats(GuiStats guiStats) {
-        super(GuiStats.func_27143_f(guiStats), guiStats.width, guiStats.height, 32, guiStats.height - 64, 20);
+        super(GuiStats.getClient(guiStats), guiStats.width, guiStats.height, 32, guiStats.height - 64, 20);
         this.guiStats = guiStats;
         this.field_27268_b = -1;
         this.field_27271_e = -1;
@@ -48,21 +48,21 @@ abstract class GuiSlotStats extends GuiSlot {
         }
 
         if (this.field_27268_b == 0) {
-            GuiStats.func_27128_a(this.guiStats, var1 + 115 - 18, var2 + 1, 0, 0);
+            GuiStats.drawSprite(this.guiStats, var1 + 115 - 18, var2 + 1, 0, 0);
         } else {
-            GuiStats.func_27128_a(this.guiStats, var1 + 115 - 18, var2 + 1, 0, 18);
+            GuiStats.drawSprite(this.guiStats, var1 + 115 - 18, var2 + 1, 0, 18);
         }
 
         if (this.field_27268_b == 1) {
-            GuiStats.func_27128_a(this.guiStats, var1 + 165 - 18, var2 + 1, 0, 0);
+            GuiStats.drawSprite(this.guiStats, var1 + 165 - 18, var2 + 1, 0, 0);
         } else {
-            GuiStats.func_27128_a(this.guiStats, var1 + 165 - 18, var2 + 1, 0, 18);
+            GuiStats.drawSprite(this.guiStats, var1 + 165 - 18, var2 + 1, 0, 18);
         }
 
         if (this.field_27268_b == 2) {
-            GuiStats.func_27128_a(this.guiStats, var1 + 215 - 18, var2 + 1, 0, 0);
+            GuiStats.drawSprite(this.guiStats, var1 + 215 - 18, var2 + 1, 0, 0);
         } else {
-            GuiStats.func_27128_a(this.guiStats, var1 + 215 - 18, var2 + 1, 0, 18);
+            GuiStats.drawSprite(this.guiStats, var1 + 215 - 18, var2 + 1, 0, 18);
         }
 
         if (this.field_27271_e != -1) {
@@ -78,7 +78,7 @@ abstract class GuiSlotStats extends GuiSlot {
                 var5 = 36;
             }
 
-            GuiStats.func_27128_a(this.guiStats, var1 + var4, var2 + 1, var5, 0);
+            GuiStats.drawSprite(this.guiStats, var1 + var4, var2 + 1, var5, 0);
         }
 
     }
@@ -96,7 +96,7 @@ abstract class GuiSlotStats extends GuiSlot {
 
         if (this.field_27268_b >= 0) {
             this.func_27266_c(this.field_27268_b);
-            GuiStats.func_27149_g(this.guiStats).soundManager.playSoundFX("random.click", 1.0F, 1.0F);
+            GuiStats.getClient(this.guiStats).soundManager.playSoundFX("random.click", 1.0F, 1.0F);
         }
 
     }
@@ -114,11 +114,11 @@ abstract class GuiSlotStats extends GuiSlot {
 
     protected void func_27265_a(StatCrafting var1, int var2, int var3, boolean var4) {
         if (var1 != null) {
-            String var5 = var1.func_27084_a(GuiStats.func_27142_c(this.guiStats).getStatsValue(var1));
-            this.guiStats.drawString(GuiStats.func_27133_h(this.guiStats), var5, var2 - GuiStats.func_27137_i(this.guiStats).getStringWidth(var5), var3 + 5, var4 ? 16777215 : 9474192);
+            String var5 = var1.func_27084_a(GuiStats.getStatFileWriter(this.guiStats).getStatsValue(var1));
+            this.guiStats.drawString(GuiStats.getFontRenderer(this.guiStats), var5, var2 - GuiStats.getFontRenderer(this.guiStats).getStringWidth(var5), var3 + 5, var4 ? 16777215 : 9474192);
         } else {
             String var6 = "-";
-            this.guiStats.drawString(GuiStats.func_27132_j(this.guiStats), var6, var2 - GuiStats.func_27134_k(this.guiStats).getStringWidth(var6), var3 + 5, var4 ? 16777215 : 9474192);
+            this.guiStats.drawString(GuiStats.func_27132_j(this.guiStats), var6, var2 - GuiStats.getFontRenderer(this.guiStats).getStringWidth(var6), var3 + 5, var4 ? 16777215 : 9474192);
         }
 
     }
@@ -154,7 +154,7 @@ abstract class GuiSlotStats extends GuiSlot {
                     int var6 = var1 + 12;
                     int var7 = var2 - 12;
                     int var8 = GuiStats.func_27139_l(this.guiStats).getStringWidth(var5);
-                    GuiStats.func_27129_a(this.guiStats, var6 - 3, var7 - 3, var6 + var8 + 3, var7 + 8 + 3, -1073741824, -1073741824);
+                    GuiStats.drawGradientRect(this.guiStats, var6 - 3, var7 - 3, var6 + var8 + 3, var7 + 8 + 3, -1073741824, -1073741824);
                     GuiStats.func_27144_m(this.guiStats).drawStringWithShadow(var5, var6, var7, -1);
                 }
             }
@@ -170,7 +170,7 @@ abstract class GuiSlotStats extends GuiSlot {
                 int var6 = var2 + 12;
                 int var7 = var3 - 12;
                 int var8 = GuiStats.func_27127_n(this.guiStats).getStringWidth(itemName);
-                GuiStats.func_27135_b(this.guiStats, var6 - 3, var7 - 3, var6 + var8 + 3, var7 + 8 + 3, -1073741824, -1073741824);
+                GuiStats.drawGradientRect(this.guiStats, var6 - 3, var7 - 3, var6 + var8 + 3, var7 + 8 + 3, -1073741824, -1073741824);
                 GuiStats.func_27131_o(this.guiStats).drawStringWithShadow(itemName, var6, var7, -1);
             }
 

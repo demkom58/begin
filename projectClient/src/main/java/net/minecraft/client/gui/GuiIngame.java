@@ -46,7 +46,7 @@ public class GuiIngame extends Gui {
         int var6 = var5.getScaledWidth();
         int var7 = var5.getScaledHeight();
         FontRenderer fontRenderer = this.client.fontRenderer;
-        this.client.entityRenderer.func_905_b();
+        this.client.entityRenderer.updateView();
         GL11.glEnable(GL11.GL_BLEND);
         if (MinecraftClient.isFancyGraphicsEnabled()) {
             this.renderVignette(this.client.thePlayer.getEntityBrightness(partialTicks), var6, var7);

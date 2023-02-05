@@ -389,7 +389,7 @@ public final class MinecraftClient implements Runnable {
                 int offset = (int) yOffset;
                 if (offset != 0) {
                     this.thePlayer.inventory.changeCurrentItem(offset);
-                    if (this.gameSettings.field_22275_C) {
+                    if (this.gameSettings.noclip) {
                         if (offset > 0) {
                             offset = 1;
                         }
@@ -398,7 +398,7 @@ public final class MinecraftClient implements Runnable {
                             offset = -1;
                         }
 
-                        this.gameSettings.field_22272_F += (float) offset * 0.25F;
+                        this.gameSettings.noclipRate += (float) offset * 0.25F;
                     }
                 }
             }

@@ -1,22 +1,21 @@
 package net.minecraft.world;
 
 class WorldBlockPositionType {
-    // $FF: synthetic field
-    final WorldClient field_1203_g;
-    int field_1202_a;
-    int field_1201_b;
-    int field_1207_c;
-    int field_1206_d;
-    int field_1205_e;
-    int field_1204_f;
+    final WorldClient world;
+    int posX;
+    int posY;
+    int posZ;
+    int acceptCountdown;
+    int blockId;
+    int metadata;
 
-    public WorldBlockPositionType(WorldClient var1, int var2, int var3, int var4, int var5, int var6) {
-        this.field_1203_g = var1;
-        this.field_1202_a = var2;
-        this.field_1201_b = var3;
-        this.field_1207_c = var4;
-        this.field_1206_d = 80;
-        this.field_1205_e = var5;
-        this.field_1204_f = var6;
+    public WorldBlockPositionType(WorldClient world, int x, int y, int z, int blockId, int metadata) {
+        this.world = world;
+        this.posX = x;
+        this.posY = y;
+        this.posZ = z;
+        this.acceptCountdown = 80;
+        this.blockId = blockId;
+        this.metadata = metadata;
     }
 }

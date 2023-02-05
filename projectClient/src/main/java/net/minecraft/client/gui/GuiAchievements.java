@@ -14,29 +14,29 @@ import org.lwjgl.opengl.GL15;
 import java.util.Random;
 
 public class GuiAchievements extends GuiScreen {
-    private static final int field_27126_s = AchievementList.minDisplayColumn * 24 - 112;
-    private static final int field_27125_t = AchievementList.minDisplayRow * 24 - 112;
-    private static final int field_27124_u = AchievementList.maxDisplayColumn * 24 - 77;
-    private static final int field_27123_v = AchievementList.maxDisplayRow * 24 - 77;
-    protected int field_27121_a = 256;
-    protected int field_27119_i = 202;
-    protected int field_27118_j = 0;
-    protected int field_27117_l = 0;
+    private static final int guiMapTop = AchievementList.minDisplayColumn * 24 - 112;
+    private static final int guiMapLeft = AchievementList.minDisplayRow * 24 - 112;
+    private static final int guiMapBottom = AchievementList.maxDisplayColumn * 24 - 77;
+    private static final int guiMapRight = AchievementList.maxDisplayRow * 24 - 77;
+    protected int achievementsPaneWidth = 256;
+    protected int achievementsPaneHeight = 202;
+    protected int mouseX = 0;
+    protected int mouseY = 0;
     protected double field_27116_m;
     protected double field_27115_n;
-    protected double field_27114_o;
-    protected double field_27113_p;
+    protected double guiMapX;
+    protected double guiMapY;
     protected double field_27112_q;
     protected double field_27111_r;
-    private int field_27122_w = 0;
+    private int isMouseButtonDown = 0;
     private StatFileWriter statFileWriter;
 
     public GuiAchievements(StatFileWriter var1) {
         this.statFileWriter = var1;
         short var2 = 141;
         short var3 = 141;
-        this.field_27116_m = this.field_27114_o = this.field_27112_q = AchievementList.openInventory.displayColumn * 24 - var2 / 2d - 12;
-        this.field_27115_n = this.field_27113_p = this.field_27111_r = AchievementList.openInventory.displayRow * 24 - var3 / 2d;
+        this.field_27116_m = this.guiMapX = this.field_27112_q = AchievementList.openInventory.displayColumn * 24 - var2 / 2d - 12;
+        this.field_27115_n = this.guiMapY = this.field_27111_r = AchievementList.openInventory.displayRow * 24 - var3 / 2d;
     }
 
     @Override
@@ -69,41 +69,41 @@ public class GuiAchievements extends GuiScreen {
     @Override
     public void drawScreen(int var1, int var2, float partialTicks) {
         if (client.mouse.isButtonPressed(0)) {
-            int var4 = (this.width - this.field_27121_a) / 2;
-            int var5 = (this.height - this.field_27119_i) / 2;
+            int var4 = (this.width - this.achievementsPaneWidth) / 2;
+            int var5 = (this.height - this.achievementsPaneHeight) / 2;
             int var6 = var4 + 8;
             int var7 = var5 + 17;
-            if ((this.field_27122_w == 0 || this.field_27122_w == 1) && var1 >= var6 && var1 < var6 + 224 && var2 >= var7 && var2 < var7 + 155) {
-                if (this.field_27122_w == 0) {
-                    this.field_27122_w = 1;
+            if ((this.isMouseButtonDown == 0 || this.isMouseButtonDown == 1) && var1 >= var6 && var1 < var6 + 224 && var2 >= var7 && var2 < var7 + 155) {
+                if (this.isMouseButtonDown == 0) {
+                    this.isMouseButtonDown = 1;
                 } else {
-                    this.field_27114_o -= var1 - this.field_27118_j;
-                    this.field_27113_p -= var2 - this.field_27117_l;
-                    this.field_27112_q = this.field_27116_m = this.field_27114_o;
-                    this.field_27111_r = this.field_27115_n = this.field_27113_p;
+                    this.guiMapX -= var1 - this.mouseX;
+                    this.guiMapY -= var2 - this.mouseY;
+                    this.field_27112_q = this.field_27116_m = this.guiMapX;
+                    this.field_27111_r = this.field_27115_n = this.guiMapY;
                 }
 
-                this.field_27118_j = var1;
-                this.field_27117_l = var2;
+                this.mouseX = var1;
+                this.mouseY = var2;
             }
 
-            if (this.field_27112_q < (double) field_27126_s) {
-                this.field_27112_q = field_27126_s;
+            if (this.field_27112_q < (double) guiMapTop) {
+                this.field_27112_q = guiMapTop;
             }
 
-            if (this.field_27111_r < (double) field_27125_t) {
-                this.field_27111_r = field_27125_t;
+            if (this.field_27111_r < (double) guiMapLeft) {
+                this.field_27111_r = guiMapLeft;
             }
 
-            if (this.field_27112_q >= (double) field_27124_u) {
-                this.field_27112_q = field_27124_u - 1;
+            if (this.field_27112_q >= (double) guiMapBottom) {
+                this.field_27112_q = guiMapBottom - 1;
             }
 
-            if (this.field_27111_r >= (double) field_27123_v) {
-                this.field_27111_r = field_27123_v - 1;
+            if (this.field_27111_r >= (double) guiMapRight) {
+                this.field_27111_r = guiMapRight - 1;
             }
         } else {
-            this.field_27122_w = 0;
+            this.isMouseButtonDown = 0;
         }
 
         this.drawDefaultBackground();
@@ -117,49 +117,49 @@ public class GuiAchievements extends GuiScreen {
 
     @Override
     public void updateScreen() {
-        this.field_27116_m = this.field_27114_o;
-        this.field_27115_n = this.field_27113_p;
-        double var1 = this.field_27112_q - this.field_27114_o;
-        double var3 = this.field_27111_r - this.field_27113_p;
+        this.field_27116_m = this.guiMapX;
+        this.field_27115_n = this.guiMapY;
+        double var1 = this.field_27112_q - this.guiMapX;
+        double var3 = this.field_27111_r - this.guiMapY;
         if (var1 * var1 + var3 * var3 < 4.0D) {
-            this.field_27114_o += var1;
-            this.field_27113_p += var3;
+            this.guiMapX += var1;
+            this.guiMapY += var3;
         } else {
-            this.field_27114_o += var1 * 0.85D;
-            this.field_27113_p += var3 * 0.85D;
+            this.guiMapX += var1 * 0.85D;
+            this.guiMapY += var3 * 0.85D;
         }
 
     }
 
     protected void func_27110_k() {
-        int var1 = (this.width - this.field_27121_a) / 2;
-        int var2 = (this.height - this.field_27119_i) / 2;
+        int var1 = (this.width - this.achievementsPaneWidth) / 2;
+        int var2 = (this.height - this.achievementsPaneHeight) / 2;
         this.fontRenderer.drawString("Achievements", var1 + 15, var2 + 5, 4210752);
     }
 
     protected void func_27109_b(int var1, int var2, float var3) {
-        int var4 = MathHelper.floor(this.field_27116_m + (this.field_27114_o - this.field_27116_m) * (double) var3);
-        int var5 = MathHelper.floor(this.field_27115_n + (this.field_27113_p - this.field_27115_n) * (double) var3);
-        if (var4 < field_27126_s) {
-            var4 = field_27126_s;
+        int var4 = MathHelper.floor(this.field_27116_m + (this.guiMapX - this.field_27116_m) * (double) var3);
+        int var5 = MathHelper.floor(this.field_27115_n + (this.guiMapY - this.field_27115_n) * (double) var3);
+        if (var4 < guiMapTop) {
+            var4 = guiMapTop;
         }
 
-        if (var5 < field_27125_t) {
-            var5 = field_27125_t;
+        if (var5 < guiMapLeft) {
+            var5 = guiMapLeft;
         }
 
-        if (var4 >= field_27124_u) {
-            var4 = field_27124_u - 1;
+        if (var4 >= guiMapBottom) {
+            var4 = guiMapBottom - 1;
         }
 
-        if (var5 >= field_27123_v) {
-            var5 = field_27123_v - 1;
+        if (var5 >= guiMapRight) {
+            var5 = guiMapRight - 1;
         }
 
         int var6 = this.client.renderEngine.getTexture("/terrain.png");
         int var7 = this.client.renderEngine.getTexture("/achievement/bg.png");
-        int var8 = (this.width - this.field_27121_a) / 2;
-        int var9 = (this.height - this.field_27119_i) / 2;
+        int var8 = (this.width - this.achievementsPaneWidth) / 2;
+        int var9 = (this.height - this.achievementsPaneHeight) / 2;
         int var10 = var8 + 16;
         int var11 = var9 + 17;
         this.zLevel = 0.0F;
@@ -298,7 +298,7 @@ public class GuiAchievements extends GuiScreen {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.client.renderEngine.bindTexture(var7);
-        this.drawTexturedModalRect(var8, var9, 0, 0, this.field_27121_a, this.field_27119_i);
+        this.drawTexturedModalRect(var8, var9, 0, 0, this.achievementsPaneWidth, this.achievementsPaneHeight);
         GL11.glPopMatrix();
         this.zLevel = 0.0F;
         GL11.glDepthFunc(515);

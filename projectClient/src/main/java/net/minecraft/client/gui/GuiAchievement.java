@@ -15,32 +15,32 @@ public class GuiAchievement extends Gui {
     private MinecraftClient theGame;
     private int achievementWindowWidth;
     private int achievementWindowHeight;
-    private String field_25085_d;
-    private String field_25084_e;
+    private String achievementGetLocalText;
+    private String achievementStatName;
     private Achievement theAchievement;
-    private long field_25083_f;
+    private long achievementTime;
     private RenderItem itemRender;
-    private boolean field_27103_i;
+    private boolean haveAchiement;
 
-    public GuiAchievement(MinecraftClient var1) {
-        this.theGame = var1;
+    public GuiAchievement(MinecraftClient client) {
+        this.theGame = client;
         this.itemRender = new RenderItem();
     }
 
     public void queueTakenAchievement(Achievement var1) {
-        this.field_25085_d = StatCollector.translateToLocal("achievement.get");
-        this.field_25084_e = var1.statName;
-        this.field_25083_f = System.currentTimeMillis();
+        this.achievementGetLocalText = StatCollector.translateToLocal("achievement.get");
+        this.achievementStatName = var1.statName;
+        this.achievementTime = System.currentTimeMillis();
         this.theAchievement = var1;
-        this.field_27103_i = false;
+        this.haveAchiement = false;
     }
 
     public void queueAchievementInformation(Achievement var1) {
-        this.field_25085_d = var1.statName;
-        this.field_25084_e = var1.getDescription();
-        this.field_25083_f = System.currentTimeMillis() - 2500L;
+        this.achievementGetLocalText = var1.statName;
+        this.achievementStatName = var1.getDescription();
+        this.achievementTime = System.currentTimeMillis() - 2500L;
         this.theAchievement = var1;
-        this.field_27103_i = true;
+        this.haveAchiement = true;
     }
 
     private void updateAchievementWindowScale() {
@@ -83,9 +83,9 @@ public class GuiAchievement extends Gui {
             GL11.glEnable(GL11.GL_DEPTH_TEST);
         }
 
-        if (this.theAchievement != null && this.field_25083_f != 0L) {
-            double var8 = (double) (System.currentTimeMillis() - this.field_25083_f) / 3000.0D;
-            if (this.field_27103_i || var8 >= 0.0D && var8 <= 1.0D) {
+        if (this.theAchievement != null && this.achievementTime != 0L) {
+            double var8 = (double) (System.currentTimeMillis() - this.achievementTime) / 3000.0D;
+            if (this.haveAchiement || var8 >= 0.0D && var8 <= 1.0D) {
                 this.updateAchievementWindowScale();
                 GL11.glDisable(GL11.GL_DEPTH_TEST);
                 GL11.glDepthMask(false);
@@ -110,11 +110,11 @@ public class GuiAchievement extends Gui {
                 GL11.glBindTexture(GL11.GL_TEXTURE_2D, var7);
                 GL11.glDisable(GL11.GL_LIGHTING);
                 this.drawTexturedModalRect(var5, var6, 96, 202, 160, 32);
-                if (this.field_27103_i) {
-                    this.theGame.fontRenderer.func_27278_a(this.field_25084_e, var5 + 30, var6 + 7, 120, -1);
+                if (this.haveAchiement) {
+                    this.theGame.fontRenderer.func_27278_a(this.achievementStatName, var5 + 30, var6 + 7, 120, -1);
                 } else {
-                    this.theGame.fontRenderer.drawString(this.field_25085_d, var5 + 30, var6 + 7, -256);
-                    this.theGame.fontRenderer.drawString(this.field_25084_e, var5 + 30, var6 + 18, -1);
+                    this.theGame.fontRenderer.drawString(this.achievementGetLocalText, var5 + 30, var6 + 7, -256);
+                    this.theGame.fontRenderer.drawString(this.achievementStatName, var5 + 30, var6 + 18, -1);
                 }
 
                 GL11.glPushMatrix();
@@ -130,7 +130,7 @@ public class GuiAchievement extends Gui {
                 GL11.glDepthMask(true);
                 GL11.glEnable(GL11.GL_DEPTH_TEST);
             } else {
-                this.field_25083_f = 0L;
+                this.achievementTime = 0L;
             }
         }
     }

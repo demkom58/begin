@@ -14,12 +14,12 @@ import java.util.LinkedList;
 import java.util.Set;
 
 public class WorldClient extends World {
-    private LinkedList<WorldBlockPositionType> field_1057_z = new LinkedList<>();
+    private LinkedList<WorldBlockPositionType> blocksToReceive = new LinkedList<>();
     private NetClientHandler sendQueue;
-    private ChunkProviderClient field_20915_C;
-    private Hash field_1055_D = new Hash();
-    private Set<Entity> field_20914_E = new HashSet<>();
-    private Set<Entity> field_1053_F = new HashSet<>();
+    private ChunkProviderClient chunkProviderClient;
+    private Hash entityHashSet = new Hash();
+    private Set<Entity> entityList = new HashSet<>();
+    private Set<Entity> entitySpawnQueue = new HashSet<>();
 
     public WorldClient(NetClientHandler var1, long var2, int var4) {
         super(new SaveHandlerMP(), "MpServer", WorldProvider.getProviderForDimension(var4), var2);
@@ -40,8 +40,8 @@ public class WorldClient extends World {
             }
         }
 
-        for (int i = 0; i < 10 && !this.field_1053_F.isEmpty(); ++i) {
-            Entity entity = this.field_1053_F.iterator().next();
+        for (int i = 0; i < 10 && !this.entitySpawnQueue.isEmpty(); ++i) {
+            Entity entity = this.entitySpawnQueue.iterator().next();
             if (!this.loadedEntityList.contains(entity)) {
                 this.entityJoinedWorld(entity);
             }
@@ -49,22 +49,22 @@ public class WorldClient extends World {
 
         this.sendQueue.processReadPackets();
 
-        for (int i = 0; i < this.field_1057_z.size(); ++i) {
-            WorldBlockPositionType var6 = this.field_1057_z.get(i);
-            if (--var6.field_1206_d == 0) {
-                super.setBlockAndMetadata(var6.field_1202_a, var6.field_1201_b, var6.field_1207_c, var6.field_1205_e, var6.field_1204_f);
-                super.markBlockNeedsUpdate(var6.field_1202_a, var6.field_1201_b, var6.field_1207_c);
-                this.field_1057_z.remove(i--);
+        for (int i = 0; i < this.blocksToReceive.size(); ++i) {
+            WorldBlockPositionType var6 = this.blocksToReceive.get(i);
+            if (--var6.acceptCountdown == 0) {
+                super.setBlockAndMetadata(var6.posX, var6.posY, var6.posZ, var6.blockId, var6.metadata);
+                super.markBlockNeedsUpdate(var6.posX, var6.posY, var6.posZ);
+                this.blocksToReceive.remove(i--);
             }
         }
 
     }
 
     public void func_711_c(int var1, int var2, int var3, int var4, int var5, int var6) {
-        for (int i = 0; i < this.field_1057_z.size(); ++i) {
-            WorldBlockPositionType var8 = this.field_1057_z.get(i);
-            if (var8.field_1202_a >= var1 && var8.field_1201_b >= var2 && var8.field_1207_c >= var3 && var8.field_1202_a <= var4 && var8.field_1201_b <= var5 && var8.field_1207_c <= var6) {
-                this.field_1057_z.remove(i--);
+        for (int i = 0; i < this.blocksToReceive.size(); ++i) {
+            WorldBlockPositionType var8 = this.blocksToReceive.get(i);
+            if (var8.posX >= var1 && var8.posY >= var2 && var8.posZ >= var3 && var8.posX <= var4 && var8.posY <= var5 && var8.posZ <= var6) {
+                this.blocksToReceive.remove(i--);
             }
         }
 
@@ -72,8 +72,8 @@ public class WorldClient extends World {
 
     @Override
     protected IChunkProvider createChunkProvider() {
-        this.field_20915_C = new ChunkProviderClient(this);
-        return this.field_20915_C;
+        this.chunkProviderClient = new ChunkProviderClient(this);
+        return this.chunkProviderClient;
     }
 
     @Override
@@ -96,9 +96,9 @@ public class WorldClient extends World {
 
     public void doPreChunk(int var1, int var2, boolean var3) {
         if (var3) {
-            this.field_20915_C.prepareChunk(var1, var2);
+            this.chunkProviderClient.prepareChunk(var1, var2);
         } else {
-            this.field_20915_C.unloadChunk(var1, var2);
+            this.chunkProviderClient.unloadChunk(var1, var2);
         }
 
         if (!var3) {
@@ -110,9 +110,9 @@ public class WorldClient extends World {
     @Override
     public boolean entityJoinedWorld(Entity entity) {
         boolean var2 = super.entityJoinedWorld(entity);
-        this.field_20914_E.add(entity);
+        this.entityList.add(entity);
         if (!var2) {
-            this.field_1053_F.add(entity);
+            this.entitySpawnQueue.add(entity);
         }
 
         return var2;
@@ -121,21 +121,21 @@ public class WorldClient extends World {
     @Override
     public void removeEntity(Entity entity) {
         super.removeEntity(entity);
-        this.field_20914_E.remove(entity);
+        this.entityList.remove(entity);
     }
 
     @Override
     protected void obtainEntitySkin(Entity entity) {
         super.obtainEntitySkin(entity);
-        this.field_1053_F.remove(entity);
+        this.entitySpawnQueue.remove(entity);
 
     }
 
     @Override
     protected void releaseEntitySkin(Entity entity) {
         super.releaseEntitySkin(entity);
-        if (this.field_20914_E.contains(entity)) {
-            this.field_1053_F.add(entity);
+        if (this.entityList.contains(entity)) {
+            this.entitySpawnQueue.add(entity);
         }
 
     }
@@ -146,23 +146,23 @@ public class WorldClient extends World {
             this.removeEntity(entity);
         }
 
-        this.field_20914_E.add(var2);
+        this.entityList.add(var2);
         var2.entityId = var1;
         if (!this.entityJoinedWorld(var2)) {
-            this.field_1053_F.add(var2);
+            this.entitySpawnQueue.add(var2);
         }
 
-        this.field_1055_D.addKey(var1, var2);
+        this.entityHashSet.addKey(var1, var2);
     }
 
     public Entity func_709_b(int var1) {
-        return (Entity) this.field_1055_D.lookup(var1);
+        return (Entity) this.entityHashSet.lookup(var1);
     }
 
     public Entity removeEntityFromWorld(int var1) {
-        Entity entity = (Entity) this.field_1055_D.removeObject(var1);
+        Entity entity = (Entity) this.entityHashSet.removeObject(var1);
         if (entity != null) {
-            this.field_20914_E.remove(entity);
+            this.entityList.remove(entity);
             this.removeEntity(entity);
         }
 
@@ -174,7 +174,7 @@ public class WorldClient extends World {
         int var5 = this.getBlockId(x, y, z);
         int var6 = this.getBlockMetadata(x, y, z);
         if (super.setBlockMetadata(x, y, z, metadata)) {
-            this.field_1057_z.add(new WorldBlockPositionType(this, x, y, z, var5, var6));
+            this.blocksToReceive.add(new WorldBlockPositionType(this, x, y, z, var5, var6));
             return true;
         }
 
@@ -186,7 +186,7 @@ public class WorldClient extends World {
         int var6 = this.getBlockId(x, y, z);
         int var7 = this.getBlockMetadata(x, y, z);
         if (super.setBlockAndMetadata(x, y, z, blockId, metadata)) {
-            this.field_1057_z.add(new WorldBlockPositionType(this, x, y, z, var6, var7));
+            this.blocksToReceive.add(new WorldBlockPositionType(this, x, y, z, var6, var7));
             return true;
         }
 
@@ -198,7 +198,7 @@ public class WorldClient extends World {
         int var5 = this.getBlockId(x, y, z);
         int var6 = this.getBlockMetadata(x, y, z);
         if (super.setBlock(x, y, z, blockId)) {
-            this.field_1057_z.add(new WorldBlockPositionType(this, x, y, z, var5, var6));
+            this.blocksToReceive.add(new WorldBlockPositionType(this, x, y, z, var5, var6));
             return true;
         }
 
