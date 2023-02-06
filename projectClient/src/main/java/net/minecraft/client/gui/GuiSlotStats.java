@@ -118,7 +118,7 @@ abstract class GuiSlotStats extends GuiSlot {
             this.guiStats.drawString(GuiStats.getFontRenderer(this.guiStats), var5, var2 - GuiStats.getFontRenderer(this.guiStats).getStringWidth(var5), var3 + 5, var4 ? 16777215 : 9474192);
         } else {
             String var6 = "-";
-            this.guiStats.drawString(GuiStats.func_27132_j(this.guiStats), var6, var2 - GuiStats.getFontRenderer(this.guiStats).getStringWidth(var6), var3 + 5, var4 ? 16777215 : 9474192);
+            this.guiStats.drawString(GuiStats.getFontRenderer(this.guiStats), var6, var2 - GuiStats.getFontRenderer(this.guiStats).getStringWidth(var6), var3 + 5, var4 ? 16777215 : 9474192);
         }
 
     }
@@ -153,9 +153,9 @@ abstract class GuiSlotStats extends GuiSlot {
                 if (var5.length() > 0) {
                     int var6 = var1 + 12;
                     int var7 = var2 - 12;
-                    int var8 = GuiStats.func_27139_l(this.guiStats).getStringWidth(var5);
+                    int var8 = GuiStats.getFontRenderer(this.guiStats).getStringWidth(var5);
                     GuiStats.drawGradientRect(this.guiStats, var6 - 3, var7 - 3, var6 + var8 + 3, var7 + 8 + 3, -1073741824, -1073741824);
-                    GuiStats.func_27144_m(this.guiStats).drawStringWithShadow(var5, var6, var7, -1);
+                    GuiStats.getFontRenderer(this.guiStats).drawStringWithShadow(var5, var6, var7, -1);
                 }
             }
 
@@ -169,9 +169,9 @@ abstract class GuiSlotStats extends GuiSlot {
             if (itemName.length() > 0) {
                 int var6 = var2 + 12;
                 int var7 = var3 - 12;
-                int var8 = GuiStats.func_27127_n(this.guiStats).getStringWidth(itemName);
+                int var8 = GuiStats.getFontRenderer(this.guiStats).getStringWidth(itemName);
                 GuiStats.drawGradientRect(this.guiStats, var6 - 3, var7 - 3, var6 + var8 + 3, var7 + 8 + 3, -1073741824, -1073741824);
-                GuiStats.func_27131_o(this.guiStats).drawStringWithShadow(itemName, var6, var7, -1);
+                GuiStats.getFontRenderer(this.guiStats).drawStringWithShadow(itemName, var6, var7, -1);
             }
 
         }
