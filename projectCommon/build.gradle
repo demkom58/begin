@@ -7,6 +7,7 @@ project.ext.adventureVersion = "4.12.0"
 dependencies {
     api group: 'org.jetbrains', name: 'annotations', version: '22.0.0'
     api group: 'it.unimi.dsi', name: 'fastutil', version: '8.5.11'
+    api group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.1.5'
 
     implementation "net.kyori:adventure-key:$adventureVersion"
     implementation "net.kyori:adventure-nbt:$adventureVersion"
