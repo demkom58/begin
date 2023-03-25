@@ -54,7 +54,7 @@ public class RegionFileCache {
 
     public static int getSizeDelta(File file, int x, int z) {
         RegionFile regionFile = getRegionFile(file, x, z);
-        return regionFile.getSizeDelta();
+        return regionFile.resetSizeDelta();
     }
 
     public static DataInputStream getChunkInputStream(File file, int x, int z) {
