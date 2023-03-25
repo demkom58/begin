@@ -24,7 +24,6 @@ public class MojangUtil {
         String uuid = UUIDS.get(playerName);
         if (uuid == null) return null;
 
-        System.out.println("Skin URL: " + SKIN_URL_BASE + uuid);
         return SKIN_URL_BASE + uuid;
     }
 
@@ -36,7 +35,7 @@ public class MojangUtil {
     }
 
     private static @Nullable String requestMojangUuid(String playerName) {
-        try(BufferedReader in = new BufferedReader(new InputStreamReader(
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(
                 new URL("https://api.mojang.com/users/profiles/minecraft/" + playerName).openStream()))) {
             String uuidString = null;
             String line;
@@ -49,8 +48,7 @@ public class MojangUtil {
             }
 
             return uuidString;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             return null;
         }
     }
