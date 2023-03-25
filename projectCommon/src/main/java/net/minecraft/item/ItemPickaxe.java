@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.material.Material;
 
 public class ItemPickaxe extends ItemTool {
-    private static Block[] blocksEffectiveAgainst = new Block[]{Block.COBBLESTONE, Block.STAIR_DOUBLE, Block.STAIR_SINGLE, Block.STONE, Block.SAND_STONE, Block.COBBLESTONE_MOSSY, Block.ORE_IRON, Block.BLOCK_IRON, Block.ORE_COAL, Block.BLOCK_GOLD, Block.ORE_GOLD, Block.ORE_DIAMOND, Block.BLOCK_DIAMOND, Block.ICE, Block.BLOOD_STONE, Block.ORE_LAPIS, Block.BLOCK_LAPIS};
+    private static Block[] blocksEffectiveAgainst = new Block[]{Block.COBBLESTONE, Block.STAIR_DOUBLE, Block.STAIR_SINGLE, Block.STONE, Block.SAND_STONE, Block.COBBLESTONE_MOSSY, Block.ORE_IRON, Block.BLOCK_IRON, Block.ORE_COAL, Block.BLOCK_GOLD, Block.ORE_GOLD, Block.ORE_DIAMOND, Block.BLOCK_DIAMOND, Block.ICE, Block.BLOOD_STONE, Block.ORE_LAPIS, Block.BLOCK_LAPIS, Block.RAIL};
 
     protected ItemPickaxe(int var1, MaterialGrade var2) {
         super(var1, 2, var2, blocksEffectiveAgainst);

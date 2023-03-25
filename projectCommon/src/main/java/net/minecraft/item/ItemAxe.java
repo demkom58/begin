@@ -7,7 +7,13 @@ public class ItemAxe extends ItemTool {
             Block.PLANKS,
             Block.BOOKSHELF,
             Block.WOOD,
-            Block.CHEST
+            Block.CHEST,
+            Block.DOOR_WOOD,
+            Block.FENCE,
+            Block.SIGN,
+            Block.SIGN_WALL,
+            Block.LADDER,
+            Block.TRAPDOOR,
     };
 
     protected ItemAxe(int var1, MaterialGrade var2) {

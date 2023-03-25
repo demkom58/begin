@@ -9,7 +9,8 @@ The goal of this project is to refactor and improve the code of Minecraft 1.7.3 
 - The client and server are now separated into two different modules: projectClient and projectServer, and common code is in the projectCommon module;
 - The project has been rewritten to use LWJGL 3 instead of LWJGL 2, which means it can be launched with new Java versions;
 - A bunch of optimizations have been implemented;
-- Fixed loading of skins and capes from the Mojang servers.
+- Fixed loading of skins and capes from the Mojang servers;
+- Items now effective against blocks more blocks, like axes against wooden doors and pickaxes against rails;
 
 ## How to Run
 1. Clone the repository to your machine. 
