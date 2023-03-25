@@ -2158,7 +2158,6 @@ public class RenderBlocks {
 
             this.colorRedBottomLeft *= botLeftMul;
             this.colorGreenBottomLeft *= botLeftMul;
-            this.colorGreenBottomLeft *= botLeftMul;
             this.colorBlueBottomLeft *= botLeftMul;
 
             this.colorRedBottomRight *= botRightMul;
