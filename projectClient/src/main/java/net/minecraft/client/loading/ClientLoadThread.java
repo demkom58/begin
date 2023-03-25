@@ -17,7 +17,7 @@ public class ClientLoadThread extends Thread {
 
     public ClientLoadThread(File root, MinecraftClient client) {
         this.client = client;
-        this.setName("Client Load Thread");
+        this.setName("Resource Load Thread");
         this.setDaemon(true);
         this.resourcesFolder = new File(root, "resources/");
 
@@ -66,9 +66,10 @@ public class ClientLoadThread extends Thread {
             e.printStackTrace();
         }*/
 
+        System.out.println("Loading resources...");
         this.loadResource(this.resourcesFolder, "");
         loadingModel.setDone(true);
-        System.out.println("Resources loading done");
+        System.out.println("Resources loaded!");
     }
 
     public void reloadResources() {
