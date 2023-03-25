@@ -5,6 +5,7 @@ import net.hypnosis.annotations.Side;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.hypnosis.util.math.MathHelper;
+import net.minecraft.util.MojangUtil;
 import net.minecraft.world.World;
 
 public class EntityOtherPlayerMP extends EntityPlayer {
@@ -16,13 +17,13 @@ public class EntityOtherPlayerMP extends EntityPlayer {
     private double field_780_bk;
     private double field_786_bl;
 
-    public EntityOtherPlayerMP(World var1, String var2) {
+    public EntityOtherPlayerMP(World var1, String username) {
         super(var1);
-        this.username = var2;
+        this.username = username;
         this.yOffset = 0.0F;
         this.stepHeight = 0.0F;
-        if (var2 != null && var2.length() > 0) {
-            this.skinUrl = "http://s3.amazonaws.com/MinecraftSkins/" + var2 + ".png";
+        if (username != null && !username.isBlank()) {
+            this.skinUrl = MojangUtil.getSkinUrl(username);
         }
 
         this.noClip = true;

@@ -35,6 +35,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.AxisAlignedBB;
 import net.hypnosis.util.math.MathHelper;
+import net.minecraft.util.MojangUtil;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkCoordinates;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -185,7 +186,9 @@ public abstract class EntityPlayer extends EntityLiving {
     @Override
     @Side(CodeSide.CLIENT)
     public void updateCloak() {
-        this.playerCloakUrl = "http://s3.amazonaws.com/MinecraftCloaks/" + this.username + ".png";
+        if (this.username != null && !this.username.isBlank()) {
+            this.playerCloakUrl = MojangUtil.getCapeUrl(this.username);
+        }
         this.cloakUrl = this.playerCloakUrl;
     }
 

@@ -16,6 +16,7 @@ import net.minecraft.stats.StatBase;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.MojangUtil;
 import net.minecraft.world.World;
 
 public class EntityPlayerSP extends EntityPlayer {
@@ -29,8 +30,8 @@ public class EntityPlayerSP extends EntityPlayer {
         super(world);
         this.client = client;
         this.dimension = dimension;
-        if (session != null && session.username != null && session.username.length() > 0) {
-            this.skinUrl = "http://s3.amazonaws.com/MinecraftSkins/" + session.username + ".png";
+        if (session != null && session.username != null && !session.username.isBlank()) {
+            this.skinUrl = MojangUtil.getSkinUrl(session.username);
         }
 
         this.username = session.username;
