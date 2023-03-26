@@ -12,6 +12,8 @@ The goal of this project is to refactor and improve the code of Minecraft 1.7.3 
 - Fixed loading of skins and capes from the Mojang servers;
 - Items now effective against more blocks, like axes against wooden doors and pickaxes against rails;
 
+![Game screenshot](https://i.ibb.co/BBFR3vz/image-2023-03-26-15-42-36.png)
+
 ## How to Run
 1. Clone the repository to your machine. 
 2. Open a terminal or command prompt and navigate to the root directory of the project.
