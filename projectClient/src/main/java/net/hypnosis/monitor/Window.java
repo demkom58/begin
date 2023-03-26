@@ -1,12 +1,10 @@
 package net.hypnosis.monitor;
 
 import net.hypnosis.render.gl.OpenGL;
+import net.hypnosis.util.NativeImage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.glfw.Callbacks;
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.*;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 
@@ -35,7 +33,7 @@ public class Window implements AutoCloseable {
 
     private String phase;
 
-    public Window(@NotNull final String title,
+    public Window(@NotNull final String title, @Nullable NativeImage icon,
                   int width, int height, long share,
                   boolean fullscreen, boolean resizable, boolean vsync,
                   @Nullable final WindowResizeCallback resizeCallback,
@@ -61,6 +59,7 @@ public class Window implements AutoCloseable {
         if (this.pointer == MemoryUtil.NULL)
             throw new RuntimeException("Failed to create window");
 
+        setIcon(icon);
         moveToCenter();
 
         this.makeCurrentContext();
@@ -139,6 +138,18 @@ public class Window implements AutoCloseable {
     public void setTitle(String title) {
         this.title = title;
         GLFW.glfwSetWindowTitle(pointer, title);
+    }
+
+    public void setIcon(NativeImage image) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            GLFWImage.Buffer images = GLFWImage.malloc(1, stack);
+
+            GLFWImage img = GLFWImage.malloc(stack);
+            img.set(image.getWidth(), image.getHeight(), image.getPixels());
+            images.put(0, img);
+
+            GLFW.glfwSetWindowIcon(pointer, images);
+        }
     }
 
     public int getX() {
@@ -336,6 +347,7 @@ public class Window implements AutoCloseable {
 
     public static class Builder {
         private String title = "";
+        private NativeImage icon = null;
 
         private int width = 854;
         private int height = 480;
@@ -355,6 +367,11 @@ public class Window implements AutoCloseable {
 
         public Builder title(@Nullable final String title) {
             this.title = title == null ? "" : title;
+            return this;
+        }
+
+        public Builder icon(@Nullable final NativeImage image) {
+            this.icon = image;
             return this;
         }
 
@@ -410,7 +427,7 @@ public class Window implements AutoCloseable {
 
         public Window build() {
             return new Window(
-                    this.title, this.width, this.height, this.share, this.fullscreen, this.resizable, this.vsync,
+                    this.title, icon, this.width, this.height, this.share, this.fullscreen, this.resizable, this.vsync,
                     this.resizeCallback, this.positionCallback, this.focusCallback, this.closeCallback
             );
         }

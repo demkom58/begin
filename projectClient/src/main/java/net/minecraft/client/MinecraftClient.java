@@ -8,6 +8,7 @@ import net.hypnosis.render.gl.Api;
 import net.hypnosis.render.gl.ContextApi;
 import net.hypnosis.render.gl.OpenGL;
 import net.hypnosis.render.gl.Profile;
+import net.hypnosis.util.NativeImage;
 import net.hypnosis.util.math.MathHelper;
 import net.minecraft.achievement.AchievementList;
 import net.minecraft.block.Block;
@@ -175,13 +176,18 @@ public final class MinecraftClient implements Runnable {
 
     public void startGame() {
         OpenGL.init(Api.OPENGL, ContextApi.NATIVE, Profile.COMPAT, 3, 3, false);
-        this.window = Window.builder()
-                .title("Minecraft " + MinecraftClient.VERSION)
-                .width(displayWidthArg)
-                .height(displayHeightArg)
-                .fullscreen(fullscreenArg)
-                .onResize(this::resize)
-                .build();
+        try (NativeImage image = NativeImage.loadClasspath("icon.png")) {
+            this.window = Window.builder()
+                    .title("Minecraft " + MinecraftClient.VERSION)
+                    .icon(image)
+                    .width(displayWidthArg)
+                    .height(displayHeightArg)
+                    .fullscreen(fullscreenArg)
+                    .onResize(this::resize)
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         this.window.show();
 
         this.dataDir = getMinecraftDir();
