@@ -6,11 +6,11 @@ The goal of this project is to refactor and improve the code of Minecraft 1.7.3 
 
 ## Features
 
-- The client and server are now separated into two different modules: projectClient and projectServer, and common code is in the projectCommon module;
+- The client and server are now separated into two different modules: `projectClient` and `projectServer`, and common code is in the `projectCommon` module;
 - The project has been rewritten to use LWJGL 3 instead of LWJGL 2, which means it can be launched with new Java versions;
 - A bunch of optimizations have been implemented;
 - Fixed loading of skins and capes from the Mojang servers;
-- Items now effective against blocks more blocks, like axes against wooden doors and pickaxes against rails;
+- Items now effective against more blocks, like axes against wooden doors and pickaxes against rails;
 
 ## How to Run
 1. Clone the repository to your machine. 
@@ -18,7 +18,7 @@ The goal of this project is to refactor and improve the code of Minecraft 1.7.3 
 3. Run the following commands in the terminal or command prompt:
 * To run client `gradlew projectClient:run --args="username"`;
 * To run server `gradlew projectServer:run`.
-4. The Minecraft server and client will be launched in the jars/ directory, by default.
+4. The Minecraft server and client will be launched in the `jars/` directory, by default.
 
 ## License
 
