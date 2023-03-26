@@ -127,7 +127,7 @@ public class GuiMainMenu extends GuiScreen {
         GL11.glPopMatrix();
 
         this.drawString(this.fontRenderer, "Minecraft " + MinecraftClient.VERSION, 2, 2, 0x505050);
-        String copyright = "Copyright - Mojang";
+        String copyright = "Copyright Mojang AB. Do not distribute.";
         this.drawString(this.fontRenderer, copyright, this.width - this.fontRenderer.getStringWidth(copyright) - 2, this.height - 10, 0xFFFFFF);
 
         super.drawScreen(var1, var2, partialTicks);

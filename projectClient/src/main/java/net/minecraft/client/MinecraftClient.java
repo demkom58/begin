@@ -50,7 +50,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 
 public final class MinecraftClient implements Runnable {
-    public static final String VERSION = "1.7.3b";
+    public static final String VERSION = "Beta 1.7.3";
     /**
      * Bytes reversed memory, that than will removed.
      * In this case it is 10 mebibytes.
@@ -176,7 +176,7 @@ public final class MinecraftClient implements Runnable {
     public void startGame() {
         OpenGL.init(Api.OPENGL, ContextApi.NATIVE, Profile.COMPAT, 3, 3, false);
         this.window = Window.builder()
-                .title("Minecraft [" + MinecraftClient.VERSION + "]")
+                .title("Minecraft " + MinecraftClient.VERSION)
                 .width(displayWidthArg)
                 .height(displayHeightArg)
                 .fullscreen(fullscreenArg)
