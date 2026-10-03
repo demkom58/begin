@@ -1,42 +1,41 @@
 apply plugin: 'application'
-apply plugin: 'com.github.johnrengelman.shadow'
 
-application.mainClassName = "net.minecraft.client.Starter"
+application.mainClass = 'net.minecraft.client.Starter'
 
-project.ext.lwjglVersion = "3.3.1"
+project.ext.lwjglVersion = '3.3.4-SNAPSHOT'
 
 import org.gradle.internal.os.OperatingSystem
 switch (OperatingSystem.current()) {
     case OperatingSystem.LINUX:
-        project.ext.lwjglNatives = "natives-linux"
+        project.ext.lwjglNatives = 'natives-linux'
         break
     case OperatingSystem.MAC_OS:
-        project.ext.lwjglNatives = "natives-macos"
+        project.ext.lwjglNatives = 'natives-macos'
         break
     case OperatingSystem.WINDOWS:
-        project.ext.lwjglNatives = "natives-windows"
+        project.ext.lwjglNatives = 'natives-windows'
         break
 }
 
 dependencies {
-	implementation project(":projectCommon")
-    implementation group: 'com.google.code.gson', name: 'gson', version: "2.9.0"
+	implementation project(':projectCommon')
+    implementation 'com.google.code.gson:gson:2.10.1'
 
-    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+    implementation platform('org.lwjgl:lwjgl-bom:$lwjglVersion')
 
-    implementation "org.lwjgl:lwjgl"
-    implementation "org.lwjgl:lwjgl-glfw"
-    implementation "org.lwjgl:lwjgl-openal"
-    implementation "org.lwjgl:lwjgl-opengl"
-    implementation "org.lwjgl:lwjgl-stb"
+    implementation 'org.lwjgl:lwjgl'
+    implementation 'org.lwjgl:lwjgl-glfw'
+    implementation 'org.lwjgl:lwjgl-openal'
+    implementation 'org.lwjgl:lwjgl-opengl'
+    implementation 'org.lwjgl:lwjgl-stb'
 
-    runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
-    runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
-    runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
-    runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
-    runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
+    runtimeOnly 'org.lwjgl:lwjgl::$lwjglNatives'
+    runtimeOnly 'org.lwjgl:lwjgl-glfw::$lwjglNatives'
+    runtimeOnly 'org.lwjgl:lwjgl-openal::$lwjglNatives'
+    runtimeOnly 'org.lwjgl:lwjgl-opengl::$lwjglNatives'
+    runtimeOnly 'org.lwjgl:lwjgl-stb::$lwjglNatives'
 }
 
-tasks.withType(JavaExec) {
-    setWorkingDir(new File(workingDir.getParentFile(), "jars"))
+tasks.withType(JavaExec).configureEach {
+    setWorkingDir(new File(workingDir.getParentFile(), 'jars'))
 }

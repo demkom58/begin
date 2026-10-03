@@ -1,14 +1,24 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
+    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
 }
 
-allprojects {
+subprojects {
     apply plugin: 'idea'
     apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'com.github.johnrengelman.shadow'
 
     group = "net.minecraft"
     version = "1.7.3-Beta"
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.30'
+        annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+        testCompileOnly 'org.projectlombok:lombok:1.18.30'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+    }
 }

@@ -1,11 +1,10 @@
 apply plugin: 'application'
-apply plugin: 'com.github.johnrengelman.shadow'
 
-application.mainClassName = "net.minecraft.server.MinecraftServer"
+application.mainClass = 'net.minecraft.server.MinecraftServer'
 
 dependencies {
-    implementation project(":projectCommon")}
+    implementation project(':projectCommon')}
 
-tasks.withType(JavaExec) {
-    setWorkingDir(new File(workingDir.getParentFile(), "jars"))
+tasks.withType(JavaExec).configureEach {
+    setWorkingDir(new File(workingDir.getParentFile(), 'jars'))
 }
