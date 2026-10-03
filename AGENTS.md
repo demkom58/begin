@@ -220,7 +220,7 @@ Run once at the tip of your work, from the repository root, with `JAVA_HOME` set
    ```
    ./gradlew --version
    ```
-   Expect `Gradle 7.6` and a JVM 17 line.
+   Expect `Gradle 9.8` and a JVM 25 line.
 
 2. Build all modules from clean:
    ```

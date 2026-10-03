@@ -1,10 +1,10 @@
-apply plugin: 'application'
+apply plugin: "application"
 
-application.mainClass = 'net.minecraft.server.MinecraftServer'
+application.mainClass = "net.minecraft.server.MinecraftServer"
 
 dependencies {
-    implementation project(':projectCommon')}
+    implementation project(":projectCommon")}
 
 tasks.withType(JavaExec).configureEach {
-    setWorkingDir(new File(workingDir.getParentFile(), 'jars'))
+    setWorkingDir(new File(workingDir.getParentFile(), "jars"))
 }
